@@ -3,3 +3,4 @@ bin/
 */*/*/*prefs
 */*/*/*prefs
 */*/target/
+*/*/*/*.properties

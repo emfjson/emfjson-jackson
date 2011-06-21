@@ -9,4 +9,6 @@ public interface JSONResource
 	
 	final String OPTION_ROOT_ELEMENT = "OPTION_ROOT_ELEMENT";
 
+	final String OPTION_URL_PARAMETERS = "OPTION_URL_PARAMETERS";
+	
 }

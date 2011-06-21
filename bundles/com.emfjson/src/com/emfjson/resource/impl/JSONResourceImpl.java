@@ -1,8 +1,8 @@
 package com.emfjson.resource.impl;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,45 +26,70 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import com.emfjson.resource.JSONResource;
 
 public class JSONResourceImpl 
-	extends ResourceImpl
-	implements JSONResource {
-	
+extends ResourceImpl
+implements JSONResource {
+
 	public JSONResourceImpl(URI uri) {
 		super(uri);
 	}
-	
+
 	@Override
 	protected void doSave(OutputStream outputStream, Map<?, ?> options) throws IOException {
 		// TODO Auto-generated method stub
 		super.doSave(outputStream, options);
 	}
 
-	@Override
-	protected void doLoad(InputStream inputStream, Map<?, ?> options) throws IOException {
+	public void load(Map<?, ?> options) throws IOException {
 		if (options == null) {
 			throw new IllegalArgumentException("Loading options must be set, and must contain the root EClass");
 		}
 		
-		final JsonFactory jsonFactory = new JsonFactory();  
-		final JsonParser jp = jsonFactory.createJsonParser(new URL(uri.toString()));
-		final ObjectMapper mapper = new ObjectMapper();
-		JsonNode rootNode = mapper.readValue(jp, JsonNode.class);
-
+		URL url = null;
 		try {
-			EClass rootClass = (EClass) options.get(OPTION_ROOT_ELEMENT);
-			String path = getRootNode(options.get(OPTION_ROOT_ELEMENT));
-			
-			JsonNode root = rootNode.findPath(path);
-			if (root != null) {
-				EObject rootObject = EcoreUtil.create(rootClass);
-				fillEAttribute(rootObject, rootClass, root);
-				fillEReference(rootObject, rootClass, root);
-				
-				getContents().add(rootObject);
-			}
-		} catch (ClassCastException e) {
+			url = getURL(this.getURI(), options.get(OPTION_URL_PARAMETERS));
+		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
+
+		if (url != null) {
+			final JsonFactory jsonFactory = new JsonFactory();  
+			final JsonParser jp = jsonFactory.createJsonParser(url);
+			final ObjectMapper mapper = new ObjectMapper();
+			final JsonNode rootNode = mapper.readValue(jp, JsonNode.class);
+
+			try {
+				EClass rootClass = (EClass) options.get(OPTION_ROOT_ELEMENT);
+				String path = getRootNode(options.get(OPTION_ROOT_ELEMENT));
+
+				JsonNode root = rootNode.findPath(path);
+				if (root != null) {
+					EObject rootObject = EcoreUtil.create(rootClass);
+					fillEAttribute(rootObject, rootClass, root);
+					fillEReference(rootObject, rootClass, root);
+
+					getContents().add(rootObject);
+				}
+			} catch (ClassCastException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private URL getURL(URI uri, Object parameters) throws MalformedURLException {
+		URI outURI = uri;
+		if (parameters != null && parameters instanceof Map) {
+			Map<?, ?> map = (Map<?,?>) parameters;
+			for (Object key: map.keySet()) {
+				String query = key+"="+(String) map.get(key);
+				if (outURI.hasQuery()) {
+					outURI = URI.createURI(outURI+"&"+query);
+				} else {
+					outURI = outURI.appendQuery(query);
+				}
+			}
+		}
+
+		return new URL(outURI.toString());
 	}
 
 	private void fillEReference(EObject rootObject, EClass rootClass, JsonNode root) {
