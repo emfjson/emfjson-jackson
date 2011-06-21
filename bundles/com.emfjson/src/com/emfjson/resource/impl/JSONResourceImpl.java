@@ -2,6 +2,7 @@ package com.emfjson.resource.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,11 +26,17 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import com.emfjson.resource.JSONResource;
 
 public class JSONResourceImpl 
-extends ResourceImpl
-implements JSONResource {
-
+	extends ResourceImpl
+	implements JSONResource {
+	
 	public JSONResourceImpl(URI uri) {
 		super(uri);
+	}
+	
+	@Override
+	protected void doSave(OutputStream outputStream, Map<?, ?> options) throws IOException {
+		// TODO Auto-generated method stub
+		super.doSave(outputStream, options);
 	}
 
 	@Override

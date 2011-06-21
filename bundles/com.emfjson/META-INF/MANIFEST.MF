@@ -8,5 +8,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.emf.ecore;bundle-version="2.7.0",
  org.codehaus.jackson;bundle-version="1.7.4"
 Export-Package: com.emfjson.resource,
- com.emfjson.resource.impl,
- com.emfjson.resource.internal
+ com.emfjson.resource.impl

@@ -5,7 +5,7 @@
     modelPluginID="com.emfjson.junit" modelName="Rotten" importerID="org.eclipse.emf.importer.ecore"
     bundleManifest="false" complianceLevel="6.0" copyrightFields="false">
   <foreignModel>rotten.ecore</foreignModel>
-  <genPackages prefix="Rotten" basePackage="com.emfjson.junit" disposableProviderFactory="true"
+  <genPackages prefix="Rotten" basePackage="com.emfjson.model" disposableProviderFactory="true"
       ecorePackage="rotten.ecore#/">
     <genClasses ecoreClass="rotten.ecore#//Movie">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Movie/id"/>
@@ -16,6 +16,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rotten.ecore#//Movie/releases"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rotten.ecore#//Movie/ratings"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rotten.ecore#//Movie/posters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rotten.ecore#//Movie/castings"/>
     </genClasses>
     <genClasses ecoreClass="rotten.ecore#//Release">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Release/theater"/>

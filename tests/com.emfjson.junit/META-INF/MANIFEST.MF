@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: emfjson junit
-Bundle-SymbolicName: com.emfjson.junit;singleton:=true
+Bundle-Name: emfjson rotten-tomatoes
+Bundle-SymbolicName: com.emfjson.rotten;singleton:=true
 Bundle-Version: 0.1.0.qualifier
 Bundle-Vendor: eclipselabs
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

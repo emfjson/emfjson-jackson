@@ -13,7 +13,7 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="http://www.eclipselabs.org/rottentomatoes"
-            class="com.emfjson.junit.rotten.RottenPackage"
+            class="com.emfjson.model.rotten.RottenPackage"
             genModel="model/rotten.genmodel"/>
    </extension>
 
