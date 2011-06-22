@@ -8,16 +8,27 @@
  * Contributors:
  *    Guillaume Hillairet - initial API and implementation
  *******************************************************************************/
-package com.emfjson.resource.impl;
+package com.emfjson.internal;
 
-import org.eclipse.emf.common.util.URI;
+import java.io.IOException;
+import java.io.OutputStream;
+
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
+import org.eclipse.emf.ecore.resource.URIConverter;
 
-public class JSONResourceFactoryImpl
-	extends ResourceFactoryImpl {
+public class JSONOutputStream extends OutputStream implements URIConverter.Saveable {
 
-	public Resource createResource(URI uri) {
-		return new JSONResourceImpl(uri);
-	};
+	@Override
+	public void saveResource(Resource resource) throws IOException {
+		final JsonWriter writer = new JSONBaseWriter();
+		
+		writer.writeResource(resource);
+	}
+
+	@Override
+	public void write(int b) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -1,9 +1,13 @@
-/**
- * <copyright>
- * </copyright>
+/*******************************************************************************
+ * Copyright (c) 2011 Guillaume Hillairet.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- * $Id$
- */
+ * Contributors:
+ *    Guillaume Hillairet - initial API and implementation
+ *******************************************************************************/
 package com.emfjson.model.rotten.util;
 
 import com.emfjson.model.rotten.*;
@@ -72,6 +76,10 @@ public class RottenAdapterFactory extends AdapterFactoryImpl {
 	protected RottenSwitch<Adapter> modelSwitch =
 		new RottenSwitch<Adapter>() {
 			@Override
+			public Adapter caseMovies(Movies object) {
+				return createMoviesAdapter();
+			}
+			@Override
 			public Adapter caseMovie(Movie object) {
 				return createMovieAdapter();
 			}
@@ -92,6 +100,18 @@ public class RottenAdapterFactory extends AdapterFactoryImpl {
 				return createCastAdapter();
 			}
 			@Override
+			public Adapter caseReviews(Reviews object) {
+				return createReviewsAdapter();
+			}
+			@Override
+			public Adapter caseReview(Review object) {
+				return createReviewAdapter();
+			}
+			@Override
+			public Adapter caseReviewLink(ReviewLink object) {
+				return createReviewLinkAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -110,6 +130,20 @@ public class RottenAdapterFactory extends AdapterFactoryImpl {
 		return modelSwitch.doSwitch((EObject)target);
 	}
 
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.emfjson.model.rotten.Movies <em>Movies</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.emfjson.model.rotten.Movies
+	 * @generated
+	 */
+	public Adapter createMoviesAdapter() {
+		return null;
+	}
 
 	/**
 	 * Creates a new adapter for an object of class '{@link com.emfjson.model.rotten.Movie <em>Movie</em>}'.
@@ -178,6 +212,48 @@ public class RottenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createCastAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.emfjson.model.rotten.Reviews <em>Reviews</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.emfjson.model.rotten.Reviews
+	 * @generated
+	 */
+	public Adapter createReviewsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.emfjson.model.rotten.Review <em>Review</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.emfjson.model.rotten.Review
+	 * @generated
+	 */
+	public Adapter createReviewAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.emfjson.model.rotten.ReviewLink <em>Review Link</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.emfjson.model.rotten.ReviewLink
+	 * @generated
+	 */
+	public Adapter createReviewLinkAdapter() {
 		return null;
 	}
 

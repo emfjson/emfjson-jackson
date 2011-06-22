@@ -1,9 +1,13 @@
-/**
- * <copyright>
- * </copyright>
+/*******************************************************************************
+ * Copyright (c) 2011 Guillaume Hillairet.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- * $Id$
- */
+ * Contributors:
+ *    Guillaume Hillairet - initial API and implementation
+ *******************************************************************************/
 package com.emfjson.model.rotten.impl;
 
 import com.emfjson.model.rotten.*;
@@ -60,14 +64,28 @@ public class RottenFactoryImpl extends EFactoryImpl implements RottenFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
+			case RottenPackage.MOVIES: return createMovies();
 			case RottenPackage.MOVIE: return createMovie();
 			case RottenPackage.RELEASE: return createRelease();
 			case RottenPackage.RATING: return createRating();
 			case RottenPackage.POSTER: return createPoster();
 			case RottenPackage.CAST: return createCast();
+			case RottenPackage.REVIEWS: return createReviews();
+			case RottenPackage.REVIEW: return createReview();
+			case RottenPackage.REVIEW_LINK: return createReviewLink();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Movies createMovies() {
+		MoviesImpl movies = new MoviesImpl();
+		return movies;
 	}
 
 	/**
@@ -118,6 +136,36 @@ public class RottenFactoryImpl extends EFactoryImpl implements RottenFactory {
 	public Cast createCast() {
 		CastImpl cast = new CastImpl();
 		return cast;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Reviews createReviews() {
+		ReviewsImpl reviews = new ReviewsImpl();
+		return reviews;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Review createReview() {
+		ReviewImpl review = new ReviewImpl();
+		return review;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ReviewLink createReviewLink() {
+		ReviewLinkImpl reviewLink = new ReviewLinkImpl();
+		return reviewLink;
 	}
 
 	/**

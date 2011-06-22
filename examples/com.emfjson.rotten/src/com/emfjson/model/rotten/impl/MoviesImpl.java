@@ -10,77 +10,75 @@
  *******************************************************************************/
 package com.emfjson.model.rotten.impl;
 
-import com.emfjson.model.rotten.Rating;
+import com.emfjson.model.rotten.Movie;
+import com.emfjson.model.rotten.Movies;
 import com.emfjson.model.rotten.RottenPackage;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Rating</b></em>'.
+ * An implementation of the model object '<em><b>Movies</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link com.emfjson.model.rotten.impl.RatingImpl#getCriticsScore <em>Critics Score</em>}</li>
- *   <li>{@link com.emfjson.model.rotten.impl.RatingImpl#getAudienceScore <em>Audience Score</em>}</li>
+ *   <li>{@link com.emfjson.model.rotten.impl.MoviesImpl#getTotal <em>Total</em>}</li>
+ *   <li>{@link com.emfjson.model.rotten.impl.MoviesImpl#getMovies <em>Movies</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class RatingImpl extends EObjectImpl implements Rating {
+public class MoviesImpl extends EObjectImpl implements Movies {
 	/**
-	 * The default value of the '{@link #getCriticsScore() <em>Critics Score</em>}' attribute.
+	 * The default value of the '{@link #getTotal() <em>Total</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCriticsScore()
+	 * @see #getTotal()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Integer CRITICS_SCORE_EDEFAULT = null;
-
+	protected static final Integer TOTAL_EDEFAULT = null;
 	/**
-	 * The cached value of the '{@link #getCriticsScore() <em>Critics Score</em>}' attribute.
+	 * The cached value of the '{@link #getTotal() <em>Total</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCriticsScore()
+	 * @see #getTotal()
 	 * @generated
 	 * @ordered
 	 */
-	protected Integer criticsScore = CRITICS_SCORE_EDEFAULT;
-
+	protected Integer total = TOTAL_EDEFAULT;
 	/**
-	 * The default value of the '{@link #getAudienceScore() <em>Audience Score</em>}' attribute.
+	 * The cached value of the '{@link #getMovies() <em>Movies</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAudienceScore()
+	 * @see #getMovies()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Integer AUDIENCE_SCORE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getAudienceScore() <em>Audience Score</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAudienceScore()
-	 * @generated
-	 * @ordered
-	 */
-	protected Integer audienceScore = AUDIENCE_SCORE_EDEFAULT;
+	protected EList<Movie> movies;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected RatingImpl() {
+	protected MoviesImpl() {
 		super();
 	}
 
@@ -91,7 +89,7 @@ public class RatingImpl extends EObjectImpl implements Rating {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return RottenPackage.Literals.RATING;
+		return RottenPackage.Literals.MOVIES;
 	}
 
 	/**
@@ -99,8 +97,8 @@ public class RatingImpl extends EObjectImpl implements Rating {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Integer getCriticsScore() {
-		return criticsScore;
+	public Integer getTotal() {
+		return total;
 	}
 
 	/**
@@ -108,11 +106,11 @@ public class RatingImpl extends EObjectImpl implements Rating {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setCriticsScore(Integer newCriticsScore) {
-		Integer oldCriticsScore = criticsScore;
-		criticsScore = newCriticsScore;
+	public void setTotal(Integer newTotal) {
+		Integer oldTotal = total;
+		total = newTotal;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RottenPackage.RATING__CRITICS_SCORE, oldCriticsScore, criticsScore));
+			eNotify(new ENotificationImpl(this, Notification.SET, RottenPackage.MOVIES__TOTAL, oldTotal, total));
 	}
 
 	/**
@@ -120,8 +118,11 @@ public class RatingImpl extends EObjectImpl implements Rating {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Integer getAudienceScore() {
-		return audienceScore;
+	public EList<Movie> getMovies() {
+		if (movies == null) {
+			movies = new EObjectContainmentEList<Movie>(Movie.class, this, RottenPackage.MOVIES__MOVIES);
+		}
+		return movies;
 	}
 
 	/**
@@ -129,11 +130,13 @@ public class RatingImpl extends EObjectImpl implements Rating {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setAudienceScore(Integer newAudienceScore) {
-		Integer oldAudienceScore = audienceScore;
-		audienceScore = newAudienceScore;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RottenPackage.RATING__AUDIENCE_SCORE, oldAudienceScore, audienceScore));
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case RottenPackage.MOVIES__MOVIES:
+				return ((InternalEList<?>)getMovies()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -144,10 +147,10 @@ public class RatingImpl extends EObjectImpl implements Rating {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case RottenPackage.RATING__CRITICS_SCORE:
-				return getCriticsScore();
-			case RottenPackage.RATING__AUDIENCE_SCORE:
-				return getAudienceScore();
+			case RottenPackage.MOVIES__TOTAL:
+				return getTotal();
+			case RottenPackage.MOVIES__MOVIES:
+				return getMovies();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -157,14 +160,16 @@ public class RatingImpl extends EObjectImpl implements Rating {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case RottenPackage.RATING__CRITICS_SCORE:
-				setCriticsScore((Integer)newValue);
+			case RottenPackage.MOVIES__TOTAL:
+				setTotal((Integer)newValue);
 				return;
-			case RottenPackage.RATING__AUDIENCE_SCORE:
-				setAudienceScore((Integer)newValue);
+			case RottenPackage.MOVIES__MOVIES:
+				getMovies().clear();
+				getMovies().addAll((Collection<? extends Movie>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -178,11 +183,11 @@ public class RatingImpl extends EObjectImpl implements Rating {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case RottenPackage.RATING__CRITICS_SCORE:
-				setCriticsScore(CRITICS_SCORE_EDEFAULT);
+			case RottenPackage.MOVIES__TOTAL:
+				setTotal(TOTAL_EDEFAULT);
 				return;
-			case RottenPackage.RATING__AUDIENCE_SCORE:
-				setAudienceScore(AUDIENCE_SCORE_EDEFAULT);
+			case RottenPackage.MOVIES__MOVIES:
+				getMovies().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -196,10 +201,10 @@ public class RatingImpl extends EObjectImpl implements Rating {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case RottenPackage.RATING__CRITICS_SCORE:
-				return CRITICS_SCORE_EDEFAULT == null ? criticsScore != null : !CRITICS_SCORE_EDEFAULT.equals(criticsScore);
-			case RottenPackage.RATING__AUDIENCE_SCORE:
-				return AUDIENCE_SCORE_EDEFAULT == null ? audienceScore != null : !AUDIENCE_SCORE_EDEFAULT.equals(audienceScore);
+			case RottenPackage.MOVIES__TOTAL:
+				return TOTAL_EDEFAULT == null ? total != null : !TOTAL_EDEFAULT.equals(total);
+			case RottenPackage.MOVIES__MOVIES:
+				return movies != null && !movies.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -214,12 +219,10 @@ public class RatingImpl extends EObjectImpl implements Rating {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (criticsScore: ");
-		result.append(criticsScore);
-		result.append(", audienceScore: ");
-		result.append(audienceScore);
+		result.append(" (total: ");
+		result.append(total);
 		result.append(')');
 		return result.toString();
 	}
 
-} //RatingImpl
+} //MoviesImpl

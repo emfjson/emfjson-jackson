@@ -1,9 +1,13 @@
-/**
- * <copyright>
- * </copyright>
+/*******************************************************************************
+ * Copyright (c) 2011 Guillaume Hillairet.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- * $Id$
- */
+ * Contributors:
+ *    Guillaume Hillairet - initial API and implementation
+ *******************************************************************************/
 package com.emfjson.model.rotten;
 
 import org.eclipse.emf.ecore.EFactory;
@@ -24,6 +28,15 @@ public interface RottenFactory extends EFactory {
 	 * @generated
 	 */
 	RottenFactory eINSTANCE = com.emfjson.model.rotten.impl.RottenFactoryImpl.init();
+
+	/**
+	 * Returns a new object of class '<em>Movies</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Movies</em>'.
+	 * @generated
+	 */
+	Movies createMovies();
 
 	/**
 	 * Returns a new object of class '<em>Movie</em>'.
@@ -69,6 +82,33 @@ public interface RottenFactory extends EFactory {
 	 * @generated
 	 */
 	Cast createCast();
+
+	/**
+	 * Returns a new object of class '<em>Reviews</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Reviews</em>'.
+	 * @generated
+	 */
+	Reviews createReviews();
+
+	/**
+	 * Returns a new object of class '<em>Review</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Review</em>'.
+	 * @generated
+	 */
+	Review createReview();
+
+	/**
+	 * Returns a new object of class '<em>Review Link</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Review Link</em>'.
+	 * @generated
+	 */
+	ReviewLink createReviewLink();
 
 	/**
 	 * Returns the package supported by this factory.

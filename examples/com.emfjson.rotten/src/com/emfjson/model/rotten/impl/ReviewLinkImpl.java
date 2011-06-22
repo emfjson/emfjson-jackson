@@ -10,7 +10,7 @@
  *******************************************************************************/
 package com.emfjson.model.rotten.impl;
 
-import com.emfjson.model.rotten.Release;
+import com.emfjson.model.rotten.ReviewLink;
 import com.emfjson.model.rotten.RottenPackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -22,65 +22,44 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Release</b></em>'.
+ * An implementation of the model object '<em><b>Review Link</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link com.emfjson.model.rotten.impl.ReleaseImpl#getTheater <em>Theater</em>}</li>
- *   <li>{@link com.emfjson.model.rotten.impl.ReleaseImpl#getDvd <em>Dvd</em>}</li>
+ *   <li>{@link com.emfjson.model.rotten.impl.ReviewLinkImpl#getReviewLink <em>Review Link</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ReleaseImpl extends EObjectImpl implements Release {
+public class ReviewLinkImpl extends EObjectImpl implements ReviewLink {
 	/**
-	 * The default value of the '{@link #getTheater() <em>Theater</em>}' attribute.
+	 * The default value of the '{@link #getReviewLink() <em>Review Link</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTheater()
+	 * @see #getReviewLink()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String THEATER_EDEFAULT = null;
+	protected static final String REVIEW_LINK_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getTheater() <em>Theater</em>}' attribute.
+	 * The cached value of the '{@link #getReviewLink() <em>Review Link</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTheater()
+	 * @see #getReviewLink()
 	 * @generated
 	 * @ordered
 	 */
-	protected String theater = THEATER_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getDvd() <em>Dvd</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDvd()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String DVD_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getDvd() <em>Dvd</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDvd()
-	 * @generated
-	 * @ordered
-	 */
-	protected String dvd = DVD_EDEFAULT;
+	protected String reviewLink = REVIEW_LINK_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ReleaseImpl() {
+	protected ReviewLinkImpl() {
 		super();
 	}
 
@@ -91,7 +70,7 @@ public class ReleaseImpl extends EObjectImpl implements Release {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return RottenPackage.Literals.RELEASE;
+		return RottenPackage.Literals.REVIEW_LINK;
 	}
 
 	/**
@@ -99,8 +78,8 @@ public class ReleaseImpl extends EObjectImpl implements Release {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getTheater() {
-		return theater;
+	public String getReviewLink() {
+		return reviewLink;
 	}
 
 	/**
@@ -108,32 +87,11 @@ public class ReleaseImpl extends EObjectImpl implements Release {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setTheater(String newTheater) {
-		String oldTheater = theater;
-		theater = newTheater;
+	public void setReviewLink(String newReviewLink) {
+		String oldReviewLink = reviewLink;
+		reviewLink = newReviewLink;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RottenPackage.RELEASE__THEATER, oldTheater, theater));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getDvd() {
-		return dvd;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDvd(String newDvd) {
-		String oldDvd = dvd;
-		dvd = newDvd;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RottenPackage.RELEASE__DVD, oldDvd, dvd));
+			eNotify(new ENotificationImpl(this, Notification.SET, RottenPackage.REVIEW_LINK__REVIEW_LINK, oldReviewLink, reviewLink));
 	}
 
 	/**
@@ -144,10 +102,8 @@ public class ReleaseImpl extends EObjectImpl implements Release {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case RottenPackage.RELEASE__THEATER:
-				return getTheater();
-			case RottenPackage.RELEASE__DVD:
-				return getDvd();
+			case RottenPackage.REVIEW_LINK__REVIEW_LINK:
+				return getReviewLink();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -160,11 +116,8 @@ public class ReleaseImpl extends EObjectImpl implements Release {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case RottenPackage.RELEASE__THEATER:
-				setTheater((String)newValue);
-				return;
-			case RottenPackage.RELEASE__DVD:
-				setDvd((String)newValue);
+			case RottenPackage.REVIEW_LINK__REVIEW_LINK:
+				setReviewLink((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -178,11 +131,8 @@ public class ReleaseImpl extends EObjectImpl implements Release {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case RottenPackage.RELEASE__THEATER:
-				setTheater(THEATER_EDEFAULT);
-				return;
-			case RottenPackage.RELEASE__DVD:
-				setDvd(DVD_EDEFAULT);
+			case RottenPackage.REVIEW_LINK__REVIEW_LINK:
+				setReviewLink(REVIEW_LINK_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -196,10 +146,8 @@ public class ReleaseImpl extends EObjectImpl implements Release {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case RottenPackage.RELEASE__THEATER:
-				return THEATER_EDEFAULT == null ? theater != null : !THEATER_EDEFAULT.equals(theater);
-			case RottenPackage.RELEASE__DVD:
-				return DVD_EDEFAULT == null ? dvd != null : !DVD_EDEFAULT.equals(dvd);
+			case RottenPackage.REVIEW_LINK__REVIEW_LINK:
+				return REVIEW_LINK_EDEFAULT == null ? reviewLink != null : !REVIEW_LINK_EDEFAULT.equals(reviewLink);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -214,12 +162,10 @@ public class ReleaseImpl extends EObjectImpl implements Release {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (theater: ");
-		result.append(theater);
-		result.append(", dvd: ");
-		result.append(dvd);
+		result.append(" (reviewLink: ");
+		result.append(reviewLink);
 		result.append(')');
 		return result.toString();
 	}
 
-} //ReleaseImpl
+} //ReviewLinkImpl

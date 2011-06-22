@@ -1,9 +1,13 @@
-/**
- * <copyright>
- * </copyright>
+/*******************************************************************************
+ * Copyright (c) 2011 Guillaume Hillairet.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- * $Id$
- */
+ * Contributors:
+ *    Guillaume Hillairet - initial API and implementation
+ *******************************************************************************/
 package com.emfjson.model.rotten;
 
 import org.eclipse.emf.common.util.EList;
@@ -31,7 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see com.emfjson.model.rotten.RottenPackage#getMovie()
- * @model annotation="JSON root='true' element='movies'"
+ * @model
  * @generated
  */
 public interface Movie extends EObject {
@@ -199,20 +203,30 @@ public interface Movie extends EObject {
 	EList<Rating> getRatings();
 
 	/**
-	 * Returns the value of the '<em><b>Posters</b></em>' containment reference list.
-	 * The list contents are of type {@link com.emfjson.model.rotten.Poster}.
+	 * Returns the value of the '<em><b>Posters</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Posters</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Posters</em>' containment reference list.
+	 * @return the value of the '<em>Posters</em>' containment reference.
+	 * @see #setPosters(Poster)
 	 * @see com.emfjson.model.rotten.RottenPackage#getMovie_Posters()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Poster> getPosters();
+	Poster getPosters();
+
+	/**
+	 * Sets the value of the '{@link com.emfjson.model.rotten.Movie#getPosters <em>Posters</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Posters</em>' containment reference.
+	 * @see #getPosters()
+	 * @generated
+	 */
+	void setPosters(Poster value);
 
 	/**
 	 * Returns the value of the '<em><b>Castings</b></em>' containment reference list.

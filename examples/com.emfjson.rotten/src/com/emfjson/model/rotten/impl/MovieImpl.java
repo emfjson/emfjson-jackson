@@ -1,9 +1,13 @@
-/**
- * <copyright>
- * </copyright>
+/*******************************************************************************
+ * Copyright (c) 2011 Guillaume Hillairet.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- * $Id$
- */
+ * Contributors:
+ *    Guillaume Hillairet - initial API and implementation
+ *******************************************************************************/
 package com.emfjson.model.rotten.impl;
 
 import com.emfjson.model.rotten.Cast;
@@ -172,14 +176,14 @@ public class MovieImpl extends EObjectImpl implements Movie {
 	protected EList<Rating> ratings;
 
 	/**
-	 * The cached value of the '{@link #getPosters() <em>Posters</em>}' containment reference list.
+	 * The cached value of the '{@link #getPosters() <em>Posters</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getPosters()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Poster> posters;
+	protected Poster posters;
 
 	/**
 	 * The cached value of the '{@link #getCastings() <em>Castings</em>}' containment reference list.
@@ -344,11 +348,42 @@ public class MovieImpl extends EObjectImpl implements Movie {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Poster> getPosters() {
-		if (posters == null) {
-			posters = new EObjectContainmentEList<Poster>(Poster.class, this, RottenPackage.MOVIE__POSTERS);
-		}
+	public Poster getPosters() {
 		return posters;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetPosters(Poster newPosters, NotificationChain msgs) {
+		Poster oldPosters = posters;
+		posters = newPosters;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, RottenPackage.MOVIE__POSTERS, oldPosters, newPosters);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPosters(Poster newPosters) {
+		if (newPosters != posters) {
+			NotificationChain msgs = null;
+			if (posters != null)
+				msgs = ((InternalEObject)posters).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - RottenPackage.MOVIE__POSTERS, null, msgs);
+			if (newPosters != null)
+				msgs = ((InternalEObject)newPosters).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - RottenPackage.MOVIE__POSTERS, null, msgs);
+			msgs = basicSetPosters(newPosters, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, RottenPackage.MOVIE__POSTERS, newPosters, newPosters));
 	}
 
 	/**
@@ -376,7 +411,7 @@ public class MovieImpl extends EObjectImpl implements Movie {
 			case RottenPackage.MOVIE__RATINGS:
 				return ((InternalEList<?>)getRatings()).basicRemove(otherEnd, msgs);
 			case RottenPackage.MOVIE__POSTERS:
-				return ((InternalEList<?>)getPosters()).basicRemove(otherEnd, msgs);
+				return basicSetPosters(null, msgs);
 			case RottenPackage.MOVIE__CASTINGS:
 				return ((InternalEList<?>)getCastings()).basicRemove(otherEnd, msgs);
 		}
@@ -446,8 +481,7 @@ public class MovieImpl extends EObjectImpl implements Movie {
 				getRatings().addAll((Collection<? extends Rating>)newValue);
 				return;
 			case RottenPackage.MOVIE__POSTERS:
-				getPosters().clear();
-				getPosters().addAll((Collection<? extends Poster>)newValue);
+				setPosters((Poster)newValue);
 				return;
 			case RottenPackage.MOVIE__CASTINGS:
 				getCastings().clear();
@@ -487,7 +521,7 @@ public class MovieImpl extends EObjectImpl implements Movie {
 				getRatings().clear();
 				return;
 			case RottenPackage.MOVIE__POSTERS:
-				getPosters().clear();
+				setPosters((Poster)null);
 				return;
 			case RottenPackage.MOVIE__CASTINGS:
 				getCastings().clear();
@@ -519,7 +553,7 @@ public class MovieImpl extends EObjectImpl implements Movie {
 			case RottenPackage.MOVIE__RATINGS:
 				return ratings != null && !ratings.isEmpty();
 			case RottenPackage.MOVIE__POSTERS:
-				return posters != null && !posters.isEmpty();
+				return posters != null;
 			case RottenPackage.MOVIE__CASTINGS:
 				return castings != null && !castings.isEmpty();
 		}

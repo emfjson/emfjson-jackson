@@ -7,5 +7,7 @@ Bundle-Vendor: eclipselabs
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.emf.ecore;bundle-version="2.7.0",
  org.codehaus.jackson;bundle-version="1.7.4"
-Export-Package: com.emfjson.resource,
+Export-Package: com.emfjson.emf,
+ com.emfjson.internal,
+ com.emfjson.resource,
  com.emfjson.resource.impl

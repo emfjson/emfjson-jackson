@@ -1,16 +1,24 @@
-/**
- * <copyright>
- * </copyright>
+/*******************************************************************************
+ * Copyright (c) 2011 Guillaume Hillairet.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- * $Id$
- */
+ * Contributors:
+ *    Guillaume Hillairet - initial API and implementation
+ *******************************************************************************/
 package com.emfjson.model.rotten.impl;
 
 import com.emfjson.model.rotten.Cast;
 import com.emfjson.model.rotten.Movie;
+import com.emfjson.model.rotten.Movies;
 import com.emfjson.model.rotten.Poster;
 import com.emfjson.model.rotten.Rating;
 import com.emfjson.model.rotten.Release;
+import com.emfjson.model.rotten.Review;
+import com.emfjson.model.rotten.ReviewLink;
+import com.emfjson.model.rotten.Reviews;
 import com.emfjson.model.rotten.RottenFactory;
 import com.emfjson.model.rotten.RottenPackage;
 
@@ -28,6 +36,13 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
  * @generated
  */
 public class RottenPackageImpl extends EPackageImpl implements RottenPackage {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass moviesEClass = null;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -62,6 +77,27 @@ public class RottenPackageImpl extends EPackageImpl implements RottenPackage {
 	 * @generated
 	 */
 	private EClass castEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass reviewsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass reviewEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass reviewLinkEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -122,6 +158,33 @@ public class RottenPackageImpl extends EPackageImpl implements RottenPackage {
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(RottenPackage.eNS_URI, theRottenPackage);
 		return theRottenPackage;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMovies() {
+		return moviesEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMovies_Total() {
+		return (EAttribute)moviesEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMovies_Movies() {
+		return (EReference)moviesEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -345,6 +408,96 @@ public class RottenPackageImpl extends EPackageImpl implements RottenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getReviews() {
+		return reviewsEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getReviews_Reviews() {
+		return (EReference)reviewsEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getReview() {
+		return reviewEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getReview_Critic() {
+		return (EAttribute)reviewEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getReview_Date() {
+		return (EAttribute)reviewEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getReview_Publication() {
+		return (EAttribute)reviewEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getReview_Quote() {
+		return (EAttribute)reviewEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getReview_Links() {
+		return (EReference)reviewEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getReviewLink() {
+		return reviewLinkEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getReviewLink_ReviewLink() {
+		return (EAttribute)reviewLinkEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public RottenFactory getRottenFactory() {
 		return (RottenFactory)getEFactoryInstance();
 	}
@@ -368,6 +521,10 @@ public class RottenPackageImpl extends EPackageImpl implements RottenPackage {
 		isCreated = true;
 
 		// Create classes and their features
+		moviesEClass = createEClass(MOVIES);
+		createEAttribute(moviesEClass, MOVIES__TOTAL);
+		createEReference(moviesEClass, MOVIES__MOVIES);
+
 		movieEClass = createEClass(MOVIE);
 		createEAttribute(movieEClass, MOVIE__ID);
 		createEAttribute(movieEClass, MOVIE__TITLE);
@@ -396,6 +553,19 @@ public class RottenPackageImpl extends EPackageImpl implements RottenPackage {
 		castEClass = createEClass(CAST);
 		createEAttribute(castEClass, CAST__NAME);
 		createEAttribute(castEClass, CAST__CHARACTERS);
+
+		reviewsEClass = createEClass(REVIEWS);
+		createEReference(reviewsEClass, REVIEWS__REVIEWS);
+
+		reviewEClass = createEClass(REVIEW);
+		createEAttribute(reviewEClass, REVIEW__CRITIC);
+		createEAttribute(reviewEClass, REVIEW__DATE);
+		createEAttribute(reviewEClass, REVIEW__PUBLICATION);
+		createEAttribute(reviewEClass, REVIEW__QUOTE);
+		createEReference(reviewEClass, REVIEW__LINKS);
+
+		reviewLinkEClass = createEClass(REVIEW_LINK);
+		createEAttribute(reviewLinkEClass, REVIEW_LINK__REVIEW_LINK);
 	}
 
 	/**
@@ -428,6 +598,10 @@ public class RottenPackageImpl extends EPackageImpl implements RottenPackage {
 		// Add supertypes to classes
 
 		// Initialize classes and features; add operations and parameters
+		initEClass(moviesEClass, Movies.class, "Movies", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getMovies_Total(), ecorePackage.getEIntegerObject(), "total", null, 0, 1, Movies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMovies_Movies(), this.getMovie(), null, "movies", null, 0, -1, Movies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(movieEClass, Movie.class, "Movie", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMovie_Id(), ecorePackage.getEString(), "id", null, 0, 1, Movie.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMovie_Title(), ecorePackage.getEString(), "title", null, 0, 1, Movie.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -436,7 +610,7 @@ public class RottenPackageImpl extends EPackageImpl implements RottenPackage {
 		initEAttribute(getMovie_Synopsis(), ecorePackage.getEString(), "synopsis", null, 0, 1, Movie.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMovie_Releases(), this.getRelease(), null, "releases", null, 0, -1, Movie.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMovie_Ratings(), this.getRating(), null, "ratings", null, 0, -1, Movie.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMovie_Posters(), this.getPoster(), null, "posters", null, 0, -1, Movie.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMovie_Posters(), this.getPoster(), null, "posters", null, 0, 1, Movie.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMovie_Castings(), this.getCast(), null, "castings", null, 0, -1, Movie.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(releaseEClass, Release.class, "Release", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -457,6 +631,19 @@ public class RottenPackageImpl extends EPackageImpl implements RottenPackage {
 		initEAttribute(getCast_Name(), ecorePackage.getEString(), "name", null, 0, 1, Cast.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCast_Characters(), ecorePackage.getEString(), "characters", null, 0, -1, Cast.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(reviewsEClass, Reviews.class, "Reviews", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getReviews_Reviews(), this.getReview(), null, "reviews", null, 0, 1, Reviews.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(reviewEClass, Review.class, "Review", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getReview_Critic(), ecorePackage.getEString(), "critic", null, 0, 1, Review.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getReview_Date(), ecorePackage.getEString(), "date", null, 0, 1, Review.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getReview_Publication(), ecorePackage.getEString(), "publication", null, 0, 1, Review.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getReview_Quote(), ecorePackage.getEString(), "quote", null, 0, 1, Review.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getReview_Links(), this.getReviewLink(), null, "links", null, 0, -1, Review.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(reviewLinkEClass, ReviewLink.class, "ReviewLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getReviewLink_ReviewLink(), ecorePackage.getEString(), "reviewLink", null, 0, 1, ReviewLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Create resource
 		createResource(eNS_URI);
 
@@ -474,10 +661,15 @@ public class RottenPackageImpl extends EPackageImpl implements RottenPackage {
 	protected void createJSONAnnotations() {
 		String source = "JSON";		
 		addAnnotation
-		  (movieEClass, 
+		  (moviesEClass, 
 		   source, 
 		   new String[] {
-			 "root", "true",
+			 "root", "true"
+		   });		
+		addAnnotation
+		  (getMovies_Movies(), 
+		   source, 
+		   new String[] {
 			 "element", "movies"
 		   });		
 		addAnnotation
@@ -503,6 +695,18 @@ public class RottenPackageImpl extends EPackageImpl implements RottenPackage {
 		   source, 
 		   new String[] {
 			 "element", "audience_score"
+		   });		
+		addAnnotation
+		  (reviewsEClass, 
+		   source, 
+		   new String[] {
+			 "root", "true"
+		   });		
+		addAnnotation
+		  (getReviews_Reviews(), 
+		   source, 
+		   new String[] {
+			 "element", "reviews"
 		   });
 	}
 

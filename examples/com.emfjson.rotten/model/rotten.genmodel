@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.emfjson.junit/src"
-    modelPluginID="com.emfjson.junit" modelName="Rotten" importerID="org.eclipse.emf.importer.ecore"
-    bundleManifest="false" complianceLevel="6.0" copyrightFields="false">
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.emfjson.rotten/src"
+    editDirectory="/com.emfjson.rotten.edit/src" editorDirectory="/com.emfjson.rotten.editor/src"
+    modelPluginID="com.emfjson.rotten" modelName="Rotten" importerID="org.eclipse.emf.importer.ecore"
+    bundleManifest="false" complianceLevel="6.0" copyrightFields="false" editPluginID="com.emfjson.rotten.edit"
+    editorPluginID="com.emfjson.rotten.editor">
   <foreignModel>rotten.ecore</foreignModel>
   <genPackages prefix="Rotten" basePackage="com.emfjson.model" disposableProviderFactory="true"
       ecorePackage="rotten.ecore#/">
+    <genClasses ecoreClass="rotten.ecore#//Movies">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rotten.ecore#//Movies/movies"/>
+    </genClasses>
     <genClasses ecoreClass="rotten.ecore#//Movie">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Movie/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Movie/title"/>
@@ -35,6 +40,19 @@
     <genClasses ecoreClass="rotten.ecore#//Cast">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Cast/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Cast/characters"/>
+    </genClasses>
+    <genClasses ecoreClass="rotten.ecore#//Reviews">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rotten.ecore#//Reviews/reviews"/>
+    </genClasses>
+    <genClasses ecoreClass="rotten.ecore#//Review">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Review/critic"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Review/date"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Review/publication"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Review/quote"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rotten.ecore#//Review/links"/>
+    </genClasses>
+    <genClasses ecoreClass="rotten.ecore#//ReviewLink">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//ReviewLink/reviewLink"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

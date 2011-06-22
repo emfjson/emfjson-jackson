@@ -8,16 +8,32 @@
  * Contributors:
  *    Guillaume Hillairet - initial API and implementation
  *******************************************************************************/
-package com.emfjson.resource.impl;
+package com.emfjson.emf;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
+import org.eclipse.emf.ecore.resource.impl.URIHandlerImpl;
 
-public class JSONResourceFactoryImpl
-	extends ResourceFactoryImpl {
+import com.emfjson.internal.JSONInputStream;
 
-	public Resource createResource(URI uri) {
-		return new JSONResourceImpl(uri);
-	};
+/**
+ * 
+ * @author guillaume
+ *
+ */
+public class JSONURIHandlerImpl extends URIHandlerImpl {
+	
+	@Override
+	public boolean canHandle(URI uri) {
+//		return uri.scheme().equalsIgnoreCase("json");
+		return true;
+	}
+	
+	@Override
+	public InputStream createInputStream(URI uri, Map<?, ?> options) throws IOException {
+		return new JSONInputStream(uri, options);
+	}
 }

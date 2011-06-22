@@ -8,16 +8,23 @@
  * Contributors:
  *    Guillaume Hillairet - initial API and implementation
  *******************************************************************************/
-package com.emfjson.resource.impl;
+package com.emfjson.internal;
 
+import java.io.IOException;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
 
-public class JSONResourceFactoryImpl
-	extends ResourceFactoryImpl {
+public interface JsonWriter {
 
-	public Resource createResource(URI uri) {
-		return new JSONResourceImpl(uri);
-	};
+	void writeResource(Resource resource) throws JsonGenerationException, JsonMappingException, IOException;
+	
+	void writeResource(Resource resource, URI dest) throws JsonGenerationException, JsonMappingException, IOException;
+	
+	JsonNode writeEObject(EObject object) throws JsonGenerationException, JsonMappingException, IOException;
+	
 }

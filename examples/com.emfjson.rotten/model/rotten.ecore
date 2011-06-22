@@ -3,11 +3,19 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="rotten"
     nsURI="http://www.eclipselabs.org/rottentomatoes" nsPrefix="rotten">
-  <eClassifiers xsi:type="ecore:EClass" name="Movie">
+  <eClassifiers xsi:type="ecore:EClass" name="Movies">
     <eAnnotations source="JSON">
       <details key="root" value="true"/>
-      <details key="element" value="movies"/>
     </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="total" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="movies" upperBound="-1"
+        eType="#//Movie" containment="true">
+      <eAnnotations source="JSON">
+        <details key="element" value="movies"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Movie">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="year" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
@@ -21,8 +29,8 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ratings" upperBound="-1"
         eType="#//Rating" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="posters" upperBound="-1"
-        eType="#//Poster" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="posters" eType="#//Poster"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="castings" upperBound="-1"
         eType="#//Cast" containment="true">
       <eAnnotations source="JSON">
@@ -56,5 +64,27 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="characters" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Reviews">
+    <eAnnotations source="JSON">
+      <details key="root" value="true"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reviews" eType="#//Review"
+        containment="true">
+      <eAnnotations source="JSON">
+        <details key="element" value="reviews"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Review">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="critic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="publication" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="quote" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
+        eType="#//ReviewLink" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReviewLink">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reviewLink" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -1,9 +1,13 @@
-/**
- * <copyright>
- * </copyright>
+/*******************************************************************************
+ * Copyright (c) 2011 Guillaume Hillairet.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- * $Id$
- */
+ * Contributors:
+ *    Guillaume Hillairet - initial API and implementation
+ *******************************************************************************/
 package com.emfjson.model.rotten.util;
 
 import com.emfjson.model.rotten.*;
@@ -70,6 +74,12 @@ public class RottenSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
+			case RottenPackage.MOVIES: {
+				Movies movies = (Movies)theEObject;
+				T result = caseMovies(movies);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case RottenPackage.MOVIE: {
 				Movie movie = (Movie)theEObject;
 				T result = caseMovie(movie);
@@ -100,8 +110,41 @@ public class RottenSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case RottenPackage.REVIEWS: {
+				Reviews reviews = (Reviews)theEObject;
+				T result = caseReviews(reviews);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case RottenPackage.REVIEW: {
+				Review review = (Review)theEObject;
+				T result = caseReview(review);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case RottenPackage.REVIEW_LINK: {
+				ReviewLink reviewLink = (ReviewLink)theEObject;
+				T result = caseReviewLink(reviewLink);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Movies</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Movies</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMovies(Movies object) {
+		return null;
 	}
 
 	/**
@@ -176,6 +219,51 @@ public class RottenSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseCast(Cast object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Reviews</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Reviews</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseReviews(Reviews object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Review</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Review</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseReview(Review object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Review Link</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Review Link</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseReviewLink(ReviewLink object) {
 		return null;
 	}
 

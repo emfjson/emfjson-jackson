@@ -1,9 +1,13 @@
-/**
- * <copyright>
- * </copyright>
+/*******************************************************************************
+ * Copyright (c) 2011 Guillaume Hillairet.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- * $Id$
- */
+ * Contributors:
+ *    Guillaume Hillairet - initial API and implementation
+ *******************************************************************************/
 package com.emfjson.model.rotten;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -60,6 +64,43 @@ public interface RottenPackage extends EPackage {
 	RottenPackage eINSTANCE = com.emfjson.model.rotten.impl.RottenPackageImpl.init();
 
 	/**
+	 * The meta object id for the '{@link com.emfjson.model.rotten.impl.MoviesImpl <em>Movies</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.emfjson.model.rotten.impl.MoviesImpl
+	 * @see com.emfjson.model.rotten.impl.RottenPackageImpl#getMovies()
+	 * @generated
+	 */
+	int MOVIES = 0;
+
+	/**
+	 * The feature id for the '<em><b>Total</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MOVIES__TOTAL = 0;
+
+	/**
+	 * The feature id for the '<em><b>Movies</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MOVIES__MOVIES = 1;
+
+	/**
+	 * The number of structural features of the '<em>Movies</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MOVIES_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link com.emfjson.model.rotten.impl.MovieImpl <em>Movie</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,7 +108,7 @@ public interface RottenPackage extends EPackage {
 	 * @see com.emfjson.model.rotten.impl.RottenPackageImpl#getMovie()
 	 * @generated
 	 */
-	int MOVIE = 0;
+	int MOVIE = 1;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -133,7 +174,7 @@ public interface RottenPackage extends EPackage {
 	int MOVIE__RATINGS = 6;
 
 	/**
-	 * The feature id for the '<em><b>Posters</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Posters</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -167,7 +208,7 @@ public interface RottenPackage extends EPackage {
 	 * @see com.emfjson.model.rotten.impl.RottenPackageImpl#getRelease()
 	 * @generated
 	 */
-	int RELEASE = 1;
+	int RELEASE = 2;
 
 	/**
 	 * The feature id for the '<em><b>Theater</b></em>' attribute.
@@ -204,7 +245,7 @@ public interface RottenPackage extends EPackage {
 	 * @see com.emfjson.model.rotten.impl.RottenPackageImpl#getRating()
 	 * @generated
 	 */
-	int RATING = 2;
+	int RATING = 3;
 
 	/**
 	 * The feature id for the '<em><b>Critics Score</b></em>' attribute.
@@ -241,7 +282,7 @@ public interface RottenPackage extends EPackage {
 	 * @see com.emfjson.model.rotten.impl.RottenPackageImpl#getPoster()
 	 * @generated
 	 */
-	int POSTER = 3;
+	int POSTER = 4;
 
 	/**
 	 * The feature id for the '<em><b>Thumbnail</b></em>' attribute.
@@ -296,7 +337,7 @@ public interface RottenPackage extends EPackage {
 	 * @see com.emfjson.model.rotten.impl.RottenPackageImpl#getCast()
 	 * @generated
 	 */
-	int CAST = 4;
+	int CAST = 5;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -325,6 +366,159 @@ public interface RottenPackage extends EPackage {
 	 */
 	int CAST_FEATURE_COUNT = 2;
 
+
+	/**
+	 * The meta object id for the '{@link com.emfjson.model.rotten.impl.ReviewsImpl <em>Reviews</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.emfjson.model.rotten.impl.ReviewsImpl
+	 * @see com.emfjson.model.rotten.impl.RottenPackageImpl#getReviews()
+	 * @generated
+	 */
+	int REVIEWS = 6;
+
+	/**
+	 * The feature id for the '<em><b>Reviews</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REVIEWS__REVIEWS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Reviews</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REVIEWS_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link com.emfjson.model.rotten.impl.ReviewImpl <em>Review</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.emfjson.model.rotten.impl.ReviewImpl
+	 * @see com.emfjson.model.rotten.impl.RottenPackageImpl#getReview()
+	 * @generated
+	 */
+	int REVIEW = 7;
+
+	/**
+	 * The feature id for the '<em><b>Critic</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REVIEW__CRITIC = 0;
+
+	/**
+	 * The feature id for the '<em><b>Date</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REVIEW__DATE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Publication</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REVIEW__PUBLICATION = 2;
+
+	/**
+	 * The feature id for the '<em><b>Quote</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REVIEW__QUOTE = 3;
+
+	/**
+	 * The feature id for the '<em><b>Links</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REVIEW__LINKS = 4;
+
+	/**
+	 * The number of structural features of the '<em>Review</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REVIEW_FEATURE_COUNT = 5;
+
+	/**
+	 * The meta object id for the '{@link com.emfjson.model.rotten.impl.ReviewLinkImpl <em>Review Link</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.emfjson.model.rotten.impl.ReviewLinkImpl
+	 * @see com.emfjson.model.rotten.impl.RottenPackageImpl#getReviewLink()
+	 * @generated
+	 */
+	int REVIEW_LINK = 8;
+
+	/**
+	 * The feature id for the '<em><b>Review Link</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REVIEW_LINK__REVIEW_LINK = 0;
+
+	/**
+	 * The number of structural features of the '<em>Review Link</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REVIEW_LINK_FEATURE_COUNT = 1;
+
+
+	/**
+	 * Returns the meta object for class '{@link com.emfjson.model.rotten.Movies <em>Movies</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Movies</em>'.
+	 * @see com.emfjson.model.rotten.Movies
+	 * @generated
+	 */
+	EClass getMovies();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.emfjson.model.rotten.Movies#getTotal <em>Total</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Total</em>'.
+	 * @see com.emfjson.model.rotten.Movies#getTotal()
+	 * @see #getMovies()
+	 * @generated
+	 */
+	EAttribute getMovies_Total();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link com.emfjson.model.rotten.Movies#getMovies <em>Movies</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Movies</em>'.
+	 * @see com.emfjson.model.rotten.Movies#getMovies()
+	 * @see #getMovies()
+	 * @generated
+	 */
+	EReference getMovies_Movies();
 
 	/**
 	 * Returns the meta object for class '{@link com.emfjson.model.rotten.Movie <em>Movie</em>}'.
@@ -414,10 +608,10 @@ public interface RottenPackage extends EPackage {
 	EReference getMovie_Ratings();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link com.emfjson.model.rotten.Movie#getPosters <em>Posters</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.emfjson.model.rotten.Movie#getPosters <em>Posters</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Posters</em>'.
+	 * @return the meta object for the containment reference '<em>Posters</em>'.
 	 * @see com.emfjson.model.rotten.Movie#getPosters()
 	 * @see #getMovie()
 	 * @generated
@@ -586,6 +780,113 @@ public interface RottenPackage extends EPackage {
 	EAttribute getCast_Characters();
 
 	/**
+	 * Returns the meta object for class '{@link com.emfjson.model.rotten.Reviews <em>Reviews</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Reviews</em>'.
+	 * @see com.emfjson.model.rotten.Reviews
+	 * @generated
+	 */
+	EClass getReviews();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link com.emfjson.model.rotten.Reviews#getReviews <em>Reviews</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Reviews</em>'.
+	 * @see com.emfjson.model.rotten.Reviews#getReviews()
+	 * @see #getReviews()
+	 * @generated
+	 */
+	EReference getReviews_Reviews();
+
+	/**
+	 * Returns the meta object for class '{@link com.emfjson.model.rotten.Review <em>Review</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Review</em>'.
+	 * @see com.emfjson.model.rotten.Review
+	 * @generated
+	 */
+	EClass getReview();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.emfjson.model.rotten.Review#getCritic <em>Critic</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Critic</em>'.
+	 * @see com.emfjson.model.rotten.Review#getCritic()
+	 * @see #getReview()
+	 * @generated
+	 */
+	EAttribute getReview_Critic();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.emfjson.model.rotten.Review#getDate <em>Date</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Date</em>'.
+	 * @see com.emfjson.model.rotten.Review#getDate()
+	 * @see #getReview()
+	 * @generated
+	 */
+	EAttribute getReview_Date();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.emfjson.model.rotten.Review#getPublication <em>Publication</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Publication</em>'.
+	 * @see com.emfjson.model.rotten.Review#getPublication()
+	 * @see #getReview()
+	 * @generated
+	 */
+	EAttribute getReview_Publication();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.emfjson.model.rotten.Review#getQuote <em>Quote</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Quote</em>'.
+	 * @see com.emfjson.model.rotten.Review#getQuote()
+	 * @see #getReview()
+	 * @generated
+	 */
+	EAttribute getReview_Quote();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link com.emfjson.model.rotten.Review#getLinks <em>Links</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Links</em>'.
+	 * @see com.emfjson.model.rotten.Review#getLinks()
+	 * @see #getReview()
+	 * @generated
+	 */
+	EReference getReview_Links();
+
+	/**
+	 * Returns the meta object for class '{@link com.emfjson.model.rotten.ReviewLink <em>Review Link</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Review Link</em>'.
+	 * @see com.emfjson.model.rotten.ReviewLink
+	 * @generated
+	 */
+	EClass getReviewLink();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.emfjson.model.rotten.ReviewLink#getReviewLink <em>Review Link</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Review Link</em>'.
+	 * @see com.emfjson.model.rotten.ReviewLink#getReviewLink()
+	 * @see #getReviewLink()
+	 * @generated
+	 */
+	EAttribute getReviewLink_ReviewLink();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -607,6 +908,32 @@ public interface RottenPackage extends EPackage {
 	 * @generated
 	 */
 	interface Literals {
+		/**
+		 * The meta object literal for the '{@link com.emfjson.model.rotten.impl.MoviesImpl <em>Movies</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.emfjson.model.rotten.impl.MoviesImpl
+		 * @see com.emfjson.model.rotten.impl.RottenPackageImpl#getMovies()
+		 * @generated
+		 */
+		EClass MOVIES = eINSTANCE.getMovies();
+
+		/**
+		 * The meta object literal for the '<em><b>Total</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MOVIES__TOTAL = eINSTANCE.getMovies_Total();
+
+		/**
+		 * The meta object literal for the '<em><b>Movies</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MOVIES__MOVIES = eINSTANCE.getMovies_Movies();
+
 		/**
 		 * The meta object literal for the '{@link com.emfjson.model.rotten.impl.MovieImpl <em>Movie</em>}' class.
 		 * <!-- begin-user-doc -->
@@ -674,7 +1001,7 @@ public interface RottenPackage extends EPackage {
 		EReference MOVIE__RATINGS = eINSTANCE.getMovie_Ratings();
 
 		/**
-		 * The meta object literal for the '<em><b>Posters</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Posters</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -808,6 +1135,92 @@ public interface RottenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute CAST__CHARACTERS = eINSTANCE.getCast_Characters();
+
+		/**
+		 * The meta object literal for the '{@link com.emfjson.model.rotten.impl.ReviewsImpl <em>Reviews</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.emfjson.model.rotten.impl.ReviewsImpl
+		 * @see com.emfjson.model.rotten.impl.RottenPackageImpl#getReviews()
+		 * @generated
+		 */
+		EClass REVIEWS = eINSTANCE.getReviews();
+
+		/**
+		 * The meta object literal for the '<em><b>Reviews</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference REVIEWS__REVIEWS = eINSTANCE.getReviews_Reviews();
+
+		/**
+		 * The meta object literal for the '{@link com.emfjson.model.rotten.impl.ReviewImpl <em>Review</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.emfjson.model.rotten.impl.ReviewImpl
+		 * @see com.emfjson.model.rotten.impl.RottenPackageImpl#getReview()
+		 * @generated
+		 */
+		EClass REVIEW = eINSTANCE.getReview();
+
+		/**
+		 * The meta object literal for the '<em><b>Critic</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REVIEW__CRITIC = eINSTANCE.getReview_Critic();
+
+		/**
+		 * The meta object literal for the '<em><b>Date</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REVIEW__DATE = eINSTANCE.getReview_Date();
+
+		/**
+		 * The meta object literal for the '<em><b>Publication</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REVIEW__PUBLICATION = eINSTANCE.getReview_Publication();
+
+		/**
+		 * The meta object literal for the '<em><b>Quote</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REVIEW__QUOTE = eINSTANCE.getReview_Quote();
+
+		/**
+		 * The meta object literal for the '<em><b>Links</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference REVIEW__LINKS = eINSTANCE.getReview_Links();
+
+		/**
+		 * The meta object literal for the '{@link com.emfjson.model.rotten.impl.ReviewLinkImpl <em>Review Link</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.emfjson.model.rotten.impl.ReviewLinkImpl
+		 * @see com.emfjson.model.rotten.impl.RottenPackageImpl#getReviewLink()
+		 * @generated
+		 */
+		EClass REVIEW_LINK = eINSTANCE.getReviewLink();
+
+		/**
+		 * The meta object literal for the '<em><b>Review Link</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REVIEW_LINK__REVIEW_LINK = eINSTANCE.getReviewLink_ReviewLink();
 
 	}
 
