@@ -1,6 +1,7 @@
 EMFJSON is a JSON mapper for [EMF](http://www.eclipse.org/emf).
 
 It provides:
+
 *    Serialization of EMF models in JSON,
 *    Loading JSON from files, REST APIS.
 
