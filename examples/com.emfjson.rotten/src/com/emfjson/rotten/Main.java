@@ -28,7 +28,6 @@ import com.emfjson.resource.JSONResource;
 import com.emfjson.resource.impl.JSONResourceFactoryImpl;
 
 public class Main {
-
 	
 	public static void main(String[] args) throws IOException {
 		EPackage.Registry.INSTANCE.put(RottenPackage.eNS_URI, RottenPackage.eINSTANCE);

@@ -7,9 +7,10 @@
     bundleManifest="false" complianceLevel="6.0" copyrightFields="false" editPluginID="com.emfjson.rotten.edit"
     editorPluginID="com.emfjson.rotten.editor">
   <foreignModel>rotten.ecore</foreignModel>
-  <genPackages prefix="Rotten" basePackage="com.emfjson.model" disposableProviderFactory="true"
+  <genPackages prefix="Rotten" basePackage="com.emfjson.model" resource="Basic" disposableProviderFactory="true"
       ecorePackage="rotten.ecore#/">
     <genClasses ecoreClass="rotten.ecore#//Movies">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Movies/total"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rotten.ecore#//Movies/movies"/>
     </genClasses>
     <genClasses ecoreClass="rotten.ecore#//Movie">
