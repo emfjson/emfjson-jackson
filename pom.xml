@@ -11,6 +11,9 @@
 		<module>bundles/com.emfjson</module>
 		<module>features/com.emfjson.feature</module>
 		
+        <module>examples/com.emfjson.rotten</module>
+		<module>features/com.emfjson.rotten.feature</module>
+        		
 		<module>build/repository</module>
 	</modules>
 
