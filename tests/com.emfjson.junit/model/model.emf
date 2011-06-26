@@ -1,0 +1,16 @@
+@namespace(uri="http://www.eclipselabs.org/emfjson/junit", prefix="model")
+package model;
+
+class User {
+   id attr String userId;
+   attr String name;
+   ref User[*] friends;
+   val Address address;
+}
+
+class Address {
+   id attr String addId;
+   attr String city;
+   attr String street;
+   attr Integer number;
+}

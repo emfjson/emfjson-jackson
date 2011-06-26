@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: com.emfjson.junit;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: com.emfjson.junit.model,
+ com.emfjson.junit.model.impl,
+ com.emfjson.junit.model.util
+Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
+ com.emfjson;bundle-version="0.1.0",
+ org.junit;bundle-version="4.8.2"
+Bundle-ActivationPolicy: lazy
