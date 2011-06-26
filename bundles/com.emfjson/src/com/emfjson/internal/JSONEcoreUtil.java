@@ -35,8 +35,12 @@ public class JSONEcoreUtil {
 			EClass eClass = (EClass) object;
 			if (eClass.getEAnnotation("JSON") != null) {
 				EAnnotation annotation = eClass.getEAnnotation("JSON");
-				if (annotation.getDetails().containsKey("root") && annotation.getDetails().containsKey("element")) {
-					return annotation.getDetails().get("element");
+				if (annotation.getDetails().containsKey("root")) {
+					if (annotation.getDetails().containsKey("element")) {
+						return annotation.getDetails().get("element");
+					} else {
+						return null;
+					}
 				} else {
 					throw new IllegalArgumentException("The root class @JSON annotation must contain root and element details.");
 				}

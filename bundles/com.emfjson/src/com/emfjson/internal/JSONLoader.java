@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -48,7 +49,7 @@ public class JSONLoader {
 	public EObject loadFromInputStream(InputStream inStream, Map<?, ?> options) {
 		final JsonParser jp = getJsonParser(inStream);
 		final JsonNode rootNode = jp != null ? getRootNode(jp) : null;
-		
+
 		return rootNode != null ? loadRootEObject(rootNode, options) : null;
 	}
 
@@ -59,17 +60,17 @@ public class JSONLoader {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-		
+
 		final JsonParser jp = getJsonParser(url);
 		final JsonNode rootNode = jp != null ? getRootNode(jp) : null;
-		
+
 		return rootNode != null ? loadRootEObject(rootNode, options) : null;
 	}
 
 	private JsonNode getRootNode(JsonParser jp) {
 		final ObjectMapper mapper = new ObjectMapper();
 		JsonNode rootNode = null;
-		
+
 		if (jp != null) {
 			try {
 				rootNode = mapper.readValue(jp, JsonNode.class);
@@ -81,10 +82,10 @@ public class JSONLoader {
 				e1.printStackTrace();
 			}
 		}
-		
+
 		return rootNode;
 	}
-	
+
 	private JsonParser getJsonParser(InputStream inStream) {
 		final JsonFactory jsonFactory = new JsonFactory();  
 		JsonParser jp = null;
@@ -118,12 +119,17 @@ public class JSONLoader {
 
 		final EClass rootClass = (EClass) options.get(JSONResource.OPTION_ROOT_ELEMENT);
 		final String path = JSONEcoreUtil.getRootNode((EObject) options.get(JSONResource.OPTION_ROOT_ELEMENT));
-		final JsonNode root = rootNode.findPath(path);
-		
+		final JsonNode root;
+		if (path == null) {
+			root = rootNode;
+		} else {
+			root = rootNode.findPath(path);
+		}
+
 		if (root == null) {
 			return null;
 		}
-		
+
 		final EObject rootObject = EcoreUtil.create(rootClass);
 		fillEAttribute(rootObject, rootClass, root);
 		fillEReference(rootObject, rootClass, root);
@@ -160,6 +166,11 @@ public class JSONLoader {
 						setEReferenceValues(rootObject, reference, node);
 					}
 				}
+			} else {
+				final JsonNode node = root.findValue(getElementName(reference));
+				if (node != null) {
+					setEReferenceValues(rootObject, reference, node);
+				}
 			}
 		}
 	}
@@ -167,15 +178,20 @@ public class JSONLoader {
 	private void setEReferenceValues(EObject rootObject, EReference reference, JsonNode n) {
 		final EObject obj = createEObject(reference.getEReferenceType(), n);
 		if (obj != null) {
-			@SuppressWarnings("unchecked")
-			EList<EObject> values = (EList<EObject>) rootObject.eGet(reference);
-			values.add(obj);
+			if (reference.isMany()) {
+				@SuppressWarnings("unchecked")
+				EList<EObject> values = (EList<EObject>) rootObject.eGet(reference);
+				values.add(obj);
+			} else {
+				rootObject.eSet(reference, obj);
+			}
 		}
 	}
 
 	private EObject createEObject(EClass eClass, JsonNode node) {
 		EObject obj = EcoreUtil.create(eClass);
 		fillEAttribute(obj, eClass, node);
+		fillEReference(obj, eClass, node);
 
 		return obj;
 	}
@@ -184,7 +200,7 @@ public class JSONLoader {
 		for (EAttribute attribute: eClass.getEAllAttributes()) {
 			if (!attribute.isMany() && attribute.isChangeable()) {
 				fillUniqueEAttribute(obj, attribute, node);
-			} else if (attribute.isChangeable()) {
+			} else if (attribute.isMany() && attribute.isChangeable()) {
 				fillManyEAttribute(obj, attribute, node);
 			}
 		}
@@ -214,9 +230,15 @@ public class JSONLoader {
 
 	protected void setEAttributeValue(EObject obj, EAttribute attribute, JsonNode value) {
 		final String stringValue = value.getValueAsText();
-		if (stringValue != null) {
+		if (stringValue != null && !stringValue.trim().isEmpty()) {
 			Object newValue = EcoreUtil.createFromString(attribute.getEAttributeType(), stringValue);
-			obj.eSet(attribute, newValue);
+			if (!attribute.isMany()) {
+				obj.eSet(attribute, newValue);
+			} else {
+				@SuppressWarnings("unchecked")
+				Collection<Object> values = (Collection<Object>) obj.eGet(attribute);
+				values.add(newValue);
+			}
 		}
 	}
 
