@@ -11,9 +11,12 @@
 package com.emfjson.resource.impl;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 
 import com.emfjson.internal.JSONBaseWriter;
@@ -33,21 +36,35 @@ public class JSONResourceImpl
 	public JSONResourceImpl(URI uri) {
 		super(uri);
 	}
-
+	
 	@Override
-	public void save(Map<?, ?> options) throws IOException {
-		final JsonWriter writer = new JSONBaseWriter();
-		
-		writer.writeResource(this);
-	}
-
-	public void load(Map<?, ?> options) throws IOException {
+	protected void doLoad(InputStream inputStream, Map<?, ?> options) throws IOException {
 		if (options == null) {
 			throw new IllegalArgumentException("Loading options must be set, and must contain the root EClass");
 		}
 		
-		JSONLoader loader = new JSONLoader();
-		loader.loadResource(this, options);
+		final JSONLoader loader = new JSONLoader();
+		EObject rootObject;
+		if (inputStream != null) {
+			rootObject = loader.loadFromInputStream(inputStream, options);
+		} else {
+			rootObject = loader.loadResource(this, options);
+		}
+		
+		if (rootObject != null) {
+			getContents().add(rootObject);
+		}
+	}
+	
+	@Override
+	protected void doSave(OutputStream outputStream, Map<?, ?> options) throws IOException {
+		final JsonWriter writer = new JSONBaseWriter();
+		
+		if (outputStream != null) {
+			writer.writeOutputStream(this, outputStream);
+		} else {
+			writer.writeResource(this);	
+		}
 	}
 	
 }

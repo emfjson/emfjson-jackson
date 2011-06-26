@@ -12,6 +12,7 @@ package com.emfjson.internal;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**
@@ -29,7 +30,7 @@ public class JSONEcoreUtil {
 		return feature.getName();
 	}
 
-	public static String getRootNode(Object object) {
+	public static String getRootNode(EObject object) {
 		if (object instanceof EClass) {
 			EClass eClass = (EClass) object;
 			if (eClass.getEAnnotation("JSON") != null) {

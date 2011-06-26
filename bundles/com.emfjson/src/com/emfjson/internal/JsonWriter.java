@@ -11,6 +11,7 @@
 package com.emfjson.internal;
 
 import java.io.IOException;
+import java.io.OutputStream;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonNode;
@@ -21,6 +22,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 
 public interface JsonWriter {
 
+	void writeOutputStream(Resource resource, OutputStream outStream);
+	
 	void writeResource(Resource resource) throws JsonGenerationException, JsonMappingException, IOException;
 	
 	void writeResource(Resource resource, URI dest) throws JsonGenerationException, JsonMappingException, IOException;

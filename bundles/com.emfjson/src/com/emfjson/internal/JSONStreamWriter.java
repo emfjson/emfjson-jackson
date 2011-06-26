@@ -14,6 +14,7 @@ import static com.emfjson.internal.JSONEcoreUtil.getElementName;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 
 import org.codehaus.jackson.JsonEncoding;
 import org.codehaus.jackson.JsonFactory;
@@ -58,6 +59,12 @@ public class JSONStreamWriter implements JsonWriter {
 	@Override
 	public void writeResource(Resource resource, URI dest)
 			throws JsonGenerationException, JsonMappingException, IOException {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void writeOutputStream(Resource resource, OutputStream outStream) {
 		// TODO Auto-generated method stub
 		
 	}

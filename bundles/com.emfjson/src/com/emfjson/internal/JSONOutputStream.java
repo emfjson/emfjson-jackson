@@ -27,8 +27,7 @@ public class JSONOutputStream extends OutputStream implements URIConverter.Savea
 
 	@Override
 	public void write(int b) throws IOException {
-		// TODO Auto-generated method stub
-		
+		// TODO ??
 	}
 
 }
