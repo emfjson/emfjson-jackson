@@ -16,13 +16,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import com.emfjson.model.rotten.Movie;
+import com.emfjson.model.rotten.Movies;
 import com.emfjson.model.rotten.RottenPackage;
 import com.emfjson.resource.JSONResource;
 import com.emfjson.resource.impl.JSONResourceFactoryImpl;
@@ -39,26 +39,26 @@ public class Main {
 		Properties properties = new Properties();
 		properties.load(new URL("file:src/config.properties").openStream());
 		
-		final String uri = "http://api.rottentomatoes.com/api/public/v1.0/movies.json";
-		
-		final Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put("q","The+Terminator");
-		parameters.put("apikey", properties.get("rotten.apikey").toString());
-		parameters.put("page_limit", "1");
+		Rotten rotten = new Rotten("lists/movies/opening")
+			.key(properties.get("rotten.apikey"))
+			.pageLimit(5)
+			.query("Terminator");
 		
 		final Map<String ,Object> options = new HashMap<String, Object>();
-		options.put(JSONResource.OPTION_ROOT_ELEMENT, RottenPackage.eINSTANCE.getMovie());
-		options.put(JSONResource.OPTION_URL_PARAMETERS, parameters);
+		options.put(JSONResource.OPTION_ROOT_ELEMENT, RottenPackage.eINSTANCE.getMovies());
 		
-		Resource resource = resourceSet.createResource(URI.createURI(uri), JSONResource.APPLICATION_JSON);
+		Resource resource = resourceSet.createResource(rotten.getURI(), JSONResource.APPLICATION_JSON);
 		resource.load(options);
 		
-		Movie movie = (Movie) resource.getContents().get(0);
-		System.out.println(movie.getTitle());
-		System.out.println(movie.getPosters());
-		System.out.println(movie.getRatings());
-		System.out.println(movie.getReleases());
-		System.out.println(movie.getCastings());
+		Movies movies = (Movies) resource.getContents().get(0);
+		
+		for (Movie movie: movies.getMovies()) {
+			System.out.println("movie "+movie.getTitle());
+			System.out.println("    posters "+movie.getPosters());
+			System.out.println("    ratings "+movie.getRatings());
+			System.out.println("    releases "+movie.getReleases());
+			System.out.println("    castings "+movie.getCastings());	
+		}
 	}
 	
 }
