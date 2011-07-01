@@ -6,6 +6,4 @@ Bundle-Version: 0.1.0.qualifier
 Bundle-Vendor: eclipselabs
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.emf.ecore;bundle-version="2.7.0",
- com.emfjson;bundle-version="0.1.0",
- org.codehaus.jackson;bundle-version="1.7.4",
- org.junit;bundle-version="4.8.2"
+ com.emfjson;bundle-version="0.1.0"
