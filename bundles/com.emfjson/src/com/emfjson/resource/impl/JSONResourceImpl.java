@@ -13,6 +13,7 @@ package com.emfjson.resource.impl;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Collection;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
@@ -44,15 +45,15 @@ public class JSONResourceImpl
 		}
 		
 		final JSONLoader loader = new JSONLoader();
-		EObject rootObject;
+		Collection<EObject> roots;
 		if (inputStream != null) {
-			rootObject = loader.loadFromInputStream(inputStream, options);
+			roots = loader.loadFromInputStream(inputStream, options);
 		} else {
-			rootObject = loader.loadResource(this, options);
+			roots = loader.loadResource(this, options);
 		}
 		
-		if (rootObject != null) {
-			getContents().add(rootObject);
+		if (roots != null && !roots.isEmpty()) {
+			getContents().addAll(roots);
 		}
 	}
 	

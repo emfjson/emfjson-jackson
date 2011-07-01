@@ -27,6 +27,7 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
@@ -46,14 +47,14 @@ import com.emfjson.resource.JSONResource;
  */
 public class JSONLoader {
 
-	public EObject loadFromInputStream(InputStream inStream, Map<?, ?> options) {
+	public Collection<EObject> loadFromInputStream(InputStream inStream, Map<?, ?> options) {
 		final JsonParser jp = getJsonParser(inStream);
 		final JsonNode rootNode = jp != null ? getRootNode(jp) : null;
 
 		return rootNode != null ? loadRootEObject(rootNode, options) : null;
 	}
 
-	public EObject loadResource(Resource resource, Map<?, ?> options) {
+	public Collection<EObject> loadResource(Resource resource, Map<?, ?> options) {
 		URL url = null;
 		try {
 			url = getURL(resource.getURI(), options.get(JSONResource.OPTION_URL_PARAMETERS));
@@ -112,7 +113,7 @@ public class JSONLoader {
 		return jp;
 	}
 
-	protected EObject loadRootEObject(JsonNode rootNode, Map<?, ?> options) { 
+	protected Collection<EObject> loadRootEObject(JsonNode rootNode, Map<?, ?> options) { 
 		if (rootNode == null) {
 			return null;
 		}
@@ -129,12 +130,26 @@ public class JSONLoader {
 		if (root == null) {
 			return null;
 		}
+		
+		final Collection<EObject> result = new BasicEList<EObject>();
+		if (root.isArray()) {
+			for (Iterator<JsonNode> it = root.getElements(); it.hasNext();) {
+				JsonNode node = it.next();
+				final EObject rootObject = EcoreUtil.create(rootClass);
+				fillEAttribute(rootObject, rootClass, node);
+				fillEReference(rootObject, rootClass, node);
+				
+				result.add(rootObject);
+			}
+		} else {
+			final EObject rootObject = EcoreUtil.create(rootClass);
+			fillEAttribute(rootObject, rootClass, root);
+			fillEReference(rootObject, rootClass, root);
+			
+			result.add(rootObject);
+		}
 
-		final EObject rootObject = EcoreUtil.create(rootClass);
-		fillEAttribute(rootObject, rootClass, root);
-		fillEReference(rootObject, rootClass, root);
-
-		return rootObject;
+		return result;
 	}
 
 	private URL getURL(URI uri, Object parameters) throws MalformedURLException {
