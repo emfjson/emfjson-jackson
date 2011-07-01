@@ -275,6 +275,26 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		// Create resource
 		createResource(eNS_URI);
+
+		// Create annotations
+		// JSON
+		createJSONAnnotations();
+	}
+
+	/**
+	 * Initializes the annotations for <b>JSON</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createJSONAnnotations() {
+		String source = "JSON";		
+		addAnnotation
+		  (userEClass, 
+		   source, 
+		   new String[] {
+			 "root", "true"
+		   });
 	}
 
 } //ModelPackageImpl

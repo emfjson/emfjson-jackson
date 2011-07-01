@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see com.emfjson.junit.model.ModelPackage#getUser()
- * @model
+ * @model annotation="JSON root='true'"
  * @generated
  */
 public interface User extends EObject {
