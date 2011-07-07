@@ -8,42 +8,31 @@
  * Contributors:
  *    Guillaume Hillairet - initial API and implementation
  *******************************************************************************/
-package com.emfjson.internal;
+package com.emfjson.js;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Map;
+import java.io.OutputStream;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.URIConverter;
 
 /**
  * 
  * @author guillaume
  *
  */
-public class JSONInputStream extends InputStream implements URIConverter.Loadable {
+public interface IJsWriter {
 
-	@SuppressWarnings("unused")
-	private URI uri;
-	private Map<?, ?> options;
-
-	public JSONInputStream(URI uri, Map<?, ?> options) {
-		this.uri = uri;
-		this.options = options;
-	}
-
-	@Override
-	public void loadResource(Resource resource) throws IOException {
-		JSONLoader loader = new JSONLoader();
-		
-		loader.loadResource(resource, options);
-	}
-
-	@Override
-	public int read() throws IOException {
-		return 0;
-	}
-
+	void writeOutputStream(Resource resource, OutputStream outStream);
+	
+	void writeResource(Resource resource) throws JsonGenerationException, JsonMappingException, IOException;
+	
+	void writeResource(Resource resource, URI dest) throws JsonGenerationException, JsonMappingException, IOException;
+	
+	JsonNode writeEObject(EObject object) throws JsonGenerationException, JsonMappingException, IOException;
+	
 }

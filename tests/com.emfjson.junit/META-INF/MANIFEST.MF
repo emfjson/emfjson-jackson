@@ -11,6 +11,7 @@ Export-Package: com.emfjson.junit.model,
  com.emfjson.junit.model.impl,
  com.emfjson.junit.model.util
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
- com.emfjson;bundle-version="0.1.0"
+ com.emfjson;bundle-version="0.1.0",
+ org.eclipse.emf.ecore.xmi;bundle-version="2.7.0"
 Bundle-ActivationPolicy: lazy
 Import-Package: org.junit;version="4.8.2"

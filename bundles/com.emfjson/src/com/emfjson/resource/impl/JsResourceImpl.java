@@ -20,21 +20,21 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 
-import com.emfjson.internal.JSONBaseWriter;
-import com.emfjson.internal.JSONLoader;
-import com.emfjson.internal.JsonWriter;
-import com.emfjson.resource.JSONResource;
+import com.emfjson.js.IJsWriter;
+import com.emfjson.js.base.JsBaseLoader;
+import com.emfjson.js.base.JsBaseWriter;
+import com.emfjson.resource.JsResource;
 
 /**
  * 
  * @author guillaume
  *
  */
-public class JSONResourceImpl 
+public class JsResourceImpl 
 	extends ResourceImpl
-	implements JSONResource {
+	implements JsResource {
 	
-	public JSONResourceImpl(URI uri) {
+	public JsResourceImpl(URI uri) {
 		super(uri);
 	}
 	
@@ -44,7 +44,7 @@ public class JSONResourceImpl
 			throw new IllegalArgumentException("Loading options must be set, and must contain the root EClass");
 		}
 		
-		final JSONLoader loader = new JSONLoader();
+		final JsBaseLoader loader = new JsBaseLoader();
 		Collection<EObject> roots;
 		if (inputStream != null) {
 			roots = loader.loadFromInputStream(inputStream, options);
@@ -59,7 +59,7 @@ public class JSONResourceImpl
 	
 	@Override
 	protected void doSave(OutputStream outputStream, Map<?, ?> options) throws IOException {
-		final JsonWriter writer = new JSONBaseWriter();
+		final IJsWriter writer = new JsBaseWriter();
 		
 		if (outputStream != null) {
 			writer.writeOutputStream(this, outputStream);

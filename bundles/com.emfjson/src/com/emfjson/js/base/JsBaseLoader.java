@@ -8,9 +8,9 @@
  * Contributors:
  *    Guillaume Hillairet - initial API and implementation
  *******************************************************************************/
-package com.emfjson.internal;
+package com.emfjson.js.base;
 
-import static com.emfjson.internal.JSONEcoreUtil.getElementName;
+import static com.emfjson.js.JsEcoreUtil.getElementName;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,16 +37,23 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import com.emfjson.resource.JSONResource;
+import com.emfjson.js.JsEcoreUtil;
+import com.emfjson.resource.JsResource;
 
 /**
- * {@link JSONLoader} creates the tree of EObject from a JSON tree.
+ * {@link JsBaseLoader} creates the tree of EObject from a JSON tree.
  * 
  * @author guillaume
  *
  */
-public class JSONLoader {
+public class JsBaseLoader {
 
+	/**
+	 * 
+	 * @param inStream
+	 * @param options
+	 * @return
+	 */
 	public Collection<EObject> loadFromInputStream(InputStream inStream, Map<?, ?> options) {
 		final JsonParser jp = getJsonParser(inStream);
 		final JsonNode rootNode = jp != null ? getRootNode(jp) : null;
@@ -54,10 +61,16 @@ public class JSONLoader {
 		return rootNode != null ? loadRootEObject(rootNode, options) : null;
 	}
 
+	/**
+	 * 
+	 * @param resource
+	 * @param options
+	 * @return
+	 */
 	public Collection<EObject> loadResource(Resource resource, Map<?, ?> options) {
 		URL url = null;
 		try {
-			url = getURL(resource.getURI(), options.get(JSONResource.OPTION_URL_PARAMETERS));
+			url = getURL(resource.getURI(), options.get(JsResource.OPTION_URL_PARAMETERS));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
@@ -113,13 +126,20 @@ public class JSONLoader {
 		return jp;
 	}
 
+	/**
+	 * Returns the root object(s).
+	 * 
+	 * @param rootNode
+	 * @param options
+	 * @return
+	 */
 	protected Collection<EObject> loadRootEObject(JsonNode rootNode, Map<?, ?> options) { 
 		if (rootNode == null) {
 			return null;
 		}
 
-		final EClass rootClass = (EClass) options.get(JSONResource.OPTION_ROOT_ELEMENT);
-		final String path = JSONEcoreUtil.getRootNode((EObject) options.get(JSONResource.OPTION_ROOT_ELEMENT));
+		final EClass rootClass = (EClass) options.get(JsResource.OPTION_ROOT_ELEMENT);
+		final String path = JsEcoreUtil.getRootNode((EObject) options.get(JsResource.OPTION_ROOT_ELEMENT));
 		final JsonNode root;
 		if (path == null) {
 			root = rootNode;

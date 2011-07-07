@@ -11,23 +11,41 @@
 package com.emfjson.internal;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.InputStream;
+import java.util.Map;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
 
-public class JSONOutputStream extends OutputStream implements URIConverter.Saveable {
+import com.emfjson.js.base.JsBaseLoader;
 
-	@Override
-	public void saveResource(Resource resource) throws IOException {
-		final JsonWriter writer = new JSONBaseWriter();
-		
-		writer.writeResource(resource);
+/**
+ * 
+ * @author guillaume
+ *
+ */
+public class JsInputStream extends InputStream implements URIConverter.Loadable {
+
+	@SuppressWarnings("unused")
+	private URI uri;
+	private Map<?, ?> options;
+
+	public JsInputStream(URI uri, Map<?, ?> options) {
+		this.uri = uri;
+		this.options = options;
 	}
 
 	@Override
-	public void write(int b) throws IOException {
-		// TODO ??
+	public void loadResource(Resource resource) throws IOException {
+		JsBaseLoader loader = new JsBaseLoader();
+		
+		loader.loadResource(resource, options);
+	}
+
+	@Override
+	public int read() throws IOException {
+		return 0;
 	}
 
 }

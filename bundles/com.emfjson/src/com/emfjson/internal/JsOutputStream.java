@@ -12,22 +12,31 @@ package com.emfjson.internal;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Map;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.URIConverter;
 
-public interface JsonWriter {
+import com.emfjson.js.IJsWriter;
+import com.emfjson.js.base.JsBaseWriter;
 
-	void writeOutputStream(Resource resource, OutputStream outStream);
-	
-	void writeResource(Resource resource) throws JsonGenerationException, JsonMappingException, IOException;
-	
-	void writeResource(Resource resource, URI dest) throws JsonGenerationException, JsonMappingException, IOException;
-	
-	JsonNode writeEObject(EObject object) throws JsonGenerationException, JsonMappingException, IOException;
-	
+public class JsOutputStream extends OutputStream implements URIConverter.Saveable {
+
+	public JsOutputStream(URI uri, Map<?, ?> options) {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void saveResource(Resource resource) throws IOException {
+		final IJsWriter writer = new JsBaseWriter();
+		
+		writer.writeResource(resource);
+	}
+
+	@Override
+	public void write(int b) throws IOException {
+		// TODO ??
+	}
+
 }

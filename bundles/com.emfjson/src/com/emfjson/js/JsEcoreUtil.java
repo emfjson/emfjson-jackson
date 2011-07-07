@@ -8,7 +8,7 @@
  * Contributors:
  *    Guillaume Hillairet - initial API and implementation
  *******************************************************************************/
-package com.emfjson.internal;
+package com.emfjson.js;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * @author guillaume
  *
  */
-public class JSONEcoreUtil {
+public class JsEcoreUtil {
 	
 	public static String getElementName(EStructuralFeature feature) {
 		EAnnotation annotation = feature.getEAnnotation("JSON");

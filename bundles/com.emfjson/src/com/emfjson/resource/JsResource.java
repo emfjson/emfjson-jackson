@@ -8,16 +8,17 @@
  * Contributors:
  *    Guillaume Hillairet - initial API and implementation
  *******************************************************************************/
-package com.emfjson.resource.impl;
+package com.emfjson.resource;
 
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
 
-public class JSONResourceFactoryImpl
-	extends ResourceFactoryImpl {
+public interface JsResource
+	extends Resource {
 
-	public Resource createResource(URI uri) {
-		return new JSONResourceImpl(uri);
-	};
+	final String APPLICATION_JSON = "application/json";
+	
+	final String OPTION_ROOT_ELEMENT = "OPTION_ROOT_ELEMENT";
+
+	final String OPTION_URL_PARAMETERS = "OPTION_URL_PARAMETERS";
+	
 }

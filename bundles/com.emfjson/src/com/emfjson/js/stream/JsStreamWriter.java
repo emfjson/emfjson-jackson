@@ -8,9 +8,9 @@
  * Contributors:
  *    Guillaume Hillairet - initial API and implementation
  *******************************************************************************/
-package com.emfjson.internal;
+package com.emfjson.js.stream;
 
-import static com.emfjson.internal.JSONEcoreUtil.getElementName;
+import static com.emfjson.js.JsEcoreUtil.getElementName;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,18 +29,20 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 
+import com.emfjson.js.IJsWriter;
+
 /**
  * 
  * 
  * @author guillaume
  *
  */
-public class JSONStreamWriter implements JsonWriter {
+public class JsStreamWriter implements IJsWriter {
 
 	final JsonFactory factory;
 	JsonGenerator generator;
 
-	public JSONStreamWriter() {
+	public JsStreamWriter() {
 		factory = new JsonFactory();
 		try {
 			generator = factory.createJsonGenerator(new File("user.json"), JsonEncoding.UTF8);

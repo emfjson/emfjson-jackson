@@ -29,18 +29,18 @@ import com.emfjson.junit.model.Address;
 import com.emfjson.junit.model.ModelFactory;
 import com.emfjson.junit.model.ModelPackage;
 import com.emfjson.junit.model.User;
-import com.emfjson.resource.JSONResource;
-import com.emfjson.resource.impl.JSONResourceFactoryImpl;
+import com.emfjson.resource.JsResource;
+import com.emfjson.resource.impl.JsResourceFactoryImpl;
 
-public class JSONResourceTest {
+public class JsResourceTest {
 	
 //	@Test
 	public void testCreateAndSaveObjects() throws IOException {		
 		Resource.Factory.Registry.INSTANCE.getContentTypeToFactoryMap()
-			.put(JSONResource.APPLICATION_JSON, new JSONResourceFactoryImpl());
+			.put(JsResource.APPLICATION_JSON, new JsResourceFactoryImpl());
 		
 		ResourceSet resourceSet = new ResourceSetImpl();
-		Resource resource = resourceSet.createResource(URI.createURI("out.json"), JSONResource.APPLICATION_JSON);
+		Resource resource = resourceSet.createResource(URI.createURI("out.json"), JsResource.APPLICATION_JSON);
 		
 		User u1 = ModelFactory.eINSTANCE.createUser();
 		u1.setUserId("1");
@@ -71,13 +71,13 @@ public class JSONResourceTest {
 		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
 		
 		Resource.Factory.Registry.INSTANCE.getContentTypeToFactoryMap()
-			.put(JSONResource.APPLICATION_JSON, new JSONResourceFactoryImpl());
+			.put(JsResource.APPLICATION_JSON, new JsResourceFactoryImpl());
 	
 		final Map<String ,Object> options = new HashMap<String, Object>();
-		options.put(JSONResource.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
+		options.put(JsResource.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
 		
 		ResourceSet resourceSet = new ResourceSetImpl();
-		Resource resource = resourceSet.createResource(URI.createURI("out.json"), JSONResource.APPLICATION_JSON);
+		Resource resource = resourceSet.createResource(URI.createURI("out.json"), JsResource.APPLICATION_JSON);
 		
 		assertNotNull(resource);
 		

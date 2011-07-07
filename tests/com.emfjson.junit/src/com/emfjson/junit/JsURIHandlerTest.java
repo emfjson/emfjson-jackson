@@ -22,15 +22,21 @@ import org.eclipse.emf.ecore.resource.URIHandler;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.junit.Test;
 
-import com.emfjson.emf.JSONURIHandlerImpl;
+import com.emfjson.emf.JsURIHandlerImpl;
+import com.emfjson.junit.model.ModelFactory;
+import com.emfjson.junit.model.User;
 
-public class URIHandlerTest {
+public class JsURIHandlerTest {
 
 	@Test
 	public void testCreateResource() throws IOException {
 		ResourceSet resourceSet = new ResourceSetImpl();
 		EList<URIHandler> uriHandlers = resourceSet.getURIConverter().getURIHandlers();
-		uriHandlers.add(0, new JSONURIHandlerImpl());
+		uriHandlers.add(0, new JsURIHandlerImpl());
+		
+		User user = ModelFactory.eINSTANCE.createUser();
+		user.setUserId("1");
+		user.setName("John");
 		
 		Resource resource = resourceSet.createResource(URI.createURI("json://data.json"));
 		

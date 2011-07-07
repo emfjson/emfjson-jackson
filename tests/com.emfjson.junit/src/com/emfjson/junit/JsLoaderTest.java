@@ -15,18 +15,18 @@ import org.eclipse.emf.ecore.EPackage;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.emfjson.internal.JSONLoader;
+import com.emfjson.js.base.JsBaseLoader;
 import com.emfjson.junit.model.Address;
 import com.emfjson.junit.model.ModelPackage;
 import com.emfjson.junit.model.User;
-import com.emfjson.resource.JSONResource;
+import com.emfjson.resource.JsResource;
 
 /**
  * 
  * @author guillaume
  *
  */
-public class JSONLoaderTest {
+public class JsLoaderTest {
 
 	final Map<String ,Object> options = new HashMap<String, Object>();
 	
@@ -39,8 +39,8 @@ public class JSONLoaderTest {
 	public void testLoadSingleObjectNoReferences() {
 		String json = "{\"userId\":\"1\",\"name\":\"Paul\"}";
 		
-		JSONLoader loader = new JSONLoader();
-		options.put(JSONResource.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
+		JsBaseLoader loader = new JsBaseLoader();
+		options.put(JsResource.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
 		Collection<EObject> objects = loader.loadFromInputStream(new ByteArrayInputStream(json.getBytes()), options);
 		
 		assertNotNull(objects);
@@ -68,8 +68,8 @@ public class JSONLoaderTest {
 					"} " +
 				"}";
 		
-		JSONLoader loader = new JSONLoader();
-		options.put(JSONResource.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
+		JsBaseLoader loader = new JsBaseLoader();
+		options.put(JsResource.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
 		Collection<EObject> objects = loader.loadFromInputStream(new ByteArrayInputStream(json.getBytes()), options);
 		
 		assertNotNull(objects);
@@ -93,10 +93,13 @@ public class JSONLoaderTest {
 	
 	@Test
 	public void testLoadObjectsInArray() {
-		String json = "[{\"userId\":\"1\",\"name\":\"Paul\"},{\"userId\":\"2\",\"name\":\"Pierre\"}]";
+		String json = "[" +
+				"{\"userId\":\"1\",\"name\":\"Paul\"}," +
+				"{\"userId\":\"2\",\"name\":\"Pierre\"}" +
+			"]";
 		
-		JSONLoader loader = new JSONLoader();
-		options.put(JSONResource.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
+		JsBaseLoader loader = new JsBaseLoader();
+		options.put(JsResource.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
 		Collection<EObject> objects = loader.loadFromInputStream(new ByteArrayInputStream(json.getBytes()), options);
 		
 		assertNotNull(objects);
@@ -107,16 +110,20 @@ public class JSONLoaderTest {
 	@Test
 	public void testLoadObjectsWithReference() {
 		String json = "[" +
-				"{\"userId\":\"1\",\"name\":\"Paul\", \"friends\" : [ \"2\"] }," +
+				"{\"userId\":\"1\",\"name\":\"Paul\", \"friends\" : [{\"$ref\" : \"2\"}] }," +
 				"{\"userId\":\"2\",\"name\":\"Pierre\"}" +
 			"]";
 		
-		JSONLoader loader = new JSONLoader();
-		options.put(JSONResource.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
+		JsBaseLoader loader = new JsBaseLoader();
+		options.put(JsResource.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
 		Collection<EObject> objects = loader.loadFromInputStream(new ByteArrayInputStream(json.getBytes()), options);
 		
 		assertNotNull(objects);
 		assertFalse(objects.isEmpty());
 		assertEquals(2, objects.size());
+		
+		EObject obj = objects.iterator().next();
+		assertTrue(obj instanceof User);
+		assertFalse(((User) obj).getFriends().isEmpty());
 	}
 }
