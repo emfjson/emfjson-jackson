@@ -23,18 +23,19 @@ import com.emfjson.internal.JsOutputStream;
 
 /**
  * 
- * @author guillaume
+ * @author guillaume hillairet
  *
  */
 public class JsURIHandlerImpl extends URIHandlerImpl {
 	
 	public JsURIHandlerImpl() {
-//		super();
+		
 	}
 	
 	@Override
 	public boolean canHandle(URI uri) {
-		return "json".equalsIgnoreCase(uri.scheme());
+//		return "json".equalsIgnoreCase(uri.scheme());
+		return true;
 	}
 	
 	@Override
@@ -43,19 +44,21 @@ public class JsURIHandlerImpl extends URIHandlerImpl {
 	}
 	
 	@Override
-	public OutputStream createOutputStream(URI uri, Map<?, ?> options) throws IOException {
+	public OutputStream createOutputStream(URI uri, Map<?, ?> options) throws IOException {			
 		return new JsOutputStream(uri, options);
 	}
 	
 	@Override
 	public void delete(URI uri, Map<?, ?> options) throws IOException {
-		// TODO Auto-generated method stub
 		super.delete(uri, options);
 	}
 	
 	@Override
 	public boolean exists(URI uri, Map<?, ?> options) {
-		// TODO Auto-generated method stub
 		return true;
 	}
+	
+	public static final String OPTION_STREAMING_JSON = "OPTION_STREAMING_JSON";
+	public static final String OPTION_ROOT_ELEMENT = "OPTION_ROOT_ELEMENT";
+	public static final String OPTION_URL_PARAMETERS = "OPTION_URL_PARAMETERS";
 }

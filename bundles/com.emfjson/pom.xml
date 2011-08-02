@@ -4,12 +4,12 @@
 	<parent>
 		<artifactId>build</artifactId>
 		<groupId>com.emfjson</groupId>
-		<version>0.1.0-SNAPSHOT</version>
+		<version>0.2.0-SNAPSHOT</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.emfjson</groupId>
 	<artifactId>com.emfjson</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.2.0-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 </project>
