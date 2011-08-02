@@ -38,8 +38,10 @@ public class JsURIHandlerTest {
 		user.setUserId("1");
 		user.setName("John");
 		
-		Resource resource = resourceSet.createResource(URI.createURI("json://data.json"));
+		Resource resource = resourceSet.createResource(
+				URI.createURI("json://data.json"));
 		
 		assertNotNull(resource);
 	}
+	
 }
