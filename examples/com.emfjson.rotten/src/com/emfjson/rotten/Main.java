@@ -21,18 +21,16 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
+import com.emfjson.emf.JsURIHandlerImpl;
 import com.emfjson.model.rotten.Movie;
 import com.emfjson.model.rotten.Movies;
 import com.emfjson.model.rotten.RottenPackage;
-import com.emfjson.resource.JsResource;
-import com.emfjson.resource.impl.JsResourceFactoryImpl;
 
 public class Main {
 	
 	public static void main(String[] args) throws IOException {
 		EPackage.Registry.INSTANCE.put(RottenPackage.eNS_URI, RottenPackage.eINSTANCE);
-		Resource.Factory.Registry.INSTANCE.getContentTypeToFactoryMap()
-			.put(JsResource.APPLICATION_JSON, new JsResourceFactoryImpl());
+		
 		
 		ResourceSet resourceSet = new ResourceSetImpl();
 	
@@ -45,9 +43,9 @@ public class Main {
 			.query("Terminator");
 		
 		final Map<String ,Object> options = new HashMap<String, Object>();
-		options.put(JsResource.OPTION_ROOT_ELEMENT, RottenPackage.eINSTANCE.getMovies());
+		options.put(JsURIHandlerImpl.OPTION_ROOT_ELEMENT, RottenPackage.eINSTANCE.getMovies());
 		
-		Resource resource = resourceSet.createResource(rotten.getURI(), JsResource.APPLICATION_JSON);
+		Resource resource = resourceSet.createResource(rotten.getURI());
 		resource.load(options);
 		
 		Movies movies = (Movies) resource.getContents().get(0);
