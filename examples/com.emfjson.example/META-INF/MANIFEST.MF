@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFJs Example
+Bundle-SymbolicName: com.emfjson.example;singleton:=true
+Bundle-Version: 0.2.0.qualifier
+Bundle-Activator: com.emfjson.example.Activator
+Bundle-Vendor: eclipselabs
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.eclipse.emf.common.notify,
+ org.eclipse.emf.common.notify.impl,
+ org.eclipse.emf.common.util,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.impl,
+ org.eclipse.emf.ecore.plugin, 
+ org.eclipse.emf.ecore.resource,
+ org.eclipse.emf.ecore.resource.impl,
+ org.eclipse.emf.ecore.util,
+ com.emfjson.emf,
+ com.emfjson.internal,
+ org.osgi.framework;version="1.6.0"
+Bundle-ActivationPolicy: lazy
+Export-Package: com.emfjson.example,
+ com.emfjson.example.model,
+ com.emfjson.example.model.impl,
+ com.emfjson.example.model.util
+Bundle-ClassPath: .
