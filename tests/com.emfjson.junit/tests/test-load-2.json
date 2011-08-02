@@ -1,0 +1,10 @@
+{
+	"userId":"1",
+	"name": "Paul",
+	"address" : { 
+		"addId": "a1",
+		"city": "Paris",
+		"street": "la rue",
+		"number": 12 
+	}
+}

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/com.emfjson.feature_0.1.0.qualifier.jar" id="com.emfjson.feature" version="0.1.0.qualifier">
+   <feature url="features/com.emfjson.feature_0.2.0.qualifier.jar" id="com.emfjson.feature" version="0.2.0.qualifier">
       <category name="emfjson"/>
    </feature>
-   <feature url="features/com.emfjson.rotten.feature_0.1.0.qualifier.jar" id="com.emfjson.rotten.feature" version="0.1.0.qualifier">
+   <feature url="features/com.emfjson.rotten.feature_0.2.0.qualifier.jar" id="com.emfjson.rotten.feature" version="0.2.0.qualifier">
       <category name="emfjson"/>
    </feature>
    <category-def name="emfjson" label="emfjson">

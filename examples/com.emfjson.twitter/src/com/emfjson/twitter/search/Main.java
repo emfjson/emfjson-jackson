@@ -20,23 +20,21 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
+import com.emfjson.emf.JsURIHandlerImpl;
 import com.emfjson.model.search.Result;
 import com.emfjson.model.search.SearchPackage;
-import com.emfjson.resource.JSONResource;
-import com.emfjson.resource.impl.JSONResourceFactoryImpl;
 
 public class Main {
 	
 	public static void main(String[] args) throws IOException {
 		EPackage.Registry.INSTANCE.put(SearchPackage.eNS_URI, SearchPackage.eINSTANCE);
-		Resource.Factory.Registry.INSTANCE.getContentTypeToFactoryMap()
-			.put(JSONResource.APPLICATION_JSON, new JSONResourceFactoryImpl());
+		
 		ResourceSet resourceSet = new ResourceSetImpl();
 		
 		Map<String ,Object> options = new HashMap<String, Object>();
-		options.put(JSONResource.OPTION_ROOT_ELEMENT, SearchPackage.eINSTANCE.getResult());
+		options.put(JsURIHandlerImpl.OPTION_ROOT_ELEMENT, SearchPackage.eINSTANCE.getResult());
 		
-		Resource resource = resourceSet.createResource(URI.createURI("file:data.json"), JSONResource.APPLICATION_JSON);
+		Resource resource = resourceSet.createResource(URI.createURI("file:data.json"));
 		resource.load(options);
 		
 		Result result = (Result) resource.getContents().get(0);

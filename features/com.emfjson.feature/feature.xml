@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="com.emfjson.feature"
-      label="emfjson"
-      version="0.1.0.qualifier"
+      label="EMFJs"
+      version="0.2.0.qualifier"
       provider-name="eclipselabs">
 
    <description url="http://www.example.com/description">
