@@ -11,10 +11,10 @@
 		<module>bundles/com.emfjson</module>
 		<module>features/com.emfjson.feature</module>
 		
-	        <module>examples/com.emfjson.rotten</module>
+	        <module>rotten/com.emfjson.rotten</module>
 		<module>features/com.emfjson.rotten.feature</module>
 
-	        <module>examples/com.emfjson.twitter</module>
+	        <module>twitter/com.emfjson.twitter</module>
 		<module>features/com.emfjson.twitter.feature</module>
         		
 		<module>build/repository</module>
