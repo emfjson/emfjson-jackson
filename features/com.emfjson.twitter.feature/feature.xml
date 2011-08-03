@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="com.emfjson.feature"
-      label="EMFJs"
+      id="com.emfjson.twitter.feature"
+      label="EMFJs Twitter"
       version="0.2.0.qualifier"
       provider-name="eclipselabs">
 
@@ -18,13 +18,14 @@
    </license>
 
    <requires>
+      <import plugin="com.emfjson"/>
       <import plugin="org.eclipse.emf.common"/>
-      <import plugin="org.eclipse.emf.ecore" version="2.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.ecore"/>
       <import plugin="org.eclipse.osgi"/>
    </requires>
 
    <plugin
-         id="com.emfjson"
+         id="com.emfjson.twitter"
          download-size="0"
          install-size="0"
          version="0.0.0"

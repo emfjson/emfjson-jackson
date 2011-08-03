@@ -10,11 +10,9 @@ Import-Package: org.codehaus.jackson,
  org.codehaus.jackson.node,
  org.eclipse.emf.common.util,
  org.eclipse.emf.ecore,
- org.eclipse.emf.ecore.util,
  org.eclipse.emf.ecore.resource,
  org.eclipse.emf.ecore.resource.impl,
- org.eclipse.emf.ecore.xmi,
- org.eclipse.emf.ecore.xmi.impl,
+ org.eclipse.emf.ecore.util,
  org.osgi.framework;version="1.6.0"
 Export-Package: com.emfjson.emf,
  com.emfjson.internal

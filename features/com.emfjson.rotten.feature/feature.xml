@@ -17,6 +17,12 @@
       [Enter License Description here.]
    </license>
 
+   <requires>
+      <import plugin="com.emfjson"/>
+      <import plugin="org.eclipse.emf.common"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+   </requires>
+
    <plugin
          id="com.emfjson.rotten"
          download-size="0"

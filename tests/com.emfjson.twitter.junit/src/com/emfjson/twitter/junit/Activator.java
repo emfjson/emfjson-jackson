@@ -1,13 +1,8 @@
-package com.emfjson.internal;
+package com.emfjson.twitter.junit;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-/**
- * 
- * @author guillaume
- *
- */
 public class Activator implements BundleActivator {
 
 	private static BundleContext context;

@@ -6,6 +6,9 @@
    <feature url="features/com.emfjson.rotten.feature_0.2.0.qualifier.jar" id="com.emfjson.rotten.feature" version="0.2.0.qualifier">
       <category name="emfjson"/>
    </feature>
+   <feature url="features/com.emfjson.twitter.feature_0.2.0.qualifier.jar" id="com.emfjson.twitter.feature" version="0.2.0.qualifier">
+      <category name="emfjson"/>
+   </feature>
    <category-def name="emfjson" label="emfjson">
       <description>
          EMF binding for JSON.

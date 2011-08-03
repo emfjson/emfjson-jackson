@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: EMFJs Rotten API
-Bundle-SymbolicName: com.emfjson.rotten;singleton:=true
-Bundle-Version: 0.2.0.qualifier
-Bundle-Vendor: eclipselabs
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.eclipse.emf.ecore;bundle-version="2.7.0",
- com.emfjson;bundle-version="0.1.0"

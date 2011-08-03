@@ -1,0 +1,49 @@
+@namespace(uri="http://www.eclipselabs.org/twitter/search", prefix="search")
+package search;
+
+@JSON(root="true", element="results")
+class Result {
+   attr String ~id;
+   attr String text;
+   
+   @JSON(element="created_at")
+   attr String createdAt;
+   
+   @JSON(element="to_user_id")
+   attr String toUserId;
+   
+   @JSON(element="to_user")
+   attr String toUser;
+   
+   @JSON(element="from_user")
+   attr String fromUser;
+   val Metadata[*] metadata;
+    
+   @JSON(element="since_id")
+   attr String sinceId;
+   
+   @JSON(element="profile_image_url")
+   attr String profileImageUrl;
+   
+   @JSON(element="from_user_id_str")
+   attr String fromUserIdStr;
+   
+   attr String geo;
+   
+   @JSON(element="iso_language_code")
+   attr String isoLangCode;
+
+   attr String source;
+}
+
+class Metadata {
+   @JSON(element="result_type") 
+   attr String resultType;
+   @JSON(element="recent_retweets")
+   attr Integer recentRetweets;
+}
+
+enum ResultType {
+   mixed = 0;
+   recent = 1;
+}

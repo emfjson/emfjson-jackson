@@ -1,4 +1,4 @@
-package com.emfjson.internal;
+package com.emfjson.rotten;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
