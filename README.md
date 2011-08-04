@@ -7,12 +7,13 @@ Features:
 
 Current version is 0.2.0.
 
-News:
+# News #
 
 Version 0.2.0 2011/8/3
 
-*    Issue 1: Implement URIHandlerImpl instead of cutom ResourceImpl.
-*    Updated Twitter model
+*    <del>Issue 1</del>: Implement URIHandlerImpl instead of cutom ResourceImpl,
+*    Updated Twitter model,
+*    Changed namespace from com.emfjson to org.eclipselabs.emfjson.
 
 Version 0.1.0 2011/6/21
 
