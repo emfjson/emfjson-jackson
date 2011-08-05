@@ -1,9 +1,13 @@
-/**
- * <copyright>
- * </copyright>
+/*******************************************************************************
+ * Copyright (c) 2011 Guillaume Hillairet.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- * $Id$
- */
+ * Contributors:
+ *    Guillaume Hillairet - initial API and implementation
+ *******************************************************************************/
 package org.eclipselabs.emfjson.search.impl;
 
 import org.eclipse.emf.ecore.EClass;
@@ -63,6 +67,9 @@ public class SearchFactoryImpl extends EFactoryImpl implements SearchFactory {
 		switch (eClass.getClassifierID()) {
 			case SearchPackage.RESULT: return createResult();
 			case SearchPackage.METADATA: return createMetadata();
+			case SearchPackage.STATUS: return createStatus();
+			case SearchPackage.ENTITY: return createEntity();
+			case SearchPackage.USER: return createUser();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -116,6 +123,36 @@ public class SearchFactoryImpl extends EFactoryImpl implements SearchFactory {
 	public Metadata createMetadata() {
 		MetadataImpl metadata = new MetadataImpl();
 		return metadata;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Status createStatus() {
+		StatusImpl status = new StatusImpl();
+		return status;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Entity createEntity() {
+		EntityImpl entity = new EntityImpl();
+		return entity;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public User createUser() {
+		UserImpl user = new UserImpl();
+		return user;
 	}
 
 	/**
