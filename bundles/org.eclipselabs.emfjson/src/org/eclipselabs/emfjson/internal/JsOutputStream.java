@@ -13,7 +13,6 @@ package org.eclipselabs.emfjson.internal;
 import static org.eclipselabs.emfjson.internal.EJsUtil.getElementName;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,7 +25,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.ObjectNode;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
@@ -37,60 +35,61 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 
 /**
  * 
- * @author guillaume hillairet
- *
+ * 	@author ghillairet
+ *	
  */
 public class JsOutputStream extends ByteArrayOutputStream implements URIConverter.Saveable {
 	
-	private URI uri;
 	@SuppressWarnings("unused")
 	private Map<?, ?> options;
-//	private Resource resource;
-	private final ObjectMapper mapper;
 	
-	public JsOutputStream(URI uri, Map<?, ?> options) {
-		this.uri = uri;
-		this.options = options;
+	protected final ObjectMapper mapper;
+	
+	protected JsonNode rootNode;
+	
+	public JsOutputStream() {
 		this.mapper = new ObjectMapper();
 	}
 
-	@Override
-	public void saveResource(Resource resource) 
-			throws IOException {
-		
-		JsonNode rootNode = writeRootNode(resource);
-		
-		mapper.writeValue(new File(uri.toFileString()), rootNode);
+	public JsOutputStream(Map<?, ?> options) {
+		this.options = options;
+		this.mapper = new ObjectMapper();
 	}
 	
-	private JsonNode writeRootNode(Resource resource) 
+	@Override
+	public void saveResource(Resource resource) throws IOException {
+		rootNode = writeRootNode(resource);
+		mapper.writeValue(this, rootNode);		
+	}
+	
+	public JsonNode writeRootNode(Resource resource) 
 			throws JsonGenerationException, JsonMappingException, IOException {
 
 		JsonNode rootNode;
-		
+
 		if (resource.getContents().size() == 1) {
-			
+
 			EObject rootObject = resource.getContents().get(0);
 			rootNode = writeEObject(rootObject);
-			
+
 		} else {
-			
+
 			final Collection<JsonNode> nodes = new ArrayList<JsonNode>();
 			rootNode = mapper.createArrayNode();
-			
+
 			for (EObject obj: resource.getContents()) {
 				JsonNode node = writeEObject(obj);
 				if (node != null) {
 					nodes.add(node);
 				}
 			}
-			
+
 			((ArrayNode)rootNode).addAll(nodes);
 		}
-		
+
 		return rootNode;
 	}
-	
+
 	protected JsonNode writeEObject(EObject object) 
 			throws JsonGenerationException, JsonMappingException, IOException {
 
@@ -101,25 +100,25 @@ public class JsOutputStream extends ByteArrayOutputStream implements URIConverte
 
 		return node;
 	}
-	
+
 	protected void writeEObjectAttributes(EObject object, ObjectNode node) {
 
 		for (EAttribute attribute: object.eClass().getEAllAttributes()) {
-		
+
 			if (!attribute.isMany()) {
 				setJsonValue(node, object, attribute);
 			} else {
 				// TODO
 			}
-			
+
 		}
-		
+
 	}
 
 	private void setJsonValue(ObjectNode node, EObject object, EAttribute attribute) {
 		final Object value = object.eGet(attribute);
 		final EDataType dataType = attribute.getEAttributeType();
-		
+
 		if (value != null) {
 			if (dataType.getName().contains("Integer")) {
 				node.put(getElementName(attribute), (Integer)value);	
@@ -136,33 +135,33 @@ public class JsOutputStream extends ByteArrayOutputStream implements URIConverte
 
 	// if reference is non containment, objects are referenced thanks to their ids.
 	protected void writeEObjectReferences(EObject object, ObjectNode node) {
-		
+
 		for (EReference reference: object.eClass().getEAllReferences()) {
-		
+
 			if (reference.isContainment()) {
 				writeEObjectContainments(object, reference, node);
 			} else {
-			
+
 				if (!reference.isMany()) {
 					Object value = object.eGet(reference);
 					if (value != null) {
 						node.put(reference.getName(), EcoreUtil.getID((EObject) value));
 					}
 				}
-				
+
 			}
-			
+
 		}
 	}
 
 	// if reference is containment, then objects are put in an ArrayNode
 	protected void writeEObjectContainments(EObject object, EReference reference, ObjectNode node) {
-		
+
 		if (reference.isMany()) {
-			
+
 			@SuppressWarnings("unchecked")
 			EList<EObject> values = (EList<EObject>) object.eGet(reference);
-			
+
 			if (!values.isEmpty()) {
 				final ArrayNode arrayNode = mapper.createArrayNode();
 				node.put(getElementName(reference), arrayNode);
@@ -174,23 +173,18 @@ public class JsOutputStream extends ByteArrayOutputStream implements URIConverte
 				}
 			}
 		} else {
-			
+
 			final Object value = object.eGet(reference);
-			
+
 			if (value != null) {
 				final ObjectNode subNode = node.objectNode();
-			
+
 				node.put(getElementName(reference), subNode);
 				writeEObjectAttributes((EObject) value, subNode);
 				writeEObjectReferences((EObject) value, subNode);
 			}
 		}
-		
-	}
-	
-	@Override
-	public void close() throws IOException {
-		super.close();
+
 	}
 	
 }
