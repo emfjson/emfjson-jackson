@@ -16,3 +16,4 @@ Import-Package: org.eclipse.emf.common.util,
  org.junit;version="4.8.2",
  org.osgi.framework;version="1.3.0"
 Bundle-ActivationPolicy: lazy
+Require-Bundle: org.junit

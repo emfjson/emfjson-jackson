@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -40,7 +39,7 @@ import org.junit.Test;
  * @author guillaume hillairet
  *
  */
-public class TestJsLoader {
+public class TestLoadJsBasic extends TestJs {
 
 	final Map<String ,Object> options = new HashMap<String, Object>();
 	ResourceSet resourceSet;
@@ -57,7 +56,7 @@ public class TestJsLoader {
 	
 	@Test
 	public void testLoadSingleObjectNoReferences() throws IOException {
-		Resource resource = resourceSet.createResource(URI.createURI("platform:/resource/tests/test-load-1.json", true));
+		Resource resource = resourceSet.createResource(uri("test-load-1.json"));
 
 		options.put(JsURIHandlerImpl.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
 		
@@ -78,9 +77,9 @@ public class TestJsLoader {
 		assertEquals("Paul", ((User) obj).getName());
 	}
 	
-//	@Test
+	@Test
 	public void testLoadSingleObjectOneContainment() throws IOException {
-		Resource resource = resourceSet.createResource(URI.createURI("tests/test-load-2.json"));
+		Resource resource = resourceSet.createResource(uri("test-load-2.json"));
 
 		options.put(JsURIHandlerImpl.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
 		
@@ -109,9 +108,9 @@ public class TestJsLoader {
 		assertEquals(new Integer(12), add.getNumber());
 	}
 	
-//	@Test
+	@Test
 	public void testLoadObjectsInArray() throws IOException {
-		Resource resource = resourceSet.createResource(URI.createURI("tests/test-load-3.json"));
+		Resource resource = resourceSet.createResource(uri("test-load-3.json"));
 
 		options.put(JsURIHandlerImpl.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
 		
@@ -126,9 +125,9 @@ public class TestJsLoader {
 		assertEquals(2, objects.size());
 	}
 	
-//	@Test
+	@Test
 	public void testLoadObjectsWithReference() throws IOException {
-		Resource resource = resourceSet.createResource(URI.createURI("tests/test-load-4.json"));
+		Resource resource = resourceSet.createResource(uri("test-load-4.json"));
 
 		options.put(JsURIHandlerImpl.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
 		

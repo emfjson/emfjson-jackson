@@ -8,14 +8,15 @@
  * Contributors:
  *    Guillaume Hillairet - initial API and implementation
  *******************************************************************************/
-package org.eclipselabs.emfjson.junit.suite;
+package org.eclipselabs.emfjson.twitter.junit.suite;
 
-import org.eclipselabs.emfjson.junit.tests.TestLoadJsBasic;
-import org.eclipselabs.emfjson.junit.tests.TestSaveJsBasic;
+import org.eclipselabs.emfjson.twitter.junit.tests.TestSearchBasic;
+import org.eclipselabs.emfjson.twitter.junit.tests.TestStatusesBasic;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({TestLoadJsBasic.class, TestSaveJsBasic.class})
-public class TestEmfJsSuite {}
+@SuiteClasses({TestSearchBasic.class, TestStatusesBasic.class})
+public class TestTwitterSuite {}
+
