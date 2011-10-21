@@ -38,7 +38,7 @@ public class JsURIHandlerImpl extends URIHandlerImpl {
 
 	@Override
 	public boolean canHandle(URI uri) {
-		//		return "json".equalsIgnoreCase(uri.scheme());
+	//	return "json".equalsIgnoreCase(uri.scheme());
 		return true;
 	}
 
@@ -59,7 +59,7 @@ public class JsURIHandlerImpl extends URIHandlerImpl {
 				public void close() throws IOException {
 					try {
 						OutputStream out = new PlatformResourceURIHandlerImpl().createOutputStream(uri, options);
-						mapper.writeValue(out, rootNode);
+						this.writer.getMapper().writeValue(out, currentRoot);
 						out.close();
 					}
 					finally {
@@ -75,7 +75,7 @@ public class JsURIHandlerImpl extends URIHandlerImpl {
 				public void close() throws IOException {
 					try {
 						File file = new File(uri.toFileString());
-						mapper.writeValue(file, rootNode);
+						this.writer.getMapper().writeValue(file, currentRoot);
 						super.close();
 					}
 					finally {

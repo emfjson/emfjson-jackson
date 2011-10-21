@@ -1,17 +1,13 @@
-/*******************************************************************************
- * Copyright (c) 2011 Guillaume Hillairet.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+/**
+ * <copyright>
+ * </copyright>
  *
- * Contributors:
- *    Guillaume Hillairet - initial API and implementation
- *******************************************************************************/
+ * $Id$
+ */
 package org.eclipselabs.emfjson.junit.model.impl;
 
-
 import java.util.Collection;
+import java.util.Date;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -25,8 +21,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+
 import org.eclipselabs.emfjson.junit.model.Address;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
+import org.eclipselabs.emfjson.junit.model.Sex;
 import org.eclipselabs.emfjson.junit.model.User;
 
 /**
@@ -38,6 +36,8 @@ import org.eclipselabs.emfjson.junit.model.User;
  * <ul>
  *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.UserImpl#getUserId <em>User Id</em>}</li>
  *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.UserImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.UserImpl#getBirthDate <em>Birth Date</em>}</li>
+ *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.UserImpl#getSex <em>Sex</em>}</li>
  *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.UserImpl#getFriends <em>Friends</em>}</li>
  *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.UserImpl#getAddress <em>Address</em>}</li>
  * </ul>
@@ -85,6 +85,46 @@ public class UserImpl extends EObjectImpl implements User {
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getBirthDate() <em>Birth Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBirthDate()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Date BIRTH_DATE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getBirthDate() <em>Birth Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBirthDate()
+	 * @generated
+	 * @ordered
+	 */
+	protected Date birthDate = BIRTH_DATE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getSex() <em>Sex</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSex()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Sex SEX_EDEFAULT = Sex.MALE;
+
+	/**
+	 * The cached value of the '{@link #getSex() <em>Sex</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSex()
+	 * @generated
+	 * @ordered
+	 */
+	protected Sex sex = SEX_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getFriends() <em>Friends</em>}' reference list.
@@ -172,6 +212,48 @@ public class UserImpl extends EObjectImpl implements User {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBirthDate(Date newBirthDate) {
+		Date oldBirthDate = birthDate;
+		birthDate = newBirthDate;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.USER__BIRTH_DATE, oldBirthDate, birthDate));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Sex getSex() {
+		return sex;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSex(Sex newSex) {
+		Sex oldSex = sex;
+		sex = newSex == null ? SEX_EDEFAULT : newSex;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.USER__SEX, oldSex, sex));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<User> getFriends() {
 		if (friends == null) {
 			friends = new EObjectResolvingEList<User>(User.class, this, ModelPackage.USER__FRIENDS);
@@ -248,6 +330,10 @@ public class UserImpl extends EObjectImpl implements User {
 				return getUserId();
 			case ModelPackage.USER__NAME:
 				return getName();
+			case ModelPackage.USER__BIRTH_DATE:
+				return getBirthDate();
+			case ModelPackage.USER__SEX:
+				return getSex();
 			case ModelPackage.USER__FRIENDS:
 				return getFriends();
 			case ModelPackage.USER__ADDRESS:
@@ -270,6 +356,12 @@ public class UserImpl extends EObjectImpl implements User {
 				return;
 			case ModelPackage.USER__NAME:
 				setName((String)newValue);
+				return;
+			case ModelPackage.USER__BIRTH_DATE:
+				setBirthDate((Date)newValue);
+				return;
+			case ModelPackage.USER__SEX:
+				setSex((Sex)newValue);
 				return;
 			case ModelPackage.USER__FRIENDS:
 				getFriends().clear();
@@ -296,6 +388,12 @@ public class UserImpl extends EObjectImpl implements User {
 			case ModelPackage.USER__NAME:
 				setName(NAME_EDEFAULT);
 				return;
+			case ModelPackage.USER__BIRTH_DATE:
+				setBirthDate(BIRTH_DATE_EDEFAULT);
+				return;
+			case ModelPackage.USER__SEX:
+				setSex(SEX_EDEFAULT);
+				return;
 			case ModelPackage.USER__FRIENDS:
 				getFriends().clear();
 				return;
@@ -318,6 +416,10 @@ public class UserImpl extends EObjectImpl implements User {
 				return USER_ID_EDEFAULT == null ? userId != null : !USER_ID_EDEFAULT.equals(userId);
 			case ModelPackage.USER__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case ModelPackage.USER__BIRTH_DATE:
+				return BIRTH_DATE_EDEFAULT == null ? birthDate != null : !BIRTH_DATE_EDEFAULT.equals(birthDate);
+			case ModelPackage.USER__SEX:
+				return sex != SEX_EDEFAULT;
 			case ModelPackage.USER__FRIENDS:
 				return friends != null && !friends.isEmpty();
 			case ModelPackage.USER__ADDRESS:
@@ -340,6 +442,10 @@ public class UserImpl extends EObjectImpl implements User {
 		result.append(userId);
 		result.append(", name: ");
 		result.append(name);
+		result.append(", birthDate: ");
+		result.append(birthDate);
+		result.append(", sex: ");
+		result.append(sex);
 		result.append(')');
 		return result.toString();
 	}

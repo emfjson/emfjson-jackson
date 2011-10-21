@@ -16,14 +16,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIHandler;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipselabs.emfjson.JsURIHandlerImpl;
@@ -39,12 +36,10 @@ import org.junit.Test;
  * @author guillaume hillairet
  *
  */
-public class TestLoadJsBasic extends TestJs {
-
-	final Map<String ,Object> options = new HashMap<String, Object>();
-	ResourceSet resourceSet;
+public class TestLoadJsBasic extends TestSupport {
 	
 	@Before
+	@Override
 	public void tearUp() {
 		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
 		

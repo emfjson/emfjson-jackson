@@ -18,6 +18,7 @@ Import-Package: org.codehaus.jackson,
  org.eclipse.emf.ecore.util,
  org.osgi.framework;version="1.6.0"
 Export-Package: org.eclipselabs.emfjson,
- org.eclipselabs.emfjson.internal
+ org.eclipselabs.emfjson.internal,
+ org.eclipselabs.emfjson.resource
 Bundle-Activator: org.eclipselabs.emfjson.Activator
 Bundle-ActivationPolicy: lazy

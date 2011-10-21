@@ -1,13 +1,9 @@
-/*******************************************************************************
- * Copyright (c) 2011 Guillaume Hillairet.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+/**
+ * <copyright>
+ * </copyright>
  *
- * Contributors:
- *    Guillaume Hillairet - initial API and implementation
- *******************************************************************************/
+ * $Id$
+ */
 package org.eclipselabs.emfjson.junit.model;
 
 import org.eclipse.emf.ecore.EFactory;
@@ -46,6 +42,33 @@ public interface ModelFactory extends EFactory {
 	 * @generated
 	 */
 	Address createAddress();
+
+	/**
+	 * Returns a new object of class '<em>ETypes</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>ETypes</em>'.
+	 * @generated
+	 */
+	ETypes createETypes();
+
+	/**
+	 * Returns a new object of class '<em>Primary Object</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Primary Object</em>'.
+	 * @generated
+	 */
+	PrimaryObject createPrimaryObject();
+
+	/**
+	 * Returns a new object of class '<em>Target Object</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Target Object</em>'.
+	 * @generated
+	 */
+	TargetObject createTargetObject();
 
 	/**
 	 * Returns the package supported by this factory.

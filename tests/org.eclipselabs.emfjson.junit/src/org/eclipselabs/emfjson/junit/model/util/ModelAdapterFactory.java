@@ -1,15 +1,10 @@
-/*******************************************************************************
- * Copyright (c) 2011 Guillaume Hillairet.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+/**
+ * <copyright>
+ * </copyright>
  *
- * Contributors:
- *    Guillaume Hillairet - initial API and implementation
- *******************************************************************************/
+ * $Id$
+ */
 package org.eclipselabs.emfjson.junit.model.util;
-
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -17,6 +12,7 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
+
 import org.eclipselabs.emfjson.junit.model.*;
 
 /**
@@ -84,6 +80,18 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createAddressAdapter();
 			}
 			@Override
+			public Adapter caseETypes(ETypes object) {
+				return createETypesAdapter();
+			}
+			@Override
+			public Adapter casePrimaryObject(PrimaryObject object) {
+				return createPrimaryObjectAdapter();
+			}
+			@Override
+			public Adapter caseTargetObject(TargetObject object) {
+				return createTargetObjectAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -128,6 +136,48 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAddressAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipselabs.emfjson.junit.model.ETypes <em>ETypes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipselabs.emfjson.junit.model.ETypes
+	 * @generated
+	 */
+	public Adapter createETypesAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipselabs.emfjson.junit.model.PrimaryObject <em>Primary Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipselabs.emfjson.junit.model.PrimaryObject
+	 * @generated
+	 */
+	public Adapter createPrimaryObjectAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipselabs.emfjson.junit.model.TargetObject <em>Target Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipselabs.emfjson.junit.model.TargetObject
+	 * @generated
+	 */
+	public Adapter createTargetObjectAdapter() {
 		return null;
 	}
 

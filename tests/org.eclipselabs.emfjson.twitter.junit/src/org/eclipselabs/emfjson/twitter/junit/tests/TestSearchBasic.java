@@ -39,9 +39,6 @@ public class TestSearchBasic {
 	
 	@Before
 	public void tearUp() {
-		System.setProperty("http.proxyHost", "www-proxy.ericsson.se");
-		System.setProperty("http.proxyPort", "8080");
-		
 		resourceSet = new ResourceSetImpl();
 		
 		EList<URIHandler> uriHandlers = resourceSet.getURIConverter().getURIHandlers();

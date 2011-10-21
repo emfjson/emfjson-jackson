@@ -3,15 +3,86 @@ package model;
 
 @JSON(root="true")
 class User {
-   id attr String userId;
-   attr String name;
-   ref User[*] friends;
-   val Address address;
+  id attr String userId;
+  attr String name;
+  attr EDate birthDate;
+  attr Sex sex;
+  ref User[*] friends;
+  val Address address;
+}
+
+enum Sex {
+  MALE = 0;
+  FEMALE = 1;
 }
 
 class Address {
-   id attr String addId;
-   attr String city;
-   attr String street;
-   attr Integer number;
+  id attr String addId;
+  attr String city;
+  attr String street;
+  attr Integer number;
 }
+
+class ETypes {
+  attr String eString;
+  attr String[*] eStrings;
+  attr boolean eBoolean;
+  attr Boolean[*] eBooleans;
+  attr int eInt;
+  attr int[*] eInts;
+  attr Double doubleValue;
+  attr double eDouble;
+  attr Double[*] eDoubles;
+  attr EBigDecimal eBigDecimal;
+  attr EBigInteger eBigInteger;
+  attr byte eByte;
+  attr ecore.EByteArray eByteArray;
+  attr char eChar;
+  attr EDate eDate;
+  attr float eFloat;
+  attr long eLong;
+  attr short eShort;
+  attr URI[*] uris;
+}
+
+datatype URI : org.eclipse.emf.common.util.URI;
+
+class PrimaryObject {
+  attr String name;
+  id attr String idAttribute;
+  unsettable attr String unsettableAttribute;
+  unsettable attr String unsettableAttributeWithNonNullDefault = "junit";
+  unsettable ref TargetObject unsettableReference;
+  val PrimaryObject containmentReferenceSameCollectioin;
+  ref TargetObject singleNonContainmentReference;
+  ref TargetObject[*] multipleNonContainmentReference;
+  !resolve val TargetObject singleContainmentReferenceNoProxies;
+  !resolve val TargetObject[*] multipleContainmentReferenceNoProxies;
+  val TargetObject singleContainmentReferenceProxies;
+  val TargetObject[*] multipleContainmentReferenceProxies;
+  !resolve ref TargetObject singleNonContainmentReferenceNoProxies;
+
+  @ExtendedMetaData(group="#featureMapReferenceCollection")
+  volatile transient derived !resolve val TargetObject[*] featureMapReferenceType1;
+
+  @ExtendedMetaData(group="#featureMapReferenceCollection")
+  volatile transient derived !resolve val TargetObject[*] featureMapReferenceType2;
+
+  @ExtendedMetaData(kind="group")
+  attr ecore.EFeatureMapEntry featureMapReferenceCollection;
+
+  @ExtendedMetaData(group="#featureMapAttributeCollection")
+  volatile transient derived attr String[*] featureMapAttributeType1;
+
+  @ExtendedMetaData(group="#featureMapAttributeCollection")
+  volatile transient derived attr String[*] featureMapAttributeType2;
+
+  @ExtendedMetaData(kind="group")
+  attr ecore.EFeatureMapEntry[*] featureMapAttributeCollection;
+}
+
+class TargetObject {
+  attr String singleAttribute;
+  attr String[*] arrayAttribute;
+}
+

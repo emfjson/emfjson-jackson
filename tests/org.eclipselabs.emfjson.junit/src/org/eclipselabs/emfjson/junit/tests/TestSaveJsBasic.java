@@ -32,7 +32,7 @@ import org.junit.Test;
  * @author ghillairet
  *
  */
-public class TestSaveJsBasic extends TestJs {
+public class TestSaveJsBasic extends TestSupport {
 	
 	@Test
 	public void testSaveSystemFile() throws IOException {
@@ -44,7 +44,7 @@ public class TestSaveJsBasic extends TestJs {
 		user.setUserId("1");
 		user.setName("John");
 		
-		Resource resource = resourceSet.createResource(URI.createURI("file:/C:/model/test-save-1.json"));
+		Resource resource = resourceSet.createResource(URI.createURI("file:/tmp/test-save-1.json"));
 		
 		assertNotNull(resource);
 		
