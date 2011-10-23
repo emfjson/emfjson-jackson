@@ -4,3 +4,5 @@ bin/
 */*/*/*prefs
 */*/target/
 */*/*/*.properties
+*.xmi
+
