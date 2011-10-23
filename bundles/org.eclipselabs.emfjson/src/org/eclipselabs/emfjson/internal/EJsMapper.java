@@ -415,7 +415,7 @@ public class EJsMapper {
 	}
 
 	protected void setEAttributeValue(EObject obj, EAttribute attribute, JsonNode value) {
-		final String stringValue = value.getValueAsText();
+		final String stringValue = value.getTextValue();
 		if (stringValue != null && !stringValue.trim().isEmpty()) {
 			Object newValue = EcoreUtil.createFromString(attribute.getEAttributeType(), stringValue);
 			if (!attribute.isMany()) {
