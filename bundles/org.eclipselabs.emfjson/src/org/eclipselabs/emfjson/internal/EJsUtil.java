@@ -10,6 +10,15 @@
  *******************************************************************************/
 package org.eclipselabs.emfjson.internal;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Map;
+
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.JsonParser;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -20,7 +29,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * @author guillaume hillairet
  *
  */
-class EJsUtil {
+public class EJsUtil {
 	
 	public static String getElementName(EStructuralFeature feature) {
 		EAnnotation annotation = feature.getEAnnotation("JSON");
@@ -50,5 +59,35 @@ class EJsUtil {
 		} else {
 			throw new IllegalArgumentException("Option must contain the root class.");
 		}
+	}
+	
+	public static URL getURL(URI uri, Object parameters) throws MalformedURLException {
+		URI outURI = uri;
+		if (parameters != null && parameters instanceof Map) {
+			Map<?, ?> map = (Map<?,?>) parameters;
+			for (Object key: map.keySet()) {
+				String query = key+"="+(String) map.get(key);
+				if (outURI.hasQuery()) {
+					outURI = URI.createURI(outURI+"&"+query);
+				} else {
+					outURI = outURI.appendQuery(query);
+				}
+			}
+		}
+
+		return new URL(outURI.toString());
+	}
+	
+	public static JsonParser getJsonParser(URL url) {
+		final JsonFactory jsonFactory = new JsonFactory();  
+		JsonParser jp = null;
+		try {
+			jp = jsonFactory.createJsonParser(url);
+		} catch (JsonParseException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		return jp;
 	}
 }

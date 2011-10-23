@@ -27,6 +27,7 @@ import org.eclipselabs.emfjson.junit.model.ETypes;
 import org.eclipselabs.emfjson.junit.model.ModelFactory;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
 import org.eclipselabs.emfjson.junit.model.PrimaryObject;
+import org.eclipselabs.emfjson.junit.support.TestSupport;
 import org.junit.Test;
 
 /**
@@ -100,8 +101,7 @@ public class TestEmfJsAttributes extends TestSupport {
 	}
 	
 	@Test
-	public void testFeatureMap() throws IOException
-	{
+	public void testFeatureMap() throws IOException {
 		// Setup : Create a primary object and two attributes for the feature map.
 
 		PrimaryObject primaryObject = ModelFactory.eINSTANCE.createPrimaryObject();
@@ -126,8 +126,6 @@ public class TestEmfJsAttributes extends TestSupport {
 
 		HashSet<EStructuralFeature> excludeFeatures = new HashSet<EStructuralFeature>(1);
 		excludeFeatures.add(ModelPackage.Literals.PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_COLLECTION);
-		
-		System.out.println(new String(outStream.toByteArray()));
 		
 //		assertThat(actual.getFeatureMapAttributeCollection().size(), is(2));
 	}

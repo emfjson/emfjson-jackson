@@ -13,39 +13,61 @@ package org.eclipselabs.emfjson.resource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.JsonParser;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
+import org.eclipselabs.emfjson.JsURIHandlerImpl;
 import org.eclipselabs.emfjson.internal.EJsMapper;
+import org.eclipselabs.emfjson.internal.EJsUtil;
 
 /**
  * 
  * @author guillaume
  *
  */
-public class JsResource extends ResourceImpl {
+public class JsResourceImpl extends ResourceImpl {
 	
-	public JsResource() {
+	public JsResourceImpl() {
 		super();
 	}
 	
-	public JsResource(URI uri) {
+	public JsResourceImpl(URI uri) {
 		super(uri);
 	}
 
 	@Override
 	protected void doLoad(InputStream inputStream, Map<?, ?> options) throws IOException {
-		// TODO Auto-generated method stub
-		super.doLoad(inputStream, options);
+		final EJsMapper mapper = new EJsMapper();
+		
+		URL url = null;
+		try {
+			url = EJsUtil.getURL(this.getURI(), options.get(JsURIHandlerImpl.OPTION_URL_PARAMETERS));
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		
+		final JsonParser jp = EJsUtil.getJsonParser(url);
+		final JsonNode rootNode = jp != null ? mapper.getRootNode(jp) : null;
+		
+		Collection<EObject> roots = rootNode != null ?
+				mapper.getRootEObjects(this, rootNode, options) : Collections.<EObject> emptyList();
+		
+		this.getContents().addAll(roots);
 	}
 	
 	@Override
 	protected void doSave(OutputStream outputStream, Map<?, ?> options) throws IOException {
 		final EJsMapper writer = new EJsMapper();
 		JsonNode rootNode = writer.genJson(this, options);
-		writer.getMapper().writeValue(outputStream, rootNode);
+		writer.getDelegate().writeValue(outputStream, rootNode);
 	}
 	
 	@Override

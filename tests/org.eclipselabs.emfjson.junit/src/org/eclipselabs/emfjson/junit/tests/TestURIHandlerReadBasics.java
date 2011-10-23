@@ -27,6 +27,7 @@ import org.eclipselabs.emfjson.JsURIHandlerImpl;
 import org.eclipselabs.emfjson.junit.model.Address;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
 import org.eclipselabs.emfjson.junit.model.User;
+import org.eclipselabs.emfjson.junit.support.TestSupport;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,7 +37,7 @@ import org.junit.Test;
  * @author guillaume hillairet
  *
  */
-public class TestLoadJsBasic extends TestSupport {
+public class TestURIHandlerReadBasics extends TestSupport {
 	
 	@Before
 	@Override

@@ -10,13 +10,17 @@
  *******************************************************************************/
 package org.eclipselabs.emfjson.junit.suite;
 
+import org.eclipselabs.emfjson.junit.tests.TestEmfJsAttributes;
 import org.eclipselabs.emfjson.junit.tests.TestEmfJsReferences;
-import org.eclipselabs.emfjson.junit.tests.TestLoadJsBasic;
-import org.eclipselabs.emfjson.junit.tests.TestSaveJsBasic;
+import org.eclipselabs.emfjson.junit.tests.TestURIHandlerReadBasics;
+import org.eclipselabs.emfjson.junit.tests.TestURIHandlerSaveBasics;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({TestLoadJsBasic.class, TestSaveJsBasic.class, TestEmfJsReferences.class})
+@SuiteClasses({
+	TestURIHandlerReadBasics.class, TestURIHandlerSaveBasics.class, 
+	TestEmfJsReferences.class, TestEmfJsAttributes.class
+})
 public class TestEmfJsSuite {}

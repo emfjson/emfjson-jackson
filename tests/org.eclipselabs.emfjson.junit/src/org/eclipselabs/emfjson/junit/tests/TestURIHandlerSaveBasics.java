@@ -25,6 +25,7 @@ import org.eclipselabs.emfjson.JsURIHandlerImpl;
 import org.eclipselabs.emfjson.internal.JsOutputStream;
 import org.eclipselabs.emfjson.junit.model.ModelFactory;
 import org.eclipselabs.emfjson.junit.model.User;
+import org.eclipselabs.emfjson.junit.support.TestSupport;
 import org.junit.Test;
 
 /**
@@ -32,7 +33,7 @@ import org.junit.Test;
  * @author ghillairet
  *
  */
-public class TestSaveJsBasic extends TestSupport {
+public class TestURIHandlerSaveBasics extends TestSupport {
 	
 	@Test
 	public void testSaveSystemFile() throws IOException {
@@ -91,8 +92,6 @@ public class TestSaveJsBasic extends TestSupport {
 		OutputStream out = new JsOutputStream();
 		
 		resource.save(out, null);
-		
-		System.out.println(new String(((JsOutputStream) out).toByteArray()));
 	}
 	
 }

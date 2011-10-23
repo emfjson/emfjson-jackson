@@ -59,7 +59,7 @@ public class JsURIHandlerImpl extends URIHandlerImpl {
 				public void close() throws IOException {
 					try {
 						OutputStream out = new PlatformResourceURIHandlerImpl().createOutputStream(uri, options);
-						this.writer.getMapper().writeValue(out, currentRoot);
+						this.writer.getDelegate().writeValue(out, currentRoot);
 						out.close();
 					}
 					finally {
@@ -75,7 +75,7 @@ public class JsURIHandlerImpl extends URIHandlerImpl {
 				public void close() throws IOException {
 					try {
 						File file = new File(uri.toFileString());
-						this.writer.getMapper().writeValue(file, currentRoot);
+						this.writer.getDelegate().writeValue(file, currentRoot);
 						super.close();
 					}
 					finally {
