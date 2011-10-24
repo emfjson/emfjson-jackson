@@ -6,8 +6,6 @@ Eclipse Update Site (p2 repository): http://ghillairet.github.com/emfjson/releas
 
 # Usage
 
-## Resource implementation
-
 To serialize objects in json using emfjson, simply register the json extension to the resource factroy registry, as follow:
 
     Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("json", new JsResourceFactoryImpl());
