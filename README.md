@@ -10,23 +10,18 @@ Eclipse Update Site (p2 repository): http://ghillairet.github.com/emfjson/releas
 
 To serialize objects in json using emfjson, simply register the json extension to the resource factroy registry, as follow:
 
-<code>
-Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("json", new JsResourceFactoryImpl());
-</code>
+`Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("json", new JsResourceFactoryImpl());`
 
 Then create an object and add it to a resource. Give the resource a URI that will be path to the resulting json file.
 
-`
-ResourceSet resourceSet = new ResourceSetImpl();
-`
+`ResourceSet resourceSet = new ResourceSetImpl();`
 
-`
-User user = ModelFactory.eINSTANCE.createUser();
+`User user = ModelFactory.eINSTANCE.createUser();`
 
-user.setUserId("1");
+`user.setUserId("1");`
 
-user.setName("John");
-`
+`user.setName("John");`
+
 
 <code>
 Resource resource = resourceSet.createResource(URI.createURI("file:/out.json"));
