@@ -9,6 +9,10 @@ Eclipse Update Site (p2 repository): http://ghillairet.github.com/emfjson/releas
 * EMF 2.7.0 or later
 * Jackson 1.8.5 or later
 
+# Installation
+
+see [wiki] https://github.com/ghillairet/emfjson/wiki/Install
+
 # Usage
 
 To serialize objects in json using emfjson, simply register the json extension to the resource factroy registry, as follow:
