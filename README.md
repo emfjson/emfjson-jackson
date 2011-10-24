@@ -16,15 +16,15 @@ Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("json", new Js
 
 Then create an object and add it to a resource. Give the resource a URI that will be path to the resulting json file.
 
-<code>
+`
 ResourceSet resourceSet = new ResourceSetImpl();
-</code>
+`
 
-<code>
+`
 User user = ModelFactory.eINSTANCE.createUser();
 user.setUserId("1");
 user.setName("John");
-</code>
+`
 
 <code>
 Resource resource = resourceSet.createResource(URI.createURI("file:/out.json"));
