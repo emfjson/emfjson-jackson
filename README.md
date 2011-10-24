@@ -4,6 +4,11 @@ Current version is 0.3.0.
 
 Eclipse Update Site (p2 repository): http://ghillairet.github.com/emfjson/releases/0.3.0/
 
+# Dependencies
+
+* EMF 2.7.0 or later
+* Jackson 1.8.5 or later
+
 # Usage
 
 To serialize objects in json using emfjson, simply register the json extension to the resource factroy registry, as follow:
