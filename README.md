@@ -14,20 +14,14 @@ To serialize objects in json using emfjson, simply register the json extension t
 
 Then create an object and add it to a resource. Give the resource a URI that will be path to the resulting json file.
 
-`ResourceSet resourceSet = new ResourceSetImpl();`
-
 `User user = ModelFactory.eINSTANCE.createUser();`
-
 `user.setUserId("1");`
-
 `user.setName("John");`
 
-
-<code>
-Resource resource = resourceSet.createResource(URI.createURI("file:/out.json"));
-resource.getContents().add(user);
-resource.save(null);
-</code>
+`ResourceSet resourceSet = new ResourceSetImpl();`
+`Resource resource = resourceSet.createResource(URI.createURI("file:/out.json"));`
+`resource.getContents().add(user);`
+`resource.save(null);`
 
 To load objects from json, you also need to register the correct resource factory, as previously described. You also 
 need to indicate the type of the root objects you want to obtain from the json data. This is done via a Map.
