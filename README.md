@@ -22,7 +22,9 @@ ResourceSet resourceSet = new ResourceSetImpl();
 
 `
 User user = ModelFactory.eINSTANCE.createUser();
+
 user.setUserId("1");
+
 user.setName("John");
 `
 
