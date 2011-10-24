@@ -11,7 +11,7 @@ Eclipse Update Site (p2 repository): http://ghillairet.github.com/emfjson/releas
 
 # Installation
 
-see [wiki] https://github.com/ghillairet/emfjson/wiki/Install
+see [wiki](https://github.com/ghillairet/emfjson/wiki/Install)
 
 # Usage
 
