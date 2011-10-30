@@ -1,5 +1,5 @@
 
-Youtube for EMFJson provides an EMF model and querying and manipulating youtube data.
+Youtube for EMFJson provides an EMF model and api for querying and manipulating youtube data.
 
 # Usage
 		
