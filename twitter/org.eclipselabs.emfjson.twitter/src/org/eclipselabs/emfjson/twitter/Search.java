@@ -13,7 +13,6 @@ package org.eclipselabs.emfjson.twitter;
 import org.eclipse.emf.common.util.URI;
 import org.eclipselabs.emfjson.search.ResultType;
 
-
 public class Search {
 
 	private static final String host = "http://search.twitter.com/search.json";

@@ -16,7 +16,10 @@
 
 	        <module>twitter/org.eclipselabs.emfjson.twitter</module>
 		<module>features/org.eclipselabs.emfjson.twitter.feature</module>
-        		
+        	
+		<module>youtube/org.eclipselabs.emfjson.youtube</module>
+		<module>features/org.eclipselabs.emfjson.youtube.feature</module>
+	
 		<module>build/repository</module>
 	</modules>
 

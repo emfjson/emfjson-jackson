@@ -1,0 +1,81 @@
+@namespace(uri="http://www.eclipselabs.org/youtube", prefix="youtube")
+package youtube;
+
+@JSON(root="true", element="data")
+class VideoResult {
+   attr Date updated;
+   
+   attr Integer totalItems;
+   attr Integer startIndex;
+   attr Integer itemsPerPage;
+   val VideoItem[*] items;
+}
+
+class VideoItem {
+   attr String ~id;
+   attr Date uploaded;
+   attr Date updated;
+   attr String uploader;
+   attr String category;
+   attr String title;
+   attr String description;
+   attr String[*] tags;
+   attr Integer duration;
+   attr AspectRatio aspectRatio;
+   attr Integer likeCount;
+   attr Double rating;
+   attr Integer ratingCount;
+   attr Integer viewCount;
+   attr Integer favoriteCount;
+   attr Integer commentCount;
+   val Status status;
+   val AccessControl accessControl;
+   val Thumbnail[1] thumbnail;
+   val Player[1] player;
+   val Content content;
+}
+
+enum AspectRatio {
+   WIDESCREEN;
+}
+
+class AccessControl {
+   attr Access syndicate;
+   attr Access commentVote;
+   attr Access rate;
+   attr Access list;
+   attr Access comment;
+   attr Access embed;
+   attr Access videoRespond;
+}
+
+enum Access {
+   ALLOWED; 
+   MODERATED;
+   DENIED;
+}
+
+class Status {
+   attr String value;
+   attr String reason;
+}
+
+class Thumbnail {
+   attr String default;
+   attr String hqDefault;
+}
+
+class Player {
+  attr String default;
+  attr String mobile;
+}
+
+class Content {
+   @JSON(element="1")
+   attr String rtsp;
+   @JSON(element="5")
+   attr String http;
+   @JSON(element="6")
+   attr String rtspMpeg; 
+}
+

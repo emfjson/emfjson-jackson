@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.eclipselabs.emfjson.feature"
-      label="EMFJs"
+      id="org.eclipselabs.emfjson.youtube.feature"
+      label="EMFJs Youtube"
       version="0.3.0.qualifier"
       provider-name="eclipselabs">
 
@@ -19,16 +19,15 @@
 
    <requires>
       <import plugin="org.eclipse.emf.common"/>
-      <import plugin="org.eclipse.emf.ecore" version="2.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.ecore"/>
       <import plugin="org.eclipse.osgi"/>
-      <import plugin="org.eclipse.core.runtime"/>
    </requires>
 
    <plugin
-         id="org.eclipselabs.emfjson"
+         id="org.eclipselabs.emfjson.youtube"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="0.3.0.qualifier"
          unpack="false"/>
 
 </feature>

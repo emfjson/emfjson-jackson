@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipselabs.emfjson.youtube/src"
+    modelPluginID="org.eclipselabs.emfjson.youtube" modelName="Youtube" importerID="org.eclipse.emf.importer.ecore"
+    bundleManifest="false" complianceLevel="6.0" copyrightFields="false">
+  <foreignModel>youtube.ecore</foreignModel>
+  <genPackages prefix="Youtube" basePackage="org.eclipselabs.emfjson" disposableProviderFactory="true"
+      ecorePackage="youtube.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="youtube.ecore#//AspectRatio">
+      <genEnumLiterals ecoreEnumLiteral="youtube.ecore#//AspectRatio/WIDESCREEN"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="youtube.ecore#//Access">
+      <genEnumLiterals ecoreEnumLiteral="youtube.ecore#//Access/ALLOWED"/>
+      <genEnumLiterals ecoreEnumLiteral="youtube.ecore#//Access/MODERATED"/>
+    </genEnums>
+    <genClasses ecoreClass="youtube.ecore#//VideoResult">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//VideoResult/updated"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//VideoResult/totalItems"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//VideoResult/startIndex"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//VideoResult/itemsPerPage"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference youtube.ecore#//VideoResult/items"/>
+    </genClasses>
+    <genClasses ecoreClass="youtube.ecore#//VideoItem">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//VideoItem/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//VideoItem/uploaded"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//VideoItem/updated"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//VideoItem/uploader"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//VideoItem/category"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//VideoItem/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//VideoItem/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//VideoItem/tags"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//VideoItem/duration"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//VideoItem/aspectRatio"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//VideoItem/likeCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//VideoItem/rating"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//VideoItem/ratingCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//VideoItem/viewCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//VideoItem/favoriteCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//VideoItem/commentCount"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference youtube.ecore#//VideoItem/status"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference youtube.ecore#//VideoItem/accessControl"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference youtube.ecore#//VideoItem/thumbnail"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference youtube.ecore#//VideoItem/player"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference youtube.ecore#//VideoItem/content"/>
+    </genClasses>
+    <genClasses ecoreClass="youtube.ecore#//AccessControl">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//AccessControl/syndicate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//AccessControl/commentVote"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//AccessControl/rate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//AccessControl/list"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//AccessControl/comment"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//AccessControl/embed"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//AccessControl/videoRespond"/>
+    </genClasses>
+    <genClasses ecoreClass="youtube.ecore#//Status">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//Status/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//Status/reason"/>
+    </genClasses>
+    <genClasses ecoreClass="youtube.ecore#//Thumbnail">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//Thumbnail/default"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//Thumbnail/hqDefault"/>
+    </genClasses>
+    <genClasses ecoreClass="youtube.ecore#//Player">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//Player/default"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//Player/mobile"/>
+    </genClasses>
+    <genClasses ecoreClass="youtube.ecore#//Content">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//Content/rtsp"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//Content/http"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute youtube.ecore#//Content/rtspMpeg"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
