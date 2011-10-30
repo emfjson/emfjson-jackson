@@ -418,7 +418,12 @@ public class EJsMapper {
 		@SuppressWarnings("deprecation")
 		final String stringValue = value.getValueAsText();
 		if (stringValue != null && !stringValue.trim().isEmpty()) {
-			Object newValue = EcoreUtil.createFromString(attribute.getEAttributeType(), stringValue);
+			Object newValue;
+			if (attribute.getEAttributeType().getInstanceClass().isEnum()) {
+				newValue = EcoreUtil.createFromString(attribute.getEAttributeType(), stringValue.toUpperCase());
+			} else {
+				newValue = EcoreUtil.createFromString(attribute.getEAttributeType(), stringValue);
+			}
 			if (!attribute.isMany()) {
 				obj.eSet(attribute, newValue);
 			} else {
