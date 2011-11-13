@@ -16,11 +16,13 @@ import java.net.URL;
 import java.util.Map;
 
 import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.JsonParser;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
@@ -32,7 +34,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 public class EJsUtil {
 	
 	public static String getElementName(EStructuralFeature feature) {
-		EAnnotation annotation = feature.getEAnnotation("JSON");
+		final EAnnotation annotation = feature.getEAnnotation("JSON");
 		if (annotation != null && annotation.getDetails().containsKey("element")) {
 			return annotation.getDetails().get("element");
 		}
@@ -42,20 +44,27 @@ public class EJsUtil {
 	public static String getRootNode(EObject object) {
 		if (object instanceof EClass) {
 			EClass eClass = (EClass) object;
+			
 			if (eClass.getEAnnotation("JSON") != null) {
 				EAnnotation annotation = eClass.getEAnnotation("JSON");
+				
 				if (annotation.getDetails().containsKey("root")) {
 					if (annotation.getDetails().containsKey("element")) {
 						return annotation.getDetails().get("element");
 					} else {
 						return null;
 					}
+					
 				} else {
-					throw new IllegalArgumentException("The root class @JSON annotation must contain root and element details.");
+//					throw new IllegalArgumentException("The root class @JSON annotation must contain root and element details.");
+					return null;
 				}
+				
 			} else {
-				throw new IllegalArgumentException("The root class must be annotated with @JSON annotation.");
+				return null;
+//				throw new IllegalArgumentException("The root class must be annotated with @JSON annotation.");
 			}
+			
 		} else {
 			throw new IllegalArgumentException("Option must contain the root class.");
 		}
@@ -89,5 +98,23 @@ public class EJsUtil {
 			e1.printStackTrace();
 		}
 		return jp;
+	}
+
+	public static EClass findEClass(EClass eReferenceType, JsonNode node) {
+		if (eReferenceType.isAbstract() || node.get("type") != null) {
+			@SuppressWarnings("deprecation")
+			String type = node.get("type").getValueAsText();
+			if (type.equals(eReferenceType.getName())) {
+				return eReferenceType;
+			} else {
+				EClassifier found = eReferenceType.getEPackage().getEClassifier(type);
+				if (found != null && found instanceof EClass) {
+					return (EClass) found;
+				} else {
+					throw new IllegalArgumentException("Cannot find EClass from type "+type);
+				}
+			}
+		}
+		return eReferenceType;
 	}
 }

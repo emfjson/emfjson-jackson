@@ -50,7 +50,7 @@ public class JsURIHandlerImpl extends URIHandlerImpl {
 	@Override
 	public OutputStream createOutputStream(final URI uri, final Map<?, ?> options) throws IOException {
 		final Map<Object, Object> response = getResponse(options);
-
+		
 		OutputStream result = null;
 
 		if (uri.isPlatform()) {
@@ -59,6 +59,7 @@ public class JsURIHandlerImpl extends URIHandlerImpl {
 				public void close() throws IOException {
 					try {
 						OutputStream out = new PlatformResourceURIHandlerImpl().createOutputStream(uri, options);
+//						this.writer.genJson()
 						this.writer.getDelegate().writeValue(out, currentRoot);
 						out.close();
 					}
@@ -114,8 +115,5 @@ public class JsURIHandlerImpl extends URIHandlerImpl {
 	public boolean exists(URI uri, Map<?, ?> options) {
 		return true;
 	}
-
-	public static final String OPTION_STREAMING_JSON = "OPTION_STREAMING_JSON";
-	public static final String OPTION_ROOT_ELEMENT = "OPTION_ROOT_ELEMENT";
-	public static final String OPTION_URL_PARAMETERS = "OPTION_URL_PARAMETERS";
+	
 }

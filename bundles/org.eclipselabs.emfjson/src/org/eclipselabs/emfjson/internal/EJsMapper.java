@@ -39,7 +39,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
-import org.eclipselabs.emfjson.JsURIHandlerImpl;
+import org.eclipselabs.emfjson.EJs;
 
 /**
  * 
@@ -58,7 +58,7 @@ public class EJsMapper {
 	public ObjectMapper getDelegate() {
 		return mapper;
 	}
-
+	
 	public JsonNode genJson(Resource resource, Map<?, ?> options) {
 		final JsonNode rootNode;
 
@@ -66,9 +66,8 @@ public class EJsMapper {
 
 			EObject rootObject = resource.getContents().get(0);
 			rootNode = writeEObject(rootObject);
-
 		} else {
-
+			
 			final Collection<JsonNode> nodes = new ArrayList<JsonNode>();
 			rootNode = mapper.createArrayNode();
 
@@ -111,15 +110,20 @@ public class EJsMapper {
 	protected JsonNode writeEObject(EObject object) {
 
 		ObjectNode node = mapper.createObjectNode();
-
+		
 		writeEObjectAttributes(object, node);
 		writeEObjectReferences(object, node);
 
 		return node;
 	}
 
+	private static final String TYPE = "type";
+	
 	protected void writeEObjectAttributes(EObject object, ObjectNode node) {
-
+		if (!object.eClass().getESuperTypes().isEmpty()) {
+			node.put(TYPE, object.eClass().getName());	
+		}
+		
 		for (EAttribute attribute: object.eClass().getEAllAttributes()) {
 
 			if (object.eIsSet(attribute) && !attribute.isDerived() && !attribute.isTransient() && !attribute.isUnsettable()) {
@@ -286,8 +290,8 @@ public class EJsMapper {
 			return null;
 		}
 
-		final EClass rootClass = (EClass) options.get(JsURIHandlerImpl.OPTION_ROOT_ELEMENT);
-		final String path = EJsUtil.getRootNode((EObject) options.get(JsURIHandlerImpl.OPTION_ROOT_ELEMENT));
+		final EClass rootClass = (EClass) options.get(EJs.OPTION_ROOT_ELEMENT);
+		final String path = EJsUtil.getRootNode((EObject) options.get(EJs.OPTION_ROOT_ELEMENT));
 		final JsonNode root;
 		if (path == null) {
 			root = rootNode;
@@ -346,7 +350,7 @@ public class EJsMapper {
 	}
 
 	private void setEReferenceValues(EObject rootObject, EReference reference, JsonNode n) {
-		final EObject obj = createEObject(rootObject.eResource(), reference.getEReferenceType(), n);
+		final EObject obj = createEObject(rootObject.eResource(), EJsUtil.findEClass(reference.getEReferenceType(), n), n);
 		if (obj != null) {
 			if (reference.isMany()) {
 				@SuppressWarnings("unchecked")

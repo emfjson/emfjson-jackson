@@ -24,7 +24,7 @@ import org.codehaus.jackson.JsonParser;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
-import org.eclipselabs.emfjson.JsURIHandlerImpl;
+import org.eclipselabs.emfjson.EJs;
 import org.eclipselabs.emfjson.internal.EJsMapper;
 import org.eclipselabs.emfjson.internal.EJsUtil;
 
@@ -49,7 +49,7 @@ public class JsResourceImpl extends ResourceImpl {
 		
 		URL url = null;
 		try {
-			url = EJsUtil.getURL(this.getURI(), options.get(JsURIHandlerImpl.OPTION_URL_PARAMETERS));
+			url = EJsUtil.getURL(this.getURI(), options.get(EJs.OPTION_URL_PARAMETERS));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
