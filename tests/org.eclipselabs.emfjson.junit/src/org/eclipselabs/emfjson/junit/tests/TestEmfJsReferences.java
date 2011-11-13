@@ -21,7 +21,7 @@ import java.io.IOException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipselabs.emfjson.JsURIHandlerImpl;
+import org.eclipselabs.emfjson.EJs;
 import org.eclipselabs.emfjson.junit.model.Address;
 import org.eclipselabs.emfjson.junit.model.ModelFactory;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
@@ -108,7 +108,7 @@ public class TestEmfJsReferences extends TestSupport {
 	
 	@Test
 	public void testLoadOneObjectWithAttributes() throws IOException {
-		options.put(JsURIHandlerImpl.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
+		options.put(EJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
 		
 		Resource resource = resourceSet.createResource(uri("test-load-1.json"));
 		assertNotNull(resource);
@@ -127,7 +127,7 @@ public class TestEmfJsReferences extends TestSupport {
 	
 	@Test
 	public void testLoadTwoObjectsWithAttributesOneContainment() throws IOException {
-		options.put(JsURIHandlerImpl.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
+		options.put(EJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
 		
 		Resource resource = resourceSet.createResource(uri("test-load-2.json"));
 		assertNotNull(resource);
@@ -154,7 +154,7 @@ public class TestEmfJsReferences extends TestSupport {
 	
 	@Test
 	public void testLoadTwoObjectsNoReferences() throws IOException {
-		options.put(JsURIHandlerImpl.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
+		options.put(EJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
 		
 		Resource resource = resourceSet.createResource(uri("test-load-3.json"));
 		assertNotNull(resource);
@@ -177,7 +177,7 @@ public class TestEmfJsReferences extends TestSupport {
 	
 	@Test
 	public void testLoadTwoObjectsOneReference() throws IOException {
-		options.put(JsURIHandlerImpl.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
+		options.put(EJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
 		
 		Resource resource = resourceSet.createResource(uri("test-load-4.json"));
 		assertNotNull(resource);
@@ -211,7 +211,7 @@ public class TestEmfJsReferences extends TestSupport {
 	
 	@Test
 	public void testLoadThreeObjectsTwoReferences() throws IOException {
-		options.put(JsURIHandlerImpl.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
+		options.put(EJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
 		
 		Resource resource = resourceSet.createResource(uri("test-load-5.json"));
 		assertNotNull(resource);

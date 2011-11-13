@@ -12,9 +12,6 @@ package org.eclipselabs.emfjson.junit.tests;
 
 import static org.junit.Assert.assertEquals;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
@@ -110,9 +107,9 @@ public class TestEmfJsAttributes extends TestSupport {
 		primaryObject.getFeatureMapAttributeType1().add("Hello");
 		primaryObject.getFeatureMapAttributeType2().add("World");
 
-		assertThat(primaryObject.getFeatureMapAttributeCollection().size(), is(2));
-		assertThat(primaryObject.getFeatureMapAttributeType1().size(), is(1));
-		assertThat(primaryObject.getFeatureMapAttributeType2().size(), is(1));
+		assertEquals(2, primaryObject.getFeatureMapAttributeCollection().size());
+		assertEquals(1, primaryObject.getFeatureMapAttributeType1().size());
+		assertEquals(1, primaryObject.getFeatureMapAttributeType2().size());
 
 		// Test : Store the object to MongDB
 		

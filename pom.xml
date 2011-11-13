@@ -20,11 +20,15 @@
 		<module>youtube/org.eclipselabs.emfjson.youtube</module>
 		<module>features/org.eclipselabs.emfjson.youtube.feature</module>
 	
+		<module>tests/org.eclipselabs.emfjson.junit</module>
+		<module>tests/org.eclipselabs.emfjson.twitter.junit</module>
+		<module>tests/org.eclipselabs.emfjson.youtube.junit</module>
+
 		<module>build/repository</module>
 	</modules>
 
 	<properties>
-		<tycho-version>0.12.0</tycho-version>
+		<tycho-version>0.13.0</tycho-version>
 		<targets>build/repository/target/</targets>
 	</properties>
 

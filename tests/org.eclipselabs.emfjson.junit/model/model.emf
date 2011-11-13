@@ -81,8 +81,25 @@ class PrimaryObject {
   attr ecore.EFeatureMapEntry[*] featureMapAttributeCollection;
 }
 
+class Container {
+	val AbstractType[*] elements;
+}
+
 class TargetObject {
   attr String singleAttribute;
   attr String[*] arrayAttribute;
 }
+
+abstract class AbstractType {
+  attr String[1] name;
+}
+
+class ConcreteTypeOne extends AbstractType {
+  attr String[?] propTypeOne;
+}
+
+class ConcreteTypeTwo extends AbstractType {
+  attr String[?] propTypeTwo;
+}
+
 

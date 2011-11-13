@@ -67,7 +67,10 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.ADDRESS: return createAddress();
 			case ModelPackage.ETYPES: return createETypes();
 			case ModelPackage.PRIMARY_OBJECT: return createPrimaryObject();
+			case ModelPackage.CONTAINER: return createContainer();
 			case ModelPackage.TARGET_OBJECT: return createTargetObject();
+			case ModelPackage.CONCRETE_TYPE_ONE: return createConcreteTypeOne();
+			case ModelPackage.CONCRETE_TYPE_TWO: return createConcreteTypeTwo();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -152,9 +155,39 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public org.eclipselabs.emfjson.junit.model.Container createContainer() {
+		ContainerImpl container = new ContainerImpl();
+		return container;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public TargetObject createTargetObject() {
 		TargetObjectImpl targetObject = new TargetObjectImpl();
 		return targetObject;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConcreteTypeOne createConcreteTypeOne() {
+		ConcreteTypeOneImpl concreteTypeOne = new ConcreteTypeOneImpl();
+		return concreteTypeOne;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConcreteTypeTwo createConcreteTypeTwo() {
+		ConcreteTypeTwoImpl concreteTypeTwo = new ConcreteTypeTwoImpl();
+		return concreteTypeTwo;
 	}
 
 	/**

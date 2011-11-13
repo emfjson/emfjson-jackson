@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIHandler;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipselabs.emfjson.EJs;
 import org.eclipselabs.emfjson.JsURIHandlerImpl;
 import org.eclipselabs.emfjson.junit.model.Address;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
@@ -54,7 +55,7 @@ public class TestURIHandlerReadBasics extends TestSupport {
 	public void testLoadSingleObjectNoReferences() throws IOException {
 		Resource resource = resourceSet.createResource(uri("test-load-1.json"));
 
-		options.put(JsURIHandlerImpl.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
+		options.put(EJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
 		
 		resource.load(options);
 		
@@ -77,7 +78,7 @@ public class TestURIHandlerReadBasics extends TestSupport {
 	public void testLoadSingleObjectOneContainment() throws IOException {
 		Resource resource = resourceSet.createResource(uri("test-load-2.json"));
 
-		options.put(JsURIHandlerImpl.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
+		options.put(EJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
 		
 		resource.load(options);
 		
@@ -108,7 +109,7 @@ public class TestURIHandlerReadBasics extends TestSupport {
 	public void testLoadObjectsInArray() throws IOException {
 		Resource resource = resourceSet.createResource(uri("test-load-3.json"));
 
-		options.put(JsURIHandlerImpl.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
+		options.put(EJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
 		
 		resource.load(options);
 		
@@ -125,7 +126,7 @@ public class TestURIHandlerReadBasics extends TestSupport {
 	public void testLoadObjectsWithReference() throws IOException {
 		Resource resource = resourceSet.createResource(uri("test-load-4.json"));
 
-		options.put(JsURIHandlerImpl.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
+		options.put(EJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
 		
 		resource.load(options);
 		

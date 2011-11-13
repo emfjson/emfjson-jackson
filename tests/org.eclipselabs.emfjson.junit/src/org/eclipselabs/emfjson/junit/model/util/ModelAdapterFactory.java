@@ -88,8 +88,24 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createPrimaryObjectAdapter();
 			}
 			@Override
+			public Adapter caseContainer(Container object) {
+				return createContainerAdapter();
+			}
+			@Override
 			public Adapter caseTargetObject(TargetObject object) {
 				return createTargetObjectAdapter();
+			}
+			@Override
+			public Adapter caseAbstractType(AbstractType object) {
+				return createAbstractTypeAdapter();
+			}
+			@Override
+			public Adapter caseConcreteTypeOne(ConcreteTypeOne object) {
+				return createConcreteTypeOneAdapter();
+			}
+			@Override
+			public Adapter caseConcreteTypeTwo(ConcreteTypeTwo object) {
+				return createConcreteTypeTwoAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -168,6 +184,20 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipselabs.emfjson.junit.model.Container <em>Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipselabs.emfjson.junit.model.Container
+	 * @generated
+	 */
+	public Adapter createContainerAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipselabs.emfjson.junit.model.TargetObject <em>Target Object</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -178,6 +208,48 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTargetObjectAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipselabs.emfjson.junit.model.AbstractType <em>Abstract Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipselabs.emfjson.junit.model.AbstractType
+	 * @generated
+	 */
+	public Adapter createAbstractTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipselabs.emfjson.junit.model.ConcreteTypeOne <em>Concrete Type One</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipselabs.emfjson.junit.model.ConcreteTypeOne
+	 * @generated
+	 */
+	public Adapter createConcreteTypeOneAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipselabs.emfjson.junit.model.ConcreteTypeTwo <em>Concrete Type Two</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipselabs.emfjson.junit.model.ConcreteTypeTwo
+	 * @generated
+	 */
+	public Adapter createConcreteTypeTwoAdapter() {
 		return null;
 	}
 

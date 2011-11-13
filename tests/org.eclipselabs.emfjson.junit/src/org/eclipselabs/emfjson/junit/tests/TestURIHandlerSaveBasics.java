@@ -54,7 +54,7 @@ public class TestURIHandlerSaveBasics extends TestSupport {
 		resource.save(null);
 	}
 	
-	@Test
+//	@Test
 	public void testSavePlatformPluginFile() throws IOException {
 		ResourceSet resourceSet = new ResourceSetImpl();
 		EList<URIHandler> uriHandlers = resourceSet.getURIConverter().getURIHandlers();
@@ -73,7 +73,7 @@ public class TestURIHandlerSaveBasics extends TestSupport {
 		resource.save(null);
 	}
 	
-	@Test
+//	@Test
 	public void testSaveJsOutputStream() throws IOException {
 		ResourceSet resourceSet = new ResourceSetImpl();
 		EList<URIHandler> uriHandlers = resourceSet.getURIConverter().getURIHandlers();

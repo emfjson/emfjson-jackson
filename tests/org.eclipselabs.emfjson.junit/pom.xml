@@ -1,0 +1,26 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<artifactId>build</artifactId>
+		<groupId>org.eclipselabs.emfjson</groupId>
+		<version>0.3.0-SNAPSHOT</version>
+		<relativePath>../../pom.xml</relativePath>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.eclipselabs.emfjson</groupId>
+	<artifactId>org.eclipselabs.emfjson.junit</artifactId>
+	<version>0.3.0-SNAPSHOT</version>
+	<packaging>eclipse-test-plugin</packaging>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.sonatype.tycho</groupId>
+				<artifactId>maven-osgi-test-plugin</artifactId>
+				<configuration>
+					<testSuite>/org.eclipselabs.emfjson.junit/src/org/eclipselabs/emfjson/junit/suite/TestEmfJsSuite.java</testSuite>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

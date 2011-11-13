@@ -16,3 +16,5 @@ Import-Package: org.eclipse.emf.common.util,
  org.junit;version="4.8.2",
  org.osgi.framework;version="1.3.0"
 Bundle-ActivationPolicy: lazy
+Export-Package: org.eclipselabs.emfjson.youtube.junit,
+ org.eclipselabs.emfjson.youtube.junit.tests

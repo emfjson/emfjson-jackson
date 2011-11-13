@@ -570,6 +570,34 @@ public interface ModelPackage extends EPackage {
 	int PRIMARY_OBJECT_FEATURE_COUNT = 19;
 
 	/**
+	 * The meta object id for the '{@link org.eclipselabs.emfjson.junit.model.impl.ContainerImpl <em>Container</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipselabs.emfjson.junit.model.impl.ContainerImpl
+	 * @see org.eclipselabs.emfjson.junit.model.impl.ModelPackageImpl#getContainer()
+	 * @generated
+	 */
+	int CONTAINER = 4;
+
+	/**
+	 * The feature id for the '<em><b>Elements</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTAINER__ELEMENTS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Container</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTAINER_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link org.eclipselabs.emfjson.junit.model.impl.TargetObjectImpl <em>Target Object</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -577,7 +605,7 @@ public interface ModelPackage extends EPackage {
 	 * @see org.eclipselabs.emfjson.junit.model.impl.ModelPackageImpl#getTargetObject()
 	 * @generated
 	 */
-	int TARGET_OBJECT = 4;
+	int TARGET_OBJECT = 5;
 
 	/**
 	 * The feature id for the '<em><b>Single Attribute</b></em>' attribute.
@@ -607,6 +635,108 @@ public interface ModelPackage extends EPackage {
 	int TARGET_OBJECT_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link org.eclipselabs.emfjson.junit.model.impl.AbstractTypeImpl <em>Abstract Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipselabs.emfjson.junit.model.impl.AbstractTypeImpl
+	 * @see org.eclipselabs.emfjson.junit.model.impl.ModelPackageImpl#getAbstractType()
+	 * @generated
+	 */
+	int ABSTRACT_TYPE = 6;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__NAME = 0;
+
+	/**
+	 * The number of structural features of the '<em>Abstract Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipselabs.emfjson.junit.model.impl.ConcreteTypeOneImpl <em>Concrete Type One</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipselabs.emfjson.junit.model.impl.ConcreteTypeOneImpl
+	 * @see org.eclipselabs.emfjson.junit.model.impl.ModelPackageImpl#getConcreteTypeOne()
+	 * @generated
+	 */
+	int CONCRETE_TYPE_ONE = 7;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCRETE_TYPE_ONE__NAME = ABSTRACT_TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Prop Type One</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCRETE_TYPE_ONE__PROP_TYPE_ONE = ABSTRACT_TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Concrete Type One</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCRETE_TYPE_ONE_FEATURE_COUNT = ABSTRACT_TYPE_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipselabs.emfjson.junit.model.impl.ConcreteTypeTwoImpl <em>Concrete Type Two</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipselabs.emfjson.junit.model.impl.ConcreteTypeTwoImpl
+	 * @see org.eclipselabs.emfjson.junit.model.impl.ModelPackageImpl#getConcreteTypeTwo()
+	 * @generated
+	 */
+	int CONCRETE_TYPE_TWO = 8;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCRETE_TYPE_TWO__NAME = ABSTRACT_TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Prop Type Two</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCRETE_TYPE_TWO__PROP_TYPE_TWO = ABSTRACT_TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Concrete Type Two</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCRETE_TYPE_TWO_FEATURE_COUNT = ABSTRACT_TYPE_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link org.eclipselabs.emfjson.junit.model.Sex <em>Sex</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -614,7 +744,7 @@ public interface ModelPackage extends EPackage {
 	 * @see org.eclipselabs.emfjson.junit.model.impl.ModelPackageImpl#getSex()
 	 * @generated
 	 */
-	int SEX = 5;
+	int SEX = 9;
 
 	/**
 	 * The meta object id for the '<em>URI</em>' data type.
@@ -624,7 +754,7 @@ public interface ModelPackage extends EPackage {
 	 * @see org.eclipselabs.emfjson.junit.model.impl.ModelPackageImpl#getURI()
 	 * @generated
 	 */
-	int URI = 6;
+	int URI = 10;
 
 
 	/**
@@ -1196,6 +1326,27 @@ public interface ModelPackage extends EPackage {
 	EAttribute getPrimaryObject_FeatureMapAttributeCollection();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipselabs.emfjson.junit.model.Container <em>Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Container</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.Container
+	 * @generated
+	 */
+	EClass getContainer();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipselabs.emfjson.junit.model.Container#getElements <em>Elements</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Elements</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.Container#getElements()
+	 * @see #getContainer()
+	 * @generated
+	 */
+	EReference getContainer_Elements();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipselabs.emfjson.junit.model.TargetObject <em>Target Object</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1226,6 +1377,69 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getTargetObject_ArrayAttribute();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipselabs.emfjson.junit.model.AbstractType <em>Abstract Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Abstract Type</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.AbstractType
+	 * @generated
+	 */
+	EClass getAbstractType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipselabs.emfjson.junit.model.AbstractType#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.AbstractType#getName()
+	 * @see #getAbstractType()
+	 * @generated
+	 */
+	EAttribute getAbstractType_Name();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipselabs.emfjson.junit.model.ConcreteTypeOne <em>Concrete Type One</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Concrete Type One</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.ConcreteTypeOne
+	 * @generated
+	 */
+	EClass getConcreteTypeOne();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipselabs.emfjson.junit.model.ConcreteTypeOne#getPropTypeOne <em>Prop Type One</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Prop Type One</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.ConcreteTypeOne#getPropTypeOne()
+	 * @see #getConcreteTypeOne()
+	 * @generated
+	 */
+	EAttribute getConcreteTypeOne_PropTypeOne();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipselabs.emfjson.junit.model.ConcreteTypeTwo <em>Concrete Type Two</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Concrete Type Two</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.ConcreteTypeTwo
+	 * @generated
+	 */
+	EClass getConcreteTypeTwo();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipselabs.emfjson.junit.model.ConcreteTypeTwo#getPropTypeTwo <em>Prop Type Two</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Prop Type Two</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.ConcreteTypeTwo#getPropTypeTwo()
+	 * @see #getConcreteTypeTwo()
+	 * @generated
+	 */
+	EAttribute getConcreteTypeTwo_PropTypeTwo();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipselabs.emfjson.junit.model.Sex <em>Sex</em>}'.
@@ -1695,6 +1909,24 @@ public interface ModelPackage extends EPackage {
 		EAttribute PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_COLLECTION = eINSTANCE.getPrimaryObject_FeatureMapAttributeCollection();
 
 		/**
+		 * The meta object literal for the '{@link org.eclipselabs.emfjson.junit.model.impl.ContainerImpl <em>Container</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipselabs.emfjson.junit.model.impl.ContainerImpl
+		 * @see org.eclipselabs.emfjson.junit.model.impl.ModelPackageImpl#getContainer()
+		 * @generated
+		 */
+		EClass CONTAINER = eINSTANCE.getContainer();
+
+		/**
+		 * The meta object literal for the '<em><b>Elements</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONTAINER__ELEMENTS = eINSTANCE.getContainer_Elements();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipselabs.emfjson.junit.model.impl.TargetObjectImpl <em>Target Object</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1719,6 +1951,60 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TARGET_OBJECT__ARRAY_ATTRIBUTE = eINSTANCE.getTargetObject_ArrayAttribute();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipselabs.emfjson.junit.model.impl.AbstractTypeImpl <em>Abstract Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipselabs.emfjson.junit.model.impl.AbstractTypeImpl
+		 * @see org.eclipselabs.emfjson.junit.model.impl.ModelPackageImpl#getAbstractType()
+		 * @generated
+		 */
+		EClass ABSTRACT_TYPE = eINSTANCE.getAbstractType();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSTRACT_TYPE__NAME = eINSTANCE.getAbstractType_Name();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipselabs.emfjson.junit.model.impl.ConcreteTypeOneImpl <em>Concrete Type One</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipselabs.emfjson.junit.model.impl.ConcreteTypeOneImpl
+		 * @see org.eclipselabs.emfjson.junit.model.impl.ModelPackageImpl#getConcreteTypeOne()
+		 * @generated
+		 */
+		EClass CONCRETE_TYPE_ONE = eINSTANCE.getConcreteTypeOne();
+
+		/**
+		 * The meta object literal for the '<em><b>Prop Type One</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONCRETE_TYPE_ONE__PROP_TYPE_ONE = eINSTANCE.getConcreteTypeOne_PropTypeOne();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipselabs.emfjson.junit.model.impl.ConcreteTypeTwoImpl <em>Concrete Type Two</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipselabs.emfjson.junit.model.impl.ConcreteTypeTwoImpl
+		 * @see org.eclipselabs.emfjson.junit.model.impl.ModelPackageImpl#getConcreteTypeTwo()
+		 * @generated
+		 */
+		EClass CONCRETE_TYPE_TWO = eINSTANCE.getConcreteTypeTwo();
+
+		/**
+		 * The meta object literal for the '<em><b>Prop Type Two</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONCRETE_TYPE_TWO__PROP_TYPE_TWO = eINSTANCE.getConcreteTypeTwo_PropTypeTwo();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipselabs.emfjson.junit.model.Sex <em>Sex</em>}' enum.

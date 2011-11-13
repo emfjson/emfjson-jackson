@@ -62,6 +62,15 @@ public interface ModelFactory extends EFactory {
 	PrimaryObject createPrimaryObject();
 
 	/**
+	 * Returns a new object of class '<em>Container</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Container</em>'.
+	 * @generated
+	 */
+	Container createContainer();
+
+	/**
 	 * Returns a new object of class '<em>Target Object</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -69,6 +78,24 @@ public interface ModelFactory extends EFactory {
 	 * @generated
 	 */
 	TargetObject createTargetObject();
+
+	/**
+	 * Returns a new object of class '<em>Concrete Type One</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Concrete Type One</em>'.
+	 * @generated
+	 */
+	ConcreteTypeOne createConcreteTypeOne();
+
+	/**
+	 * Returns a new object of class '<em>Concrete Type Two</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Concrete Type Two</em>'.
+	 * @generated
+	 */
+	ConcreteTypeTwo createConcreteTypeTwo();
 
 	/**
 	 * Returns the package supported by this factory.

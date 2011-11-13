@@ -1,0 +1,7 @@
+{
+	"elements":
+	[
+		{"type":"ConcreteTypeOne","name":"First", "propTypeOne":"one"},
+		{"type":"ConcreteTypeTwo","name":"Two", "propTypeTwo":"two"}
+	]
+}

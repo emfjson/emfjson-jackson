@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIHandler;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipselabs.emfjson.EJs;
 import org.eclipselabs.emfjson.JsURIHandlerImpl;
 import org.eclipselabs.emfjson.search.Result;
 import org.eclipselabs.emfjson.search.ResultType;
@@ -30,7 +31,6 @@ import org.eclipselabs.emfjson.search.SearchPackage;
 import org.eclipselabs.emfjson.twitter.Search;
 import org.junit.Before;
 import org.junit.Test;
-
 
 public class TestSearchBasic {
 
@@ -52,7 +52,7 @@ public class TestSearchBasic {
 			.resultType(ResultType.MIXED);
 		
 		Resource resource = resourceSet.createResource(search.getURI());
-		options.put(JsURIHandlerImpl.OPTION_ROOT_ELEMENT, SearchPackage.eINSTANCE.getResult());
+		options.put(EJs.OPTION_ROOT_ELEMENT, SearchPackage.eINSTANCE.getResult());
 		
 		assertNotNull(resource);
 		

@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIHandler;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipselabs.emfjson.EJs;
 import org.eclipselabs.emfjson.JsURIHandlerImpl;
 import org.eclipselabs.emfjson.youtube.VideoItem;
 import org.eclipselabs.emfjson.youtube.VideoResult;
@@ -52,7 +53,7 @@ public class TestSearchBasic {
 			.maxResults(10);
 		
 		Resource resource = resourceSet.createResource(service.getURI());
-		options.put(JsURIHandlerImpl.OPTION_ROOT_ELEMENT, YoutubePackage.eINSTANCE.getVideoResult());
+		options.put(EJs.OPTION_ROOT_ELEMENT, YoutubePackage.eINSTANCE.getVideoResult());
 		
 		assertNotNull(resource);
 		

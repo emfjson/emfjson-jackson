@@ -11,11 +11,14 @@ Export-Package: org.eclipselabs.emfjson.junit.model,
  org.eclipselabs.emfjson.junit.model.impl,
  org.eclipselabs.emfjson.junit.model.util
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
- org.eclipselabs.emfjson;bundle-version="0.1.0",
- org.eclipse.emf.ecore.xmi;bundle-version="2.7.0",
- org.junit
+ org.eclipse.emf.ecore.xmi;bundle-version="2.7.0"
 Bundle-ActivationPolicy: lazy
-Import-Package: org.junit;version="4.8.2",
+Import-Package: org.eclipselabs.emfjson,
+ org.eclipselabs.emfjson.internal,
+ org.eclipselabs.emfjson.resource,
+ org.eclipselabs.emfjson.twitter.junit.tests,
+ org.eclipselabs.emfjson.youtube.junit.tests,
+ org.junit;version="4.8.2",
  org.junit.runner;version="4.8.2",
  org.junit.runners;version="4.8.2",
  org.osgi.framework;version="1.6.0"

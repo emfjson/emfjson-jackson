@@ -12,8 +12,11 @@ package org.eclipselabs.emfjson.junit.suite;
 
 import org.eclipselabs.emfjson.junit.tests.TestEmfJsAttributes;
 import org.eclipselabs.emfjson.junit.tests.TestEmfJsReferences;
+import org.eclipselabs.emfjson.junit.tests.TestPolymorphicType;
 import org.eclipselabs.emfjson.junit.tests.TestURIHandlerReadBasics;
 import org.eclipselabs.emfjson.junit.tests.TestURIHandlerSaveBasics;
+import org.eclipselabs.emfjson.twitter.junit.tests.TestSearchBasic;
+import org.eclipselabs.emfjson.twitter.junit.tests.TestStatusesBasic;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -21,6 +24,8 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({
 	TestURIHandlerReadBasics.class, TestURIHandlerSaveBasics.class, 
-	TestEmfJsReferences.class, TestEmfJsAttributes.class
+	TestEmfJsReferences.class, TestEmfJsAttributes.class, TestPolymorphicType.class,
+	TestSearchBasic.class, TestStatusesBasic.class, 
+	org.eclipselabs.emfjson.youtube.junit.tests.TestSearchBasic.class
 })
 public class TestEmfJsSuite {}
