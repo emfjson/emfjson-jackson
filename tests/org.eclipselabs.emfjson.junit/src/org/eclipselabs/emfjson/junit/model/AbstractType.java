@@ -6,6 +6,7 @@
  */
 package org.eclipselabs.emfjson.junit.model;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -17,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipselabs.emfjson.junit.model.AbstractType#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipselabs.emfjson.junit.model.AbstractType#getRefProperty <em>Ref Property</em>}</li>
  * </ul>
  * </p>
  *
@@ -36,7 +38,7 @@ public interface AbstractType extends EObject {
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see org.eclipselabs.emfjson.junit.model.ModelPackage#getAbstractType_Name()
-	 * @model required="true"
+	 * @model id="true" required="true"
 	 * @generated
 	 */
 	String getName();
@@ -50,5 +52,21 @@ public interface AbstractType extends EObject {
 	 * @generated
 	 */
 	void setName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Ref Property</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipselabs.emfjson.junit.model.AbstractType}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Ref Property</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Ref Property</em>' reference list.
+	 * @see org.eclipselabs.emfjson.junit.model.ModelPackage#getAbstractType_RefProperty()
+	 * @model
+	 * @generated
+	 */
+	EList<AbstractType> getRefProperty();
 
 } // AbstractType

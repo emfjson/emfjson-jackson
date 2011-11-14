@@ -1,7 +1,7 @@
 {
 	"elements":
 	[
-		{"type":"ConcreteTypeOne","name":"First", "propTypeOne":"one"},
+		{"type":"ConcreteTypeOne","name":"First", "propTypeOne":"one", "refProperty":{"$ref":"Two"}},
 		{"type":"ConcreteTypeTwo","name":"Two", "propTypeTwo":"two"}
 	]
 }

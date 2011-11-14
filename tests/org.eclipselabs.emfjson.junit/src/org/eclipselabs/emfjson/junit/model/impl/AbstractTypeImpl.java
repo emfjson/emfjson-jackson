@@ -6,13 +6,16 @@
  */
 package org.eclipselabs.emfjson.junit.model.impl;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipselabs.emfjson.junit.model.AbstractType;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
 
@@ -24,6 +27,7 @@ import org.eclipselabs.emfjson.junit.model.ModelPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.AbstractTypeImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.AbstractTypeImpl#getRefProperty <em>Ref Property</em>}</li>
  * </ul>
  * </p>
  *
@@ -49,6 +53,16 @@ public abstract class AbstractTypeImpl extends EObjectImpl implements AbstractTy
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getRefProperty() <em>Ref Property</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRefProperty()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AbstractType> refProperty;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -95,11 +109,25 @@ public abstract class AbstractTypeImpl extends EObjectImpl implements AbstractTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<AbstractType> getRefProperty() {
+		if (refProperty == null) {
+			refProperty = new EObjectResolvingEList<AbstractType>(AbstractType.class, this, ModelPackage.ABSTRACT_TYPE__REF_PROPERTY);
+		}
+		return refProperty;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ModelPackage.ABSTRACT_TYPE__NAME:
 				return getName();
+			case ModelPackage.ABSTRACT_TYPE__REF_PROPERTY:
+				return getRefProperty();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -109,11 +137,16 @@ public abstract class AbstractTypeImpl extends EObjectImpl implements AbstractTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackage.ABSTRACT_TYPE__NAME:
 				setName((String)newValue);
+				return;
+			case ModelPackage.ABSTRACT_TYPE__REF_PROPERTY:
+				getRefProperty().clear();
+				getRefProperty().addAll((Collection<? extends AbstractType>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -130,6 +163,9 @@ public abstract class AbstractTypeImpl extends EObjectImpl implements AbstractTy
 			case ModelPackage.ABSTRACT_TYPE__NAME:
 				setName(NAME_EDEFAULT);
 				return;
+			case ModelPackage.ABSTRACT_TYPE__REF_PROPERTY:
+				getRefProperty().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -144,6 +180,8 @@ public abstract class AbstractTypeImpl extends EObjectImpl implements AbstractTy
 		switch (featureID) {
 			case ModelPackage.ABSTRACT_TYPE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case ModelPackage.ABSTRACT_TYPE__REF_PROPERTY:
+				return refProperty != null && !refProperty.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

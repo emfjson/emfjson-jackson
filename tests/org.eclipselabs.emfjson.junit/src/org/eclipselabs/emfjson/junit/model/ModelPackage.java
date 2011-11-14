@@ -654,13 +654,22 @@ public interface ModelPackage extends EPackage {
 	int ABSTRACT_TYPE__NAME = 0;
 
 	/**
+	 * The feature id for the '<em><b>Ref Property</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__REF_PROPERTY = 1;
+
+	/**
 	 * The number of structural features of the '<em>Abstract Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_TYPE_FEATURE_COUNT = 1;
+	int ABSTRACT_TYPE_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipselabs.emfjson.junit.model.impl.ConcreteTypeOneImpl <em>Concrete Type One</em>}' class.
@@ -680,6 +689,15 @@ public interface ModelPackage extends EPackage {
 	 * @ordered
 	 */
 	int CONCRETE_TYPE_ONE__NAME = ABSTRACT_TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Ref Property</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCRETE_TYPE_ONE__REF_PROPERTY = ABSTRACT_TYPE__REF_PROPERTY;
 
 	/**
 	 * The feature id for the '<em><b>Prop Type One</b></em>' attribute.
@@ -717,6 +735,15 @@ public interface ModelPackage extends EPackage {
 	 * @ordered
 	 */
 	int CONCRETE_TYPE_TWO__NAME = ABSTRACT_TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Ref Property</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCRETE_TYPE_TWO__REF_PROPERTY = ABSTRACT_TYPE__REF_PROPERTY;
 
 	/**
 	 * The feature id for the '<em><b>Prop Type Two</b></em>' attribute.
@@ -1400,6 +1427,17 @@ public interface ModelPackage extends EPackage {
 	EAttribute getAbstractType_Name();
 
 	/**
+	 * Returns the meta object for the reference list '{@link org.eclipselabs.emfjson.junit.model.AbstractType#getRefProperty <em>Ref Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Ref Property</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.AbstractType#getRefProperty()
+	 * @see #getAbstractType()
+	 * @generated
+	 */
+	EReference getAbstractType_RefProperty();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipselabs.emfjson.junit.model.ConcreteTypeOne <em>Concrete Type One</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1969,6 +2007,14 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ABSTRACT_TYPE__NAME = eINSTANCE.getAbstractType_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Ref Property</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ABSTRACT_TYPE__REF_PROPERTY = eINSTANCE.getAbstractType_RefProperty();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipselabs.emfjson.junit.model.impl.ConcreteTypeOneImpl <em>Concrete Type One</em>}' class.

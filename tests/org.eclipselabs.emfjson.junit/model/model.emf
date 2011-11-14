@@ -91,7 +91,8 @@ class TargetObject {
 }
 
 abstract class AbstractType {
-  attr String[1] name;
+  id attr String[1] name;
+  ref AbstractType[*] refProperty;
 }
 
 class ConcreteTypeOne extends AbstractType {
@@ -101,5 +102,3 @@ class ConcreteTypeOne extends AbstractType {
 class ConcreteTypeTwo extends AbstractType {
   attr String[?] propTypeTwo;
 }
-
-

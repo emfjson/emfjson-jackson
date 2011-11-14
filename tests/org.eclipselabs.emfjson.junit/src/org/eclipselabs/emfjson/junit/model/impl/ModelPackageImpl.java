@@ -708,6 +708,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getAbstractType_RefProperty() {
+		return (EReference)abstractTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getConcreteTypeOne() {
 		return concreteTypeOneEClass;
 	}
@@ -850,6 +859,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		abstractTypeEClass = createEClass(ABSTRACT_TYPE);
 		createEAttribute(abstractTypeEClass, ABSTRACT_TYPE__NAME);
+		createEReference(abstractTypeEClass, ABSTRACT_TYPE__REF_PROPERTY);
 
 		concreteTypeOneEClass = createEClass(CONCRETE_TYPE_ONE);
 		createEAttribute(concreteTypeOneEClass, CONCRETE_TYPE_ONE__PROP_TYPE_ONE);
@@ -960,7 +970,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEAttribute(getTargetObject_ArrayAttribute(), ecorePackage.getEString(), "arrayAttribute", null, 0, -1, TargetObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(abstractTypeEClass, AbstractType.class, "AbstractType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getAbstractType_Name(), ecorePackage.getEString(), "name", null, 1, 1, AbstractType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAbstractType_Name(), ecorePackage.getEString(), "name", null, 1, 1, AbstractType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAbstractType_RefProperty(), this.getAbstractType(), null, "refProperty", null, 0, -1, AbstractType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(concreteTypeOneEClass, ConcreteTypeOne.class, "ConcreteTypeOne", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getConcreteTypeOne_PropTypeOne(), ecorePackage.getEString(), "propTypeOne", null, 0, 1, ConcreteTypeOne.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
