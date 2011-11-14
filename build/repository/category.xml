@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.eclipselabs.emfjson.feature_0.3.0.qualifier.jar" id="org.eclipselabs.emfjson.feature" version="0.3.0.qualifier">
+   <feature url="features/org.eclipselabs.emfjson.feature_0.3.1.qualifier.jar" id="org.eclipselabs.emfjson.feature" version="0.3.1.qualifier">
       <category name="org.eclipselabs.emfjson"/>
    </feature>
-   <feature url="features/org.eclipselabs.emfjson.rotten.feature_0.3.0.qualifier.jar" id="org.eclipselabs.emfjson.rotten.feature" version="0.3.0.qualifier">
+   <feature url="features/org.eclipselabs.emfjson.rotten.feature_0.3.1.qualifier.jar" id="org.eclipselabs.emfjson.rotten.feature" version="0.3.1.qualifier">
       <category name="org.eclipselabs.emfjson"/>
    </feature>
-   <feature url="features/org.eclipselabs.emfjson.twitter.feature_0.3.0.qualifier.jar" id="org.eclipselabs.emfjson.twitter.feature" version="0.3.0.qualifier">
+   <feature url="features/org.eclipselabs.emfjson.twitter.feature_0.3.1.qualifier.jar" id="org.eclipselabs.emfjson.twitter.feature" version="0.3.1.qualifier">
       <category name="org.eclipselabs.emfjson"/>
    </feature>
-   <feature url="features/org.eclipselabs.emfjson.youtube.feature_0.3.0.qualifier.jar" id="org.eclipselabs.emfjson.youtube.feature" version="0.3.0.qualifier">
+   <feature url="features/org.eclipselabs.emfjson.youtube.feature_0.3.1.qualifier.jar" id="org.eclipselabs.emfjson.youtube.feature" version="0.3.1.qualifier">
       <category name="org.eclipselabs.emfjson"/>
    </feature>
    <category-def name="org.eclipselabs.emfjson" label="EMFJs">

@@ -2,7 +2,7 @@
 <feature
       id="org.eclipselabs.emfjson.youtube.feature"
       label="EMFJs Youtube"
-      version="0.3.0.qualifier"
+      version="0.3.1.qualifier"
       provider-name="eclipselabs">
 
    <description url="http://www.example.com/description">
@@ -27,7 +27,7 @@
          id="org.eclipselabs.emfjson.youtube"
          download-size="0"
          install-size="0"
-         version="0.3.0.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
 </feature>
