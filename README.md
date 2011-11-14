@@ -1,8 +1,8 @@
 EMFJSON is a JSON mapper for [EMF](http://www.eclipse.org/emf).
 
-Current version is 0.3.0.
+Current version is 0.3.1.
 
-Eclipse Update Site (p2 repository): http://ghillairet.github.com/emfjson/releases/0.3.0/
+Eclipse Update Site (p2 repository): http://ghillairet.github.com/emfjson/releases/0.3.1/
 
 # Dependencies
 
@@ -47,6 +47,10 @@ The resource should now contained the objects.
     User user = (User)resource.getContents().get(0);
 
 # News #
+
+Version 0.3.1 2011/11/14
+
+*    <del>Issue 5</del> Add support for polymorphic types
 
 Version 0.3.0 2011/10/23
 
