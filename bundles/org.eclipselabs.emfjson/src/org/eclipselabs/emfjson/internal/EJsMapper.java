@@ -289,23 +289,23 @@ public class EJsMapper {
 		if (rootNode == null) {
 			return null;
 		}
-
+		
 		final EClass rootClass = (EClass) options.get(EJs.OPTION_ROOT_ELEMENT);
 		final String path = EJsUtil.getRootNode((EObject) options.get(EJs.OPTION_ROOT_ELEMENT));
-		final JsonNode root;
+		
 		if (path == null) {
-			root = rootNode;
+			this.rootNode = rootNode;
 		} else {
-			root = rootNode.findPath(path);
+			this.rootNode = rootNode.findPath(path);
 		}
 
-		if (root == null) {
+		if (this.rootNode == null) {
 			return null;
 		}
 		
 		final Collection<EObject> result = new BasicEList<EObject>();
-		if (root.isArray()) {
-			for (Iterator<JsonNode> it = root.getElements(); it.hasNext();) {
+		if (this.rootNode.isArray()) {
+			for (Iterator<JsonNode> it = this.rootNode.getElements(); it.hasNext();) {
 				JsonNode node = it.next();
 				final EObject rootObject = EcoreUtil.create(rootClass);
 				resource.getContents().add(rootObject);
@@ -319,8 +319,8 @@ public class EJsMapper {
 			final EObject rootObject = EcoreUtil.create(rootClass);
 			resource.getContents().add(rootObject);
 			
-			fillEAttribute(rootObject, rootClass, root);
-			fillEReference(rootObject, rootClass, root);
+			fillEAttribute(rootObject, rootClass, this.rootNode);
+			fillEReference(rootObject, rootClass, this.rootNode);
 			
 			result.add(rootObject);
 		}
@@ -350,7 +350,7 @@ public class EJsMapper {
 	}
 
 	private void setEReferenceValues(EObject rootObject, EReference reference, JsonNode n) {
-		final EObject obj = createEObject(rootObject.eResource(), EJsUtil.findEClass(reference.getEReferenceType(), n), n);
+		final EObject obj = createEObject(rootObject.eResource(), EJsUtil.findEClass(reference.getEReferenceType(), n, rootNode), n);
 		if (obj != null) {
 			if (reference.isMany()) {
 				@SuppressWarnings("unchecked")
@@ -376,6 +376,7 @@ public class EJsMapper {
 				return object;
 			} else {
 				EObject obj = EcoreUtil.create(eClass);
+				resource.getContents().add(obj);
 				fillEAttribute(obj, eClass, node);
 				fillEReference(obj, eClass, node);
 
