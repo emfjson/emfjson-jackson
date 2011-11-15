@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**
  * 
- * @author guillaume hillairet
+ * @author ghillairet
  *
  */
 public class EJsUtil {
@@ -52,20 +52,10 @@ public class EJsUtil {
 				if (annotation.getDetails().containsKey("root")) {
 					if (annotation.getDetails().containsKey("element")) {
 						return annotation.getDetails().get("element");
-					} else {
-						return null;
 					}
-
-				} else {
-					//					throw new IllegalArgumentException("The root class @JSON annotation must contain root and element details.");
-					return null;
 				}
-
-			} else {
-				return null;
-				//				throw new IllegalArgumentException("The root class must be annotated with @JSON annotation.");
 			}
-
+			return null;
 		} else {
 			throw new IllegalArgumentException("Option must contain the root class.");
 		}

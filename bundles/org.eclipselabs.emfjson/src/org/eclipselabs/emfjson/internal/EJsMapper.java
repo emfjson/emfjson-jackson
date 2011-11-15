@@ -28,6 +28,7 @@ import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.ObjectNode;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -43,7 +44,7 @@ import org.eclipselabs.emfjson.EJs;
 
 /**
  * 
- * @author guillaume
+ * @author ghillairet
  *
  */
 public class EJsMapper {
@@ -121,7 +122,7 @@ public class EJsMapper {
 	
 	protected void writeEObjectAttributes(EObject object, ObjectNode node) {
 		if (!object.eClass().getESuperTypes().isEmpty()) {
-			node.put(TYPE, object.eClass().getName());	
+			node.put(TYPE, EcoreUtil.getURI(object.eClass()).toString());	
 		}
 		
 		for (EAttribute attribute: object.eClass().getEAllAttributes()) {
@@ -226,18 +227,18 @@ public class EJsMapper {
 
 							for (EObject obj: values) {
 								ObjectNode nodeRef = mapper.createObjectNode();
-								nodeRef.put("$ref", EcoreUtil.getURI(obj).fragment());
+								nodeRef.put("$ref", EcoreUtil.getURI(obj).toString());
 								arrayNode.add(nodeRef);
 							}
 						}
 
 					} else {
-
 						Object value = object.eGet(reference);
 						if (value != null) {
-							node.put(reference.getName(), EcoreUtil.getID((EObject) value));
+							ObjectNode nodeRef = mapper.createObjectNode();
+							nodeRef.put("$ref", EcoreUtil.getURI((EObject) value).toString());
+							node.put(reference.getName(), nodeRef);
 						}
-
 					}
 				}
 			}
@@ -371,7 +372,7 @@ public class EJsMapper {
 				EObject object = resource.getEObject(objectID);
 				if (object == null) {
 					object = EcoreUtil.create(eClass);
-					((InternalEObject)object).eSetProxyURI(resource.getURI().appendFragment(objectID));
+					((InternalEObject)object).eSetProxyURI(URI.createURI(objectID));
 				}
 				return object;
 			} else {
