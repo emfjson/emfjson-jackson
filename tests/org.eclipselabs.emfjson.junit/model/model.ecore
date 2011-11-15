@@ -14,6 +14,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sex" eType="#//Sex"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="friends" upperBound="-1"
         eType="#//User"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="uniqueFriend" eType="#//User"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="address" eType="#//Address"
         containment="true"/>
   </eClassifiers>

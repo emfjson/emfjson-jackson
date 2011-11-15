@@ -1,7 +1,18 @@
 {
 	"elements":
 	[
-		{"type":"ConcreteTypeOne","name":"First", "propTypeOne":"one", "refProperty":{"$ref":"Two"}},
-		{"type":"ConcreteTypeTwo","name":"Two", "propTypeTwo":"two"}
+		{
+			"type":"http://www.eclipselabs.org/emfjson/junit#ConcreteTypeOne",
+			"name":"First", 
+			"propTypeOne":"one", 
+			"refProperty":{
+				"$ref":"platform:/plugin/org.eclipselabs.emfjson.junit/tests/test-load-types-2.json#Two"
+			}
+		},
+		{
+			"type":"http://www.eclipselabs.org/emfjson/junit#ConcreteTypeTwo",
+			"name":"Two", 
+			"propTypeTwo":"two"
+		}
 	]
 }

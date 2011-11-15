@@ -3,7 +3,7 @@
 		"userId": "1", 
 		"name": "Paul", 
 		"friends": [{
-			"$ref" : "2"
+			"$ref" : "platform:/plugin/org.eclipselabs.emfjson.junit/tests/test-load-4.json#2"
 		}]
 	},
 	{

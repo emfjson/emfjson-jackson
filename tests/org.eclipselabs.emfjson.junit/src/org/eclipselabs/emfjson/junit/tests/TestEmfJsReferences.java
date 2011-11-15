@@ -20,6 +20,7 @@ import java.io.IOException;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipselabs.emfjson.EJs;
 import org.eclipselabs.emfjson.junit.model.Address;
@@ -80,7 +81,9 @@ public class TestEmfJsReferences extends TestSupport {
 	
 	@Test
 	public void testSaveTwoObjectsWithAttributesOneReference() throws IOException {
-		String expectedString = "[{\"userId\":\"1\",\"name\":\"John\",\"friends\":[{\"$ref\":\"2\"}]},{\"userId\":\"2\",\"name\":\"Paul\"}]";
+		String expectedString = 
+				"[{\"userId\":\"1\",\"name\":\"John\",\"uniqueFriend\":{\"$ref\":\"tests/test-save-3.json#2\"}}," +
+				"{\"userId\":\"2\",\"name\":\"Paul\"}]";
 		
 		User user1 = ModelFactory.eINSTANCE.createUser();
 		user1.setUserId("1");
@@ -90,7 +93,7 @@ public class TestEmfJsReferences extends TestSupport {
 		user2.setUserId("2");
 		user2.setName("Paul");
 		
-		user1.getFriends().add(user2);
+		user1.setUniqueFriend(user2);
 		
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test-save-3.json"));
 		
@@ -202,7 +205,7 @@ public class TestEmfJsReferences extends TestSupport {
 		EObject friend = ((User) obj1).getFriends().get(0);
 		assertNotNull(friend);
 		
-		assertFalse(friend.eIsProxy());
+//		assertFalse(friend.eIsProxy());
 		
 		assertEquals(obj2, friend);
 		assertEquals("2", ((User)friend).getUserId());
@@ -246,5 +249,23 @@ public class TestEmfJsReferences extends TestSupport {
 		
 		assertEquals(obj2, friend1);
 		assertEquals(obj3, friend2);
+	}
+	
+	@Test
+	public void testLoadWithManyRootObjects() throws IOException {
+		options.put(EJs.OPTION_ROOT_ELEMENT, EcorePackage.eINSTANCE.getEPackage());
+		
+		Resource resource = EcorePackage.eINSTANCE.eResource();
+		assertNotNull(resource);
+		
+		try {
+			resource.load(null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		Resource js = resourceSet.createResource(URI.createURI("file:/Users/guillaume/Desktop/ecore.json"));
+		js.getContents().addAll(resource.getContents());
+		js.save(options);
 	}
 }

@@ -8,6 +8,7 @@ class User {
   attr EDate birthDate;
   attr Sex sex;
   ref User[*] friends;
+  ref User[?] uniqueFriend;
   val Address address;
 }
 

@@ -39,6 +39,7 @@ import org.eclipselabs.emfjson.junit.model.User;
  *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.UserImpl#getBirthDate <em>Birth Date</em>}</li>
  *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.UserImpl#getSex <em>Sex</em>}</li>
  *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.UserImpl#getFriends <em>Friends</em>}</li>
+ *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.UserImpl#getUniqueFriend <em>Unique Friend</em>}</li>
  *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.UserImpl#getAddress <em>Address</em>}</li>
  * </ul>
  * </p>
@@ -135,6 +136,16 @@ public class UserImpl extends EObjectImpl implements User {
 	 * @ordered
 	 */
 	protected EList<User> friends;
+
+	/**
+	 * The cached value of the '{@link #getUniqueFriend() <em>Unique Friend</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUniqueFriend()
+	 * @generated
+	 * @ordered
+	 */
+	protected User uniqueFriend;
 
 	/**
 	 * The cached value of the '{@link #getAddress() <em>Address</em>}' containment reference.
@@ -266,6 +277,44 @@ public class UserImpl extends EObjectImpl implements User {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public User getUniqueFriend() {
+		if (uniqueFriend != null && uniqueFriend.eIsProxy()) {
+			InternalEObject oldUniqueFriend = (InternalEObject)uniqueFriend;
+			uniqueFriend = (User)eResolveProxy(oldUniqueFriend);
+			if (uniqueFriend != oldUniqueFriend) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.USER__UNIQUE_FRIEND, oldUniqueFriend, uniqueFriend));
+			}
+		}
+		return uniqueFriend;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public User basicGetUniqueFriend() {
+		return uniqueFriend;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUniqueFriend(User newUniqueFriend) {
+		User oldUniqueFriend = uniqueFriend;
+		uniqueFriend = newUniqueFriend;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.USER__UNIQUE_FRIEND, oldUniqueFriend, uniqueFriend));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Address getAddress() {
 		return address;
 	}
@@ -336,6 +385,9 @@ public class UserImpl extends EObjectImpl implements User {
 				return getSex();
 			case ModelPackage.USER__FRIENDS:
 				return getFriends();
+			case ModelPackage.USER__UNIQUE_FRIEND:
+				if (resolve) return getUniqueFriend();
+				return basicGetUniqueFriend();
 			case ModelPackage.USER__ADDRESS:
 				return getAddress();
 		}
@@ -367,6 +419,9 @@ public class UserImpl extends EObjectImpl implements User {
 				getFriends().clear();
 				getFriends().addAll((Collection<? extends User>)newValue);
 				return;
+			case ModelPackage.USER__UNIQUE_FRIEND:
+				setUniqueFriend((User)newValue);
+				return;
 			case ModelPackage.USER__ADDRESS:
 				setAddress((Address)newValue);
 				return;
@@ -397,6 +452,9 @@ public class UserImpl extends EObjectImpl implements User {
 			case ModelPackage.USER__FRIENDS:
 				getFriends().clear();
 				return;
+			case ModelPackage.USER__UNIQUE_FRIEND:
+				setUniqueFriend((User)null);
+				return;
 			case ModelPackage.USER__ADDRESS:
 				setAddress((Address)null);
 				return;
@@ -422,6 +480,8 @@ public class UserImpl extends EObjectImpl implements User {
 				return sex != SEX_EDEFAULT;
 			case ModelPackage.USER__FRIENDS:
 				return friends != null && !friends.isEmpty();
+			case ModelPackage.USER__UNIQUE_FRIEND:
+				return uniqueFriend != null;
 			case ModelPackage.USER__ADDRESS:
 				return address != null;
 		}

@@ -117,13 +117,22 @@ public interface ModelPackage extends EPackage {
 	int USER__FRIENDS = 4;
 
 	/**
+	 * The feature id for the '<em><b>Unique Friend</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER__UNIQUE_FRIEND = 5;
+
+	/**
 	 * The feature id for the '<em><b>Address</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int USER__ADDRESS = 5;
+	int USER__ADDRESS = 6;
 
 	/**
 	 * The number of structural features of the '<em>User</em>' class.
@@ -132,7 +141,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int USER_FEATURE_COUNT = 6;
+	int USER_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link org.eclipselabs.emfjson.junit.model.impl.AddressImpl <em>Address</em>}' class.
@@ -848,6 +857,17 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getUser_Friends();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipselabs.emfjson.junit.model.User#getUniqueFriend <em>Unique Friend</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Unique Friend</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.User#getUniqueFriend()
+	 * @see #getUser()
+	 * @generated
+	 */
+	EReference getUser_UniqueFriend();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipselabs.emfjson.junit.model.User#getAddress <em>Address</em>}'.
@@ -1571,6 +1591,14 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EReference USER__FRIENDS = eINSTANCE.getUser_Friends();
+
+		/**
+		 * The meta object literal for the '<em><b>Unique Friend</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference USER__UNIQUE_FRIEND = eINSTANCE.getUser_UniqueFriend();
 
 		/**
 		 * The meta object literal for the '<em><b>Address</b></em>' containment reference feature.
