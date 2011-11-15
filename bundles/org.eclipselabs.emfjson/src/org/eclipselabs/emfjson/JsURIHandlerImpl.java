@@ -25,9 +25,7 @@ import org.eclipselabs.emfjson.internal.JsOutputStream;
 
 /**
  *
- * 
- * 
- * @author guillaume hillairet
+ * @author ghillairet
  *
  */
 public class JsURIHandlerImpl extends URIHandlerImpl {

@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
 
 /**
  * 
- * @author guillaume
+ * @author ghillairet
  *
  */
 public class JsResourceFactoryImpl extends ResourceFactoryImpl {

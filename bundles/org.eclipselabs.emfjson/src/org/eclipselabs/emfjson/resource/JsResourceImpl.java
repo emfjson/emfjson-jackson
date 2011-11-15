@@ -30,7 +30,7 @@ import org.eclipselabs.emfjson.internal.EJsUtil;
 
 /**
  * 
- * @author guillaume
+ * @author ghillairet
  *
  */
 public class JsResourceImpl extends ResourceImpl {
