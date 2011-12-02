@@ -1,17 +1,17 @@
 EMFJSON is a JSON mapper for [EMF](http://www.eclipse.org/emf).
 
-Current version is 0.3.1.
+Current version is 0.3.2.
 
-Eclipse Update Site (p2 repository): http://ghillairet.github.com/emfjson/releases/0.3.1/
+Eclipse Update Site (p2 repository): http://ghillairet.github.com/emfjson/releases/0.3.2/
 
 # Dependencies
 
 * EMF 2.7.0 or later
-* Jackson 1.8.5 or later
+* Jackson 1.6.0 or later
 
 # Installation
 
-see [wiki](https://github.com/ghillairet/emfjson/wiki/Install)
+See [wiki](https://github.com/ghillairet/emfjson/wiki/Install)
 
 # Usage
 
@@ -47,6 +47,11 @@ The resource should now contained the objects.
     User user = (User)resource.getContents().get(0);
 
 # News #
+
+Version 0.3.2 2011/12/02
+
+*    <del>Issue 7</del> Use eClass URI to identify object types
+*    <del>Issue 6</del> Open the right InputStream
 
 Version 0.3.1 2011/11/14
 
