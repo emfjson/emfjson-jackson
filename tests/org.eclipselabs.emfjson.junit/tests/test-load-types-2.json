@@ -2,7 +2,7 @@
 	"elements":
 	[
 		{
-			"type":"http://www.eclipselabs.org/emfjson/junit#ConcreteTypeOne",
+			"eClass":"http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeOne",
 			"name":"First", 
 			"propTypeOne":"one", 
 			"refProperty":{
@@ -10,7 +10,7 @@
 			}
 		},
 		{
-			"type":"http://www.eclipselabs.org/emfjson/junit#ConcreteTypeTwo",
+			"eClass":"http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeTwo",
 			"name":"Two", 
 			"propTypeTwo":"two"
 		}

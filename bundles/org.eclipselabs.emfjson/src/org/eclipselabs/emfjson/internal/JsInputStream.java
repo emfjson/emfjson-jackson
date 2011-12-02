@@ -36,12 +36,12 @@ public class JsInputStream extends InputStream implements URIConverter.Loadable 
 	@SuppressWarnings("unused")
 	private URI uri;
 	private Map<?, ?> options;
-	private final EJsMapper mapper;
+	private final JSONSave mapper;
 	
 	public JsInputStream(URI uri, Map<?, ?> options) {
 		this.uri = uri;
 		this.options = options;
-		this.mapper = new EJsMapper();
+		this.mapper = new JSONSave();
 	}
 	
 	@Override

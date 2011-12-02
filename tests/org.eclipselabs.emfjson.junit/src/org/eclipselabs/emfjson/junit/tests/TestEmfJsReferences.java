@@ -20,6 +20,7 @@ import java.io.IOException;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipselabs.emfjson.EJs;
@@ -82,7 +83,7 @@ public class TestEmfJsReferences extends TestSupport {
 	@Test
 	public void testSaveTwoObjectsWithAttributesOneReference() throws IOException {
 		String expectedString = 
-				"[{\"userId\":\"1\",\"name\":\"John\",\"uniqueFriend\":{\"$ref\":\"tests/test-save-3.json#2\"}}," +
+				"[{\"userId\":\"1\",\"name\":\"John\",\"uniqueFriend\":{\"$ref\":\"2\"}}," +
 				"{\"userId\":\"2\",\"name\":\"Paul\"}]";
 		
 		User user1 = ModelFactory.eINSTANCE.createUser();
@@ -252,20 +253,24 @@ public class TestEmfJsReferences extends TestSupport {
 	}
 	
 	@Test
-	public void testLoadWithManyRootObjects() throws IOException {
+	public void testLoadCompleteMetamodel() throws IOException {
 		options.put(EJs.OPTION_ROOT_ELEMENT, EcorePackage.eINSTANCE.getEPackage());
 		
-		Resource resource = EcorePackage.eINSTANCE.eResource();
+		Resource resource = resourceSet.createResource(URI.createURI("tests/model.json"));
 		assertNotNull(resource);
 		
-		try {
-			resource.load(null);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		resource.load(null);
+//		JsResourceImpl js = new JsResourceImpl(URI.createURI("file:/Users/guillaume/Desktop/model.json"));
+//		js.getContents().addAll(ModelPackage.eINSTANCE.eResource().getContents());
+//		js.save(null);
 		
-		Resource js = resourceSet.createResource(URI.createURI("file:/Users/guillaume/Desktop/ecore.json"));
-		js.getContents().addAll(resource.getContents());
-		js.save(options);
+		resource.save(System.out, null);
+		assertEquals(1, resource.getContents().size());
+		assertTrue(resource.getContents().get(0) instanceof EPackage);
+		
+		EPackage modelPackage = (EPackage) resource.getContents().get(0);
+		assertEquals(ModelPackage.eNAME, modelPackage.getName());
+		assertEquals(ModelPackage.eNS_URI, modelPackage.getNsURI());
+		assertEquals(ModelPackage.eNS_PREFIX, modelPackage.getNsPrefix());
 	}
 }

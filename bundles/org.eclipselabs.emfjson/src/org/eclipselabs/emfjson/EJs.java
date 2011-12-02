@@ -12,9 +12,7 @@ package org.eclipselabs.emfjson;
 
 /**
  * 
- * 
  * @author ghillairet
- *
  */
 public final class EJs {
 	private EJs() {}

@@ -21,7 +21,6 @@
       <import plugin="org.eclipse.emf.common"/>
       <import plugin="org.eclipse.emf.ecore" version="2.7.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.osgi"/>
-      <import plugin="org.eclipse.core.runtime"/>
    </requires>
 
    <plugin

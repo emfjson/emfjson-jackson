@@ -13,8 +13,6 @@ package org.eclipselabs.emfjson.resource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -24,9 +22,8 @@ import org.codehaus.jackson.JsonParser;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
-import org.eclipselabs.emfjson.EJs;
-import org.eclipselabs.emfjson.internal.EJsMapper;
 import org.eclipselabs.emfjson.internal.EJsUtil;
+import org.eclipselabs.emfjson.internal.JSONSave;
 
 /**
  * 
@@ -45,16 +42,19 @@ public class JsResourceImpl extends ResourceImpl {
 
 	@Override
 	protected void doLoad(InputStream inputStream, Map<?, ?> options) throws IOException {
-		final EJsMapper mapper = new EJsMapper();
-		
-		URL url = null;
-		try {
-			url = EJsUtil.getURL(this.getURI(), options.get(EJs.OPTION_URL_PARAMETERS));
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
+		final JSONSave mapper = new JSONSave();
+		if (options == null) {
+			options = Collections.<String, Object> emptyMap();
 		}
 		
-		final JsonParser jp = EJsUtil.getJsonParser(url);
+//		URL url = null;
+//		try {
+//			url = EJsUtil.getURL(this.getURI(), options.get(EJs.OPTION_URL_PARAMETERS));
+//		} catch (MalformedURLException e) {
+//			e.printStackTrace();
+//		}
+		
+		final JsonParser jp = EJsUtil.getJsonParser(inputStream);
 		final JsonNode rootNode = jp != null ? mapper.getRootNode(jp) : null;
 		
 		Collection<EObject> roots = rootNode != null ?
@@ -65,8 +65,11 @@ public class JsResourceImpl extends ResourceImpl {
 	
 	@Override
 	protected void doSave(OutputStream outputStream, Map<?, ?> options) throws IOException {
-		final EJsMapper writer = new EJsMapper();
-		JsonNode rootNode = writer.genJson(this, options);
+		if (options == null) {
+			options = Collections.<String, Object> emptyMap();
+		}
+		final JSONSave writer = new JSONSave();
+		final JsonNode rootNode = writer.genJson(this, options);
 		writer.getDelegate().writeValue(outputStream, rootNode);
 	}
 	

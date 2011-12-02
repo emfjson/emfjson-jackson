@@ -19,15 +19,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIHandler;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipselabs.emfjson.EJs;
 import org.eclipselabs.emfjson.JsURIHandlerImpl;
-import org.eclipselabs.emfjson.youtube.VideoItem;
-import org.eclipselabs.emfjson.youtube.VideoResult;
 import org.eclipselabs.emfjson.youtube.YoutubePackage;
 import org.eclipselabs.emfjson.youtube.service.YouTube;
 import org.junit.Before;
@@ -61,22 +58,17 @@ public class TestSearchBasic {
 		
 		assertFalse(resource.getContents().isEmpty());
 		
-		System.out.println(resource.getContents());
-		
-		for (EObject o: resource.getContents()) {
-			VideoResult result = (VideoResult) o;
-			System.out.println(result.getStartIndex());
-			for (VideoItem item: result.getItems()) {
-				System.out.println("item: "+item);
-				System.out.println("    "+item.getTitle());
-				System.out.println("    "+item.getPlayer().getDefault());
-				if (item.getContent() != null) {
-					System.out.println("    "+item.getContent().getRtsp());	
-				}
-			}
-			
-			System.out.println();
-		}
+//		for (EObject o: resource.getContents()) {
+//			VideoResult result = (VideoResult) o;
+//			for (VideoItem item: result.getItems()) {
+//				System.out.println("item: "+item);
+//				System.out.println("    "+item.getTitle());
+//				System.out.println("    "+item.getPlayer().getDefault());
+//				if (item.getContent() != null) {
+//					System.out.println("    "+item.getContent().getRtsp());	
+//				}
+//			}
+//		}
 		assertTrue(resource.getContents().size() == 1);
 	}
 	

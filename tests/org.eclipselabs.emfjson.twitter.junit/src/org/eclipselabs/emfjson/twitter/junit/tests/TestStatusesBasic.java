@@ -60,7 +60,5 @@ public class TestStatusesBasic {
 		resource.load(options);
 		
 		assertFalse(resource.getContents().isEmpty());
-		
-		System.out.println(resource.getContents());
 	}
 }

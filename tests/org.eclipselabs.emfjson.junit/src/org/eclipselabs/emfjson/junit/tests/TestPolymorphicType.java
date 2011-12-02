@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2011 Guillaume Hillairet.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Guillaume Hillairet - initial API and implementation
+ *******************************************************************************/
 package org.eclipselabs.emfjson.junit.tests;
 
 import static org.junit.Assert.assertEquals;
@@ -28,12 +38,12 @@ public class TestPolymorphicType extends TestSupport {
 				"{" +
 						"\"elements\":" +
 						"[" +
-							"{\"type\":\"ConcreteTypeOne\",\"name\":\"First\"}," +
-							"{\"type\":\"ConcreteTypeTwo\",\"name\":\"Two\"}" +
+							"{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeOne\",\"name\":\"First\"}," +
+							"{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeTwo\",\"name\":\"Two\"}" +
 							"]" +
 				"}";
 		
-		Resource resource = resourceSet.createResource(URI.createURI("tests/test-save-types.json"));
+		Resource resource = resourceSet.createResource(URI.createURI("types.json"));
 		
 		assertNotNull(resource);
 		
@@ -87,6 +97,36 @@ public class TestPolymorphicType extends TestSupport {
 	public void testLoadTwoObjectsWithReferenceAndTypeInformation() throws IOException {
 		Resource resource = resourceSet.createResource(
 				URI.createURI("platform:/plugin/org.eclipselabs.emfjson.junit/tests/test-load-types-2.json"));
+		assertNotNull(resource);
+		options.put(EJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getContainer());
+		
+		resource.load(options);
+		
+		assertEquals(1, resource.getContents().size());
+		
+		EObject root = resource.getContents().get(0);
+		assertTrue(root instanceof Container);
+		
+		Container container = (Container) root;
+		
+		assertEquals(2, container.getElements().size());
+		AbstractType first = container.getElements().get(0);
+		AbstractType second = container.getElements().get(1);
+		
+		assertTrue(first instanceof ConcreteTypeOne);
+		assertTrue(second instanceof ConcreteTypeTwo);
+		
+		assertEquals(1, first.getRefProperty().size());
+		
+		EObject ref = first.getRefProperty().get(0);
+		
+		assertEquals(second, ref);
+	}
+	
+	@Test
+	public void testLoadTwoObjectsWithReferenceAndTypeInformationAndNamespace() throws IOException {
+		Resource resource = resourceSet.createResource(
+				URI.createURI("platform:/plugin/org.eclipselabs.emfjson.junit/tests/test-load-ns-types.json"));
 		assertNotNull(resource);
 		options.put(EJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getContainer());
 		

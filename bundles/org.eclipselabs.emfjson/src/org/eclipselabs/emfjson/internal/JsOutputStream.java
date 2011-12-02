@@ -28,17 +28,17 @@ public class JsOutputStream extends ByteArrayOutputStream implements URIConverte
 	@SuppressWarnings("unused")
 	private Map<?, ?> options;
 	
-	protected final EJsMapper writer;
+	protected final JSONSave writer;
 	
 	protected JsonNode currentRoot;
 	
 	public JsOutputStream() {
-		this.writer = new EJsMapper();
+		this.writer = new JSONSave();
 	}
 
 	public JsOutputStream(Map<?, ?> options) {
 		this.options = options;
-		this.writer = new EJsMapper();
+		this.writer = new JSONSave();
 	}
 	
 	@Override

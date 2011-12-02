@@ -11,7 +11,10 @@
 package org.eclipselabs.emfjson.junit.tests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
@@ -24,6 +27,7 @@ import org.eclipselabs.emfjson.junit.model.ETypes;
 import org.eclipselabs.emfjson.junit.model.ModelFactory;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
 import org.eclipselabs.emfjson.junit.model.PrimaryObject;
+import org.eclipselabs.emfjson.junit.model.User;
 import org.eclipselabs.emfjson.junit.support.TestSupport;
 import org.junit.Test;
 
@@ -125,5 +129,35 @@ public class TestEmfJsAttributes extends TestSupport {
 		excludeFeatures.add(ModelPackage.Literals.PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_COLLECTION);
 		
 //		assertThat(actual.getFeatureMapAttributeCollection().size(), is(2));
+	}
+	
+	@Test
+	public void testLoadOneObjectWithTypeFromFile() throws IOException {
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test-load-1.json"));
+		assertNotNull(resource);
+		resource.load(null);
+		
+		assertEquals(1, resource.getContents().size());
+		assertTrue(resource.getContents().get(0) instanceof User);
+		
+		User user = (User) resource.getContents().get(0);
+		assertEquals("1", user.getUserId());
+		assertEquals("Paul", user.getName());
+	}
+	
+	@Test
+	public void testLoadOneObjectWithTypeFromInputStream() throws IOException {
+		String data = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//User\",\"userId\":\"1\",\"name\":\"Paul\"}";
+		ByteArrayInputStream inStream = new ByteArrayInputStream(data.getBytes());
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+		assertNotNull(resource);
+		resource.load(inStream, null);
+		
+		assertEquals(1, resource.getContents().size());
+		assertTrue(resource.getContents().get(0) instanceof User);
+		
+		User user = (User) resource.getContents().get(0);
+		assertEquals("1", user.getUserId());
+		assertEquals("Paul", user.getName());
 	}
 }

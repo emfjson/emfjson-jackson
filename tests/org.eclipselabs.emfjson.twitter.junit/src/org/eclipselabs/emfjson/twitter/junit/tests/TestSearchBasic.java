@@ -18,14 +18,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIHandler;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipselabs.emfjson.EJs;
 import org.eclipselabs.emfjson.JsURIHandlerImpl;
-import org.eclipselabs.emfjson.search.Result;
 import org.eclipselabs.emfjson.search.ResultType;
 import org.eclipselabs.emfjson.search.SearchPackage;
 import org.eclipselabs.emfjson.twitter.Search;
@@ -47,7 +45,7 @@ public class TestSearchBasic {
 	
 	@Test
 	public void testOneSearch() throws IOException {
-		Search search = new Search("emf")
+		Search search = new Search("cat")
 			.count(1)
 			.resultType(ResultType.MIXED);
 		
@@ -59,21 +57,6 @@ public class TestSearchBasic {
 		resource.load(options);
 		
 		assertFalse(resource.getContents().isEmpty());
-		
-		System.out.println(resource.getContents());
-		
-		for (EObject o: resource.getContents()) {
-			Result result = (Result) o;
-			System.out.println(result.getId());
-			System.out.println(result.getFromUser());
-			System.out.println(result.getText());
-			System.out.println(result.getToUser());
-			
-			System.out.println(result.getMetadata());
-			System.out.println(result.getSinceId());
-			System.out.println();
-		}
-//		assertTrue(resource.getContents().size() == 2);
 	}
 	
 }

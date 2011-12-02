@@ -38,16 +38,23 @@
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/releases/indigo</url>
 		</repository>
+	<!--
+		<repository>
+		   <id>codehaus-snapshots</id>
+		   <url>http://snapshots.repository.codehaus.org</url>
+		  </repository>
+	-->
 	</repositories>
     
-    <dependencies>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>1.7.4</version>
-        </dependency>        
-    </dependencies>
-
+	<!--
+   	 <dependencies>
+        	<dependency>
+	            <groupId>org.codehaus.jackson</groupId>
+        	    <artifactId>jackson-mapper-asl</artifactId>
+	            <version>1.9.2</version>
+	        </dependency>        
+	    </dependencies>
+	-->
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>

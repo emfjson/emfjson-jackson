@@ -10,20 +10,22 @@
  *******************************************************************************/
 package org.eclipselabs.emfjson.internal;
 
+import static org.eclipselabs.emfjson.internal.EJsUtil.CONSTANTS.EJS_ELEMENT_ANNOTATION;
+import static org.eclipselabs.emfjson.internal.EJsUtil.CONSTANTS.EJS_JSON_ANNOTATION;
+import static org.eclipselabs.emfjson.internal.EJsUtil.CONSTANTS.EJS_ROOT_ANNOTATION;
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 
 import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.JsonParser;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
@@ -33,32 +35,31 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  *
  */
 public class EJsUtil {
-
+	
 	public static String getElementName(EStructuralFeature feature) {
-		final EAnnotation annotation = feature.getEAnnotation("JSON");
-		if (annotation != null && annotation.getDetails().containsKey("element")) {
-			return annotation.getDetails().get("element");
+		final EAnnotation annotation = feature.getEAnnotation(EJS_JSON_ANNOTATION);
+		if (annotation != null && annotation.getDetails().containsKey(EJS_ELEMENT_ANNOTATION)) {
+			return annotation.getDetails().get(EJS_ELEMENT_ANNOTATION);
 		}
 		return feature.getName();
 	}
-
+	
 	public static String getRootNode(EObject object) {
 		if (object instanceof EClass) {
 			EClass eClass = (EClass) object;
 
-			if (eClass.getEAnnotation("JSON") != null) {
-				EAnnotation annotation = eClass.getEAnnotation("JSON");
+			if (eClass.getEAnnotation(EJS_JSON_ANNOTATION) != null) {
+				EAnnotation annotation = eClass.getEAnnotation(EJS_JSON_ANNOTATION);
 
-				if (annotation.getDetails().containsKey("root")) {
-					if (annotation.getDetails().containsKey("element")) {
-						return annotation.getDetails().get("element");
+				if (annotation.getDetails().containsKey(EJS_ROOT_ANNOTATION)) {
+					if (annotation.getDetails().containsKey(EJS_ELEMENT_ANNOTATION)) {
+						return annotation.getDetails().get(EJS_ELEMENT_ANNOTATION);
 					}
 				}
 			}
 			return null;
-		} else {
-			throw new IllegalArgumentException("Option must contain the root class.");
 		}
+		return null;
 	}
 
 	public static URL getURL(URI uri, Object parameters) throws MalformedURLException {
@@ -90,45 +91,26 @@ public class EJsUtil {
 		}
 		return jp;
 	}
-
-	public static JsonNode findNode(String nodeID, EClass eClass, JsonNode root) {
-		EAttribute eID = eClass.getEIDAttribute();
-		if (eID == null)
-			throw new IllegalArgumentException("Cannot find EClass ID attribute");
-		
-		for (JsonNode node: root.findParents(eID.getName())) {
-			String value = node.get(eID.getName()).getTextValue();
-			if (value.equals(nodeID)) {
-				return node;
-			}
+	
+	public static JsonParser getJsonParser(InputStream inStream) {
+		final JsonFactory jsonFactory = new JsonFactory();  
+		JsonParser jp = null;
+		try {
+			jp = jsonFactory.createJsonParser(inStream);
+		} catch (JsonParseException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
-		return null;
+		return jp;
 	}
 	
-	public static EClass findEClass(EClass eReferenceType, JsonNode node, JsonNode root) {
-		if (eReferenceType.isAbstract() || node.get("type") != null) {
-			if (node.has("$ref")) {
-				String refID = node.get("$ref").getTextValue();
-				JsonNode refNode = findNode(refID, eReferenceType, root);
-				if (refNode != null) {
-					return findEClass(eReferenceType, refNode, root);
-				}
-			} else if (node.has("type")) {
-				@SuppressWarnings("deprecation")
-				String type = node.get("type").getValueAsText();
-				if (type.equals(eReferenceType.getName())) {
-					return eReferenceType;
-				}
-				else {
-					EClassifier found = eReferenceType.getEPackage().getEClassifier(type);
-					if (found != null && found instanceof EClass) {
-						return (EClass) found;
-					} else {
-						throw new IllegalArgumentException("Cannot find EClass from type "+type);
-					}
-				}
-			}
-		}
-		return eReferenceType;
+	static final class CONSTANTS {
+		static final String EJS_REF_KEYWORD = "$ref";
+		static final String EJS_TYPE_KEYWORD = "eClass";
+		static final String EJS_NS_KEYWORD = "$namespaces";
+		static final String EJS_JSON_ANNOTATION = "JSON";
+		static final String EJS_ELEMENT_ANNOTATION = "element";
+		static final String EJS_ROOT_ANNOTATION = "root";
 	}
 }
