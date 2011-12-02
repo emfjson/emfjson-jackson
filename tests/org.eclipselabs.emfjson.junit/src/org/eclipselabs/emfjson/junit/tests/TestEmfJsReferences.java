@@ -19,6 +19,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -206,8 +207,6 @@ public class TestEmfJsReferences extends TestSupport {
 		EObject friend = ((User) obj1).getFriends().get(0);
 		assertNotNull(friend);
 		
-//		assertFalse(friend.eIsProxy());
-		
 		assertEquals(obj2, friend);
 		assertEquals("2", ((User)friend).getUserId());
 		assertEquals("Pierre", ((User)friend).getName());
@@ -260,11 +259,7 @@ public class TestEmfJsReferences extends TestSupport {
 		assertNotNull(resource);
 		
 		resource.load(null);
-//		JsResourceImpl js = new JsResourceImpl(URI.createURI("file:/Users/guillaume/Desktop/model.json"));
-//		js.getContents().addAll(ModelPackage.eINSTANCE.eResource().getContents());
-//		js.save(null);
 		
-		resource.save(System.out, null);
 		assertEquals(1, resource.getContents().size());
 		assertTrue(resource.getContents().get(0) instanceof EPackage);
 		
@@ -272,5 +267,12 @@ public class TestEmfJsReferences extends TestSupport {
 		assertEquals(ModelPackage.eNAME, modelPackage.getName());
 		assertEquals(ModelPackage.eNS_URI, modelPackage.getNsURI());
 		assertEquals(ModelPackage.eNS_PREFIX, modelPackage.getNsPrefix());
+		
+		assertEquals(ModelPackage.eINSTANCE.getEClassifiers().size(), modelPackage.getEClassifiers().size());
+		
+		EObject userClass = modelPackage.getEClassifier(ModelPackage.eINSTANCE.getUser().getName());
+		assertNotNull(userClass);
+		assertTrue(userClass instanceof EClass);
+		assertEquals(ModelPackage.eINSTANCE.getUser().getEAllStructuralFeatures().size(), ((EClass)userClass).getEAllStructuralFeatures().size());
 	}
 }

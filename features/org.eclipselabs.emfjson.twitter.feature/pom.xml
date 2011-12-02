@@ -3,12 +3,12 @@
 	<parent>
 		<artifactId>build</artifactId>
 		<groupId>org.eclipselabs.emfjson</groupId>
-		<version>0.3.1-SNAPSHOT</version>
+		<version>0.3.2-SNAPSHOT</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.eclipselabs.emfjson</groupId>
 	<artifactId>org.eclipselabs.emfjson.twitter.feature</artifactId>
-	<version>0.3.1-SNAPSHOT</version>
+	<version>0.3.2-SNAPSHOT</version>
 	<packaging>eclipse-feature</packaging>
 </project>

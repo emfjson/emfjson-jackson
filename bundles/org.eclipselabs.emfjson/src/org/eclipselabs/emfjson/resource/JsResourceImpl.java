@@ -18,11 +18,10 @@ import java.util.Collections;
 import java.util.Map;
 
 import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.JsonParser;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
-import org.eclipselabs.emfjson.internal.EJsUtil;
+import org.eclipselabs.emfjson.internal.JSONLoad;
 import org.eclipselabs.emfjson.internal.JSONSave;
 
 /**
@@ -42,23 +41,12 @@ public class JsResourceImpl extends ResourceImpl {
 
 	@Override
 	protected void doLoad(InputStream inputStream, Map<?, ?> options) throws IOException {
-		final JSONSave mapper = new JSONSave();
 		if (options == null) {
 			options = Collections.<String, Object> emptyMap();
 		}
 		
-//		URL url = null;
-//		try {
-//			url = EJsUtil.getURL(this.getURI(), options.get(EJs.OPTION_URL_PARAMETERS));
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		}
-		
-		final JsonParser jp = EJsUtil.getJsonParser(inputStream);
-		final JsonNode rootNode = jp != null ? mapper.getRootNode(jp) : null;
-		
-		Collection<EObject> roots = rootNode != null ?
-				mapper.getRootEObjects(this, rootNode, options) : Collections.<EObject> emptyList();
+		final JSONLoad loader = new JSONLoad(inputStream, options);
+		final Collection<EObject> roots = loader.getRootEObjects(this);
 		
 		this.getContents().addAll(roots);
 	}
@@ -68,13 +56,11 @@ public class JsResourceImpl extends ResourceImpl {
 		if (options == null) {
 			options = Collections.<String, Object> emptyMap();
 		}
+		
 		final JSONSave writer = new JSONSave();
 		final JsonNode rootNode = writer.genJson(this, options);
+		
 		writer.getDelegate().writeValue(outputStream, rootNode);
 	}
-	
-	@Override
-	protected void doUnload() {
-		super.doUnload();
-	}
+		
 }

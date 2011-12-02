@@ -12,7 +12,6 @@ package org.eclipselabs.emfjson.internal;
 
 import static org.eclipselabs.emfjson.internal.EJsUtil.getElementName;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -20,9 +19,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig.Feature;
 import org.codehaus.jackson.node.ArrayNode;
@@ -87,25 +83,6 @@ public class JSONSave {
 	public JsonNode genJson(Resource resource) {
 		return genJson(resource, Collections.emptyMap());
 	}
-
-	public JsonNode getRootNode(JsonParser jp) {
-		final ObjectMapper mapper = new ObjectMapper();
-		JsonNode rootNode = null;
-		
-		if (jp != null) {
-			try {
-				rootNode = mapper.readValue(jp, JsonNode.class);
-			} catch (JsonParseException e1) {
-				e1.printStackTrace();
-			} catch (JsonMappingException e1) {
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-		}
-
-		return rootNode;
-	}
 	
 	protected JsonNode writeEObject(EObject object, Resource resource) {
 
@@ -118,12 +95,13 @@ public class JSONSave {
 	}
 	
 	protected void writeEObjectAttributes(EObject object, ObjectNode node) {
-		URI eClassURI = EcoreUtil.getURI(object.eClass());
+		final URI eClassURI = EcoreUtil.getURI(object.eClass());
 		node.put(EJsUtil.CONSTANTS.EJS_TYPE_KEYWORD, eClassURI.toString());	
 		
 		for (EAttribute attribute: object.eClass().getEAllAttributes()) {
 
-			if (object.eIsSet(attribute) && !attribute.isDerived() && !attribute.isTransient() && !attribute.isUnsettable()) {
+			if (object.eIsSet(attribute) && !attribute.isDerived() 
+					&& !attribute.isTransient() && !attribute.isUnsettable()) {
 
 				if (FeatureMapUtil.isFeatureMap(attribute)) {
 
@@ -246,6 +224,9 @@ public class JSONSave {
 		}
 		URI eObjectURI = EcoreUtil.getURI(obj);
 		if (eObjectURI.trimFragment().equals(resource.getURI())) {
+			if (obj.eClass().getEIDAttribute() != null) {
+				return eObjectURI.fragment();
+			}
 			return eObjectURI.fragment().startsWith("#") ? eObjectURI.fragment() : "#"+eObjectURI.fragment();
 		}
 		return eObjectURI.toString();
@@ -283,24 +264,6 @@ public class JSONSave {
 			}
 		}
 
-	}
-	
-	/**
-	 * Returns the root object(s).
-	 * 
-	 * @param rootNode
-	 * @param options
-	 * @return
-	 */
-	public Collection<EObject> getRootEObjects(Resource resource, JsonNode rootNode, Map<?, ?> options) { 
-		JSONLoad reader;
-		try {
-			reader = new JSONLoad(rootNode, options);
-			return reader.getRootEObjects(resource);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 	
 }

@@ -15,11 +15,8 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.JsonParser;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -36,12 +33,10 @@ public class JsInputStream extends InputStream implements URIConverter.Loadable 
 	@SuppressWarnings("unused")
 	private URI uri;
 	private Map<?, ?> options;
-	private final JSONSave mapper;
 	
 	public JsInputStream(URI uri, Map<?, ?> options) {
 		this.uri = uri;
 		this.options = options;
-		this.mapper = new JSONSave();
 	}
 	
 	@Override
@@ -53,11 +48,8 @@ public class JsInputStream extends InputStream implements URIConverter.Loadable 
 			e.printStackTrace();
 		}
 		
-		final JsonParser jp = EJsUtil.getJsonParser(url);
-		final JsonNode rootNode = jp != null ? mapper.getRootNode(jp) : null;
-		
-		Collection<EObject> roots = rootNode != null ?
-				mapper.getRootEObjects(resource, rootNode, options) : Collections.<EObject> emptyList();
+		final JSONLoad loader = new JSONLoad(url, options);
+		final Collection<EObject> roots = loader.getRootEObjects(resource);
 		
 		resource.getContents().addAll(roots);
 	}

@@ -2,7 +2,7 @@
 <feature
       id="org.eclipselabs.emfjson.twitter.feature"
       label="EMFJs Twitter"
-      version="0.3.1.qualifier"
+      version="0.3.2.qualifier"
       provider-name="eclipselabs">
 
    <description url="http://www.example.com/description">
@@ -28,7 +28,7 @@
          id="org.eclipselabs.emfjson.twitter"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="0.3.2.qualifier"
          unpack="false"/>
 
 </feature>

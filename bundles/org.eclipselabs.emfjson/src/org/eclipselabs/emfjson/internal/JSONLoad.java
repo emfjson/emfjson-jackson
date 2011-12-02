@@ -14,6 +14,9 @@ import static org.eclipselabs.emfjson.internal.EJsUtil.getElementName;
 import static org.eclipselabs.emfjson.internal.EJsUtil.CONSTANTS.EJS_REF_KEYWORD;
 import static org.eclipselabs.emfjson.internal.EJsUtil.CONSTANTS.EJS_TYPE_KEYWORD;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -22,6 +25,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -42,16 +49,26 @@ import org.eclipselabs.emfjson.EJs;
  * 
  * @author ghillairet
  */
-class JSONLoad {
+public class JSONLoad {
 
-	private final JsonNode rootNode;
+	private JsonNode rootNode;
 	private final Map<String, String> nsMap = new HashMap<String, String>();
-	private final EClass rootClass;
+	private EClass rootClass;
 	private ResourceSet resourceSet;
 	private Resource currentResource;
-
+	
+	public JSONLoad(InputStream inStream, Map<?,?> options) {
+		init(EJsUtil.getJsonParser(inStream), options);
+	}
+	
+	public JSONLoad(URL url, Map<?,?> options) {
+		init(EJsUtil.getJsonParser(url), options);
+	}
+	
 	@SuppressWarnings("deprecation")
-	JSONLoad(JsonNode root, Map<?,?> options) {
+	private void init(JsonParser parser, Map<?,?> options) {
+		JsonNode root = getRootNode(parser);
+		
 		checkNotNull(root, "root node should not be null.");
 		checkNotNull(options, "load options parameters should not be null");
 
@@ -77,6 +94,25 @@ class JSONLoad {
 
 		checkNotNull(rootNode);
 		fillNamespaces(root);
+	}
+	
+	public JsonNode getRootNode(JsonParser jp) {
+		final ObjectMapper mapper = new ObjectMapper();
+		JsonNode rootNode = null;
+		
+		if (jp != null) {
+			try {
+				rootNode = mapper.readValue(jp, JsonNode.class);
+			} catch (JsonParseException e1) {
+				e1.printStackTrace();
+			} catch (JsonMappingException e1) {
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+
+		return rootNode;
 	}
 
 	private EClass getEClass(URI uri) {
