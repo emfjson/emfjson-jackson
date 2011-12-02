@@ -1,0 +1,21 @@
+{
+	"$namespaces" :{
+		"model":"http://www.eclipselabs.org/emfjson/junit",
+		"model2":"http://www.eclipselabs.org/emfjson/junit"
+	},
+	"elements":[
+		{
+			"eClass": "model#//ConcreteTypeOne",
+			"name":"First",
+			"propTypeOne":"one",
+			"refProperty":{
+				"$ref":"Two"
+			}
+		},
+		{
+			"eClass": "model#//ConcreteTypeTwo",
+			"name":"Two", 
+			"propTypeTwo":"two"
+		}
+	]
+}

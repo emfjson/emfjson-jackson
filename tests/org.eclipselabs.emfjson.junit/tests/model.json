@@ -1,0 +1,571 @@
+{
+    "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EPackage",
+    "name": "model",
+    "nsURI": "http://www.eclipselabs.org/emfjson/junit",
+    "nsPrefix": "model",
+    "eClassifiers": [{
+        "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+        "name": "User",
+        "eAnnotations": [{
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAnnotation",
+            "source": "JSON",
+            "details": [{
+                "key": "root",
+                "value": "true"
+            }]
+        }],
+        "eStructuralFeatures": [{
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "userId",
+            "iD": true,
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "name",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "birthDate",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EDate"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "sex",
+            "eType": {
+                "$ref": "#//Sex"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+            "name": "friends",
+            "upperBound": -1,
+            "eType": {
+                "$ref": "#//User"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+            "name": "uniqueFriend",
+            "eType": {
+                "$ref": "#//User"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+            "name": "address",
+            "containment": true,
+            "resolveProxies": false,
+            "eType": {
+                "$ref": "#//Address"
+            }
+        }]
+    },
+    {
+        "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+        "name": "Address",
+        "eStructuralFeatures": [{
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "addId",
+            "iD": true,
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "city",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "street",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "number",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+            }
+        }]
+    },
+    {
+        "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+        "name": "ETypes",
+        "eStructuralFeatures": [{
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "eString",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "eStrings",
+            "upperBound": -1,
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "eBoolean",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "eBooleans",
+            "upperBound": -1,
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "eInt",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EInt"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "eInts",
+            "upperBound": -1,
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EInt"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "doubleValue",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "eDouble",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "eDoubles",
+            "upperBound": -1,
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "eBigDecimal",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EBigDecimal"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "eBigInteger",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "eByte",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EByte"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "eByteArray",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EByteArray"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "eChar",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EChar"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "eDate",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EDate"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "eFloat",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EFloat"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "eLong",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//ELong"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "eShort",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EShort"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "uris",
+            "upperBound": -1,
+            "eType": {
+                "$ref": "#//URI"
+            }
+        }]
+    },
+    {
+        "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+        "name": "PrimaryObject",
+        "eStructuralFeatures": [{
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "name",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "idAttribute",
+            "iD": true,
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "unsettableAttribute",
+            "unsettable": true,
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "unsettableAttributeWithNonNullDefault",
+            "defaultValueLiteral": "junit",
+            "unsettable": true,
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+            "name": "unsettableReference",
+            "unsettable": true,
+            "eType": {
+                "$ref": "#//TargetObject"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+            "name": "containmentReferenceSameCollectioin",
+            "containment": true,
+            "resolveProxies": false,
+            "eType": {
+                "$ref": "#//PrimaryObject"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+            "name": "singleNonContainmentReference",
+            "eType": {
+                "$ref": "#//TargetObject"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+            "name": "multipleNonContainmentReference",
+            "upperBound": -1,
+            "eType": {
+                "$ref": "#//TargetObject"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+            "name": "singleContainmentReferenceNoProxies",
+            "containment": true,
+            "resolveProxies": false,
+            "eType": {
+                "$ref": "#//TargetObject"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+            "name": "multipleContainmentReferenceNoProxies",
+            "upperBound": -1,
+            "containment": true,
+            "resolveProxies": false,
+            "eType": {
+                "$ref": "#//TargetObject"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+            "name": "singleContainmentReferenceProxies",
+            "containment": true,
+            "resolveProxies": false,
+            "eType": {
+                "$ref": "#//TargetObject"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+            "name": "multipleContainmentReferenceProxies",
+            "upperBound": -1,
+            "containment": true,
+            "resolveProxies": false,
+            "eType": {
+                "$ref": "#//TargetObject"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+            "name": "singleNonContainmentReferenceNoProxies",
+            "resolveProxies": false,
+            "eType": {
+                "$ref": "#//TargetObject"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+            "name": "featureMapReferenceType1",
+            "upperBound": -1,
+            "volatile": true,
+            "transient": true,
+            "derived": true,
+            "containment": true,
+            "resolveProxies": false,
+            "eAnnotations": [{
+                "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAnnotation",
+                "source": "http:///org/eclipse/emf/ecore/util/ExtendedMetaData",
+                "details": [{
+                    "key": "group",
+                    "value": "#featureMapReferenceCollection"
+                }]
+            }],
+            "eType": {
+                "$ref": "#//TargetObject"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+            "name": "featureMapReferenceType2",
+            "upperBound": -1,
+            "volatile": true,
+            "transient": true,
+            "derived": true,
+            "containment": true,
+            "resolveProxies": false,
+            "eAnnotations": [{
+                "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAnnotation",
+                "source": "http:///org/eclipse/emf/ecore/util/ExtendedMetaData",
+                "details": [{
+                    "key": "group",
+                    "value": "#featureMapReferenceCollection"
+                }]
+            }],
+            "eType": {
+                "$ref": "#//TargetObject"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "featureMapReferenceCollection",
+            "eAnnotations": [{
+                "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAnnotation",
+                "source": "http:///org/eclipse/emf/ecore/util/ExtendedMetaData",
+                "details": [{
+                    "key": "kind",
+                    "value": "group"
+                }]
+            }],
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EFeatureMapEntry"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "featureMapAttributeType1",
+            "upperBound": -1,
+            "volatile": true,
+            "transient": true,
+            "derived": true,
+            "eAnnotations": [{
+                "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAnnotation",
+                "source": "http:///org/eclipse/emf/ecore/util/ExtendedMetaData",
+                "details": [{
+                    "key": "group",
+                    "value": "#featureMapAttributeCollection"
+                }]
+            }],
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "featureMapAttributeType2",
+            "upperBound": -1,
+            "volatile": true,
+            "transient": true,
+            "derived": true,
+            "eAnnotations": [{
+                "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAnnotation",
+                "source": "http:///org/eclipse/emf/ecore/util/ExtendedMetaData",
+                "details": [{
+                    "key": "group",
+                    "value": "#featureMapAttributeCollection"
+                }]
+            }],
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "featureMapAttributeCollection",
+            "upperBound": -1,
+            "eAnnotations": [{
+                "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAnnotation",
+                "source": "http:///org/eclipse/emf/ecore/util/ExtendedMetaData",
+                "details": [{
+                    "key": "kind",
+                    "value": "group"
+                }]
+            }],
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EFeatureMapEntry"
+            }
+        }]
+    },
+    {
+        "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+        "name": "Container",
+        "eStructuralFeatures": [{
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+            "name": "elements",
+            "upperBound": -1,
+            "containment": true,
+            "resolveProxies": false,
+            "eType": {
+                "$ref": "#//AbstractType"
+            }
+        }]
+    },
+    {
+        "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+        "name": "TargetObject",
+        "eStructuralFeatures": [{
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "singleAttribute",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "arrayAttribute",
+            "upperBound": -1,
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+            }
+        }]
+    },
+    {
+        "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+        "name": "AbstractType",
+        "abstract": true,
+        "eStructuralFeatures": [{
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "name",
+            "lowerBound": 1,
+            "iD": true,
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+            }
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+            "name": "refProperty",
+            "upperBound": -1,
+            "eType": {
+                "$ref": "#//AbstractType"
+            }
+        }]
+    },
+    {
+        "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+        "name": "ConcreteTypeOne",
+        "eSuperTypes": [{
+            "$ref": "#//AbstractType"
+        }],
+        "eStructuralFeatures": [{
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "propTypeOne",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+            }
+        }]
+    },
+    {
+        "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+        "name": "ConcreteTypeTwo",
+        "eSuperTypes": [{
+            "$ref": "#//AbstractType"
+        }],
+        "eStructuralFeatures": [{
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+            "name": "propTypeTwo",
+            "eType": {
+                "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+            }
+        }]
+    },
+    {
+        "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EEnum",
+        "name": "Sex",
+        "eLiterals": [{
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EEnumLiteral",
+            "name": "MALE"
+        },
+        {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EEnumLiteral",
+            "name": "FEMALE",
+            "value": 1
+        }]
+    },
+    {
+        "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EDataType",
+        "name": "URI"
+    }]
+}
