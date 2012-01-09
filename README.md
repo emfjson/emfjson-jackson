@@ -26,7 +26,7 @@ Then create an object and add it to a resource. Give the resource a URI that wil
     user.setName("John");
 
     ResourceSet resourceSet = new ResourceSetImpl();
-    Resource resource = resourceSet.createResource(URI.createURI("file:/out.json"));
+    Resource resource = resourceSet.createResource(URI.createURI("file:/user.json"));
     resource.getContents().add(user);
     resource.save(null);
 
@@ -39,36 +39,9 @@ need to indicate the type of the root objects you want to obtain from the json d
 
 Then load the EMF resource with those options.
  
-    Resource resource = resourceSet.createResource(uri("file:/in.json"));
+    Resource resource = resourceSet.createResource(uri("file:/user.json"));
     resource.load(options);
 
 The resource should now contained the objects.
 
-    User user = (User)resource.getContents().get(0);
-
-# News #
-
-Version 0.3.2 2011/12/02
-
-*    <del>Issue 7</del> Use eClass URI to identify object types
-*    <del>Issue 6</del> Open the right InputStream
-
-Version 0.3.1 2011/11/14
-
-*    <del>Issue 5</del> Add support for polymorphic types
-
-Version 0.3.0 2011/10/23
-
-*    Add Resource implementation
-*    <del>Issue 3</del> Add support for json referencing a la dojo
-*    Add support for multi valued attributes
-
-Version 0.2.0 2011/8/3
-
-*    <del>Issue 1</del>: Implement URIHandlerImpl instead of cutom ResourceImpl,
-*    Updated Twitter model,
-*    Changed namespace from com.emfjson to org.eclipselabs.emfjson.
-
-Version 0.1.0 2011/6/21
-
-*    First implementation, provides JSON reader and writer for EMF models.
+    User user = (User) resource.getContents().get(0);
