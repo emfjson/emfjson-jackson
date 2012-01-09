@@ -15,4 +15,4 @@ See [wiki](https://github.com/ghillairet/emfjson/wiki/Install)
 
 # User Guide
 
-See [[Home]]
+See [wiki](https://github.com/ghillairet/emfjson/wiki/Home)
