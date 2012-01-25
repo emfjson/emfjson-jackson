@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2011 Guillaume Hillairet.&#xD;&#xA;All rights reserved. This program and the accompanying materials&#xD;&#xA;are made available under the terms of the Eclipse Public License v1.0&#xD;&#xA;which accompanies this distribution, and is available at&#xD;&#xA;http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA;&#xD;&#xA;Contributors:&#xD;&#xA;    Guillaume Hillairet - initial API and implementation&#xD;&#xA;"
+    modelDirectory="/org.eclipselabs.emfjson.rotten/src" editDirectory="/org.eclipselabs.emfjson.rotten.edit/src"
+    editorDirectory="/org.eclipselabs.emfjson.rotten.editor/src" modelPluginID="org.eclipselabs.emfjson.rotten"
+    templateDirectory="" modelName="Rotten" importerID="org.eclipse.emf.importer.ecore"
+    bundleManifest="false" complianceLevel="6.0" copyrightFields="false" editPluginID="com.emfjson.rotten.edit"
+    editorPluginID="org.eclipselabs.emfjson.rotten.editor" language="">
+  <foreignModel>rotten.ecore</foreignModel>
+  <genPackages prefix="Rotten" basePackage="org.eclipselabs.emfjson" resource="Basic"
+      disposableProviderFactory="true" ecorePackage="rotten.ecore#/">
+    <genClasses ecoreClass="rotten.ecore#//Movies">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Movies/total"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rotten.ecore#//Movies/movies"/>
+    </genClasses>
+    <genClasses ecoreClass="rotten.ecore#//Movie">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Movie/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Movie/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Movie/year"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Movie/runtime"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Movie/synopsis"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rotten.ecore#//Movie/releases"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rotten.ecore#//Movie/ratings"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rotten.ecore#//Movie/posters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rotten.ecore#//Movie/castings"/>
+    </genClasses>
+    <genClasses ecoreClass="rotten.ecore#//Release">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Release/theater"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Release/dvd"/>
+    </genClasses>
+    <genClasses ecoreClass="rotten.ecore#//Rating">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Rating/criticsScore"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Rating/audienceScore"/>
+    </genClasses>
+    <genClasses ecoreClass="rotten.ecore#//Poster">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Poster/thumbnail"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Poster/profile"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Poster/detailed"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Poster/original"/>
+    </genClasses>
+    <genClasses ecoreClass="rotten.ecore#//Cast">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Cast/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Cast/characters"/>
+    </genClasses>
+    <genClasses ecoreClass="rotten.ecore#//Reviews">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rotten.ecore#//Reviews/reviews"/>
+    </genClasses>
+    <genClasses ecoreClass="rotten.ecore#//Review">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Review/critic"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Review/date"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Review/publication"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//Review/quote"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rotten.ecore#//Review/links"/>
+    </genClasses>
+    <genClasses ecoreClass="rotten.ecore#//ReviewLink">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rotten.ecore#//ReviewLink/reviewLink"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

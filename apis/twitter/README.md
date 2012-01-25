@@ -1,0 +1,3 @@
+Twitter Model for EMFJSON.
+
+
