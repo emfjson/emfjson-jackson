@@ -14,13 +14,15 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Collections;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl;
 import org.eclipse.emf.ecore.resource.impl.URIHandlerImpl;
-import org.eclipselabs.emfjson.internal.JsInputStream;
 import org.eclipselabs.emfjson.internal.JsOutputStream;
 
 /**
@@ -28,27 +30,28 @@ import org.eclipselabs.emfjson.internal.JsOutputStream;
  * @author ghillairet
  *
  */
+@Deprecated
 public class JsURIHandlerImpl extends URIHandlerImpl {
 
-	public JsURIHandlerImpl() {
-
-	}
-
+	public JsURIHandlerImpl() {}
+	
 	@Override
 	public boolean canHandle(URI uri) {
-	//	return "json".equalsIgnoreCase(uri.scheme());
+		Map<String,?> result = getAttributes(uri, Collections.<Object,Object> emptyMap());
+		System.out.println(result);
 		return true;
 	}
 
 	@Override
 	public InputStream createInputStream(URI uri, Map<?, ?> options) throws IOException {
-		return new JsInputStream(uri, options);
+//		return new JsInputStream(uri, options);
+		return null;
 	}
 
 	@Override
 	public OutputStream createOutputStream(final URI uri, final Map<?, ?> options) throws IOException {
 		final Map<Object, Object> response = getResponse(options);
-		
+
 		OutputStream result = null;
 
 		if (uri.isPlatform()) {
@@ -57,7 +60,6 @@ public class JsURIHandlerImpl extends URIHandlerImpl {
 				public void close() throws IOException {
 					try {
 						OutputStream out = new PlatformResourceURIHandlerImpl().createOutputStream(uri, options);
-//						this.writer.genJson()
 						this.writer.getDelegate().writeValue(out, currentRoot);
 						out.close();
 					}
@@ -89,6 +91,24 @@ public class JsURIHandlerImpl extends URIHandlerImpl {
 				@Override
 				public void close() throws IOException {
 					try {
+						if ("http".equalsIgnoreCase(uri.scheme())) {
+							HttpURLConnection connection = (HttpURLConnection) new URL(uri.toString()).openConnection();
+							
+							connection.setDoOutput(true);
+							connection.setRequestMethod("PUT");
+							connection.setRequestProperty("Content-Type", "application/json");
+							OutputStream output = null;
+
+							try {
+								output = connection.getOutputStream();
+								writer.getDelegate().writeValue(output, this.currentRoot);
+							} finally {
+								if (output != null) try { output.close(); } catch (IOException logOrIgnore) {}
+							}
+
+							InputStream response = connection.getInputStream();
+							System.out.println(response);
+						}
 						super.close();
 					}
 					finally {
@@ -113,5 +133,5 @@ public class JsURIHandlerImpl extends URIHandlerImpl {
 	public boolean exists(URI uri, Map<?, ?> options) {
 		return true;
 	}
-	
+
 }

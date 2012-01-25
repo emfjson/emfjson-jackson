@@ -2,8 +2,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.eclipselabs.emfjson</groupId>
-	<artifactId>build</artifactId>
+	<groupId>org.eclipselabs</groupId>
+	<artifactId>emfjson</artifactId>
 	<version>0.3.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
@@ -11,19 +11,21 @@
 		<module>bundles/org.eclipselabs.emfjson</module>
 		<module>features/org.eclipselabs.emfjson.feature</module>
 		
-	        <module>rotten/org.eclipselabs.emfjson.rotten</module>
+	    <module>apis/rotten/org.eclipselabs.emfjson.rotten</module>
 		<module>features/org.eclipselabs.emfjson.rotten.feature</module>
 
-	        <module>twitter/org.eclipselabs.emfjson.twitter</module>
+	    <module>apis/twitter/org.eclipselabs.emfjson.twitter</module>
 		<module>features/org.eclipselabs.emfjson.twitter.feature</module>
         	
-		<module>youtube/org.eclipselabs.emfjson.youtube</module>
+		<module>apis/youtube/org.eclipselabs.emfjson.youtube</module>
 		<module>features/org.eclipselabs.emfjson.youtube.feature</module>
-	<!--
+	
 		<module>tests/org.eclipselabs.emfjson.junit</module>
+	<!--	
 		<module>tests/org.eclipselabs.emfjson.twitter.junit</module>
 		<module>tests/org.eclipselabs.emfjson.youtube.junit</module>
 	-->
+		<module>couchdb/org.eclipselabs.emfjson.couchdb</module>
 		<module>build/repository</module>
 	</modules>
 
@@ -38,25 +40,14 @@
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/releases/indigo</url>
 		</repository>
-	<!--
 		<repository>
-		   <id>codehaus-snapshots</id>
-		   <url>http://snapshots.repository.codehaus.org</url>
+		   <id>emfjson-snapshots</id>
+		   <layout>p2</layout>
+		   <url>http://ghillairet.github.com/emfjson/releases/</url>
 		  </repository>
-	-->
 	</repositories>
-    
-	<!--
-   	 <dependencies>
-        	<dependency>
-	            <groupId>org.codehaus.jackson</groupId>
-        	    <artifactId>jackson-mapper-asl</artifactId>
-	            <version>1.9.2</version>
-	        </dependency>        
-	    </dependencies>
-	-->
+
 	<build>
-		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
@@ -66,80 +57,69 @@
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-compiler-plugin</artifactId>
+				<artifactId>tycho-surefire-plugin</artifactId>
 				<version>${tycho-version}</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<argLine>-Xmx512M</argLine>
+					<includes>
+						<include>**/junit/suite/TestSuite.java</include>
+					</includes>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-source-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<executions>
-					<execution>
-						<id>attach-source</id>
-						<phase>process-classes</phase>
-						<goals>
-							<goal>plugin-source</goal>
-						</goals>
-					</execution> 
-				</executions>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.eclipse.tycho</groupId> -->
+<!-- 				<artifactId>tycho-compiler-plugin</artifactId> -->
+<!-- 				<version>${tycho-version}</version> -->
+<!-- 				<configuration> -->
+<!-- 					<source>1.6</source> -->
+<!-- 					<target>1.6</target> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
+			
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.eclipse.tycho</groupId> -->
+<!-- 				<artifactId>tycho-source-plugin</artifactId> -->
+<!-- 				<version>${tycho-version}</version> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<id>attach-source</id> -->
+<!-- 						<phase>process-classes</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>plugin-source</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution>  -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
 
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>target-platform-configuration</artifactId>
-				<version>${tycho-version}</version>
-				<configuration>
-					<!-- recommended: use p2-based target platform resolver -->
-					<resolver>p2</resolver>
-					<pomDependenciesConsider>true</pomDependenciesConsider>
-					<!-- configure the p2 target environments for multi-platform build -->
-					<environments>
-						<environment>
-							<os>linux</os>
-							<ws>gtk</ws>
-							<arch>x86_64</arch>
-						</environment>
-						<environment>
-							<os>linux</os>
-							<ws>gtk</ws>
-							<arch>x86</arch>
-						</environment>
-						<environment>
-							<os>win32</os>
-							<ws>win32</ws>
-							<arch>x86</arch>
-						</environment>
-					</environments>
-				</configuration>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.eclipse.tycho</groupId> -->
+<!-- 				<artifactId>target-platform-configuration</artifactId> -->
+<!-- 				<version>${tycho-version}</version> -->
+<!-- 				<configuration> -->
+<!-- 					recommended: use p2-based target platform resolver -->
+<!-- 					<resolver>p2</resolver> -->
+<!-- 					<pomDependenciesConsider>true</pomDependenciesConsider> -->
+<!-- 					configure the p2 target environments for multi-platform build -->
+<!-- 					<environments> -->
+<!-- 						<environment> -->
+<!-- 							<os>linux</os> -->
+<!-- 							<ws>gtk</ws> -->
+<!-- 							<arch>x86_64</arch> -->
+<!-- 						</environment> -->
+<!-- 						<environment> -->
+<!-- 							<os>linux</os> -->
+<!-- 							<ws>gtk</ws> -->
+<!-- 							<arch>x86</arch> -->
+<!-- 						</environment> -->
+<!-- 						<environment> -->
+<!-- 							<os>win32</os> -->
+<!-- 							<ws>win32</ws> -->
+<!-- 							<arch>x86</arch> -->
+<!-- 						</environment> -->
+<!-- 					</environments> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
 
 		</plugins>
 	</build>
-
-	<profiles>
-		<profile>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.eclipse.tycho</groupId>
-						<artifactId>target-platform-configuration</artifactId>
-						<version>${tycho-version}</version>
-						<configuration>
-							<environments combine.children="append">
-								<environment>
-									<os>win32</os>
-									<ws>win32</ws>
-									<arch>x86</arch>
-								</environment>
-							</environments>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 </project>

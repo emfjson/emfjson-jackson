@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.resource.URIConverter;
  * 	@author ghillairet
  *	
  */
-public class JsOutputStream extends ByteArrayOutputStream implements URIConverter.Saveable {
+public abstract class JsOutputStream extends ByteArrayOutputStream implements URIConverter.Saveable {
 	
 	@SuppressWarnings("unused")
 	private Map<?, ?> options;
@@ -32,13 +32,9 @@ public class JsOutputStream extends ByteArrayOutputStream implements URIConverte
 	
 	protected JsonNode currentRoot;
 	
-	public JsOutputStream() {
-		this.writer = new JSONSave();
-	}
-
 	public JsOutputStream(Map<?, ?> options) {
 		this.options = options;
-		this.writer = new JSONSave();
+		this.writer = new JSONSave(options);
 	}
 	
 	@Override

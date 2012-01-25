@@ -40,7 +40,7 @@ public class TestEmfJsAttributes extends TestSupport {
 	
 	@Test
 	public void testStringValues() throws IOException {
-		String expectedString = "{\"eString\":\"Hello\",\"eStrings\":[\"Hello\",\"World\"]}";
+		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eString\":\"Hello\",\"eStrings\":[\"Hello\",\"World\"]}";
 		
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 		
@@ -61,7 +61,7 @@ public class TestEmfJsAttributes extends TestSupport {
 	
 	@Test
 	public void testIntValues() throws IOException {
-		String expectedString = "{\"eInt\":1,\"eInts\":[1,2]}";
+		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eInt\":1,\"eInts\":[1,2]}";
 		
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 		
@@ -82,7 +82,7 @@ public class TestEmfJsAttributes extends TestSupport {
 	
 	@Test
 	public void testBooleanValues() throws IOException {
-		String expectedString = "{\"eBoolean\":true,\"eBooleans\":[false,true]}";
+		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eBoolean\":true,\"eBooleans\":[false,true]}";
 		
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 		

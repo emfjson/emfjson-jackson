@@ -18,6 +18,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -53,7 +54,7 @@ public class TestURIHandlerReadBasics extends TestSupport {
 	
 	@Test
 	public void testLoadSingleObjectNoReferences() throws IOException {
-		Resource resource = resourceSet.createResource(uri("test-load-1.json"));
+		Resource resource = resourceSet.createResource(URI.createURI("file://tests/test-load-1.json&type=json"));
 
 		options.put(EJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
 		

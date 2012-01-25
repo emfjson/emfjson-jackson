@@ -75,13 +75,11 @@ public class JSONLoad {
 		if (!root.isArray()) {
 			if (root.has(EJS_TYPE_KEYWORD)) {
 				this.rootClass = getEClass(URI.createURI(root.get(EJS_TYPE_KEYWORD).getValueAsText()));
-			} else {
-				checkOptions(options);
-				this.rootClass = (EClass) options.get(EJs.OPTION_ROOT_ELEMENT);
-
 			}
-		} else {
-			this.rootClass = null;
+		}
+		
+		if (rootClass == null) {
+			this.rootClass = (EClass) options.get(EJs.OPTION_ROOT_ELEMENT);
 		}
 
 		final String path = EJsUtil.getRootNode(this.rootClass);
@@ -154,12 +152,6 @@ public class JSONLoad {
 	private static void checkNotNull(Object object, String message) throws IllegalArgumentException {
 		if (object == null) {
 			throw new IllegalArgumentException(message);
-		}
-	}
-
-	private static void checkOptions(Map<?,?> options) throws IllegalArgumentException {
-		if (!(options.get(EJs.OPTION_ROOT_ELEMENT) instanceof EClass)) { 
-			throw new IllegalArgumentException("ROOT ELEMENT MUST BE SET");
 		}
 	}
 

@@ -1,0 +1,58 @@
+{
+  "eClass" : "http://www.eclipse.org/emf/2002/Ecore#//EPackage",
+  "name" : "Library",
+  "nsURI" : "http://www.eclipselabs.org/Library",
+  "nsPrefix" : "library",
+  "eClassifiers" : [ {
+    "eClass" : "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+    "name" : "LibraryShelf",
+    "eStructuralFeatures" : [ {
+      "eClass" : "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+      "name" : "name",
+      "lowerBound" : 1,
+      "eType" : {
+        "$ref" : "http://www.eclipse.org/emf/2002/Ecore#//EString"
+      }
+    }, {
+      "eClass" : "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+      "name" : "items",
+      "upperBound" : -1,
+      "containment" : true,
+      "eType" : {
+        "$ref" : "#//LibraryShelf"
+      }
+    } ]
+  }, {
+    "eClass" : "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+    "name" : "Item",
+    "abstract" : true,
+    "eStructuralFeatures" : [ {
+      "eClass" : "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+      "name" : "id",
+      "lowerBound" : 1,
+      "iD" : true,
+      "eType" : {
+        "$ref" : "http://www.eclipse.org/emf/2002/Ecore#//EInt"
+      }
+    } ]
+  }, {
+    "eClass" : "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+    "name" : "Book",
+    "eSuperTypes" : [ {
+      "$ref" : "#//Item"
+    } ]
+  }, {
+    "eClass" : "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+    "name" : "MusicItem",
+    "abstract" : true,
+    "eSuperTypes" : [ {
+      "$ref" : "#//Item"
+    } ]
+  }, {
+    "eClass" : "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+    "name" : "CD",
+    "eSuperTypes" : [ {
+      "$ref" : "#//MusicItem"
+    } ]
+  } ]
+}

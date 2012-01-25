@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
+import org.eclipselabs.emfjson.EJs;
 
 /**
  * 
@@ -46,9 +47,16 @@ public class JSONSave {
 	protected final ObjectMapper mapper;
 	protected JsonNode rootNode;
 	
-	public JSONSave() {
+	public JSONSave(Map<?, ?> options) {
 		this.mapper = new ObjectMapper();
-		this.mapper.configure(Feature.INDENT_OUTPUT, true);
+		configure(options);
+	}
+	
+	private void configure(Map<?, ?> options) {
+		if (options.containsKey(EJs.OPTION_INDENT_OUTPUT)) {
+			boolean value = Boolean.valueOf((Boolean) options.get(EJs.OPTION_INDENT_OUTPUT));
+			this.mapper.configure(Feature.INDENT_OUTPUT, value);
+		}
 	}
 
 	public ObjectMapper getDelegate() {

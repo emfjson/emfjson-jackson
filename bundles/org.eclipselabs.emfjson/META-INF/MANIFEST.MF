@@ -18,5 +18,4 @@ Import-Package: org.codehaus.jackson,
 Export-Package: org.eclipselabs.emfjson,
  org.eclipselabs.emfjson.internal,
  org.eclipselabs.emfjson.resource
-Bundle-Activator: org.eclipselabs.emfjson.Activator
 Bundle-ActivationPolicy: lazy

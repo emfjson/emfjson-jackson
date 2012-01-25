@@ -36,7 +36,7 @@ public class TestPolymorphicType extends TestSupport {
 	public void testSaveTwoObjectsWithTypeInformation() throws IOException {
 		String expectedString = 
 				"{" +
-						"\"elements\":" +
+						"\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//Container\",\"elements\":" +
 						"[" +
 							"{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeOne\",\"name\":\"First\"}," +
 							"{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeTwo\",\"name\":\"Two\"}" +

@@ -28,7 +28,7 @@ import org.eclipselabs.emfjson.EJs;
  * @author ghillairet
  *
  */
-public class JsInputStream extends InputStream implements URIConverter.Loadable {
+public abstract class JsInputStream extends InputStream implements URIConverter.Loadable {
 
 	@SuppressWarnings("unused")
 	private URI uri;

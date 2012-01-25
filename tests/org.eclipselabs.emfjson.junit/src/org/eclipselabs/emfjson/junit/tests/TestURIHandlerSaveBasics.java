@@ -13,7 +13,6 @@ package org.eclipselabs.emfjson.junit.tests;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
-import java.io.OutputStream;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -22,7 +21,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIHandler;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipselabs.emfjson.JsURIHandlerImpl;
-import org.eclipselabs.emfjson.internal.JsOutputStream;
 import org.eclipselabs.emfjson.junit.model.ModelFactory;
 import org.eclipselabs.emfjson.junit.model.User;
 import org.eclipselabs.emfjson.junit.support.TestSupport;
@@ -89,9 +87,9 @@ public class TestURIHandlerSaveBasics extends TestSupport {
 		
 		resource.getContents().add(user);
 		
-		OutputStream out = new JsOutputStream();
+//		OutputStream out = new JsOutputStream(options);
 		
-		resource.save(out, null);
+//		resource.save(out, null);
 	}
 	
 }

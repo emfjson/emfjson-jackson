@@ -16,8 +16,6 @@ Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipselabs.emfjson,
  org.eclipselabs.emfjson.internal,
  org.eclipselabs.emfjson.resource,
- org.eclipselabs.emfjson.twitter.junit.tests,
- org.eclipselabs.emfjson.youtube.junit.tests,
  org.junit;version="4.8.2",
  org.junit.runner;version="4.8.2",
  org.junit.runners;version="4.8.2",

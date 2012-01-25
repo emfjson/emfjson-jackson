@@ -36,7 +36,7 @@ public class TestEmfJsReferences extends TestSupport {
 	
 	@Test
 	public void testSaveOneObjectWithAttributesNoReferences() throws IOException {
-		String expectedString = "{\"userId\":\"1\",\"name\":\"John\"}";
+		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//User\",\"userId\":\"1\",\"name\":\"John\"}";
 		
 		User user = ModelFactory.eINSTANCE.createUser();
 		user.setUserId("1");
@@ -57,7 +57,9 @@ public class TestEmfJsReferences extends TestSupport {
 	
 	@Test
 	public void testSaveTwoObjectsWithAttributesNoReferences() throws IOException {
-		String expectedString = "[{\"userId\":\"1\",\"name\":\"John\"},{\"userId\":\"2\",\"name\":\"Paul\"}]";
+		String expectedString = 
+				"[{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//User\",\"userId\":\"1\",\"name\":\"John\"}," +
+				"{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//User\",\"userId\":\"2\",\"name\":\"Paul\"}]";
 		
 		User user1 = ModelFactory.eINSTANCE.createUser();
 		user1.setUserId("1");
@@ -84,8 +86,8 @@ public class TestEmfJsReferences extends TestSupport {
 	@Test
 	public void testSaveTwoObjectsWithAttributesOneReference() throws IOException {
 		String expectedString = 
-				"[{\"userId\":\"1\",\"name\":\"John\",\"uniqueFriend\":{\"$ref\":\"2\"}}," +
-				"{\"userId\":\"2\",\"name\":\"Paul\"}]";
+				"[{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//User\",\"userId\":\"1\",\"name\":\"John\",\"uniqueFriend\":{\"$ref\":\"2\"}}," +
+				"{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//User\",\"userId\":\"2\",\"name\":\"Paul\"}]";
 		
 		User user1 = ModelFactory.eINSTANCE.createUser();
 		user1.setUserId("1");
@@ -158,7 +160,7 @@ public class TestEmfJsReferences extends TestSupport {
 	}
 	
 	@Test
-	public void testLoadTwoObjectsNoReferences() throws IOException {
+	public void testLoadTwoObjectsNoReferencesNoEType() throws IOException {
 		options.put(EJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
 		
 		Resource resource = resourceSet.createResource(uri("test-load-3.json"));
