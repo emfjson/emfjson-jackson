@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <units size='1'>
-  <unit id='org.eclipselabs.emfjson.twitter' version='0.3.2.201201252119'>
-    <update id='org.eclipselabs.emfjson.twitter' range='[0.0.0,0.3.2.201201252119)' severity='0'/>
+  <unit id='org.eclipselabs.emfjson.twitter' version='0.3.3.201201252143'>
+    <update id='org.eclipselabs.emfjson.twitter' range='[0.0.0,0.3.3.201201252143)' severity='0'/>
     <properties size='7'>
       <property name='df_LT.Bundle-Vendor' value='Eclipse Labs'/>
       <property name='df_LT.Bundle-Name' value='EMFJs Twitter'/>
@@ -9,11 +9,11 @@
       <property name='org.eclipse.equinox.p2.provider' value='%Bundle-Vendor'/>
       <property name='maven-groupId' value='org.eclipselabs'/>
       <property name='maven-artifactId' value='org.eclipselabs.emfjson.twitter'/>
-      <property name='maven-version' value='0.3.2-SNAPSHOT'/>
+      <property name='maven-version' value='0.3.3-SNAPSHOT'/>
     </properties>
     <provides size='8'>
-      <provided namespace='org.eclipse.equinox.p2.iu' name='org.eclipselabs.emfjson.twitter' version='0.3.2.201201252119'/>
-      <provided namespace='osgi.bundle' name='org.eclipselabs.emfjson.twitter' version='0.3.2.201201252119'/>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='org.eclipselabs.emfjson.twitter' version='0.3.3.201201252143'/>
+      <provided namespace='osgi.bundle' name='org.eclipselabs.emfjson.twitter' version='0.3.3.201201252143'/>
       <provided namespace='java.package' name='org.eclipselabs.emfjson.search' version='0.0.0'/>
       <provided namespace='java.package' name='org.eclipselabs.emfjson.search.impl' version='0.0.0'/>
       <provided namespace='java.package' name='org.eclipselabs.emfjson.search.util' version='0.0.0'/>
@@ -35,13 +35,13 @@
       <required namespace='java.package' name='org.osgi.framework' range='1.6.0'/>
     </requires>
     <artifacts size='1'>
-      <artifact classifier='osgi.bundle' id='org.eclipselabs.emfjson.twitter' version='0.3.2.201201252119'/>
+      <artifact classifier='osgi.bundle' id='org.eclipselabs.emfjson.twitter' version='0.3.3.201201252143'/>
     </artifacts>
     <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
     <touchpointData size='1'>
       <instructions size='1'>
         <instruction key='manifest'>
-          Bundle-SymbolicName: org.eclipselabs.emfjson.twitter;singleton:=true&#xA;Bundle-Version: 0.3.2.201201252119&#xA;
+          Bundle-SymbolicName: org.eclipselabs.emfjson.twitter;singleton:=true&#xA;Bundle-Version: 0.3.3.201201252143&#xA;
         </instruction>
       </instructions>
     </touchpointData>

@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.eclipselabs</groupId>
 	<artifactId>emfjson</artifactId>
-	<version>0.3.2-SNAPSHOT</version>
+	<version>0.3.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<modules>
@@ -25,7 +25,7 @@
 		<module>tests/org.eclipselabs.emfjson.twitter.junit</module>
 		<module>tests/org.eclipselabs.emfjson.youtube.junit</module>
 	-->
-		<module>couchdb/org.eclipselabs.emfjson.couchdb</module>
+<!-- 		<module>couchdb/org.eclipselabs.emfjson.couchdb</module> -->
 		<module>build/repository</module>
 	</modules>
 

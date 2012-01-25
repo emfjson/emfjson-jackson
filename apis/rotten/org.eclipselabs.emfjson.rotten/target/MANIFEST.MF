@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Require-Bundle: org.eclipse.emf.ecore
 Bundle-Vendor: %Bundle-Vendor
 Bundle-ActivationPolicy: lazy
-Bundle-Version: 0.3.2.201201252119
+Bundle-Version: 0.3.3.201201252143
 Bundle-Name: %Bundle-Name
 Bundle-Activator: org.eclipselabs.emfjson.rotten.Activator
 Bundle-ManifestVersion: 2

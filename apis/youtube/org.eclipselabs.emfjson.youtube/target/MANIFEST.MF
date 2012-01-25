@@ -5,7 +5,7 @@ Export-Package: org.eclipselabs.emfjson.youtube,org.eclipselabs.emfjso
  s.emfjson.youtube.util
 Bundle-Vendor: %Bundle-Vendor
 Bundle-ActivationPolicy: lazy
-Bundle-Version: 0.3.2.201201252119
+Bundle-Version: 0.3.3.201201252143
 Bundle-Name: %Bundle-Name
 Bundle-Activator: org.eclipselabs.emfjson.youtube.service.Activator
 Bundle-ManifestVersion: 2

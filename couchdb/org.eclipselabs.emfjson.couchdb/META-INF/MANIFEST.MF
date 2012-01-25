@@ -13,3 +13,6 @@ Import-Package: org.eclipse.emf.common.util,
  org.osgi.framework;version="1.3.0"
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipselabs.emfjson.couchdb
+Require-Bundle: org.eclipselabs.emfjson;bundle-version="0.3.2",
+ jackson-core-asl;bundle-version="1.6.0",
+ jackson-mapper-asl;bundle-version="1.6.0"
