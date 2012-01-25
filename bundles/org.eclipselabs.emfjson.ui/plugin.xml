@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
+            <command
+                  commandId="org.eclipselabs.emfjson.ui.json2xmi"
+                  label="Convert to XMI">
+                   <visibleWhen>
+   					<iterate operator="and" ifEmpty="false">
+    				
+      				<adapt type="org.eclipse.core.resources.IResource">
+         				<test property="org.eclipse.core.resources.name" value="*.json"/> 
+            		
+      				</adapt>
+      			
+   				</iterate>
+        </visibleWhen>
+            </command>
+      </menuContribution>
+   </extension>
+    <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="org.eclipselabs.emfjson.ui.handlers.Json2XMIHandler"
+            id="org.eclipselabs.emfjson.ui.json2xmi"
+            name="JSON2XMI">
+      </command>
+   </extension>
+</plugin>
