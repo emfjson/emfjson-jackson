@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFJs Couchdb
+Bundle-SymbolicName: org.eclipselabs.emfjson.couchdb
+Bundle-Version: 0.1.0.qualifier
+Bundle-Activator: org.eclipselabs.emfjson.couchdb.Activator
+Bundle-Vendor: Eclipse Labs
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.eclipse.emf.common.util,
+ org.eclipse.emf.ecore.resource.impl,
+ org.eclipselabs.emfjson,
+ org.eclipselabs.emfjson.internal,
+ org.osgi.framework;version="1.3.0"
+Bundle-ActivationPolicy: lazy
+Export-Package: org.eclipselabs.emfjson.couchdb
