@@ -35,9 +35,9 @@ public class Json2XMIHandler extends AbstractHandler {
 	 * from the application context.
 	 */
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		IStructuredSelection selection = (IStructuredSelection) HandlerUtil
-				.getActiveMenuSelection(event);
+		IStructuredSelection selection = (IStructuredSelection) HandlerUtil.getActiveMenuSelection(event);
 		Object firstElement = selection.getFirstElement();
+		
 		if (firstElement instanceof IResource) {
 			URI locationURI = ((IResource) firstElement).getLocationURI();
 			Resource json = resourceSet.createResource(org.eclipse.emf.common.util.URI.createURI(locationURI.toString()));
@@ -54,11 +54,13 @@ public class Json2XMIHandler extends AbstractHandler {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+		
 				try {
-					((IResource) firstElement).getProject().refreshLocal(0, null);
+					((IResource) firstElement).getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
 				} catch (CoreException e) {
 					e.printStackTrace();
 				}
+				
 			}
 		}
 		return null;
