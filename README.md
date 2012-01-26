@@ -1,4 +1,4 @@
-EMFJSON is a JSON mapper for [EMF](http://www.eclipse.org/emf). 
+EMFJSON is a JSON mapper for [EMF](http://www.eclipse.org/emf)
 
 [![Build Status](https://secure.travis-ci.org/ghillairet/emfjson.png)](http://travis-ci.org/ghillairet/emfjson)
 
