@@ -9,34 +9,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>org.eclipselabs.emfjson.repository</artifactId>
 	<packaging>eclipse-repository</packaging>
-	<build>
-		<plugins>
-
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-p2-repository-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<configuration>
-					<includeAllDependencies>false</includeAllDependencies>
-					<createArtifactRepository>true</createArtifactRepository>
-					<compress>true</compress>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-p2-publisher-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<configuration>
-					<publishArtifacts>true</publishArtifacts>
-				</configuration>
-			</plugin>
-
-		</plugins>
-	</build>
-
+	
 	<profiles>
-
 		<profile>
 			<id>deploy-repo</id>
 			<activation>
@@ -44,6 +18,7 @@
 					<name>deploy-repo</name>
 				</property>
 			</activation>
+			
 			<build>
 				<plugins>
 					<plugin>
@@ -55,7 +30,8 @@
 								<phase>install</phase>
 								<configuration>
 									<tasks>
-										<unzip src="target/com.emfjson.repository.zip" dest="../../releases/0.3.0/${build-type}" />
+										<unzip src="target/org.eclipselabs.emfjson.repository.zip"
+											dest="../../${build-type}" />
 									</tasks>
 								</configuration>
 								<goals>
@@ -67,6 +43,6 @@
 				</plugins>
 			</build>
 		</profile>
-
 	</profiles>
+	
 </project>
