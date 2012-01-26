@@ -1,8 +1,0 @@
-bin/
-*.classs
-*/*/*/*prefs
-*/*/*/*prefs
-*/*/target/
-*/*/*/*.properties
-*.xmi
-
