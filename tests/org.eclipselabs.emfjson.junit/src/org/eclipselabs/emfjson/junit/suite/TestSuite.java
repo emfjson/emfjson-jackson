@@ -19,7 +19,6 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-//	TestURIHandlerReadBasics.class, TestURIHandlerSaveBasics.class, 
 	TestEmfJsReferences.class, TestEmfJsAttributes.class, TestPolymorphicType.class
 //	TestSearchBasic.class, TestStatusesBasic.class, 
 //	org.eclipselabs.emfjson.youtube.junit.tests.TestSearchBasic.class
