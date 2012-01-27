@@ -1,2 +1,2 @@
-before_script: sudo apt-get install maven2
+before_script: sudo apt-get install maven
 script: mvn install
