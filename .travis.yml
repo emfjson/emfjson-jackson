@@ -1,2 +1,4 @@
-before_script: sudo apt-get install maven3
+before_script: 
+ - sudo add-apt-repository ppa:natecarlson/maven3
+ - sudo apt-get update && sudo apt-get install maven3
 script: mvn install
