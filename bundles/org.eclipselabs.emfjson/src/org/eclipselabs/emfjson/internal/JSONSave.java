@@ -43,9 +43,10 @@ import org.eclipselabs.emfjson.EJs;
  *
  */
 public class JSONSave {
-
+	
 	protected final ObjectMapper mapper;
 	protected JsonNode rootNode;
+	private boolean serializeTypes = true;
 	
 	public JSONSave(Map<?, ?> options) {
 		this.mapper = new ObjectMapper();
@@ -54,8 +55,20 @@ public class JSONSave {
 	
 	private void configure(Map<?, ?> options) {
 		if (options.containsKey(EJs.OPTION_INDENT_OUTPUT)) {
-			boolean value = Boolean.valueOf((Boolean) options.get(EJs.OPTION_INDENT_OUTPUT));
-			this.mapper.configure(Feature.INDENT_OUTPUT, value);
+			boolean indent = false;
+			try {
+				indent = (Boolean) options.get(EJs.OPTION_INDENT_OUTPUT);
+			} catch (ClassCastException e) {
+				e.printStackTrace();
+			}
+			this.mapper.configure(Feature.INDENT_OUTPUT, indent);
+		}
+		if (options.containsKey(EJs.OPTION_SERIALIZE_TYPE)) {
+			try {
+				serializeTypes = (Boolean) options.get(EJs.OPTION_SERIALIZE_TYPE);
+			} catch (ClassCastException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -104,7 +117,9 @@ public class JSONSave {
 	
 	protected void writeEObjectAttributes(EObject object, ObjectNode node) {
 		final URI eClassURI = EcoreUtil.getURI(object.eClass());
-		node.put(EJsUtil.CONSTANTS.EJS_TYPE_KEYWORD, eClassURI.toString());	
+		if (serializeTypes) {
+			node.put(EJsUtil.CONSTANTS.EJS_TYPE_KEYWORD, eClassURI.toString());
+		}
 		
 		for (EAttribute attribute: object.eClass().getEAllAttributes()) {
 
