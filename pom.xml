@@ -10,24 +10,23 @@
 	<modules>
 		<module>bundles/org.eclipselabs.emfjson</module>
 		<module>features/org.eclipselabs.emfjson.feature</module>
-
+		
 		<module>bundles/org.eclipselabs.emfjson.ui</module>
-
+		
 		<module>apis/rotten/org.eclipselabs.emfjson.rotten</module>
 		<module>features/org.eclipselabs.emfjson.rotten.feature</module>
-
+		
 		<module>apis/twitter/org.eclipselabs.emfjson.twitter</module>
 		<module>features/org.eclipselabs.emfjson.twitter.feature</module>
-
+		
 		<module>apis/youtube/org.eclipselabs.emfjson.youtube</module>
 		<module>features/org.eclipselabs.emfjson.youtube.feature</module>
-
+		
 		<module>tests/org.eclipselabs.emfjson.junit</module>
 		<!-- <module>tests/org.eclipselabs.emfjson.twitter.junit</module> 
 			<module>tests/org.eclipselabs.emfjson.youtube.junit</module> -->
 		<!-- <module>couchdb/org.eclipselabs.emfjson.couchdb</module> -->
 		<module>build/repository</module>
-
 	</modules>
 
 	<properties>
