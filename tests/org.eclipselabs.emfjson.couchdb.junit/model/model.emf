@@ -1,8 +1,0 @@
-@namespace(uri="http://eclipselabs.org/emfjson/model", prefix="model")
-package model;
-
-class User {
-	id attr String _id;
-	attr String name; 
-	ref User[*] knows;
-} 
