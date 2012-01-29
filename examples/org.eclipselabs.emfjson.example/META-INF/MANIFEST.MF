@@ -1,10 +1,18 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: EMFJs Example
-Bundle-SymbolicName: org.eclipselabs.emfjson.example
-Bundle-Version: 0.3.2.qualifier
-Bundle-Activator: org.eclipselabs.emfjson.example.Activator
-Bundle-Vendor: Eclipse Labs
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.eclipselabs.emfjson.example;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: org.osgi.framework;version="1.3.0"
+Export-Package: org.eclipselabs.examples,
+ org.eclipselabs.examples.library,
+ org.eclipselabs.examples.library.impl,
+ org.eclipselabs.examples.library.util
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore;visibility:=reexport,
+ org.eclipselabs.emfjson;bundle-version="0.3.3"
 Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.eclipselabs.examples.Activator
