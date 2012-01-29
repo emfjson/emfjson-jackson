@@ -23,7 +23,6 @@ import java.util.Map;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.JsonParser;
-import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
@@ -77,9 +76,7 @@ public class EJsUtil {
 				}
 			}
 		}
-		System.out.println(CommonPlugin.resolve(outURI));
-		System.out.println(CommonPlugin.asLocalURI(outURI).toFileString());
-//		String url = outURI.toFileString();
+		
 		return new URL(outURI.toString());
 	}
 

@@ -13,8 +13,6 @@ package org.eclipselabs.emfjson.resource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -62,21 +60,7 @@ public class JsResourceImpl extends ResourceImpl {
 		final JSONSave writer = new JSONSave(options);
 		final JsonNode rootNode = writer.genJson(this, options);
 		
-		if ("http".equalsIgnoreCase(getURI().scheme())) {
-			URLConnection connection = new URL(getURI().toString()).openConnection();
-			connection.setDoOutput(true); // Triggers POST.
-//			connection.setRequestProperty("Accept-Charset", charset);
-			connection.setRequestProperty("Content-Type", "application/json");
-			OutputStream output = null;
-			try {
-			     output = connection.getOutputStream();
-			     writer.getDelegate().writeValue(output, rootNode);
-			} finally {
-			     if (output != null) try { output.close(); } catch (IOException logOrIgnore) {}
-			}
-		} else {
-			writer.getDelegate().writeValue(outputStream, rootNode);
-		}
+		writer.getDelegate().writeValue(outputStream, rootNode);
 	}
 		
 }

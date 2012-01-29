@@ -29,8 +29,8 @@ public abstract class JsOutputStream extends ByteArrayOutputStream implements UR
 	private Map<?, ?> options;
 	
 	protected final JSONSave writer;
-	
 	protected JsonNode currentRoot;
+	protected Resource resource;
 	
 	public JsOutputStream(Map<?, ?> options) {
 		this.options = options;
@@ -39,6 +39,7 @@ public abstract class JsOutputStream extends ByteArrayOutputStream implements UR
 	
 	@Override
 	public void saveResource(Resource resource) throws IOException {
+		this.resource = resource;
 		this.currentRoot = writer.genJson(resource);
 	}
 	
