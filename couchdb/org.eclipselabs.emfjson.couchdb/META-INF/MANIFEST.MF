@@ -2,22 +2,19 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: EMFJs Couchdb
 Bundle-SymbolicName: org.eclipselabs.emfjson.couchdb
-Bundle-Version: 0.3.2.qualifier
-Bundle-Activator: org.eclipselabs.emfjson.couchdb.Activator
+Bundle-Version: 0.3.3.qualifier
 Bundle-Vendor: Eclipse Labs
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: org.eclipse.emf.common.util,
+Import-Package: org.codehaus.jackson,
+ org.codehaus.jackson.map,
+ org.codehaus.jackson.node,
+ org.eclipse.emf.common.util,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.resource,
  org.eclipse.emf.ecore.resource.impl,
  org.eclipse.emf.ecore.xmi.impl,
  org.eclipselabs.emfjson,
- org.eclipselabs.emfjson.internal,
- org.eclipselabs.examples.library,
- org.osgi.framework;version="1.3.0"
+ org.eclipselabs.emfjson.internal
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipselabs.emfjson.couchdb,
  org.eclipselabs.emfjson.couchdb.internal
-Require-Bundle: org.eclipselabs.emfjson;bundle-version="0.3.2",
- jackson-core-asl;bundle-version="1.6.0",
- jackson-mapper-asl;bundle-version="1.6.0"
