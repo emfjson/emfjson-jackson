@@ -777,6 +777,79 @@ public interface ModelPackage extends EPackage {
 	int CONCRETE_TYPE_TWO_FEATURE_COUNT = ABSTRACT_TYPE_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.eclipselabs.emfjson.junit.model.impl.NodeImpl <em>Node</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipselabs.emfjson.junit.model.impl.NodeImpl
+	 * @see org.eclipselabs.emfjson.junit.model.impl.ModelPackageImpl#getNode()
+	 * @generated
+	 */
+	int NODE = 9;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE__LABEL = 0;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE__TARGET = 1;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE__SOURCE = 2;
+
+	/**
+	 * The feature id for the '<em><b>Many Ref</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE__MANY_REF = 3;
+
+	/**
+	 * The feature id for the '<em><b>Child</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE__CHILD = 4;
+
+	/**
+	 * The feature id for the '<em><b>Single</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE__SINGLE = 5;
+
+	/**
+	 * The number of structural features of the '<em>Node</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE_FEATURE_COUNT = 6;
+
+	/**
 	 * The meta object id for the '{@link org.eclipselabs.emfjson.junit.model.Sex <em>Sex</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -784,7 +857,7 @@ public interface ModelPackage extends EPackage {
 	 * @see org.eclipselabs.emfjson.junit.model.impl.ModelPackageImpl#getSex()
 	 * @generated
 	 */
-	int SEX = 9;
+	int SEX = 10;
 
 	/**
 	 * The meta object id for the '<em>URI</em>' data type.
@@ -794,7 +867,7 @@ public interface ModelPackage extends EPackage {
 	 * @see org.eclipselabs.emfjson.junit.model.impl.ModelPackageImpl#getURI()
 	 * @generated
 	 */
-	int URI = 10;
+	int URI = 11;
 
 
 	/**
@@ -1504,6 +1577,82 @@ public interface ModelPackage extends EPackage {
 	EAttribute getConcreteTypeTwo_PropTypeTwo();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipselabs.emfjson.junit.model.Node <em>Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Node</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.Node
+	 * @generated
+	 */
+	EClass getNode();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipselabs.emfjson.junit.model.Node#getLabel <em>Label</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Label</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.Node#getLabel()
+	 * @see #getNode()
+	 * @generated
+	 */
+	EAttribute getNode_Label();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipselabs.emfjson.junit.model.Node#getTarget <em>Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Target</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.Node#getTarget()
+	 * @see #getNode()
+	 * @generated
+	 */
+	EReference getNode_Target();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipselabs.emfjson.junit.model.Node#getSource <em>Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Source</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.Node#getSource()
+	 * @see #getNode()
+	 * @generated
+	 */
+	EReference getNode_Source();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.eclipselabs.emfjson.junit.model.Node#getManyRef <em>Many Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Many Ref</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.Node#getManyRef()
+	 * @see #getNode()
+	 * @generated
+	 */
+	EReference getNode_ManyRef();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipselabs.emfjson.junit.model.Node#getChild <em>Child</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Child</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.Node#getChild()
+	 * @see #getNode()
+	 * @generated
+	 */
+	EReference getNode_Child();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipselabs.emfjson.junit.model.Node#getSingle <em>Single</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Single</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.Node#getSingle()
+	 * @see #getNode()
+	 * @generated
+	 */
+	EReference getNode_Single();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipselabs.emfjson.junit.model.Sex <em>Sex</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2083,6 +2232,64 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute CONCRETE_TYPE_TWO__PROP_TYPE_TWO = eINSTANCE.getConcreteTypeTwo_PropTypeTwo();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipselabs.emfjson.junit.model.impl.NodeImpl <em>Node</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipselabs.emfjson.junit.model.impl.NodeImpl
+		 * @see org.eclipselabs.emfjson.junit.model.impl.ModelPackageImpl#getNode()
+		 * @generated
+		 */
+		EClass NODE = eINSTANCE.getNode();
+
+		/**
+		 * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute NODE__LABEL = eINSTANCE.getNode_Label();
+
+		/**
+		 * The meta object literal for the '<em><b>Target</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference NODE__TARGET = eINSTANCE.getNode_Target();
+
+		/**
+		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference NODE__SOURCE = eINSTANCE.getNode_Source();
+
+		/**
+		 * The meta object literal for the '<em><b>Many Ref</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference NODE__MANY_REF = eINSTANCE.getNode_ManyRef();
+
+		/**
+		 * The meta object literal for the '<em><b>Child</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference NODE__CHILD = eINSTANCE.getNode_Child();
+
+		/**
+		 * The meta object literal for the '<em><b>Single</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference NODE__SINGLE = eINSTANCE.getNode_Single();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipselabs.emfjson.junit.model.Sex <em>Sex</em>}' enum.

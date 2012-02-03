@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="model"
-    nsURI="http://www.eclipselabs.org/emfjson/junit" nsPrefix="model">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="model" nsURI="http://www.eclipselabs.org/emfjson/junit" nsPrefix="model">
   <eClassifiers xsi:type="ecore:EClass" name="User">
     <eAnnotations source="JSON">
       <details key="root" value="true"/>
@@ -143,5 +141,18 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConcreteTypeTwo" eSuperTypes="#//AbstractType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="propTypeTwo" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Node">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//Node"
+        eOpposite="#//Node/source"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//Node"
+        eOpposite="#//Node/target"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="manyRef" upperBound="-1"
+        eType="#//Node"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="child" upperBound="-1"
+        eType="#//Node" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="single" eType="#//Node"
+        containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -75,6 +75,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.TARGET_OBJECT: return createTargetObject();
 			case ModelPackage.CONCRETE_TYPE_ONE: return createConcreteTypeOne();
 			case ModelPackage.CONCRETE_TYPE_TWO: return createConcreteTypeTwo();
+			case ModelPackage.NODE: return createNode();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -192,6 +193,16 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	public ConcreteTypeTwo createConcreteTypeTwo() {
 		ConcreteTypeTwoImpl concreteTypeTwo = new ConcreteTypeTwoImpl();
 		return concreteTypeTwo;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Node createNode() {
+		NodeImpl node = new NodeImpl();
+		return node;
 	}
 
 	/**

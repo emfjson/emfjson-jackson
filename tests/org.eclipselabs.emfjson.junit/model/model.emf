@@ -103,3 +103,11 @@ class ConcreteTypeOne extends AbstractType {
 class ConcreteTypeTwo extends AbstractType {
   attr String[?] propTypeTwo;
 }
+
+class Node {
+	attr String label;
+	ref Node#source target;
+	ref Node#target source;
+	ref Node[*] manyRef;
+	val Node[*] child;
+}

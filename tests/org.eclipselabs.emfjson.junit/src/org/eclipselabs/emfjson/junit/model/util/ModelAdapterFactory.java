@@ -112,6 +112,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createConcreteTypeTwoAdapter();
 			}
 			@Override
+			public Adapter caseNode(Node object) {
+				return createNodeAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -254,6 +258,20 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createConcreteTypeTwoAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipselabs.emfjson.junit.model.Node <em>Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipselabs.emfjson.junit.model.Node
+	 * @generated
+	 */
+	public Adapter createNodeAdapter() {
 		return null;
 	}
 
