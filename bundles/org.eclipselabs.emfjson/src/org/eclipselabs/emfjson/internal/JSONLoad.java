@@ -17,7 +17,6 @@ import static org.eclipselabs.emfjson.internal.EJsUtil.CONSTANTS.EJS_TYPE_KEYWOR
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -30,7 +29,6 @@ import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
@@ -55,20 +53,19 @@ public class JSONLoad {
 	private final Map<String, String> nsMap = new HashMap<String, String>();
 	private EClass rootClass;
 	private ResourceSet resourceSet;
-	private Resource currentResource;
-	
+
 	public JSONLoad(InputStream inStream, Map<?,?> options) {
 		init(EJsUtil.getJsonParser(inStream), options);
 	}
-	
+
 	public JSONLoad(URL url, Map<?,?> options) {
 		init(EJsUtil.getJsonParser(url), options);
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	private void init(JsonParser parser, Map<?,?> options) {
 		JsonNode root = getRootNode(parser);
-		
+
 		checkNotNull(root, "root node should not be null.");
 		checkNotNull(options, "load options parameters should not be null");
 
@@ -77,7 +74,7 @@ public class JSONLoad {
 				this.rootClass = getEClass(URI.createURI(root.get(EJS_TYPE_KEYWORD).getValueAsText()));
 			}
 		}
-		
+
 		if (rootClass == null) {
 			this.rootClass = (EClass) options.get(EJs.OPTION_ROOT_ELEMENT);
 		}
@@ -93,11 +90,11 @@ public class JSONLoad {
 		checkNotNull(rootNode);
 		fillNamespaces(root);
 	}
-	
+
 	public JsonNode getRootNode(JsonParser jp) {
 		final ObjectMapper mapper = new ObjectMapper();
 		JsonNode rootNode = null;
-		
+
 		if (jp != null) {
 			try {
 				rootNode = mapper.readValue(jp, JsonNode.class);
@@ -156,11 +153,8 @@ public class JSONLoad {
 	}
 
 	public Collection<EObject> getRootEObjects(Resource resource) { 
-
 		this.resourceSet = resource.getResourceSet() != null ? resource.getResourceSet() : new ResourceSetImpl();
-		this.currentResource = resource;
-
-		final Collection<EObject> result = new BasicEList<EObject>();
+		final Collection<EObject> result = resource.getContents();
 
 		if (this.rootNode.isArray()) {
 
@@ -187,12 +181,10 @@ public class JSONLoad {
 		} else {
 			if (rootClass != null) {
 				final EObject rootObject = EcoreUtil.create(rootClass);
-				resource.getContents().add(rootObject);
+				result.add(rootObject);
 
 				fillEAttribute(rootObject, rootClass, this.rootNode);
 				fillEReference(rootObject, rootClass, this.rootNode, resource);
-
-				result.add(rootObject);
 			}
 		}
 
@@ -201,34 +193,35 @@ public class JSONLoad {
 
 	private void fillEReference(EObject rootObject, EClass rootClass, JsonNode root, Resource resource) {
 		for (EReference reference: rootClass.getEAllReferences()) {
-			if (reference.isMany()) {
-				for (JsonNode node: root.findValues(getElementName(reference))) {
+			final JsonNode node = root.get(getElementName(reference));
+
+			if (node != null) {
+
+				if (reference.isMany()) {
+					@SuppressWarnings("unchecked")
+					EList<EObject> values = (EList<EObject>) rootObject.eGet(reference);
+
 					if (node.isArray()) {
 						for (Iterator<JsonNode> it = node.getElements(); it.hasNext();) {
-							setEReferenceValues(rootObject, reference, it.next(), resource);
+							JsonNode current = it.next(); 
+							EClass eClass = findEClass(reference.getEReferenceType(), current, root, resource);
+							EObject obj = createEObject(resource, eClass, current);
+
+							if (obj != null) values.add(obj);
 						}
 					} else {
-						setEReferenceValues(rootObject, reference, node, resource);
+						EClass eClass = findEClass(reference.getEReferenceType(), node, root, resource);
+						EObject obj = createEObject(resource, eClass, node);
+						if (obj != null) values.add(obj);
 					}
-				}
-			} else {
-				final JsonNode node = root.findValue(getElementName(reference));
-				if (node != null) {
-					setEReferenceValues(rootObject, reference, node, resource);
-				}
-			}
-		}
-	}
+				} else {
 
-	private void setEReferenceValues(EObject rootObject, EReference reference, JsonNode n, Resource resource) {
-		final EObject obj = createEObject(resource, findEClass(reference.getEReferenceType(), n, rootNode, currentResource), n);
-		if (obj != null) {
-			if (reference.isMany()) {
-				@SuppressWarnings("unchecked")
-				EList<EObject> values = (EList<EObject>) rootObject.eGet(reference);
-				values.add(obj);
-			} else {
-				rootObject.eSet(reference, obj);
+					EClass eClass = findEClass(reference.getEReferenceType(), node, root, resource);
+					EObject obj = createEObject(resource, eClass, node);
+
+					if (obj != null) rootObject.eSet(reference, obj);
+				}
+
 			}
 		}
 	}
@@ -250,7 +243,6 @@ public class JSONLoad {
 			} else {
 
 				final EObject obj = EcoreUtil.create(eClass);
-				//				resource.getContents().add(obj);
 
 				fillEAttribute(obj, eClass, node);
 				fillEReference(obj, eClass, node, resource);
@@ -276,35 +268,18 @@ public class JSONLoad {
 		}
 	}
 
-	private void fillEAttribute(EObject obj, EClass eClass, JsonNode node) {
+	private void fillEAttribute(EObject obj, EClass eClass, JsonNode root) {
 		for (EAttribute attribute: eClass.getEAllAttributes()) {
-			if (!attribute.isMany() && attribute.isChangeable()) {
-				fillUniqueEAttribute(obj, attribute, node);
-			} else if (attribute.isMany() && attribute.isChangeable()) {
-				fillManyEAttribute(obj, attribute, node);
-			}
-		}
-	}
-
-	protected void fillManyEAttribute(EObject obj, EAttribute attribute, JsonNode node) {
-		ArrayList<Object> values = new ArrayList<Object>();
-		for (JsonNode n: node.findValues(getElementName(attribute))) {
-			if (n.isArray()) {
-				// get values from array
-				for (Iterator<JsonNode> it = n.getElements(); it.hasNext();) {
-					setEAttributeValue(obj, attribute, it.next());
+			JsonNode node = root.get(getElementName(attribute));
+			if (node != null) {
+				if (node.isArray()) {
+					for (Iterator<JsonNode> it = node.getElements(); it.hasNext();) {
+						setEAttributeValue(obj, attribute, it.next());
+					}
+				} else {
+					setEAttributeValue(obj, attribute, node);
 				}
-			} else {
-				setEAttributeValue(obj, attribute, n);
 			}
-		}
-		obj.eSet(attribute, values);
-	}
-
-	protected void fillUniqueEAttribute(EObject obj, EAttribute attribute, JsonNode node) {
-		JsonNode value = node.findValue(getElementName(attribute));
-		if (value != null) {
-			setEAttributeValue(obj, attribute, value);
 		}
 	}
 
@@ -360,7 +335,7 @@ public class JSONLoad {
 					return resourceSet.getEObject(refURI, false).eClass();
 				}
 
-				JsonNode refNode = findNode(refURI, eReferenceType, root);
+				JsonNode refNode = findNode(refURI, eReferenceType, rootNode);
 				if (refNode != null) {
 					return findEClass(eReferenceType, refNode, root, resource);
 				}

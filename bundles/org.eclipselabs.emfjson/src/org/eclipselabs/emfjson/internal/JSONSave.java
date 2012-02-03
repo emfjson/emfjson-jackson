@@ -247,10 +247,7 @@ public class JSONSave {
 		}
 		URI eObjectURI = EcoreUtil.getURI(obj);
 		if (eObjectURI.trimFragment().equals(resource.getURI())) {
-			if (obj.eClass().getEIDAttribute() != null) {
-				return eObjectURI.fragment();
-			}
-			return eObjectURI.fragment().startsWith("#") ? eObjectURI.fragment() : "#"+eObjectURI.fragment();
+			return eObjectURI.fragment();
 		}
 		return eObjectURI.toString();
 	}
