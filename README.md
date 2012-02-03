@@ -6,19 +6,19 @@ EMFJSON is a JSON mapper for [EMF](http://www.eclipse.org/emf)
 
 <a href='http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=188636' title='Drag and drop into a running Eclipse Indigo workspace to install EMFJs'><img src='http://marketplace.eclipse.org/misc/installbutton.png'/></a>
 
-# Update Site
+## Update Site
  - stable release: http://ghillairet.github.com/emfjson/releases/0.3.2/
 
-# Goals
+## Goals
 Provide a JSON syntax and associated tools for [EMF](http://www.eclipse.org/emf) Models.
 
-# Features
+## Features
  - JSON Syntax,
  - Support for JSON object referencing,
  - EMF Resource implementation,
  - Support for CouchDB
 
-# JSON Syntax
+## JSON Syntax
 
 ```javascript
 {
@@ -52,15 +52,16 @@ Provide a JSON syntax and associated tools for [EMF](http://www.eclipse.org/emf)
   ]
 }
 ```
-# Dependencies
+
+## Dependencies
 
 * EMF 2.7.0 or later
 * Jackson 1.6.0 or later
 
-# Installation
+## Installation
 
 See [wiki](https://github.com/ghillairet/emfjson/wiki/Install)
 
-# User Guide
+## User Guide
 
 See [wiki](https://github.com/ghillairet/emfjson/wiki/Home)
