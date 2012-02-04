@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.eclipselabs.emfjson.rotten.feature"
-      label="EMFJs Rotten Tomatoes"
+      id="org.eclipselabs.emfjson.couchdb.feature"
+      label="EMFJs CouchDB"
       version="0.3.3.qualifier"
-      provider-name="eclipselabs"
+      provider-name="Eclipse Labs"
       license-feature="org.eclipselabs.emfjson.feature"
       license-feature-version="0.3.3.qualifier">
 
@@ -20,14 +20,14 @@
    </license>
 
    <requires>
-      <import plugin="org.eclipse.emf.ecore"/>
       <import plugin="org.eclipse.emf.common"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.eclipselabs.emfjson"/>
-      <import plugin="org.eclipse.osgi"/>
    </requires>
 
    <plugin
-         id="org.eclipselabs.emfjson.rotten"
+         id="org.eclipselabs.emfjson.couchdb"
          download-size="0"
          install-size="0"
          version="0.0.0"

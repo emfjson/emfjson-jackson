@@ -3,7 +3,9 @@
       id="org.eclipselabs.emfjson.twitter.feature"
       label="EMFJs Twitter"
       version="0.3.3.qualifier"
-      provider-name="eclipselabs">
+      provider-name="eclipselabs"
+      license-feature="org.eclipselabs.emfjson.feature"
+      license-feature-version="0.3.3.qualifier">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]

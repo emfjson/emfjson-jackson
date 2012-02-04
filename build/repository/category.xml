@@ -4,12 +4,15 @@
       <category name="org.eclipselabs.emfjson"/>
    </feature>
    <feature url="features/org.eclipselabs.emfjson.rotten.feature_0.3.3.qualifier.jar" id="org.eclipselabs.emfjson.rotten.feature" version="0.3.3.qualifier">
-      <category name="org.eclipselabs.emfjson"/>
+      <category name="org.eclipselabs.emfjson.apis"/>
    </feature>
    <feature url="features/org.eclipselabs.emfjson.twitter.feature_0.3.3.qualifier.jar" id="org.eclipselabs.emfjson.twitter.feature" version="0.3.3.qualifier">
-      <category name="org.eclipselabs.emfjson"/>
+      <category name="org.eclipselabs.emfjson.apis"/>
    </feature>
    <feature url="features/org.eclipselabs.emfjson.youtube.feature_0.3.3.qualifier.jar" id="org.eclipselabs.emfjson.youtube.feature" version="0.3.3.qualifier">
+      <category name="org.eclipselabs.emfjson.apis"/>
+   </feature>
+   <feature url="features/org.eclipselabs.emfjson.couchdb.feature_0.3.3.qualifier.jar" id="org.eclipselabs.emfjson.couchdb.feature" version="0.3.3.qualifier">
       <category name="org.eclipselabs.emfjson"/>
    </feature>
    <category-def name="org.eclipselabs.emfjson" label="EMFJs">
@@ -17,5 +20,9 @@
          EMF binding for JSON.
       </description>
    </category-def>
-   <category-def name="org.eclipselabs.emfjson.source" label="EMFJs Source"/>
+   <category-def name="org.eclipselabs.emfjson.apis" label="EMJs APIs">
+      <description>
+         JSON APIs Models for EMFJs.
+      </description>
+   </category-def>
 </site>

@@ -26,6 +26,7 @@
 		<!-- <module>tests/org.eclipselabs.emfjson.twitter.junit</module> 
 			<module>tests/org.eclipselabs.emfjson.youtube.junit</module> -->
 		<module>couchdb/org.eclipselabs.emfjson.couchdb</module>
+		<module>features/org.eclipselabs.emfjson.couchdb.feature</module>
 		<module>build/repository</module>
 	</modules>
 
