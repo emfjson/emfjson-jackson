@@ -1,0 +1,25 @@
+@namespace(prefix="library", uri="http://www.eclipselabs.org/examples/library")
+package library;
+
+class LibraryShelf {
+	attr String name;
+	val Item[*] items;
+}
+
+abstract class Item {
+	attr String title;
+	attr Date pubDate;
+}
+
+class Book extends Item {
+	attr int numPages;
+}
+abstract class MultimediaItem extends Item {
+	attr double length;
+}
+class DVD extends MultimediaItem {
+}
+class BlueRay extends MultimediaItem {
+}
+class CD extends MultimediaItem {
+}
