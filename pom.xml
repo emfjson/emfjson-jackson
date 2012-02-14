@@ -22,11 +22,14 @@
 		<module>apis/youtube/org.eclipselabs.emfjson.youtube</module>
 		<module>features/org.eclipselabs.emfjson.youtube.feature</module>
 		
-		<module>tests/org.eclipselabs.emfjson.junit</module>
-		<!-- <module>tests/org.eclipselabs.emfjson.twitter.junit</module> 
-			<module>tests/org.eclipselabs.emfjson.youtube.junit</module> -->
 		<module>couchdb/org.eclipselabs.emfjson.couchdb</module>
 		<module>features/org.eclipselabs.emfjson.couchdb.feature</module>
+		
+		<module>bundles/org.eclipselabs.emfjson.modelgen</module>
+		<module>features/org.eclipselabs.emfjson.modelgen.feature</module>
+		
+		<module>tests/org.eclipselabs.emfjson.junit</module>
+		
 		<module>build/repository</module>
 	</modules>
 
@@ -42,11 +45,11 @@
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/releases/indigo</url>
 		</repository>
-		<repository>
-			<id>juno</id>
-			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/juno</url>
-		</repository>
+<!-- 		<repository> -->
+<!-- 			<id>juno</id> -->
+<!-- 			<layout>p2</layout> -->
+<!-- 			<url>http://download.eclipse.org/releases/juno</url> -->
+<!-- 		</repository> -->
 <!-- 		<repository> -->
 <!-- 			<id>emfjson-snapshots</id> -->
 <!-- 			<layout>p2</layout> -->

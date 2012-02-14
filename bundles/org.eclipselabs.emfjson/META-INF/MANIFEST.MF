@@ -13,8 +13,7 @@ Import-Package: org.codehaus.jackson,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.resource,
  org.eclipse.emf.ecore.resource.impl,
- org.eclipse.emf.ecore.util,
- org.osgi.framework;version="1.6.0"
+ org.eclipse.emf.ecore.util
 Export-Package: org.eclipselabs.emfjson,
  org.eclipselabs.emfjson.internal,
  org.eclipselabs.emfjson.resource
