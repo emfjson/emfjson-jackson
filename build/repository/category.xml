@@ -15,6 +15,9 @@
    <feature url="features/org.eclipselabs.emfjson.couchdb.feature_0.3.3.qualifier.jar" id="org.eclipselabs.emfjson.couchdb.feature" version="0.3.3.qualifier">
       <category name="org.eclipselabs.emfjson"/>
    </feature>
+   <feature url="features/org.eclipselabs.emfjson.modelgen.feature_0.3.3.qualifier.jar" id="org.eclipselabs.emfjson.modelgen.feature" version="0.3.3.qualifier">
+      <category name="org.eclipselabs.emfjson"/>
+   </feature>
    <category-def name="org.eclipselabs.emfjson" label="EMFJs">
       <description>
          EMF binding for JSON.
