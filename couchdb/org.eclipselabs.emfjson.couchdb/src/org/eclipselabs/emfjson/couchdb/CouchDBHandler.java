@@ -43,9 +43,6 @@ public class CouchDBHandler extends URIHandlerImpl {
 		if (checkDataBase(uri) == 0) {
 			throw new IllegalArgumentException("DataBase does not exist");
 		}
-		if (uri.segmentCount() != 2) {
-			throw new IllegalArgumentException("Does not refer to a document");
-		}
 		return new JsInputStream(uri, options) {
 			@Override
 			public void loadResource(Resource resource) throws IOException {

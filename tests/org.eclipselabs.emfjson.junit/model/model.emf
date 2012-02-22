@@ -1,6 +1,8 @@
 @namespace(uri="http://www.eclipselabs.org/emfjson/junit", prefix="model")
 package model;
 
+//import "platform:/resource/org.eclipselabs.emfjson.twitter/model/twitter.ecore";
+
 @JSON(root="true")
 class User {
   id attr String userId;
@@ -10,7 +12,18 @@ class User {
   ref User[*] friends;
   ref User[?] uniqueFriend;
   val Address address;
+//  @emfjs(content=TwitterContent)
+//  val ExtendedContent[*] contents;
 }
+
+//abstract class ExtendedContent {
+//	attr String queryURL;
+//}
+
+//@emfjs(query="http://api.twitter.com/1/statuses/show.json?id={User.userId}")
+//class TwitterContent extends ExtendedContent {
+//	transient val search.Status[*] statuses;
+//}
 
 enum Sex {
   MALE = 0;

@@ -37,7 +37,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipselabs.emfjson.EJs;
+import org.eclipselabs.emfjson.EMFJs;
 
 /**
  * 
@@ -72,7 +72,7 @@ public class JSONLoad {
 		}
 
 		if (rootClass == null) {
-			this.rootClass = (EClass) options.get(EJs.OPTION_ROOT_ELEMENT);
+			this.rootClass = (EClass) options.get(EMFJs.OPTION_ROOT_ELEMENT);
 		}
 
 		final String path = EJsUtil.getRootNode(this.rootClass);

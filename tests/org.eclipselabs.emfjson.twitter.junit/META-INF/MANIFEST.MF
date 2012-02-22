@@ -18,3 +18,4 @@ Import-Package: org.eclipse.emf.common.util,
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipselabs.emfjson.twitter.junit,
  org.eclipselabs.emfjson.twitter.junit.tests
+Require-Bundle: org.eclipselabs.emfjson

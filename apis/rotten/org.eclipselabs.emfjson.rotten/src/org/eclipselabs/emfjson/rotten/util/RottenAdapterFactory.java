@@ -13,12 +13,18 @@ package org.eclipselabs.emfjson.rotten.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
-
-import org.eclipselabs.emfjson.rotten.*;
+import org.eclipselabs.emfjson.rotten.Cast;
+import org.eclipselabs.emfjson.rotten.Movie;
+import org.eclipselabs.emfjson.rotten.Movies;
+import org.eclipselabs.emfjson.rotten.Poster;
+import org.eclipselabs.emfjson.rotten.Rating;
+import org.eclipselabs.emfjson.rotten.Release;
+import org.eclipselabs.emfjson.rotten.Review;
+import org.eclipselabs.emfjson.rotten.ReviewLink;
+import org.eclipselabs.emfjson.rotten.Reviews;
+import org.eclipselabs.emfjson.rotten.RottenPackage;
 
 /**
  * <!-- begin-user-doc -->

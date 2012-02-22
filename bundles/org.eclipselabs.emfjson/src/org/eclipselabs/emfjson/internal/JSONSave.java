@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
-import org.eclipselabs.emfjson.EJs;
+import org.eclipselabs.emfjson.EMFJs;
 
 /**
  * 
@@ -54,18 +54,18 @@ public class JSONSave {
 	}
 	
 	private void configure(Map<?, ?> options) {
-		if (options.containsKey(EJs.OPTION_INDENT_OUTPUT)) {
+		if (options.containsKey(EMFJs.OPTION_INDENT_OUTPUT)) {
 			boolean indent = false;
 			try {
-				indent = (Boolean) options.get(EJs.OPTION_INDENT_OUTPUT);
+				indent = (Boolean) options.get(EMFJs.OPTION_INDENT_OUTPUT);
 			} catch (ClassCastException e) {
 				e.printStackTrace();
 			}
 			this.mapper.configure(Feature.INDENT_OUTPUT, indent);
 		}
-		if (options.containsKey(EJs.OPTION_SERIALIZE_TYPE)) {
+		if (options.containsKey(EMFJs.OPTION_SERIALIZE_TYPE)) {
 			try {
-				serializeTypes = (Boolean) options.get(EJs.OPTION_SERIALIZE_TYPE);
+				serializeTypes = (Boolean) options.get(EMFJs.OPTION_SERIALIZE_TYPE);
 			} catch (ClassCastException e) {
 				e.printStackTrace();
 			}
