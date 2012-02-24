@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.eclipselabs</groupId>
 	<artifactId>emfjson</artifactId>
-	<version>0.3.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
+	<version>${version}</version>
 	
 	<modules>
 		<module>bundles/org.eclipselabs.emfjson</module>
@@ -37,6 +37,7 @@
 		<tycho-version>0.13.0</tycho-version>
 		<targets>build/repository/target/</targets>
 		<build-type>snapshots</build-type>
+		<version>0.3.3-SNAPSHOT</version>
 	</properties>
 
 	<repositories>
@@ -45,16 +46,11 @@
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/releases/indigo</url>
 		</repository>
-<!-- 		<repository> -->
-<!-- 			<id>juno</id> -->
-<!-- 			<layout>p2</layout> -->
-<!-- 			<url>http://download.eclipse.org/releases/juno</url> -->
-<!-- 		</repository> -->
-<!-- 		<repository> -->
-<!-- 			<id>emfjson-snapshots</id> -->
-<!-- 			<layout>p2</layout> -->
-<!-- 			<url>http://ghillairet.github.com/emfjson/releases/</url> -->
-<!-- 		</repository> -->
+		<repository>
+			<id>indigo</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/releases/indigo</url>
+		</repository>
 	</repositories>
 
 	<build>
@@ -135,5 +131,4 @@
 
 		</plugins>
 	</build>
-	
 </project>
