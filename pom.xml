@@ -50,10 +50,9 @@
 			<url>http://download.eclipse.org/releases/indigo</url>
 		</repository>
 		<repository>
-			<id>orbit</id>
+			<id>gwt</id>
 			<layout>p2</layout>
-<!-- 			<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20120119162704/repository/</url> -->
-			<url>http://dl.google.com/eclipse/plugin/3.7</url>
+			<url>http://ghillairet.github.com/emfjson/gwt</url>
 		</repository>
 	</repositories>
 

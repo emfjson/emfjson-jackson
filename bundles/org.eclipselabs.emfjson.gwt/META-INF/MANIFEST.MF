@@ -16,4 +16,3 @@ Import-Package: com.google.gwt.json.client,
  org.eclipselabs.emfjson.common
 Export-Package: org.eclipselabs.emfjson.gwt.internal,
  org.eclipselabs.emfjson.gwt.resource
-Require-Bundle: com.google.gwt.user;bundle-version="2.1.0"
