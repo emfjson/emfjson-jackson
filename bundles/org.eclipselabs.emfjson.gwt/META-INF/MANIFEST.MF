@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFJs GWT
+Bundle-SymbolicName: org.eclipselabs.emfjson.gwt
+Bundle-Version: 0.4.0.qualifier
+Bundle-Vendor: Eclipse Labs
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: com.google.gwt.json.client,
+ com.google.gwt.user,
+ org.eclipse.emf.common,
+ org.eclipse.emf.common.util,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.resource,
+ org.eclipse.emf.ecore.resource.impl,
+ org.eclipse.emf.ecore.util,
+ org.eclipselabs.emfjson.common
+Export-Package: org.eclipselabs.emfjson.gwt.internal,
+ org.eclipselabs.emfjson.gwt.resource
+Require-Bundle: com.google.gwt.user;bundle-version="2.1.0"
