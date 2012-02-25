@@ -1,0 +1,16 @@
+SwingWorker is used to avoid a JDK 1.6 dependency.
+
+The jar and zip files were retrieved from:
+  https://swingworker.dev.java.net/servlets/ProjectDocumentList
+
+The COPYING file was extracted from the src zip file.
+
+The jar file was repackaged, removing the META-INF directory and
+placing the COPYING and README.google files at the org/jdesktop/swingworker
+directory -- they will get repackaged into the final GWT jar with other
+dependencies.
+
+The source file was repackaged, removing the demo and test code (which do
+not appear in the jar), as well as organizing the structure to better match
+the jar file.
+

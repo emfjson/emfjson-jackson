@@ -1,0 +1,9 @@
+JarIndex-Version: 1.0
+
+gwt-api-checker.jar
+com
+com/google
+com/google/gwt
+com/google/gwt/tools
+com/google/gwt/tools/apichecker
+

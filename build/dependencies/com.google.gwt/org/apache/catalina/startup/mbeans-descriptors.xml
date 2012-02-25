@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<mbeans-descriptors>
+
+  <mbean name="ContextConfig"
+         description="Startup event listener for a Context that configures the properties of that Context, and the associated defined servlets"
+         domain="Catalina"
+         group="Listener"
+         type="org.apache.catalina.startup.ContextConfig">
+    
+    <attribute name="className"
+               description="Fully qualified class name of the managed object"
+               type="java.lang.String"
+               writeable="false"/>
+      
+    <attribute name="debug"
+               description="The debugging detail level for this component"
+               type="int"/>
+  </mbean>
+
+  <mbean name="EngineConfig"
+         description="Startup event listener for a Engine that configures the properties of that Engine, and the associated defined contexts"
+         domain="Catalina"
+         group="Listener"
+         type="org.apache.catalina.startup.EngineConfig">
+
+    <attribute name="className"
+               description="Fully qualified class name of the managed object"
+               type="java.lang.String"
+               writeable="false"/>
+      
+    <attribute name="debug"
+               description="The debugging detail level for this component"
+               type="int"/>
+  </mbean>
+
+
+  <mbean name="HostConfig"
+         description="Startup event listener for a Host that configures the properties of that Host, and the associated defined contexts"
+         domain="Catalina"
+         group="Listener"
+         type="org.apache.catalina.startup.HostConfig">
+    
+    <attribute name="className"
+               description="Fully qualified class name of the managed object"
+               type="java.lang.String"
+               writeable="false"/>
+
+    <attribute name="configClass"
+               description="The Java class name of the Context configuration class we should use"
+               type="java.lang.String"/>
+
+    <attribute name="contextClass"
+               description="The Java class name of the Context implementation we should use"
+               type="java.lang.String"/>
+      
+    <attribute   name="debug"
+               description="The debugging detail level for this component"
+               type="int"/>
+  </mbean>
+
+</mbeans-descriptors>

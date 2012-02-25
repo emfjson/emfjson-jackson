@@ -1,0 +1,119 @@
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.sourceforge.cssparser</groupId>
+	<artifactId>cssparser</artifactId>
+	<version>0.9.5</version>
+	<name>CSS Parser</name>
+	<url>http://cssparser.sourceforge.net/</url>
+	<description>A CSS parser which implements SAC (the Simple API for CSS).</description>
+	<licenses>
+		<license>
+			<name>GNU Lesser General Public License</name>
+			<url>http://www.gnu.org/licenses/lgpl.txt</url>
+		</license>
+	</licenses>
+	<issueManagement>
+		<system>SourceForge</system>
+		<url>http://sourceforge.net/tracker/?group_id=82996</url>
+	</issueManagement>
+	<scm>
+		<url>http://cssparser.cvs.sourceforge.net/cssparser</url>
+	</scm>
+	<distributionManagement>
+		<repository>
+			<id>cssparser-m2-repo</id>
+			<name>CSS Parser Maven 2 Repository</name>
+			<url>scp://shell.sourceforge.net/home/groups/c/cs/cssparser/htdocs/m2-repo</url>
+		</repository>
+		<snapshotRepository>
+			<id>cssparser-m2-snapshot-repo</id>
+			<name>CSS Parser Maven 2 Snapshot Repository</name>
+			<url>scp://shell.sourceforge.net/home/groups/c/cs/cssparser/htdocs/m2-snapshot-repo</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<build>
+		<plugins>
+			<plugin>
+				<!-- set Java 5 as the minimum requirement -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<!-- generate parsers and lexers before compiling -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>javacc-maven-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<id>javacc</id>
+						<goals>
+							<goal>javacc</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<!-- always generate a source JAR -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changes-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>changes-report</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+				<configuration>
+					<issueLinkTemplate>%URL%?group_id=82996&amp;func=detail&amp;atid=567969&amp;aid=%ISSUE%</issueLinkTemplate>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<links>
+						<link>http://java.sun.com/j2se/1.5.0/docs/api/</link>
+						<link>http://www.w3.org/Style/CSS/SAC/doc/</link>
+					</links>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+	<dependencies>
+		<dependency>
+			<groupId>org.w3c.css</groupId>
+			<artifactId>sac</artifactId>
+			<version>1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.4</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>
