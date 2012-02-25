@@ -6,30 +6,33 @@
 	<artifactId>emfjson</artifactId>
 	<packaging>pom</packaging>
 	<version>${version}</version>
-	
+
 	<modules>
 		<module>bundles/org.eclipselabs.emfjson</module>
 		<module>features/org.eclipselabs.emfjson.feature</module>
-		
+
 		<module>bundles/org.eclipselabs.emfjson.ui</module>
-		
+
 		<module>apis/rotten/org.eclipselabs.emfjson.rotten</module>
 		<module>features/org.eclipselabs.emfjson.rotten.feature</module>
-		
+
 		<module>apis/twitter/org.eclipselabs.emfjson.twitter</module>
 		<module>features/org.eclipselabs.emfjson.twitter.feature</module>
-		
+
 		<module>apis/youtube/org.eclipselabs.emfjson.youtube</module>
 		<module>features/org.eclipselabs.emfjson.youtube.feature</module>
-		
+
 		<module>couchdb/org.eclipselabs.emfjson.couchdb</module>
 		<module>features/org.eclipselabs.emfjson.couchdb.feature</module>
-		
+
 		<module>bundles/org.eclipselabs.emfjson.modelgen</module>
 		<module>features/org.eclipselabs.emfjson.modelgen.feature</module>
-		
+
+		<module>bundles/org.eclipselabs.emfjson.gwt</module>
+		<module>features/org.eclipselabs.emfjson.gwt.feature</module>
+
 		<module>tests/org.eclipselabs.emfjson.junit</module>
-		
+
 		<module>build/repository</module>
 	</modules>
 
@@ -37,7 +40,7 @@
 		<tycho-version>0.13.0</tycho-version>
 		<targets>build/repository/target/</targets>
 		<build-type>snapshots</build-type>
-		<version>0.3.3-SNAPSHOT</version>
+		<version>0.4.0-SNAPSHOT</version>
 	</properties>
 
 	<repositories>
@@ -47,9 +50,10 @@
 			<url>http://download.eclipse.org/releases/indigo</url>
 		</repository>
 		<repository>
-			<id>indigo</id>
+			<id>orbit</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/indigo</url>
+<!-- 			<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20120119162704/repository/</url> -->
+			<url>http://dl.google.com/eclipse/plugin/3.7</url>
 		</repository>
 	</repositories>
 
@@ -129,6 +133,19 @@
 				</configuration>
 			</plugin>
 
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-source-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<executions>
+					<execution>
+						<id>plugin-source</id>
+						<goals>
+							<goal>plugin-source</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>

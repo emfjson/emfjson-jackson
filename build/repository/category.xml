@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.eclipselabs.emfjson.feature_0.3.3.qualifier.jar" id="org.eclipselabs.emfjson.feature" version="0.3.3.qualifier">
+   <feature url="features/org.eclipselabs.emfjson.feature_0.4.0.qualifier.jar" id="org.eclipselabs.emfjson.feature" version="0.4.0.qualifier">
       <category name="org.eclipselabs.emfjson"/>
    </feature>
-   <feature url="features/org.eclipselabs.emfjson.rotten.feature_0.3.3.qualifier.jar" id="org.eclipselabs.emfjson.rotten.feature" version="0.3.3.qualifier">
+   <feature url="features/org.eclipselabs.emfjson.rotten.feature_0.4.0.qualifier.jar" id="org.eclipselabs.emfjson.rotten.feature" version="0.4.0.qualifier">
       <category name="org.eclipselabs.emfjson.apis"/>
    </feature>
-   <feature url="features/org.eclipselabs.emfjson.twitter.feature_0.3.3.qualifier.jar" id="org.eclipselabs.emfjson.twitter.feature" version="0.3.3.qualifier">
+   <feature url="features/org.eclipselabs.emfjson.twitter.feature_0.4.0.qualifier.jar" id="org.eclipselabs.emfjson.twitter.feature" version="0.4.0.qualifier">
       <category name="org.eclipselabs.emfjson.apis"/>
    </feature>
-   <feature url="features/org.eclipselabs.emfjson.youtube.feature_0.3.3.qualifier.jar" id="org.eclipselabs.emfjson.youtube.feature" version="0.3.3.qualifier">
+   <feature url="features/org.eclipselabs.emfjson.youtube.feature_0.4.0.qualifier.jar" id="org.eclipselabs.emfjson.youtube.feature" version="0.4.0.qualifier">
       <category name="org.eclipselabs.emfjson.apis"/>
    </feature>
-   <feature url="features/org.eclipselabs.emfjson.couchdb.feature_0.3.3.qualifier.jar" id="org.eclipselabs.emfjson.couchdb.feature" version="0.3.3.qualifier">
+   <feature url="features/org.eclipselabs.emfjson.couchdb.feature_0.4.0.qualifier.jar" id="org.eclipselabs.emfjson.couchdb.feature" version="0.4.0.qualifier">
       <category name="org.eclipselabs.emfjson"/>
    </feature>
-   <feature url="features/org.eclipselabs.emfjson.modelgen.feature_0.3.3.qualifier.jar" id="org.eclipselabs.emfjson.modelgen.feature" version="0.3.3.qualifier">
+   <feature url="features/org.eclipselabs.emfjson.modelgen.feature_0.4.0.qualifier.jar" id="org.eclipselabs.emfjson.modelgen.feature" version="0.4.0.qualifier">
       <category name="org.eclipselabs.emfjson"/>
+   </feature>
+   <feature url="features/org.eclipselabs.emfjson.gwt.feature_0.4.0.qualifier.jar" id="org.eclipselabs.emfjson.gwt.feature" version="0.4.0.qualifier">
+      <category name="org.eclipselabs.emfjson.gwt"/>
    </feature>
    <category-def name="org.eclipselabs.emfjson" label="EMFJs">
       <description>
@@ -28,4 +31,6 @@
          JSON APIs Models for EMFJs.
       </description>
    </category-def>
+   <category-def name="org.eclipselabs.emfjson.gwt" label="EMFJs GWT Runtime"/>
+   <category-def name="org.eclipselabs.emfjson.sdk" label="EMFJs SDK"/>
 </site>

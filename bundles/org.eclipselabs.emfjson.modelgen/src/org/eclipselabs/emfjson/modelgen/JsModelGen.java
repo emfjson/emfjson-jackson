@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipselabs.emfjson.internal.EJsUtil;
+import org.eclipselabs.emfjson.internal.EMFJsUtil;
 
 /**
  * 
@@ -50,13 +50,13 @@ public class JsModelGen {
 	public static EPackage genPackage(String nsURI, URI jsonURI) {
 		URL url = null;
 		try {
-			url = EJsUtil.getURL(jsonURI, null);
+			url = EMFJsUtil.getURL(jsonURI, null);
 		} catch (MalformedURLException e1) {
 			e1.printStackTrace();
 		}
 		
-		final JsonParser parser = EJsUtil.getJsonParser(url);
-		final JsonNode rootNode = EJsUtil.getRootNode(parser);
+		final JsonParser parser = EMFJsUtil.getJsonParser(url);
+		final JsonNode rootNode = EMFJsUtil.getRootNode(parser);
 		
 		ResourceSet resourceSet = new ResourceSetImpl();
 		Resource resource = resourceSet.createResource(URI.createURI(nsURI).appendFileExtension("ecore"));
