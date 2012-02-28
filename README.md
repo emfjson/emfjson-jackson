@@ -65,3 +65,7 @@ See [wiki](https://github.com/ghillairet/emfjson/wiki/Home)
 
 * EMF 2.7.0 or later
 * Jackson 1.6.0 or later
+
+## License
+This software is distributed under the terms of the Eclipse Public License 1.0 - http://www.eclipse.org/legal/epl-v10.html.
+
