@@ -13,7 +13,7 @@ package org.eclipselabs.emfjson.internal;
 import static org.eclipselabs.emfjson.common.Constants.EJS_NS_KEYWORD;
 import static org.eclipselabs.emfjson.common.Constants.EJS_REF_KEYWORD;
 import static org.eclipselabs.emfjson.common.Constants.EJS_TYPE_KEYWORD;
-import static org.eclipselabs.emfjson.internal.EMFJsUtil.getElementName;
+import static org.eclipselabs.emfjson.common.ModelUtil.getElementName;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -39,6 +39,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipselabs.emfjson.EMFJs;
+import org.eclipselabs.emfjson.common.ModelUtil;
 import org.eclipselabs.emfjson.common.JsonLoad;
 
 /**
@@ -53,16 +54,16 @@ public class DefaultJsonLoad implements JsonLoad {
 	private ResourceSet resourceSet;
 
 	public DefaultJsonLoad(InputStream inStream, Map<?,?> options) {
-		init(EMFJsUtil.getJsonParser(inStream), options);
+		init(JsonUtil.getJsonParser(inStream), options);
 	}
 
 	public DefaultJsonLoad(URL url, Map<?,?> options) {
-		init(EMFJsUtil.getJsonParser(url), options);
+		init(JsonUtil.getJsonParser(url), options);
 	}
 
 	@SuppressWarnings("deprecation")
 	private void init(JsonParser parser, Map<?,?> options) {
-		JsonNode root = EMFJsUtil.getRootNode(parser);
+		JsonNode root = JsonUtil.getRootNode(parser);
 
 		checkNotNull(root, "root node should not be null.");
 		checkNotNull(options, "load options parameters should not be null");
@@ -77,7 +78,7 @@ public class DefaultJsonLoad implements JsonLoad {
 			this.rootClass = (EClass) options.get(EMFJs.OPTION_ROOT_ELEMENT);
 		}
 
-		final String path = EMFJsUtil.getRootNode(this.rootClass);
+		final String path = ModelUtil.getRootNode(this.rootClass);
 
 		if (path == null) {
 			this.rootNode = root;

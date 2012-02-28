@@ -2,7 +2,7 @@
 <feature
       id="com.google.gwt.feature"
       label="GWT"
-      version="2.4.0.qualifier"
+      version="2.4.0"
       provider-name="GOOGLE">
 
    <description url="http://www.example.com/description">
@@ -18,10 +18,9 @@
    </license>
 
    <plugin
-         id="com.google.gwt"
+         id="com.google.gwt.user"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         unpack="false"/>
+         version="0.0.0"/>
 
 </feature>

@@ -28,7 +28,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
 import org.eclipse.emf.common.util.URI;
 import org.eclipselabs.emfjson.internal.DefaultJsonSave;
-import org.eclipselabs.emfjson.internal.EMFJsUtil;
+import org.eclipselabs.emfjson.internal.JsonUtil;
 
 public class CouchDB {
 
@@ -312,7 +312,7 @@ public class CouchDB {
 	}
 
 	private static JsonNode getRootNode(InputStream inStream) {
-		final JsonParser parser = EMFJsUtil.getJsonParser(inStream);
+		final JsonParser parser = JsonUtil.getJsonParser(inStream);
 		final ObjectMapper mapper = new ObjectMapper();
 		try {
 			return mapper.readValue(parser, JsonNode.class);

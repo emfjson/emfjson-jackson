@@ -6,7 +6,6 @@ Bundle-Version: 0.4.0.qualifier
 Bundle-Vendor: Eclipse Labs
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: com.google.gwt.json.client,
- com.google.gwt.user,
  org.eclipse.emf.common,
  org.eclipse.emf.common.util,
  org.eclipse.emf.ecore,

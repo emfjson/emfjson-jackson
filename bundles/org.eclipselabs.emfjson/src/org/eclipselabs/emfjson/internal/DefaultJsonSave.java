@@ -12,13 +12,15 @@ package org.eclipselabs.emfjson.internal;
 
 import static org.eclipselabs.emfjson.common.Constants.EJS_REF_KEYWORD;
 import static org.eclipselabs.emfjson.common.Constants.EJS_TYPE_KEYWORD;
-import static org.eclipselabs.emfjson.internal.EMFJsUtil.getElementName;
+import static org.eclipselabs.emfjson.common.ModelUtil.getElementName;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -36,12 +38,11 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
-import org.eclipselabs.emfjson.EMFJs;
+import org.eclipselabs.emfjson.common.AbstractJsonSave;
 import org.eclipselabs.emfjson.common.JsonSave;
 
 /**
@@ -49,45 +50,25 @@ import org.eclipselabs.emfjson.common.JsonSave;
  * @author ghillairet
  *
  */
-public class DefaultJsonSave implements JsonSave {
+public class DefaultJsonSave extends AbstractJsonSave implements JsonSave {
 	
 	protected final ObjectMapper mapper;
 	protected JsonNode rootNode;
-	private boolean serializeTypes = true;
 	
 	public DefaultJsonSave(Map<?, ?> options) {
+		super(options);
 		this.mapper = new ObjectMapper();
-		configure(options);
+		this.mapper.configure(Feature.INDENT_OUTPUT, indent);
 	}
 	
-	private void configure(Map<?, ?> options) {
-		if (options.containsKey(EMFJs.OPTION_INDENT_OUTPUT)) {
-			boolean indent = false;
-			try {
-				indent = (Boolean) options.get(EMFJs.OPTION_INDENT_OUTPUT);
-			} catch (ClassCastException e) {
-				e.printStackTrace();
-			}
-			this.mapper.configure(Feature.INDENT_OUTPUT, indent);
-		}
-		if (options.containsKey(EMFJs.OPTION_SERIALIZE_TYPE)) {
-			try {
-				serializeTypes = (Boolean) options.get(EMFJs.OPTION_SERIALIZE_TYPE);
-			} catch (ClassCastException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
 	public ObjectMapper getDelegate() {
 		return mapper;
 	}
 	
 	public JsonNode genJson(Resource resource, Map<?, ?> options) {
 		final JsonNode rootNode;
-
+		
 		if (resource.getContents().size() == 1) {
-
 			EObject rootObject = resource.getContents().get(0);
 			rootNode = writeEObject(rootObject, resource);
 		} else {
@@ -113,8 +94,7 @@ public class DefaultJsonSave implements JsonSave {
 	}
 	
 	protected JsonNode writeEObject(EObject object, Resource resource) {
-
-		ObjectNode node = mapper.createObjectNode();
+		final ObjectNode node = mapper.createObjectNode();
 		
 		writeEObjectAttributes(object, node);
 		writeEObjectReferences(object, node, resource);
@@ -177,15 +157,21 @@ public class DefaultJsonSave implements JsonSave {
 
 		if (value != null) {
 			if (dataType.getName().contains("Int")) {
-				node.put(getElementName(attribute), (Integer)value);	
+				int intValue = (Integer) value;
+				node.put(getElementName(attribute), intValue);	
 			} else if (dataType.getName().contains("Boolean")) {
-				node.put(getElementName(attribute), (Boolean)value);
+				boolean booleanValue = (Boolean) value;
+				node.put(getElementName(attribute), booleanValue);
 			} else if (dataType.getName().contains("Double")) {
-				node.put(getElementName(attribute), (Double)value);
+				double doubleValue = (Double) value;
+				node.put(getElementName(attribute), doubleValue);
+			} else if (value instanceof Date) {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		        String dateValue = sdf.format(value);
+		        node.put(getElementName(attribute), dateValue);
 			} else {
 				node.put(getElementName(attribute), value.toString());
 			}
-
 		}
 	}
 
@@ -194,15 +180,21 @@ public class DefaultJsonSave implements JsonSave {
 
 		if (value != null) {
 			if (dataType.getName().contains("Int")) {
-				node.add((Integer)value);	
+				int intValue = (Integer) value;
+				node.add(intValue);	
 			} else if (dataType.getName().contains("Boolean")) {
-				node.add((Boolean)value);
+				boolean booleanValue = (Boolean) value;
+				node.add(booleanValue);
 			} else if (dataType.getName().contains("Double")) {
-				node.add((Double)value);
+				double doubleValue = (Double) value;
+				node.add(doubleValue);
+			} else if (value instanceof Date) {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		        String dateValue = sdf.format(value);
+		        node.add(dateValue);
 			} else {
 				node.add(value.toString());
 			}
-
 		}
 	}
 	
@@ -248,17 +240,6 @@ public class DefaultJsonSave implements JsonSave {
 		}
 	}
 	
-	private String getReference(EObject obj, Resource resource) {
-		if (obj.eIsProxy()) {
-			return ((InternalEObject)obj).eProxyURI().toString();
-		}
-		URI eObjectURI = EcoreUtil.getURI(obj);
-		if (eObjectURI.trimFragment().equals(resource.getURI())) {
-			return eObjectURI.fragment();
-		}
-		return eObjectURI.toString();
-	}
-
 	// if reference is containment, then objects are put in an ArrayNode
 	protected void writeEObjectContainments(EObject object, EReference reference, ObjectNode node, Resource resource) {
 

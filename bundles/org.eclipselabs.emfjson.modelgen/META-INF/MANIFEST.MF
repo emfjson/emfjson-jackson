@@ -15,6 +15,7 @@ Import-Package: org.codehaus.jackson;version="[1.6.0,2.0.0)",
  org.eclipse.emf.ecore.xmi,
  org.eclipse.emf.ecore.xmi.impl,
  org.eclipselabs.emfjson,
+ org.eclipselabs.emfjson.common,
  org.eclipselabs.emfjson.internal,
  org.eclipselabs.emfjson.resource
 Export-Package: org.eclipselabs.emfjson.modelgen
