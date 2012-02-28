@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFJs GWT Junit
+Bundle-SymbolicName: org.eclipselabs.emfjson.gwt.junit
+Bundle-Version: 0.4.0.qualifier
+Bundle-Vendor: Eclipse Labs
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.eclipse.emf.common.util,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.resource,
+ org.eclipse.emf.ecore.resource.impl,
+ org.eclipse.emf.ecore.util,
+ org.eclipselabs.emfjson,
+ org.eclipselabs.emfjson.gwt.resource,
+ org.eclipselabs.emfjson.junit.model,
+ org.junit;version="4.8.2",
+ org.junit.runner;version="4.8.2",
+ org.junit.runners;version="4.8.2",
+ org.osgi.framework
