@@ -201,7 +201,6 @@ public class DefaultJsonLoad implements JsonLoad {
 
 					if (obj != null) rootObject.eSet(reference, obj);
 				}
-
 			}
 		}
 	}

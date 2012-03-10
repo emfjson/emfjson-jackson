@@ -23,6 +23,7 @@
 		<module>features/org.eclipselabs.emfjson.youtube.feature</module>
 
 		<module>couchdb/org.eclipselabs.emfjson.couchdb</module>
+		<module>couchdb/org.eclipselabs.emfjson.couchdb.ui</module>
 		<module>features/org.eclipselabs.emfjson.couchdb.feature</module>
 
 		<module>bundles/org.eclipselabs.emfjson.modelgen</module>
@@ -34,10 +35,11 @@
 		<module>tests/org.eclipselabs.emfjson.junit</module>
 
 		<module>build/repository</module>
+		<module>features/org.eclipselabs.emfjson.source.feature</module>
 	</modules>
 
 	<properties>
-		<tycho-version>0.13.0</tycho-version>
+		<tycho-version>0.14.0</tycho-version>
 		<targets>build/repository/target/</targets>
 		<build-type>snapshots</build-type>
 		<version>0.4.0-SNAPSHOT</version>
@@ -161,20 +163,7 @@
 					<publishArtifacts>true</publishArtifacts>
 				</configuration>
 			</plugin>
-
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-source-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<executions>
-					<execution>
-						<id>plugin-source</id>
-						<goals>
-							<goal>plugin-source</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+	
 		</plugins>
 	</build>
 

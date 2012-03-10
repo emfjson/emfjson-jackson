@@ -33,6 +33,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipselabs.emfjson.common.JsonLoad;
 
 import com.google.gwt.json.client.JSONArray;
+import com.google.gwt.json.client.JSONBoolean;
+import com.google.gwt.json.client.JSONNumber;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONString;
@@ -103,22 +105,63 @@ public class GwtJsonLoad implements JsonLoad {
 	private void setEAttributeValue(EObject obj, EAttribute attribute, JSONValue node) {
 		JSONString string = node.isString();
 		if (string != null) {
-			String stringValue = string.stringValue();
-			if (stringValue != null && !stringValue.trim().isEmpty()) {
-				Object newValue;
-				if (attribute.getEAttributeType().getInstanceClass().isEnum()) {
-					newValue = EcoreUtil.createFromString(attribute.getEAttributeType(), stringValue.toUpperCase());
-				} else {
-					newValue = EcoreUtil.createFromString(attribute.getEAttributeType(), stringValue);
-				}
-				if (!attribute.isMany()) {
-					obj.eSet(attribute, newValue);
-				} else {
-					@SuppressWarnings("unchecked")
-					Collection<Object> values = (Collection<Object>) obj.eGet(attribute);
-					values.add(newValue);
+			setEAttributeStringValue(obj, attribute, string);
+		} else {
+			JSONNumber number = node.isNumber();
+			if (number != null) {
+				setEAttributeIntegerValue(obj, attribute, number);
+			} else {
+				JSONBoolean bool = node.isBoolean();
+				if (bool != null) {
+					setEAttributeBooleanValue(obj, attribute, bool);
 				}
 			}
+		}
+	}
+	
+	private void setEAttributeStringValue(EObject obj, EAttribute attribute, JSONString value) {
+		final String stringValue = value.stringValue();
+		
+		if (stringValue != null && !stringValue.trim().isEmpty()) {
+			Object newValue;
+			
+			if (attribute.getEAttributeType().getInstanceClass().isEnum()) {
+				newValue = EcoreUtil.createFromString(attribute.getEAttributeType(), stringValue.toUpperCase());
+			} else {
+				newValue = EcoreUtil.createFromString(attribute.getEAttributeType(), stringValue);
+			}
+			
+			if (!attribute.isMany()) {
+				obj.eSet(attribute, newValue);
+			} else {
+				@SuppressWarnings("unchecked")
+				Collection<Object> values = (Collection<Object>) obj.eGet(attribute);
+				values.add(newValue);
+			}
+		}
+	}
+	
+	private void setEAttributeIntegerValue(EObject obj, EAttribute attribute, JSONNumber value) {
+		final int intValue = (int) value.doubleValue();
+		
+		if (!attribute.isMany()) {
+			obj.eSet(attribute, intValue);
+		} else {
+			@SuppressWarnings("unchecked")
+			Collection<Object> values = (Collection<Object>) obj.eGet(attribute);
+			values.add(intValue);
+		}
+	}
+	
+	private void setEAttributeBooleanValue(EObject obj, EAttribute attribute, JSONBoolean value) {
+		final boolean boolValue = value.booleanValue();
+		
+		if (!attribute.isMany()) {
+			obj.eSet(attribute, boolValue);
+		} else {
+			@SuppressWarnings("unchecked")
+			Collection<Object> values = (Collection<Object>) obj.eGet(attribute);
+			values.add(boolValue);
 		}
 	}
 

@@ -65,4 +65,12 @@
             name="XMI2JSON">
       </command>
    </extension>
+   
+   <extension
+         point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+            class="org.eclipselabs.emfjson.resource.JsResourceFactoryImpl"
+            type="json">
+      </parser>
+   </extension>
 </plugin>
