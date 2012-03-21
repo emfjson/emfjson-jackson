@@ -52,7 +52,7 @@ public class TestEmfJsReferences extends TestSupport {
 		
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 		
-		resource.save(outStream, null);
+		resource.save(outStream, options);
 		
 		assertEquals(expectedString, new String(outStream.toByteArray()));
 	}
@@ -80,7 +80,7 @@ public class TestEmfJsReferences extends TestSupport {
 		
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 		
-		resource.save(outStream, null);
+		resource.save(outStream, options);
 		
 		assertEquals(expectedString, new String(outStream.toByteArray()));
 	}
@@ -110,7 +110,7 @@ public class TestEmfJsReferences extends TestSupport {
 		
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 		
-		resource.save(outStream, null);
+		resource.save(outStream, options);
 		
 		assertEquals(expectedString, new String(outStream.toByteArray()));
 	}

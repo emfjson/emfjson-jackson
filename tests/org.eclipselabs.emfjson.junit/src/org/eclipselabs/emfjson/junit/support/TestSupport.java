@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipselabs.emfjson.EMFJs;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
 import org.eclipselabs.emfjson.resource.JsResourceFactoryImpl;
 import org.junit.Before;
@@ -33,7 +34,7 @@ public abstract class TestSupport {
 	public void tearUp() {
 		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("json", new JsResourceFactoryImpl());
-		
+		options.put(EMFJs.OPTION_INDENT_OUTPUT, false);
 		resourceSet = new ResourceSetImpl();
 	}
 	
