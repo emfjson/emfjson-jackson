@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipselabs.emfjson.EJs;
+import org.eclipselabs.emfjson.EMFJs;
 import org.eclipselabs.emfjson.resource.JsResourceFactoryImpl;
 import org.eclipselabs.examples.library.Book;
 import org.eclipselabs.examples.library.LibraryFactory;
@@ -44,8 +44,8 @@ public class Activator implements BundleActivator {
 		
 		Resource resource = resourceSet.createResource(URI.createURI("platform:/resource/org.eclipselabs.emfjson.example/model.json"));
 		Map<String, Object> options = new HashMap<String, Object>();
-		options.put(EJs.OPTION_INDENT_OUTPUT, true);
-		options.put(EJs.OPTION_SERIALIZE_TYPE, false);
+		options.put(EMFJs.OPTION_INDENT_OUTPUT, true);
+		options.put(EMFJs.OPTION_SERIALIZE_TYPE, false);
 		
 		resource.getContents().add(aShelf);
 		resource.save(options);
@@ -66,8 +66,8 @@ public class Activator implements BundleActivator {
 		
 		Resource resource = resourceSet.createResource(URI.createURI("model2.json"));
 		Map<String, Object> options = new HashMap<String, Object>();
-		options.put(EJs.OPTION_INDENT_OUTPUT, true);
-		options.put(EJs.OPTION_SERIALIZE_TYPE, false);
+		options.put(EMFJs.OPTION_INDENT_OUTPUT, true);
+		options.put(EMFJs.OPTION_SERIALIZE_TYPE, false);
 		
 		resource.getContents().add(aShelf);
 		resource.save(options);

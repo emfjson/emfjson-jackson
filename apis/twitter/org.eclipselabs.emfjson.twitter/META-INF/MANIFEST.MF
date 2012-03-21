@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: org.eclipselabs.emfjson.twitter;singleton:=true
-Bundle-Version: 0.3.3.qualifier
+Bundle-Version: 0.4.0.qualifier
 Bundle-Vendor: %Bundle-Vendor
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.eclipse.emf.common.notify,
@@ -13,11 +13,9 @@ Import-Package: org.eclipse.emf.common.notify,
  org.eclipse.emf.ecore.resource,
  org.eclipse.emf.ecore.resource.impl,
  org.eclipse.emf.ecore.util,
- org.eclipselabs.emfjson,
- org.osgi.framework;version="1.6.0"
+ org.eclipselabs.emfjson
 Export-Package: org.eclipselabs.emfjson.search,
  org.eclipselabs.emfjson.search.impl,
  org.eclipselabs.emfjson.search.util,
  org.eclipselabs.emfjson.twitter
-Bundle-Activator: org.eclipselabs.emfjson.twitter.Activator
 Require-Bundle: org.eclipse.emf.ecore;bundle-version="2.7.0"

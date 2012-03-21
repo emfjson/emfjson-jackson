@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: EMFJs CouchDB Junit
 Bundle-SymbolicName: org.eclipselabs.emfjson.couchdb.junit;singleton:=true
-Bundle-Version: 0.3.2.qualifier
+Bundle-Version: 0.4.0.qualifier
 Bundle-Activator: org.eclipselabs.emfjson.couchdb.junit.Activator
 Bundle-Vendor: Eclipse Labs
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
@@ -20,7 +20,7 @@ Import-Package: org.eclipse.emf.common.notify,
  org.eclipselabs.emfjson.couchdb,
  org.eclipselabs.emfjson.junit.model,
  org.eclipselabs.emfjson.resource,
- org.junit;version="4.8.2",
+ org.junit;version="4.0.0",
  org.osgi.framework;version="1.3.0"
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipselabs.emfjson.couchdb.junit,

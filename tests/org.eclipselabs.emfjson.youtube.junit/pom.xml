@@ -3,13 +3,12 @@
 	<parent>
 		<artifactId>build</artifactId>
 		<groupId>org.eclipselabs.emfjson</groupId>
-		<version>0.3.2-SNAPSHOT</version>
+		<version>${version}</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.eclipselabs.emfjson</groupId>
 	<artifactId>org.eclipselabs.emfjson.youtube.junit</artifactId>
-	<version>0.3.2-SNAPSHOT</version>
 	<packaging>eclipse-test-plugin</packaging>
 
 	<build>

@@ -16,6 +16,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import javax.xml.ws.http.HTTPException;
@@ -27,8 +28,8 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
 import org.eclipse.emf.common.util.URI;
-import org.eclipselabs.emfjson.internal.EJsUtil;
-import org.eclipselabs.emfjson.internal.JSONSave;
+import org.eclipselabs.emfjson.internal.DefaultJsonSave;
+import org.eclipselabs.emfjson.internal.JsonUtil;
 
 public class CouchDB {
 
@@ -136,7 +137,58 @@ public class CouchDB {
 		}
 		return result;
 	}
+	
+	public static String[] getListOfDatabases(String url) {
+		URI uri = URI.createURI(url);
+		try {
+			HttpURLConnection connection = getGetConnection(uri.appendSegment(allDbs));
+			JsonNode node = getRootNode(connection.getInputStream());
 
+			if (node != null) {
+				if (node.isArray()) {
+					String[] result = new String[1];
+					for (Iterator<JsonNode> it = node.getElements(); it.hasNext();) {
+						JsonNode n = it.next();
+						String value = n.getTextValue();
+						if (!value.startsWith("_")){
+							result[result.length-1] = value;
+							if (it.hasNext()) {
+								result = Arrays.copyOf(result, result.length+1);
+							}
+						}
+					}
+					return result;
+				}
+			}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public static JsonNode getListOfDocuments(String url) {
+		URI uri = URI.createURI(url);
+		try {
+			HttpURLConnection connection = getGetConnection(uri.appendSegment(allDocs));
+			JsonNode node = getRootNode(connection.getInputStream());
+			
+			if (node != null) {
+				if (node.isObject()) {
+					return node.get("rows");
+				}
+			}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 	public static URI getDocumentURI(URI baseURI, InputStream inStream) throws JsonParseException, JsonMappingException, IOException {
 		final JsonNode rootNode = getRootNode(inStream);
 
@@ -166,7 +218,7 @@ public class CouchDB {
 		return null;
 	}
 
-	public static URI createOrUpdateDocument(URI uri, JSONSave writer, JsonNode current) {
+	public static URI createOrUpdateDocument(URI uri, DefaultJsonSave writer, JsonNode current) {
 		if (current.isArray() && current.getElements().hasNext()) {
 			throw new IllegalArgumentException("Document Root must be an Object");
 		}
@@ -199,7 +251,7 @@ public class CouchDB {
 		}	
 	}
 
-	private static URI updateDocument(URI uri, JSONSave writer, JsonNode current) {
+	private static URI updateDocument(URI uri, DefaultJsonSave writer, JsonNode current) {
 		final String lastRevision = getLastRevisionID(uri);
 		if (current.isObject()) {
 			((ObjectNode)current).put(rev, lastRevision);
@@ -239,7 +291,7 @@ public class CouchDB {
 		return uri;
 	}
 
-	private static URI createDocument(URI uri, JSONSave writer, JsonNode current) {
+	private static URI createDocument(URI uri, DefaultJsonSave writer, JsonNode current) {
 		HttpURLConnection connection = null;
 		try {
 			connection = getConnection(uri, POST);
@@ -312,7 +364,7 @@ public class CouchDB {
 	}
 
 	private static JsonNode getRootNode(InputStream inStream) {
-		final JsonParser parser = EJsUtil.getJsonParser(inStream);
+		final JsonParser parser = JsonUtil.getJsonParser(inStream);
 		final ObjectMapper mapper = new ObjectMapper();
 		try {
 			return mapper.readValue(parser, JsonNode.class);
@@ -333,6 +385,7 @@ public class CouchDB {
 
 	private static final String rev = "_rev";
 	private static final String allDbs = "_all_dbs";
+	private static final String allDocs = "_all_docs";
 	private static final String POST = "POST";
 	private static final String PUT = "PUT";
 	private static final String DELETE = "DELETE";

@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.eclipselabs.emfjson.EJs;
+import org.eclipselabs.emfjson.EMFJs;
 
 public class XMI2JsonHandler extends AbstractHandler {
 	
@@ -57,7 +57,7 @@ public class XMI2JsonHandler extends AbstractHandler {
 				Resource json = resourceSet.createResource(model.getURI().trimFileExtension().appendFileExtension("json"));
 				json.getContents().addAll(model.getContents());
 				Map<String, Object> options = new HashMap<String, Object>();
-				options.put(EJs.OPTION_INDENT_OUTPUT, true);
+				options.put(EMFJs.OPTION_INDENT_OUTPUT, true);
 				try {
 					json.save(options);
 				} catch (IOException e) {

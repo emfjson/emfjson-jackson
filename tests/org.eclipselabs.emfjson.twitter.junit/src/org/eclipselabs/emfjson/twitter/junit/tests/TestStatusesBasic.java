@@ -17,14 +17,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.URIHandler;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipselabs.emfjson.EJs;
-import org.eclipselabs.emfjson.JsURIHandlerImpl;
+import org.eclipselabs.emfjson.EMFJs;
+import org.eclipselabs.emfjson.resource.JsResourceFactoryImpl;
 import org.eclipselabs.emfjson.search.SearchPackage;
+import org.eclipselabs.emfjson.search.Status;
 import org.eclipselabs.emfjson.twitter.Statuses;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,23 +41,25 @@ public class TestStatusesBasic {
 	@Before
 	public void tearUp() {
 		resourceSet = new ResourceSetImpl();
-		
-		EList<URIHandler> uriHandlers = resourceSet.getURIConverter().getURIHandlers();
-		uriHandlers.add(0, new JsURIHandlerImpl());
+		Resource.Factory.Registry.INSTANCE.getContentTypeToFactoryMap().put("text/json", new JsResourceFactoryImpl());
 	}
 	
 	@Test
 	public void testOneStatus() throws IOException {
-		Statuses status = new Statuses("99080036249894912")
+		Statuses status = new Statuses("163929576148443136")
 			.includeEntities();
 			
-		Resource resource = resourceSet.createResource(status.getURI());
-		options.put(EJs.OPTION_ROOT_ELEMENT, SearchPackage.eINSTANCE.getStatus());
+		Resource resource = resourceSet.createResource(status.getURI(), "text/json");
+		options.put(EMFJs.OPTION_ROOT_ELEMENT, SearchPackage.eINSTANCE.getStatus());
 		
 		assertNotNull(resource);
 		
 		resource.load(options);
 		
 		assertFalse(resource.getContents().isEmpty());
+		
+		Status res = (Status) resource.getContents().get(0);
+		
+		System.out.println(res.getEntities().get(0));
 	}
 }

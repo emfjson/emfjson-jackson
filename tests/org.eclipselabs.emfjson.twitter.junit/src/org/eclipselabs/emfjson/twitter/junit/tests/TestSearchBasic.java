@@ -17,13 +17,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.URIHandler;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipselabs.emfjson.EJs;
-import org.eclipselabs.emfjson.JsURIHandlerImpl;
+import org.eclipselabs.emfjson.EMFJs;
+import org.eclipselabs.emfjson.resource.JsResourceFactoryImpl;
 import org.eclipselabs.emfjson.search.ResultType;
 import org.eclipselabs.emfjson.search.SearchPackage;
 import org.eclipselabs.emfjson.twitter.Search;
@@ -39,8 +37,7 @@ public class TestSearchBasic {
 	public void tearUp() {
 		resourceSet = new ResourceSetImpl();
 		
-		EList<URIHandler> uriHandlers = resourceSet.getURIConverter().getURIHandlers();
-		uriHandlers.add(0, new JsURIHandlerImpl());
+		Resource.Factory.Registry.INSTANCE.getContentTypeToFactoryMap().put("text/json", new JsResourceFactoryImpl());
 	}
 	
 	@Test
@@ -49,14 +46,16 @@ public class TestSearchBasic {
 			.count(1)
 			.resultType(ResultType.MIXED);
 		
-		Resource resource = resourceSet.createResource(search.getURI());
-		options.put(EJs.OPTION_ROOT_ELEMENT, SearchPackage.eINSTANCE.getResult());
+		Resource resource = resourceSet.createResource(search.getURI(), "text/json");
+		options.put(EMFJs.OPTION_ROOT_ELEMENT, SearchPackage.eINSTANCE.getResult());
 		
 		assertNotNull(resource);
 		
 		resource.load(options);
 		
 		assertFalse(resource.getContents().isEmpty());
+		
+		System.out.println(resource.getContents());
 	}
 	
 }

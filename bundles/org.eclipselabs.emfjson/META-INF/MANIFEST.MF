@@ -2,12 +2,12 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: org.eclipselabs.emfjson;singleton:=true
-Bundle-Version: 0.3.3.qualifier
+Bundle-Version: 0.4.0.qualifier
 Bundle-Vendor: %Bundle-Vendor
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: org.codehaus.jackson,
- org.codehaus.jackson.map,
- org.codehaus.jackson.node,
+Import-Package: org.codehaus.jackson;version="[1.6.0,2.0.0)",
+ org.codehaus.jackson.map;version="[1.6.0,2.0.0)",
+ org.codehaus.jackson.node;version="[1.6.0,2.0.0)",
  org.eclipse.emf.common,
  org.eclipse.emf.common.util,
  org.eclipse.emf.ecore,
@@ -15,5 +15,6 @@ Import-Package: org.codehaus.jackson,
  org.eclipse.emf.ecore.resource.impl,
  org.eclipse.emf.ecore.util
 Export-Package: org.eclipselabs.emfjson,
+ org.eclipselabs.emfjson.common,
  org.eclipselabs.emfjson.internal,
  org.eclipselabs.emfjson.resource

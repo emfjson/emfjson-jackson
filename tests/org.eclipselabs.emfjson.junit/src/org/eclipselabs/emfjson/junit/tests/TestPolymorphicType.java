@@ -20,7 +20,7 @@ import java.io.IOException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipselabs.emfjson.EJs;
+import org.eclipselabs.emfjson.EMFJs;
 import org.eclipselabs.emfjson.junit.model.AbstractType;
 import org.eclipselabs.emfjson.junit.model.ConcreteTypeOne;
 import org.eclipselabs.emfjson.junit.model.ConcreteTypeTwo;
@@ -69,7 +69,7 @@ public class TestPolymorphicType extends TestSupport {
 		Resource resource = resourceSet.createResource(
 				URI.createURI("platform:/plugin/org.eclipselabs.emfjson.junit/tests/test-load-types.json"));
 		assertNotNull(resource);
-		options.put(EJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getContainer());
+		options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getContainer());
 		
 		resource.load(options);
 		
@@ -98,7 +98,7 @@ public class TestPolymorphicType extends TestSupport {
 		Resource resource = resourceSet.createResource(
 				URI.createURI("platform:/plugin/org.eclipselabs.emfjson.junit/tests/test-load-types-2.json"));
 		assertNotNull(resource);
-		options.put(EJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getContainer());
+		options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getContainer());
 		
 		resource.load(options);
 		
@@ -128,7 +128,7 @@ public class TestPolymorphicType extends TestSupport {
 		Resource resource = resourceSet.createResource(
 				URI.createURI("platform:/plugin/org.eclipselabs.emfjson.junit/tests/test-load-ns-types.json"));
 		assertNotNull(resource);
-		options.put(EJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getContainer());
+		options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getContainer());
 		
 		resource.load(options);
 		

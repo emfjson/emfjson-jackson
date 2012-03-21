@@ -18,11 +18,14 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipselabs.emfjson.junit.model.ETypes;
 import org.eclipselabs.emfjson.junit.model.ModelFactory;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
@@ -91,6 +94,26 @@ public class TestEmfJsAttributes extends TestSupport {
 		
 		Boolean[] arrayValue = new Boolean[]{false, true};
 		valueObject.getEBooleans().addAll(Arrays.asList(arrayValue));
+		
+		resource.getContents().add(valueObject);
+		
+		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+		
+		resource.save(outStream, null);
+		
+		assertEquals(expectedString, new String(outStream.toByteArray()));
+	}
+	
+	@Test
+	public void testDateValue() throws IOException {
+		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eDate\":\"2011-10-10T00:00:00\"}";
+		
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+		
+		ETypes valueObject = ModelFactory.eINSTANCE.createETypes();
+		Date value = (Date) EcoreUtil.createFromString(EcorePackage.eINSTANCE.getEDate(), "2011-10-10");
+		
+		valueObject.setEDate(value);
 		
 		resource.getContents().add(valueObject);
 		

@@ -26,8 +26,9 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.URIHandlerImpl;
+import org.eclipselabs.emfjson.common.JsonLoad;
 import org.eclipselabs.emfjson.couchdb.internal.CouchDB;
-import org.eclipselabs.emfjson.internal.JSONLoad;
+import org.eclipselabs.emfjson.internal.DefaultJsonLoad;
 import org.eclipselabs.emfjson.internal.JsInputStream;
 import org.eclipselabs.emfjson.internal.JsOutputStream;
 
@@ -43,16 +44,13 @@ public class CouchDBHandler extends URIHandlerImpl {
 		if (checkDataBase(uri) == 0) {
 			throw new IllegalArgumentException("DataBase does not exist");
 		}
-		if (uri.segmentCount() != 2) {
-			throw new IllegalArgumentException("Does not refer to a document");
-		}
 		return new JsInputStream(uri, options) {
 			@Override
 			public void loadResource(Resource resource) throws IOException {
 				final HttpURLConnection connection = getGetConnection(uri);
 				final InputStream inStream = connection.getInputStream();
-				final JSONLoad loader = new JSONLoad(inStream, options);
-				final Collection<EObject> roots = loader.getRootEObjects(resource);
+				final JsonLoad loader = new DefaultJsonLoad(inStream, options);
+				final Collection<EObject> roots = loader.fillResource(resource);
 
 				resource.getContents().addAll(roots);
 			}

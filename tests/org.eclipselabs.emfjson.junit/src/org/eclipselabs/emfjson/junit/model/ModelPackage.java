@@ -1,13 +1,5 @@
-/*******************************************************************************
- * Copyright (c) 2011 Guillaume Hillairet.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Guillaume Hillairet - initial API and implementation
- *******************************************************************************/
+/**
+ */
 package org.eclipselabs.emfjson.junit.model;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -832,22 +824,13 @@ public interface ModelPackage extends EPackage {
 	int NODE__CHILD = 4;
 
 	/**
-	 * The feature id for the '<em><b>Single</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NODE__SINGLE = 5;
-
-	/**
 	 * The number of structural features of the '<em>Node</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_FEATURE_COUNT = 6;
+	int NODE_FEATURE_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link org.eclipselabs.emfjson.junit.model.Sex <em>Sex</em>}' enum.
@@ -1642,17 +1625,6 @@ public interface ModelPackage extends EPackage {
 	EReference getNode_Child();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipselabs.emfjson.junit.model.Node#getSingle <em>Single</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Single</em>'.
-	 * @see org.eclipselabs.emfjson.junit.model.Node#getSingle()
-	 * @see #getNode()
-	 * @generated
-	 */
-	EReference getNode_Single();
-
-	/**
 	 * Returns the meta object for enum '{@link org.eclipselabs.emfjson.junit.model.Sex <em>Sex</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2282,14 +2254,6 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EReference NODE__CHILD = eINSTANCE.getNode_Child();
-
-		/**
-		 * The meta object literal for the '<em><b>Single</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference NODE__SINGLE = eINSTANCE.getNode_Single();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipselabs.emfjson.junit.model.Sex <em>Sex</em>}' enum.

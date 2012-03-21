@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.eclipselabs.emfjson.junit.model.impl;
 
@@ -38,7 +34,6 @@ import org.eclipselabs.emfjson.junit.model.Node;
  *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.NodeImpl#getSource <em>Source</em>}</li>
  *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.NodeImpl#getManyRef <em>Many Ref</em>}</li>
  *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.NodeImpl#getChild <em>Child</em>}</li>
- *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.NodeImpl#getSingle <em>Single</em>}</li>
  * </ul>
  * </p>
  *
@@ -104,16 +99,6 @@ public class NodeImpl extends EObjectImpl implements Node {
 	 * @ordered
 	 */
 	protected EList<Node> child;
-
-	/**
-	 * The cached value of the '{@link #getSingle() <em>Single</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSingle()
-	 * @generated
-	 * @ordered
-	 */
-	protected Node single;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -304,49 +289,6 @@ public class NodeImpl extends EObjectImpl implements Node {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Node getSingle() {
-		return single;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetSingle(Node newSingle, NotificationChain msgs) {
-		Node oldSingle = single;
-		single = newSingle;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.NODE__SINGLE, oldSingle, newSingle);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSingle(Node newSingle) {
-		if (newSingle != single) {
-			NotificationChain msgs = null;
-			if (single != null)
-				msgs = ((InternalEObject)single).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.NODE__SINGLE, null, msgs);
-			if (newSingle != null)
-				msgs = ((InternalEObject)newSingle).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.NODE__SINGLE, null, msgs);
-			msgs = basicSetSingle(newSingle, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.NODE__SINGLE, newSingle, newSingle));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -376,8 +318,6 @@ public class NodeImpl extends EObjectImpl implements Node {
 				return basicSetSource(null, msgs);
 			case ModelPackage.NODE__CHILD:
 				return ((InternalEList<?>)getChild()).basicRemove(otherEnd, msgs);
-			case ModelPackage.NODE__SINGLE:
-				return basicSetSingle(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -402,8 +342,6 @@ public class NodeImpl extends EObjectImpl implements Node {
 				return getManyRef();
 			case ModelPackage.NODE__CHILD:
 				return getChild();
-			case ModelPackage.NODE__SINGLE:
-				return getSingle();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -434,9 +372,6 @@ public class NodeImpl extends EObjectImpl implements Node {
 				getChild().clear();
 				getChild().addAll((Collection<? extends Node>)newValue);
 				return;
-			case ModelPackage.NODE__SINGLE:
-				setSingle((Node)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -464,9 +399,6 @@ public class NodeImpl extends EObjectImpl implements Node {
 			case ModelPackage.NODE__CHILD:
 				getChild().clear();
 				return;
-			case ModelPackage.NODE__SINGLE:
-				setSingle((Node)null);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -489,8 +421,6 @@ public class NodeImpl extends EObjectImpl implements Node {
 				return manyRef != null && !manyRef.isEmpty();
 			case ModelPackage.NODE__CHILD:
 				return child != null && !child.isEmpty();
-			case ModelPackage.NODE__SINGLE:
-				return single != null;
 		}
 		return super.eIsSet(featureID);
 	}

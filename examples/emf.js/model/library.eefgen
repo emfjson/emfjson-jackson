@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ASCII"?>
+<eef-gen:EEFGenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:eef-gen="http://www.eclipse.org/emf/eef/generation/1.0.0" genDirectory="/emf.js/src-gen">
+  <editionContexts basePackage="org.eclipselabs.model" descriptorsGenericPropertiesViews="true">
+    <PropertiesEditionContext href="library.components#_qJGyAFEREeGTZIWeBDY4xg"/>
+  </editionContexts>
+  <viewsRepositories basePackage="org.eclipselabs.model.library" swtViews="true" formViews="true">
+    <viewsRepository href="library.components#_qJIAI1EREeGTZIWeBDY4xg"/>
+  </viewsRepositories>
+</eef-gen:EEFGenModel>

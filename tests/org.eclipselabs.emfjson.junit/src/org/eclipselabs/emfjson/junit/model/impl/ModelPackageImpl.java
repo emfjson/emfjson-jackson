@@ -1,13 +1,5 @@
-/*******************************************************************************
- * Copyright (c) 2011 Guillaume Hillairet.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Guillaume Hillairet - initial API and implementation
- *******************************************************************************/
+/**
+ */
 package org.eclipselabs.emfjson.junit.model.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -828,15 +820,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getNode_Single() {
-		return (EReference)nodeEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EEnum getSex() {
 		return sexEEnum;
 	}
@@ -958,7 +941,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(nodeEClass, NODE__SOURCE);
 		createEReference(nodeEClass, NODE__MANY_REF);
 		createEReference(nodeEClass, NODE__CHILD);
-		createEReference(nodeEClass, NODE__SINGLE);
 
 		// Create enums
 		sexEEnum = createEEnum(SEX);
@@ -1079,7 +1061,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEReference(getNode_Source(), this.getNode(), this.getNode_Target(), "source", null, 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getNode_ManyRef(), this.getNode(), null, "manyRef", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getNode_Child(), this.getNode(), null, "child", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getNode_Single(), this.getNode(), null, "single", null, 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(sexEEnum, Sex.class, "Sex");

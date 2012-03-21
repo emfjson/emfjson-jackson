@@ -21,7 +21,9 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
-import org.eclipselabs.emfjson.EJs;
+import org.eclipselabs.emfjson.EMFJs;
+import org.eclipselabs.emfjson.common.ModelUtil;
+import org.eclipselabs.emfjson.common.JsonLoad;
 
 /**
  * 
@@ -43,13 +45,13 @@ public abstract class JsInputStream extends InputStream implements URIConverter.
 	public void loadResource(Resource resource) throws IOException {
 		URL url = null;
 		try {
-			url = EJsUtil.getURL(resource.getURI(), options.get(EJs.OPTION_URL_PARAMETERS));
+			url = ModelUtil.getURL(resource.getURI(), options.get(EMFJs.OPTION_URL_PARAMETERS));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
 		
-		final JSONLoad loader = new JSONLoad(url, options);
-		final Collection<EObject> roots = loader.getRootEObjects(resource);
+		final JsonLoad loader = new DefaultJsonLoad(url, options);
+		final Collection<EObject> roots = loader.fillResource(resource);
 		
 		resource.getContents().addAll(roots);
 	}

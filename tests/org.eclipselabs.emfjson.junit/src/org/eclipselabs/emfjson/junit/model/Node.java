@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.eclipselabs.emfjson.junit.model;
 
@@ -23,7 +19,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipselabs.emfjson.junit.model.Node#getSource <em>Source</em>}</li>
  *   <li>{@link org.eclipselabs.emfjson.junit.model.Node#getManyRef <em>Many Ref</em>}</li>
  *   <li>{@link org.eclipselabs.emfjson.junit.model.Node#getChild <em>Child</em>}</li>
- *   <li>{@link org.eclipselabs.emfjson.junit.model.Node#getSingle <em>Single</em>}</li>
  * </ul>
  * </p>
  *
@@ -145,31 +140,5 @@ public interface Node extends EObject {
 	 * @generated
 	 */
 	EList<Node> getChild();
-
-	/**
-	 * Returns the value of the '<em><b>Single</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Single</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Single</em>' containment reference.
-	 * @see #setSingle(Node)
-	 * @see org.eclipselabs.emfjson.junit.model.ModelPackage#getNode_Single()
-	 * @model containment="true"
-	 * @generated
-	 */
-	Node getSingle();
-
-	/**
-	 * Sets the value of the '{@link org.eclipselabs.emfjson.junit.model.Node#getSingle <em>Single</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Single</em>' containment reference.
-	 * @see #getSingle()
-	 * @generated
-	 */
-	void setSingle(Node value);
 
 } // Node

@@ -14,12 +14,19 @@ package org.eclipselabs.emfjson.rotten.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.eclipselabs.emfjson.rotten.*;
+import org.eclipselabs.emfjson.rotten.Cast;
+import org.eclipselabs.emfjson.rotten.Movie;
+import org.eclipselabs.emfjson.rotten.Movies;
+import org.eclipselabs.emfjson.rotten.Poster;
+import org.eclipselabs.emfjson.rotten.Rating;
+import org.eclipselabs.emfjson.rotten.Release;
+import org.eclipselabs.emfjson.rotten.Review;
+import org.eclipselabs.emfjson.rotten.ReviewLink;
+import org.eclipselabs.emfjson.rotten.Reviews;
+import org.eclipselabs.emfjson.rotten.RottenFactory;
+import org.eclipselabs.emfjson.rotten.RottenPackage;
 
 /**
  * <!-- begin-user-doc -->

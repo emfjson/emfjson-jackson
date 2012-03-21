@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ASCII"?>
+<library:LibraryShelf
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:library="http://www.eclipselabs.org/examples/library"
+    xsi:schemaLocation="http://www.eclipselabs.org/examples/library library.ecore"
+    name="SciFi">
+  <items xsi:type="library:Book"
+      title="Asimov"
+      pubDate="1943-10-01T00:00:00.000+0200"
+      numPages="456"/>
+  <items xsi:type="library:CD"
+      title="Justice"
+      pubDate="2005-01-01T00:00:00.000+0100"
+      length="120.0"/>
+</library:LibraryShelf>
