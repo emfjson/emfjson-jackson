@@ -28,13 +28,13 @@ public abstract class JsOutputStream extends ByteArrayOutputStream implements UR
 	@SuppressWarnings("unused")
 	private Map<?, ?> options;
 	
-	protected final DefaultJsonSave writer;
+	protected final JSONSave writer;
 	protected JsonNode currentRoot;
 	protected Resource resource;
 	
 	public JsOutputStream(Map<?, ?> options) {
 		this.options = options;
-		this.writer = new DefaultJsonSave(options);
+		this.writer = new JSONSave(options);
 	}
 	
 	@Override

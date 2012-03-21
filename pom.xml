@@ -29,9 +29,6 @@
 		<module>bundles/org.eclipselabs.emfjson.modelgen</module>
 		<module>features/org.eclipselabs.emfjson.modelgen.feature</module>
 
-		<module>bundles/org.eclipselabs.emfjson.gwt</module>
-		<module>features/org.eclipselabs.emfjson.gwt.feature</module>
-
 		<module>tests/org.eclipselabs.emfjson.junit</module>
 
 		<module>build/repository</module>
@@ -45,45 +42,22 @@
 		<version>0.4.0-SNAPSHOT</version>
 	</properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>emf-xsd-sdk</groupId>
-			<artifactId>emf-xsd-sdk</artifactId>
-			<version>2.7.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-user</artifactId>
-			<version>2.4.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.5</version>
-		</dependency>
-	</dependencies>
-
 	<repositories>
 		<repository>
-			<id>clojars.org</id>
-			<url>http://clojars.org/repo</url>
-		</repository>
-		<repository>
-			<id>codehaus-snapshots</id>
-			<url>http://snapshots.repository.codehaus.org</url>
+			<id>jackson-p2</id>
+			<layout>p2</layout>
+			<url>http://ghillairet.github.com/p2/jackson/update-site</url>
 		</repository>
 		<repository>
 			<id>indigo</id>
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/releases/indigo</url>
 		</repository>
-		<repository>
-			<id>gwt</id>
-			<layout>p2</layout>
-<!-- 			<url>http://ghillairet.github.com/emfjson/gwt</url> -->
-<!-- 			<url>http://download.eclipse.org/tools/orbit/downloads/drops/I20120223001551/repository</url> -->
-			<url>file:/Users/guillaume/Projects/emfjson/build/dependencies/com.google.gwt.repository/</url>
-		</repository>
+<!-- 		<repository> -->
+<!-- 			<id>gwt</id> -->
+<!-- 			<layout>p2</layout> -->
+<!-- 			<url>http://ghillairet.github.com/p2/gwt-user/update-site</url> -->
+<!-- 		</repository> -->
 	</repositories>
 
 	<build>

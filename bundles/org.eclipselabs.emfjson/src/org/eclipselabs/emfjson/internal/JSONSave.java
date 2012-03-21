@@ -42,20 +42,19 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
-import org.eclipselabs.emfjson.common.AbstractJsonSave;
-import org.eclipselabs.emfjson.common.JsonSave;
+import org.eclipselabs.emfjson.common.AbstractJSONSave;
 
 /**
  * 
  * @author ghillairet
  *
  */
-public class DefaultJsonSave extends AbstractJsonSave implements JsonSave {
+public class JSONSave extends AbstractJSONSave {
 	
 	protected final ObjectMapper mapper;
 	protected JsonNode rootNode;
 	
-	public DefaultJsonSave(Map<?, ?> options) {
+	public JSONSave(Map<?, ?> options) {
 		super(options);
 		this.mapper = new ObjectMapper();
 		this.mapper.configure(Feature.INDENT_OUTPUT, indent);
@@ -274,11 +273,22 @@ public class DefaultJsonSave extends AbstractJsonSave implements JsonSave {
 
 	}
 
-	@Override
 	public void write(OutputStream outStream, Resource resource) {
 		JsonNode node = genJson(resource);
 		try {
 			getDelegate().writeValue(outStream, node);
+		} catch (JsonGenerationException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void writeValue(OutputStream output, Object current) {
+		try {
+			getDelegate().writeValue(output, current);
 		} catch (JsonGenerationException e) {
 			e.printStackTrace();
 		} catch (JsonMappingException e) {

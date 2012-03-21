@@ -23,7 +23,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipselabs.emfjson.EMFJs;
 import org.eclipselabs.emfjson.common.ModelUtil;
-import org.eclipselabs.emfjson.common.JsonLoad;
 
 /**
  * 
@@ -31,10 +30,9 @@ import org.eclipselabs.emfjson.common.JsonLoad;
  *
  */
 public abstract class JsInputStream extends InputStream implements URIConverter.Loadable {
-
-	@SuppressWarnings("unused")
-	private URI uri;
-	private Map<?, ?> options;
+	
+	protected URI uri;
+	protected Map<?, ?> options;
 	
 	public JsInputStream(URI uri, Map<?, ?> options) {
 		this.uri = uri;
@@ -50,7 +48,7 @@ public abstract class JsInputStream extends InputStream implements URIConverter.
 			e.printStackTrace();
 		}
 		
-		final JsonLoad loader = new DefaultJsonLoad(url, options);
+		final JSONLoad loader = new JSONLoad(url, options);
 		final Collection<EObject> roots = loader.fillResource(resource);
 		
 		resource.getContents().addAll(roots);
