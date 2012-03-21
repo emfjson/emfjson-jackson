@@ -18,9 +18,6 @@
    <feature url="features/org.eclipselabs.emfjson.modelgen.feature_0.4.0.qualifier.jar" id="org.eclipselabs.emfjson.modelgen.feature" version="0.4.0.qualifier">
       <category name="org.eclipselabs.emfjson"/>
    </feature>
-   <feature url="features/org.eclipselabs.emfjson.gwt.feature_0.4.0.qualifier.jar" id="org.eclipselabs.emfjson.gwt.feature" version="0.4.0.qualifier">
-      <category name="org.eclipselabs.emfjson.gwt"/>
-   </feature>
    <feature url="features/org.eclipselabs.emfjson.source.feature_0.4.0.qualifier.jar" id="org.eclipselabs.emfjson.source.feature" version="0.4.0.qualifier">
       <category name="org.eclipselabs.emfjson.sdk"/>
    </feature>
@@ -34,7 +31,6 @@
          JSON APIs Models for EMFJs.
       </description>
    </category-def>
-   <category-def name="org.eclipselabs.emfjson.gwt" label="EMFJs GWT Runtime"/>
    <category-def name="org.eclipselabs.emfjson.sdk" label="EMFJs SDK">
       <description>
          EMFJs SDK.

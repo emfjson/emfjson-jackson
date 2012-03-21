@@ -20,4 +20,4 @@ Export-Package: org.eclipselabs.emfjson.couchdb.efs,
  org.eclipselabs.emfjson.couchdb.ui.model,
  org.eclipselabs.emfjson.couchdb.ui.provider,
  org.eclipselabs.emfjson.couchdb.ui.views
-Import-Package: org.codehaus.jackson;version="1.6.0"
+Import-Package: org.codehaus.jackson
