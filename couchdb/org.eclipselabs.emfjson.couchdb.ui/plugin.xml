@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="org.eclipselabs.emfjson.couchdb.ui.category"
+            class="org.eclipselabs.emfjson.couchdb.ui.views.CouchDBView"
+            icon="icons/couchdb-icon-16px.png"
+            id="org.eclipselabs.emfjson.couchdb.ui.views.CouchDBView"
+            name="CouchDB"
+            restorable="true">
+      </view>
+      <category
+            id="org.eclipselabs.emfjson.couchdb.ui.category"
+            name="EMFJs CouchDB">
+      </category>
+   </extension>
+   <!--
+   <extension
+         point="org.eclipse.core.filesystem.filesystems">
+      <filesystem
+            scheme="http">
+         <run
+               class="org.eclipselabs.emfjson.couchdb.efs.CouchDBFileSystem">
+         </run>
+      </filesystem>
+   </extension>
+	-->
+</plugin>
