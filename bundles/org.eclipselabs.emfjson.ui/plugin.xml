@@ -66,11 +66,37 @@
       </command>
    </extension>
    
+   
    <extension
-         point="org.eclipse.emf.ecore.extension_parser">
-      <parser
-            class="org.eclipselabs.emfjson.resource.JsResourceFactoryImpl"
-            type="json">
-      </parser>
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="org.eclipselabs.emfjson.ui"
+            name="EMFJs">
+      </category>
+      <wizard
+            category="org.eclipselabs.emfjson.ui"
+            class="org.eclipselabs.emfjson.ui.wizards.EcoreJsonNewModelWizard"
+            icon="icons/json.png"
+            id="org.eclipselabs.emfjson.ui.wizards.EcoreJsonNewModelWizard"
+            name="Ecore Model">
+      </wizard>
+      <wizard
+            category="org.eclipselabs.emfjson.ui"
+            class="org.eclipselabs.emfjson.ui.wizards.EcoreModelJsonApiWizard"
+            icon="icons/json.png"
+            id="org.eclipselabs.emfjson.ui.wizards.EcoreModelJsonApiWizard"
+            name="Ecore Model from JSON API">
+      </wizard>
    </extension>
+   
+   <extension point="org.eclipse.emf.importer.modelImporterDescriptors">
+    <modelImporterDescriptor 
+    	id="org.eclipse.emf.importer.ecore" 
+    	name="EMF Json Importer" 
+    	icon="icons/json.png" 
+    	extensions="ejs,json"
+    	description="Import Ecore Model from JSON." 
+    	wizard="org.eclipselabs.emfjson.ui.wizards.EcoreJsonImporterWizard" />
+  </extension>
+  
 </plugin>
