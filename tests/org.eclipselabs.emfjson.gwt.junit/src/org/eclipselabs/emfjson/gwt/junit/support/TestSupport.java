@@ -18,8 +18,8 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipselabs.emfjson.gwt.resource.GwtJsResourceFactoryImpl;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
+import org.eclipselabs.emfjson.resource.JsResourceFactoryImpl;
 import org.junit.Before;
 
 public abstract class TestSupport {
@@ -32,7 +32,7 @@ public abstract class TestSupport {
 	@Before
 	public void tearUp() {
 		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("json", new GwtJsResourceFactoryImpl());
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("json", new JsResourceFactoryImpl());
 		
 		resourceSet = new ResourceSetImpl();
 	}

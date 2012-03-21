@@ -17,13 +17,6 @@
       [Enter License Description here.]
    </license>
 
-   <requires>
-      <import plugin="com.google.gwt.user"/>
-      <import plugin="org.eclipse.emf.common"/>
-      <import plugin="org.eclipse.emf.ecore"/>
-      <import plugin="org.eclipselabs.emfjson"/>
-   </requires>
-
    <plugin
          id="org.eclipselabs.emfjson.gwt"
          download-size="0"
