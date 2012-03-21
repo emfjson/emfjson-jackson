@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
  *
  */
 public class JsResourceFactoryImpl extends ResourceFactoryImpl {
-	
 	@Override
 	public Resource createResource(URI uri) {
 		return new JsResourceImpl(uri);

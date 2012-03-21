@@ -21,6 +21,7 @@ import java.util.Iterator;
 
 import javax.xml.ws.http.HTTPException;
 
+import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.JsonParser;
@@ -28,8 +29,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
 import org.eclipse.emf.common.util.URI;
-import org.eclipselabs.emfjson.internal.DefaultJsonSave;
-import org.eclipselabs.emfjson.internal.JsonUtil;
+import org.eclipselabs.emfjson.internal.JSONSave;
 
 public class CouchDB {
 
@@ -218,7 +218,7 @@ public class CouchDB {
 		return null;
 	}
 
-	public static URI createOrUpdateDocument(URI uri, DefaultJsonSave writer, JsonNode current) {
+	public static URI createOrUpdateDocument(URI uri, JSONSave writer, JsonNode current) {
 		if (current.isArray() && current.getElements().hasNext()) {
 			throw new IllegalArgumentException("Document Root must be an Object");
 		}
@@ -251,7 +251,7 @@ public class CouchDB {
 		}	
 	}
 
-	private static URI updateDocument(URI uri, DefaultJsonSave writer, JsonNode current) {
+	private static URI updateDocument(URI uri, JSONSave writer, JsonNode current) {
 		final String lastRevision = getLastRevisionID(uri);
 		if (current.isObject()) {
 			((ObjectNode)current).put(rev, lastRevision);
@@ -263,7 +263,7 @@ public class CouchDB {
 			OutputStream output = null;
 			try {
 				output = connection.getOutputStream();
-				writer.getDelegate().writeValue(output, current);
+				writer.writeValue(output, current);
 			} finally {
 				if (output != null) try { output.close(); } catch (IOException logOrIgnore) {}
 			}
@@ -291,7 +291,7 @@ public class CouchDB {
 		return uri;
 	}
 
-	private static URI createDocument(URI uri, DefaultJsonSave writer, JsonNode current) {
+	private static URI createDocument(URI uri, JSONSave writer, JsonNode current) {
 		HttpURLConnection connection = null;
 		try {
 			connection = getConnection(uri, POST);
@@ -299,10 +299,10 @@ public class CouchDB {
 			try {
 				if (current != null && current.isObject()) {
 					output = connection.getOutputStream();
-					writer.getDelegate().writeValue(output, current);
+					writer.writeValue(output, current);
 				} else {
 					output = connection.getOutputStream();
-					writer.getDelegate().writeValue(output, emptyNode());
+					writer.writeValue(output, emptyNode());
 				}
 			} finally {
 				if (output != null) try { output.close(); } catch (IOException logOrIgnore) {}
@@ -364,7 +364,7 @@ public class CouchDB {
 	}
 
 	private static JsonNode getRootNode(InputStream inStream) {
-		final JsonParser parser = JsonUtil.getJsonParser(inStream);
+		final JsonParser parser = getJsonParser(inStream);
 		final ObjectMapper mapper = new ObjectMapper();
 		try {
 			return mapper.readValue(parser, JsonNode.class);
@@ -376,6 +376,19 @@ public class CouchDB {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static JsonParser getJsonParser(InputStream inStream) {
+		final JsonFactory jsonFactory = new JsonFactory();  
+		JsonParser jp = null;
+		try {
+			jp = jsonFactory.createJsonParser(inStream);
+		} catch (JsonParseException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		return jp;
 	}
 
 	private static JsonNode emptyNode() {

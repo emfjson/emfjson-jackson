@@ -11,7 +11,7 @@ import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
-public class JsonUtil {
+public class JSONUtil {
 
 	public static JsonParser getJsonParser(URL url) {
 		final JsonFactory jsonFactory = new JsonFactory();  

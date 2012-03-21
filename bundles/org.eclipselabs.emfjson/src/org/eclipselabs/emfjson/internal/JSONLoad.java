@@ -40,30 +40,29 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipselabs.emfjson.EMFJs;
 import org.eclipselabs.emfjson.common.ModelUtil;
-import org.eclipselabs.emfjson.common.JsonLoad;
 
 /**
  * 
  * @author ghillairet
  */
-public class DefaultJsonLoad implements JsonLoad {
+public class JSONLoad {
 	
 	private JsonNode rootNode;
 	private final Map<String, String> nsMap = new HashMap<String, String>();
 	private EClass rootClass;
 	private ResourceSet resourceSet;
 
-	public DefaultJsonLoad(InputStream inStream, Map<?,?> options) {
-		init(JsonUtil.getJsonParser(inStream), options);
+	public JSONLoad(InputStream inStream, Map<?,?> options) {
+		init(JSONUtil.getJsonParser(inStream), options);
 	}
 
-	public DefaultJsonLoad(URL url, Map<?,?> options) {
-		init(JsonUtil.getJsonParser(url), options);
+	public JSONLoad(URL url, Map<?,?> options) {
+		init(JSONUtil.getJsonParser(url), options);
 	}
 
 	@SuppressWarnings("deprecation")
 	private void init(JsonParser parser, Map<?,?> options) {
-		JsonNode root = JsonUtil.getRootNode(parser);
+		JsonNode root = JSONUtil.getRootNode(parser);
 
 		checkNotNull(root, "root node should not be null.");
 		checkNotNull(options, "load options parameters should not be null");

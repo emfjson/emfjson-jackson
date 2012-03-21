@@ -9,13 +9,13 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipselabs.emfjson.EMFJs;
 
-public abstract class AbstractJsonSave implements JsonSave {
+public abstract class AbstractJSONSave {
 
 	protected boolean serializeTypes = true;
-	protected boolean indent = false;
+	protected boolean indent = true;
 	protected Map<?, ?> options;
 	
-	public AbstractJsonSave(Map<?, ?> options) {
+	public AbstractJSONSave(Map<?, ?> options) {
 		this.options = options;
 		configure();
 	}
