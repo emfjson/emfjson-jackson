@@ -36,7 +36,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipselabs.emfjson.common.ModelUtil;
-import org.eclipselabs.emfjson.internal.JSONUtil;
+import org.eclipselabs.emfjson.internal.JSUtil;
 
 /**
  * 
@@ -56,8 +56,8 @@ public class JsModelGen {
 			e1.printStackTrace();
 		}
 		
-		final JsonParser parser = JSONUtil.getJsonParser(url);
-		final JsonNode rootNode = JSONUtil.getRootNode(parser);
+		final JsonParser parser = JSUtil.getJsonParser(url);
+		final JsonNode rootNode = JSUtil.getRootNode(parser);
 		
 		ResourceSet resourceSet = new ResourceSetImpl();
 		Resource resource = resourceSet.createResource(URI.createURI(nsURI).appendFileExtension("ecore"));

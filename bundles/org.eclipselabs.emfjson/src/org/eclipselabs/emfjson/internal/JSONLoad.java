@@ -52,16 +52,16 @@ public class JSONLoad {
 	private ResourceSet resourceSet;
 
 	public JSONLoad(InputStream inStream, Map<?,?> options) {
-		init(JSONUtil.getJsonParser(inStream), options);
+		init(JSUtil.getJsonParser(inStream), options);
 	}
 
 	public JSONLoad(URL url, Map<?,?> options) {
-		init(JSONUtil.getJsonParser(url), options);
+		init(JSUtil.getJsonParser(url), options);
 	}
 
 	@SuppressWarnings("deprecation")
 	private void init(JsonParser parser, Map<?,?> options) {
-		JsonNode root = JSONUtil.getRootNode(parser);
+		JsonNode root = JSUtil.getRootNode(parser);
 
 		checkNotNull(root, "root node should not be null.");
 		checkNotNull(options, "load options parameters should not be null");

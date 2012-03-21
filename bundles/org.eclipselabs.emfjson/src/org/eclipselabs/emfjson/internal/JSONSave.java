@@ -38,24 +38,29 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
-import org.eclipselabs.emfjson.common.AbstractJSONSave;
+import org.eclipselabs.emfjson.EMFJs;
 
 /**
  * 
  * A JSON Writer for EMF Models.
  *
  */
-public class JSONSave extends AbstractJSONSave {
+public class JSONSave {
 	
 	protected final ObjectMapper mapper;
 	protected JsonNode rootNode;
+	protected boolean serializeTypes = true;
+	protected boolean indent = true;
+	protected Map<?, ?> options;
 	
 	public JSONSave(Map<?, ?> options) {
-		super(options);
+		this.options = options;
+		configure();
 		this.mapper = new ObjectMapper();
 		this.mapper.configure(Feature.INDENT_OUTPUT, indent);
 	}
@@ -298,4 +303,31 @@ public class JSONSave extends AbstractJSONSave {
 		}
 	}
 	
+	private void configure() {
+		if (options.containsKey(EMFJs.OPTION_INDENT_OUTPUT)) {
+			try {
+				indent = (Boolean) options.get(EMFJs.OPTION_INDENT_OUTPUT);
+			} catch (ClassCastException e) {
+				e.printStackTrace();
+			}
+		}
+		if (options.containsKey(EMFJs.OPTION_SERIALIZE_TYPE)) {
+			try {
+				serializeTypes = (Boolean) options.get(EMFJs.OPTION_SERIALIZE_TYPE);
+			} catch (ClassCastException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	protected String getReference(EObject obj, Resource resource) {
+		if (obj.eIsProxy()) {
+			return ((InternalEObject)obj).eProxyURI().toString();
+		}
+		URI eObjectURI = EcoreUtil.getURI(obj);
+		if (eObjectURI.trimFragment().equals(resource.getURI())) {
+			return eObjectURI.fragment();
+		}
+		return eObjectURI.toString();
+	}
 }
