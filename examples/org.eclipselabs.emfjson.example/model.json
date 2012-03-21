@@ -1,9 +1,0 @@
-{
-  "eClass" : "http://www.eclipselabs.org/examples/library#//LibraryShelf",
-  "name" : "My Shelf",
-  "items" : [ {
-    "eClass" : "http://www.eclipselabs.org/examples/library#//Book",
-    "title" : "Oui Oui",
-    "numPages" : 234
-  } ]
-}
