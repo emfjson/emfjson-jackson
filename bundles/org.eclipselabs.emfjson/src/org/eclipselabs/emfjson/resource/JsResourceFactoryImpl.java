@@ -15,9 +15,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
 
 /**
- * 
- * @author ghillairet
- *
+ * An implementation of {@link Resource.Factory} that creates {@link JsResourceImpl}. 
  */
 public class JsResourceFactoryImpl extends ResourceFactoryImpl {
 	@Override

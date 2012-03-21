@@ -20,14 +20,13 @@ import java.util.Map;
 import org.codehaus.jackson.JsonNode;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipselabs.emfjson.internal.JSONLoad;
 import org.eclipselabs.emfjson.internal.JSONSave;
 
 /**
- * 
- * @author ghillairet
- *
+ * A {@link Resource} implementation that read and write it's content in JSON.
  */
 public class JsResourceImpl extends ResourceImpl {
 	
@@ -60,7 +59,7 @@ public class JsResourceImpl extends ResourceImpl {
 		final JSONSave writer = new JSONSave(options);
 		final JsonNode rootNode = writer.genJson(this, options);
 		
-		writer.getDelegate().writeValue(outputStream, rootNode);
+		writer.writeValue(outputStream, rootNode);
 	}
-		
+	
 }

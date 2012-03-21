@@ -11,8 +11,7 @@
 package org.eclipselabs.emfjson;
 
 /**
- * 
- * @author ghillairet
+ * Constants used for save/load options.
  */
 public final class EMFJs {
 	private EMFJs() {}

@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipselabs.emfjson.common;
 
+/**
+ * Constants used in EMF-JSON format.
+ */
 public final class Constants {
 	public static final String EJS_REF_KEYWORD = "$ref";
 	public static final String EJS_TYPE_KEYWORD = "eClass";

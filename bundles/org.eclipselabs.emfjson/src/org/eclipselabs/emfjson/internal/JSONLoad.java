@@ -42,8 +42,7 @@ import org.eclipselabs.emfjson.EMFJs;
 import org.eclipselabs.emfjson.common.ModelUtil;
 
 /**
- * 
- * @author ghillairet
+ * A JSON reader for EMF Models.
  */
 public class JSONLoad {
 	

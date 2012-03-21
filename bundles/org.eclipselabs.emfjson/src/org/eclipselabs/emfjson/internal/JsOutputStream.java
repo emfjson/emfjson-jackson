@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.resource.URIConverter;
 
 /**
  * 
- * 	@author ghillairet
+ * 	Abstract implementation of {@link Saveable} for JSON output.
  *	
  */
 public abstract class JsOutputStream extends ByteArrayOutputStream implements URIConverter.Saveable {

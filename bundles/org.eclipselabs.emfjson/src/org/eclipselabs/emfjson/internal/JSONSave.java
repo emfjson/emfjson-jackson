@@ -46,7 +46,7 @@ import org.eclipselabs.emfjson.common.AbstractJSONSave;
 
 /**
  * 
- * @author ghillairet
+ * A JSON Writer for EMF Models.
  *
  */
 public class JSONSave extends AbstractJSONSave {
