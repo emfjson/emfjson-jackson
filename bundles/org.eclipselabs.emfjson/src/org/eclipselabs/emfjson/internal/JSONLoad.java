@@ -58,7 +58,7 @@ public class JSONLoad {
 	public JSONLoad(URL url, Map<?,?> options) {
 		init(JSUtil.getJsonParser(url), options);
 	}
-
+	
 	@SuppressWarnings("deprecation")
 	private void init(JsonParser parser, Map<?,?> options) {
 		JsonNode root = JSUtil.getRootNode(parser);
