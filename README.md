@@ -7,11 +7,15 @@ EMFJSON is a JSON mapper for [EMF](http://www.eclipse.org/emf)
 <a href='http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=188636' title='Drag and drop into a running Eclipse Indigo workspace to install EMFJs'><img src='http://marketplace.eclipse.org/misc/installbutton.png'/></a>
 
 ## Installation
- See [wiki](https://github.com/ghillairet/emfjson/wiki/Install)
+See [wiki](https://github.com/ghillairet/emfjson/wiki/Install)
   
+### Releases
  - Update Site: http://ghillairet.github.com/emfjson/releases/0.3.3/
  - Eclipse Marketplace: http://marketplace.eclipse.org/content/emfjs
  - Downloads section: https://github.com/ghillairet/emfjson/downloads
+
+### Snapshots
+ - Update Site: http://ghillairet.github.com/p2/emfjson/snapshots
 
 ## Goals
 Provide a JSON syntax and associated tools for [EMF](http://www.eclipse.org/emf) Models.
