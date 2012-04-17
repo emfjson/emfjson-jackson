@@ -1,0 +1,8 @@
+{
+	"userId": "1", 
+	"name": "Paul", 
+	"friends": [{
+		"$ref" : "platform:/plugin/org.eclipselabs.emfjson.junit/tests/test-proxy-2.json#2"
+	}],
+	"uniqueFriend": {"$ref" : "platform:/plugin/org.eclipselabs.emfjson.junit/tests/test-proxy-2.json#3"}
+}

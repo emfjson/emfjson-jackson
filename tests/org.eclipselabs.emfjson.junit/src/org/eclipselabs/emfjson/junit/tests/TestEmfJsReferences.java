@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipselabs.emfjson.EMFJs;
 import org.eclipselabs.emfjson.junit.model.Address;
 import org.eclipselabs.emfjson.junit.model.ModelFactory;
@@ -211,6 +212,8 @@ public class TestEmfJsReferences extends TestSupport {
 		EObject friend = ((User) obj1).getFriends().get(0);
 		assertNotNull(friend);
 		
+		friend = EcoreUtil.resolve(friend, resource);
+		
 		assertEquals(obj2, friend);
 		assertEquals("2", ((User)friend).getUserId());
 		assertEquals("Pierre", ((User)friend).getName());
@@ -248,8 +251,11 @@ public class TestEmfJsReferences extends TestSupport {
 		EObject friend2 = ((User) obj1).getFriends().get(1);
 		assertNotNull(friend2);
 		
-		assertFalse(friend1.eIsProxy());
-		assertFalse(friend2.eIsProxy());
+		assertTrue(friend1.eIsProxy());
+		assertTrue(friend2.eIsProxy());
+		
+		friend1 = EcoreUtil.resolve(friend1, resource);
+		friend2 = EcoreUtil.resolve(friend2, resource);
 		
 		assertEquals(obj2, friend1);
 		assertEquals(obj3, friend2);
@@ -307,7 +313,6 @@ public class TestEmfJsReferences extends TestSupport {
 		n123.getManyRef().add(n123);
 		
 		Resource resource = resourceSet.createResource(URI.createURI("tests/nodes.json"));
-		System.out.println(resource.getURI());
 		resource.getContents().add(n);
 		
 		options.put(EMFJs.OPTION_INDENT_OUTPUT, true);
