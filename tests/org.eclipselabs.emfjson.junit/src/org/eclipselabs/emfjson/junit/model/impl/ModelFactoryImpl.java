@@ -3,17 +3,23 @@
 package org.eclipselabs.emfjson.junit.model.impl;
 
 import org.eclipse.emf.common.util.URI;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.eclipselabs.emfjson.junit.model.*;
+import org.eclipselabs.emfjson.junit.model.Address;
+import org.eclipselabs.emfjson.junit.model.ConcreteTypeOne;
+import org.eclipselabs.emfjson.junit.model.ConcreteTypeTwo;
+import org.eclipselabs.emfjson.junit.model.ETypes;
+import org.eclipselabs.emfjson.junit.model.ModelFactory;
+import org.eclipselabs.emfjson.junit.model.ModelPackage;
+import org.eclipselabs.emfjson.junit.model.Node;
+import org.eclipselabs.emfjson.junit.model.PrimaryObject;
+import org.eclipselabs.emfjson.junit.model.Sex;
+import org.eclipselabs.emfjson.junit.model.TargetObject;
+import org.eclipselabs.emfjson.junit.model.User;
 
 /**
  * <!-- begin-user-doc -->

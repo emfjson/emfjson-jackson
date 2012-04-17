@@ -7,17 +7,12 @@ import java.util.Date;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-
+import org.eclipse.emf.ecore.util.EObjectEList;
 import org.eclipselabs.emfjson.junit.model.Address;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
 import org.eclipselabs.emfjson.junit.model.Sex;
@@ -263,7 +258,7 @@ public class UserImpl extends EObjectImpl implements User {
 	 */
 	public EList<User> getFriends() {
 		if (friends == null) {
-			friends = new EObjectResolvingEList<User>(User.class, this, ModelPackage.USER__FRIENDS);
+			friends = new EObjectEList<User>(User.class, this, ModelPackage.USER__FRIENDS);
 		}
 		return friends;
 	}
@@ -274,23 +269,6 @@ public class UserImpl extends EObjectImpl implements User {
 	 * @generated
 	 */
 	public User getUniqueFriend() {
-		if (uniqueFriend != null && uniqueFriend.eIsProxy()) {
-			InternalEObject oldUniqueFriend = (InternalEObject)uniqueFriend;
-			uniqueFriend = (User)eResolveProxy(oldUniqueFriend);
-			if (uniqueFriend != oldUniqueFriend) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.USER__UNIQUE_FRIEND, oldUniqueFriend, uniqueFriend));
-			}
-		}
-		return uniqueFriend;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public User basicGetUniqueFriend() {
 		return uniqueFriend;
 	}
 
@@ -382,8 +360,7 @@ public class UserImpl extends EObjectImpl implements User {
 			case ModelPackage.USER__FRIENDS:
 				return getFriends();
 			case ModelPackage.USER__UNIQUE_FRIEND:
-				if (resolve) return getUniqueFriend();
-				return basicGetUniqueFriend();
+				return getUniqueFriend();
 			case ModelPackage.USER__ADDRESS:
 				return getAddress();
 		}

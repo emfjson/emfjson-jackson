@@ -5,7 +5,6 @@ package org.eclipselabs.emfjson.junit.model;
 import java.util.Date;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -149,7 +148,7 @@ public interface User extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Friends</em>' reference list.
 	 * @see org.eclipselabs.emfjson.junit.model.ModelPackage#getUser_Friends()
-	 * @model
+	 * @model resolveProxies="false"
 	 * @generated
 	 */
 	EList<User> getFriends();
@@ -165,7 +164,7 @@ public interface User extends EObject {
 	 * @return the value of the '<em>Unique Friend</em>' reference.
 	 * @see #setUniqueFriend(User)
 	 * @see org.eclipselabs.emfjson.junit.model.ModelPackage#getUser_UniqueFriend()
-	 * @model
+	 * @model resolveProxies="false"
 	 * @generated
 	 */
 	User getUniqueFriend();

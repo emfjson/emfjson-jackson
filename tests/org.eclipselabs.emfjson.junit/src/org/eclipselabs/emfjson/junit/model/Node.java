@@ -3,7 +3,6 @@
 package org.eclipselabs.emfjson.junit.model;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -19,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipselabs.emfjson.junit.model.Node#getSource <em>Source</em>}</li>
  *   <li>{@link org.eclipselabs.emfjson.junit.model.Node#getManyRef <em>Many Ref</em>}</li>
  *   <li>{@link org.eclipselabs.emfjson.junit.model.Node#getChild <em>Child</em>}</li>
+ *   <li>{@link org.eclipselabs.emfjson.junit.model.Node#getUniqueChild <em>Unique Child</em>}</li>
  * </ul>
  * </p>
  *
@@ -66,7 +66,7 @@ public interface Node extends EObject {
 	 * @see #setTarget(Node)
 	 * @see org.eclipselabs.emfjson.junit.model.ModelPackage#getNode_Target()
 	 * @see org.eclipselabs.emfjson.junit.model.Node#getSource
-	 * @model opposite="source"
+	 * @model opposite="source" resolveProxies="false"
 	 * @generated
 	 */
 	Node getTarget();
@@ -94,7 +94,7 @@ public interface Node extends EObject {
 	 * @see #setSource(Node)
 	 * @see org.eclipselabs.emfjson.junit.model.ModelPackage#getNode_Source()
 	 * @see org.eclipselabs.emfjson.junit.model.Node#getTarget
-	 * @model opposite="target"
+	 * @model opposite="target" resolveProxies="false"
 	 * @generated
 	 */
 	Node getSource();
@@ -120,7 +120,7 @@ public interface Node extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Many Ref</em>' reference list.
 	 * @see org.eclipselabs.emfjson.junit.model.ModelPackage#getNode_ManyRef()
-	 * @model
+	 * @model resolveProxies="false"
 	 * @generated
 	 */
 	EList<Node> getManyRef();
@@ -140,5 +140,31 @@ public interface Node extends EObject {
 	 * @generated
 	 */
 	EList<Node> getChild();
+
+	/**
+	 * Returns the value of the '<em><b>Unique Child</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Unique Child</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Unique Child</em>' containment reference.
+	 * @see #setUniqueChild(Node)
+	 * @see org.eclipselabs.emfjson.junit.model.ModelPackage#getNode_UniqueChild()
+	 * @model containment="true"
+	 * @generated
+	 */
+	Node getUniqueChild();
+
+	/**
+	 * Sets the value of the '{@link org.eclipselabs.emfjson.junit.model.Node#getUniqueChild <em>Unique Child</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Unique Child</em>' containment reference.
+	 * @see #getUniqueChild()
+	 * @generated
+	 */
+	void setUniqueChild(Node value);
 
 } // Node

@@ -4,12 +4,19 @@ package org.eclipselabs.emfjson.junit.model.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
-
-import org.eclipselabs.emfjson.junit.model.*;
+import org.eclipselabs.emfjson.junit.model.AbstractType;
+import org.eclipselabs.emfjson.junit.model.Address;
+import org.eclipselabs.emfjson.junit.model.ConcreteTypeOne;
+import org.eclipselabs.emfjson.junit.model.ConcreteTypeTwo;
+import org.eclipselabs.emfjson.junit.model.Container;
+import org.eclipselabs.emfjson.junit.model.ETypes;
+import org.eclipselabs.emfjson.junit.model.ModelPackage;
+import org.eclipselabs.emfjson.junit.model.Node;
+import org.eclipselabs.emfjson.junit.model.PrimaryObject;
+import org.eclipselabs.emfjson.junit.model.TargetObject;
+import org.eclipselabs.emfjson.junit.model.User;
 
 /**
  * <!-- begin-user-doc -->

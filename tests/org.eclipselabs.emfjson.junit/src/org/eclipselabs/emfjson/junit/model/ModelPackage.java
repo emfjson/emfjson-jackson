@@ -824,13 +824,22 @@ public interface ModelPackage extends EPackage {
 	int NODE__CHILD = 4;
 
 	/**
+	 * The feature id for the '<em><b>Unique Child</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE__UNIQUE_CHILD = 5;
+
+	/**
 	 * The number of structural features of the '<em>Node</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_FEATURE_COUNT = 5;
+	int NODE_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipselabs.emfjson.junit.model.Sex <em>Sex</em>}' enum.
@@ -1625,6 +1634,17 @@ public interface ModelPackage extends EPackage {
 	EReference getNode_Child();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipselabs.emfjson.junit.model.Node#getUniqueChild <em>Unique Child</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Unique Child</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.Node#getUniqueChild()
+	 * @see #getNode()
+	 * @generated
+	 */
+	EReference getNode_UniqueChild();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipselabs.emfjson.junit.model.Sex <em>Sex</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2254,6 +2274,14 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EReference NODE__CHILD = eINSTANCE.getNode_Child();
+
+		/**
+		 * The meta object literal for the '<em><b>Unique Child</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference NODE__UNIQUE_CHILD = eINSTANCE.getNode_UniqueChild();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipselabs.emfjson.junit.model.Sex <em>Sex</em>}' enum.

@@ -6,19 +6,14 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
 import org.eclipselabs.emfjson.junit.model.Node;
 
@@ -34,6 +29,7 @@ import org.eclipselabs.emfjson.junit.model.Node;
  *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.NodeImpl#getSource <em>Source</em>}</li>
  *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.NodeImpl#getManyRef <em>Many Ref</em>}</li>
  *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.NodeImpl#getChild <em>Child</em>}</li>
+ *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.NodeImpl#getUniqueChild <em>Unique Child</em>}</li>
  * </ul>
  * </p>
  *
@@ -101,6 +97,16 @@ public class NodeImpl extends EObjectImpl implements Node {
 	protected EList<Node> child;
 
 	/**
+	 * The cached value of the '{@link #getUniqueChild() <em>Unique Child</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUniqueChild()
+	 * @generated
+	 * @ordered
+	 */
+	protected Node uniqueChild;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -146,23 +152,6 @@ public class NodeImpl extends EObjectImpl implements Node {
 	 * @generated
 	 */
 	public Node getTarget() {
-		if (target != null && target.eIsProxy()) {
-			InternalEObject oldTarget = (InternalEObject)target;
-			target = (Node)eResolveProxy(oldTarget);
-			if (target != oldTarget) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.NODE__TARGET, oldTarget, target));
-			}
-		}
-		return target;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Node basicGetTarget() {
 		return target;
 	}
 
@@ -206,23 +195,6 @@ public class NodeImpl extends EObjectImpl implements Node {
 	 * @generated
 	 */
 	public Node getSource() {
-		if (source != null && source.eIsProxy()) {
-			InternalEObject oldSource = (InternalEObject)source;
-			source = (Node)eResolveProxy(oldSource);
-			if (source != oldSource) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.NODE__SOURCE, oldSource, source));
-			}
-		}
-		return source;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Node basicGetSource() {
 		return source;
 	}
 
@@ -267,7 +239,7 @@ public class NodeImpl extends EObjectImpl implements Node {
 	 */
 	public EList<Node> getManyRef() {
 		if (manyRef == null) {
-			manyRef = new EObjectResolvingEList<Node>(Node.class, this, ModelPackage.NODE__MANY_REF);
+			manyRef = new EObjectEList<Node>(Node.class, this, ModelPackage.NODE__MANY_REF);
 		}
 		return manyRef;
 	}
@@ -282,6 +254,49 @@ public class NodeImpl extends EObjectImpl implements Node {
 			child = new EObjectContainmentEList<Node>(Node.class, this, ModelPackage.NODE__CHILD);
 		}
 		return child;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Node getUniqueChild() {
+		return uniqueChild;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetUniqueChild(Node newUniqueChild, NotificationChain msgs) {
+		Node oldUniqueChild = uniqueChild;
+		uniqueChild = newUniqueChild;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.NODE__UNIQUE_CHILD, oldUniqueChild, newUniqueChild);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUniqueChild(Node newUniqueChild) {
+		if (newUniqueChild != uniqueChild) {
+			NotificationChain msgs = null;
+			if (uniqueChild != null)
+				msgs = ((InternalEObject)uniqueChild).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.NODE__UNIQUE_CHILD, null, msgs);
+			if (newUniqueChild != null)
+				msgs = ((InternalEObject)newUniqueChild).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.NODE__UNIQUE_CHILD, null, msgs);
+			msgs = basicSetUniqueChild(newUniqueChild, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.NODE__UNIQUE_CHILD, newUniqueChild, newUniqueChild));
 	}
 
 	/**
@@ -318,6 +333,8 @@ public class NodeImpl extends EObjectImpl implements Node {
 				return basicSetSource(null, msgs);
 			case ModelPackage.NODE__CHILD:
 				return ((InternalEList<?>)getChild()).basicRemove(otherEnd, msgs);
+			case ModelPackage.NODE__UNIQUE_CHILD:
+				return basicSetUniqueChild(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -333,15 +350,15 @@ public class NodeImpl extends EObjectImpl implements Node {
 			case ModelPackage.NODE__LABEL:
 				return getLabel();
 			case ModelPackage.NODE__TARGET:
-				if (resolve) return getTarget();
-				return basicGetTarget();
+				return getTarget();
 			case ModelPackage.NODE__SOURCE:
-				if (resolve) return getSource();
-				return basicGetSource();
+				return getSource();
 			case ModelPackage.NODE__MANY_REF:
 				return getManyRef();
 			case ModelPackage.NODE__CHILD:
 				return getChild();
+			case ModelPackage.NODE__UNIQUE_CHILD:
+				return getUniqueChild();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -372,6 +389,9 @@ public class NodeImpl extends EObjectImpl implements Node {
 				getChild().clear();
 				getChild().addAll((Collection<? extends Node>)newValue);
 				return;
+			case ModelPackage.NODE__UNIQUE_CHILD:
+				setUniqueChild((Node)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -399,6 +419,9 @@ public class NodeImpl extends EObjectImpl implements Node {
 			case ModelPackage.NODE__CHILD:
 				getChild().clear();
 				return;
+			case ModelPackage.NODE__UNIQUE_CHILD:
+				setUniqueChild((Node)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -421,6 +444,8 @@ public class NodeImpl extends EObjectImpl implements Node {
 				return manyRef != null && !manyRef.isEmpty();
 			case ModelPackage.NODE__CHILD:
 				return child != null && !child.isEmpty();
+			case ModelPackage.NODE__UNIQUE_CHILD:
+				return uniqueChild != null;
 		}
 		return super.eIsSet(featureID);
 	}
