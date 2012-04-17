@@ -18,6 +18,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 
+import org.codehaus.jackson.JsonNode;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
@@ -73,6 +74,21 @@ public class ModelUtil {
 		}
 
 		return new URL(outURI.toString());
+	}
+	
+	public static URI getEObjectURI(JsonNode jsonNode, URI uri, Map<String, String> nsMap) {
+		final String value = jsonNode.getTextValue();
+		if (value.startsWith("#//")) { // is fragment
+			return URI.createURI(uri+value);
+		} else if (value.contains("#//") && nsMap.keySet().contains(value.split("#//")[0])) {
+			String[] split = value.split("#//");
+			String nsURI = nsMap.get(split[0]);
+			return URI.createURI(nsURI+"#//"+split[1]);
+		} else if (value.contains(":")) {
+			return URI.createURI(value);
+		} else { // is ID
+			return uri.appendFragment(value);
+		}
 	}
 	
 }

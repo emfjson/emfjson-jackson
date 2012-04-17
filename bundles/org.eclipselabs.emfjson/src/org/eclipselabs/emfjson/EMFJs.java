@@ -20,5 +20,5 @@ public final class EMFJs {
 	public static final String OPTION_ROOT_ELEMENT = "OPTION_ROOT_ELEMENT";
 	public static final String OPTION_SERIALIZE_TYPE = "OPTION_SERIALIZE_TYPE";
 	public static final String OPTION_INDENT_OUTPUT = "OPTION_INDENT_OUTPUT";
-	public static final String OPTION_PROXY_ATTRIBUTES = "OPTION_PROXY_ATTRIBUTES";
+	public static final String OPTION_PROXY_ATTRIBUTES = "PROXY_ATTRIBUTES";
 }

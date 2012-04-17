@@ -13,11 +13,13 @@ package org.eclipselabs.emfjson.internal;
 import static org.eclipselabs.emfjson.common.Constants.EJS_NS_KEYWORD;
 import static org.eclipselabs.emfjson.common.Constants.EJS_REF_KEYWORD;
 import static org.eclipselabs.emfjson.common.Constants.EJS_TYPE_KEYWORD;
+import static org.eclipselabs.emfjson.common.ModelUtil.getEObjectURI;
 import static org.eclipselabs.emfjson.common.ModelUtil.getElementName;
 
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -38,6 +40,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.FeatureMapUtil;
 import org.eclipselabs.emfjson.EMFJs;
 import org.eclipselabs.emfjson.common.ModelUtil;
 
@@ -45,11 +48,12 @@ import org.eclipselabs.emfjson.common.ModelUtil;
  * A JSON reader for EMF Models.
  */
 public class JSONLoad {
-	
-	private JsonNode rootNode;
+
 	private final Map<String, String> nsMap = new HashMap<String, String>();
+	private JsonNode rootNode;
 	private EClass rootClass;
 	private ResourceSet resourceSet;
+	private boolean useProxyAttributes = false;
 
 	public JSONLoad(InputStream inStream, Map<?,?> options) {
 		init(JSUtil.getJsonParser(inStream), options);
@@ -58,13 +62,18 @@ public class JSONLoad {
 	public JSONLoad(URL url, Map<?,?> options) {
 		init(JSUtil.getJsonParser(url), options);
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	private void init(JsonParser parser, Map<?,?> options) {
+		if (options == null) {
+			options = Collections.emptyMap();
+		}
+
 		JsonNode root = JSUtil.getRootNode(parser);
 
 		checkNotNull(root, "root node should not be null.");
-		checkNotNull(options, "load options parameters should not be null");
+
+		useProxyAttributes = Boolean.TRUE.equals(options.get(EMFJs.OPTION_PROXY_ATTRIBUTES));
 
 		if (!root.isArray()) {
 			if (root.has(EJS_TYPE_KEYWORD)) {
@@ -87,7 +96,7 @@ public class JSONLoad {
 		checkNotNull(rootNode);
 		fillNamespaces(root);
 	}
-	
+
 	private EClass getEClass(URI uri) {
 		if (resourceSet == null) {
 			return (EClass) new ResourceSetImpl().getEObject(uri, false);	
@@ -174,29 +183,30 @@ public class JSONLoad {
 			final JsonNode node = root.get(getElementName(reference));
 
 			if (node != null) {
-
+				
 				if (reference.isMany()) {
 					@SuppressWarnings("unchecked")
 					EList<EObject> values = (EList<EObject>) rootObject.eGet(reference);
-
+					
 					if (node.isArray()) {
 						for (Iterator<JsonNode> it = node.getElements(); it.hasNext();) {
-							JsonNode current = it.next(); 
+							JsonNode current = it.next();
+							
 							EClass eClass = findEClass(reference.getEReferenceType(), current, root, resource);
 							EObject obj = createEObject(resource, eClass, current);
-
+							
 							if (obj != null) values.add(obj);
 						}
 					} else {
 						EClass eClass = findEClass(reference.getEReferenceType(), node, root, resource);
 						EObject obj = createEObject(resource, eClass, node);
+						
 						if (obj != null) values.add(obj);
 					}
 				} else {
-
 					EClass eClass = findEClass(reference.getEReferenceType(), node, root, resource);
 					EObject obj = createEObject(resource, eClass, node);
-
+					
 					if (obj != null) rootObject.eSet(reference, obj);
 				}
 			}
@@ -208,53 +218,49 @@ public class JSONLoad {
 
 			if (node.get(EJS_REF_KEYWORD) != null) {
 
-				final URI objectURI = getEObjectURI(node.get(EJS_REF_KEYWORD), resource);
+				final URI objectURI = getEObjectURI(node.get(EJS_REF_KEYWORD), resource.getURI(), nsMap);
 				EObject object = resourceSet.getEObject(objectURI, false);
 
 				if (object == null) {
 					object = EcoreUtil.create(eClass);
 					((InternalEObject)object).eSetProxyURI(objectURI);
+
+					if (useProxyAttributes) {
+						JsonNode refNode = JSUtil.getNode(resource, objectURI, eClass);
+						
+						if (refNode != null) {
+							fillEAttribute(object, eClass, refNode);
+						}
+					}
 				}
 
 				return object;
 			} else {
 
-				final EObject obj = EcoreUtil.create(eClass);
+				final EObject object = EcoreUtil.create(eClass);
 
-				fillEAttribute(obj, eClass, node);
-				fillEReference(obj, eClass, node, resource);
+				fillEAttribute(object, eClass, node);
+				fillEReference(object, eClass, node, resource);
 
-				return obj;
+				return object;
 			}
 		}
-		return null;
-	}
 
-	private URI getEObjectURI(JsonNode jsonNode, Resource resource) {
-		final String value = jsonNode.getTextValue();
-		if (value.startsWith("#//")) { // is fragment
-			return URI.createURI(resource.getURI()+value);
-		} else if (value.contains("#//") && nsMap.keySet().contains(value.split("#//")[0])) {
-			String[] split = value.split("#//");
-			String nsURI = nsMap.get(split[0]);
-			return URI.createURI(nsURI+"#//"+split[1]);
-		} else if (value.contains(":")) {
-			return URI.createURI(value);
-		} else { // is ID
-			return resource.getURI().appendFragment(value);
-		}
+		return null;
 	}
 
 	private void fillEAttribute(EObject obj, EClass eClass, JsonNode root) {
 		for (EAttribute attribute: eClass.getEAllAttributes()) {
-			JsonNode node = root.get(getElementName(attribute));
-			if (node != null) {
-				if (node.isArray()) {
-					for (Iterator<JsonNode> it = node.getElements(); it.hasNext();) {
-						setEAttributeValue(obj, attribute, it.next());
+			if (!attribute.isTransient() && !FeatureMapUtil.isFeatureMap(attribute)) {
+				JsonNode node = root.get(getElementName(attribute));
+				if (node != null) {
+					if (node.isArray()) {
+						for (Iterator<JsonNode> it = node.getElements(); it.hasNext();) {
+							setEAttributeValue(obj, attribute, it.next());
+						}
+					} else {
+						setEAttributeValue(obj, attribute, node);
 					}
-				} else {
-					setEAttributeValue(obj, attribute, node);
 				}
 			}
 		}
@@ -307,7 +313,7 @@ public class JSONLoad {
 
 			if (node.has(EJS_REF_KEYWORD)) {
 
-				URI refURI = getEObjectURI(node.get(EJS_REF_KEYWORD), resource);
+				URI refURI = getEObjectURI(node.get(EJS_REF_KEYWORD), resource.getURI(), nsMap);
 				if (resourceSet.getEObject(refURI, false) != null) {
 					return resourceSet.getEObject(refURI, false).eClass();
 				}
@@ -318,7 +324,7 @@ public class JSONLoad {
 				}
 			} 
 			else if (node.has(EJS_TYPE_KEYWORD)) {
-				final URI typeURI = getEObjectURI(node.get(EJS_TYPE_KEYWORD), eReferenceType.eResource());
+				final URI typeURI = getEObjectURI(node.get(EJS_TYPE_KEYWORD), eReferenceType.eResource().getURI(), nsMap);
 				if (typeURI.fragment().equals(eReferenceType.getName())) {
 					return eReferenceType;
 				}
