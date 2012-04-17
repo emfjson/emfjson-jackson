@@ -1,29 +1,16 @@
 @namespace(uri="http://www.eclipselabs.org/emfjson/junit", prefix="model")
 package model;
 
-//import "platform:/resource/org.eclipselabs.emfjson.twitter/model/twitter.ecore";
-
 @JSON(root="true")
 class User {
   id attr String userId;
   attr String name;
   attr EDate birthDate;
   attr Sex sex;
-  ref User[*] friends;
-  ref User[?] uniqueFriend;
+  !resolve ref User[*] friends;
+  !resolve ref User uniqueFriend;
   val Address address;
-//  @emfjs(content=TwitterContent)
-//  val ExtendedContent[*] contents;
 }
-
-//abstract class ExtendedContent {
-//	attr String queryURL;
-//}
-
-//@emfjs(query="http://api.twitter.com/1/statuses/show.json?id={User.userId}")
-//class TwitterContent extends ExtendedContent {
-//	transient val search.Status[*] statuses;
-//}
 
 enum Sex {
   MALE = 0;
@@ -96,7 +83,7 @@ class PrimaryObject {
 }
 
 class Container {
-	val AbstractType[*] elements;
+  val AbstractType[*] elements;
 }
 
 class TargetObject {
@@ -110,17 +97,19 @@ abstract class AbstractType {
 }
 
 class ConcreteTypeOne extends AbstractType {
-  attr String[?] propTypeOne;
+  attr String propTypeOne;
 }
 
 class ConcreteTypeTwo extends AbstractType {
-  attr String[?] propTypeTwo;
+  attr String propTypeTwo;
 }
 
 class Node {
-	attr String label;
-	ref Node#source target;
-	ref Node#target source;
-	ref Node[*] manyRef;
-	val Node[*] child;
+  attr String label;
+  !resolve ref Node#source target;
+  !resolve ref Node#target source;
+  !unique !resolve ref Node[*] manyRef;
+  val Node[*] child;
+  val Node uniqueChild;
 }
+
