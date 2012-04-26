@@ -10,7 +10,9 @@ EMFJSON is a JSON mapper for [EMF](http://www.eclipse.org/emf)
 See [wiki](https://github.com/ghillairet/emfjson/wiki/Install)
   
 ### Releases
- - Update Site: http://ghillairet.github.com/emfjson/releases/0.3.3/
+ - Update Site: 
+    - http://ghillairet.github.com/p2/emfjson/releases/0.4.0 or 
+    - http://ghillairet.github.com/p2 (composite site with Jackson 1.9.5)
  - Eclipse Marketplace: http://marketplace.eclipse.org/content/emfjs
  - Downloads section: https://github.com/ghillairet/emfjson/downloads
 
