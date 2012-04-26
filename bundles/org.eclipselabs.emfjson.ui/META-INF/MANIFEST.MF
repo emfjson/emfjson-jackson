@@ -33,6 +33,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipselabs.emfjson;bundle-version="0.4.0",
  org.eclipselabs.emfjson.modelgen;bundle-version="0.4.0",
  org.eclipse.emf.importer
-Bundle-ClassPath: .,
- swt-grouplayout.jar,
- swing2swt.jar
+Bundle-ClassPath: .
