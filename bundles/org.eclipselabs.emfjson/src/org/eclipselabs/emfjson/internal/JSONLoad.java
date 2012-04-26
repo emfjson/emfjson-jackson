@@ -322,21 +322,21 @@ public class JSONLoad {
 				if (refNode != null) {
 					return findEClass(eReferenceType, refNode, root, resource);
 				}
-			} 
-			else if (node.has(EJS_TYPE_KEYWORD)) {
+				
+			}  else if (node.has(EJS_TYPE_KEYWORD)) {
 				final URI typeURI = getEObjectURI(node.get(EJS_TYPE_KEYWORD), eReferenceType.eResource().getURI(), nsMap);
+				
 				if (typeURI.fragment().equals(eReferenceType.getName())) {
 					return eReferenceType;
-				}
-				else {
-					final EObject o = this.resourceSet.getEObject(typeURI, false);
-					final EClass found = o != null && o instanceof EClass ? (EClass)o : null;
-					if (found != null) {
-						return found;
-					} else {
-						throw new IllegalArgumentException("Cannot find EClass from type "+typeURI);
+				} else {
+					try {
+						return (EClass) this.resourceSet.getEObject(typeURI, false);
+					} catch (ClassCastException e) {
+						e.printStackTrace();
+						return null;
 					}
 				}
+				
 			}
 		}
 		return eReferenceType;
