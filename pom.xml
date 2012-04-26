@@ -12,16 +12,7 @@
 		<module>features/org.eclipselabs.emfjson.feature</module>
 
 		<module>bundles/org.eclipselabs.emfjson.ui</module>
-
-		<!-- <module>apis/rotten/org.eclipselabs.emfjson.rotten</module> -->
-		<!-- <module>features/org.eclipselabs.emfjson.rotten.feature</module> -->
-
-		<!-- <module>apis/twitter/org.eclipselabs.emfjson.twitter</module> -->
-		<!-- <module>features/org.eclipselabs.emfjson.twitter.feature</module> -->
-
-		<!-- <module>apis/youtube/org.eclipselabs.emfjson.youtube</module> -->
-		<!-- <module>features/org.eclipselabs.emfjson.youtube.feature</module> -->
-
+		
 		<module>couchdb/org.eclipselabs.emfjson.couchdb</module>
 		<module>couchdb/org.eclipselabs.emfjson.couchdb.ui</module>
 		<module>features/org.eclipselabs.emfjson.couchdb.feature</module>
@@ -53,11 +44,6 @@
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/releases/indigo</url>
 		</repository>
-<!-- 		<repository> -->
-<!-- 			<id>gwt</id> -->
-<!-- 			<layout>p2</layout> -->
-<!-- 			<url>http://ghillairet.github.com/p2/gwt-user/update-site</url> -->
-<!-- 		</repository> -->
 	</repositories>
 
 	<build>
