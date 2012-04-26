@@ -60,7 +60,7 @@ public class JsModelGen {
 		final JsonNode rootNode = JSUtil.getRootNode(parser);
 		
 		ResourceSet resourceSet = new ResourceSetImpl();
-		Resource resource = resourceSet.createResource(URI.createURI(nsURI).appendFileExtension("ecore"));
+		Resource resource = resourceSet.createResource(URI.createURI(nsURI).appendFileExtension("json"));
 		
 		EPackage ePackage = EcoreFactory.eINSTANCE.createEPackage();
 		ePackage.setNsURI(nsURI);
