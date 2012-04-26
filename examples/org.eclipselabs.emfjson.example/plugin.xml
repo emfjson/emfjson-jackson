@@ -10,11 +10,10 @@
 
 <plugin>
 
-   <extension point="org.eclipse.emf.ecore.generated_package">
+  	<extension point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="http://www.eclipselabs.org/examples/library"
             class="org.eclipselabs.examples.library.LibraryPackage"
             genModel="model/library.genmodel"/>
-   </extension>
-
+  	</extension>
 </plugin>
