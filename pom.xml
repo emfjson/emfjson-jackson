@@ -13,14 +13,14 @@
 
 		<module>bundles/org.eclipselabs.emfjson.ui</module>
 
-		<module>apis/rotten/org.eclipselabs.emfjson.rotten</module>
-		<module>features/org.eclipselabs.emfjson.rotten.feature</module>
+		<!-- <module>apis/rotten/org.eclipselabs.emfjson.rotten</module> -->
+		<!-- <module>features/org.eclipselabs.emfjson.rotten.feature</module> -->
 
-		<module>apis/twitter/org.eclipselabs.emfjson.twitter</module>
-		<module>features/org.eclipselabs.emfjson.twitter.feature</module>
+		<!-- <module>apis/twitter/org.eclipselabs.emfjson.twitter</module> -->
+		<!-- <module>features/org.eclipselabs.emfjson.twitter.feature</module> -->
 
-		<module>apis/youtube/org.eclipselabs.emfjson.youtube</module>
-		<module>features/org.eclipselabs.emfjson.youtube.feature</module>
+		<!-- <module>apis/youtube/org.eclipselabs.emfjson.youtube</module> -->
+		<!-- <module>features/org.eclipselabs.emfjson.youtube.feature</module> -->
 
 		<module>couchdb/org.eclipselabs.emfjson.couchdb</module>
 		<module>couchdb/org.eclipselabs.emfjson.couchdb.ui</module>
