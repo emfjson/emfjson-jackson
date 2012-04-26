@@ -98,13 +98,6 @@ public class EcoreModelJsonApiWizard extends Wizard implements INewWizard {
 		return true;
 	}
 	
-	/**
-	 * The worker method. It will find the container, create the
-	 * file if missing or just replace its contents, and open
-	 * the editor on the newly created file.
-	 * @param serviceURL 
-	 */
-
 	private void doFinish(String containerName, String fileName, String serviceURL, IProgressMonitor monitor) throws CoreException {
 		monitor.beginTask("Creating " + fileName, 3);
 		
