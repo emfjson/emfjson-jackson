@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.eclipselabs.emfjson.feature"
-      label="EMFJs"
+      id="org.eclipselabs.emfjson.ui.feature"
+      label="EMFJs UI"
       version="0.4.0.qualifier"
       provider-name="Eclipse Labs">
 
@@ -10,7 +10,10 @@
    </description>
 
    <copyright url="http://www.example.com/copyright">
-	Copyright (c) 2011 Guillaume Hillairet. All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
+      Copyright (c) 2011 Guillaume Hillairet. All rights reserved.
+This program and the accompanying materials are made available
+under the terms of the Eclipse Public License v1.0 which accompanies
+this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
    </copyright>
 
    <license url="http://www.example.com/license">
@@ -85,18 +88,13 @@ Everyone is permitted to copy and distribute copies of this Agreement, but in or
 
 This Agreement is governed by the laws of the State of New York and the intellectual property laws of the United States of America. No party to this Agreement will bring a legal action under this Agreement more than one year after the cause of action arose. Each party waives its rights to a jury trial in any resulting litigation.
    </license>
-
-   <requires>
-      <import plugin="org.eclipse.emf.common"/>
-      <import plugin="org.eclipse.emf.ecore" version="2.7.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.osgi"/>
-   </requires>
-
+   
    <plugin
-         id="org.eclipselabs.emfjson"
+         id="org.eclipselabs.emfjson.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
 
 </feature>

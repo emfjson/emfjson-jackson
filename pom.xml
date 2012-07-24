@@ -12,6 +12,7 @@
 		<module>features/org.eclipselabs.emfjson.feature</module>
 
 		<module>bundles/org.eclipselabs.emfjson.ui</module>
+		<module>features/org.eclipselabs.emfjson.ui.feature</module>
 		
 		<module>couchdb/org.eclipselabs.emfjson.couchdb</module>
 		<module>couchdb/org.eclipselabs.emfjson.couchdb.ui</module>
