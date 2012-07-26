@@ -8,10 +8,10 @@ EMFJSON is a JSON mapper for [EMF](http://www.eclipse.org/emf)
 
 ## Installation
 See [wiki](https://github.com/ghillairet/emfjson/wiki/Install)
-  
+
 ### Releases
- - Update Site: 
-    - http://ghillairet.github.com/p2/emfjson/releases/0.4.0 or 
+ - Update Site:
+    - http://ghillairet.github.com/p2/emfjson/releases/0.4.1 or
     - http://ghillairet.github.com/p2 (composite site with Jackson 1.9.5)
  - Eclipse Marketplace: http://marketplace.eclipse.org/content/emfjs
  - Downloads section: https://github.com/ghillairet/emfjson/downloads
@@ -38,31 +38,31 @@ See [wiki](https://github.com/ghillairet/emfjson/wiki/Home)
 {
   "eClass" : "library.ecore#//Library",
   "name" : "SciFi Library",
-  "writers" : [ 
+  "writers" : [
     {
       "eClass" : "library.ecore#//Writer",
       "name" : "Isaac Asimov",
-      "books" : [ 
-        {"$ref" : "//@books.0"}, 
-        {"$ref" : "//@books.1"} 
+      "books" : [
+        {"$ref" : "//@books.0"},
+        {"$ref" : "//@books.1"}
       ]
-    } 
+    }
   ],
-  "books" : [ 
+  "books" : [
     {
       "eClass" : "library.ecore#//Book",
       "title" : "Prelude to Foundation",
       "pages" : 505,
       "category" : "ScienceFiction",
       "author" : {"$ref" : "//@writers.0"}
-    }, 
+    },
     {
       "eClass" : "library.ecore#//Book",
       "title" : "Forward the Foundation",
       "pages" : 464,
       "category" : "ScienceFiction",
       "author" : {"$ref" : "//@writers.0"}
-    } 
+    }
   ]
 }
 ```
