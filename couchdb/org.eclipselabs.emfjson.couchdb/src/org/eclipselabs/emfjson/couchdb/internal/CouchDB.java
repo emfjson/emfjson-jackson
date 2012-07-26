@@ -90,7 +90,10 @@ public class CouchDB {
 	public static void createDataBase(URI uri) {
 		HttpURLConnection connection;
 		try {
-			connection = (HttpURLConnection) new URL(uri.toString()).openConnection();
+			String db = uri.segments()[0];
+			URI baseURI = uri.trimSegments(uri.segmentCount());
+			
+			connection = getGetConnection(baseURI.appendSegment(db));
 			connection.setDoOutput(true);
 			connection.setRequestMethod(PUT);
 
@@ -294,7 +297,7 @@ public class CouchDB {
 	private static URI createDocument(URI uri, JSONSave writer, JsonNode current) {
 		HttpURLConnection connection = null;
 		try {
-			connection = getConnection(uri, POST);
+			connection = getConnection(uri, uri.segmentCount() == 1 ? POST : PUT);
 			OutputStream output = null;
 			try {
 				if (current != null && current.isObject()) {

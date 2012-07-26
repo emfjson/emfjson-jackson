@@ -96,4 +96,30 @@ public class TestStoreDocument extends TestSupport {
 		
 		resource.save(null);
 	}
+	
+	@Test
+	public void testCreateStoreDocumentNotExistant() throws IOException {
+		Resource resource = resourceSet.createResource(baseURI.appendSegment("emfjson_test").appendSegment("test_create"));
+		
+		User u1 = ModelFactory.eINSTANCE.createUser();
+		u1.setUserId("1");
+		u1.setName("John");
+		
+		resource.getContents().add(u1);
+		
+		resource.save(null);
+	}
+	
+	@Test
+	public void testCreateStoreDocumentDatabaseNotExistant() throws IOException {
+		Resource resource = resourceSet.createResource(baseURI.appendSegment("emfjson_not_exist").appendSegment("test_create"));
+		
+		User u1 = ModelFactory.eINSTANCE.createUser();
+		u1.setUserId("1");
+		u1.setName("John");
+		
+		resource.getContents().add(u1);
+		
+		resource.save(null);
+	}
 }
