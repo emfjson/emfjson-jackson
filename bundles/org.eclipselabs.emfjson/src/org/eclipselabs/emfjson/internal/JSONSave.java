@@ -225,23 +225,23 @@ public class JSONSave {
 							final ArrayNode arrayNode = mapper.createArrayNode();
 							node.put(getElementName(reference), arrayNode);
 
-							for (EObject obj: values) {
+							for (EObject value: values) {
 								ObjectNode nodeRef = mapper.createObjectNode();
-								nodeRef.put(EJS_REF_KEYWORD, getReference(obj, resource));
+								nodeRef.put(EJS_REF_KEYWORD, getReference(value, resource));
 								if (serializeRefTypes) {
-									nodeRef.put(EJS_TYPE_KEYWORD, getReference(reference.getEType(), resource));
+									nodeRef.put(EJS_TYPE_KEYWORD, getReference(value.eClass(), resource));
 								}
 								arrayNode.add(nodeRef);
 							}
 						}
 
 					} else {
-						Object value = object.eGet(reference);
+						EObject value = (EObject) object.eGet(reference);
 						if (value != null) {
 							ObjectNode nodeRef = mapper.createObjectNode();
 							nodeRef.put(EJS_REF_KEYWORD, getReference(((EObject)value), resource));
 							if (serializeRefTypes) {
-								nodeRef.put(EJS_TYPE_KEYWORD, getReference(reference.getEType(), resource));
+								nodeRef.put(EJS_TYPE_KEYWORD, getReference(value.eClass(), resource));
 							}
 							node.put(reference.getName(), nodeRef);
 						}
