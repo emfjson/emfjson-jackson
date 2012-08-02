@@ -5,7 +5,7 @@
 	<groupId>org.eclipselabs</groupId>
 	<artifactId>emfjson.gwt</artifactId>
 	<packaging>pom</packaging>
-	<version>${version}</version>
+	<version>0.4.2-SNAPSHOT</version>
 
 	<modules>
 		<module>org.eclipselabs.emfjson.gwt</module>
@@ -17,7 +17,6 @@
 		<tycho-version>0.14.0</tycho-version>
 		<targets>build/repository/target/</targets>
 		<build-type>snapshots</build-type>
-		<version>0.4.0-SNAPSHOT</version>
 	</properties>
 
 	<repositories>
