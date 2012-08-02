@@ -110,6 +110,39 @@ public class TestEmfJsReferences extends TestSupport {
 		resource.getContents().add(user2);
 		
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+		options.put(EMFJs.OPTION_SERIALIZE_REF_TYPE, false);
+		
+		resource.save(outStream, options);
+		
+		assertEquals(expectedString, new String(outStream.toByteArray()));
+	}
+	
+	@Test
+	public void testSaveTwoObjectsWithAttributesOneReferenceUsingRefType() throws IOException {
+		String expectedString = 
+				"[{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//User\",\"userId\":\"1\",\"name\":\"John\"," +
+				"\"uniqueFriend\":{\"$ref\":\"2\",\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//User\"}}," +
+				"{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//User\",\"userId\":\"2\",\"name\":\"Paul\"}]";
+		
+		User user1 = ModelFactory.eINSTANCE.createUser();
+		user1.setUserId("1");
+		user1.setName("John");
+		
+		User user2 = ModelFactory.eINSTANCE.createUser();
+		user2.setUserId("2");
+		user2.setName("Paul");
+		
+		user1.setUniqueFriend(user2);
+		
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test-save-3.json"));
+		
+		assertNotNull(resource);
+		
+		resource.getContents().add(user1);
+		resource.getContents().add(user2);
+		
+		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+		options.put(EMFJs.OPTION_SERIALIZE_REF_TYPE, true);
 		
 		resource.save(outStream, options);
 		
