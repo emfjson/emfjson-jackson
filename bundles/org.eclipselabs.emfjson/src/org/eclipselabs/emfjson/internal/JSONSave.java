@@ -55,6 +55,7 @@ public class JSONSave {
 	protected final ObjectMapper mapper;
 	protected JsonNode rootNode;
 	protected boolean serializeTypes = true;
+	protected boolean serializeRefTypes = true;
 	protected boolean indent = true;
 	protected Map<?, ?> options;
 	
@@ -227,6 +228,9 @@ public class JSONSave {
 							for (EObject obj: values) {
 								ObjectNode nodeRef = mapper.createObjectNode();
 								nodeRef.put(EJS_REF_KEYWORD, getReference(obj, resource));
+								if (serializeRefTypes) {
+									nodeRef.put(EJS_TYPE_KEYWORD, getReference(reference.getEType(), resource));
+								}
 								arrayNode.add(nodeRef);
 							}
 						}
@@ -236,6 +240,9 @@ public class JSONSave {
 						if (value != null) {
 							ObjectNode nodeRef = mapper.createObjectNode();
 							nodeRef.put(EJS_REF_KEYWORD, getReference(((EObject)value), resource));
+							if (serializeRefTypes) {
+								nodeRef.put(EJS_TYPE_KEYWORD, getReference(reference.getEType(), resource));
+							}
 							node.put(reference.getName(), nodeRef);
 						}
 					}
@@ -314,6 +321,13 @@ public class JSONSave {
 		if (options.containsKey(EMFJs.OPTION_SERIALIZE_TYPE)) {
 			try {
 				serializeTypes = (Boolean) options.get(EMFJs.OPTION_SERIALIZE_TYPE);
+			} catch (ClassCastException e) {
+				e.printStackTrace();
+			}
+		}
+		if (options.containsKey(EMFJs.OPTION_SERIALIZE_REF_TYPE)) {
+			try {
+				serializeRefTypes = (Boolean) options.get(EMFJs.OPTION_SERIALIZE_REF_TYPE);
 			} catch (ClassCastException e) {
 				e.printStackTrace();
 			}

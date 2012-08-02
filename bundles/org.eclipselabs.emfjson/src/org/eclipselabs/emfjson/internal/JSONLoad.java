@@ -314,10 +314,19 @@ public class JSONLoad {
 			if (node.has(EJS_REF_KEYWORD)) {
 
 				URI refURI = getEObjectURI(node.get(EJS_REF_KEYWORD), resource.getURI(), nsMap);
-				if (resourceSet.getEObject(refURI, false) != null) {
+				EObject eObject = resourceSet.getEObject(refURI, false);
+				if (eObject != null) {
 					return resourceSet.getEObject(refURI, false).eClass();
 				}
-
+				
+				if (node.has(EJS_TYPE_KEYWORD)) {
+					refURI = URI.createURI(node.get(EJS_TYPE_KEYWORD).asText());
+					eObject = resourceSet.getEObject(refURI, false);
+					if (eObject != null) {
+						return (EClass) eObject;
+					}
+				}
+				
 				JsonNode refNode = findNode(refURI, eReferenceType, rootNode);
 				if (refNode != null) {
 					return findEClass(eReferenceType, refNode, root, resource);
