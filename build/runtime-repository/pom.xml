@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>emfjson.gwt</artifactId>
 		<groupId>org.eclipselabs</groupId>
-		<version>${version}</version>
+		<version>0.4.2-SNAPSHOT</version>
 		<relativePath>../../emfjson-gwt/pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>

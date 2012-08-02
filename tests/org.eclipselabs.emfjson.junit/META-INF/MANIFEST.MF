@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: EMFJs Junit
 Bundle-SymbolicName: org.eclipselabs.emfjson.junit;singleton:=true
-Bundle-Version: 0.4.1.qualifier
+Bundle-Version: 0.4.2.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: eclipselabs
 Bundle-Localization: plugin
