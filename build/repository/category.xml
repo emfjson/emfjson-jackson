@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.eclipselabs.emfjson.feature_0.4.2.qualifier.jar" id="org.eclipselabs.emfjson.feature" version="0.4.2.qualifier">
+   <feature url="features/org.eclipselabs.emfjson.feature_0.5.0.qualifier.jar" id="org.eclipselabs.emfjson.feature" version="0.5.0.qualifier">
       <category name="org.eclipselabs.emfjson"/>
    </feature>
-   <feature url="features/org.eclipselabs.emfjson.ui.feature_0.4.2.qualifier.jar" id="org.eclipselabs.emfjson.ui.feature" version="0.4.2.qualifier">
+   <feature url="features/org.eclipselabs.emfjson.modelgen.feature_0.5.0.qualifier.jar" id="org.eclipselabs.emfjson.modelgen.feature" version="0.5.0.qualifier">
       <category name="org.eclipselabs.emfjson"/>
    </feature>
-   <feature url="features/org.eclipselabs.emfjson.couchdb.feature_0.4.2.qualifier.jar" id="org.eclipselabs.emfjson.couchdb.feature" version="0.4.2.qualifier">
-      <category name="org.eclipselabs.emfjson.couchdb"/>
-   </feature>
-   <feature url="features/org.eclipselabs.emfjson.modelgen.feature_0.4.2.qualifier.jar" id="org.eclipselabs.emfjson.modelgen.feature" version="0.4.2.qualifier">
+   <feature url="features/org.eclipselabs.emfjson.ui.feature_0.5.0.qualifier.jar" id="org.eclipselabs.emfjson.ui.feature" version="0.5.0.qualifier">
       <category name="org.eclipselabs.emfjson"/>
    </feature>
-   <feature url="features/org.eclipselabs.emfjson.source.feature_0.4.2.qualifier.jar" id="org.eclipselabs.emfjson.source.feature" version="0.4.2.qualifier">
+   <feature url="features/org.eclipselabs.emfjson.source.feature_0.5.0.qualifier.jar" id="org.eclipselabs.emfjson.source.feature" version="0.5.0.qualifier">
       <category name="org.eclipselabs.emfjson.sdk"/>
    </feature>
    <category-def name="org.eclipselabs.emfjson" label="EMFJs">
@@ -23,11 +20,6 @@
    <category-def name="org.eclipselabs.emfjson.sdk" label="EMFJs SDK">
       <description>
          EMFJs SDK.
-      </description>
-   </category-def>
-   <category-def name="org.eclipselabs.emfjson.couchdb" label="EMFJs CouchDB">
-      <description>
-         CouchDB support for EMF Models.
       </description>
    </category-def>
 </site>

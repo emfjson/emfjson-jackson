@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: EMFJs UI
 Bundle-SymbolicName: org.eclipselabs.emfjson.ui;singleton:=true
-Bundle-Version: 0.4.2.qualifier
+Bundle-Version: 0.5.0.qualifier
 Bundle-Activator: org.eclipselabs.emfjson.ui.Activator
 Bundle-Vendor: Eclipse Labs
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
