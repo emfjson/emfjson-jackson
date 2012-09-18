@@ -29,7 +29,6 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.node.ObjectNode;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -305,11 +304,10 @@ public class JSONLoad {
 			}
 		}
 
-		for (TreeIterator<EObject> it = EcoreUtil.getAllContents(eObject, false); it.hasNext();) {
-			EObject obj = it.next();
-			JsonNode node = processed.get(obj);
+		for (EObject content: eObject.eContents()) {
+			JsonNode node = processed.get(content);
 			if (node != null) {
-				fillEReference(obj, node, resource);
+				fillEReference(content, node, resource);
 			}
 		}
 	}
