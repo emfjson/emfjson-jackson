@@ -148,13 +148,14 @@ public class JSONLoad {
 				}
 
 				if (eClass != null) {
-					createEObject(resource, eClass, node);
+					EObject eObject = createEObject(resource, eClass, node);
+					resource.getContents().add(eObject);
 				}
 			}
-
 		} else {
 			if (rootClass != null) {
-				createEObject(resource, rootClass, rootNode);
+				EObject eObject = createEObject(resource, rootClass, rootNode);
+				resource.getContents().add(eObject);
 			}
 		}
 
@@ -170,7 +171,6 @@ public class JSONLoad {
 	private EObject createEObject(Resource resource, EClass eClass, JsonNode node) {
 		if (node.isObject()) {
 			final EObject object = EcoreUtil.create(eClass);
-			resource.getContents().add(object);
 			processed.put(object, node);
 
 			fillEAttribute(object, node);
@@ -225,10 +225,8 @@ public class JSONLoad {
 					if (node.isArray()) {
 						for (Iterator<JsonNode> it = node.getElements(); it.hasNext();) {
 							JsonNode current = it.next();
-
 							EClass refClass = findEClass(reference.getEReferenceType(), current, root, resource);
 							EObject obj = createEObject(resource, refClass, current);
-
 							if (obj != null) {
 								values.add(obj);
 							}
