@@ -1,0 +1,5 @@
+{
+  "eClass" : "http://www.eclipselabs.org/emfjson/junit#//Node",
+  "manyRef" : [{ "$ref" : "//@child.0" }],
+  "child" : [{ "eClass" : "http://www.eclipselabs.org/emfjson/junit#//Node", "label" : "Child 1" }]
+}

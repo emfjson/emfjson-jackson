@@ -13,13 +13,11 @@ package org.eclipselabs.emfjson.resource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
 import org.codehaus.jackson.JsonNode;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipselabs.emfjson.internal.JSONLoad;
@@ -45,9 +43,7 @@ public class JsResourceImpl extends ResourceImpl {
 		}
 		
 		final JSONLoad loader = new JSONLoad(inputStream, options);
-		final Collection<EObject> roots = loader.fillResource(this);
-		
-		this.getContents().addAll(roots);
+		loader.fillResource(this);
 	}
 	
 	@Override

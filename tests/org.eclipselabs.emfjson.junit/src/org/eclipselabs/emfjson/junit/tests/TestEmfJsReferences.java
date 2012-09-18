@@ -14,6 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
@@ -254,7 +255,7 @@ public class TestEmfJsReferences extends TestSupport {
 	
 	@Test
 	public void testLoadThreeObjectsTwoReferences() throws IOException {
-		options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
+		options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.Literals.USER);
 		
 		Resource resource = resourceSet.createResource(uri("test-load-5.json"));
 		assertNotNull(resource);
@@ -284,14 +285,38 @@ public class TestEmfJsReferences extends TestSupport {
 		EObject friend2 = ((User) obj1).getFriends().get(1);
 		assertNotNull(friend2);
 		
-		assertTrue(friend1.eIsProxy());
-		assertTrue(friend2.eIsProxy());
-		
-		friend1 = EcoreUtil.resolve(friend1, resource);
-		friend2 = EcoreUtil.resolve(friend2, resource);
+		assertFalse(friend1.eIsProxy());
+		assertFalse(friend2.eIsProxy());
 		
 		assertEquals(obj2, friend1);
 		assertEquals(obj3, friend2);
+	}
+	
+	@Test
+	public void testLoadContainmentReferences() throws IOException {
+		options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.Literals.NODE);
+		
+		Resource resource = resourceSet.createResource(uri("test-load-6.json"));
+		assertNotNull(resource);
+		
+		resource.load(options);
+		
+		assertFalse(resource.getContents().isEmpty());
+		assertEquals(1, resource.getContents().size());
+		assertTrue(resource.getContents().get(0) instanceof Node);
+		
+		Node root = (Node) resource.getContents().get(0);
+		
+		assertEquals(1, root.getChild().size());
+		assertEquals(1, root.getManyRef().size());
+		
+		Node refNode = root.getManyRef().get(0);
+		Node childNode = root.getChild().get(0);
+		
+		assertEquals("Child 1", childNode.getLabel());
+		assertEquals("Child 1", refNode.getLabel());
+		
+		assertSame(refNode, childNode);
 	}
 	
 //	@Test

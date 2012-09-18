@@ -14,11 +14,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Collection;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.URIConverter.Loadable;
@@ -50,9 +48,7 @@ public abstract class JsInputStream extends InputStream implements URIConverter.
 		}
 		
 		final JSONLoad loader = new JSONLoad(url, options);
-		final Collection<EObject> roots = loader.fillResource(resource);
-		
-		resource.getContents().addAll(roots);
+		loader.fillResource(resource);
 	}
 	
 	@Override
