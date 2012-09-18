@@ -21,9 +21,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -319,9 +321,9 @@ public class TestEmfJsReferences extends TestSupport {
 		assertSame(refNode, childNode);
 	}
 	
-//	@Test
-	public void testLoadCompleteMetamodel() throws IOException {
-		options.put(EMFJs.OPTION_ROOT_ELEMENT, EcorePackage.eINSTANCE.getEPackage());
+	@Test
+	public void testLoadMetamodel() throws IOException {
+		options.put(EMFJs.OPTION_ROOT_ELEMENT, EcorePackage.Literals.EPACKAGE);
 		
 		Resource resource = resourceSet.createResource(URI.createURI("tests/model.json"));
 		assertNotNull(resource);
@@ -332,16 +334,33 @@ public class TestEmfJsReferences extends TestSupport {
 		assertTrue(resource.getContents().get(0) instanceof EPackage);
 		
 		EPackage modelPackage = (EPackage) resource.getContents().get(0);
-		assertEquals(ModelPackage.eNAME, modelPackage.getName());
-		assertEquals(ModelPackage.eNS_URI, modelPackage.getNsURI());
-		assertEquals(ModelPackage.eNS_PREFIX, modelPackage.getNsPrefix());
+		assertEquals("model", modelPackage.getName());
+		assertEquals("http://www.example.org/model", modelPackage.getNsURI());
+		assertEquals("model", modelPackage.getNsPrefix());
 		
-		assertEquals(ModelPackage.eINSTANCE.getEClassifiers().size(), modelPackage.getEClassifiers().size());
+		assertEquals(2, modelPackage.getEClassifiers().size());
 		
-		EObject userClass = modelPackage.getEClassifier(ModelPackage.eINSTANCE.getUser().getName());
-		assertNotNull(userClass);
-		assertTrue(userClass instanceof EClass);
-		assertEquals(ModelPackage.eINSTANCE.getUser().getEAllStructuralFeatures().size(), ((EClass)userClass).getEAllStructuralFeatures().size());
+		EClass library = (EClass) modelPackage.getEClassifier("Library");
+		assertNotNull(library);
+		
+		assertEquals(1, library.getEStructuralFeatures().size());
+		
+		EClass book = (EClass) modelPackage.getEClassifier("Book");
+		assertNotNull(book);
+		
+		assertEquals(1, book.getEStructuralFeatures().size());
+		EAttribute title = (EAttribute) book.getEStructuralFeature("title");
+		assertNotNull(title);
+		assertEquals(1, title.getLowerBound());
+		assertEquals(1, title.getUpperBound());
+		assertSame(title.getEType(), EcorePackage.Literals.ESTRING);
+		
+		EReference books = (EReference) library.getEStructuralFeature("books");
+		assertNotNull(books);
+		assertEquals(0, books.getLowerBound());
+		assertEquals(-1, books.getUpperBound());
+		
+		assertSame(books.getEType(), book);
 	}
 	
 	@Test
