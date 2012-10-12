@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipselabs.emfjson.EMFJs;
@@ -435,5 +436,52 @@ public class TestEmfJsReferences extends TestSupport {
 		assertEquals(0, root.getManyRef().size());
 		assertNotNull(root.getTarget());
 		assertNull(root.getSource());
+	}
+	
+	@Test
+	public void testSaveContainmentResolveProxies() throws IOException {
+		String expectedProxyResource = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//Node\",\"label\":\"1\"}";
+		String expectedProxyLinkResource = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//Node\",\"label\":\"2\",\"child\":[{\"$ref\":\"proxy.json#/\"}]}";
+		
+		Resource resourceProxy = resourceSet.createResource(URI.createURI("proxy.json"));
+		Resource resourceProxyLink = resourceSet.createResource(URI.createURI("proxyLink.json"));
+		
+		Node linked = ModelFactory.eINSTANCE.createNode();
+		linked.setLabel("1");
+		resourceProxy.getContents().add(linked);
+		
+		Node container = ModelFactory.eINSTANCE.createNode();
+		container.setLabel("2");
+		resourceProxyLink.getContents().add(container);
+		
+		Node proxy = ModelFactory.eINSTANCE.createNode();
+		((InternalEObject)proxy).eSetProxyURI(EcoreUtil.getURI(linked));
+		
+		container.getChild().add(proxy);
+		
+		ByteArrayOutputStream proxyStream = new ByteArrayOutputStream();
+		resourceProxy.save(proxyStream, options);		
+		assertEquals(expectedProxyResource, new String(proxyStream.toByteArray()));
+		
+		ByteArrayOutputStream proxyLinkStream = new ByteArrayOutputStream();
+		resourceProxyLink.save(proxyLinkStream, options);		
+		assertEquals(expectedProxyLinkResource, new String(proxyLinkStream.toByteArray()));
+	}
+	
+	@Test
+	public void testLoadContainmentResolveProxies() throws IOException {
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test-proxy-5b.json"));
+		resource.load(options);	
+			
+		assertFalse(resource.getContents().isEmpty());		
+		assertEquals(1, resource.getContents().size());		
+		Node root = (Node) resource.getContents().get(0);
+		
+		assertEquals("2", root.getLabel());
+		assertEquals(1, root.getChild().size());
+		
+		Node child = root.getChild().get(0);
+		// Proxy is resolved because GenModel.ContainmentProxy is true
+		assertFalse(child.eIsProxy());
 	}
 }

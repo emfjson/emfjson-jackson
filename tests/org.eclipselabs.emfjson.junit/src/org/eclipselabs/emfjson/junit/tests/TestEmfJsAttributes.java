@@ -48,7 +48,7 @@ import org.junit.Test;
 public class TestEmfJsAttributes extends TestSupport {
 	
 	@Test
-	public void testStringValues() throws IOException {
+	public void testStringValues() throws IOException {		
 		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eString\":\"Hello\",\"eStrings\":[\"Hello\",\"World\"]}";
 		
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
