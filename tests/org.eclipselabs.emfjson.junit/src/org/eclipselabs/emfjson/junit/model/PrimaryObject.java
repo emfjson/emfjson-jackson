@@ -272,7 +272,7 @@ public interface PrimaryObject extends EObject {
 	 * @return the value of the '<em>Containment Reference Same Collectioin</em>' containment reference.
 	 * @see #setContainmentReferenceSameCollectioin(PrimaryObject)
 	 * @see org.eclipselabs.emfjson.junit.model.ModelPackage#getPrimaryObject_ContainmentReferenceSameCollectioin()
-	 * @model containment="true"
+	 * @model containment="true" resolveProxies="true"
 	 * @generated
 	 */
 	PrimaryObject getContainmentReferenceSameCollectioin();
@@ -382,7 +382,7 @@ public interface PrimaryObject extends EObject {
 	 * @return the value of the '<em>Single Containment Reference Proxies</em>' containment reference.
 	 * @see #setSingleContainmentReferenceProxies(TargetObject)
 	 * @see org.eclipselabs.emfjson.junit.model.ModelPackage#getPrimaryObject_SingleContainmentReferenceProxies()
-	 * @model containment="true"
+	 * @model containment="true" resolveProxies="true"
 	 * @generated
 	 */
 	TargetObject getSingleContainmentReferenceProxies();
@@ -408,7 +408,7 @@ public interface PrimaryObject extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Multiple Containment Reference Proxies</em>' containment reference list.
 	 * @see org.eclipselabs.emfjson.junit.model.ModelPackage#getPrimaryObject_MultipleContainmentReferenceProxies()
-	 * @model containment="true"
+	 * @model containment="true" resolveProxies="true"
 	 * @generated
 	 */
 	EList<TargetObject> getMultipleContainmentReferenceProxies();

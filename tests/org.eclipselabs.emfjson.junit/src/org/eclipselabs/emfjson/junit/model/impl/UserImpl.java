@@ -298,6 +298,29 @@ public class UserImpl extends EObjectImpl implements User {
 	 * @generated
 	 */
 	public Address getAddress() {
+		if (address != null && address.eIsProxy()) {
+			InternalEObject oldAddress = (InternalEObject)address;
+			address = (Address)eResolveProxy(oldAddress);
+			if (address != oldAddress) {
+				InternalEObject newAddress = (InternalEObject)address;
+				NotificationChain msgs = oldAddress.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.USER__ADDRESS, null, null);
+				if (newAddress.eInternalContainer() == null) {
+					msgs = newAddress.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.USER__ADDRESS, null, msgs);
+				}
+				if (msgs != null) msgs.dispatch();
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.USER__ADDRESS, oldAddress, address));
+			}
+		}
+		return address;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Address basicGetAddress() {
 		return address;
 	}
 
@@ -370,7 +393,8 @@ public class UserImpl extends EObjectImpl implements User {
 			case ModelPackage.USER__UNIQUE_FRIEND:
 				return getUniqueFriend();
 			case ModelPackage.USER__ADDRESS:
-				return getAddress();
+				if (resolve) return getAddress();
+				return basicGetAddress();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

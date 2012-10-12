@@ -259,7 +259,7 @@ public class NodeImpl extends EObjectImpl implements Node {
 	 */
 	public EList<Node> getChild() {
 		if (child == null) {
-			child = new EObjectContainmentEList<Node>(Node.class, this, ModelPackage.NODE__CHILD);
+			child = new EObjectContainmentEList.Resolving<Node>(Node.class, this, ModelPackage.NODE__CHILD);
 		}
 		return child;
 	}
@@ -270,6 +270,29 @@ public class NodeImpl extends EObjectImpl implements Node {
 	 * @generated
 	 */
 	public Node getUniqueChild() {
+		if (uniqueChild != null && uniqueChild.eIsProxy()) {
+			InternalEObject oldUniqueChild = (InternalEObject)uniqueChild;
+			uniqueChild = (Node)eResolveProxy(oldUniqueChild);
+			if (uniqueChild != oldUniqueChild) {
+				InternalEObject newUniqueChild = (InternalEObject)uniqueChild;
+				NotificationChain msgs = oldUniqueChild.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.NODE__UNIQUE_CHILD, null, null);
+				if (newUniqueChild.eInternalContainer() == null) {
+					msgs = newUniqueChild.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.NODE__UNIQUE_CHILD, null, msgs);
+				}
+				if (msgs != null) msgs.dispatch();
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.NODE__UNIQUE_CHILD, oldUniqueChild, uniqueChild));
+			}
+		}
+		return uniqueChild;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Node basicGetUniqueChild() {
 		return uniqueChild;
 	}
 
@@ -366,7 +389,8 @@ public class NodeImpl extends EObjectImpl implements Node {
 			case ModelPackage.NODE__CHILD:
 				return getChild();
 			case ModelPackage.NODE__UNIQUE_CHILD:
-				return getUniqueChild();
+				if (resolve) return getUniqueChild();
+				return basicGetUniqueChild();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

@@ -198,7 +198,7 @@ public interface User extends EObject {
 	 * @return the value of the '<em>Address</em>' containment reference.
 	 * @see #setAddress(Address)
 	 * @see org.eclipselabs.emfjson.junit.model.ModelPackage#getUser_Address()
-	 * @model containment="true"
+	 * @model containment="true" resolveProxies="true"
 	 * @generated
 	 */
 	Address getAddress();

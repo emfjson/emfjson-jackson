@@ -73,7 +73,7 @@ public class ContainerImpl extends EObjectImpl implements Container {
 	 */
 	public EList<AbstractType> getElements() {
 		if (elements == null) {
-			elements = new EObjectContainmentEList<AbstractType>(AbstractType.class, this, ModelPackage.CONTAINER__ELEMENTS);
+			elements = new EObjectContainmentEList.Resolving<AbstractType>(AbstractType.class, this, ModelPackage.CONTAINER__ELEMENTS);
 		}
 		return elements;
 	}

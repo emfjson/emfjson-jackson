@@ -499,6 +499,29 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	 * @generated
 	 */
 	public PrimaryObject getContainmentReferenceSameCollectioin() {
+		if (containmentReferenceSameCollectioin != null && containmentReferenceSameCollectioin.eIsProxy()) {
+			InternalEObject oldContainmentReferenceSameCollectioin = (InternalEObject)containmentReferenceSameCollectioin;
+			containmentReferenceSameCollectioin = (PrimaryObject)eResolveProxy(oldContainmentReferenceSameCollectioin);
+			if (containmentReferenceSameCollectioin != oldContainmentReferenceSameCollectioin) {
+				InternalEObject newContainmentReferenceSameCollectioin = (InternalEObject)containmentReferenceSameCollectioin;
+				NotificationChain msgs = oldContainmentReferenceSameCollectioin.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.PRIMARY_OBJECT__CONTAINMENT_REFERENCE_SAME_COLLECTIOIN, null, null);
+				if (newContainmentReferenceSameCollectioin.eInternalContainer() == null) {
+					msgs = newContainmentReferenceSameCollectioin.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.PRIMARY_OBJECT__CONTAINMENT_REFERENCE_SAME_COLLECTIOIN, null, msgs);
+				}
+				if (msgs != null) msgs.dispatch();
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.PRIMARY_OBJECT__CONTAINMENT_REFERENCE_SAME_COLLECTIOIN, oldContainmentReferenceSameCollectioin, containmentReferenceSameCollectioin));
+			}
+		}
+		return containmentReferenceSameCollectioin;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PrimaryObject basicGetContainmentReferenceSameCollectioin() {
 		return containmentReferenceSameCollectioin;
 	}
 
@@ -647,6 +670,29 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	 * @generated
 	 */
 	public TargetObject getSingleContainmentReferenceProxies() {
+		if (singleContainmentReferenceProxies != null && singleContainmentReferenceProxies.eIsProxy()) {
+			InternalEObject oldSingleContainmentReferenceProxies = (InternalEObject)singleContainmentReferenceProxies;
+			singleContainmentReferenceProxies = (TargetObject)eResolveProxy(oldSingleContainmentReferenceProxies);
+			if (singleContainmentReferenceProxies != oldSingleContainmentReferenceProxies) {
+				InternalEObject newSingleContainmentReferenceProxies = (InternalEObject)singleContainmentReferenceProxies;
+				NotificationChain msgs = oldSingleContainmentReferenceProxies.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_PROXIES, null, null);
+				if (newSingleContainmentReferenceProxies.eInternalContainer() == null) {
+					msgs = newSingleContainmentReferenceProxies.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_PROXIES, null, msgs);
+				}
+				if (msgs != null) msgs.dispatch();
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_PROXIES, oldSingleContainmentReferenceProxies, singleContainmentReferenceProxies));
+			}
+		}
+		return singleContainmentReferenceProxies;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TargetObject basicGetSingleContainmentReferenceProxies() {
 		return singleContainmentReferenceProxies;
 	}
 
@@ -691,7 +737,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	 */
 	public EList<TargetObject> getMultipleContainmentReferenceProxies() {
 		if (multipleContainmentReferenceProxies == null) {
-			multipleContainmentReferenceProxies = new EObjectContainmentEList<TargetObject>(TargetObject.class, this, ModelPackage.PRIMARY_OBJECT__MULTIPLE_CONTAINMENT_REFERENCE_PROXIES);
+			multipleContainmentReferenceProxies = new EObjectContainmentEList.Resolving<TargetObject>(TargetObject.class, this, ModelPackage.PRIMARY_OBJECT__MULTIPLE_CONTAINMENT_REFERENCE_PROXIES);
 		}
 		return multipleContainmentReferenceProxies;
 	}
@@ -827,7 +873,8 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 				if (resolve) return getUnsettableReference();
 				return basicGetUnsettableReference();
 			case ModelPackage.PRIMARY_OBJECT__CONTAINMENT_REFERENCE_SAME_COLLECTIOIN:
-				return getContainmentReferenceSameCollectioin();
+				if (resolve) return getContainmentReferenceSameCollectioin();
+				return basicGetContainmentReferenceSameCollectioin();
 			case ModelPackage.PRIMARY_OBJECT__SINGLE_NON_CONTAINMENT_REFERENCE:
 				if (resolve) return getSingleNonContainmentReference();
 				return basicGetSingleNonContainmentReference();
@@ -838,7 +885,8 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 			case ModelPackage.PRIMARY_OBJECT__MULTIPLE_CONTAINMENT_REFERENCE_NO_PROXIES:
 				return getMultipleContainmentReferenceNoProxies();
 			case ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_PROXIES:
-				return getSingleContainmentReferenceProxies();
+				if (resolve) return getSingleContainmentReferenceProxies();
+				return basicGetSingleContainmentReferenceProxies();
 			case ModelPackage.PRIMARY_OBJECT__MULTIPLE_CONTAINMENT_REFERENCE_PROXIES:
 				return getMultipleContainmentReferenceProxies();
 			case ModelPackage.PRIMARY_OBJECT__SINGLE_NON_CONTAINMENT_REFERENCE_NO_PROXIES:

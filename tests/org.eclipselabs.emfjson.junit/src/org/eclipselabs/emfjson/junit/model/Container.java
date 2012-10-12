@@ -41,7 +41,7 @@ public interface Container extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Elements</em>' containment reference list.
 	 * @see org.eclipselabs.emfjson.junit.model.ModelPackage#getContainer_Elements()
-	 * @model containment="true"
+	 * @model containment="true" resolveProxies="true"
 	 * @generated
 	 */
 	EList<AbstractType> getElements();

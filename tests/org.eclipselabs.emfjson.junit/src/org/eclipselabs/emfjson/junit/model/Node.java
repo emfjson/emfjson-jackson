@@ -144,7 +144,7 @@ public interface Node extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Child</em>' containment reference list.
 	 * @see org.eclipselabs.emfjson.junit.model.ModelPackage#getNode_Child()
-	 * @model containment="true"
+	 * @model containment="true" resolveProxies="true"
 	 * @generated
 	 */
 	EList<Node> getChild();
@@ -160,7 +160,7 @@ public interface Node extends EObject {
 	 * @return the value of the '<em>Unique Child</em>' containment reference.
 	 * @see #setUniqueChild(Node)
 	 * @see org.eclipselabs.emfjson.junit.model.ModelPackage#getNode_UniqueChild()
-	 * @model containment="true"
+	 * @model containment="true" resolveProxies="true"
 	 * @generated
 	 */
 	Node getUniqueChild();
