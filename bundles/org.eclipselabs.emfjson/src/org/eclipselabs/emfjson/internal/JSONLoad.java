@@ -184,7 +184,8 @@ public class JSONLoad {
 
 	private EObject createProxy(Resource resource, EClass eClass, JsonNode node) {
 		EObject proxy = null;
-		if (node.isObject() && node.get(EJS_REF_KEYWORD) != null) {
+		
+		if (isRefNode(node)) {
 			final URI objectURI = getEObjectURI(node.get(EJS_REF_KEYWORD), resource.getURI(), nsMap);
 			proxy = EcoreUtil.create(eClass);
 			((InternalEObject) proxy).eSetProxyURI(objectURI);
@@ -226,14 +227,28 @@ public class JSONLoad {
 						for (Iterator<JsonNode> it = node.getElements(); it.hasNext();) {
 							JsonNode current = it.next();
 							EClass refClass = findEClass(reference.getEReferenceType(), current, root, resource);
-							EObject obj = createEObject(resource, refClass, current);
+							EObject obj;
+							
+							if (isRefNode(current)) {
+								obj = createProxy(resource, refClass, current);
+							} else {
+								obj = createEObject(resource, refClass, current);	
+							}
+							
 							if (obj != null) {
 								values.add(obj);
 							}
 						}
 					} else {
 						EClass refClass = findEClass(reference.getEReferenceType(), node, root, resource);
-						EObject obj = createEObject(resource, refClass, node);
+						EObject obj;
+						
+						if (isRefNode(node)) {
+							obj = createProxy(resource, refClass, node);
+						} else {
+							obj = createEObject(resource, refClass, node);	
+						}
+
 						if (obj != null) {
 							values.add(obj);
 						}
@@ -241,7 +256,14 @@ public class JSONLoad {
 				} else {
 					if (node.isObject()) {
 						EClass refClass = findEClass(reference.getEReferenceType(), node, root, resource);
-						EObject obj = createEObject(resource, refClass, node);
+						EObject obj;
+						
+						if (isRefNode(node)) {
+							obj = createProxy(resource, refClass, node);
+						} else {
+							obj = createEObject(resource, refClass, node);	
+						}
+						
 						if (obj != null) {
 							eObject.eSet(reference, obj);
 						}
@@ -353,6 +375,10 @@ public class JSONLoad {
 		checkNotNull(object, null);
 	}
 
+	private boolean isRefNode(JsonNode node) {
+		return node.isObject() && node.get(EJS_REF_KEYWORD) != null;
+	}
+	
 	private static void checkNotNull(Object object, String message) throws IllegalArgumentException {
 		if (object == null) {
 			throw new IllegalArgumentException(message);

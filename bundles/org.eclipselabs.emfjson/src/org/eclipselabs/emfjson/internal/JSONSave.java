@@ -263,23 +263,31 @@ public class JSONSave {
 				final ArrayNode arrayNode = mapper.createArrayNode();
 				node.put(getElementName(reference), arrayNode);
 
-				for (EObject obj: values) {
+				for (EObject value: values) {
 					ObjectNode subNode = arrayNode.addObject();
-					writeEObjectAttributes(obj, subNode);
-					writeEObjectReferences(obj, subNode, resource);
+					if (value.eIsProxy() || !value.eResource().equals(resource)) {
+						subNode.put(EJS_REF_KEYWORD, getReference(value, resource));
+					} else {
+						writeEObjectAttributes(value, subNode);
+						writeEObjectReferences(value, subNode, resource);	
+					}
 				}
 			}
 			
 		} else {
 
-			final Object value = object.eGet(reference);
+			final EObject value = (EObject) object.eGet(reference);
 
 			if (value != null) {
 				final ObjectNode subNode = node.objectNode();
-
-				node.put(getElementName(reference), subNode);
-				writeEObjectAttributes((EObject) value, subNode);
-				writeEObjectReferences((EObject) value, subNode, resource);
+				
+				if (value.eIsProxy() || !value.eResource().equals(resource)) {
+					node.put(EJS_REF_KEYWORD, getReference(value, resource));
+				} else {
+					node.put(getElementName(reference), subNode);
+					writeEObjectAttributes((EObject) value, subNode);
+					writeEObjectReferences((EObject) value, subNode, resource);	
+				}
 			}
 		}
 
