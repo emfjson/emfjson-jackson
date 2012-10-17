@@ -77,6 +77,8 @@ public class ModelUtil {
 	}
 	
 	public static URI getEObjectURI(JsonNode jsonNode, URI uri, Map<String, String> nsMap) {
+		if (jsonNode == null) return null;
+		
 		final String value = jsonNode.getTextValue();
 		if (value.startsWith("#//")) { // is fragment
 			return URI.createURI(uri+value);
