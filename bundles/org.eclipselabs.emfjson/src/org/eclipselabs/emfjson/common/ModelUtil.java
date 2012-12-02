@@ -22,8 +22,10 @@ import org.codehaus.jackson.JsonNode;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
 
 /**
  * 
@@ -91,6 +93,10 @@ public class ModelUtil {
 		} else { // is ID
 			return uri.appendFragment(value);
 		}
+	}
+	
+	public static boolean isMapEntry(EClassifier eType) {
+		return eType.equals(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY);
 	}
 	
 }

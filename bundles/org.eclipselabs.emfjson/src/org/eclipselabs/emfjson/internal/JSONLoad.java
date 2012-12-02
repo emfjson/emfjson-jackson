@@ -15,6 +15,7 @@ import static org.eclipselabs.emfjson.common.Constants.EJS_REF_KEYWORD;
 import static org.eclipselabs.emfjson.common.Constants.EJS_TYPE_KEYWORD;
 import static org.eclipselabs.emfjson.common.ModelUtil.getEObjectURI;
 import static org.eclipselabs.emfjson.common.ModelUtil.getElementName;
+import static org.eclipselabs.emfjson.common.ModelUtil.isMapEntry;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -35,6 +36,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -218,7 +220,11 @@ public class JSONLoad {
 			final JsonNode node = root.get(getElementName(reference));
 
 			if (node != null) {
-				if (reference.isMany()) {
+				if (isMapEntry(reference.getEType())) {
+					if (node.isObject()) {
+						createMapEntry(eObject, reference, node);
+					}
+				} else if (reference.isMany()) {
 
 					@SuppressWarnings("unchecked")
 					EList<EObject> values = (EList<EObject>) eObject.eGet(reference);
@@ -271,6 +277,32 @@ public class JSONLoad {
 				}
 			}
 		}
+	}
+
+	@SuppressWarnings("deprecation")
+	private void createMapEntry(EObject container, EReference reference, JsonNode node) {
+		
+		if (reference.isMany()) {
+			@SuppressWarnings("unchecked")
+			EList<EObject> values = (EList<EObject>) container.eGet(reference);
+			
+			for (Iterator<Entry<String, JsonNode>> it = node.getFields(); it.hasNext();) {
+				Entry<String, JsonNode> element = it.next();
+				EObject eObject = EcoreUtil.create((EClass) reference.getEType());
+				eObject.eSet(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY__KEY, element.getKey());
+				eObject.eSet(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY__VALUE, element.getValue().getValueAsText());
+				values.add(eObject);
+			}
+		} else {
+			if (node.getFields().hasNext()) {
+				Entry<String, JsonNode> element = node.getFields().next();
+				EObject eObject = EcoreUtil.create((EClass) reference.getEType());
+				eObject.eSet(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY__KEY, element.getKey());
+				eObject.eSet(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY__VALUE, element.getValue().getValueAsText());
+				container.eSet(reference, eObject);
+			}
+		}
+		
 	}
 
 	private void fillEReference(EObject eObject, JsonNode root, Resource resource) {

@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonNode;
@@ -44,6 +45,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
 import org.eclipselabs.emfjson.EMFJs;
+import org.eclipselabs.emfjson.common.ModelUtil;
 
 /**
  * 
@@ -209,7 +211,11 @@ public class JSONSave {
 			
 			if (!reference.isTransient() && object.eIsSet(reference)) {
 
-				if (reference.isContainment()) {
+				if (ModelUtil.isMapEntry(reference.getEType())) {
+					
+					writeMapEntry(object, reference, node);
+					
+				} else if (reference.isContainment()) {
 
 					writeEObjectContainments(object, reference, node, resource);
 
@@ -251,6 +257,22 @@ public class JSONSave {
 		}
 	}
 	
+	private void writeMapEntry(EObject object, EReference reference, ObjectNode node) {
+		final ObjectNode nodeRef = mapper.createObjectNode();
+		if (reference.isMany()) {
+			@SuppressWarnings("unchecked")
+			Collection<Map.Entry<String, String>> entries = (Collection<Entry<String, String>>) object.eGet(reference);
+			for (Map.Entry<String, String> entry: entries) {
+				nodeRef.put(entry.getKey(), entry.getValue());
+			}
+		} else {
+			@SuppressWarnings("unchecked")
+			Map.Entry<String, String> entry = (Entry<String, String>) object.eGet(reference);
+			nodeRef.put(entry.getKey(), entry.getValue());
+		}
+		node.put(reference.getName(), nodeRef);
+	}
+
 	// if reference is containment, then objects are put in an ArrayNode
 	protected void writeEObjectContainments(EObject object, EReference reference, ObjectNode node, Resource resource) {
 
