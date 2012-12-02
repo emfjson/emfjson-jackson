@@ -25,6 +25,7 @@ import org.eclipselabs.emfjson.junit.model.ETypes;
 import org.eclipselabs.emfjson.junit.model.ModelFactory;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
 import org.eclipselabs.emfjson.junit.model.Node;
+import org.eclipselabs.emfjson.junit.model.ObjectWithMap;
 import org.eclipselabs.emfjson.junit.model.PrimaryObject;
 import org.eclipselabs.emfjson.junit.model.Sex;
 import org.eclipselabs.emfjson.junit.model.TargetObject;
@@ -106,6 +107,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	private EClass nodeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass objectWithMapEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -835,6 +843,24 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getObjectWithMap() {
+		return objectWithMapEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getObjectWithMap_Dependencies() {
+		return (EReference)objectWithMapEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getSex() {
 		return sexEEnum;
 	}
@@ -958,6 +984,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(nodeEClass, NODE__CHILD);
 		createEReference(nodeEClass, NODE__UNIQUE_CHILD);
 
+		objectWithMapEClass = createEClass(OBJECT_WITH_MAP);
+		createEReference(objectWithMapEClass, OBJECT_WITH_MAP__DEPENDENCIES);
+
 		// Create enums
 		sexEEnum = createEEnum(SEX);
 
@@ -1078,6 +1107,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEReference(getNode_ManyRef(), this.getNode(), null, "manyRef", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getNode_Child(), this.getNode(), null, "child", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getNode_UniqueChild(), this.getNode(), null, "uniqueChild", null, 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(objectWithMapEClass, ObjectWithMap.class, "ObjectWithMap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getObjectWithMap_Dependencies(), ecorePackage.getEStringToStringMapEntry(), null, "dependencies", null, 0, -1, ObjectWithMap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(sexEEnum, Sex.class, "Sex");

@@ -24,6 +24,7 @@ import org.eclipselabs.emfjson.junit.model.ETypes;
 import org.eclipselabs.emfjson.junit.model.ModelFactory;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
 import org.eclipselabs.emfjson.junit.model.Node;
+import org.eclipselabs.emfjson.junit.model.ObjectWithMap;
 import org.eclipselabs.emfjson.junit.model.PrimaryObject;
 import org.eclipselabs.emfjson.junit.model.Sex;
 import org.eclipselabs.emfjson.junit.model.TargetObject;
@@ -82,6 +83,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.CONCRETE_TYPE_ONE: return createConcreteTypeOne();
 			case ModelPackage.CONCRETE_TYPE_TWO: return createConcreteTypeTwo();
 			case ModelPackage.NODE: return createNode();
+			case ModelPackage.OBJECT_WITH_MAP: return createObjectWithMap();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -209,6 +211,16 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	public Node createNode() {
 		NodeImpl node = new NodeImpl();
 		return node;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ObjectWithMap createObjectWithMap() {
+		ObjectWithMapImpl objectWithMap = new ObjectWithMapImpl();
+		return objectWithMap;
 	}
 
 	/**

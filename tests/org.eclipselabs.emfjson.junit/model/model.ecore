@@ -156,4 +156,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="uniqueChild" eType="#//Node"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ObjectWithMap">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dependencies" upperBound="-1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EStringToStringMapEntry"
+        containment="true"/>
+  </eClassifiers>
 </ecore:EPackage>

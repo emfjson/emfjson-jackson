@@ -254,4 +254,5 @@ public class TestEmfJsAttributes extends TestSupport {
 		assertEquals( "311", ((Node) proxies2.basicGet(0)).getLabel() );
 		assertEquals( "3112", ((Node) proxies2.basicGet(1)).getLabel() );
 	}
+	
 }

@@ -21,6 +21,7 @@ import org.eclipselabs.emfjson.junit.model.Container;
 import org.eclipselabs.emfjson.junit.model.ETypes;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
 import org.eclipselabs.emfjson.junit.model.Node;
+import org.eclipselabs.emfjson.junit.model.ObjectWithMap;
 import org.eclipselabs.emfjson.junit.model.PrimaryObject;
 import org.eclipselabs.emfjson.junit.model.TargetObject;
 import org.eclipselabs.emfjson.junit.model.User;
@@ -141,6 +142,12 @@ public class ModelSwitch<T> extends Switch<T> {
 			case ModelPackage.NODE: {
 				Node node = (Node)theEObject;
 				T result = caseNode(node);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackage.OBJECT_WITH_MAP: {
+				ObjectWithMap objectWithMap = (ObjectWithMap)theEObject;
+				T result = caseObjectWithMap(objectWithMap);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -295,6 +302,21 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseNode(Node object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Object With Map</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Object With Map</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseObjectWithMap(ObjectWithMap object) {
 		return null;
 	}
 

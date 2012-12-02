@@ -111,6 +111,15 @@ public interface ModelFactory extends EFactory {
 	Node createNode();
 
 	/**
+	 * Returns a new object of class '<em>Object With Map</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Object With Map</em>'.
+	 * @generated
+	 */
+	ObjectWithMap createObjectWithMap();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

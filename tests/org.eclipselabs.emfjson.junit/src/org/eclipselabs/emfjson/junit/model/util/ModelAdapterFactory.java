@@ -22,6 +22,7 @@ import org.eclipselabs.emfjson.junit.model.Container;
 import org.eclipselabs.emfjson.junit.model.ETypes;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
 import org.eclipselabs.emfjson.junit.model.Node;
+import org.eclipselabs.emfjson.junit.model.ObjectWithMap;
 import org.eclipselabs.emfjson.junit.model.PrimaryObject;
 import org.eclipselabs.emfjson.junit.model.TargetObject;
 import org.eclipselabs.emfjson.junit.model.User;
@@ -121,6 +122,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseNode(Node object) {
 				return createNodeAdapter();
+			}
+			@Override
+			public Adapter caseObjectWithMap(ObjectWithMap object) {
+				return createObjectWithMapAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -279,6 +284,20 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createNodeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipselabs.emfjson.junit.model.ObjectWithMap <em>Object With Map</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipselabs.emfjson.junit.model.ObjectWithMap
+	 * @generated
+	 */
+	public Adapter createObjectWithMapAdapter() {
 		return null;
 	}
 

@@ -35,6 +35,7 @@ import org.eclipselabs.emfjson.junit.model.Address;
 import org.eclipselabs.emfjson.junit.model.ModelFactory;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
 import org.eclipselabs.emfjson.junit.model.Node;
+import org.eclipselabs.emfjson.junit.model.ObjectWithMap;
 import org.eclipselabs.emfjson.junit.model.User;
 import org.eclipselabs.emfjson.junit.support.TestSupport;
 import org.junit.Test;
@@ -484,4 +485,41 @@ public class TestEmfJsReferences extends TestSupport {
 		// Proxy is resolved because GenModel.ContainmentProxy is true
 		assertFalse(child.eIsProxy());
 	}
+	
+	@Test
+	public void testLoadObjectWithMapContainment() throws IOException {
+		options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.Literals.OBJECT_WITH_MAP);
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test-map.json"));
+		resource.load(options);	
+			
+		assertFalse(resource.getContents().isEmpty());		
+		assertEquals(1, resource.getContents().size());		
+		assertEquals(ModelPackage.Literals.OBJECT_WITH_MAP, resource.getContents().get(0).eClass());
+		
+		ObjectWithMap root = (ObjectWithMap) resource.getContents().get(0);
+		
+		assertEquals(">= 0.0.0", root.getDependencies().get("build-essential"));
+		assertEquals(">= 0.0.0", root.getDependencies().get("mysql"));
+	}
+	
+	@Test
+	public void testSaveObjectWithMapContainment() throws IOException {
+		String expectedString = "{\"dependencies\":{\"build-essential\":\">= 0.0.0\",\"mysql\":\">= 0.0.0\"}}";
+		options.put(EMFJs.OPTION_SERIALIZE_TYPE, false);
+		options.put(EMFJs.OPTION_SERIALIZE_REF_TYPE, false);
+		options.put(EMFJs.OPTION_INDENT_OUTPUT, false);
+		
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test-map-save.json"));
+		
+		ObjectWithMap aMap = ModelFactory.eINSTANCE.createObjectWithMap();
+		aMap.getDependencies().put("build-essential", ">= 0.0.0");
+		aMap.getDependencies().put("mysql", ">= 0.0.0");
+		
+		resource.getContents().add(aMap);
+		
+		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+		resource.save(outStream, options);
+		assertEquals(expectedString, new String(outStream.toByteArray()));
+	}
+	
 }

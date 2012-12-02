@@ -1,6 +1,8 @@
 @namespace(uri="http://www.eclipselabs.org/emfjson/junit", prefix="model")
 package model;
 
+import "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore";
+
 @JSON(root="true")
 class User {
   id attr String userId;
@@ -111,5 +113,9 @@ class Node {
   !unique !resolve ref Node[*] manyRef;
   val Node[*] child;
   val Node uniqueChild;
+}
+
+class ObjectWithMap {
+  val ecore.EStringToStringMapEntry[*] dependencies;
 }
 

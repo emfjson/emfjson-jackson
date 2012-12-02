@@ -850,6 +850,34 @@ public interface ModelPackage extends EPackage {
 	int NODE_FEATURE_COUNT = 6;
 
 	/**
+	 * The meta object id for the '{@link org.eclipselabs.emfjson.junit.model.impl.ObjectWithMapImpl <em>Object With Map</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipselabs.emfjson.junit.model.impl.ObjectWithMapImpl
+	 * @see org.eclipselabs.emfjson.junit.model.impl.ModelPackageImpl#getObjectWithMap()
+	 * @generated
+	 */
+	int OBJECT_WITH_MAP = 10;
+
+	/**
+	 * The feature id for the '<em><b>Dependencies</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OBJECT_WITH_MAP__DEPENDENCIES = 0;
+
+	/**
+	 * The number of structural features of the '<em>Object With Map</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OBJECT_WITH_MAP_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link org.eclipselabs.emfjson.junit.model.Sex <em>Sex</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -857,7 +885,7 @@ public interface ModelPackage extends EPackage {
 	 * @see org.eclipselabs.emfjson.junit.model.impl.ModelPackageImpl#getSex()
 	 * @generated
 	 */
-	int SEX = 10;
+	int SEX = 11;
 
 	/**
 	 * The meta object id for the '<em>URI</em>' data type.
@@ -867,7 +895,7 @@ public interface ModelPackage extends EPackage {
 	 * @see org.eclipselabs.emfjson.junit.model.impl.ModelPackageImpl#getURI()
 	 * @generated
 	 */
-	int URI = 11;
+	int URI = 12;
 
 
 	/**
@@ -1653,6 +1681,27 @@ public interface ModelPackage extends EPackage {
 	EReference getNode_UniqueChild();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipselabs.emfjson.junit.model.ObjectWithMap <em>Object With Map</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Object With Map</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.ObjectWithMap
+	 * @generated
+	 */
+	EClass getObjectWithMap();
+
+	/**
+	 * Returns the meta object for the map '{@link org.eclipselabs.emfjson.junit.model.ObjectWithMap#getDependencies <em>Dependencies</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the map '<em>Dependencies</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.ObjectWithMap#getDependencies()
+	 * @see #getObjectWithMap()
+	 * @generated
+	 */
+	EReference getObjectWithMap_Dependencies();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipselabs.emfjson.junit.model.Sex <em>Sex</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2290,6 +2339,24 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EReference NODE__UNIQUE_CHILD = eINSTANCE.getNode_UniqueChild();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipselabs.emfjson.junit.model.impl.ObjectWithMapImpl <em>Object With Map</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipselabs.emfjson.junit.model.impl.ObjectWithMapImpl
+		 * @see org.eclipselabs.emfjson.junit.model.impl.ModelPackageImpl#getObjectWithMap()
+		 * @generated
+		 */
+		EClass OBJECT_WITH_MAP = eINSTANCE.getObjectWithMap();
+
+		/**
+		 * The meta object literal for the '<em><b>Dependencies</b></em>' map feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OBJECT_WITH_MAP__DEPENDENCIES = eINSTANCE.getObjectWithMap_Dependencies();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipselabs.emfjson.junit.model.Sex <em>Sex</em>}' enum.
