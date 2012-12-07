@@ -15,6 +15,7 @@ import static org.eclipselabs.emfjson.common.Constants.EJS_REF_KEYWORD;
 import static org.eclipselabs.emfjson.common.Constants.EJS_TYPE_KEYWORD;
 import static org.eclipselabs.emfjson.common.ModelUtil.getEObjectURI;
 import static org.eclipselabs.emfjson.common.ModelUtil.getElementName;
+import static org.eclipselabs.emfjson.common.ModelUtil.isAnonRoot;
 import static org.eclipselabs.emfjson.common.ModelUtil.isMapEntry;
 
 import java.io.InputStream;
@@ -217,7 +218,12 @@ public class JSONLoad {
 		final EClass eClass = eObject.eClass();
 
 		for (EReference reference: eClass.getEAllContainments()) {
-			final JsonNode node = root.get(getElementName(reference));
+
+            final JsonNode node;
+            if (isMapEntry(reference.getEType()) && isAnonRoot(reference)) {
+                node = root;
+            } else
+                node = root.get(getElementName(reference));
 
 			if (node != null) {
 				if (isMapEntry(reference.getEType())) {
