@@ -2,7 +2,7 @@
 <feature
       id="org.eclipselabs.emfjson.source.feature"
       label="EMFJs SDK"
-      version="0.5.0.qualifier"
+      version="0.5.1.qualifier"
       provider-name="Eclipse Labs">
 
    <description url="http://www.example.com/description">
@@ -16,5 +16,26 @@
    <license url="http://www.example.com/license">
       [Enter License Description here.]
    </license>
+
+   <plugin
+         id="org.eclipselabs.emfjson"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipselabs.emfjson.modelgen"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipselabs.emfjson.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>
