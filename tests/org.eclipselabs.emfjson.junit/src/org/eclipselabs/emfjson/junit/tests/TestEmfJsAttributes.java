@@ -271,5 +271,23 @@ public class TestEmfJsAttributes extends TestSupport {
 		assertEquals("https://api.opscode.com/organizations/chefclipse/nodes/server-253389.novalocal", 
 				root.getEntries().get("server-253389.novalocal"));
 	}
-	
+
+	@Test
+	public void testSaveRootObjectMap() throws IOException {
+		options.put(EMFJs.OPTION_SERIALIZE_TYPE, false);
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test-map.json"));
+		
+		ObjectWithMap root = ModelFactory.eINSTANCE.createObjectWithMap();
+		root.getEntries().put("one", "1");
+		root.getEntries().put("two", "2");
+		root.getEntries().put("three", "3");
+
+		resource.getContents().add(root);
+
+		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+
+		resource.save(outStream, options);
+		assertEquals("{\"one\":\"1\",\"two\":\"2\",\"three\":\"3\"}", new String(outStream.toByteArray()));
+	}
+
 }
