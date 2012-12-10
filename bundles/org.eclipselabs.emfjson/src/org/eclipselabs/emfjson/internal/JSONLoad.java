@@ -13,9 +13,10 @@ package org.eclipselabs.emfjson.internal;
 import static org.eclipselabs.emfjson.common.Constants.EJS_NS_KEYWORD;
 import static org.eclipselabs.emfjson.common.Constants.EJS_REF_KEYWORD;
 import static org.eclipselabs.emfjson.common.Constants.EJS_TYPE_KEYWORD;
+import static org.eclipselabs.emfjson.common.ModelUtil.getDynamicMapEntryFeature;
+import static org.eclipselabs.emfjson.common.ModelUtil.getEAttribute;
 import static org.eclipselabs.emfjson.common.ModelUtil.getEObjectURI;
-import static org.eclipselabs.emfjson.common.ModelUtil.getElementName;
-import static org.eclipselabs.emfjson.common.ModelUtil.isAnonRoot;
+import static org.eclipselabs.emfjson.common.ModelUtil.getEReference;
 import static org.eclipselabs.emfjson.common.ModelUtil.isMapEntry;
 
 import java.io.InputStream;
@@ -43,7 +44,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.FeatureMapUtil;
 import org.eclipselabs.emfjson.EMFJs;
 import org.eclipselabs.emfjson.common.ModelUtil;
 
@@ -77,7 +77,9 @@ public class JSONLoad {
 
 		JsonNode root = JSUtil.getRootNode(parser);
 
-		checkNotNull(root, "root node should not be null.");
+		if (root == null) { 
+			throw new IllegalArgumentException("root node should not be null.");
+		}
 
 		useProxyAttributes = Boolean.TRUE.equals(options.get(EMFJs.OPTION_PROXY_ATTRIBUTES));
 
@@ -99,28 +101,7 @@ public class JSONLoad {
 			this.rootNode = root.findPath(path);
 		}
 
-		checkNotNull(rootNode);
 		fillNamespaces(root);
-	}
-
-	private EClass getEClass(URI uri) {
-		if (resourceSet == null) {
-			return (EClass) new ResourceSetImpl().getEObject(uri, false);	
-		}
-		return (EClass) resourceSet.getEObject(uri, false);
-	}
-
-	@SuppressWarnings("deprecation")
-	private EClass getEClass(JsonNode node, boolean isRoot) throws IllegalArgumentException {
-		if (isRoot && rootClass != null) {
-			return rootClass;
-		} else {
-			if (node.has(EJS_TYPE_KEYWORD)) {
-				return getEClass(URI.createURI(node.get(EJS_TYPE_KEYWORD).getValueAsText()));
-			} else {
-				throw new IllegalArgumentException("Cannot find EClass for node "+node);
-			}
-		}
 	}
 
 	@SuppressWarnings("deprecation")
@@ -164,10 +145,8 @@ public class JSONLoad {
 
 		// Process EObject references and proxies.
 		for (EObject eObject: resource.getContents()) {
-			JsonNode node = processed.get(eObject);
-			if (node != null) {
-				fillEReference(eObject, node, resource);
-			}
+			if (processed.containsKey(eObject))
+				fillEReference(eObject, processed.get(eObject), resource);
 		}
 	}
 
@@ -185,220 +164,168 @@ public class JSONLoad {
 		return null;
 	}
 
-	private EObject createProxy(Resource resource, EClass eClass, JsonNode node) {
-		EObject proxy = null;
-		
-		if (isRefNode(node)) {
-			final URI objectURI = getEObjectURI(node.get(EJS_REF_KEYWORD), resource.getURI(), nsMap);
-			proxy = EcoreUtil.create(eClass);
-			((InternalEObject) proxy).eSetProxyURI(objectURI);
-
-			if (useProxyAttributes) {
-				JsonNode refNode = JSUtil.getNode(resource, objectURI, eClass);
-
-				if (refNode != null) {
-					fillEAttribute(proxy, refNode);
+	private void fillEAttribute(EObject container, JsonNode root) {
+		final EClass eClass = container.eClass();
+	
+		// Iterates over all key values of the JSON Object,
+		// if the value is not an object then
+		// if the key corresponds to an EAttribute, fill it
+		// if not and the EClass contains a MapEntry, fill it with the key, value.
+		for (Iterator<Entry<String, JsonNode>> it = root.getFields(); it.hasNext();) {
+			Entry<String, JsonNode> field = it.next();
+	
+			String key = field.getKey();
+			JsonNode value = field.getValue();
+	
+			if (value.isObject()) // not an attribute
+				continue;
+	
+			EAttribute attribute = getEAttribute(eClass, key);
+			if (attribute != null && !attribute.isTransient() && !attribute.isDerived()) {
+				if (value.isArray()) {
+					for (Iterator<JsonNode> itValue = value.getElements(); itValue.hasNext();) {
+						setEAttributeValue(container, attribute, itValue.next());
+					}
+				} else {
+					setEAttributeValue(container, attribute, value);
+				}
+			} else {
+				EStructuralFeature eFeature = getDynamicMapEntryFeature(eClass);
+				if (eFeature != null) {
+					@SuppressWarnings("unchecked")
+					EList<EObject> values = (EList<EObject>) container.eGet(eFeature);
+					values.add(createEntry(key, value));
 				}
 			}
 		}
-
-		return proxy;
-	}
-
-	private EObject findEObject(Resource resource, JsonNode node) {
-		EObject eObject = null;
-		if (node.isObject()) {
-			final URI objectURI = getEObjectURI(node.get(EJS_REF_KEYWORD), resource.getURI(), nsMap);
-			eObject = resourceSet.getEObject(objectURI, false);
-		}
-		return eObject;
 	}
 
 	private void fillEContainment(EObject eObject, JsonNode root, Resource resource) {
 		final EClass eClass = eObject.eClass();
 
-		for (EReference reference: eClass.getEAllContainments()) {
+		for (Iterator<Entry<String, JsonNode>> it = root.getFields(); it.hasNext();) {
+			Entry<String, JsonNode> field = it.next();
 
-            final JsonNode node;
-            if (isMapEntry(reference.getEType()) && isAnonRoot(reference)) {
-                node = root;
-            } else
-                node = root.get(getElementName(reference));
+			String key = field.getKey();
+			JsonNode value = field.getValue();
 
-			if (node != null) {
-				if (isMapEntry(reference.getEType())) {
-					if (node.isObject()) {
-						createMapEntry(eObject, reference, node);
-					}
-				} else if (reference.isMany()) {
-
-					@SuppressWarnings("unchecked")
-					EList<EObject> values = (EList<EObject>) eObject.eGet(reference);
-
-					if (node.isArray()) {
-						for (Iterator<JsonNode> it = node.getElements(); it.hasNext();) {
-							JsonNode current = it.next();
-							EClass refClass = findEClass(reference.getEReferenceType(), current, root, resource);
-							EObject obj;
-							
-							if (isRefNode(current)) {
-								obj = createProxy(resource, refClass, current);
-							} else {
-								obj = createEObject(resource, refClass, current);	
-							}
-							
-							if (obj != null) {
-								values.add(obj);
-							}
-						}
-					} else {
-						EClass refClass = findEClass(reference.getEReferenceType(), node, root, resource);
-						EObject obj;
-						
-						if (isRefNode(node)) {
-							obj = createProxy(resource, refClass, node);
-						} else {
-							obj = createEObject(resource, refClass, node);	
-						}
-
-						if (obj != null) {
-							values.add(obj);
-						}
-					}
+			EReference reference = getEReference(eClass, key);
+			if (reference != null && reference.isContainment() && !reference.isTransient()) {
+				if (isMapEntry(reference.getEType()) && value.isObject()) {
+					createMapEntry(eObject, reference, value);
 				} else {
-					if (node.isObject()) {
-						EClass refClass = findEClass(reference.getEReferenceType(), node, root, resource);
-						EObject obj;
-						
-						if (isRefNode(node)) {
-							obj = createProxy(resource, refClass, node);
-						} else {
-							obj = createEObject(resource, refClass, node);	
-						}
-						
-						if (obj != null) {
-							eObject.eSet(reference, obj);
-						}
-					}
+					createContainment(eObject, reference, root, value, resource);
 				}
 			}
 		}
-	}
-
-	@SuppressWarnings("deprecation")
-	private void createMapEntry(EObject container, EReference reference, JsonNode node) {
-		
-		if (reference.isMany()) {
-			@SuppressWarnings("unchecked")
-			EList<EObject> values = (EList<EObject>) container.eGet(reference);
-			
-			for (Iterator<Entry<String, JsonNode>> it = node.getFields(); it.hasNext();) {
-				Entry<String, JsonNode> element = it.next();
-				EObject eObject = EcoreUtil.create((EClass) reference.getEType());
-				eObject.eSet(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY__KEY, element.getKey());
-				eObject.eSet(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY__VALUE, element.getValue().getValueAsText());
-				values.add(eObject);
-			}
-		} else {
-			if (node.getFields().hasNext()) {
-				Entry<String, JsonNode> element = node.getFields().next();
-				EObject eObject = EcoreUtil.create((EClass) reference.getEType());
-				eObject.eSet(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY__KEY, element.getKey());
-				eObject.eSet(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY__VALUE, element.getValue().getValueAsText());
-				container.eSet(reference, eObject);
-			}
-		}
-		
 	}
 
 	private void fillEReference(EObject eObject, JsonNode root, Resource resource) {
 		final EClass eClass = eObject.eClass();
-
-		for (EReference reference: eClass.getEAllReferences()) {
-			if (reference.isContainment() || reference.isDerived() || reference.isTransient()) {
-				continue;
-			}
-
-			final JsonNode node = root.get(getElementName(reference));
-			if (node != null) {
-
-				if (reference.isMany()) {
-					@SuppressWarnings("unchecked")
-					EList<EObject> values = (EList<EObject>) eObject.eGet(reference);
-
-					if (node.isArray()) {
-						for (Iterator<JsonNode> it = node.getElements(); it.hasNext();) {
-							JsonNode current = it.next();
-
-							EObject obj = findEObject(resource, current);
-							if (obj == null) {
-								EClass refClass = findEClass(reference.getEReferenceType(), current, root, resource);
-								obj = createProxy(resource, refClass, current);
-							}
-							if (obj != null) {
-								values.add(obj);
-							}
-						}
-					} else {
-						EObject obj = findEObject(resource, node);
-						if (obj == null) {
-							EClass refClass = findEClass(reference.getEReferenceType(), node, root, resource);
-							obj = createProxy(resource, refClass, node);
-						}
-						if (obj != null) {
-							values.add(obj);
-						}
+	
+		for (Iterator<Entry<String, JsonNode>> it = root.getFields(); it.hasNext();) {
+			Entry<String, JsonNode> field = it.next();
+	
+			String key = field.getKey();
+			JsonNode value = field.getValue();
+	
+			EReference reference = getEReference(eClass, key);
+			if (reference != null && !reference.isContainment() && 
+					!reference.isDerived() && !reference.isTransient()) {
+	
+				if (value.isArray()) {
+					for (Iterator<JsonNode> itEl = value.getElements(); itEl.hasNext();) {
+						JsonNode current = itEl.next();
+						createProxyReference(eObject, root, current, reference, resource);
 					}
 				} else {
-					EObject obj = findEObject(resource, node);
-					if (obj == null) {
-						EClass refClass = findEClass(reference.getEReferenceType(), node, root, resource);
-						obj = createProxy(resource, refClass, node);
-					}
-					if (obj != null) {
-						eObject.eSet(reference, obj);
-					}
+					createProxyReference(eObject, root, value, reference, resource);
 				}
+	
 			}
 		}
-
+	
 		for (EObject content: eObject.eContents()) {
-			JsonNode node = processed.get(content);
-			if (node != null) {
-				fillEReference(content, node, resource);
-			}
+			if (processed.containsKey(content))
+				fillEReference(content, processed.get(content), resource);
 		}
 	}
 
-	private void fillEAttribute(EObject obj, JsonNode root) {
-		final EClass eClass = obj.eClass();
+	private void createContainment(EObject eObject, EReference reference, JsonNode root, JsonNode node, Resource resource) {
+		if (node.isArray()) {
+			if (reference.isMany()) {
+				@SuppressWarnings("unchecked")
+				EList<EObject> values = (EList<EObject>) eObject.eGet(reference);
 
-		for (EAttribute attribute: eClass.getEAllAttributes()) {
-			if (!attribute.isTransient() && !FeatureMapUtil.isFeatureMap(attribute)) {
-				JsonNode node = root.get(getElementName(attribute));
-				if (node != null) {
-					if (node.isArray()) {
-						for (Iterator<JsonNode> it = node.getElements(); it.hasNext();) {
-							setEAttributeValue(obj, attribute, it.next());
-						}
-					} else {
-						setEAttributeValue(obj, attribute, node);
-					}
+				for (Iterator<JsonNode> it = node.getElements(); it.hasNext();) {
+					JsonNode current = it.next();
+					EObject contained = createContainedObject(reference, root, current, resource);
+					if (contained != null) values.add(contained);
 				}
+			} else if (node.getElements().hasNext()) {
+				JsonNode current = node.getElements().next();
+				EObject contained = createContainedObject(reference, root, current, resource);
+				if (contained != null) eObject.eSet(reference, contained);
+			}
+		} else {
+			EObject contained = createContainedObject(reference, root, node, resource);
+
+			if (reference.isMany()) {
+				@SuppressWarnings("unchecked")
+				EList<EObject> values = (EList<EObject>) eObject.eGet(reference);
+				if (contained != null) values.add(contained);
+			} else {
+				if (contained != null) eObject.eSet(reference, contained);
 			}
 		}
 	}
 
-	protected void setEAttributeValue(EObject obj, EAttribute attribute, JsonNode value) {
+	private EObject createContainedObject(EReference reference, JsonNode root, JsonNode node, Resource resource) {
+		EClass refClass = findEClass(reference.getEReferenceType(), node, root, resource);
+		EObject obj;
+
+		if (isRefNode(node)) {
+			obj = createProxy(resource, refClass, node);
+		} else {
+			obj = createEObject(resource, refClass, node);	
+		}
+
+		return obj;
+	}
+
+	private EObject getOrCreateProxyReference(EReference reference, JsonNode root, JsonNode node, Resource resource) {
+		EObject obj = findEObject(resource, node);
+		if (obj == null) {
+			EClass refClass = findEClass(reference.getEReferenceType(), node, root, resource);
+			obj = createProxy(resource, refClass, node);
+		}
+		return obj;
+	}
+
+	private void createProxyReference(EObject eObject, JsonNode root, JsonNode node, EReference reference, Resource resource) {
+		EObject proxy = getOrCreateProxyReference(reference, root, node, resource);
+		if (proxy != null && reference.isMany()) {
+			@SuppressWarnings("unchecked")
+			EList<EObject> values = (EList<EObject>) eObject.eGet(reference);
+			values.add(proxy);
+		} else if (proxy != null) {
+			eObject.eSet(reference, proxy);
+		}
+	}
+
+	private void setEAttributeValue(EObject obj, EAttribute attribute, JsonNode value) {
 		@SuppressWarnings("deprecation")
 		final String stringValue = value.getValueAsText();
+
 		if (stringValue != null && !stringValue.trim().isEmpty()) {
 			Object newValue;
+
 			if (attribute.getEAttributeType().getInstanceClass().isEnum()) {
 				newValue = EcoreUtil.createFromString(attribute.getEAttributeType(), stringValue.toUpperCase());
 			} else {
 				newValue = EcoreUtil.createFromString(attribute.getEAttributeType(), stringValue);
 			}
+
 			if (!attribute.isMany()) {
 				obj.eSet(attribute, newValue);
 			} else {
@@ -409,18 +336,80 @@ public class JSONLoad {
 		}
 	}
 
-	private static void checkNotNull(Object object) {
-		checkNotNull(object, null);
+	private void createMapEntry(EObject container, EReference reference, JsonNode node) {
+		if (reference.isMany()) {
+			@SuppressWarnings("unchecked")
+			EList<EObject> values = (EList<EObject>) container.eGet(reference);
+
+			for (Iterator<Entry<String, JsonNode>> it = node.getFields(); it.hasNext();) {
+				Entry<String, JsonNode> element = it.next();
+				values.add(createEntry(element.getKey(), element.getValue()));
+			}
+		} else {
+			if (node.getFields().hasNext()) {
+				Entry<String, JsonNode> element = node.getFields().next();
+				container.eSet(reference, createEntry(element.getKey(), element.getValue()));
+			}
+		}
+	}
+
+	@SuppressWarnings("deprecation")
+	private EObject createEntry(String key, JsonNode value) {
+		EObject eObject = EcoreUtil.create(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY);
+		eObject.eSet(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY__KEY, key);
+		eObject.eSet(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY__VALUE, value.getValueAsText());
+
+		return eObject;
+	}
+
+	private EObject createProxy(Resource resource, EClass eClass, JsonNode node) {
+		EObject proxy = null;
+
+		if (isRefNode(node)) {
+			final URI objectURI = getEObjectURI(node.get(EJS_REF_KEYWORD), resource.getURI(), nsMap);
+			proxy = EcoreUtil.create(eClass);
+			((InternalEObject) proxy).eSetProxyURI(objectURI);
+
+			if (useProxyAttributes) {
+				JsonNode refNode = JSUtil.getNode(resource, objectURI, eClass);
+				if (refNode != null) fillEAttribute(proxy, refNode);
+			}
+		}
+
+		return proxy;
+	}
+
+	private EClass getEClass(URI uri) {
+		if (resourceSet == null) {
+			return (EClass) new ResourceSetImpl().getEObject(uri, false);	
+		}
+		return (EClass) resourceSet.getEObject(uri, false);
+	}
+
+	@SuppressWarnings("deprecation")
+	private EClass getEClass(JsonNode node, boolean isRoot) throws IllegalArgumentException {
+		if (isRoot && rootClass != null) {
+			return rootClass;
+		} else {
+			if (node.has(EJS_TYPE_KEYWORD)) {
+				return getEClass(URI.createURI(node.get(EJS_TYPE_KEYWORD).getValueAsText()));
+			} else {
+				throw new IllegalArgumentException("Cannot find EClass for node "+node);
+			}
+		}
 	}
 
 	private boolean isRefNode(JsonNode node) {
 		return node.isObject() && node.get(EJS_REF_KEYWORD) != null;
 	}
-	
-	private static void checkNotNull(Object object, String message) throws IllegalArgumentException {
-		if (object == null) {
-			throw new IllegalArgumentException(message);
+
+	private EObject findEObject(Resource resource, JsonNode node) {
+		EObject eObject = null;
+		if (node.isObject()) {
+			final URI objectURI = getEObjectURI(node.get(EJS_REF_KEYWORD), resource.getURI(), nsMap);
+			eObject = resourceSet.getEObject(objectURI, false);
 		}
+		return eObject;
 	}
 
 	private static JsonNode findNode(URI nodeURI, EClass eClass, JsonNode root) {
