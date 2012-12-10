@@ -42,6 +42,14 @@ public class ModelUtil {
 		return feature.getName();
 	}
 
+    public static boolean isAnonRoot(EStructuralFeature feature) {
+        final EAnnotation annotation = feature.getEAnnotation(EJS_JSON_ANNOTATION);
+        if (annotation != null && annotation.getDetails().containsKey("AnonRoot")) {
+            return annotation.getDetails().get("AnonRoot").equals("true");
+        }
+        return false;
+    }	
+	
 	public static String getRootNode(EObject object) {
 		if (object instanceof EClass) {
 			EClass eClass = (EClass) object;
