@@ -13,6 +13,7 @@ package org.eclipselabs.emfjson.internal;
 import static org.eclipselabs.emfjson.common.Constants.EJS_REF_KEYWORD;
 import static org.eclipselabs.emfjson.common.Constants.EJS_TYPE_KEYWORD;
 import static org.eclipselabs.emfjson.common.ModelUtil.getElementName;
+import static org.eclipselabs.emfjson.common.ModelUtil.isMapEntry;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -45,7 +46,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
 import org.eclipselabs.emfjson.EMFJs;
-import org.eclipselabs.emfjson.common.ModelUtil;
 
 /**
  * 
@@ -53,33 +53,32 @@ import org.eclipselabs.emfjson.common.ModelUtil;
  *
  */
 public class JSONSave {
-	
-	protected final ObjectMapper mapper;
-	protected JsonNode rootNode;
-	protected boolean serializeTypes = true;
-	protected boolean serializeRefTypes = true;
-	protected boolean indent = true;
-	protected Map<?, ?> options;
-	
+
+	private final ObjectMapper mapper;
+	private boolean serializeTypes = true;
+	private boolean serializeRefTypes = true;
+	private boolean indent = true;
+	private Map<?, ?> options;
+
 	public JSONSave(Map<?, ?> options) {
 		this.options = options;
 		configure();
 		this.mapper = new ObjectMapper();
 		this.mapper.configure(Feature.INDENT_OUTPUT, indent);
 	}
-	
+
 	public ObjectMapper getDelegate() {
 		return mapper;
 	}
-	
+
 	public JsonNode genJson(Resource resource, Map<?, ?> options) {
 		final JsonNode rootNode;
-		
+
 		if (resource.getContents().size() == 1) {
 			EObject rootObject = resource.getContents().get(0);
 			rootNode = writeEObject(rootObject, resource);
 		} else {
-			
+
 			final Collection<JsonNode> nodes = new ArrayList<JsonNode>();
 			rootNode = mapper.createArrayNode();
 
@@ -99,29 +98,29 @@ public class JSONSave {
 	public JsonNode genJson(Resource resource) {
 		return genJson(resource, Collections.emptyMap());
 	}
-	
+
 	protected JsonNode writeEObject(EObject object, Resource resource) {
 		final ObjectNode node = mapper.createObjectNode();
-		
+
 		writeEObjectAttributes(object, node);
 		writeEObjectReferences(object, node, resource);
 
 		return node;
 	}
-	
+
 	protected void writeEObjectAttributes(EObject object, ObjectNode node) {
 		final URI eClassURI = EcoreUtil.getURI(object.eClass());
+
 		if (serializeTypes) {
 			node.put(EJS_TYPE_KEYWORD, eClassURI.toString());
 		}
-		
+
 		for (EAttribute attribute: object.eClass().getEAllAttributes()) {
 
 			if (object.eIsSet(attribute) && !attribute.isDerived() 
 					&& !attribute.isTransient() && !attribute.isUnsettable()) {
 
 				if (FeatureMapUtil.isFeatureMap(attribute)) {
-
 					FeatureMap.Internal featureMap = (FeatureMap.Internal) object.eGet(attribute);
 					Iterator<FeatureMap.Entry> iterator = featureMap.basicIterator();
 
@@ -129,15 +128,12 @@ public class JSONSave {
 
 						FeatureMap.Entry entry = iterator.next();
 						EStructuralFeature feature = entry.getEStructuralFeature();
-						
+
 						if (feature instanceof EAttribute) {
 							setJsonValue(node, entry.getValue(), (EAttribute) feature);
 						}
-						
 					}
-
 				} else if (attribute.isMany()) {
-
 					EList<?> rawValues = (EList<?>) object.eGet(attribute);
 
 					if (!rawValues.isEmpty()) {
@@ -148,12 +144,9 @@ public class JSONSave {
 							setJsonValue(arrayNode, val, attribute);
 						}
 					}
-
 				} else {
-
 					final Object value = object.eGet(attribute);
 					setJsonValue(node, value, attribute);
-
 				}
 			}
 		}
@@ -174,8 +167,8 @@ public class JSONSave {
 				node.put(getElementName(attribute), doubleValue);
 			} else if (value instanceof Date) {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-		        String dateValue = sdf.format(value);
-		        node.put(getElementName(attribute), dateValue);
+				String dateValue = sdf.format(value);
+				node.put(getElementName(attribute), dateValue);
 			} else {
 				node.put(getElementName(attribute), value.toString());
 			}
@@ -197,66 +190,60 @@ public class JSONSave {
 				node.add(doubleValue);
 			} else if (value instanceof Date) {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-		        String dateValue = sdf.format(value);
-		        node.add(dateValue);
+				String dateValue = sdf.format(value);
+				node.add(dateValue);
 			} else {
 				node.add(value.toString());
 			}
 		}
 	}
-	
+
 	protected void writeEObjectReferences(EObject object, ObjectNode node, Resource resource) {
-		
+
 		for (EReference reference: object.eClass().getEAllReferences()) {
-			
+
 			if (!reference.isTransient() && object.eIsSet(reference)) {
-
-				if (ModelUtil.isMapEntry(reference.getEType())) {
-					
+				if (isMapEntry(reference.getEType())) {
 					writeMapEntry(object, reference, node);
-					
 				} else if (reference.isContainment()) {
-
 					writeEObjectContainments(object, reference, node, resource);
-
 				} else {
-
-					if (reference.isMany()) {
-
-						@SuppressWarnings("unchecked")
-						EList<EObject> values = (EList<EObject>) object.eGet(reference);
-
-						if (!values.isEmpty()) {
-
-							final ArrayNode arrayNode = mapper.createArrayNode();
-							node.put(getElementName(reference), arrayNode);
-
-							for (EObject value: values) {
-								ObjectNode nodeRef = mapper.createObjectNode();
-								nodeRef.put(EJS_REF_KEYWORD, getReference(value, resource));
-								if (serializeRefTypes) {
-									nodeRef.put(EJS_TYPE_KEYWORD, getReference(value.eClass(), resource));
-								}
-								arrayNode.add(nodeRef);
-							}
-						}
-
-					} else {
-						EObject value = (EObject) object.eGet(reference);
-						if (value != null) {
-							ObjectNode nodeRef = mapper.createObjectNode();
-							nodeRef.put(EJS_REF_KEYWORD, getReference(((EObject)value), resource));
-							if (serializeRefTypes) {
-								nodeRef.put(EJS_TYPE_KEYWORD, getReference(value.eClass(), resource));
-							}
-							node.put(reference.getName(), nodeRef);
-						}
-					}
+					writeEObjectReferences(node, object, reference);
 				}
 			}
 		}
 	}
-	
+
+	private void writeEObjectReferences(ObjectNode target, EObject eObject, EReference reference) {
+		if (reference.isMany()) {
+			@SuppressWarnings("unchecked")
+			EList<EObject> values = (EList<EObject>) eObject.eGet(reference);
+
+			final ArrayNode arrayNode = mapper.createArrayNode();
+			target.put(getElementName(reference), arrayNode);
+
+			for (EObject value: values) {
+				arrayNode.add(writeReferenceValue(eObject, value, reference));
+			}
+		} else {
+			EObject value = (EObject) eObject.eGet(reference);
+			target.put(reference.getName(), writeReferenceValue(eObject, value, reference));
+		}
+	}
+
+	private ObjectNode writeReferenceValue(EObject eObject, EObject value, EReference reference) {
+		final Resource resource = eObject.eResource();
+
+		ObjectNode node = mapper.createObjectNode();
+		node.put(EJS_REF_KEYWORD, getReference(value, resource));
+
+		if (serializeRefTypes) {
+			node.put(EJS_TYPE_KEYWORD, getReference(value.eClass(), resource));
+		}
+
+		return node;
+	}
+
 	private void writeMapEntry(EObject object, EReference reference, ObjectNode node) {
 		final ObjectNode nodeRef = mapper.createObjectNode();
 		if (reference.isMany()) {
@@ -273,43 +260,33 @@ public class JSONSave {
 		node.put(reference.getName(), nodeRef);
 	}
 
-	// if reference is containment, then objects are put in an ArrayNode
-	protected void writeEObjectContainments(EObject object, EReference reference, ObjectNode node, Resource resource) {
-
+	private void writeEObjectContainments(EObject object, EReference reference, ObjectNode node, Resource resource) {
 		if (reference.isMany()) {
-
 			@SuppressWarnings("unchecked")
 			EList<EObject> values = (EList<EObject>) object.eGet(reference);
 
-			if (!values.isEmpty()) {
-				final ArrayNode arrayNode = mapper.createArrayNode();
-				node.put(getElementName(reference), arrayNode);
+			final ArrayNode arrayNode = mapper.createArrayNode();
+			node.put(getElementName(reference), arrayNode);
 
-				for (EObject value: values) {
-					ObjectNode subNode = arrayNode.addObject();
-					if (value.eIsProxy() || !value.eResource().equals(resource)) {
-						subNode.put(EJS_REF_KEYWORD, getReference(value, resource));
-					} else {
-						writeEObjectAttributes(value, subNode);
-						writeEObjectReferences(value, subNode, resource);	
-					}
+			for (EObject value: values) {
+				ObjectNode subNode = arrayNode.addObject();
+				if (value.eIsProxy() || !value.eResource().equals(resource)) {
+					subNode.put(EJS_REF_KEYWORD, getReference(value, resource));
+				} else {
+					writeEObjectAttributes(value, subNode);
+					writeEObjectReferences(value, subNode, resource);	
 				}
 			}
-			
 		} else {
-
 			final EObject value = (EObject) object.eGet(reference);
+			final ObjectNode subNode = node.objectNode();
 
-			if (value != null) {
-				final ObjectNode subNode = node.objectNode();
-				
-				if (value.eIsProxy() || !value.eResource().equals(resource)) {
-					node.put(EJS_REF_KEYWORD, getReference(value, resource));
-				} else {
-					node.put(getElementName(reference), subNode);
-					writeEObjectAttributes((EObject) value, subNode);
-					writeEObjectReferences((EObject) value, subNode, resource);	
-				}
+			if (value.eIsProxy() || !value.eResource().equals(resource)) {
+				node.put(EJS_REF_KEYWORD, getReference(value, resource));
+			} else {
+				node.put(getElementName(reference), subNode);
+				writeEObjectAttributes((EObject) value, subNode);
+				writeEObjectReferences((EObject) value, subNode, resource);	
 			}
 		}
 
@@ -339,7 +316,7 @@ public class JSONSave {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void configure() {
 		if (options.containsKey(EMFJs.OPTION_INDENT_OUTPUT)) {
 			try {
@@ -363,8 +340,8 @@ public class JSONSave {
 			}
 		}
 	}
-	
-	protected String getReference(EObject obj, Resource resource) {
+
+	private String getReference(EObject obj, Resource resource) {
 		if (obj.eIsProxy()) {
 			return ((InternalEObject)obj).eProxyURI().toString();
 		}
