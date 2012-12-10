@@ -21,9 +21,11 @@ import java.util.Map;
 import org.codehaus.jackson.JsonNode;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 
@@ -33,7 +35,7 @@ import org.eclipse.emf.ecore.EcorePackage;
  *
  */
 public class ModelUtil {
-	
+
 	public static String getElementName(EStructuralFeature feature) {
 		final EAnnotation annotation = feature.getEAnnotation(EJS_JSON_ANNOTATION);
 		if (annotation != null && annotation.getDetails().containsKey(EJS_ELEMENT_ANNOTATION)) {
@@ -42,14 +44,71 @@ public class ModelUtil {
 		return feature.getName();
 	}
 
-    public static boolean isAnonRoot(EStructuralFeature feature) {
-        final EAnnotation annotation = feature.getEAnnotation(EJS_JSON_ANNOTATION);
-        if (annotation != null && annotation.getDetails().containsKey("AnonRoot")) {
-            return annotation.getDetails().get("AnonRoot").equals("true");
-        }
-        return false;
-    }	
-	
+	public static EAttribute getEAttribute(EClass eClass, String key) {
+		if (eClass == null || key == null) return null;
+
+		EStructuralFeature eStructuralFeature = eClass.getEStructuralFeature(key);
+		if (eStructuralFeature == null) {
+			int i = 0;
+			while(i < eClass.getEAllAttributes().size() && eStructuralFeature == null) {
+				EAttribute eAttribute = eClass.getEAllAttributes().get(i);
+				if (key.equals(getElementName(eAttribute))) {
+					eStructuralFeature = eAttribute;
+				}
+				i++;
+			}
+		}
+		return eStructuralFeature instanceof EAttribute ? (EAttribute) eStructuralFeature : null;
+	}
+
+	public static EReference getEReference(EClass eClass, String key) {
+		if (eClass == null || key == null) return null;
+
+		EStructuralFeature eStructuralFeature = eClass.getEStructuralFeature(key);
+		if (eStructuralFeature == null) {
+			int i = 0;
+			while(i < eClass.getEAllReferences().size() && eStructuralFeature == null) {
+				EReference eReference = eClass.getEAllReferences().get(i);
+				if (key.equals(getElementName(eReference))) {
+					eStructuralFeature = eReference;
+				}
+				i++;
+			}
+		}
+		return eStructuralFeature instanceof EReference ? (EReference) eStructuralFeature : null;
+	}
+
+	public static EStructuralFeature getDynamicMapEntryFeature(EClass eClass) {
+		if (eClass == null) return null;
+
+		EStructuralFeature eMapEntry = null;
+		int i = 0;
+
+		while(i < eClass.getEAllStructuralFeatures().size() && eMapEntry == null) {
+			EStructuralFeature eFeature = eClass.getEAllStructuralFeatures().get(i);
+			if (isDynamicMapEntryFeature(eFeature)) {
+				eMapEntry = eFeature;
+			}
+			i++;
+		}
+
+		return eMapEntry;
+	}
+
+	public static boolean isDynamicMapEntryFeature(EStructuralFeature eFeature) {
+		if (eFeature != null && isMapEntry(eFeature.getEType())) {
+			EAnnotation annotation = eFeature.getEAnnotation(EJS_JSON_ANNOTATION);
+			if (annotation != null && annotation.getDetails().containsKey("dynamicMap")) {
+				return Boolean.parseBoolean(annotation.getDetails().get("dynamicMap"));
+			}
+		}
+		return false;
+	}
+
+	public static boolean isMapEntry(EClassifier eType) {
+		return eType != null && eType.equals(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY);
+	}
+
 	public static String getRootNode(EObject object) {
 		if (object instanceof EClass) {
 			EClass eClass = (EClass) object;
@@ -85,10 +144,10 @@ public class ModelUtil {
 
 		return new URL(outURI.toString());
 	}
-	
+
 	public static URI getEObjectURI(JsonNode jsonNode, URI uri, Map<String, String> nsMap) {
 		if (jsonNode == null) return null;
-		
+
 		final String value = jsonNode.getTextValue();
 		if (value.startsWith("#//")) { // is fragment
 			return URI.createURI(uri+value);
@@ -102,9 +161,5 @@ public class ModelUtil {
 			return uri.appendFragment(value);
 		}
 	}
-	
-	public static boolean isMapEntry(EClassifier eType) {
-		return eType.equals(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY);
-	}
-	
+
 }
