@@ -852,8 +852,17 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getObjectWithMap_Dependencies() {
+	public EReference getObjectWithMap_Entries() {
 		return (EReference)objectWithMapEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getObjectWithMap_Dependencies() {
+		return (EReference)objectWithMapEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -985,6 +994,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(nodeEClass, NODE__UNIQUE_CHILD);
 
 		objectWithMapEClass = createEClass(OBJECT_WITH_MAP);
+		createEReference(objectWithMapEClass, OBJECT_WITH_MAP__ENTRIES);
 		createEReference(objectWithMapEClass, OBJECT_WITH_MAP__DEPENDENCIES);
 
 		// Create enums
@@ -1109,6 +1119,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEReference(getNode_UniqueChild(), this.getNode(), null, "uniqueChild", null, 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(objectWithMapEClass, ObjectWithMap.class, "ObjectWithMap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getObjectWithMap_Entries(), ecorePackage.getEStringToStringMapEntry(), null, "entries", null, 0, -1, ObjectWithMap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getObjectWithMap_Dependencies(), ecorePackage.getEStringToStringMapEntry(), null, "dependencies", null, 0, -1, ObjectWithMap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
@@ -1142,7 +1153,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		   source, 
 		   new String[] {
 			 "root", "true"
-		   });						
+		   });								
+		addAnnotation
+		  (getObjectWithMap_Entries(), 
+		   source, 
+		   new String[] {
+			 "dynamicMap", "true"
+		   });
 	}
 
 	/**
@@ -1188,7 +1205,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		   source, 
 		   new String[] {
 			 "kind", "group"
-		   });
+		   });	
 	}
 
 } //ModelPackageImpl

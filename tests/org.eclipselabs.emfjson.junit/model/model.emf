@@ -116,6 +116,7 @@ class Node {
 }
 
 class ObjectWithMap {
+  @JSON(dynamicMap="true")
+  val ecore.EStringToStringMapEntry[*] entries;
   val ecore.EStringToStringMapEntry[*] dependencies;
 }
-

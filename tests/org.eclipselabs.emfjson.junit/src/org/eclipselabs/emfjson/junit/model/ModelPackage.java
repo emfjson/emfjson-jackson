@@ -860,13 +860,22 @@ public interface ModelPackage extends EPackage {
 	int OBJECT_WITH_MAP = 10;
 
 	/**
+	 * The feature id for the '<em><b>Entries</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OBJECT_WITH_MAP__ENTRIES = 0;
+
+	/**
 	 * The feature id for the '<em><b>Dependencies</b></em>' map.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OBJECT_WITH_MAP__DEPENDENCIES = 0;
+	int OBJECT_WITH_MAP__DEPENDENCIES = 1;
 
 	/**
 	 * The number of structural features of the '<em>Object With Map</em>' class.
@@ -875,7 +884,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OBJECT_WITH_MAP_FEATURE_COUNT = 1;
+	int OBJECT_WITH_MAP_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipselabs.emfjson.junit.model.Sex <em>Sex</em>}' enum.
@@ -1691,6 +1700,17 @@ public interface ModelPackage extends EPackage {
 	EClass getObjectWithMap();
 
 	/**
+	 * Returns the meta object for the map '{@link org.eclipselabs.emfjson.junit.model.ObjectWithMap#getEntries <em>Entries</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the map '<em>Entries</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.ObjectWithMap#getEntries()
+	 * @see #getObjectWithMap()
+	 * @generated
+	 */
+	EReference getObjectWithMap_Entries();
+
+	/**
 	 * Returns the meta object for the map '{@link org.eclipselabs.emfjson.junit.model.ObjectWithMap#getDependencies <em>Dependencies</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2349,6 +2369,14 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass OBJECT_WITH_MAP = eINSTANCE.getObjectWithMap();
+
+		/**
+		 * The meta object literal for the '<em><b>Entries</b></em>' map feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OBJECT_WITH_MAP__ENTRIES = eINSTANCE.getObjectWithMap_Entries();
 
 		/**
 		 * The meta object literal for the '<em><b>Dependencies</b></em>' map feature.
