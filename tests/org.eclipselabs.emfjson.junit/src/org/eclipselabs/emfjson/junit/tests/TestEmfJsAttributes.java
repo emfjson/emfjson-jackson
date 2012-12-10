@@ -35,6 +35,7 @@ import org.eclipselabs.emfjson.junit.model.ETypes;
 import org.eclipselabs.emfjson.junit.model.ModelFactory;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
 import org.eclipselabs.emfjson.junit.model.Node;
+import org.eclipselabs.emfjson.junit.model.ObjectWithMap;
 import org.eclipselabs.emfjson.junit.model.PrimaryObject;
 import org.eclipselabs.emfjson.junit.model.User;
 import org.eclipselabs.emfjson.junit.support.TestSupport;
@@ -253,6 +254,22 @@ public class TestEmfJsAttributes extends TestSupport {
 		
 		assertEquals( "311", ((Node) proxies2.basicGet(0)).getLabel() );
 		assertEquals( "3112", ((Node) proxies2.basicGet(1)).getLabel() );
+	}
+	
+	@Test
+	public void testLoadRootObjectMap() throws IOException {
+		options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.Literals.OBJECT_WITH_MAP);
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test-map-anon-root.json"));
+		resource.load(options);
+		
+		ObjectWithMap root = (ObjectWithMap) resource.getContents().get(0);
+		
+		assertEquals("https://api.opscode.com/organizations/chefclipse/nodes/server-64668.novalocal", 
+				root.getEntries().get("server-64668.novalocal"));
+		assertEquals("https://api.opscode.com/organizations/chefclipse/nodes/server-64642.novalocal", 
+				root.getEntries().get("server-64642.novalocal"));
+		assertEquals("https://api.opscode.com/organizations/chefclipse/nodes/server-253389.novalocal", 
+				root.getEntries().get("server-253389.novalocal"));
 	}
 	
 }
