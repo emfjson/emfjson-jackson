@@ -13,6 +13,7 @@ package org.eclipselabs.emfjson.internal;
 import static org.eclipselabs.emfjson.common.Constants.EJS_REF_KEYWORD;
 import static org.eclipselabs.emfjson.common.Constants.EJS_TYPE_KEYWORD;
 import static org.eclipselabs.emfjson.common.ModelUtil.getElementName;
+import static org.eclipselabs.emfjson.common.ModelUtil.isDynamicMapEntryFeature;
 import static org.eclipselabs.emfjson.common.ModelUtil.isMapEntry;
 
 import java.io.IOException;
@@ -36,16 +37,19 @@ import org.codehaus.jackson.node.ObjectNode;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
 import org.eclipselabs.emfjson.EMFJs;
+import org.eclipselabs.emfjson.common.ModelUtil;
 
 /**
  * 
@@ -99,16 +103,17 @@ public class JSONSave {
 		return genJson(resource, Collections.emptyMap());
 	}
 
-	protected JsonNode writeEObject(EObject object, Resource resource) {
+	private JsonNode writeEObject(EObject object, Resource resource) {
 		final ObjectNode node = mapper.createObjectNode();
 
 		writeEObjectAttributes(object, node);
 		writeEObjectReferences(object, node, resource);
+		writeDynamicMap(object, node);
 
 		return node;
 	}
 
-	protected void writeEObjectAttributes(EObject object, ObjectNode node) {
+	private void writeEObjectAttributes(EObject object, ObjectNode node) {
 		final URI eClassURI = EcoreUtil.getURI(object.eClass());
 
 		if (serializeTypes) {
@@ -147,6 +152,25 @@ public class JSONSave {
 				} else {
 					final Object value = object.eGet(attribute);
 					setJsonValue(node, value, attribute);
+				}
+			}
+		}
+	}
+
+	private void writeDynamicMap(EObject eObject, ObjectNode node) {
+		EClass eClass = eObject.eClass();
+		EStructuralFeature eFeature = ModelUtil.getDynamicMapEntryFeature(eClass);
+	
+		if (eFeature != null) {
+			@SuppressWarnings("unchecked")
+			EList<EObject> values = (EList<EObject>) eObject.eGet(eFeature);
+	
+			for (EObject value: values) {
+				Object key = value.eGet(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY__KEY);
+				Object val = value.eGet(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY__VALUE);
+	
+				if (key instanceof String && val instanceof String) {
+					node.put((String) key, (String) val);
 				}
 			}
 		}
@@ -198,11 +222,13 @@ public class JSONSave {
 		}
 	}
 
-	protected void writeEObjectReferences(EObject object, ObjectNode node, Resource resource) {
+	private void writeEObjectReferences(EObject object, ObjectNode node, Resource resource) {
 
 		for (EReference reference: object.eClass().getEAllReferences()) {
 
-			if (!reference.isTransient() && object.eIsSet(reference)) {
+			if (!reference.isTransient() && object.eIsSet(reference) && 
+					!isDynamicMapEntryFeature(reference)) {
+
 				if (isMapEntry(reference.getEType())) {
 					writeMapEntry(object, reference, node);
 				} else if (reference.isContainment()) {
@@ -274,6 +300,7 @@ public class JSONSave {
 					subNode.put(EJS_REF_KEYWORD, getReference(value, resource));
 				} else {
 					writeEObjectAttributes(value, subNode);
+					writeDynamicMap(value, subNode);
 					writeEObjectReferences(value, subNode, resource);	
 				}
 			}
@@ -285,8 +312,9 @@ public class JSONSave {
 				node.put(EJS_REF_KEYWORD, getReference(value, resource));
 			} else {
 				node.put(getElementName(reference), subNode);
-				writeEObjectAttributes((EObject) value, subNode);
-				writeEObjectReferences((EObject) value, subNode, resource);	
+				writeEObjectAttributes(value, subNode);
+				writeDynamicMap(value, subNode);
+				writeEObjectReferences(value, subNode, resource);	
 			}
 		}
 
