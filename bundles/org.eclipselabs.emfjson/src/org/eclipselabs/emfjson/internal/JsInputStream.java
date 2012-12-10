@@ -29,15 +29,15 @@ import org.eclipselabs.emfjson.common.ModelUtil;
  *
  */
 public abstract class JsInputStream extends InputStream implements URIConverter.Loadable {
-	
+
 	protected URI uri;
 	protected Map<?, ?> options;
-	
+
 	public JsInputStream(URI uri, Map<?, ?> options) {
 		this.uri = uri;
 		this.options = options;
 	}
-	
+
 	@Override
 	public void loadResource(Resource resource) throws IOException {
 		URL url = null;
@@ -50,7 +50,7 @@ public abstract class JsInputStream extends InputStream implements URIConverter.
 		final JSONLoad loader = new JSONLoad(url, options);
 		loader.fillResource(resource);
 	}
-	
+
 	@Override
 	public int read() throws IOException {
 		return 0;

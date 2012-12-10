@@ -26,6 +26,7 @@ public class JSUtil {
 	public static JsonParser getJsonParser(URL url) {
 		final JsonFactory jsonFactory = new JsonFactory();  
 		JsonParser jp = null;
+
 		try {
 			jp = jsonFactory.createJsonParser(url);
 		} catch (JsonParseException e1) {
@@ -33,12 +34,14 @@ public class JSUtil {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+
 		return jp;
 	}
 
 	public static JsonParser getJsonParser(InputStream inStream) {
 		final JsonFactory jsonFactory = new JsonFactory();  
 		JsonParser jp = null;
+
 		try {
 			jp = jsonFactory.createJsonParser(inStream);
 		} catch (JsonParseException e1) {
@@ -46,6 +49,7 @@ public class JSUtil {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+
 		return jp;
 	}
 
@@ -81,10 +85,10 @@ public class JSUtil {
 			JsonNode root = getRootNode(parser);
 
 			return findNode(root, resourceSet, current, objectURI);
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 		return null;
 	}
 

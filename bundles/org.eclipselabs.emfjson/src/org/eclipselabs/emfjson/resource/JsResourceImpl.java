@@ -27,11 +27,11 @@ import org.eclipselabs.emfjson.internal.JSONSave;
  * A {@link Resource} implementation that read and write it's content in JSON.
  */
 public class JsResourceImpl extends ResourceImpl {
-	
+
 	public JsResourceImpl() {
 		super();
 	}
-	
+
 	public JsResourceImpl(URI uri) {
 		super(uri);
 	}
@@ -41,21 +41,21 @@ public class JsResourceImpl extends ResourceImpl {
 		if (options == null) {
 			options = Collections.<String, Object> emptyMap();
 		}
-		
+
 		final JSONLoad loader = new JSONLoad(inputStream, options);
 		loader.fillResource(this);
 	}
-	
+
 	@Override
 	protected void doSave(OutputStream outputStream, Map<?, ?> options) throws IOException {
 		if (options == null) {
 			options = Collections.<String, Object> emptyMap();
 		}
-		
+
 		final JSONSave writer = new JSONSave(options);
 		final JsonNode rootNode = writer.genJson(this, options);
-		
+
 		writer.writeValue(outputStream, rootNode);
 	}
-	
+
 }
