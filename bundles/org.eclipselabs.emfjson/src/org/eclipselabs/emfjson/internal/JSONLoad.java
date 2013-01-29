@@ -44,6 +44,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipselabs.emfjson.EMFJs;
 import org.eclipselabs.emfjson.common.ModelUtil;
 
@@ -306,7 +307,7 @@ public class JSONLoad {
 		EObject proxy = getOrCreateProxyReference(reference, root, node, resource);
 		if (proxy != null && reference.isMany()) {
 			@SuppressWarnings("unchecked")
-			EList<EObject> values = (EList<EObject>) eObject.eGet(reference);
+			InternalEList<EObject> values = (InternalEList<EObject>) eObject.eGet(reference);
 			values.add(proxy);
 		} else if (proxy != null) {
 			eObject.eSet(reference, proxy);
