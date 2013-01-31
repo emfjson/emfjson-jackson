@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: EMFJs Example
 Bundle-SymbolicName: org.eclipselabs.emfjson.example;singleton:=true
-Bundle-Version: 0.5.1.qualifier
+Bundle-Version: 0.5.2.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: Eclipse Labs
 Bundle-Localization: plugin

@@ -2,7 +2,7 @@
 <feature
       id="org.eclipselabs.emfjson.modelgen.feature"
       label="EMFJs Model Generator"
-      version="0.5.1.qualifier"
+      version="0.5.2.qualifier"
       provider-name="Eclipse Labs">
 
    <description url="http://www.example.com/description">
