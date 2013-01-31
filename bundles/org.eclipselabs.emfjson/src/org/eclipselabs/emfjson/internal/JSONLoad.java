@@ -308,7 +308,7 @@ public class JSONLoad {
 		if (proxy != null && reference.isMany()) {
 			@SuppressWarnings("unchecked")
 			InternalEList<EObject> values = (InternalEList<EObject>) eObject.eGet(reference);
-			values.add(proxy);
+			values.addUnique(proxy);
 		} else if (proxy != null) {
 			eObject.eSet(reference, proxy);
 		}
