@@ -26,6 +26,7 @@
 
 	<properties>
 		<tycho-version>0.16.0</tycho-version>
+		<project-version>0.5.2-SNAPSHOT</project-version>
 		<targets>build/repository/target/</targets>
 		<build-type>snapshots</build-type>
 	</properties>

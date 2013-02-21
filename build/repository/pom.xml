@@ -30,7 +30,7 @@
 								<phase>install</phase>
 								<configuration>
 									<tasks>
-										<unzip src="target/org.eclipselabs.emfjson.repository.zip"
+										<unzip src="target/org.eclipselabs.emfjson.repository-${project-version}.zip"
 											dest="../../../p2/emfjson/${build-type}" />
 									</tasks>
 								</configuration>
