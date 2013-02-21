@@ -92,6 +92,7 @@ public class JSUtil {
 		return null;
 	}
 
+	@SuppressWarnings("deprecation")
 	private static JsonNode findNode(JsonNode node, ResourceSet resourceSet, String fragment, URI objectURI) {
 		if (node.isArray()) {
 			int pos = 0;
@@ -104,7 +105,7 @@ public class JSUtil {
 				if (currentEClass != null) {
 					EAttribute id = currentEClass.getEIDAttribute();
 					if (id != null) {
-						if (objectURI.trimFragment().appendFragment(current.get(id.getName()).asText()).equals(objectURI)) {
+						if (objectURI.trimFragment().appendFragment(current.get(id.getName()).getValueAsText()).equals(objectURI)) {
 							return current;
 						}
 					} else {
@@ -134,7 +135,7 @@ public class JSUtil {
 			if (currentEClass != null) {
 				EAttribute id = currentEClass.getEIDAttribute();
 				if (id != null) {
-					if (objectURI.trimFragment().appendFragment(node.get(id.getName()).asText()).equals(objectURI)) {
+					if (objectURI.trimFragment().appendFragment(node.get(id.getName()).getValueAsText()).equals(objectURI)) {
 						return node;
 					}
 				} else {

@@ -165,8 +165,11 @@ public class JSONLoad {
 		return null;
 	}
 
-	private void fillEAttribute(EObject container, JsonNode root) {
+	private void fillEAttribute(EObject container, JsonNode node) {
 		final EClass eClass = container.eClass();
+		if (!(node instanceof ObjectNode)) return;
+		
+		final ObjectNode root = (ObjectNode) node;
 	
 		// Iterates over all key values of the JSON Object,
 		// if the value is not an object then
@@ -201,9 +204,11 @@ public class JSONLoad {
 		}
 	}
 
-	private void fillEContainment(EObject eObject, JsonNode root, Resource resource) {
+	private void fillEContainment(EObject eObject, JsonNode node, Resource resource) {
 		final EClass eClass = eObject.eClass();
-
+		if (!(node instanceof ObjectNode)) return;
+		
+		final ObjectNode root = (ObjectNode) node;
 		for (Iterator<Entry<String, JsonNode>> it = root.getFields(); it.hasNext();) {
 			Entry<String, JsonNode> field = it.next();
 
@@ -221,9 +226,11 @@ public class JSONLoad {
 		}
 	}
 
-	private void fillEReference(EObject eObject, JsonNode root, Resource resource) {
+	private void fillEReference(EObject eObject, JsonNode node, Resource resource) {
 		final EClass eClass = eObject.eClass();
+		if (!(node instanceof ObjectNode)) return;
 	
+		final ObjectNode root = (ObjectNode) node;
 		for (Iterator<Entry<String, JsonNode>> it = root.getFields(); it.hasNext();) {
 			Entry<String, JsonNode> field = it.next();
 	
@@ -337,7 +344,10 @@ public class JSONLoad {
 		}
 	}
 
-	private void createMapEntry(EObject container, EReference reference, JsonNode node) {
+	private void createMapEntry(EObject container, EReference reference, JsonNode jsonNode) {
+		if (!(jsonNode instanceof ObjectNode)) return;
+		final ObjectNode node = (ObjectNode) jsonNode;
+
 		if (reference.isMany()) {
 			@SuppressWarnings("unchecked")
 			EList<EObject> values = (EList<EObject>) container.eGet(reference);
@@ -435,6 +445,7 @@ public class JSONLoad {
 		return null;
 	}
 
+	@SuppressWarnings("deprecation")
 	private EClass findEClass(EClass eReferenceType, JsonNode node, JsonNode root, Resource resource) {
 		if (eReferenceType.isAbstract() || node.get(EJS_TYPE_KEYWORD) != null) {
 
@@ -447,7 +458,7 @@ public class JSONLoad {
 				}
 
 				if (node.has(EJS_TYPE_KEYWORD)) {
-					refURI = URI.createURI(node.get(EJS_TYPE_KEYWORD).asText());
+					refURI = URI.createURI(node.get(EJS_TYPE_KEYWORD).getValueAsText());
 					eObject = resourceSet.getEObject(refURI, false);
 					if (eObject != null) {
 						return (EClass) eObject;
