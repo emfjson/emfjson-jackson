@@ -18,21 +18,21 @@
    </license>
 
    <plugin
-         id="org.eclipselabs.emfjson"
+         id="org.eclipselabs.emfjson.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.eclipselabs.emfjson.modelgen"
+         id="org.eclipselabs.emfjson.modelgen.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.eclipselabs.emfjson.ui"
+         id="org.eclipselabs.emfjson.ui.source"
          download-size="0"
          install-size="0"
          version="0.0.0"

@@ -16,16 +16,16 @@
 
 		<module>bundles/org.eclipselabs.emfjson.modelgen</module>
 		<module>features/org.eclipselabs.emfjson.modelgen.feature</module>
-		
+
 		<module>features/org.eclipselabs.emfjson.source.feature</module>
-		
+
 		<module>tests/org.eclipselabs.emfjson.junit</module>
 
 		<module>build/repository</module>
 	</modules>
 
 	<properties>
-		<tycho-version>0.14.0</tycho-version>
+		<tycho-version>0.16.0</tycho-version>
 		<targets>build/repository/target/</targets>
 		<build-type>snapshots</build-type>
 	</properties>
@@ -119,6 +119,21 @@
 				<configuration>
 					<publishArtifacts>true</publishArtifacts>
 				</configuration>
+			</plugin>
+
+			<!-- enable source bundle generation -->
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-source-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<executions>
+					<execution>
+						<id>plugin-source</id>
+						<goals>
+							<goal>plugin-source</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 			<plugin>
