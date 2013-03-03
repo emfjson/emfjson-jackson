@@ -29,6 +29,8 @@
 		<project-version>0.5.2-SNAPSHOT</project-version>
 		<targets>build/repository/target/</targets>
 		<build-type>snapshots</build-type>
+		<repository.directory>/Users/guillaume/Projects/maven-repository</repository.directory>
+		<github.global.server>github</github.global.server>
 	</properties>
 
 	<repositories>
@@ -143,8 +145,52 @@
 				<version>2.0-beta-9</version>
 			</plugin>
 
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<version>0.7</version>
+				<configuration>
+					<!-- git commit message -->
+					<message>Maven artifacts for ${project.version}</message>
+					<!-- disable webpage processing -->
+					<noJekyll>true</noJekyll>
+					<!-- matches distribution management repository url above -->
+					<outputDirectory>${repository.directory}</outputDirectory>
+					<!-- remote branch name -->
+					<branch>refs/heads/master</branch>
+					<includes>
+						<include>**/*</include>
+					</includes>
+					<!-- github repo name -->
+					<repositoryName>maven-repository</repositoryName>
+					<!-- github username -->
+					<repositoryOwner>ghillairet</repositoryOwner>
+				</configuration>
+				<executions>
+					<!-- run site-maven-plugin's 'site' target as part of the build's normal 
+						'deploy' phase -->
+					<execution>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<phase>deploy</phase>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>github-release</id>
+			<url>file://${repository.directory}/release</url>
+		</repository>
+		<snapshotRepository>
+			<id>github-snapshot</id>
+			<url>file://${repository.directory}/snapshot</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<scm>
 		<url>scm:git:git@github.com:ghillairet/emfjson.git</url>
