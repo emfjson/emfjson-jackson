@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<site>
-   <feature url="features/org.eclipselabs.emfjson.gwt.feature_0.5.2.qualifier.jar" id="org.eclipselabs.emfjson.gwt.feature" version="0.5.1.qualifier">
-      <category name="org.eclipselabs.emfjson.gwt"/>
-   </feature>
-   <category-def name="org.eclipselabs.emfjson.gwt" label="EMFJs GWT Runtime"/>
-</site>
