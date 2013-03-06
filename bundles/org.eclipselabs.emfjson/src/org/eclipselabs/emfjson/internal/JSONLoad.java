@@ -59,6 +59,8 @@ public class JSONLoad {
 	private ResourceSet resourceSet;
 	private boolean useProxyAttributes = false;
 	private Map<EObject, JsonNode> processed = new HashMap<EObject, JsonNode>();
+	private JsonParser parser;
+	private Map<?, ?> options;
 
 	public JSONLoad(InputStream inStream, Map<?,?> options) {
 		init(JSUtil.getJsonParser(inStream), options);
@@ -68,41 +70,16 @@ public class JSONLoad {
 		init(JSUtil.getJsonParser(url), options);
 	}
 
-	@SuppressWarnings("deprecation")
 	private void init(JsonParser parser, Map<?,?> options) {
 		processed.clear();
+		this.parser = parser;
 
 		if (options == null) {
 			options = Collections.emptyMap();
 		}
-
-		JsonNode root = JSUtil.getRootNode(parser);
-
-		if (root == null) { 
-			throw new IllegalArgumentException("root node should not be null.");
-		}
+		this.options = options;
 
 		useProxyAttributes = Boolean.TRUE.equals(options.get(EMFJs.OPTION_PROXY_ATTRIBUTES));
-
-		if (!root.isArray()) {
-			if (root.has(EJS_TYPE_KEYWORD)) {
-				this.rootClass = getEClass(URI.createURI(root.get(EJS_TYPE_KEYWORD).getValueAsText()));
-			}
-		}
-
-		if (rootClass == null) {
-			this.rootClass = (EClass) options.get(EMFJs.OPTION_ROOT_ELEMENT);
-		}
-
-		final String path = ModelUtil.getRootNode(this.rootClass);
-
-		if (path == null) {
-			this.rootNode = root;
-		} else {
-			this.rootNode = root.findPath(path);
-		}
-
-		fillNamespaces(root);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -117,8 +94,34 @@ public class JSONLoad {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public void fillResource(Resource resource) { 
 		this.resourceSet = resource.getResourceSet() != null ? resource.getResourceSet() : new ResourceSetImpl();
+		JsonNode root = JSUtil.getRootNode(parser);
+
+		if (root == null) { 
+			throw new IllegalArgumentException("root node should not be null.");
+		}
+
+		if (!root.isArray()) {
+			if (root.has(EJS_TYPE_KEYWORD)) {
+				URI eClassURI = URI.createURI(root.get(EJS_TYPE_KEYWORD).getValueAsText());
+				this.rootClass = getEClass(eClassURI, resourceSet);
+			}
+		}
+
+		if (rootClass == null) {
+			this.rootClass = (EClass) options.get(EMFJs.OPTION_ROOT_ELEMENT);
+		}
+
+		final String path = ModelUtil.getRootNode(this.rootClass);
+		fillNamespaces(root);
+
+		if (path == null) {
+			this.rootNode = root;
+		} else {
+			this.rootNode = root.findPath(path);
+		}
 
 		// Process json tree and create EObjects with containment references. 
 		if (this.rootNode.isArray()) {
@@ -127,7 +130,7 @@ public class JSONLoad {
 				JsonNode node = it.next();
 				EClass eClass = null;
 				try {
-					eClass = getEClass(node, true);
+					eClass = getEClass(node, resourceSet, true);
 				} catch (IllegalArgumentException e) {
 					e.printStackTrace();
 				}
@@ -390,20 +393,17 @@ public class JSONLoad {
 		return proxy;
 	}
 
-	private EClass getEClass(URI uri) {
-		if (resourceSet == null) {
-			return (EClass) new ResourceSetImpl().getEObject(uri, false);	
-		}
-		return (EClass) resourceSet.getEObject(uri, false);
+	private EClass getEClass(URI uri, ResourceSet resourceSet) {
+		return (EClass) resourceSet.getEObject(uri, true);
 	}
 
 	@SuppressWarnings("deprecation")
-	private EClass getEClass(JsonNode node, boolean isRoot) throws IllegalArgumentException {
+	private EClass getEClass(JsonNode node, ResourceSet resourceSet, boolean isRoot) throws IllegalArgumentException {
 		if (isRoot && rootClass != null) {
 			return rootClass;
 		} else {
 			if (node.has(EJS_TYPE_KEYWORD)) {
-				return getEClass(URI.createURI(node.get(EJS_TYPE_KEYWORD).getValueAsText()));
+				return getEClass(URI.createURI(node.get(EJS_TYPE_KEYWORD).getValueAsText()), resourceSet);
 			} else {
 				throw new IllegalArgumentException("Cannot find EClass for node "+node);
 			}
