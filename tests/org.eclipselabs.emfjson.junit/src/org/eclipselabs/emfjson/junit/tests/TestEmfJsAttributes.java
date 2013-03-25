@@ -18,11 +18,15 @@ import static org.junit.Assert.assertTrue;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -91,6 +95,24 @@ public class TestEmfJsAttributes extends TestSupport {
 	}
 	
 	@Test
+	public void testLoadIntValues() throws IOException {
+		String inputString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eInt\":1,\"eInts\":[1,2]}";
+		
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+		resource.load(new ByteArrayInputStream(inputString.getBytes()), null);
+		
+		assertEquals(1, resource.getContents().size());
+		
+		EObject root = resource.getContents().get(0);
+		assertEquals(ModelPackage.Literals.ETYPES, root.eClass());
+		
+		EList<Integer> ints = ((ETypes) root).getEInts();
+		assertEquals(2, ints.size());
+		assertTrue(1 == ints.get(0));
+		assertTrue(2 == ints.get(1));
+	}
+	
+	@Test
 	public void testBooleanValues() throws IOException {
 		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eBoolean\":true,\"eBooleans\":[false,true]}";
 		
@@ -110,7 +132,7 @@ public class TestEmfJsAttributes extends TestSupport {
 		
 		assertEquals(expectedString, new String(outStream.toByteArray()));
 	}
-	
+
 	@Test
 	public void testDateValue() throws IOException {
 		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eDate\":\"2011-10-10T00:00:00\"}";
@@ -130,7 +152,90 @@ public class TestEmfJsAttributes extends TestSupport {
 		
 		assertEquals(expectedString, new String(outStream.toByteArray()));
 	}
+
+	@Test
+	public void testBigIntegerValue() throws IOException {
+		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eBigInteger\":\"15\"}";
+
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+
+		ETypes valueObject = ModelFactory.eINSTANCE.createETypes();
+		valueObject.setEBigInteger(new BigInteger("15"));
+		resource.getContents().add(valueObject);
+
+		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+		resource.save(outStream, options);
+
+		assertEquals(expectedString, new String(outStream.toByteArray()));
+	}
 	
+	@Test
+	public void testLoadBigIntegerValue() throws IOException {
+		String inputString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eBigInteger\":\"15\"}";
+		
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+		resource.load(new ByteArrayInputStream(inputString.getBytes()), null);
+		
+		assertEquals(1, resource.getContents().size());
+		
+		EObject root = resource.getContents().get(0);
+		assertEquals(ModelPackage.Literals.ETYPES, root.eClass());
+		
+		BigInteger value = ((ETypes) root).getEBigInteger();
+		
+		assertEquals(new BigInteger("15"), value);
+	}
+	
+	@Test
+	public void testByteValue() throws IOException {
+		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eByte\":1}";
+
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+
+		ETypes valueObject = ModelFactory.eINSTANCE.createETypes();
+		byte b = 1;
+		valueObject.setEByte(b);
+		resource.getContents().add(valueObject);
+
+		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+		resource.save(outStream, options);
+
+		assertEquals(expectedString, new String(outStream.toByteArray()));
+	}
+
+	@Test
+	public void testBigDecimalValue() throws IOException {
+		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eBigDecimal\":1.5}";
+
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+
+		ETypes valueObject = ModelFactory.eINSTANCE.createETypes();
+		valueObject.setEBigDecimal(new BigDecimal(1.5));
+		resource.getContents().add(valueObject);
+
+		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+		resource.save(outStream, options);
+
+		assertEquals(expectedString, new String(outStream.toByteArray()));
+	}
+	
+	@Test
+	public void testLoadBigDecimalValue() throws IOException {
+		String inputString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eBigDecimal\":1.5}";
+		
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+		resource.load(new ByteArrayInputStream(inputString.getBytes()), null);
+		
+		assertEquals(1, resource.getContents().size());
+		
+		EObject root = resource.getContents().get(0);
+		assertEquals(ModelPackage.Literals.ETYPES, root.eClass());
+		
+		BigDecimal value = ((ETypes) root).getEBigDecimal();
+		
+		assertEquals(new BigDecimal(1.5), value);
+	}
+
 	@Test
 	public void testFeatureMap() throws IOException {
 		// Setup : Create a primary object and two attributes for the feature map.

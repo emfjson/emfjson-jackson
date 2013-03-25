@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipselabs.emfjson.junit.suite;
 
+import org.eclipselabs.emfjson.junit.tests.TestEmfJsAnnotations;
 import org.eclipselabs.emfjson.junit.tests.TestEmfJsAttributes;
 import org.eclipselabs.emfjson.junit.tests.TestEmfJsReferences;
 import org.eclipselabs.emfjson.junit.tests.TestPolymorphicType;
@@ -19,8 +20,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-	TestEmfJsReferences.class, TestEmfJsAttributes.class, TestPolymorphicType.class
-//	TestSearchBasic.class, TestStatusesBasic.class, 
-//	org.eclipselabs.emfjson.youtube.junit.tests.TestSearchBasic.class
+	TestEmfJsReferences.class, TestEmfJsAttributes.class, 
+	TestPolymorphicType.class, TestEmfJsAnnotations.class
 })
 public class TestSuite {}
