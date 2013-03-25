@@ -5,17 +5,15 @@
 	<groupId>org.eclipselabs</groupId>
 	<artifactId>emfjson</artifactId>
 	<packaging>pom</packaging>
-	<version>0.5.2-SNAPSHOT</version>
+	<version>0.5.3-SNAPSHOT</version>
 
 	<modules>
 		<module>bundles/org.eclipselabs.emfjson</module>
 		<module>features/org.eclipselabs.emfjson.feature</module>
 
+		<module>bundles/org.eclipselabs.emfjson.modelgen</module>
 		<module>bundles/org.eclipselabs.emfjson.ui</module>
 		<module>features/org.eclipselabs.emfjson.ui.feature</module>
-
-		<module>bundles/org.eclipselabs.emfjson.modelgen</module>
-		<module>features/org.eclipselabs.emfjson.modelgen.feature</module>
 
 		<module>features/org.eclipselabs.emfjson.source.feature</module>
 
@@ -26,7 +24,7 @@
 
 	<properties>
 		<tycho-version>0.16.0</tycho-version>
-		<project-version>0.5.2-SNAPSHOT</project-version>
+		<project-version>0.5.3-SNAPSHOT</project-version>
 		<targets>build/repository/target/</targets>
 		<build-type>snapshots</build-type>
 		<repository.directory>/Users/guillaume/Projects/maven-repository</repository.directory>
