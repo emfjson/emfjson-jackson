@@ -18,6 +18,7 @@ import static org.eclipselabs.emfjson.common.ModelUtil.isMapEntry;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,7 +39,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -62,13 +62,39 @@ public class JSONSave {
 	private boolean serializeTypes = true;
 	private boolean serializeRefTypes = true;
 	private boolean indent = true;
-	private Map<?, ?> options;
 
-	public JSONSave(Map<?, ?> options) {
-		this.options = options;
-		configure();
+	public JSONSave(Map<?, ?> options) {		
+		configure(options);
 		this.mapper = new ObjectMapper();
 		this.mapper.configure(Feature.INDENT_OUTPUT, indent);
+	}
+	
+	private void configure(Map<?, ?> options) {
+		if (options == null) {
+			options = Collections.emptyMap();
+		}
+
+		if (options.containsKey(EMFJs.OPTION_INDENT_OUTPUT)) {
+			try {
+				indent = (Boolean) options.get(EMFJs.OPTION_INDENT_OUTPUT);
+			} catch (ClassCastException e) {
+				e.printStackTrace();
+			}
+		}
+		if (options.containsKey(EMFJs.OPTION_SERIALIZE_TYPE)) {
+			try {
+				serializeTypes = (Boolean) options.get(EMFJs.OPTION_SERIALIZE_TYPE);
+			} catch (ClassCastException e) {
+				e.printStackTrace();
+			}
+		}
+		if (options.containsKey(EMFJs.OPTION_SERIALIZE_REF_TYPE)) {
+			try {
+				serializeRefTypes = (Boolean) options.get(EMFJs.OPTION_SERIALIZE_REF_TYPE);
+			} catch (ClassCastException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public ObjectMapper getDelegate() {
@@ -76,6 +102,8 @@ public class JSONSave {
 	}
 
 	public JsonNode genJson(Resource resource, Map<?, ?> options) {
+		configure(options);
+		
 		final JsonNode rootNode;
 
 		if (resource.getContents().size() == 1) {
@@ -177,48 +205,58 @@ public class JSONSave {
 	}
 
 	private void setJsonValue(ObjectNode node, Object value, EAttribute attribute) {
-		final EDataType dataType = attribute.getEAttributeType();
+		if (value == null) return;
 
-		if (value != null) {
-			if (dataType.getName().contains("Int")) {
-				int intValue = (Integer) value;
-				node.put(getElementName(attribute), intValue);	
-			} else if (dataType.getName().contains("Boolean")) {
-				boolean booleanValue = (Boolean) value;
-				node.put(getElementName(attribute), booleanValue);
-			} else if (dataType.getName().contains("Double")) {
-				double doubleValue = (Double) value;
-				node.put(getElementName(attribute), doubleValue);
-			} else if (value instanceof Date) {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-				String dateValue = sdf.format(value);
-				node.put(getElementName(attribute), dateValue);
-			} else {
-				node.put(getElementName(attribute), value.toString());
-			}
+		if (value instanceof Integer) {
+			node.put(getElementName(attribute), (Integer) value);
+		} else if (value instanceof Boolean) {
+			node.put(getElementName(attribute), (Boolean) value);
+		} else if (value instanceof Double) {
+			node.put(getElementName(attribute), (Double) value);
+		} else if (value instanceof Long) {
+			node.put(getElementName(attribute), (Long) value);
+		} else if (value instanceof Short) {
+			node.put(getElementName(attribute), (Short) value);
+		} else if (value instanceof Float) {
+			node.put(getElementName(attribute), (Float) value);
+		} else if (value instanceof Byte) {
+			node.put(getElementName(attribute), (Byte) value);
+		} else if (value instanceof Date) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			String dateValue = sdf.format(value);
+			node.put(getElementName(attribute), dateValue);
+		} else if (value instanceof BigDecimal) {
+			node.put(getElementName(attribute), (BigDecimal) value);
+		} else {
+			node.put(getElementName(attribute), value.toString());
 		}
 	}
 
 	private void setJsonValue(ArrayNode node, Object value, EAttribute attribute) {
-		final EDataType dataType = attribute.getEAttributeType();
+		if (value == null) return;
 
-		if (value != null) {
-			if (dataType.getName().contains("Int")) {
-				int intValue = (Integer) value;
-				node.add(intValue);	
-			} else if (dataType.getName().contains("Boolean")) {
-				boolean booleanValue = (Boolean) value;
-				node.add(booleanValue);
-			} else if (dataType.getName().contains("Double")) {
-				double doubleValue = (Double) value;
-				node.add(doubleValue);
-			} else if (value instanceof Date) {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-				String dateValue = sdf.format(value);
-				node.add(dateValue);
-			} else {
-				node.add(value.toString());
-			}
+		if (value instanceof Integer) {
+			node.add((Integer) value);
+		} else if (value instanceof Boolean) {
+			node.add((Boolean) value);
+		} else if (value instanceof Double) {
+			node.add((Double) value);
+		} else if (value instanceof Long) {
+			node.add((Long) value);
+		} else if (value instanceof Short) {
+			node.add((Short) value);
+		} else if (value instanceof Float) {
+			node.add((Float) value);
+		} else if (value instanceof Byte) {
+			node.add((Byte) value);
+		} else if (value instanceof Date) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			String dateValue = sdf.format(value);
+			node.add(dateValue);
+		} else if (value instanceof BigDecimal) {
+			node.add((BigDecimal) value);
+		} else {
+			node.add(value.toString());
 		}
 	}
 
@@ -342,30 +380,6 @@ public class JSONSave {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-	}
-
-	private void configure() {
-		if (options.containsKey(EMFJs.OPTION_INDENT_OUTPUT)) {
-			try {
-				indent = (Boolean) options.get(EMFJs.OPTION_INDENT_OUTPUT);
-			} catch (ClassCastException e) {
-				e.printStackTrace();
-			}
-		}
-		if (options.containsKey(EMFJs.OPTION_SERIALIZE_TYPE)) {
-			try {
-				serializeTypes = (Boolean) options.get(EMFJs.OPTION_SERIALIZE_TYPE);
-			} catch (ClassCastException e) {
-				e.printStackTrace();
-			}
-		}
-		if (options.containsKey(EMFJs.OPTION_SERIALIZE_REF_TYPE)) {
-			try {
-				serializeRefTypes = (Boolean) options.get(EMFJs.OPTION_SERIALIZE_REF_TYPE);
-			} catch (ClassCastException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 
