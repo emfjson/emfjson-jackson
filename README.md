@@ -19,6 +19,28 @@ See [wiki](https://github.com/ghillairet/emfjson/wiki/Install)
 ### Snapshots
  - Update Site: http://ghillairet.github.com/p2/emfjson/snapshots
 
+### Maven repository
+
+A maven repository for emfjson is available, note that you should also include the denpendency and repository for jackson in 
+your pom file. Please refer to the jackson documentation for more information.
+
+```xml
+<repository>
+ 		<id>emfgwt-repository</id>
+			<url>http://repository-ghillairet.forge.cloudbees.com/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+</repository>
+
+<dependency>
+ 		<groupId>org.eclipselabs</groupId>
+			<artifactId>org.eclipselabs.emfjson</artifactId>
+			<version>0.5.3-SNAPSHOT</version>
+</dependency>
+```
+
 ## Goals
 Provide a JSON syntax and associated tools for [EMF](http://www.eclipse.org/emf) Models.
 
