@@ -26,18 +26,18 @@ your pom file. Please refer to the jackson documentation for more information.
 
 ```xml
 <repository>
- 		<id>emfgwt-repository</id>
-			<url>http://repository-ghillairet.forge.cloudbees.com/snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-				<updatePolicy>always</updatePolicy>
-			</snapshots>
+	<id>emfgwt-repository</id>
+	<url>http://repository-ghillairet.forge.cloudbees.com/snapshot</url>
+	<snapshots>
+		<enabled>true</enabled>
+		<updatePolicy>always</updatePolicy>
+	</snapshots>
 </repository>
 
 <dependency>
- 		<groupId>org.eclipselabs</groupId>
-			<artifactId>org.eclipselabs.emfjson</artifactId>
-			<version>0.5.3-SNAPSHOT</version>
+	<groupId>org.eclipselabs</groupId>
+	<artifactId>org.eclipselabs.emfjson</artifactId>
+	<version>0.5.3-SNAPSHOT</version>
 </dependency>
 ```
 
