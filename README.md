@@ -16,12 +16,12 @@ See [wiki](https://github.com/ghillairet/emfjson/wiki/Install)
  - Eclipse Marketplace: http://marketplace.eclipse.org/content/emfjs
  - Downloads section: https://github.com/ghillairet/emfjson/downloads
 
+### Snapshots
+ - Update Site: http://ghillairet.github.com/p2/emfjson/snapshots
+
 ### GWT Support
 
 See [GWT port](https://github.com/ghillairet/emfjson-gwt)
-
-### Snapshots
- - Update Site: http://ghillairet.github.com/p2/emfjson/snapshots
 
 ### Maven repository
 
