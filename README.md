@@ -26,7 +26,7 @@ your pom file. Please refer to the jackson documentation for more information.
 
 ```xml
 <repository>
-	<id>emfgwt-repository</id>
+	<id>emfjson-repository</id>
 	<url>http://repository-ghillairet.forge.cloudbees.com/snapshot</url>
 	<snapshots>
 		<enabled>true</enabled>
