@@ -11,8 +11,6 @@ See [http://ghillairet.github.com/emfjson/](http://ghillairet.github.com/emfjson
 
 ### Releases
  - Update Site: http://ghillairet.github.com/p2 (composite site with Jackson 1.9.5)
- - Eclipse Marketplace: http://marketplace.eclipse.org/content/emfjs
- - Downloads section: https://github.com/ghillairet/emfjson/downloads
 
 ### Snapshots
  - Update Site: http://ghillairet.github.com/p2/emfjson/snapshots
