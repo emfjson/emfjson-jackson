@@ -22,5 +22,6 @@ public final class EMFJs {
 	public static final String OPTION_SERIALIZE_REF_TYPE = "OPTION_SERIALIZE_REF_TYPE";
 	public static final String OPTION_INDENT_OUTPUT = "OPTION_INDENT_OUTPUT";
 	public static final String OPTION_PROXY_ATTRIBUTES = "PROXY_ATTRIBUTES";
+	public static final String OPTION_SERIALIZE_NAMESPACES = "OPTION_SERIALIZE_NAMESPACES";
 
 }

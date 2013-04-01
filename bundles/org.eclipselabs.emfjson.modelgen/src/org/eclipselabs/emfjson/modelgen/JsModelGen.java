@@ -36,7 +36,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipselabs.emfjson.common.ModelUtil;
-import org.eclipselabs.emfjson.internal.JSUtil;
+import org.eclipselabs.emfjson.map.JSUtil;
 
 /**
  * 

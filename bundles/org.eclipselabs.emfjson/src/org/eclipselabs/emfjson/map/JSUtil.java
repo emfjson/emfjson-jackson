@@ -1,11 +1,24 @@
-package org.eclipselabs.emfjson.internal;
+/*******************************************************************************
+ * Copyright (c) 2013 Guillaume Hillairet.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Guillaume Hillairet - initial API and implementation
+ *******************************************************************************/
+package org.eclipselabs.emfjson.map;
 
+import static org.eclipselabs.emfjson.common.Constants.EJS_REF_KEYWORD;
 import static org.eclipselabs.emfjson.common.Constants.EJS_TYPE_KEYWORD;
+import static org.eclipselabs.emfjson.common.ModelUtil.getEObjectURI;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonNode;
@@ -16,7 +29,9 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
@@ -168,6 +183,62 @@ public class JSUtil {
 		} else {
 			return null;
 		}
+	}
+	
+	public static EClass findEClass(EClass eReferenceType, JsonNode node, JsonNode root, Resource resource, Map<String, String> namespaces) {
+		ResourceSet resourceSet = resource.getResourceSet();
+
+		if (eReferenceType.isAbstract()) {
+			
+			if (node.has(EJS_TYPE_KEYWORD)) {
+				JsonNode typeNode = node.get(EJS_TYPE_KEYWORD);
+				final URI typeURI = getEObjectURI(typeNode, eReferenceType.eResource(), namespaces);
+
+				try {
+					return (EClass) resourceSet.getEObject(typeURI, true);
+				} catch (ClassCastException e) {
+					return null;
+				}				
+			}
+			else if (node.has(EJS_REF_KEYWORD)) {
+				JsonNode refNode = node.get(EJS_REF_KEYWORD);
+				URI refURI = getEObjectURI(refNode, resource, namespaces);
+				EObject eObject = resourceSet.getEObject(refURI, true);
+
+				if (eObject != null) {
+					return resourceSet.getEObject(refURI, false).eClass();
+				}
+
+				refNode = findNode(refURI, eReferenceType, root);
+				if (refNode != null) {
+					return findEClass(eReferenceType, refNode, root, resource, namespaces);
+				}
+			}
+		}
+
+		return eReferenceType;
+	}
+	
+	private static JsonNode findNode(URI nodeURI, EClass eClass, JsonNode root) {
+		EAttribute eID = eClass.getEIDAttribute();
+		if (eID == null) {
+			final EStructuralFeature featureName = eClass.getEStructuralFeature("name");
+			if (featureName != null && featureName instanceof EAttribute) {
+				eID = (EAttribute) featureName;
+			} else {
+				return null;
+			}
+		}
+
+		String fragment = nodeURI.fragment().startsWith("//") ? nodeURI.fragment().substring(2) : nodeURI.fragment();
+
+		for (JsonNode node: root.findParents(eID.getName())) {
+			String value = node.get(eID.getName()).getTextValue();
+			if (value.equals(fragment)){
+				return node;
+			}
+		}
+		return null;
 	}
 
 }

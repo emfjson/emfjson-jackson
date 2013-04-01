@@ -8,7 +8,7 @@
  * Contributors:
  *    Guillaume Hillairet - initial API and implementation
  *******************************************************************************/
-package org.eclipselabs.emfjson.internal;
+package org.eclipselabs.emfjson.streams;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -17,30 +17,27 @@ import java.util.Map;
 import org.codehaus.jackson.JsonNode;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
+import org.eclipselabs.emfjson.map.EObjectMapper;
 
 /**
  * 
  * 	Abstract implementation of {@link Saveable} for JSON output.
  *	
  */
-public abstract class JsOutputStream extends ByteArrayOutputStream implements URIConverter.Saveable {
+public class JsOutputStream extends ByteArrayOutputStream implements URIConverter.Saveable {
 
-	@SuppressWarnings("unused")
 	private Map<?, ?> options;
-
-	protected final JSONSave writer;
 	protected JsonNode currentRoot;
 	protected Resource resource;
 
 	public JsOutputStream(Map<?, ?> options) {
 		this.options = options;
-		this.writer = new JSONSave(options);
 	}
 
 	@Override
 	public void saveResource(Resource resource) throws IOException {
 		this.resource = resource;
-		this.currentRoot = writer.genJson(resource);
+		this.currentRoot = new EObjectMapper().to(resource, options);
 	}
 
 }

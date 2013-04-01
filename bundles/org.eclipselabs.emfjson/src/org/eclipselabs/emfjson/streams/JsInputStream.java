@@ -8,7 +8,7 @@
  * Contributors:
  *    Guillaume Hillairet - initial API and implementation
  *******************************************************************************/
-package org.eclipselabs.emfjson.internal;
+package org.eclipselabs.emfjson.streams;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,13 +22,14 @@ import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.URIConverter.Loadable;
 import org.eclipselabs.emfjson.EMFJs;
 import org.eclipselabs.emfjson.common.ModelUtil;
+import org.eclipselabs.emfjson.map.EObjectMapper;
 
 /**
  * 
  * Abstract implementation of {@link Loadable} for JSON input.
  *
  */
-public abstract class JsInputStream extends InputStream implements URIConverter.Loadable {
+public class JsInputStream extends InputStream implements URIConverter.Loadable {
 
 	protected URI uri;
 	protected Map<?, ?> options;
@@ -47,8 +48,8 @@ public abstract class JsInputStream extends InputStream implements URIConverter.
 			e.printStackTrace();
 		}
 		
-		final JSONLoad loader = new JSONLoad(url, options);
-		loader.fillResource(resource);
+		final EObjectMapper mapper = new EObjectMapper();
+		mapper.from(url, resource, options);
 	}
 
 	@Override

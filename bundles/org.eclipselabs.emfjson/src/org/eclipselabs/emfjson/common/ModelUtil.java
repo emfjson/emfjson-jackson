@@ -16,6 +16,7 @@ import static org.eclipselabs.emfjson.common.Constants.EJS_ROOT_ANNOTATION;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Collections;
 import java.util.Map;
 
 import org.codehaus.jackson.JsonNode;
@@ -28,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.resource.Resource;
 
 /**
  * 
@@ -145,20 +147,33 @@ public class ModelUtil {
 		return new URL(outURI.toString());
 	}
 
-	public static URI getEObjectURI(JsonNode jsonNode, URI uri, Map<String, String> nsMap) {
+	public static URI getEObjectURI(JsonNode jsonNode, Resource resource, Map<String, String> nsMap) {
 		if (jsonNode == null) return null;
 
-		final String value = jsonNode.getTextValue();
-		if (value.startsWith("#//")) { // is fragment
-			return URI.createURI(uri+value);
-		} else if (value.contains("#//") && nsMap.keySet().contains(value.split("#//")[0])) {
-			String[] split = value.split("#//");
-			String nsURI = nsMap.get(split[0]);
-			return URI.createURI(nsURI+"#//"+split[1]);
-		} else if (value.contains(":")) {
+		if (nsMap == null) {
+			nsMap = Collections.emptyMap();
+		}
+
+		@SuppressWarnings("deprecation")
+		final String value = jsonNode.getValueAsText();
+
+		if (value.startsWith("#//")) {
+			// is fragment
+			return resource.getURI().appendFragment(value.substring(1));
+		}
+		else if (value.contains(":")) {
+			String[] split = value.split(":");
+			// is namespaced prefix:fragment
+			if (split.length == 2) { 
+				if (nsMap.keySet().contains(split[0])) {
+					String nsURI = nsMap.get(split[0]);
+					return URI.createURI(nsURI).appendFragment(split[1]);
+				}
+			}
 			return URI.createURI(value);
-		} else { // is ID
-			return uri.appendFragment(value);
+		}
+		else { // is ID
+			return resource.getURI().appendFragment(value);
 		}
 	}
 

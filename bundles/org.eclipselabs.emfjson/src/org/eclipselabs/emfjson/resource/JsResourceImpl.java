@@ -16,12 +16,10 @@ import java.io.OutputStream;
 import java.util.Collections;
 import java.util.Map;
 
-import org.codehaus.jackson.JsonNode;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
-import org.eclipselabs.emfjson.internal.JSONLoad;
-import org.eclipselabs.emfjson.internal.JSONSave;
+import org.eclipselabs.emfjson.map.EObjectMapper;
 
 /**
  * A {@link Resource} implementation that read and write it's content in JSON.
@@ -42,8 +40,8 @@ public class JsResourceImpl extends ResourceImpl {
 			options = Collections.<String, Object> emptyMap();
 		}
 
-		final JSONLoad loader = new JSONLoad(inputStream, options);
-		loader.fillResource(this);
+		final EObjectMapper mapper = new EObjectMapper();
+		mapper.from(inputStream, this, options);
 	}
 
 	@Override
@@ -52,10 +50,8 @@ public class JsResourceImpl extends ResourceImpl {
 			options = Collections.<String, Object> emptyMap();
 		}
 
-		final JSONSave writer = new JSONSave(options);
-		final JsonNode rootNode = writer.genJson(this, options);
-
-		writer.writeValue(outputStream, rootNode);
+		final EObjectMapper mapper = new EObjectMapper();
+		mapper.write(outputStream, this, options);
 	}
 
 }
