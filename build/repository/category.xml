@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.eclipselabs.emfjson.feature_0.5.3.qualifier.jar" id="org.eclipselabs.emfjson.feature" version="0.5.3.qualifier">
+   <feature url="features/org.eclipselabs.emfjson.feature_0.6.0.qualifier.jar" id="org.eclipselabs.emfjson.feature" version="0.6.0.qualifier">
       <category name="org.eclipselabs.emfjson"/>
    </feature>
-   <feature url="features/org.eclipselabs.emfjson.ui.feature_0.5.3.qualifier.jar" id="org.eclipselabs.emfjson.ui.feature" version="0.5.3.qualifier">
+   <feature url="features/org.eclipselabs.emfjson.ui.feature_0.6.0.qualifier.jar" id="org.eclipselabs.emfjson.ui.feature" version="0.6.0.qualifier">
       <category name="org.eclipselabs.emfjson"/>
    </feature>
-   <feature url="features/org.eclipselabs.emfjson.source.feature_0.5.3.qualifier.jar" id="org.eclipselabs.emfjson.source.feature" version="0.5.3.qualifier">
+   <feature url="features/org.eclipselabs.emfjson.source.feature_0.6.0.qualifier.jar" id="org.eclipselabs.emfjson.source.feature" version="0.6.0.qualifier">
       <category name="org.eclipselabs.emfjson.sdk"/>
    </feature>
-   <category-def name="org.eclipselabs.emfjson" label="EMFJs">
+   <category-def name="org.eclipselabs.emfjson" label="EMF-JSON">
       <description>
          EMF binding for JSON.
       </description>
    </category-def>
-   <category-def name="org.eclipselabs.emfjson.sdk" label="EMFJs SDK">
+   <category-def name="org.eclipselabs.emfjson.sdk" label="EMF-JSON SDK">
       <description>
-         EMFJs SDK.
+         EMF JSON SDK.
       </description>
    </category-def>
 </site>

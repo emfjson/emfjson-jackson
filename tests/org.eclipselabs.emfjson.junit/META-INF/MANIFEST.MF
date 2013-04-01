@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: EMFJs Junit
 Bundle-SymbolicName: org.eclipselabs.emfjson.junit;singleton:=true
-Bundle-Version: 0.5.3.qualifier
+Bundle-Version: 0.6.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: eclipselabs
 Bundle-Localization: plugin
@@ -14,8 +14,8 @@ Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;bundle-version="2.7.0"
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipselabs.emfjson,
- org.eclipselabs.emfjson.internal,
  org.eclipselabs.emfjson.resource,
+ org.eclipselabs.emfjson.streams,
  org.junit,
  org.junit.runner,
  org.junit.runners,
