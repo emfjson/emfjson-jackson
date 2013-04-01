@@ -188,7 +188,7 @@ public class TestEmfJsAttributes extends TestSupport {
 	
 	@Test
 	public void testByteValue() throws IOException {
-		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eByte\":1}";
+		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eByte\":\"1\"}";
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 
@@ -205,7 +205,7 @@ public class TestEmfJsAttributes extends TestSupport {
 
 	@Test
 	public void testBigDecimalValue() throws IOException {
-		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eBigDecimal\":1.5}";
+		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eBigDecimal\":\"1.5\"}";
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 

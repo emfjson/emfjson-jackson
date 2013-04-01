@@ -40,7 +40,7 @@ public class TestPolymorphicType extends TestSupport {
 						"[" +
 							"{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeOne\",\"name\":\"First\"}," +
 							"{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeTwo\",\"name\":\"Two\"}" +
-							"]" +
+						"]" +
 				"}";
 		
 		Resource resource = resourceSet.createResource(URI.createURI("types.json"));
@@ -115,7 +115,7 @@ public class TestPolymorphicType extends TestSupport {
 		
 		assertTrue(first instanceof ConcreteTypeOne);
 		assertTrue(second instanceof ConcreteTypeTwo);
-		
+
 		assertEquals(1, first.getRefProperty().size());
 		
 		EObject ref = first.getRefProperty().get(0);
