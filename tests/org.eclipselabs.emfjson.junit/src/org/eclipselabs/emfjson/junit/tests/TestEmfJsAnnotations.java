@@ -34,16 +34,16 @@ public class TestEmfJsAnnotations extends TestSupport {
 		eAnnotation.setSource("source");
 		eAnnotation.getDetails().put("displayName", "value");
 		eClass.getEAnnotations().add(eAnnotation);
-		
+
 		Resource resource = resourceSet.createResource(URI.createURI("test.json"));
 		resource.getContents().add(eClass);
-		
+
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 		resource.save(outStream, options);
-		
+
 		assertEquals(expectedString, outStream.toString());
 	}
-	
+
 	@Test
 	public void testLoadAnnotation() throws IOException {
 		String inputString = "{\"eClass\":\"http://www.eclipse.org/emf/2002/Ecore#//EClass\","+
@@ -53,17 +53,17 @@ public class TestEmfJsAnnotations extends TestSupport {
 		
 		Resource resource = resourceSet.createResource(URI.createURI("test.json"));
 		resource.load(new ByteArrayInputStream(inputString.getBytes()), null);
-		
+
 		assertEquals(1, resource.getContents().size());
-		
+
 		EObject root = resource.getContents().get(0);
-		
+
 		assertEquals(EcorePackage.Literals.ECLASS, root.eClass());
-		
+
 		EList<EAnnotation> annotations = ((EClass)root).getEAnnotations();
-		
+
 		assertEquals(1, annotations.size());
-		
+
 		EAnnotation annotation = annotations.get(0);
 		assertEquals(1, annotation.getDetails().size());
 		assertEquals("displayName", annotation.getDetails().get(0).getKey());

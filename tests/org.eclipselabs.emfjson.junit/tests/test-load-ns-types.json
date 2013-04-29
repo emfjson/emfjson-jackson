@@ -1,5 +1,5 @@
 {
-	"$ns" :{
+	"@ns" :{
 		"model":"http://www.eclipselabs.org/emfjson/junit",
 		"model2":"http://www.eclipselabs.org/emfjson/junit"
 	},

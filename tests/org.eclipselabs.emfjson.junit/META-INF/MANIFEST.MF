@@ -7,9 +7,13 @@ Bundle-ClassPath: .
 Bundle-Vendor: eclipselabs
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.eclipselabs.emfjson.junit.model,
+Export-Package: org.eclipselabs.emfjson.junit,
+ org.eclipselabs.emfjson.junit.model,
  org.eclipselabs.emfjson.junit.model.impl,
- org.eclipselabs.emfjson.junit.model.util
+ org.eclipselabs.emfjson.junit.model.util,
+ org.eclipselabs.emfjson.junit.suite,
+ org.eclipselabs.emfjson.junit.support,
+ org.eclipselabs.emfjson.junit.tests
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;bundle-version="2.7.0"
 Bundle-ActivationPolicy: lazy
