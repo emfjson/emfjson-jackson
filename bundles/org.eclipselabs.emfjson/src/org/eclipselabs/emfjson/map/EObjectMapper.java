@@ -11,8 +11,10 @@
 package org.eclipselabs.emfjson.map;
 
 import static java.lang.Boolean.TRUE;
+import static org.eclipselabs.emfjson.EMFJs.OPTION_INDENT_OUTPUT;
 import static org.eclipselabs.emfjson.EMFJs.OPTION_PROXY_ATTRIBUTES;
 import static org.eclipselabs.emfjson.EMFJs.OPTION_ROOT_ELEMENT;
+import static org.eclipselabs.emfjson.EMFJs.OPTION_SERIALIZE_NAMESPACES;
 import static org.eclipselabs.emfjson.EMFJs.OPTION_SERIALIZE_REF_TYPE;
 import static org.eclipselabs.emfjson.EMFJs.OPTION_SERIALIZE_TYPE;
 
@@ -35,7 +37,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipselabs.emfjson.EMFJs;
 
 /**
  * 
@@ -46,9 +47,11 @@ public class EObjectMapper {
 
 	private boolean serializeTypes = true;
 	private boolean serializeRefTypes = true;
-	private EClass rootClass = null;
 	private boolean useProxyAttributes = false;
-	private final ObjectMapper objectMapper = new ObjectMapper();
+	private boolean serializeNamespaces = false;
+	private EClass rootClass = null;
+
+	private final ObjectMapper objectMapper = new ObjectMapper();	
 	
 	public EObjectMapper() {}
 
@@ -106,29 +109,20 @@ public class EObjectMapper {
 	
 	public JsonNode to(Resource resource, Map<?, ?> options) {
 		configureSerializer(options);
-		
-		final JsonNode rootNode;
-		final EList<EObject> contents = resource.getContents();
-		
-		if (contents.size() == 1) {
-			rootNode = to(contents.get(0), resource);
-		}
-		else {
-			rootNode = objectMapper.createArrayNode();
 
-			for (EObject obj: resource.getContents()) {
-				JsonNode node = to(obj, resource);
-				if (node != null) {
-					((ArrayNode)rootNode).add(node);
-				}
-			}
-		}
+		Serializer to = new Serializer();
+		to.setSerializeNamespaces(serializeNamespaces);
+		to.setSerializeRefTypes(serializeRefTypes);
+		to.setSerializeTypes(serializeTypes);
 
-		return rootNode;
+		return to.to(resource, objectMapper);
 	}
 
 	public ObjectNode to(EObject eObject, Resource resource) {
-		Serializer to = new Serializer(serializeTypes, serializeRefTypes);
+		Serializer to = new Serializer();
+		to.setSerializeNamespaces(serializeNamespaces);
+		to.setSerializeRefTypes(serializeRefTypes);
+		to.setSerializeTypes(serializeTypes);
 
 		return to.to(eObject, resource, objectMapper);
 	}
@@ -136,7 +130,7 @@ public class EObjectMapper {
 	public ObjectNode to(EObject eObject, Resource resource, Map<?, ?> options) {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(Feature.INDENT_OUTPUT, false);
-		
+
 		return to(eObject, resource);
 	}
 	
@@ -170,7 +164,7 @@ public class EObjectMapper {
 
 		configure(OPTION_PROXY_ATTRIBUTES, TRUE.equals(options.get(OPTION_PROXY_ATTRIBUTES)));
 	}
-	
+
 	private void configureSerializer(Map<?, ?> options) {
 		if (options == null) {
 			options = Collections.emptyMap();
@@ -178,41 +172,53 @@ public class EObjectMapper {
 
 		boolean serializeTypes = true;
 		boolean serializeRefTypes = true;
+		boolean serializeNamespaces = false;
 		boolean indent = true;
 
-		if (options.containsKey(EMFJs.OPTION_INDENT_OUTPUT)) {
+		if (options.containsKey(OPTION_INDENT_OUTPUT)) {
 			try {
-				indent = (Boolean) options.get(EMFJs.OPTION_INDENT_OUTPUT);
+				indent = (Boolean) options.get(OPTION_INDENT_OUTPUT);
 			} catch (ClassCastException e) {
 				e.printStackTrace();
 			}
 		}
-		if (options.containsKey(EMFJs.OPTION_SERIALIZE_TYPE)) {
+		if (options.containsKey(OPTION_SERIALIZE_TYPE)) {
 			try {
-				serializeTypes = (Boolean) options.get(EMFJs.OPTION_SERIALIZE_TYPE);
+				serializeTypes = (Boolean) options.get(OPTION_SERIALIZE_TYPE);
 			} catch (ClassCastException e) {
 				e.printStackTrace();
 			}
 		}
-		if (options.containsKey(EMFJs.OPTION_SERIALIZE_REF_TYPE)) {
+		if (options.containsKey(OPTION_SERIALIZE_REF_TYPE)) {
 			try {
-				serializeRefTypes = (Boolean) options.get(EMFJs.OPTION_SERIALIZE_REF_TYPE);
+				serializeRefTypes = (Boolean) options.get(OPTION_SERIALIZE_REF_TYPE);
+			} catch (ClassCastException e) {
+				e.printStackTrace();
+			}
+		}
+		if (options.containsKey(OPTION_SERIALIZE_NAMESPACES)) {
+			try {
+				serializeNamespaces = (Boolean) options.get(OPTION_SERIALIZE_NAMESPACES);
 			} catch (ClassCastException e) {
 				e.printStackTrace();
 			}
 		}
 		
-		configure(EMFJs.OPTION_SERIALIZE_TYPE, serializeTypes);
-		configure(EMFJs.OPTION_SERIALIZE_REF_TYPE, serializeRefTypes);
+		configure(OPTION_SERIALIZE_TYPE, serializeTypes);
+		configure(OPTION_SERIALIZE_REF_TYPE, serializeRefTypes);
+		configure(OPTION_SERIALIZE_NAMESPACES, serializeNamespaces);
 		objectMapper.configure(Feature.INDENT_OUTPUT, indent);
 	}
-	
+
 	public void configure(String key, Object value) {		
 		if (OPTION_SERIALIZE_TYPE.equals(key)) {
 			serializeTypes = (Boolean) value;
 		}
 		if (OPTION_SERIALIZE_REF_TYPE.equals(key)) {
 			serializeRefTypes = (Boolean) value;
+		}
+		if (OPTION_SERIALIZE_NAMESPACES.equals(key)) {
+			serializeNamespaces = (Boolean) value;
 		}
 		if (OPTION_ROOT_ELEMENT.equals(key)) {
 			rootClass = (EClass) value;
