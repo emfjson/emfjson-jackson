@@ -106,35 +106,35 @@ class Deserializer {
 		processed.clear();
 	}
 
-	private EClass getEClass(URI uri, ResourceSet resourceSet) {
+	EClass getEClass(URI uri, ResourceSet resourceSet) {
 		return (EClass) resourceSet.getEObject(uri, true);
 	}
 	
-	public EAtttributeDeserializer geteAtttributeDeserializer() {
+	EAtttributeDeserializer getEAtttributeDeserializer() {
 		return eAtttributeDeserializer;
 	}
 	
-	public EReferenceDeserializer geteReferenceDeserializer() {
+	EReferenceDeserializer getEReferenceDeserializer() {
 		return eReferenceDeserializer;
 	}
 	
-	public NamespaceDeserializer getNamespaceDeserializer() {
+	NamespaceDeserializer getNamespaceDeserializer() {
 		return namespaceDeserializer;
 	}
 	
-	public ProxyFactory getProxyFactory() {
+	ProxyFactory getProxyFactory() {
 		return proxyFactory;
 	}
 	
-	public Map<String, String> getNamespaces() {
+	Map<String, String> getNamespaces() {
 		return namespaces;
 	}
 	
-	public Map<EObject, JsonNode> getProcessed() {
+	Map<EObject, JsonNode> getProcessed() {
 		return processed;
 	}
 
-	public boolean useProxyAttributes() {
+	boolean useProxyAttributes() {
 		return useProxyAttributes;
 	}
 

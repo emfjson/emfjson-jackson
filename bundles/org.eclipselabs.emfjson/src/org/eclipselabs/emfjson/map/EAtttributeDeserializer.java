@@ -30,7 +30,7 @@ class EAtttributeDeserializer {
 	
 	private MapDeserializer mapDeserializer;
 	
-	public EAtttributeDeserializer() {
+	EAtttributeDeserializer() {
 		this.mapDeserializer = new MapDeserializer();
 	}
 

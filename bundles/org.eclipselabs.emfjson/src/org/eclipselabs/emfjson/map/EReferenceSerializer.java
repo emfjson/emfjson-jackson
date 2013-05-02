@@ -25,9 +25,9 @@ import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.ObjectNode;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
@@ -72,15 +72,15 @@ class EReferenceSerializer {
 			target.put(getElementName(reference), arrayNode);
 
 			for (EObject value: values) {
-				writeReferenceValue(eObject, value, reference, arrayNode);
+				serializeReferenceValue(eObject, value, reference, arrayNode);
 			}
 		} else {
 			EObject value = (EObject) eObject.eGet(reference);
-			target.put(reference.getName(), writeReferenceValue(eObject, value, reference, target));
+			target.put(reference.getName(), serializeReferenceValue(eObject, value, reference, target));
 		}
 	}
 
-	ObjectNode writeReferenceValue(EObject eObject, EObject value, EReference reference, JsonNode parent) {
+	ObjectNode serializeReferenceValue(EObject eObject, EObject value, EReference reference, JsonNode parent) {
 		final Resource resource = eObject.eResource();
 
 		ObjectNode node;
@@ -93,7 +93,7 @@ class EReferenceSerializer {
 		node.put(EJS_REF_KEYWORD, getReference(value, resource));
 
 		if (caller.serializeRefTypes) {
-			node.put(EJS_TYPE_KEYWORD, getReference(value.eClass(), resource));
+			node.put(EJS_TYPE_KEYWORD, eClassRef(value.eClass()));
 		}
 
 		return node;
@@ -155,14 +155,34 @@ class EReferenceSerializer {
 	}
 
 	String getReference(EObject obj, Resource resource) {
-		if (obj.eIsProxy()) {
-			return ((InternalEObject)obj).eProxyURI().toString();
-		}
 		URI eObjectURI = EcoreUtil.getURI(obj);
-		if (eObjectURI.trimFragment().equals(resource.getURI())) {
+		URI resourceURI = resource.getURI();
+		
+		if (caller.serializeNamespaces) {
+			URI nsURI = eObjectURI.trimFragment();
+			String prefix = nsURI.lastSegment();
+			caller.getNamespaces().put(prefix, nsURI.toString());
+
+			return prefix + ":" + eObjectURI.fragment();
+		} else if (eObjectURI.trimFragment().equals(resourceURI)) {
 			return eObjectURI.fragment();
+		} else {
+			return eObjectURI.toString();
 		}
-		return eObjectURI.toString();
+	}
+	
+	String eClassRef(EClass eClass) {
+		URI eClassURI = EcoreUtil.getURI(eClass);
+
+		if (caller.serializeNamespaces) {
+			String prefix = eClass.getEPackage().getNsPrefix();
+			String nsURI = eClass.getEPackage().getNsURI();
+			caller.getNamespaces().put(prefix, nsURI);
+
+			return prefix + ":" + eClassURI.fragment();
+		} else {
+			return eClassURI.toString();
+		}
 	}
 
 }

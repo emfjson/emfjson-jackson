@@ -12,6 +12,7 @@ package org.eclipselabs.emfjson.streams;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Map;
 
 import org.codehaus.jackson.JsonNode;
@@ -31,7 +32,7 @@ public class JsOutputStream extends ByteArrayOutputStream implements URIConverte
 	protected Resource resource;
 
 	public JsOutputStream(Map<?, ?> options) {
-		this.options = options;
+		this.options = options == null ? Collections.emptyMap() : options;
 	}
 
 	@Override

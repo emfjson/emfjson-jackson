@@ -41,7 +41,7 @@ class ProxyFactory {
 			JsonNode refNode = JSUtil.getNode(resource, objectURI, eClass);
 
 			if (refNode != null) {
-				deserializer.geteAtttributeDeserializer().deSerialize(proxy, refNode);
+				deserializer.getEAtttributeDeserializer().deSerialize(proxy, refNode);
 			}
 		}
 

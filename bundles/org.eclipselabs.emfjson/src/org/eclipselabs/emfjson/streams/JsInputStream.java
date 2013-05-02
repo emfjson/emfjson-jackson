@@ -10,18 +10,20 @@
  *******************************************************************************/
 package org.eclipselabs.emfjson.streams;
 
+import static org.eclipselabs.emfjson.EMFJs.OPTION_URL_PARAMETERS;
+import static org.eclipselabs.emfjson.common.ModelUtil.getURL;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Collections;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.URIConverter.Loadable;
-import org.eclipselabs.emfjson.EMFJs;
-import org.eclipselabs.emfjson.common.ModelUtil;
 import org.eclipselabs.emfjson.map.EObjectMapper;
 
 /**
@@ -36,14 +38,14 @@ public class JsInputStream extends InputStream implements URIConverter.Loadable 
 
 	public JsInputStream(URI uri, Map<?, ?> options) {
 		this.uri = uri;
-		this.options = options;
+		this.options = options == null ? Collections.emptyMap() : options;
 	}
 
 	@Override
 	public void loadResource(Resource resource) throws IOException {
 		URL url = null;
 		try {
-			url = ModelUtil.getURL(resource.getURI(), options.get(EMFJs.OPTION_URL_PARAMETERS));
+			url = getURL(resource.getURI(), options.get(OPTION_URL_PARAMETERS));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}

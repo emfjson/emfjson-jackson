@@ -74,7 +74,9 @@ class EReferenceResolver {
 		EObject obj = findEObject(resource, node);
 		if (obj == null) {
 			EClass refClass = JSUtil.findEClass(reference.getEReferenceType(), node, root, resource, deserializer.getNamespaces());
-			obj = deserializer.getProxyFactory().createProxy(resource, refClass, node);
+			if (refClass != null) {
+				obj = deserializer.getProxyFactory().createProxy(resource, refClass, node);
+			}
 		}
 		return obj;
 	}

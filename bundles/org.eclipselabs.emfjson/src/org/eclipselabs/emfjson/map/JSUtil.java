@@ -108,7 +108,7 @@ public class JSUtil {
 	}
 
 	@SuppressWarnings("deprecation")
-	private static JsonNode findNode(JsonNode node, ResourceSet resourceSet, String fragment, URI objectURI) {
+	public static JsonNode findNode(JsonNode node, ResourceSet resourceSet, String fragment, URI objectURI) {
 		if (node.isArray()) {
 			int pos = 0;
 			String idx = fragment;
@@ -219,7 +219,7 @@ public class JSUtil {
 		return eReferenceType;
 	}
 	
-	private static JsonNode findNode(URI nodeURI, EClass eClass, JsonNode root) {
+	public static JsonNode findNode(URI nodeURI, EClass eClass, JsonNode root) {
 		EAttribute eID = eClass.getEIDAttribute();
 		if (eID == null) {
 			final EStructuralFeature featureName = eClass.getEStructuralFeature("name");
