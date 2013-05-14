@@ -9,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>org.eclipselabs.emfjson.repository</artifactId>
 	<packaging>eclipse-repository</packaging>
-	
+
 	<profiles>
 		<profile>
 			<id>deploy-repo</id>
@@ -18,7 +18,7 @@
 					<name>deploy-repo</name>
 				</property>
 			</activation>
-			
+
 			<build>
 				<plugins>
 					<plugin>
@@ -30,7 +30,7 @@
 								<phase>install</phase>
 								<configuration>
 									<tasks>
-										<unzip src="target/org.eclipselabs.emfjson.repository-${project-version}.zip"
+										<unzip src="target/org.eclipselabs.emfjson.repository-${project.version}.zip"
 											dest="../../../p2/emfjson/${build-type}" />
 									</tasks>
 								</configuration>
@@ -44,5 +44,5 @@
 			</build>
 		</profile>
 	</profiles>
-	
+
 </project>
