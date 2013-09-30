@@ -2,7 +2,7 @@
 <feature
       id="org.eclipselabs.emfjson.feature"
       label="EMFJs"
-      version="0.6.0.qualifier"
+      version="0.7.0.qualifier"
       provider-name="Eclipse Labs">
 
    <description url="http://www.example.com/description">

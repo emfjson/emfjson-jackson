@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.eclipselabs.emfjson.source.feature"
-      label="EMFJs SDK"
+      id="org.eclipselabs.emfjson.json.feature"
+      label="JSON Model"
       version="0.7.0.qualifier"
       provider-name="Eclipse Labs">
 
@@ -17,29 +17,23 @@
       [Enter License Description here.]
    </license>
 
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.codehaus.jackson.core" version="1.6.0" match="greaterOrEqual"/>
+      <import plugin="org.codehaus.jackson.mapper" version="1.6.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.edit"/>
+   </requires>
+
    <plugin
-         id="org.eclipselabs.emfjson.source"
+         id="org.eclipselabs.emfjson.json"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.eclipselabs.emfjson.json.source"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-         
-	<plugin
-         id="org.eclipselabs.emfjson.json.edit.source"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipselabs.emfjson.ui.source"
+         id="org.eclipselabs.emfjson.json.edit"
          download-size="0"
          install-size="0"
          version="0.0.0"

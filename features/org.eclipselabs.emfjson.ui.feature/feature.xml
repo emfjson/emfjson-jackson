@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipselabs.emfjson.ui.feature"
-      label="EMFJs UI"
-      version="0.6.0.qualifier"
+      label="EMF-JSON UI"
+      version="0.7.0.qualifier"
       provider-name="Eclipse Labs">
 
    <description url="http://www.example.com/description">
@@ -96,7 +96,6 @@ This Agreement is governed by the laws of the State of New York and the intellec
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.emf.ecore"/>
       <import plugin="org.eclipselabs.emfjson" version="0.4.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipselabs.emfjson.modelgen" version="0.4.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.importer"/>
       <import plugin="org.eclipse.core.commands"/>
       <import plugin="org.eclipse.emf.common"/>
@@ -108,13 +107,6 @@ This Agreement is governed by the laws of the State of New York and the intellec
 
    <plugin
          id="org.eclipselabs.emfjson.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipselabs.emfjson.modelgen"
          download-size="0"
          install-size="0"
          version="0.0.0"
