@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Json Model Junit
+Bundle-SymbolicName: org.eclipselabs.emfjson.json.junit
+Bundle-Version: 0.7.0.qualifier
+Bundle-Vendor: Eclipse Labs
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.eclipselabs.emfjson.json;bundle-version="0.6.0",
+ org.codehaus.jackson.core;bundle-version="1.6.0",
+ org.codehaus.jackson.mapper;bundle-version="1.6.0",
+ org.junit;bundle-version="4.0.0"
+Export-Package: org.eclipselabs.emfjson.json.junit.suite,
+ org.eclipselabs.emfjson.json.junit.tests

@@ -26,8 +26,11 @@ import java.util.HashSet;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -35,6 +38,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipselabs.emfjson.EMFJs;
+import org.eclipselabs.emfjson.junit.model.Container;
 import org.eclipselabs.emfjson.junit.model.ETypes;
 import org.eclipselabs.emfjson.junit.model.ModelFactory;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
@@ -52,6 +56,30 @@ import org.junit.Test;
  */
 public class TestEmfJsAttributes extends TestSupport {
 	
+	@Test
+	public void test() throws IOException {
+		Resource resource = resourceSet.createResource(URI.createURI("test.json"));
+		
+		EPackage p1 = EcoreFactory.eINSTANCE.createEPackage();
+		EPackage p2 = EcoreFactory.eINSTANCE.createEPackage();
+		EClass e1 = EcoreFactory.eINSTANCE.createEClass();
+		e1.setName("E");
+		p1.getEClassifiers().add(e1);
+		Container u1 = ModelFactory.eINSTANCE.createContainer();
+		Container u2 = ModelFactory.eINSTANCE.createContainer();
+		
+		resource.getContents().add(p1);
+		resource.getContents().add(p2);
+		resource.getContents().add(u1);
+		resource.getContents().add(u2);
+		
+		System.out.println(EcoreUtil.getURI(p1));
+		System.out.println(EcoreUtil.getURI(e1));
+		System.out.println(EcoreUtil.getURI(p2));
+		System.out.println(EcoreUtil.getURI(u1));
+		System.out.println(EcoreUtil.getURI(u2));
+	}
+
 	@Test
 	public void testStringValues() throws IOException {		
 		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eString\":\"Hello\",\"eStrings\":[\"Hello\",\"World\"]}";
