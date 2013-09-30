@@ -1,48 +1,60 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<parent>
-		<artifactId>emfjson</artifactId>
-		<groupId>org.eclipselabs</groupId>
-		<version>0.7.0-SNAPSHOT</version>
-		<relativePath>../../pom.xml</relativePath>
-	</parent>
-	<modelVersion>4.0.0</modelVersion>
-	<artifactId>org.eclipselabs.emfjson.repository</artifactId>
-	<packaging>eclipse-repository</packaging>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>emfjson</artifactId>
+        <groupId>org.eclipselabs</groupId>
+        <version>0.7.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>org.eclipselabs.emfjson.repository</artifactId>
+    <packaging>eclipse-repository</packaging>
 
-	<profiles>
-		<profile>
-			<id>deploy-repo</id>
-			<activation>
-				<property>
-					<name>deploy-repo</name>
-				</property>
-			</activation>
+    <properties>
+        <composite-path>/Users/guillaume/Projects/p2</composite-path>
+    </properties>
 
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-antrun-plugin</artifactId>
-						<version>1.2</version>
-						<executions>
-							<execution>
-								<phase>install</phase>
-								<configuration>
-									<tasks>
-										<unzip src="target/org.eclipselabs.emfjson.repository-${project.version}.zip"
-											dest="../../../p2/emfjson/${build-type}" />
-									</tasks>
-								</configuration>
-								<goals>
-									<goal>run</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
+    <profiles>
+        <profile>
+            <id>deploy-repo</id>
+            <activation>
+                <property>
+                    <name>deploy-repo</name>
+                </property>
+            </activation>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.7</version>
+                        <executions>
+                            <execution>
+                                <phase>install</phase>
+                                <configuration>
+                                    <target>
+                                        <unzip
+                                            src="target/org.eclipselabs.emfjson.repository-${project.version}.zip"
+                                            dest="${composite-path}/emfjson/${build-type}/${project.version}/${buildQualifier}" />
+                                        <ant
+                                            antfile="/Users/guillaume/bin/composite.xml"
+                                            target="add">
+                                            <property name="user.dir" value="${composite-path}"/>
+                                            <property name="composite.name" value="P2 Repositories"/>
+                                            <property name="child.repository" value="emfjson/${build-type}/${project.version}/${buildQualifier}"/>
+                                        </ant>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
