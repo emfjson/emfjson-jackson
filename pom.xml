@@ -5,25 +5,29 @@
 	<groupId>org.eclipselabs</groupId>
 	<artifactId>emfjson</artifactId>
 	<packaging>pom</packaging>
-	<version>0.6.0-SNAPSHOT</version>
+	<version>0.7.0-SNAPSHOT</version>
 
 	<modules>
 		<module>bundles/org.eclipselabs.emfjson</module>
 		<module>features/org.eclipselabs.emfjson.feature</module>
 
-		<module>bundles/org.eclipselabs.emfjson.modelgen</module>
+		<module>bundles/org.eclipselabs.emfjson.json</module>
+		<module>bundles/org.eclipselabs.emfjson.json.edit</module>
+		<module>features/org.eclipselabs.emfjson.json.feature</module>
+		
 		<module>bundles/org.eclipselabs.emfjson.ui</module>
 		<module>features/org.eclipselabs.emfjson.ui.feature</module>
 
 		<module>features/org.eclipselabs.emfjson.source.feature</module>
 
 		<module>tests/org.eclipselabs.emfjson.junit</module>
+		<module>tests/org.eclipselabs.emfjson.json.junit</module>
 
 		<module>build/repository</module>
 	</modules>
 
 	<properties>
-		<tycho-version>0.16.0</tycho-version>
+		<tycho-version>0.18.0</tycho-version>
 		<targets>build/repository/target/</targets>
 		<build-type>snapshots</build-type>
 	</properties>
@@ -35,9 +39,9 @@
 			<url>http://ghillairet.github.com/p2/jackson/update-site/releases</url>
 		</repository>
 		<repository>
-			<id>juno</id>
+			<id>kepler</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/juno</url>
+			<url>http://download.eclipse.org/releases/kepler</url>
 		</repository>
 	</repositories>
 
