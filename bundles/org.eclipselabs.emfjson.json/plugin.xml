@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated json -->
+      <package
+            uri="http://eclipselabs.org/emfjson/2013/json"
+            class="org.eclipselabs.emfjson.json.JSONPackage"
+            genModel="model/json.genmodel"/>
+   </extension>
+
+</plugin>

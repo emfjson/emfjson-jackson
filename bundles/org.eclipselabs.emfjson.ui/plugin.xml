@@ -71,22 +71,36 @@
          point="org.eclipse.ui.newWizards">
       <category
             id="org.eclipselabs.emfjson.ui"
-            name="EMFJs">
+            name="EMF JSON">
       </category>
       <wizard
             category="org.eclipselabs.emfjson.ui"
             class="org.eclipselabs.emfjson.ui.wizards.EcoreJsonNewModelWizard"
             icon="icons/json.png"
             id="org.eclipselabs.emfjson.ui.wizards.EcoreJsonNewModelWizard"
-            name="Ecore Model">
+            name="Ecore Model (JSON syntax)">
       </wizard>
       <wizard
+            category="org.eclipselabs.emfjson.ui"
+            class="org.eclipselabs.emfjson.ui.wizards.EcoreJsonNewModelWizard"
+            icon="icons/json.png"
+            id="org.eclipselabs.emfjson.ui.wizards.EcoreJsonNewModelWizard"
+            name="JSON Model (JSON syntax)">
+      </wizard>
+      <wizard
+            category="org.eclipselabs.emfjson.ui"
+            class="org.eclipselabs.emfjson.ui.wizards.EcoreJsonNewModelWizard"
+            icon="icons/json.png"
+            id="org.eclipselabs.emfjson.ui.wizards.EcoreJsonNewModelWizard"
+            name="JSON Model (XMI syntax)">
+      </wizard>
+      <!-- <wizard
             category="org.eclipselabs.emfjson.ui"
             class="org.eclipselabs.emfjson.ui.wizards.EcoreModelJsonApiWizard"
             icon="icons/json.png"
             id="org.eclipselabs.emfjson.ui.wizards.EcoreModelJsonApiWizard"
             name="Ecore Model from JSON API">
-      </wizard>
+      </wizard> -->
    </extension>
    
    <extension point="org.eclipse.emf.importer.modelImporterDescriptors">

@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: EMFJs UI
+Bundle-Name: EMF-JSON UI
 Bundle-SymbolicName: org.eclipselabs.emfjson.ui;singleton:=true
-Bundle-Version: 0.6.0.qualifier
+Bundle-Version: 0.7.0.qualifier
 Bundle-Activator: org.eclipselabs.emfjson.ui.Activator
 Bundle-Vendor: Eclipse Labs
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
@@ -21,9 +21,6 @@ Import-Package: org.eclipse.core.commands,
  org.eclipse.emf.importer.ui.contribution.base,
  org.eclipse.jface.viewers,
  org.eclipse.ui.handlers,
- org.eclipselabs.emfjson,
- org.eclipselabs.emfjson.modelgen,
- org.eclipselabs.emfjson.resource,
  org.osgi.framework
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
@@ -31,6 +28,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.ide,
  org.eclipse.emf.ecore,
  org.eclipselabs.emfjson;bundle-version="0.4.0",
- org.eclipselabs.emfjson.modelgen;bundle-version="0.4.0",
  org.eclipse.emf.importer
 Bundle-ClassPath: .

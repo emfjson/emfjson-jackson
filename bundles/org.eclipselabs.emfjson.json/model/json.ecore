@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="json" nsURI="http://eclipselabs.org/emfjson/2013/json" nsPrefix="json">
+  <eClassifiers xsi:type="ecore:EClass" name="JNode" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="JObject" eSuperTypes="#//JNode">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fields" upperBound="-1"
+        eType="#//JField" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="JArray" eSuperTypes="#//JNode">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
+        eType="#//JNode"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="JField">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//JNode"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="JValue" abstract="true" eSuperTypes="#//JNode"/>
+  <eClassifiers xsi:type="ecore:EClass" name="JBoolean" eSuperTypes="#//JValue">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="booleanValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="JNumber" eSuperTypes="#//JValue">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="JNull" eSuperTypes="#//JValue"/>
+  <eClassifiers xsi:type="ecore:EClass" name="JString" eSuperTypes="#//JValue">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stringValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>

@@ -18,6 +18,7 @@ import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipselabs.emfjson.map.EObjectMapper;
 
@@ -25,6 +26,8 @@ import org.eclipselabs.emfjson.map.EObjectMapper;
  * A {@link Resource} implementation that read and write it's content in JSON.
  */
 public class JsResourceImpl extends ResourceImpl {
+	
+	private final EObjectMapper mapper = new EObjectMapper();
 
 	public JsResourceImpl() {
 		super();
@@ -40,8 +43,11 @@ public class JsResourceImpl extends ResourceImpl {
 			options = Collections.<String, Object> emptyMap();
 		}
 
-		final EObjectMapper mapper = new EObjectMapper();
-		mapper.from(inputStream, this, options);
+		if (inputStream instanceof URIConverter.Loadable) {
+			((URIConverter.Loadable) inputStream).loadResource(this);
+		} else {
+			mapper.from(inputStream, this, options);
+		}
 	}
 
 	@Override
@@ -50,8 +56,11 @@ public class JsResourceImpl extends ResourceImpl {
 			options = Collections.<String, Object> emptyMap();
 		}
 
-		final EObjectMapper mapper = new EObjectMapper();
-		mapper.write(outputStream, this, options);
+		if (outputStream instanceof URIConverter.Saveable) {
+			((URIConverter.Saveable) outputStream).saveResource(this);
+		} else {		
+			mapper.write(outputStream, this, options);
+		}
 	}
 
 }

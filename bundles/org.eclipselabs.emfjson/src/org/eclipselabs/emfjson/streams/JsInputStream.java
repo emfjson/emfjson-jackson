@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipselabs.emfjson.streams;
 
-import static org.eclipselabs.emfjson.EMFJs.OPTION_URL_PARAMETERS;
-import static org.eclipselabs.emfjson.common.ModelUtil.getURL;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -45,7 +42,7 @@ public class JsInputStream extends InputStream implements URIConverter.Loadable 
 	public void loadResource(Resource resource) throws IOException {
 		URL url = null;
 		try {
-			url = getURL(resource.getURI(), options.get(OPTION_URL_PARAMETERS));
+			url = new URL(resource.getURI().toString());
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}

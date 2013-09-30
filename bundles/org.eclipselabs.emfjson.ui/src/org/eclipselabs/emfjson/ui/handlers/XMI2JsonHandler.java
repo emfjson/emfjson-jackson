@@ -28,23 +28,13 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipselabs.emfjson.EMFJs;
 
 public class XMI2JsonHandler extends AbstractHandler {
-	
-	
-	private ResourceSet resourceSet = new ResourceSetImpl();
-	
-	/**
-	 * The constructor.
-	 */
-	public XMI2JsonHandler() {}
-	
-	/**
-	 * the command has been executed, so extract extract the needed information
-	 * from the application context.
-	 */
+
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IStructuredSelection selection = (IStructuredSelection) HandlerUtil.getActiveMenuSelection(event);
 		Object firstElement = selection.getFirstElement();
-		
+	
+		ResourceSet resourceSet = new ResourceSetImpl();
+
 		if (firstElement instanceof IResource) {
 			URI locationURI = ((IResource) firstElement).getLocationURI();
 			Resource model = resourceSet.createResource(org.eclipse.emf.common.util.URI.createURI(locationURI.toString()));
@@ -53,17 +43,19 @@ public class XMI2JsonHandler extends AbstractHandler {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+
 			if (model.isLoaded()) {
 				Resource json = resourceSet.createResource(model.getURI().trimFileExtension().appendFileExtension("json"));
 				json.getContents().addAll(model.getContents());
+
 				Map<String, Object> options = new HashMap<String, Object>();
 				options.put(EMFJs.OPTION_INDENT_OUTPUT, true);
+
 				try {
 					json.save(options);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				
 				try {
 					((IResource) firstElement).getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
 				} catch (CoreException e) {
@@ -71,6 +63,8 @@ public class XMI2JsonHandler extends AbstractHandler {
 				}
 			}
 		}
+
 		return null;
 	}
+
 }

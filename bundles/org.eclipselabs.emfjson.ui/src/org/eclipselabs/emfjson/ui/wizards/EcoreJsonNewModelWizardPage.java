@@ -46,7 +46,7 @@ public class EcoreJsonNewModelWizardPage extends WizardPage {
 	public EcoreJsonNewModelWizardPage(ISelection selection) {
 		super("wizardPage");
 		setTitle("Ecore Model");
-		setDescription("This wizard creates a new Ecore model with a JSON syntax.");
+		setDescription("Create a new Ecore model with a JSON syntax.");
 		this.selection = selection;
 	}
 

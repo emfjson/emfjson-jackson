@@ -27,7 +27,7 @@ import java.util.Map;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig.Feature;
@@ -55,18 +55,30 @@ public class EObjectMapper {
 	
 	public EObjectMapper() {}
 
-	public Object from(InputStream inputStream, Resource resource, Map<?, ?> options) {
-		final JsonParser parser = JSUtil.getJsonParser(inputStream);
-		final JsonNode node = JSUtil.getRootNode(parser);
-		
-		return from(node, resource, options);
+	public Object from(InputStream inputStream, Resource resource, Map<?, ?> options) {		
+		JsonNode node = null;
+		try {
+			node = objectMapper.readTree(inputStream);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return node == null ? null : from(node, resource, options);
 	}
-	
+
 	public Object from(URL url, Resource resource, Map<?, ?> options) {
-		final JsonParser parser = JSUtil.getJsonParser(url);
-		final JsonNode node = JSUtil.getRootNode(parser);
-		
-		return from(node, resource, options);
+		JsonNode node = null;
+		try {
+			node = objectMapper.readTree(url);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return node == null ? null : from(node, resource, options);
 	}
 
 	public Object from(JsonNode node, Resource resource, Map<?, ?> options) {

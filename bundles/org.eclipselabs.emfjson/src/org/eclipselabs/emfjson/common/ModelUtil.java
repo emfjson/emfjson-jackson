@@ -14,8 +14,6 @@ import static org.eclipselabs.emfjson.common.Constants.EJS_ELEMENT_ANNOTATION;
 import static org.eclipselabs.emfjson.common.Constants.EJS_JSON_ANNOTATION;
 import static org.eclipselabs.emfjson.common.Constants.EJS_ROOT_ANNOTATION;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Collections;
 import java.util.Map;
 
@@ -128,7 +126,7 @@ public class ModelUtil {
 		}
 		return null;
 	}
-
+/**
 	public static URL getURL(URI uri, Object parameters) throws MalformedURLException {
 		URI outURI = uri;
 
@@ -146,7 +144,7 @@ public class ModelUtil {
 
 		return new URL(outURI.toString());
 	}
-
+**/
 	public static URI getEObjectURI(JsonNode jsonNode, Resource resource, Map<String, String> nsMap) {
 		if (jsonNode == null) return null;
 

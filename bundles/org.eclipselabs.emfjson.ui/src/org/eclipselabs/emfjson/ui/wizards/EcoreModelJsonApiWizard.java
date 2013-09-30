@@ -43,7 +43,6 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 import org.eclipselabs.emfjson.EMFJs;
-import org.eclipselabs.emfjson.modelgen.JsModelGen;
 
 public class EcoreModelJsonApiWizard extends Wizard implements INewWizard {
 	private EcoreModelJsonApiFileWizardPage page;
@@ -101,7 +100,7 @@ public class EcoreModelJsonApiWizard extends Wizard implements INewWizard {
 	private void doFinish(String containerName, String fileName, String serviceURL, IProgressMonitor monitor) throws CoreException {
 		monitor.beginTask("Creating " + fileName, 3);
 		
-		EPackage rootPackage = JsModelGen.genPackage(fileName, URI.createURI(serviceURL));
+		EPackage rootPackage = null; //JsModelGen.genPackage(fileName, URI.createURI(serviceURL));
 		
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		IResource resource = root.findMember(new Path(containerName));
