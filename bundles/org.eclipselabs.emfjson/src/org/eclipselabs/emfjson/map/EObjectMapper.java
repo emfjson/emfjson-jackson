@@ -25,18 +25,19 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.Map;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.JsonProcessingException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig.Feature;
-import org.codehaus.jackson.node.ArrayNode;
-import org.codehaus.jackson.node.ObjectNode;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 /**
  * 
@@ -141,7 +142,7 @@ public class EObjectMapper {
 
 	public ObjectNode to(EObject eObject, Resource resource, Map<?, ?> options) {
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(Feature.INDENT_OUTPUT, false);
+		mapper.configure(SerializationFeature.INDENT_OUTPUT, false);
 
 		return to(eObject, resource);
 	}
@@ -219,7 +220,7 @@ public class EObjectMapper {
 		configure(OPTION_SERIALIZE_TYPE, serializeTypes);
 		configure(OPTION_SERIALIZE_REF_TYPE, serializeRefTypes);
 		configure(OPTION_SERIALIZE_NAMESPACES, serializeNamespaces);
-		objectMapper.configure(Feature.INDENT_OUTPUT, indent);
+		objectMapper.configure(SerializationFeature.INDENT_OUTPUT, indent);
 	}
 
 	public void configure(String key, Object value) {		

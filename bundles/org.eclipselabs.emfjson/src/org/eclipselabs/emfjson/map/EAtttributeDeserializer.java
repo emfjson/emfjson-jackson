@@ -17,14 +17,15 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.node.ObjectNode;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 class EAtttributeDeserializer {
 	
@@ -44,7 +45,7 @@ class EAtttributeDeserializer {
 		// if the value is not an object then
 		// if the key corresponds to an EAttribute, fill it
 		// if not and the EClass contains a MapEntry, fill it with the key, value.
-		for (Iterator<Entry<String, JsonNode>> it = root.getFields(); it.hasNext();) {
+		for (Iterator<Entry<String, JsonNode>> it = root.fields(); it.hasNext();) {
 			Entry<String, JsonNode> field = it.next();
 	
 			String key = field.getKey();
@@ -56,7 +57,7 @@ class EAtttributeDeserializer {
 			EAttribute attribute = getEAttribute(eClass, key);
 			if (isCandidate(attribute)) {
 				if (value.isArray()) {
-					for (Iterator<JsonNode> itValue = value.getElements(); itValue.hasNext();) {
+					for (Iterator<JsonNode> itValue = value.elements(); itValue.hasNext();) {
 						deSerializeValue(eObject, attribute, itValue.next());
 					}
 				} else {
@@ -74,8 +75,7 @@ class EAtttributeDeserializer {
 	}
 
 	void deSerializeValue(EObject eObject, EAttribute attribute, JsonNode value) {
-		@SuppressWarnings("deprecation")
-		final String stringValue = value.getValueAsText();
+		final String stringValue = value.asText();
 
 		if (stringValue != null && !stringValue.trim().isEmpty()) {
 			Object newValue;

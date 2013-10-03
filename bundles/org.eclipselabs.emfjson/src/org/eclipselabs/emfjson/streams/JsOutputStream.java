@@ -15,10 +15,12 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
 
-import org.codehaus.jackson.JsonNode;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
+import org.eclipse.emf.ecore.resource.URIConverter.Saveable;
 import org.eclipselabs.emfjson.map.EObjectMapper;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * 

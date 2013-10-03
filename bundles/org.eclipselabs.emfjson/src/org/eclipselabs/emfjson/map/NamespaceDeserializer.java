@@ -17,21 +17,20 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.node.ObjectNode;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 class NamespaceDeserializer {
 
-	@SuppressWarnings("deprecation")
 	Map<String, String> deSerialize(ObjectNode node) {
 		final Map<String, String> nsMap = new HashMap<String, String>();
 
 		if (node.has(EJS_NS_KEYWORD)) {
 			ObjectNode nsNode = (ObjectNode) node.findPath(EJS_NS_KEYWORD);
 
-			for(Iterator<Entry<String, JsonNode>> it = nsNode.getFields(); it.hasNext();) {
+			for(Iterator<Entry<String, JsonNode>> it = nsNode.fields(); it.hasNext();) {
 				Entry<String, JsonNode> entry = it.next();
-				nsMap.put(entry.getKey(), entry.getValue().getValueAsText());
+				nsMap.put(entry.getKey(), entry.getValue().asText());
 			}
 		}
 

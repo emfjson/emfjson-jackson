@@ -16,9 +16,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.node.ArrayNode;
-import org.codehaus.jackson.node.ObjectNode;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -28,6 +25,10 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipselabs.emfjson.common.ModelUtil;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 class Deserializer {
 
@@ -88,7 +89,7 @@ class Deserializer {
 		final EList<EObject> returnList = new BasicEList<EObject>();
 		EObject eObject;
 
-		for (Iterator<JsonNode> it = node.getElements(); it.hasNext();) {
+		for (Iterator<JsonNode> it = node.elements(); it.hasNext();) {
 			JsonNode element = it.next();
 			if (element.isObject()) {
 				eObject = from((ObjectNode) element, rootClass, resource);
