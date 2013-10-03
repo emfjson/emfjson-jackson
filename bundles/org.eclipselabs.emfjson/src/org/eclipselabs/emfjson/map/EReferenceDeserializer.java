@@ -17,13 +17,14 @@ import static org.eclipselabs.emfjson.common.ModelUtil.isMapEntry;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.node.ObjectNode;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 class EReferenceDeserializer {
 
@@ -41,7 +42,7 @@ class EReferenceDeserializer {
 		final EClass eClass = eObject.eClass();
 		final ObjectNode root = (ObjectNode) node;
 
-		for (Iterator<Entry<String, JsonNode>> it = root.getFields(); it.hasNext();) {
+		for (Iterator<Entry<String, JsonNode>> it = root.fields(); it.hasNext();) {
 			Entry<String, JsonNode> field = it.next();
 
 			String key = field.getKey();
@@ -65,14 +66,14 @@ class EReferenceDeserializer {
 				@SuppressWarnings("unchecked")
 				EList<EObject> values = (EList<EObject>) eObject.eGet(reference);
 
-				for (Iterator<JsonNode> it = value.getElements(); it.hasNext();) {
+				for (Iterator<JsonNode> it = value.elements(); it.hasNext();) {
 					JsonNode current = it.next();
 					EObject contained = createContainedObject(reference, root, current, resource);
 					if (contained != null) values.add(contained);
 				}
 			} 
-			else if (value.getElements().hasNext()) {
-				JsonNode current = value.getElements().next();
+			else if (value.elements().hasNext()) {
+				JsonNode current = value.elements().next();
 				EObject contained = createContainedObject(reference, root, current, resource);
 				if (contained != null) eObject.eSet(reference, contained);
 			}

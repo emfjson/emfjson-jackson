@@ -17,7 +17,6 @@ import static org.eclipselabs.emfjson.common.Constants.EJS_ROOT_ANNOTATION;
 import java.util.Collections;
 import java.util.Map;
 
-import org.codehaus.jackson.JsonNode;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EAttribute;
@@ -28,6 +27,8 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * 
@@ -152,8 +153,7 @@ public class ModelUtil {
 			nsMap = Collections.emptyMap();
 		}
 
-		@SuppressWarnings("deprecation")
-		final String value = jsonNode.getValueAsText();
+		final String value = jsonNode.asText();
 
 		if (value.startsWith("#//")) {
 			// is fragment

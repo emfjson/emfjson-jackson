@@ -19,8 +19,6 @@ import java.io.InputStream;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -30,6 +28,9 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JSUtil {
 
@@ -100,12 +101,11 @@ public class JSUtil {
 		return null;
 	}
 
-	@SuppressWarnings("deprecation")
 	public static JsonNode findNode(JsonNode node, ResourceSet resourceSet, String fragment, URI objectURI) {
 		if (node.isArray()) {
 			int pos = 0;
 			String idx = fragment;
-			for (Iterator<JsonNode> it = node.getElements(); it.hasNext();) {
+			for (Iterator<JsonNode> it = node.elements(); it.hasNext();) {
 				idx = fragment + pos;
 				JsonNode current = it.next();
 				
@@ -113,7 +113,7 @@ public class JSUtil {
 				if (currentEClass != null) {
 					EAttribute id = currentEClass.getEIDAttribute();
 					if (id != null) {
-						if (objectURI.trimFragment().appendFragment(current.get(id.getName()).getValueAsText()).equals(objectURI)) {
+						if (objectURI.trimFragment().appendFragment(current.get(id.getName()).asText()).equals(objectURI)) {
 							return current;
 						}
 					} else {
@@ -143,7 +143,7 @@ public class JSUtil {
 			if (currentEClass != null) {
 				EAttribute id = currentEClass.getEIDAttribute();
 				if (id != null) {
-					if (objectURI.trimFragment().appendFragment(node.get(id.getName()).getValueAsText()).equals(objectURI)) {
+					if (objectURI.trimFragment().appendFragment(node.get(id.getName()).asText()).equals(objectURI)) {
 						return node;
 					}
 				} else {
@@ -172,7 +172,7 @@ public class JSUtil {
 
 	public static EClass getEClass(JsonNode node, ResourceSet resourceSet) {
 		if (node.has(EJS_TYPE_KEYWORD)) {
-			return (EClass) resourceSet.getEObject(URI.createURI(node.get(EJS_TYPE_KEYWORD).getTextValue()), false);
+			return (EClass) resourceSet.getEObject(URI.createURI(node.get(EJS_TYPE_KEYWORD).textValue()), false);
 		} else {
 			return null;
 		}
@@ -226,7 +226,7 @@ public class JSUtil {
 		String fragment = nodeURI.fragment().startsWith("//") ? nodeURI.fragment().substring(2) : nodeURI.fragment();
 
 		for (JsonNode node: root.findParents(eID.getName())) {
-			String value = node.get(eID.getName()).getTextValue();
+			String value = node.get(eID.getName()).textValue();
 			if (value.equals(fragment)){
 				return node;
 			}
