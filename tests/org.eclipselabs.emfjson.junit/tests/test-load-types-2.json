@@ -6,7 +6,7 @@
 			"name":"First", 
 			"propTypeOne":"one", 
 			"refProperty":{
-				"$ref":"platform:/plugin/org.eclipselabs.emfjson.junit/tests/test-load-types-2.json#Two"
+				"$ref":"#Two"
 			}
 		},
 		{
