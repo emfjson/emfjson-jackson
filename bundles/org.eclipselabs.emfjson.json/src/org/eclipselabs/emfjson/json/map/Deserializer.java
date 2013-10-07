@@ -3,9 +3,6 @@ package org.eclipselabs.emfjson.json.map;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.node.ArrayNode;
-import org.codehaus.jackson.node.ObjectNode;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipselabs.emfjson.json.JArray;
 import org.eclipselabs.emfjson.json.JBoolean;
@@ -16,33 +13,31 @@ import org.eclipselabs.emfjson.json.JObject;
 import org.eclipselabs.emfjson.json.JSONFactory;
 import org.eclipselabs.emfjson.json.JString;
 
-public class Deserializer {
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
+public class Deserializer {
 
 	private final JSONFactory factory = JSONFactory.eINSTANCE;
 
-
 	public JNode from(JsonNode node, Resource resource, boolean isRoot) {
-		if (node == null) return null;
+		if (node == null)
+			return null;
 
 		JNode result = null;
 
 		if (node.isArray()) {
 			result = from((ArrayNode) node, resource);
-		}
-		else if (node.isObject()) {
+		} else if (node.isObject()) {
 			result = from((ObjectNode) node, resource);
-		}
-		else if (node.isBoolean()) {
+		} else if (node.isBoolean()) {
 			result = createBoolean(node);
-		}
-		else if (node.isTextual()) {
+		} else if (node.isTextual()) {
 			result = createString(node);
-		}
-		else if (node.isNumber()) {
+		} else if (node.isNumber()) {
 			result = createNumber(node);
-		}
-		else if (node.isNull()) {
+		} else if (node.isNull()) {
 			result = factory.createJNull();
 		}
 
@@ -55,7 +50,7 @@ public class Deserializer {
 
 	private JObject from(ObjectNode node, Resource resource) {
 		JObject result = factory.createJObject();
-		for (Iterator<Entry<String, JsonNode>> it = node.getFields(); it.hasNext();) {
+		for (Iterator<Entry<String, JsonNode>> it = node.fields(); it.hasNext();) {
 			Entry<String, JsonNode> current = it.next();
 			JField field = factory.createJField();
 			field.setKey(current.getKey());
@@ -67,7 +62,7 @@ public class Deserializer {
 
 	private JArray from(ArrayNode node, Resource resource) {
 		JArray result = factory.createJArray();
-		for (Iterator<JsonNode> it = node.getElements(); it.hasNext();) {
+		for (Iterator<JsonNode> it = node.elements(); it.hasNext();) {
 			JsonNode current = it.next();
 			JNode converted = from(current, resource, false);
 			result.getElements().add(converted);

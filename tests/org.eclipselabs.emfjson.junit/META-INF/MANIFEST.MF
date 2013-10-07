@@ -14,13 +14,11 @@ Export-Package: org.eclipselabs.emfjson.junit,
  org.eclipselabs.emfjson.junit.support,
  org.eclipselabs.emfjson.junit.tests
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
- org.eclipse.emf.ecore.xmi;bundle-version="2.7.0"
+ com.fasterxml.jackson.core;bundle-version="2.0.0",
+ com.fasterxml.jackson.annotations;bundle-version="2.0.0",
+ com.fasterxml.jackson.databind;bundle-version="2.0.0",
+ org.eclipselabs.emfjson;bundle-version="0.7.0",
+ org.junit;bundle-version="4.0.0"
 Bundle-ActivationPolicy: lazy
-Import-Package: org.eclipselabs.emfjson,
- org.eclipselabs.emfjson.resource,
- org.eclipselabs.emfjson.streams,
- org.junit,
- org.junit.runner,
- org.junit.runners,
- org.osgi.framework;version="[1.0.0,2.0.0)"
 Bundle-Activator: org.eclipselabs.emfjson.junit.Activator
+Import-Package: org.osgi.framework;version="1.7.0"

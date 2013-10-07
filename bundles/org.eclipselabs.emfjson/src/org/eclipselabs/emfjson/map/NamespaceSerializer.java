@@ -2,9 +2,10 @@ package org.eclipselabs.emfjson.map;
 
 import java.util.Map;
 
-import org.codehaus.jackson.node.ArrayNode;
-import org.codehaus.jackson.node.ObjectNode;
 import org.eclipselabs.emfjson.common.Constants;
+
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 class NamespaceSerializer {
 

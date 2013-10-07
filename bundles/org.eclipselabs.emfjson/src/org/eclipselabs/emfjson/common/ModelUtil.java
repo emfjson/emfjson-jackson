@@ -17,7 +17,6 @@ import static org.eclipselabs.emfjson.common.Constants.EJS_ROOT_ANNOTATION;
 import java.util.Collections;
 import java.util.Map;
 
-import org.codehaus.jackson.JsonNode;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EAttribute;
@@ -29,10 +28,12 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 /**
  * 
  * @author ghillairet
- *
+ * 
  */
 public class ModelUtil {
 
@@ -45,12 +46,13 @@ public class ModelUtil {
 	}
 
 	public static EAttribute getEAttribute(EClass eClass, String key) {
-		if (eClass == null || key == null) return null;
+		if (eClass == null || key == null)
+			return null;
 
 		EStructuralFeature eStructuralFeature = eClass.getEStructuralFeature(key);
 		if (eStructuralFeature == null) {
 			int i = 0;
-			while(i < eClass.getEAllAttributes().size() && eStructuralFeature == null) {
+			while (i < eClass.getEAllAttributes().size() && eStructuralFeature == null) {
 				EAttribute eAttribute = eClass.getEAllAttributes().get(i);
 				if (key.equals(getElementName(eAttribute))) {
 					eStructuralFeature = eAttribute;
@@ -62,12 +64,13 @@ public class ModelUtil {
 	}
 
 	public static EReference getEReference(EClass eClass, String key) {
-		if (eClass == null || key == null) return null;
+		if (eClass == null || key == null)
+			return null;
 
 		EStructuralFeature eStructuralFeature = eClass.getEStructuralFeature(key);
 		if (eStructuralFeature == null) {
 			int i = 0;
-			while(i < eClass.getEAllReferences().size() && eStructuralFeature == null) {
+			while (i < eClass.getEAllReferences().size() && eStructuralFeature == null) {
 				EReference eReference = eClass.getEAllReferences().get(i);
 				if (key.equals(getElementName(eReference))) {
 					eStructuralFeature = eReference;
@@ -79,12 +82,13 @@ public class ModelUtil {
 	}
 
 	public static EStructuralFeature getDynamicMapEntryFeature(EClass eClass) {
-		if (eClass == null) return null;
+		if (eClass == null)
+			return null;
 
 		EStructuralFeature eMapEntry = null;
 		int i = 0;
 
-		while(i < eClass.getEAllStructuralFeatures().size() && eMapEntry == null) {
+		while (i < eClass.getEAllStructuralFeatures().size() && eMapEntry == null) {
 			EStructuralFeature eFeature = eClass.getEAllStructuralFeatures().get(i);
 			if (isDynamicMapEntryFeature(eFeature)) {
 				eMapEntry = eFeature;
@@ -126,51 +130,43 @@ public class ModelUtil {
 		}
 		return null;
 	}
-/**
-	public static URL getURL(URI uri, Object parameters) throws MalformedURLException {
-		URI outURI = uri;
 
-		if (parameters != null && parameters instanceof Map) {
-			Map<?, ?> map = (Map<?,?>) parameters;
-			for (Object key: map.keySet()) {
-				String query = key+"="+(String) map.get(key);
-				if (outURI.hasQuery()) {
-					outURI = URI.createURI(outURI+"&"+query);
-				} else {
-					outURI = outURI.appendQuery(query);
-				}
-			}
-		}
-
-		return new URL(outURI.toString());
-	}
-**/
+	/**
+	 * public static URL getURL(URI uri, Object parameters) throws
+	 * MalformedURLException { URI outURI = uri;
+	 * 
+	 * if (parameters != null && parameters instanceof Map) { Map<?, ?> map =
+	 * (Map<?,?>) parameters; for (Object key: map.keySet()) { String query =
+	 * key+"="+(String) map.get(key); if (outURI.hasQuery()) { outURI =
+	 * URI.createURI(outURI+"&"+query); } else { outURI =
+	 * outURI.appendQuery(query); } } }
+	 * 
+	 * return new URL(outURI.toString()); }
+	 **/
 	public static URI getEObjectURI(JsonNode jsonNode, Resource resource, Map<String, String> nsMap) {
-		if (jsonNode == null) return null;
+		if (jsonNode == null)
+			return null;
 
 		if (nsMap == null) {
 			nsMap = Collections.emptyMap();
 		}
 
-		@SuppressWarnings("deprecation")
-		final String value = jsonNode.getValueAsText();
+		final String value = jsonNode.asText();
 
 		if (value.startsWith("#//")) {
 			// is fragment
 			return resource.getURI().appendFragment(value.substring(1));
-		}
-		else if (value.contains(":")) {
+		} else if (value.contains(":")) {
 			String[] split = value.split(":");
 			// is namespaced prefix:fragment
-			if (split.length == 2) { 
+			if (split.length == 2) {
 				if (nsMap.keySet().contains(split[0])) {
 					String nsURI = nsMap.get(split[0]);
 					return URI.createURI(nsURI).appendFragment(split[1]);
 				}
 			}
 			return URI.createURI(value);
-		}
-		else { // is ID
+		} else { // is ID
 			return resource.getURI().appendFragment(value);
 		}
 	}
