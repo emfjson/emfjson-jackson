@@ -27,7 +27,7 @@
 	</modules>
 
 	<properties>
-		<tycho-version>0.18.0</tycho-version>
+		<tycho-version>0.18.1</tycho-version>
 		<targets>build/repository/target/</targets>
 		<build-type>snapshots</build-type>
 	</properties>
@@ -36,7 +36,7 @@
 		<repository>
 			<id>jackson-p2</id>
 			<layout>p2</layout>
-			<url>http://ghillairet.github.com/p2/jackson/update-site/releases</url>
+			<url>http://ghillairet.github.com/p2/jackson2/2.2.3</url>
 		</repository>
 		<repository>
 			<id>kepler</id>
