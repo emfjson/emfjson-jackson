@@ -13,6 +13,7 @@ package org.eclipselabs.emfjson.junit.support;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -24,14 +25,15 @@ import org.eclipselabs.emfjson.resource.JsResourceFactoryImpl;
 import org.junit.Before;
 
 public abstract class TestSupport {
-	
-	protected String baseTestFilesPath = "platform:/plugin/org.eclipselabs.emfjson.junit/tests/";
+
+	protected String baseTestFilesFileDirectory = "./tests/";
+	protected String baseTestFilesPlatformURI = "platform:/plugin/org.eclipselabs.emfjson.junit/tests/";
 	
 	protected final Map<String ,Object> options = new HashMap<String, Object>();
 	protected ResourceSet resourceSet;
 	
 	@Before
-	public void tearUp() {
+	public void setUp() {
 		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("json", new JsResourceFactoryImpl());
 		options.put(EMFJs.OPTION_INDENT_OUTPUT, false);
@@ -39,6 +41,9 @@ public abstract class TestSupport {
 	}
 	
 	protected URI uri(String fileName) {
-		return URI.createURI(baseTestFilesPath+fileName, true);
+		if (EMFPlugin.IS_ECLIPSE_RUNNING)
+			return URI.createURI(baseTestFilesPlatformURI+fileName, true);
+		else
+			return URI.createFileURI(baseTestFilesFileDirectory);
 	}
 }
