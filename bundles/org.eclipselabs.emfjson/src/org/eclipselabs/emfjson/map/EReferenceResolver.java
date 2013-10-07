@@ -18,14 +18,15 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.node.ObjectNode;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 class EReferenceResolver {
 
@@ -36,30 +37,30 @@ class EReferenceResolver {
 	}
 
 	void resolve(Map<EObject, JsonNode> processed, Resource resource) {
-		for (EObject eObject: processed.keySet()) {
+		for (EObject eObject : processed.keySet()) {
 			resolve(eObject, processed.get(eObject), resource, processed);
 		}
 	}
 
 	void resolve(EObject eObject, JsonNode node, Resource resource, Map<EObject, JsonNode> processed) {
 
-		if (!node.isObject()) return;
+		if (!node.isObject())
+			return;
 
 		final EClass eClass = eObject.eClass();
 		final ObjectNode root = (ObjectNode) node;
 
-		for (Iterator<Entry<String, JsonNode>> it = root.getFields(); it.hasNext();) {
+		for (Iterator<Entry<String, JsonNode>> it = root.fields(); it.hasNext();) {
 			Entry<String, JsonNode> field = it.next();
 
 			String key = field.getKey();
 			JsonNode value = field.getValue();
 
 			EReference reference = getEReference(eClass, key);
-			if (reference != null && !reference.isContainment() && 
-					!reference.isDerived() && !reference.isTransient()) {
+			if (reference != null && !reference.isContainment() && !reference.isDerived() && !reference.isTransient()) {
 
 				if (value.isArray()) {
-					for (Iterator<JsonNode> itEl = value.getElements(); itEl.hasNext();) {
+					for (Iterator<JsonNode> itEl = value.elements(); itEl.hasNext();) {
 						JsonNode current = itEl.next();
 						createProxyReference(eObject, root, current, reference, resource);
 					}
@@ -95,9 +96,7 @@ class EReferenceResolver {
 	EObject findEObject(Resource resource, JsonNode node) {
 		EObject eObject = null;
 		if (node.isObject()) {
-			final URI objectURI = getEObjectURI(node.get(EJS_REF_KEYWORD), 
-					resource, 
-					deserializer.getNamespaces());
+			final URI objectURI = getEObjectURI(node.get(EJS_REF_KEYWORD), resource, deserializer.getNamespaces());
 
 			eObject = resource.getResourceSet().getEObject(objectURI, false);
 		}

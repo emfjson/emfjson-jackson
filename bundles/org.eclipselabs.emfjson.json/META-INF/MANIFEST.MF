@@ -14,6 +14,6 @@ Export-Package: org.eclipselabs.emfjson.json,
  org.eclipselabs.emfjson.json.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
- org.codehaus.jackson.core;bundle-version="1.6.0",
- org.codehaus.jackson.mapper;bundle-version="1.6.0"
+ com.fasterxml.jackson.core;bundle-version="2.0.0",
+ com.fasterxml.jackson.databind;bundle-version="2.0.0"
 Bundle-ActivationPolicy: lazy

@@ -16,9 +16,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.node.ArrayNode;
-import org.codehaus.jackson.node.ObjectNode;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -28,6 +25,10 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipselabs.emfjson.common.ModelUtil;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 class Deserializer {
 
@@ -53,18 +54,16 @@ class Deserializer {
 
 	EObject from(ObjectNode node, EClass eClass, Resource resource) {
 		EObject eObject = null;
-		
+
 		namespaces.putAll(namespaceDeserializer.deSerialize(node));
 
 		if (eClass == null) {
 			if (node.has(EJS_TYPE_KEYWORD)) {
-				URI eClassURI = ModelUtil.getEObjectURI(node.get(EJS_TYPE_KEYWORD), 
-						resource,
-						getNamespaces());
+				URI eClassURI = ModelUtil.getEObjectURI(node.get(EJS_TYPE_KEYWORD), resource, getNamespaces());
 				eClass = getEClass(eClassURI, resource.getResourceSet());
 			}
 		}
-		
+
 		if (eClass != null && eClass instanceof EClass) {
 			eObject = EcoreUtil.create(eClass);
 			processed.put(eObject, node);
@@ -76,19 +75,19 @@ class Deserializer {
 		return eObject;
 	}
 
-	EObject from(ObjectNode node, Resource resource) {		
+	EObject from(ObjectNode node, Resource resource) {
 		return from(node, null, resource);
 	}
 
 	EList<EObject> from(ArrayNode node, Resource resource) {
 		return from(node, null, resource);
 	}
-	
+
 	EList<EObject> from(ArrayNode node, EClass rootClass, Resource resource) {
 		final EList<EObject> returnList = new BasicEList<EObject>();
 		EObject eObject;
 
-		for (Iterator<JsonNode> it = node.getElements(); it.hasNext();) {
+		for (Iterator<JsonNode> it = node.elements(); it.hasNext();) {
 			JsonNode element = it.next();
 			if (element.isObject()) {
 				eObject = from((ObjectNode) element, rootClass, resource);
@@ -101,7 +100,7 @@ class Deserializer {
 		return returnList;
 	}
 
-	void resolve(Resource resource) {		
+	void resolve(Resource resource) {
 		resolver.resolve(processed, resource);
 		processed.clear();
 	}
@@ -109,27 +108,27 @@ class Deserializer {
 	EClass getEClass(URI uri, ResourceSet resourceSet) {
 		return (EClass) resourceSet.getEObject(uri, true);
 	}
-	
+
 	EAtttributeDeserializer getEAtttributeDeserializer() {
 		return eAtttributeDeserializer;
 	}
-	
+
 	EReferenceDeserializer getEReferenceDeserializer() {
 		return eReferenceDeserializer;
 	}
-	
+
 	NamespaceDeserializer getNamespaceDeserializer() {
 		return namespaceDeserializer;
 	}
-	
+
 	ProxyFactory getProxyFactory() {
 		return proxyFactory;
 	}
-	
+
 	Map<String, String> getNamespaces() {
 		return namespaces;
 	}
-	
+
 	Map<EObject, JsonNode> getProcessed() {
 		return processed;
 	}

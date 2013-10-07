@@ -10,13 +10,14 @@
  *******************************************************************************/
 package org.eclipselabs.emfjson.map;
 
-import org.codehaus.jackson.node.ObjectNode;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipselabs.emfjson.common.ModelUtil;
+
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 class MapSerializer {
 		

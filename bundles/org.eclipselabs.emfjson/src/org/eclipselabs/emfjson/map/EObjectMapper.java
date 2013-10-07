@@ -25,18 +25,19 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.Map;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.JsonProcessingException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig.Feature;
-import org.codehaus.jackson.node.ArrayNode;
-import org.codehaus.jackson.node.ObjectNode;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 /**
  * 
@@ -49,13 +50,15 @@ public class EObjectMapper {
 	private boolean serializeRefTypes = true;
 	private boolean useProxyAttributes = false;
 	private boolean serializeNamespaces = false;
+	private boolean indentOutput = false;
 	private EClass rootClass = null;
 
-	private final ObjectMapper objectMapper = new ObjectMapper();	
-	
-	public EObjectMapper() {}
+	private final ObjectMapper objectMapper = new ObjectMapper();
 
-	public Object from(InputStream inputStream, Resource resource, Map<?, ?> options) {		
+	public EObjectMapper() {
+	}
+
+	public Object from(InputStream inputStream, Resource resource, Map<?, ?> options) {
 		JsonNode node = null;
 		try {
 			node = objectMapper.readTree(inputStream);
@@ -82,14 +85,14 @@ public class EObjectMapper {
 	}
 
 	public Object from(JsonNode node, Resource resource, Map<?, ?> options) {
-		if (node == null) return null;
+		if (node == null)
+			return null;
 
 		configureDeserializer(options);
 
 		if (node.isArray()) {
 			return from((ArrayNode) node, resource);
-		}
-		else if (node.isObject()) {
+		} else if (node.isObject()) {
 			return from((ObjectNode) node, resource);
 		} else {
 			return null;
@@ -110,7 +113,7 @@ public class EObjectMapper {
 
 	public EList<EObject> from(ArrayNode node, Resource resource) {
 		final EList<EObject> contents = resource.getContents();
-		
+
 		Deserializer from = new Deserializer(useProxyAttributes);
 		EList<EObject> result = from.from(node, rootClass, resource);
 		contents.addAll(result);
@@ -118,7 +121,7 @@ public class EObjectMapper {
 
 		return result;
 	}
-	
+
 	public JsonNode to(Resource resource, Map<?, ?> options) {
 		configureSerializer(options);
 
@@ -140,17 +143,18 @@ public class EObjectMapper {
 	}
 
 	public ObjectNode to(EObject eObject, Resource resource, Map<?, ?> options) {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(Feature.INDENT_OUTPUT, false);
-
 		return to(eObject, resource);
 	}
-	
+
 	public void write(OutputStream outStream, Resource resource, Map<?, ?> options) {
 		write(outStream, to(resource, options));
 	}
 
 	public void write(OutputStream output, JsonNode current) {
+		if (indentOutput) {
+			objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+		}
+
 		try {
 			objectMapper.writeValue(output, current);
 		} catch (JsonGenerationException e) {
@@ -215,14 +219,14 @@ public class EObjectMapper {
 				e.printStackTrace();
 			}
 		}
-		
+
 		configure(OPTION_SERIALIZE_TYPE, serializeTypes);
 		configure(OPTION_SERIALIZE_REF_TYPE, serializeRefTypes);
 		configure(OPTION_SERIALIZE_NAMESPACES, serializeNamespaces);
-		objectMapper.configure(Feature.INDENT_OUTPUT, indent);
+		configure(OPTION_INDENT_OUTPUT, indent);
 	}
 
-	public void configure(String key, Object value) {		
+	public void configure(String key, Object value) {
 		if (OPTION_SERIALIZE_TYPE.equals(key)) {
 			serializeTypes = (Boolean) value;
 		}
@@ -237,6 +241,9 @@ public class EObjectMapper {
 		}
 		if (OPTION_PROXY_ATTRIBUTES.equals(key)) {
 			useProxyAttributes = (Boolean) value;
+		}
+		if (OPTION_INDENT_OUTPUT.equals(key)) {
+			indentOutput = (Boolean) value;
 		}
 	}
 
