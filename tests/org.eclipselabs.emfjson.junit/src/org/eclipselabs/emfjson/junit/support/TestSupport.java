@@ -44,6 +44,6 @@ public abstract class TestSupport {
 		if (EMFPlugin.IS_ECLIPSE_RUNNING)
 			return URI.createURI(baseTestFilesPlatformURI+fileName, true);
 		else
-			return URI.createFileURI(baseTestFilesFileDirectory);
+			return URI.createFileURI(baseTestFilesFileDirectory+fileName);
 	}
 }
