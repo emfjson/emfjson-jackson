@@ -24,16 +24,12 @@ your pom file. Please refer to the Jackson documentation for more information.
 <repository>
 	<id>emfjson-repository</id>
 	<url>http://repository-ghillairet.forge.cloudbees.com/snapshot</url>
-	<snapshots>
-		<enabled>true</enabled>
-		<updatePolicy>always</updatePolicy>
-	</snapshots>
 </repository>
 
 <dependency>
 	<groupId>org.eclipselabs</groupId>
 	<artifactId>org.eclipselabs.emfjson</artifactId>
-	<version>0.6.0-SNAPSHOT</version>
+	<version>0.7.0-SNAPSHOT</version>
 </dependency>
 ```
 
