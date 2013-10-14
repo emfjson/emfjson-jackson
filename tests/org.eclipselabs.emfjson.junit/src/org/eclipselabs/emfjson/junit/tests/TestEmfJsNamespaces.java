@@ -107,8 +107,7 @@ public class TestEmfJsNamespaces extends TestSupport {
 	
 	@Test
 	public void testLoadTwoObjectsWithReferenceAndTypeInformationAndNamespace() throws IOException {
-		Resource resource = resourceSet.createResource(
-				URI.createURI("platform:/plugin/org.eclipselabs.emfjson.junit/tests/test-load-ns-types.json"));
+		Resource resource = resourceSet.createResource(uri("test-load-ns-types.json"));
 		assertNotNull(resource);
 		options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getContainer());
 		

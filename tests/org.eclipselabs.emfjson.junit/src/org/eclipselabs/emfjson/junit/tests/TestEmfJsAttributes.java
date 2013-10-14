@@ -26,18 +26,14 @@ import java.util.HashSet;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipselabs.emfjson.EMFJs;
-import org.eclipselabs.emfjson.junit.model.Container;
 import org.eclipselabs.emfjson.junit.model.ETypes;
 import org.eclipselabs.emfjson.junit.model.ModelFactory;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
@@ -55,369 +51,345 @@ import org.junit.Test;
  */
 public class TestEmfJsAttributes extends TestSupport {
 
-	@Test
-	public void test() throws IOException {
-		Resource resource = resourceSet.createResource(URI.createURI("test.json"));
+    @Test
+    public void testStringValues() throws IOException {
+        String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eString\":\"Hello\",\"eStrings\":[\"Hello\",\"World\"]}";
 
-		EPackage p1 = EcoreFactory.eINSTANCE.createEPackage();
-		EPackage p2 = EcoreFactory.eINSTANCE.createEPackage();
-		EClass e1 = EcoreFactory.eINSTANCE.createEClass();
-		e1.setName("E");
-		p1.getEClassifiers().add(e1);
-		Container u1 = ModelFactory.eINSTANCE.createContainer();
-		Container u2 = ModelFactory.eINSTANCE.createContainer();
+        Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 
-		resource.getContents().add(p1);
-		resource.getContents().add(p2);
-		resource.getContents().add(u1);
-		resource.getContents().add(u2);
+        ETypes valueObject = ModelFactory.eINSTANCE.createETypes();
+        valueObject.setEString("Hello");
 
-		System.out.println(EcoreUtil.getURI(p1));
-		System.out.println(EcoreUtil.getURI(e1));
-		System.out.println(EcoreUtil.getURI(p2));
-		System.out.println(EcoreUtil.getURI(u1));
-		System.out.println(EcoreUtil.getURI(u2));
-	}
+        String[] arrayValue = new String[] { "Hello", "World" };
+        valueObject.getEStrings().addAll(Arrays.asList(arrayValue));
 
-	@Test
-	public void testStringValues() throws IOException {
-		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eString\":\"Hello\",\"eStrings\":[\"Hello\",\"World\"]}";
+        resource.getContents().add(valueObject);
 
-		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 
-		ETypes valueObject = ModelFactory.eINSTANCE.createETypes();
-		valueObject.setEString("Hello");
+        resource.save(outStream, options);
 
-		String[] arrayValue = new String[] { "Hello", "World" };
-		valueObject.getEStrings().addAll(Arrays.asList(arrayValue));
+        assertEquals(expectedString, new String(outStream.toByteArray()));
+    }
 
-		resource.getContents().add(valueObject);
+    @Test
+    public void testIntValues() throws IOException {
+        String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eInt\":1,\"eInts\":[1,2]}";
 
-		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 
-		resource.save(outStream, options);
+        ETypes valueObject = ModelFactory.eINSTANCE.createETypes();
+        valueObject.setEInt(1);
 
-		assertEquals(expectedString, new String(outStream.toByteArray()));
-	}
+        Integer[] arrayValue = new Integer[] { 1, 2 };
+        valueObject.getEInts().addAll(Arrays.asList(arrayValue));
 
-	@Test
-	public void testIntValues() throws IOException {
-		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eInt\":1,\"eInts\":[1,2]}";
+        resource.getContents().add(valueObject);
 
-		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 
-		ETypes valueObject = ModelFactory.eINSTANCE.createETypes();
-		valueObject.setEInt(1);
+        resource.save(outStream, options);
 
-		Integer[] arrayValue = new Integer[] { 1, 2 };
-		valueObject.getEInts().addAll(Arrays.asList(arrayValue));
+        assertEquals(expectedString, new String(outStream.toByteArray()));
+    }
 
-		resource.getContents().add(valueObject);
+    @Test
+    public void testLoadIntValues() throws IOException {
+        String inputString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eInt\":1,\"eInts\":[1,2]}";
 
-		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+        resource.load(new ByteArrayInputStream(inputString.getBytes()), null);
 
-		resource.save(outStream, options);
+        assertEquals(1, resource.getContents().size());
 
-		assertEquals(expectedString, new String(outStream.toByteArray()));
-	}
+        EObject root = resource.getContents().get(0);
+        assertEquals(ModelPackage.Literals.ETYPES, root.eClass());
 
-	@Test
-	public void testLoadIntValues() throws IOException {
-		String inputString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eInt\":1,\"eInts\":[1,2]}";
+        EList<Integer> ints = ((ETypes) root).getEInts();
+        assertEquals(2, ints.size());
+        assertTrue(1 == ints.get(0));
+        assertTrue(2 == ints.get(1));
+    }
 
-		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
-		resource.load(new ByteArrayInputStream(inputString.getBytes()), null);
+    @Test
+    public void testBooleanValues() throws IOException {
+        String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eBoolean\":true,\"eBooleans\":[false,true]}";
 
-		assertEquals(1, resource.getContents().size());
+        Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 
-		EObject root = resource.getContents().get(0);
-		assertEquals(ModelPackage.Literals.ETYPES, root.eClass());
+        ETypes valueObject = ModelFactory.eINSTANCE.createETypes();
+        valueObject.setEBoolean(true);
 
-		EList<Integer> ints = ((ETypes) root).getEInts();
-		assertEquals(2, ints.size());
-		assertTrue(1 == ints.get(0));
-		assertTrue(2 == ints.get(1));
-	}
+        Boolean[] arrayValue = new Boolean[] { false, true };
+        valueObject.getEBooleans().addAll(Arrays.asList(arrayValue));
 
-	@Test
-	public void testBooleanValues() throws IOException {
-		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eBoolean\":true,\"eBooleans\":[false,true]}";
+        resource.getContents().add(valueObject);
 
-		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 
-		ETypes valueObject = ModelFactory.eINSTANCE.createETypes();
-		valueObject.setEBoolean(true);
+        resource.save(outStream, options);
 
-		Boolean[] arrayValue = new Boolean[] { false, true };
-		valueObject.getEBooleans().addAll(Arrays.asList(arrayValue));
+        assertEquals(expectedString, new String(outStream.toByteArray()));
+    }
 
-		resource.getContents().add(valueObject);
+    @Test
+    public void testDateValue() throws IOException {
+        String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eDate\":\"2011-10-10T00:00:00\"}";
 
-		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 
-		resource.save(outStream, options);
+        ETypes valueObject = ModelFactory.eINSTANCE.createETypes();
+        Date value = (Date) EcoreUtil.createFromString(EcorePackage.eINSTANCE.getEDate(), "2011-10-10");
 
-		assertEquals(expectedString, new String(outStream.toByteArray()));
-	}
+        valueObject.setEDate(value);
 
-	@Test
-	public void testDateValue() throws IOException {
-		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eDate\":\"2011-10-10T00:00:00\"}";
+        resource.getContents().add(valueObject);
 
-		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 
-		ETypes valueObject = ModelFactory.eINSTANCE.createETypes();
-		Date value = (Date) EcoreUtil.createFromString(EcorePackage.eINSTANCE.getEDate(), "2011-10-10");
+        resource.save(outStream, options);
 
-		valueObject.setEDate(value);
+        assertEquals(expectedString, new String(outStream.toByteArray()));
+    }
 
-		resource.getContents().add(valueObject);
+    @Test
+    public void testBigIntegerValue() throws IOException {
+        String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eBigInteger\":\"15\"}";
 
-		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 
-		resource.save(outStream, options);
+        ETypes valueObject = ModelFactory.eINSTANCE.createETypes();
+        valueObject.setEBigInteger(new BigInteger("15"));
+        resource.getContents().add(valueObject);
 
-		assertEquals(expectedString, new String(outStream.toByteArray()));
-	}
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        resource.save(outStream, options);
 
-	@Test
-	public void testBigIntegerValue() throws IOException {
-		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eBigInteger\":\"15\"}";
+        assertEquals(expectedString, new String(outStream.toByteArray()));
+    }
 
-		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+    @Test
+    public void testLoadBigIntegerValue() throws IOException {
+        String inputString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eBigInteger\":\"15\"}";
 
-		ETypes valueObject = ModelFactory.eINSTANCE.createETypes();
-		valueObject.setEBigInteger(new BigInteger("15"));
-		resource.getContents().add(valueObject);
+        Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+        resource.load(new ByteArrayInputStream(inputString.getBytes()), null);
 
-		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-		resource.save(outStream, options);
+        assertEquals(1, resource.getContents().size());
 
-		assertEquals(expectedString, new String(outStream.toByteArray()));
-	}
+        EObject root = resource.getContents().get(0);
+        assertEquals(ModelPackage.Literals.ETYPES, root.eClass());
 
-	@Test
-	public void testLoadBigIntegerValue() throws IOException {
-		String inputString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eBigInteger\":\"15\"}";
+        BigInteger value = ((ETypes) root).getEBigInteger();
 
-		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
-		resource.load(new ByteArrayInputStream(inputString.getBytes()), null);
+        assertEquals(new BigInteger("15"), value);
+    }
 
-		assertEquals(1, resource.getContents().size());
+    @Test
+    public void testByteValue() throws IOException {
+        String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eByte\":\"1\"}";
 
-		EObject root = resource.getContents().get(0);
-		assertEquals(ModelPackage.Literals.ETYPES, root.eClass());
+        Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 
-		BigInteger value = ((ETypes) root).getEBigInteger();
+        ETypes valueObject = ModelFactory.eINSTANCE.createETypes();
+        byte b = 1;
+        valueObject.setEByte(b);
+        resource.getContents().add(valueObject);
 
-		assertEquals(new BigInteger("15"), value);
-	}
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        resource.save(outStream, options);
 
-	@Test
-	public void testByteValue() throws IOException {
-		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eByte\":\"1\"}";
+        assertEquals(expectedString, new String(outStream.toByteArray()));
+    }
 
-		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+    @Test
+    public void testBigDecimalValue() throws IOException {
+        String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eBigDecimal\":\"1.5\"}";
 
-		ETypes valueObject = ModelFactory.eINSTANCE.createETypes();
-		byte b = 1;
-		valueObject.setEByte(b);
-		resource.getContents().add(valueObject);
+        Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 
-		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-		resource.save(outStream, options);
+        ETypes valueObject = ModelFactory.eINSTANCE.createETypes();
+        valueObject.setEBigDecimal(new BigDecimal(1.5));
+        resource.getContents().add(valueObject);
 
-		assertEquals(expectedString, new String(outStream.toByteArray()));
-	}
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        resource.save(outStream, options);
 
-	@Test
-	public void testBigDecimalValue() throws IOException {
-		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eBigDecimal\":\"1.5\"}";
+        assertEquals(expectedString, new String(outStream.toByteArray()));
+    }
 
-		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+    @Test
+    public void testLoadBigDecimalValue() throws IOException {
+        String inputString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eBigDecimal\":1.5}";
 
-		ETypes valueObject = ModelFactory.eINSTANCE.createETypes();
-		valueObject.setEBigDecimal(new BigDecimal(1.5));
-		resource.getContents().add(valueObject);
+        Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+        resource.load(new ByteArrayInputStream(inputString.getBytes()), null);
 
-		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-		resource.save(outStream, options);
+        assertEquals(1, resource.getContents().size());
 
-		assertEquals(expectedString, new String(outStream.toByteArray()));
-	}
+        EObject root = resource.getContents().get(0);
+        assertEquals(ModelPackage.Literals.ETYPES, root.eClass());
 
-	@Test
-	public void testLoadBigDecimalValue() throws IOException {
-		String inputString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ETypes\",\"eBigDecimal\":1.5}";
+        BigDecimal value = ((ETypes) root).getEBigDecimal();
 
-		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
-		resource.load(new ByteArrayInputStream(inputString.getBytes()), null);
+        assertEquals(new BigDecimal(1.5), value);
+    }
 
-		assertEquals(1, resource.getContents().size());
+    @Test
+    public void testFeatureMap() throws IOException {
+        // Setup : Create a primary object and two attributes for the feature
+        // map.
 
-		EObject root = resource.getContents().get(0);
-		assertEquals(ModelPackage.Literals.ETYPES, root.eClass());
+        PrimaryObject primaryObject = ModelFactory.eINSTANCE.createPrimaryObject();
+        primaryObject.setName("junit");
 
-		BigDecimal value = ((ETypes) root).getEBigDecimal();
+        primaryObject.getFeatureMapAttributeType1().add("Hello");
+        primaryObject.getFeatureMapAttributeType2().add("World");
 
-		assertEquals(new BigDecimal(1.5), value);
-	}
+        assertEquals(2, primaryObject.getFeatureMapAttributeCollection().size());
+        assertEquals(1, primaryObject.getFeatureMapAttributeType1().size());
+        assertEquals(1, primaryObject.getFeatureMapAttributeType2().size());
 
-	@Test
-	public void testFeatureMap() throws IOException {
-		// Setup : Create a primary object and two attributes for the feature
-		// map.
+        // Test : Store the object to MongDB
 
-		PrimaryObject primaryObject = ModelFactory.eINSTANCE.createPrimaryObject();
-		primaryObject.setName("junit");
+        Resource resource = resourceSet.createResource(URI.createURI("test.json"));
+        resource.getContents().add(primaryObject);
 
-		primaryObject.getFeatureMapAttributeType1().add("Hello");
-		primaryObject.getFeatureMapAttributeType2().add("World");
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        resource.save(outStream, null);
 
-		assertEquals(2, primaryObject.getFeatureMapAttributeCollection().size());
-		assertEquals(1, primaryObject.getFeatureMapAttributeType1().size());
-		assertEquals(1, primaryObject.getFeatureMapAttributeType2().size());
+        // Verify : Check that the object was stored correctly.
 
-		// Test : Store the object to MongDB
+        HashSet<EStructuralFeature> excludeFeatures = new HashSet<EStructuralFeature>(1);
+        excludeFeatures.add(ModelPackage.Literals.PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_COLLECTION);
 
-		Resource resource = resourceSet.createResource(URI.createURI("test.json"));
-		resource.getContents().add(primaryObject);
+        // assertThat(actual.getFeatureMapAttributeCollection().size(), is(2));
+    }
 
-		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-		resource.save(outStream, null);
+    @Test
+    public void testLoadOneObjectWithTypeFromFile() throws IOException {
+        Resource resource = resourceSet.createResource(uri("test-load-1.json"));
+        assertNotNull(resource);
+        resource.load(null);
 
-		// Verify : Check that the object was stored correctly.
+        assertEquals(1, resource.getContents().size());
+        assertTrue(resource.getContents().get(0) instanceof User);
 
-		HashSet<EStructuralFeature> excludeFeatures = new HashSet<EStructuralFeature>(1);
-		excludeFeatures.add(ModelPackage.Literals.PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_COLLECTION);
+        User user = (User) resource.getContents().get(0);
+        assertEquals("1", user.getUserId());
+        assertEquals("Paul", user.getName());
+    }
 
-		// assertThat(actual.getFeatureMapAttributeCollection().size(), is(2));
-	}
+    @Test
+    public void testLoadOneObjectWithTypeFromInputStream() throws IOException {
+        String data = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//User\",\"userId\":\"1\",\"name\":\"Paul\"}";
+        ByteArrayInputStream inStream = new ByteArrayInputStream(data.getBytes());
+        Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+        assertNotNull(resource);
+        resource.load(inStream, null);
 
-	@Test
-	public void testLoadOneObjectWithTypeFromFile() throws IOException {
-		Resource resource = resourceSet.createResource(URI.createURI("tests/test-load-1.json"));
-		assertNotNull(resource);
-		resource.load(null);
+        assertEquals(1, resource.getContents().size());
+        assertTrue(resource.getContents().get(0) instanceof User);
 
-		assertEquals(1, resource.getContents().size());
-		assertTrue(resource.getContents().get(0) instanceof User);
+        User user = (User) resource.getContents().get(0);
+        assertEquals("1", user.getUserId());
+        assertEquals("Paul", user.getName());
+    }
 
-		User user = (User) resource.getContents().get(0);
-		assertEquals("1", user.getUserId());
-		assertEquals("Paul", user.getName());
-	}
+    @Test
+    public void testOptionProxyAttributesWithID() throws IOException {
+        options.put(EMFJs.OPTION_PROXY_ATTRIBUTES, true);
+        options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.Literals.USER);
+        Resource resource = resourceSet.createResource(uri("test-proxy-1.json"));
+        resource.load(options);
 
-	@Test
-	public void testLoadOneObjectWithTypeFromInputStream() throws IOException {
-		String data = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//User\",\"userId\":\"1\",\"name\":\"Paul\"}";
-		ByteArrayInputStream inStream = new ByteArrayInputStream(data.getBytes());
-		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
-		assertNotNull(resource);
-		resource.load(inStream, null);
+        User u1 = (User) resource.getContents().get(0);
+        assertNotNull(u1);
+        assertFalse(u1.eIsProxy());
 
-		assertEquals(1, resource.getContents().size());
-		assertTrue(resource.getContents().get(0) instanceof User);
+        assertEquals(1, u1.getFriends().size());
 
-		User user = (User) resource.getContents().get(0);
-		assertEquals("1", user.getUserId());
-		assertEquals("Paul", user.getName());
-	}
+        User u2 = u1.getFriends().get(0);
+        assertTrue(u2.eIsProxy());
 
-	@Test
-	public void testOptionProxyAttributesWithID() throws IOException {
-		options.put(EMFJs.OPTION_PROXY_ATTRIBUTES, true);
-		options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.Literals.USER);
-		Resource resource = resourceSet.createResource(URI.createURI("tests/test-proxy-1.json"));
-		resource.load(options);
+        assertEquals("2", u2.getUserId());
+        assertEquals("Pierre", u2.getName());
 
-		User u1 = (User) resource.getContents().get(0);
-		assertNotNull(u1);
-		assertFalse(u1.eIsProxy());
+        assertNotNull(u1.getUniqueFriend());
+        assertTrue(u1.getUniqueFriend().eIsProxy());
 
-		assertEquals(1, u1.getFriends().size());
+        assertEquals("3", u1.getUniqueFriend().getUserId());
+        assertEquals("Paul", u1.getUniqueFriend().getName());
+    }
 
-		User u2 = u1.getFriends().get(0);
-		assertTrue(u2.eIsProxy());
+    @Test
+    public void testOptionProxyAttributes() throws IOException {
+        options.put(EMFJs.OPTION_PROXY_ATTRIBUTES, true);
 
-		assertEquals("2", u2.getUserId());
-		assertEquals("Pierre", u2.getName());
+        Resource resource = resourceSet.createResource(uri("test-proxy-3.json"));
+        resource.load(options);
 
-		assertNotNull(u1.getUniqueFriend());
-		assertTrue(u1.getUniqueFriend().eIsProxy());
+        Node node = (Node) resource.getContents().get(0);
+        assertNotNull(node);
 
-		assertEquals("3", u1.getUniqueFriend().getUserId());
-		assertEquals("Paul", u1.getUniqueFriend().getName());
-	}
+        InternalEList<?> proxies = (InternalEList<?>) node.eGet(ModelPackage.Literals.NODE__MANY_REF, false);
+        assertEquals(3, proxies.size());
 
-	@Test
-	public void testOptionProxyAttributes() throws IOException {
-		options.put(EMFJs.OPTION_PROXY_ATTRIBUTES, true);
+        assertTrue(((InternalEObject) proxies.basicGet(0)).eIsProxy());
+        assertTrue(((InternalEObject) proxies.basicGet(1)).eIsProxy());
+        assertTrue(((InternalEObject) proxies.basicGet(2)).eIsProxy());
 
-		Resource resource = resourceSet.createResource(URI.createURI("tests/test-proxy-3.json"));
-		resource.load(options);
+        assertEquals("2", ((Node) proxies.basicGet(0)).getLabel());
+        assertEquals("21", ((Node) proxies.basicGet(1)).getLabel());
+        assertEquals("3", ((Node) proxies.basicGet(2)).getLabel());
 
-		Node node = (Node) resource.getContents().get(0);
-		assertNotNull(node);
+        assertNotNull(node.getSource());
 
-		InternalEList<?> proxies = (InternalEList<?>) node.eGet(ModelPackage.Literals.NODE__MANY_REF, false);
-		assertEquals(3, proxies.size());
+        assertTrue(node.getSource().eIsProxy());
+        assertEquals("2121", node.getSource().getLabel());
 
-		assertTrue(((InternalEObject) proxies.basicGet(0)).eIsProxy());
-		assertTrue(((InternalEObject) proxies.basicGet(1)).eIsProxy());
-		assertTrue(((InternalEObject) proxies.basicGet(2)).eIsProxy());
+        Node node2 = (Node) resource.getContents().get(1);
+        assertNotNull(node2);
 
-		assertEquals("2", ((Node) proxies.basicGet(0)).getLabel());
-		assertEquals("21", ((Node) proxies.basicGet(1)).getLabel());
-		assertEquals("3", ((Node) proxies.basicGet(2)).getLabel());
+        InternalEList<?> proxies2 = (InternalEList<?>) node2.eGet(ModelPackage.Literals.NODE__MANY_REF, false);
+        assertEquals(2, proxies2.size());
 
-		assertNotNull(node.getSource());
+        assertTrue(((InternalEObject) proxies2.basicGet(0)).eIsProxy());
+        assertTrue(((InternalEObject) proxies2.basicGet(1)).eIsProxy());
 
-		assertTrue(node.getSource().eIsProxy());
-		assertEquals("2121", node.getSource().getLabel());
+        assertEquals("311", ((Node) proxies2.basicGet(0)).getLabel());
+        assertEquals("3112", ((Node) proxies2.basicGet(1)).getLabel());
+    }
 
-		Node node2 = (Node) resource.getContents().get(1);
-		assertNotNull(node2);
+    @Test
+    public void testLoadRootObjectMap() throws IOException {
+        options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.Literals.OBJECT_WITH_MAP);
+        Resource resource = resourceSet.createResource(uri("test-map-anon-root.json"));
+        resource.load(options);
 
-		InternalEList<?> proxies2 = (InternalEList<?>) node2.eGet(ModelPackage.Literals.NODE__MANY_REF, false);
-		assertEquals(2, proxies2.size());
+        ObjectWithMap root = (ObjectWithMap) resource.getContents().get(0);
 
-		assertTrue(((InternalEObject) proxies2.basicGet(0)).eIsProxy());
-		assertTrue(((InternalEObject) proxies2.basicGet(1)).eIsProxy());
+        assertEquals("https://api.opscode.com/organizations/chefclipse/nodes/server-64668.novalocal", root.getEntries().get("server-64668.novalocal"));
+        assertEquals("https://api.opscode.com/organizations/chefclipse/nodes/server-64642.novalocal", root.getEntries().get("server-64642.novalocal"));
+        assertEquals("https://api.opscode.com/organizations/chefclipse/nodes/server-253389.novalocal", root.getEntries().get("server-253389.novalocal"));
+    }
 
-		assertEquals("311", ((Node) proxies2.basicGet(0)).getLabel());
-		assertEquals("3112", ((Node) proxies2.basicGet(1)).getLabel());
-	}
+    @Test
+    public void testSaveRootObjectMap() throws IOException {
+        options.put(EMFJs.OPTION_SERIALIZE_TYPE, false);
+        Resource resource = resourceSet.createResource(uri("test-map.json"));
 
-	@Test
-	public void testLoadRootObjectMap() throws IOException {
-		options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.Literals.OBJECT_WITH_MAP);
-		Resource resource = resourceSet.createResource(URI.createURI("tests/test-map-anon-root.json"));
-		resource.load(options);
+        ObjectWithMap root = ModelFactory.eINSTANCE.createObjectWithMap();
+        root.getEntries().put("one", "1");
+        root.getEntries().put("two", "2");
+        root.getEntries().put("three", "3");
 
-		ObjectWithMap root = (ObjectWithMap) resource.getContents().get(0);
+        resource.getContents().add(root);
 
-		assertEquals("https://api.opscode.com/organizations/chefclipse/nodes/server-64668.novalocal", root.getEntries().get("server-64668.novalocal"));
-		assertEquals("https://api.opscode.com/organizations/chefclipse/nodes/server-64642.novalocal", root.getEntries().get("server-64642.novalocal"));
-		assertEquals("https://api.opscode.com/organizations/chefclipse/nodes/server-253389.novalocal", root.getEntries().get("server-253389.novalocal"));
-	}
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 
-	@Test
-	public void testSaveRootObjectMap() throws IOException {
-		options.put(EMFJs.OPTION_SERIALIZE_TYPE, false);
-		Resource resource = resourceSet.createResource(URI.createURI("tests/test-map.json"));
-
-		ObjectWithMap root = ModelFactory.eINSTANCE.createObjectWithMap();
-		root.getEntries().put("one", "1");
-		root.getEntries().put("two", "2");
-		root.getEntries().put("three", "3");
-
-		resource.getContents().add(root);
-
-		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-
-		resource.save(outStream, options);
-		assertEquals("{\"one\":\"1\",\"two\":\"2\",\"three\":\"3\"}", new String(outStream.toByteArray()));
-	}
+        resource.save(outStream, options);
+        assertEquals("{\"one\":\"1\",\"two\":\"2\",\"three\":\"3\"}", new String(outStream.toByteArray()));
+    }
 
 }

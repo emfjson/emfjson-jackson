@@ -66,8 +66,7 @@ public class TestPolymorphicType extends TestSupport {
 
 	@Test
 	public void testLoadTwoObjectsWithTypeInformation() throws IOException {
-		Resource resource = resourceSet.createResource(
-				URI.createURI("platform:/plugin/org.eclipselabs.emfjson.junit/tests/test-load-types.json"));
+		Resource resource = resourceSet.createResource(uri("test-load-types.json"));
 		assertNotNull(resource);
 		options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getContainer());
 		
@@ -95,8 +94,7 @@ public class TestPolymorphicType extends TestSupport {
 	
 	@Test
 	public void testLoadTwoObjectsWithReferenceAndTypeInformation() throws IOException {
-		Resource resource = resourceSet.createResource(
-				URI.createURI("platform:/plugin/org.eclipselabs.emfjson.junit/tests/test-load-types-2.json"));
+		Resource resource = resourceSet.createResource(uri("test-load-types-2.json"));
 		assertNotNull(resource);
 		options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getContainer());
 		
