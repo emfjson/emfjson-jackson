@@ -9,11 +9,7 @@ EMFJSON is a JSON mapper for [EMF](http://www.eclipse.org/emf)
 ## Installation
 See [http://ghillairet.github.com/emfjson/](http://ghillairet.github.com/emfjson/)
 
-### Releases
- - Update Site: http://ghillairet.github.com/p2 (composite site with Jackson)
-
-### Snapshots
- - Update Site: http://ghillairet.github.com/p2/emfjson/snapshots
+ - Update Site: http://ghillairet.github.com/p2 (composite site with Jackson 2.2.3)
 
 ### GWT Support
 
@@ -96,7 +92,7 @@ See [wiki](https://github.com/ghillairet/emfjson/wiki/Home)
 
 ## How to hack (and contribute to) it
 
-Note that you must Help > Install Jackson 2 if you clone the src to work on it, as your usual Eclipse PDE (nor Orbit) out-of-the-box target platform will not have that.
+Note that you must `Help > Install` Jackson 2 if you clone the src to work on it, as your usual Eclipse PDE (nor Orbit) out-of-the-box target platform will not have that.
 
 ## License
 This software is distributed under the terms of the Eclipse Public License 1.0 - http://www.eclipse.org/legal/epl-v10.
