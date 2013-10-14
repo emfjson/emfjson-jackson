@@ -4,13 +4,13 @@ package org.eclipselabs.emfjson.json.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.eclipselabs.emfjson.json.JArray;
 import org.eclipselabs.emfjson.json.JBoolean;
+import org.eclipselabs.emfjson.json.JElement;
 import org.eclipselabs.emfjson.json.JField;
 import org.eclipselabs.emfjson.json.JNode;
 import org.eclipselabs.emfjson.json.JNull;
@@ -28,6 +28,13 @@ import org.eclipselabs.emfjson.json.JValue;
  * @generated
  */
 public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass jElementEClass = null;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -157,6 +164,15 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getJElement() {
+		return jElementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getJNode() {
 		return jNodeEClass;
 	}
@@ -231,6 +247,15 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 */
 	public EClass getJValue() {
 		return jValueEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EOperation getJValue__AsText() {
+		return jValueEClass.getEOperations().get(0);
 	}
 
 	/**
@@ -324,6 +349,8 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 		isCreated = true;
 
 		// Create classes and their features
+		jElementEClass = createEClass(JELEMENT);
+
 		jNodeEClass = createEClass(JNODE);
 
 		jObjectEClass = createEClass(JOBJECT);
@@ -337,6 +364,7 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 		createEReference(jFieldEClass, JFIELD__VALUE);
 
 		jValueEClass = createEClass(JVALUE);
+		createEOperation(jValueEClass, JVALUE___AS_TEXT);
 
 		jBooleanEClass = createEClass(JBOOLEAN);
 		createEAttribute(jBooleanEClass, JBOOLEAN__BOOLEAN_VALUE);
@@ -378,8 +406,10 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
+		jNodeEClass.getESuperTypes().add(this.getJElement());
 		jObjectEClass.getESuperTypes().add(this.getJNode());
 		jArrayEClass.getESuperTypes().add(this.getJNode());
+		jFieldEClass.getESuperTypes().add(this.getJElement());
 		jValueEClass.getESuperTypes().add(this.getJNode());
 		jBooleanEClass.getESuperTypes().add(this.getJValue());
 		jNumberEClass.getESuperTypes().add(this.getJValue());
@@ -387,7 +417,9 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 		jStringEClass.getESuperTypes().add(this.getJValue());
 
 		// Initialize classes, features, and operations; add parameters
-		initEClass(jNodeEClass, JNode.class, "JNode", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(jElementEClass, JElement.class, "JElement", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(jNodeEClass, JNode.class, "JNode", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(jObjectEClass, JObject.class, "JObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getJObject_Fields(), this.getJField(), null, "fields", null, 0, -1, JObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -399,7 +431,9 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 		initEAttribute(getJField_Key(), ecorePackage.getEString(), "key", null, 0, 1, JField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getJField_Value(), this.getJNode(), null, "value", null, 0, 1, JField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(jValueEClass, JValue.class, "JValue", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(jValueEClass, JValue.class, "JValue", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEOperation(getJValue__AsText(), ecorePackage.getEString(), "asText", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(jBooleanEClass, JBoolean.class, "JBoolean", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getJBoolean_BooleanValue(), ecorePackage.getEBoolean(), "booleanValue", null, 0, 1, JBoolean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

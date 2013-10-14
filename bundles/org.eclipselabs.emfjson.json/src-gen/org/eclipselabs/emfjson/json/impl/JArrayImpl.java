@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipselabs.emfjson.json.JArray;
 import org.eclipselabs.emfjson.json.JNode;
@@ -24,7 +25,7 @@ import org.eclipselabs.emfjson.json.JSONPackage;
  *
  * @generated
  */
-public class JArrayImpl extends JNodeImpl implements JArray {
+public class JArrayImpl extends MinimalEObjectImpl.Container implements JArray {
 	/**
 	 * The cached value of the '{@link #getElements() <em>Elements</em>}' reference list.
 	 * <!-- begin-user-doc -->

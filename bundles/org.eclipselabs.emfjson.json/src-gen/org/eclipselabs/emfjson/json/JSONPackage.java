@@ -4,6 +4,7 @@ package org.eclipselabs.emfjson.json;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -57,14 +58,42 @@ public interface JSONPackage extends EPackage {
 	JSONPackage eINSTANCE = org.eclipselabs.emfjson.json.impl.JSONPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link org.eclipselabs.emfjson.json.impl.JNodeImpl <em>JNode</em>}' class.
+	 * The meta object id for the '{@link org.eclipselabs.emfjson.json.JElement <em>JElement</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipselabs.emfjson.json.impl.JNodeImpl
+	 * @see org.eclipselabs.emfjson.json.JElement
+	 * @see org.eclipselabs.emfjson.json.impl.JSONPackageImpl#getJElement()
+	 * @generated
+	 */
+	int JELEMENT = 0;
+
+	/**
+	 * The number of structural features of the '<em>JElement</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JELEMENT_FEATURE_COUNT = 0;
+
+	/**
+	 * The number of operations of the '<em>JElement</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JELEMENT_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipselabs.emfjson.json.JNode <em>JNode</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipselabs.emfjson.json.JNode
 	 * @see org.eclipselabs.emfjson.json.impl.JSONPackageImpl#getJNode()
 	 * @generated
 	 */
-	int JNODE = 0;
+	int JNODE = 1;
 
 	/**
 	 * The number of structural features of the '<em>JNode</em>' class.
@@ -73,7 +102,7 @@ public interface JSONPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JNODE_FEATURE_COUNT = 0;
+	int JNODE_FEATURE_COUNT = JELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>JNode</em>' class.
@@ -82,7 +111,7 @@ public interface JSONPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JNODE_OPERATION_COUNT = 0;
+	int JNODE_OPERATION_COUNT = JELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipselabs.emfjson.json.impl.JObjectImpl <em>JObject</em>}' class.
@@ -92,7 +121,7 @@ public interface JSONPackage extends EPackage {
 	 * @see org.eclipselabs.emfjson.json.impl.JSONPackageImpl#getJObject()
 	 * @generated
 	 */
-	int JOBJECT = 1;
+	int JOBJECT = 2;
 
 	/**
 	 * The feature id for the '<em><b>Fields</b></em>' containment reference list.
@@ -129,7 +158,7 @@ public interface JSONPackage extends EPackage {
 	 * @see org.eclipselabs.emfjson.json.impl.JSONPackageImpl#getJArray()
 	 * @generated
 	 */
-	int JARRAY = 2;
+	int JARRAY = 3;
 
 	/**
 	 * The feature id for the '<em><b>Elements</b></em>' reference list.
@@ -166,7 +195,7 @@ public interface JSONPackage extends EPackage {
 	 * @see org.eclipselabs.emfjson.json.impl.JSONPackageImpl#getJField()
 	 * @generated
 	 */
-	int JFIELD = 3;
+	int JFIELD = 4;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' attribute.
@@ -175,7 +204,7 @@ public interface JSONPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JFIELD__KEY = 0;
+	int JFIELD__KEY = JELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -184,7 +213,7 @@ public interface JSONPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JFIELD__VALUE = 1;
+	int JFIELD__VALUE = JELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>JField</em>' class.
@@ -193,7 +222,7 @@ public interface JSONPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JFIELD_FEATURE_COUNT = 2;
+	int JFIELD_FEATURE_COUNT = JELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>JField</em>' class.
@@ -202,17 +231,17 @@ public interface JSONPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JFIELD_OPERATION_COUNT = 0;
+	int JFIELD_OPERATION_COUNT = JELEMENT_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipselabs.emfjson.json.impl.JValueImpl <em>JValue</em>}' class.
+	 * The meta object id for the '{@link org.eclipselabs.emfjson.json.JValue <em>JValue</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipselabs.emfjson.json.impl.JValueImpl
+	 * @see org.eclipselabs.emfjson.json.JValue
 	 * @see org.eclipselabs.emfjson.json.impl.JSONPackageImpl#getJValue()
 	 * @generated
 	 */
-	int JVALUE = 4;
+	int JVALUE = 5;
 
 	/**
 	 * The number of structural features of the '<em>JValue</em>' class.
@@ -224,13 +253,22 @@ public interface JSONPackage extends EPackage {
 	int JVALUE_FEATURE_COUNT = JNODE_FEATURE_COUNT + 0;
 
 	/**
+	 * The operation id for the '<em>As Text</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JVALUE___AS_TEXT = JNODE_OPERATION_COUNT + 0;
+
+	/**
 	 * The number of operations of the '<em>JValue</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JVALUE_OPERATION_COUNT = JNODE_OPERATION_COUNT + 0;
+	int JVALUE_OPERATION_COUNT = JNODE_OPERATION_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipselabs.emfjson.json.impl.JBooleanImpl <em>JBoolean</em>}' class.
@@ -240,7 +278,7 @@ public interface JSONPackage extends EPackage {
 	 * @see org.eclipselabs.emfjson.json.impl.JSONPackageImpl#getJBoolean()
 	 * @generated
 	 */
-	int JBOOLEAN = 5;
+	int JBOOLEAN = 6;
 
 	/**
 	 * The feature id for the '<em><b>Boolean Value</b></em>' attribute.
@@ -261,6 +299,15 @@ public interface JSONPackage extends EPackage {
 	int JBOOLEAN_FEATURE_COUNT = JVALUE_FEATURE_COUNT + 1;
 
 	/**
+	 * The operation id for the '<em>As Text</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JBOOLEAN___AS_TEXT = JVALUE___AS_TEXT;
+
+	/**
 	 * The number of operations of the '<em>JBoolean</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -277,7 +324,7 @@ public interface JSONPackage extends EPackage {
 	 * @see org.eclipselabs.emfjson.json.impl.JSONPackageImpl#getJNumber()
 	 * @generated
 	 */
-	int JNUMBER = 6;
+	int JNUMBER = 7;
 
 	/**
 	 * The feature id for the '<em><b>Number Value</b></em>' attribute.
@@ -298,6 +345,15 @@ public interface JSONPackage extends EPackage {
 	int JNUMBER_FEATURE_COUNT = JVALUE_FEATURE_COUNT + 1;
 
 	/**
+	 * The operation id for the '<em>As Text</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JNUMBER___AS_TEXT = JVALUE___AS_TEXT;
+
+	/**
 	 * The number of operations of the '<em>JNumber</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -314,7 +370,7 @@ public interface JSONPackage extends EPackage {
 	 * @see org.eclipselabs.emfjson.json.impl.JSONPackageImpl#getJNull()
 	 * @generated
 	 */
-	int JNULL = 7;
+	int JNULL = 8;
 
 	/**
 	 * The number of structural features of the '<em>JNull</em>' class.
@@ -324,6 +380,15 @@ public interface JSONPackage extends EPackage {
 	 * @ordered
 	 */
 	int JNULL_FEATURE_COUNT = JVALUE_FEATURE_COUNT + 0;
+
+	/**
+	 * The operation id for the '<em>As Text</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JNULL___AS_TEXT = JVALUE___AS_TEXT;
 
 	/**
 	 * The number of operations of the '<em>JNull</em>' class.
@@ -342,7 +407,7 @@ public interface JSONPackage extends EPackage {
 	 * @see org.eclipselabs.emfjson.json.impl.JSONPackageImpl#getJString()
 	 * @generated
 	 */
-	int JSTRING = 8;
+	int JSTRING = 9;
 
 	/**
 	 * The feature id for the '<em><b>String Value</b></em>' attribute.
@@ -363,6 +428,15 @@ public interface JSONPackage extends EPackage {
 	int JSTRING_FEATURE_COUNT = JVALUE_FEATURE_COUNT + 1;
 
 	/**
+	 * The operation id for the '<em>As Text</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JSTRING___AS_TEXT = JVALUE___AS_TEXT;
+
+	/**
 	 * The number of operations of the '<em>JString</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -371,6 +445,16 @@ public interface JSONPackage extends EPackage {
 	 */
 	int JSTRING_OPERATION_COUNT = JVALUE_OPERATION_COUNT + 0;
 
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipselabs.emfjson.json.JElement <em>JElement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>JElement</em>'.
+	 * @see org.eclipselabs.emfjson.json.JElement
+	 * @generated
+	 */
+	EClass getJElement();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipselabs.emfjson.json.JNode <em>JNode</em>}'.
@@ -465,6 +549,16 @@ public interface JSONPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getJValue();
+
+	/**
+	 * Returns the meta object for the '{@link org.eclipselabs.emfjson.json.JValue#asText() <em>As Text</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>As Text</em>' operation.
+	 * @see org.eclipselabs.emfjson.json.JValue#asText()
+	 * @generated
+	 */
+	EOperation getJValue__AsText();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipselabs.emfjson.json.JBoolean <em>JBoolean</em>}'.
@@ -563,10 +657,20 @@ public interface JSONPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '{@link org.eclipselabs.emfjson.json.impl.JNodeImpl <em>JNode</em>}' class.
+		 * The meta object literal for the '{@link org.eclipselabs.emfjson.json.JElement <em>JElement</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipselabs.emfjson.json.impl.JNodeImpl
+		 * @see org.eclipselabs.emfjson.json.JElement
+		 * @see org.eclipselabs.emfjson.json.impl.JSONPackageImpl#getJElement()
+		 * @generated
+		 */
+		EClass JELEMENT = eINSTANCE.getJElement();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipselabs.emfjson.json.JNode <em>JNode</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipselabs.emfjson.json.JNode
 		 * @see org.eclipselabs.emfjson.json.impl.JSONPackageImpl#getJNode()
 		 * @generated
 		 */
@@ -635,14 +739,22 @@ public interface JSONPackage extends EPackage {
 		EReference JFIELD__VALUE = eINSTANCE.getJField_Value();
 
 		/**
-		 * The meta object literal for the '{@link org.eclipselabs.emfjson.json.impl.JValueImpl <em>JValue</em>}' class.
+		 * The meta object literal for the '{@link org.eclipselabs.emfjson.json.JValue <em>JValue</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipselabs.emfjson.json.impl.JValueImpl
+		 * @see org.eclipselabs.emfjson.json.JValue
 		 * @see org.eclipselabs.emfjson.json.impl.JSONPackageImpl#getJValue()
 		 * @generated
 		 */
 		EClass JVALUE = eINSTANCE.getJValue();
+
+		/**
+		 * The meta object literal for the '<em><b>As Text</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EOperation JVALUE___AS_TEXT = eINSTANCE.getJValue__AsText();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipselabs.emfjson.json.impl.JBooleanImpl <em>JBoolean</em>}' class.

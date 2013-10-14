@@ -5,12 +5,17 @@ package org.eclipselabs.emfjson.json.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.eclipselabs.emfjson.json.*;
+import org.eclipselabs.emfjson.json.JArray;
+import org.eclipselabs.emfjson.json.JBoolean;
+import org.eclipselabs.emfjson.json.JField;
+import org.eclipselabs.emfjson.json.JNull;
+import org.eclipselabs.emfjson.json.JNumber;
+import org.eclipselabs.emfjson.json.JObject;
+import org.eclipselabs.emfjson.json.JSONFactory;
+import org.eclipselabs.emfjson.json.JSONPackage;
+import org.eclipselabs.emfjson.json.JString;
 
 /**
  * <!-- begin-user-doc -->

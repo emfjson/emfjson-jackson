@@ -2,7 +2,6 @@
  */
 package org.eclipselabs.emfjson.json;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -11,8 +10,8 @@ import org.eclipse.emf.ecore.EObject;
  *
  *
  * @see org.eclipselabs.emfjson.json.JSONPackage#getJNode()
- * @model abstract="true"
+ * @model interface="true" abstract="true"
  * @generated
  */
-public interface JNode extends EObject {
+public interface JNode extends JElement {
 } // JNode

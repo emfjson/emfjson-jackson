@@ -5,15 +5,12 @@ package org.eclipselabs.emfjson.json.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.eclipselabs.emfjson.json.JField;
 import org.eclipselabs.emfjson.json.JObject;
 import org.eclipselabs.emfjson.json.JSONPackage;
@@ -31,7 +28,7 @@ import org.eclipselabs.emfjson.json.JSONPackage;
  *
  * @generated
  */
-public class JObjectImpl extends JNodeImpl implements JObject {
+public class JObjectImpl extends MinimalEObjectImpl.Container implements JObject {
 	/**
 	 * The cached value of the '{@link #getFields() <em>Fields</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

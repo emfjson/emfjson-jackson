@@ -10,8 +10,16 @@ package org.eclipselabs.emfjson.json;
  *
  *
  * @see org.eclipselabs.emfjson.json.JSONPackage#getJValue()
- * @model abstract="true"
+ * @model interface="true" abstract="true"
  * @generated
  */
 public interface JValue extends JNode {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	String asText();
+
 } // JValue

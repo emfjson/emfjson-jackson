@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: %pluginName
+Bundle-Name: EMF JSON Model 
 Bundle-SymbolicName: org.eclipselabs.emfjson.json;singleton:=true
 Bundle-Version: 0.7.0.qualifier
 Bundle-ClassPath: .
-Bundle-Vendor: %providerName
+Bundle-Vendor: Eclipse Labs
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.eclipselabs.emfjson.json,
  org.eclipselabs.emfjson.json.impl,

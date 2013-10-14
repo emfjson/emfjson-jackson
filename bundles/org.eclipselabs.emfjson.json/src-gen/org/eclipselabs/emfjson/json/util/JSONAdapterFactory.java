@@ -4,12 +4,19 @@ package org.eclipselabs.emfjson.json.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
-
-import org.eclipselabs.emfjson.json.*;
+import org.eclipselabs.emfjson.json.JArray;
+import org.eclipselabs.emfjson.json.JBoolean;
+import org.eclipselabs.emfjson.json.JElement;
+import org.eclipselabs.emfjson.json.JField;
+import org.eclipselabs.emfjson.json.JNode;
+import org.eclipselabs.emfjson.json.JNull;
+import org.eclipselabs.emfjson.json.JNumber;
+import org.eclipselabs.emfjson.json.JObject;
+import org.eclipselabs.emfjson.json.JSONPackage;
+import org.eclipselabs.emfjson.json.JString;
+import org.eclipselabs.emfjson.json.JValue;
 
 /**
  * <!-- begin-user-doc -->
@@ -68,6 +75,10 @@ public class JSONAdapterFactory extends AdapterFactoryImpl {
 	protected JSONSwitch<Adapter> modelSwitch =
 		new JSONSwitch<Adapter>() {
 			@Override
+			public Adapter caseJElement(JElement object) {
+				return createJElementAdapter();
+			}
+			@Override
 			public Adapter caseJNode(JNode object) {
 				return createJNodeAdapter();
 			}
@@ -122,6 +133,20 @@ public class JSONAdapterFactory extends AdapterFactoryImpl {
 		return modelSwitch.doSwitch((EObject)target);
 	}
 
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipselabs.emfjson.json.JElement <em>JElement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipselabs.emfjson.json.JElement
+	 * @generated
+	 */
+	public Adapter createJElementAdapter() {
+		return null;
+	}
 
 	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipselabs.emfjson.json.JNode <em>JNode</em>}'.

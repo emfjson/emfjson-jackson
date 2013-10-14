@@ -9,28 +9,27 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.common.util.ResourceLocator;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 
-import org.eclipselabs.emfjson.json.JObject;
-import org.eclipselabs.emfjson.json.JSONFactory;
 import org.eclipselabs.emfjson.json.JSONPackage;
 
 /**
- * This is the item provider adapter for a {@link org.eclipselabs.emfjson.json.JObject} object.
+ * This is the item provider adapter for a {@link org.eclipselabs.emfjson.json.JArray} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class JObjectItemProvider
-	extends JNodeItemProvider
+public class JArrayItemProvider
+	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -43,7 +42,7 @@ public class JObjectItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JObjectItemProvider(AdapterFactory adapterFactory) {
+	public JArrayItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -58,25 +57,31 @@ public class JObjectItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addElementsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * This adds a property descriptor for the Elements feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(JSONPackage.Literals.JOBJECT__FIELDS);
-		}
-		return childrenFeatures;
+	protected void addElementsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_JArray_elements_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_JArray_elements_feature", "_UI_JArray_type"),
+				 JSONPackage.Literals.JARRAY__ELEMENTS,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
@@ -85,22 +90,19 @@ public class JObjectItemProvider
 	 * @generated
 	 */
 	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
+	public boolean hasChildren(Object object) {
+		return hasChildren(object, true);
 	}
 
 	/**
-	 * This returns JObject.gif.
+	 * This returns JArray.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/JObject"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/JArray"));
 	}
 
 	/**
@@ -111,7 +113,7 @@ public class JObjectItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_JObject_type");
+		return getString("_UI_JArray_type");
 	}
 
 	/**
@@ -124,12 +126,6 @@ public class JObjectItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(JObject.class)) {
-			case JSONPackage.JOBJECT__FIELDS:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-				return;
-		}
 		super.notifyChanged(notification);
 	}
 
@@ -143,11 +139,17 @@ public class JObjectItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+	}
 
-		newChildDescriptors.add
-			(createChildParameter
-				(JSONPackage.Literals.JOBJECT__FIELDS,
-				 JSONFactory.eINSTANCE.createJField()));
+	/**
+	 * Return the resource locator for this item provider's resources.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ResourceLocator getResourceLocator() {
+		return JSONEditPlugin.INSTANCE;
 	}
 
 }
