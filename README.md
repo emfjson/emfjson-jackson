@@ -1,6 +1,27 @@
-EMFJSON is a JSON mapper for [EMF](http://www.eclipse.org/emf)
+[EMF](http://www.eclipse.org/emf) Binding for JSON. [![Build Status](https://secure.travis-ci.org/ghillairet/emfjson.png)](http://travis-ci.org/ghillairet/emfjson)
 
-[![Build Status](https://secure.travis-ci.org/ghillairet/emfjson.png)](http://travis-ci.org/ghillairet/emfjson)
+JSON binding for EMF (Eclipse Modeling Framework) models, that allows serialization and deserialization of EMF Resources in a specific JSON format.
+
+This is how a model looks like in JSON format.
+
+```javascript
+{
+    "eClass" : "http://www.eclipse.org/emf/2002/Ecore#//EPackage",
+    "name" : "model",
+    "nsPrefix" : "model",
+    "nsURI" : "http://www.example.org/model",
+    "eClassifiers" : [
+        {
+            "eClass" : "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+            "name" : "Library"
+        }
+    ]
+}
+```
+
+## Documentation
+
+[Here](http://ghillairet.github.io/emfjson/)
 
 ## Installation
 
@@ -37,54 +58,6 @@ There is two solutions to your problem:
 1. Install the bundles through your eclipse update manager, go in your eclipse/plugins folder, you'll find the emfjson and jackson jars there.
 2. Browse the maven repositories for [emfjson](http://repository-ghillairet.forge.cloudbees.com/snapshot/org/eclipselabs/org.eclipselabs.emfjson/) and [jackson](http://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/).
 
-
-## Goals
-Provide a JSON syntax and associated tools for [EMF](http://www.eclipse.org/emf) Models.
-
-## Features
- - JSON Syntax
- - JSON Model
- - JSON object referencing
- - EMF Resource implementation
-
-## User Guide
-
-See [wiki](https://github.com/ghillairet/emfjson/wiki/Home)
-
-## JSON Syntax
-
-```javascript
-{
-  "eClass" : "library.ecore#//Library",
-  "name" : "SciFi Library",
-  "writers" : [
-    {
-      "eClass" : "library.ecore#//Writer",
-      "name" : "Isaac Asimov",
-      "books" : [
-        {"$ref" : "//@books.0"},
-        {"$ref" : "//@books.1"}
-      ]
-    }
-  ],
-  "books" : [
-    {
-      "eClass" : "library.ecore#//Book",
-      "title" : "Prelude to Foundation",
-      "pages" : 505,
-      "category" : "ScienceFiction",
-      "author" : {"$ref" : "//@writers.0"}
-    },
-    {
-      "eClass" : "library.ecore#//Book",
-      "title" : "Forward the Foundation",
-      "pages" : 464,
-      "category" : "ScienceFiction",
-      "author" : {"$ref" : "//@writers.0"}
-    }
-  ]
-}
-```
 
 ## GWT Support
 
