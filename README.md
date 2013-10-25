@@ -33,6 +33,7 @@ A sample maven based project is provided in the [examples](https://github.com/gh
 ### You want the jars
 
 There is two solutions to your problem:
+
 1. Install the bundles through your eclipse update manager, go in your eclipse/plugins folder, you'll find the emfjson and jackson jars there.
 2. Browse the maven repositories for [emfjson](http://repository-ghillairet.forge.cloudbees.com/snapshot/org/eclipselabs/org.eclipselabs.emfjson/) and [jackson](http://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/).
 
@@ -41,10 +42,10 @@ There is two solutions to your problem:
 Provide a JSON syntax and associated tools for [EMF](http://www.eclipse.org/emf) Models.
 
 ## Features
- - JSON Syntax,
- - Support for JSON object referencing,
- - EMF Resource implementation,
- - Support for CouchDB
+ - JSON Syntax
+ - JSON Model
+ - JSON object referencing
+ - EMF Resource implementation
 
 ## User Guide
 
