@@ -20,6 +20,14 @@ See [GWT edition](https://github.com/ghillairet/emfjson-gwt)
 A maven repository for emfjson is available, note that you should also include the denpendency and repository for Jackson in
 your pom file. Please refer to the [Jackson](https://github.com/FasterXML/jackson-core) documentation for more information.
 
+A sample maven based project is provided in the [examples](https://github.com/ghillairet/emfjson/tree/master/examples/maven-example) folder.
+
+### You want the jars
+
+There is two solutions to your problem:
+1. Install the bundles through your eclipse update manager, go in your eclipse/plugins folder, you'll find the emfjson and jackson jars there.
+2. Browse the maven repositories for [emfjson](http://repository-ghillairet.forge.cloudbees.com/snapshot/org/eclipselabs/org.eclipselabs.emfjson/) and [jackson](http://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/).
+
 ```xml
 <repository>
 	<id>emfjson-repository</id>
