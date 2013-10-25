@@ -9,11 +9,7 @@ EMFJSON is a JSON mapper for [EMF](http://www.eclipse.org/emf)
 ## Installation
 See [http://ghillairet.github.com/emfjson/](http://ghillairet.github.com/emfjson/)
 
-### Releases
- - Update Site: http://ghillairet.github.com/p2 (composite site with Jackson 1.9.5)
-
-### Snapshots
- - Update Site: http://ghillairet.github.com/p2/emfjson/snapshots
+ - Update Site: http://ghillairet.github.com/p2 (composite site with Jackson 2.2.3)
 
 ### GWT Support
 
@@ -21,23 +17,19 @@ See [GWT edition](https://github.com/ghillairet/emfjson-gwt)
 
 ### Maven repository
 
-A maven repository for emfjson is available, note that you should also include the denpendency and repository for jackson in
-your pom file. Please refer to the jackson documentation for more information.
+A maven repository for emfjson is available, note that you should also include the denpendency and repository for Jackson in
+your pom file. Please refer to the [Jackson](https://github.com/FasterXML/jackson-core) documentation for more information.
 
 ```xml
 <repository>
 	<id>emfjson-repository</id>
 	<url>http://repository-ghillairet.forge.cloudbees.com/snapshot</url>
-	<snapshots>
-		<enabled>true</enabled>
-		<updatePolicy>always</updatePolicy>
-	</snapshots>
 </repository>
 
 <dependency>
 	<groupId>org.eclipselabs</groupId>
 	<artifactId>org.eclipselabs.emfjson</artifactId>
-	<version>0.6.0-SNAPSHOT</version>
+	<version>0.7.0-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -92,8 +84,11 @@ See [wiki](https://github.com/ghillairet/emfjson/wiki/Home)
 ## Dependencies
 
 * EMF 2.7.0 or later
-* Jackson 1.6.0 or later
+* Jackson 2.0.0 or later
+
+## How to hack (and contribute to) it
+
+Note that you must `Help > Install` Jackson 2 if you clone the src to work on it, as your usual Eclipse PDE (nor Orbit) out-of-the-box target platform will not have that.
 
 ## License
-This software is distributed under the terms of the Eclipse Public License 1.0 - http://www.eclipse.org/legal/epl-v10.html.
-
+This software is distributed under the terms of the Eclipse Public License 1.0 - http://www.eclipse.org/legal/epl-v10.
