@@ -1,32 +1,19 @@
 EMFJSON is a JSON mapper for [EMF](http://www.eclipse.org/emf)
 
----
-
 [![Build Status](https://secure.travis-ci.org/ghillairet/emfjson.png)](http://travis-ci.org/ghillairet/emfjson)
 
-<a href='http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=188636' title='Drag and drop into a running Eclipse Indigo workspace to install EMFJs'><img src='http://marketplace.eclipse.org/misc/installbutton.png'/></a>
-
 ## Installation
-See [http://ghillairet.github.com/emfjson/](http://ghillairet.github.com/emfjson/)
 
- - Update Site: http://ghillairet.github.com/p2 (composite site with Jackson 2.2.3)
+### Eclipse Update Manager
 
-### GWT Support
+- Update Site: http://ghillairet.github.com/p2 (composite site with Jackson 2.2.3)
+- Eclipse Marketplace <a href='http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=188636' title='Drag and drop into a running Eclipse Indigo workspace to install EMFJs'><img src='http://marketplace.eclipse.org/misc/installbutton.png'/></a>
 
-See [GWT edition](https://github.com/ghillairet/emfjson-gwt)
 
 ### Maven repository
 
 A maven repository for emfjson is available, note that you should also include the denpendency and repository for Jackson in
 your pom file. Please refer to the [Jackson](https://github.com/FasterXML/jackson-core) documentation for more information.
-
-A sample maven based project is provided in the [examples](https://github.com/ghillairet/emfjson/tree/master/examples/maven-example) folder.
-
-### You want the jars
-
-There is two solutions to your problem:
-1. Install the bundles through your eclipse update manager, go in your eclipse/plugins folder, you'll find the emfjson and jackson jars there.
-2. Browse the maven repositories for [emfjson](http://repository-ghillairet.forge.cloudbees.com/snapshot/org/eclipselabs/org.eclipselabs.emfjson/) and [jackson](http://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/).
 
 ```xml
 <repository>
@@ -40,6 +27,15 @@ There is two solutions to your problem:
 	<version>0.7.0-SNAPSHOT</version>
 </dependency>
 ```
+
+A sample maven based project is provided in the [examples](https://github.com/ghillairet/emfjson/tree/master/examples/maven-example) folder.
+
+### You want the jars
+
+There is two solutions to your problem:
+1. Install the bundles through your eclipse update manager, go in your eclipse/plugins folder, you'll find the emfjson and jackson jars there.
+2. Browse the maven repositories for [emfjson](http://repository-ghillairet.forge.cloudbees.com/snapshot/org/eclipselabs/org.eclipselabs.emfjson/) and [jackson](http://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/).
+
 
 ## Goals
 Provide a JSON syntax and associated tools for [EMF](http://www.eclipse.org/emf) Models.
@@ -88,6 +84,10 @@ See [wiki](https://github.com/ghillairet/emfjson/wiki/Home)
   ]
 }
 ```
+
+## GWT Support
+
+See [GWT edition](https://github.com/ghillairet/emfjson-gwt)
 
 ## Dependencies
 
