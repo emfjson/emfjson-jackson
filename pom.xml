@@ -14,20 +14,19 @@
 		<module>bundles/org.eclipselabs.emfjson.json</module>
 		<module>bundles/org.eclipselabs.emfjson.json.edit</module>
 		<module>features/org.eclipselabs.emfjson.json.feature</module>
-		
+
 		<module>bundles/org.eclipselabs.emfjson.ui</module>
 		<module>features/org.eclipselabs.emfjson.ui.feature</module>
 
 		<module>features/org.eclipselabs.emfjson.source.feature</module>
 
-		<module>tests/org.eclipselabs.emfjson.junit</module>
-		<module>tests/org.eclipselabs.emfjson.json.junit</module>
+		<module>tests/pom.xml</module>
 
 		<module>build/repository</module>
 	</modules>
 
 	<properties>
-		<tycho-version>0.18.1</tycho-version>
+		<tycho-version>0.19.0</tycho-version>
 		<targets>build/repository/target/</targets>
 		<build-type>snapshots</build-type>
 	</properties>
@@ -88,18 +87,6 @@
 							<arch>x86_64</arch>
 						</environment>
 					</environments>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-surefire-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<configuration>
-					<argLine>-Xmx512M</argLine>
-					<includes>
-						<include>**/junit/suite/TestSuite.java</include>
-					</includes>
 				</configuration>
 			</plugin>
 

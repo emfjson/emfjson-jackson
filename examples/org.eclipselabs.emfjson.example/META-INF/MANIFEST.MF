@@ -13,19 +13,9 @@ Export-Package: org.eclipselabs.examples,
  org.eclipselabs.examples.library.util
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.eclipselabs.examples.Activator
-Import-Package: org.codehaus.jackson,
- org.codehaus.jackson.map,
- org.codehaus.jackson.node,
- org.eclipse.emf.common,
- org.eclipse.emf.common.notify,
- org.eclipse.emf.common.notify.impl,
- org.eclipse.emf.common.util,
- org.eclipse.emf.ecore,
- org.eclipse.emf.ecore.impl,
- org.eclipse.emf.ecore.plugin,
- org.eclipse.emf.ecore.resource,
- org.eclipse.emf.ecore.resource.impl,
- org.eclipse.emf.ecore.util,
- org.eclipselabs.emfjson,
- org.eclipselabs.emfjson.resource,
- org.osgi.framework
+Require-Bundle: org.eclipse.emf.ecore,
+ org.eclipselabs.emfjson;bundle-version="0.7.0",
+ com.fasterxml.jackson.annotations;bundle-version="2.2.3",
+ com.fasterxml.jackson.core;bundle-version="2.2.3",
+ com.fasterxml.jackson.databind;bundle-version="2.2.3"
+Import-Package: org.osgi.framework;version="1.7.0"
