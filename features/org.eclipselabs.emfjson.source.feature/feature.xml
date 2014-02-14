@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipselabs.emfjson.source.feature"
-      label="EMFJs SDK"
+      label="EMF JSON SDK"
       version="0.7.0.qualifier"
       provider-name="Eclipse Labs">
 
@@ -30,8 +30,8 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
-	<plugin
+
+   <plugin
          id="org.eclipselabs.emfjson.json.edit.source"
          download-size="0"
          install-size="0"

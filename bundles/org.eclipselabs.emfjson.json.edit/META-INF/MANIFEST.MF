@@ -1,11 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: %pluginName
+Bundle-Name: EMF JSON Model Edit
 Bundle-SymbolicName: org.eclipselabs.emfjson.json.edit;singleton:=true
 Bundle-Version: 0.7.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.eclipselabs.emfjson.json.provider.JSONEditPlugin$Implementation
-Bundle-Vendor: %providerName
+Bundle-Vendor: Eclipse Labs
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.eclipselabs.emfjson.json.provider

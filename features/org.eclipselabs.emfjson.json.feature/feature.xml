@@ -19,10 +19,10 @@
 
    <requires>
       <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.emf.ecore"/>
-      <import plugin="org.eclipse.emf.edit"/>
-      <import plugin="com.fasterxml.jackson.core" version="2.0.0" match="greaterOrEqual"/>
-      <import plugin="com.fasterxml.jackson.databind" version="2.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.ecore" version="2.8.0" match="compatible"/>
+      <import plugin="com.fasterxml.jackson.core.jackson-core"/>
+      <import plugin="com.fasterxml.jackson.core.jackson-databind"/>
+      <import plugin="org.eclipse.emf.edit" version="2.8.0" match="compatible"/>
    </requires>
 
    <plugin

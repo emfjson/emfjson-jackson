@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipselabs.emfjson.ui.feature"
-      label="EMF-JSON UI"
+      label="EMF JSON UI"
       version="0.7.0.qualifier"
       provider-name="Eclipse Labs">
 

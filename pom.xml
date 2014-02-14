@@ -9,15 +9,13 @@
 
 	<modules>
 		<module>bundles/org.eclipselabs.emfjson</module>
-		<module>features/org.eclipselabs.emfjson.feature</module>
-
 		<module>bundles/org.eclipselabs.emfjson.json</module>
 		<module>bundles/org.eclipselabs.emfjson.json.edit</module>
-		<module>features/org.eclipselabs.emfjson.json.feature</module>
-
 		<module>bundles/org.eclipselabs.emfjson.ui</module>
+		
+		<module>features/org.eclipselabs.emfjson.feature</module>
+		<module>features/org.eclipselabs.emfjson.json.feature</module>
 		<module>features/org.eclipselabs.emfjson.ui.feature</module>
-
 		<module>features/org.eclipselabs.emfjson.source.feature</module>
 
 		<module>tests/pom.xml</module>
@@ -27,15 +25,13 @@
 
 	<properties>
 		<tycho-version>0.19.0</tycho-version>
-		<targets>build/repository/target/</targets>
-		<build-type>snapshots</build-type>
 	</properties>
 
 	<repositories>
 		<repository>
 			<id>jackson-p2</id>
 			<layout>p2</layout>
-			<url>http://ghillairet.github.com/p2/jackson2/2.2.3</url>
+			<url>http://ghillairet.github.com/p2/releases/jackson/2.3.1</url>
 		</repository>
 		<repository>
 			<id>kepler</id>
