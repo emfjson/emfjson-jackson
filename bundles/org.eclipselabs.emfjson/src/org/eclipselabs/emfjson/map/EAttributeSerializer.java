@@ -19,6 +19,7 @@ import java.util.Iterator;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.FeatureMap;
@@ -82,8 +83,10 @@ class EAttributeSerializer {
 	}
 
 	static boolean isCandidate(EObject eObject, EAttribute eAttribute) {
-		return eObject.eIsSet(eAttribute) && !eAttribute.isDerived() && 
-				!eAttribute.isTransient() && !eAttribute.isUnsettable();
+		return (eObject.eIsSet(eAttribute) || eAttribute.getEType() instanceof EEnum) && 
+				!eAttribute.isDerived() && 
+				!eAttribute.isTransient() && 
+				!eAttribute.isUnsettable();
 	}
 
 	boolean isFeatureMap(EAttribute eAttribute) {
