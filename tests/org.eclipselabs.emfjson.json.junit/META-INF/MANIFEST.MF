@@ -5,9 +5,9 @@ Bundle-SymbolicName: org.eclipselabs.emfjson.json.junit
 Bundle-Version: 0.7.0.qualifier
 Bundle-Vendor: Eclipse Labs
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.eclipselabs.emfjson.json;bundle-version="0.6.0"
+Require-Bundle: org.eclipselabs.emfjson.json
 Export-Package: org.eclipselabs.emfjson.json.junit.suite,
  org.eclipselabs.emfjson.json.junit.tests
-Import-Package: org.junit;version="4.11.0",
- org.junit.runner;version="4.11.0",
- org.junit.runners;version="4.11.0"
+Import-Package: org.junit,
+ org.junit.runner,
+ org.junit.runners

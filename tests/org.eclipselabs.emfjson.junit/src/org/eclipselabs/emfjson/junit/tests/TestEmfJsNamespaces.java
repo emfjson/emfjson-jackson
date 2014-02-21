@@ -76,12 +76,12 @@ public class TestEmfJsNamespaces extends TestSupport {
 				"\"test_ns_3.json\":\"tests/test_ns_3.json\"},"+
 				"\"eClass\":\"model://Container\","+
 				"\"elements\":[{" +
-					"\"eClass\":\"model://ConcreteTypeOne\","+
-					"\"refProperty\":[{"+
-						"\"$ref\":\"test_ns_3.json://@elements.1\","+
-						"\"eClass\":\"model://ConcreteTypeOne\""+
-						"}]},{"+
-					"\"eClass\":\"model://ConcreteTypeOne\""+
+				"\"eClass\":\"model://ConcreteTypeOne\","+
+				"\"refProperty\":[{"+
+				"\"$ref\":\"test_ns_3.json://@elements.1\","+
+				"\"eClass\":\"model://ConcreteTypeOne\""+
+				"}]},{"+
+				"\"eClass\":\"model://ConcreteTypeOne\""+
 				"}]}";
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test_ns_3.json"));
@@ -104,33 +104,33 @@ public class TestEmfJsNamespaces extends TestSupport {
 
 		assertEquals(expectedString, new String(outStream.toByteArray()));
 	}
-	
+
 	@Test
 	public void testLoadTwoObjectsWithReferenceAndTypeInformationAndNamespace() throws IOException {
 		Resource resource = resourceSet.createResource(uri("test-load-ns-types.json"));
 		assertNotNull(resource);
 		options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getContainer());
-		
+
 		resource.load(options);
-		
+
 		assertEquals(1, resource.getContents().size());
-		
+
 		EObject root = resource.getContents().get(0);
 		assertTrue(root instanceof Container);
-		
+
 		Container container = (Container) root;
-		
+
 		assertEquals(2, container.getElements().size());
 		AbstractType first = container.getElements().get(0);
 		AbstractType second = container.getElements().get(1);
-		
+
 		assertTrue(first instanceof ConcreteTypeOne);
 		assertTrue(second instanceof ConcreteTypeTwo);
-		
+
 		assertEquals(1, first.getRefProperty().size());
-		
+
 		EObject ref = first.getRefProperty().get(0);
-		
+
 		assertEquals(second, ref);
 	}
 

@@ -26,29 +26,29 @@ import org.junit.Before;
 
 public abstract class TestSupport {
 
-    protected URI baseTestFilesFileDirectory = URI.createFileURI("./tests/");
-    protected URI baseTestFilesPlatformURI = URI.createURI("platform:/plugin/org.eclipselabs.emfjson.junit/tests/");
-    protected String baseURI = "http://eclipselabs.org/emfjson/tests/";
+	protected URI baseTestFilesFileDirectory = URI.createFileURI("./tests/");
+	protected URI baseTestFilesPlatformURI = URI.createURI("platform:/plugin/org.eclipselabs.emfjson.junit/tests/");
+	protected String baseURI = "http://eclipselabs.org/emfjson/tests/";
 
-    protected final Map<String, Object> options = new HashMap<String, Object>();
-    protected ResourceSet resourceSet;
+	protected final Map<String, Object> options = new HashMap<String, Object>();
+	protected ResourceSet resourceSet;
 
-    @Before
-    public void setUp() {
-        EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("json", new JsResourceFactoryImpl());
-        options.put(EMFJs.OPTION_INDENT_OUTPUT, false);
-        resourceSet = new ResourceSetImpl();
+	@Before
+	public void setUp() {
+		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("json", new JsResourceFactoryImpl());
+		options.put(EMFJs.OPTION_INDENT_OUTPUT, false);
+		resourceSet = new ResourceSetImpl();
 
-        URI baseURI = URI.createURI("http://eclipselabs.org/emfjson/tests/");
-        if (EMFPlugin.IS_ECLIPSE_RUNNING) {
-            resourceSet.getURIConverter().getURIMap().put(baseURI, baseTestFilesPlatformURI);
-        } else {
-            resourceSet.getURIConverter().getURIMap().put(baseURI, baseTestFilesFileDirectory);
-        }
-    }
+		URI baseURI = URI.createURI("http://eclipselabs.org/emfjson/tests/");
+		if (EMFPlugin.IS_ECLIPSE_RUNNING) {
+			resourceSet.getURIConverter().getURIMap().put(baseURI, baseTestFilesPlatformURI);
+		} else {
+			resourceSet.getURIConverter().getURIMap().put(baseURI, baseTestFilesFileDirectory);
+		}
+	}
 
-    protected URI uri(String fileName) {
-        return URI.createURI(baseURI + fileName, true);
-    }
+	protected URI uri(String fileName) {
+		return URI.createURI(baseURI + fileName, true);
+	}
 }

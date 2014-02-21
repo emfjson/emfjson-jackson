@@ -20,8 +20,9 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-	TestEmfJsReferences.class, TestEmfJsAttributes.class, 
-	TestPolymorphicType.class, TestEmfJsAnnotations.class,
+	TestEmfJsReferences.class, 
+	TestEmfJsAttributes.class, 
+	TestPolymorphicType.class, 
 	TestEmfJsAnnotations.class
 })
 public class TestSuite {}
