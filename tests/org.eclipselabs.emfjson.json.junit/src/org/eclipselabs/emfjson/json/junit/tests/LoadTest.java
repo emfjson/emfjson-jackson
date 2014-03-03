@@ -3,23 +3,32 @@ package org.eclipselabs.emfjson.json.junit.tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EcoreFactory;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipselabs.emfjson.json.JArray;
 import org.eclipselabs.emfjson.json.JField;
 import org.eclipselabs.emfjson.json.JNumber;
 import org.eclipselabs.emfjson.json.JObject;
-import org.eclipselabs.emfjson.json.JString;
 import org.eclipselabs.emfjson.json.JSONPackage;
+import org.eclipselabs.emfjson.json.JString;
+import org.eclipselabs.emfjson.json.JValue;
 import org.eclipselabs.emfjson.json.resource.JSONResourceFactory;
+import org.eclipselabs.emfjson.resource.JsResourceFactoryImpl;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,7 +40,8 @@ public class LoadTest {
 	@Before
 	public void tearUp() {
 		EPackage.Registry.INSTANCE.put(JSONPackage.eNS_URI, JSONPackage.eINSTANCE);
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("json", new JSONResourceFactory());		
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("json", new JSONResourceFactory());
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ejs", new JsResourceFactoryImpl());
 		resourceSet = new ResourceSetImpl();
 		options.clear();
 	}
@@ -126,6 +136,50 @@ public class LoadTest {
 		
 		JString value = (JString) field.getValue();
 		assertEquals("world", value.getStringValue());
+	}
+
+	@Test
+	public void testLoadModelSaveWithEjs() throws IOException {
+		EPackage test = EcoreFactory.eINSTANCE.createEPackage();
+		test.setName("test");
+		test.setNsPrefix("test");
+		test.setNsURI("http://test.org/test");
+		EClass classA = EcoreFactory.eINSTANCE.createEClass();
+		classA.setName("A");
+		EAttribute attrFoo = EcoreFactory.eINSTANCE.createEAttribute();
+		attrFoo.setName("foo");
+		attrFoo.setEType(EcorePackage.Literals.ESTRING);
+		classA.getEStructuralFeatures().add(attrFoo);
+		test.getEClassifiers().add(classA);
+
+		resourceSet.getPackageRegistry().put(test.getNsURI(), test);
+		EObject o = EcoreUtil.create(classA);
+		o.eSet(attrFoo, "Hello");
+
+		Resource model = resourceSet.createResource(URI.createURI("model.ejs"));
+		model.getContents().add(test);
+		Resource ejs = resourceSet.createResource(URI.createURI("test.ejs"));
+		ejs.getContents().add(o);
+
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		ejs.save(outputStream, options);
+
+		Resource json = resourceSet.createResource(URI.createURI("test.json"));
+		json.load(new ByteArrayInputStream(outputStream.toByteArray()), options);
+
+		assertEquals(1, json.getContents().size());
+		assertEquals(JSONPackage.Literals.JOBJECT, json.getContents().get(0).eClass());
+
+		JObject root = (JObject) json.getContents().get(0);
+		assertEquals(2, root.getFields().size());
+
+		JField first = root.getFields().get(0);
+		assertEquals("eClass", first.getKey());
+		assertEquals("model.ejs#//A", ((JValue) first.getValue()).asText());
+
+		JField second = root.getFields().get(1);
+		assertEquals("foo", second.getKey());
+		assertEquals("Hello", ((JValue) second.getValue()).asText());
 	}
 
 }
