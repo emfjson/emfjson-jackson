@@ -12,7 +12,8 @@ import org.eclipse.emf.ecore.EFactory;
  * @see org.eclipselabs.emfjson.json.JSONPackage
  * @generated
  */
-public interface JSONFactory extends EFactory {
+public interface JSONFactory extends EFactory
+{
 	/**
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->
@@ -38,15 +39,6 @@ public interface JSONFactory extends EFactory {
 	 * @generated
 	 */
 	JArray createJArray();
-
-	/**
-	 * Returns a new object of class '<em>JField</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>JField</em>'.
-	 * @generated
-	 */
-	JField createJField();
 
 	/**
 	 * Returns a new object of class '<em>JBoolean</em>'.

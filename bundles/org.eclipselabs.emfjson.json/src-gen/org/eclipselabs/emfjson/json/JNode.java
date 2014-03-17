@@ -13,5 +13,6 @@ package org.eclipselabs.emfjson.json;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface JNode extends JElement {
+public interface JNode extends JElement
+{
 } // JNode

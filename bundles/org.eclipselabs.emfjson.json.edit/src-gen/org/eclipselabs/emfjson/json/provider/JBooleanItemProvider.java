@@ -17,6 +17,7 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
+import org.eclipse.emf.edit.provider.ITableItemLabelProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
@@ -38,14 +39,17 @@ public class JBooleanItemProvider
 		IStructuredItemContentProvider,
 		ITreeItemContentProvider,
 		IItemLabelProvider,
-		IItemPropertySource {
+		IItemPropertySource,
+		ITableItemLabelProvider
+{
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JBooleanItemProvider(AdapterFactory adapterFactory) {
+	public JBooleanItemProvider(AdapterFactory adapterFactory)
+	{
 		super(adapterFactory);
 	}
 
@@ -56,8 +60,10 @@ public class JBooleanItemProvider
 	 * @generated
 	 */
 	@Override
-	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (itemPropertyDescriptors == null) {
+	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object)
+	{
+		if (itemPropertyDescriptors == null)
+		{
 			super.getPropertyDescriptors(object);
 
 			addBooleanValuePropertyDescriptor(object);
@@ -71,7 +77,8 @@ public class JBooleanItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addBooleanValuePropertyDescriptor(Object object) {
+	protected void addBooleanValuePropertyDescriptor(Object object)
+	{
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
@@ -93,7 +100,8 @@ public class JBooleanItemProvider
 	 * @generated
 	 */
 	@Override
-	public boolean hasChildren(Object object) {
+	public boolean hasChildren(Object object)
+	{
 		return hasChildren(object, true);
 	}
 
@@ -104,7 +112,8 @@ public class JBooleanItemProvider
 	 * @generated
 	 */
 	@Override
-	public Object getImage(Object object) {
+	public Object getImage(Object object)
+	{
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/JBoolean"));
 	}
 
@@ -115,10 +124,12 @@ public class JBooleanItemProvider
 	 * @generated
 	 */
 	@Override
-	public String getText(Object object) {
+	public String getText(Object object)
+	{
 		JBoolean jBoolean = (JBoolean)object;
 		return getString("_UI_JBoolean_type") + " " + jBoolean.isBooleanValue();
 	}
+	
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached
@@ -128,10 +139,12 @@ public class JBooleanItemProvider
 	 * @generated
 	 */
 	@Override
-	public void notifyChanged(Notification notification) {
+	public void notifyChanged(Notification notification)
+	{
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(JBoolean.class)) {
+		switch (notification.getFeatureID(JBoolean.class))
+		{
 			case JSONPackage.JBOOLEAN__BOOLEAN_VALUE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
@@ -147,7 +160,8 @@ public class JBooleanItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object)
+	{
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 
@@ -158,7 +172,8 @@ public class JBooleanItemProvider
 	 * @generated
 	 */
 	@Override
-	public ResourceLocator getResourceLocator() {
+	public ResourceLocator getResourceLocator()
+	{
 		return JSONEditPlugin.INSTANCE;
 	}
 

@@ -2,20 +2,17 @@
  */
 package org.eclipselabs.emfjson.json.impl;
 
+import java.util.Map;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipselabs.emfjson.json.JArray;
-import org.eclipselabs.emfjson.json.JBoolean;
-import org.eclipselabs.emfjson.json.JField;
-import org.eclipselabs.emfjson.json.JNull;
-import org.eclipselabs.emfjson.json.JNumber;
-import org.eclipselabs.emfjson.json.JObject;
-import org.eclipselabs.emfjson.json.JSONFactory;
-import org.eclipselabs.emfjson.json.JSONPackage;
-import org.eclipselabs.emfjson.json.JString;
+
+import org.eclipselabs.emfjson.json.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -23,24 +20,29 @@ import org.eclipselabs.emfjson.json.JString;
  * <!-- end-user-doc -->
  * @generated
  */
-public class JSONFactoryImpl extends EFactoryImpl implements JSONFactory {
+public class JSONFactoryImpl extends EFactoryImpl implements JSONFactory
+{
 	/**
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static JSONFactory init() {
-		try {
+	public static JSONFactory init()
+	{
+		try
+		{
 			JSONFactory theJSONFactory = (JSONFactory)EPackage.Registry.INSTANCE.getEFactory(JSONPackage.eNS_URI);
-			if (theJSONFactory != null) {
+			if (theJSONFactory != null)
+			{
 				return theJSONFactory;
 			}
 		}
-		catch (Exception exception) {
+		catch (Exception exception)
+		{
 			EcorePlugin.INSTANCE.log(exception);
 		}
-		return new JSONFactoryImpl();
+		return new JSONFactoryImplCustom();
 	}
 
 	/**
@@ -49,7 +51,8 @@ public class JSONFactoryImpl extends EFactoryImpl implements JSONFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JSONFactoryImpl() {
+	public JSONFactoryImpl()
+	{
 		super();
 	}
 
@@ -59,15 +62,17 @@ public class JSONFactoryImpl extends EFactoryImpl implements JSONFactory {
 	 * @generated
 	 */
 	@Override
-	public EObject create(EClass eClass) {
-		switch (eClass.getClassifierID()) {
+	public EObject create(EClass eClass)
+	{
+		switch (eClass.getClassifierID())
+		{
 			case JSONPackage.JOBJECT: return createJObject();
 			case JSONPackage.JARRAY: return createJArray();
-			case JSONPackage.JFIELD: return createJField();
 			case JSONPackage.JBOOLEAN: return createJBoolean();
 			case JSONPackage.JNUMBER: return createJNumber();
 			case JSONPackage.JNULL: return createJNull();
 			case JSONPackage.JSTRING: return createJString();
+			case JSONPackage.ENTRY: return (EObject)createEntry();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -78,8 +83,9 @@ public class JSONFactoryImpl extends EFactoryImpl implements JSONFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JObject createJObject() {
-		JObjectImpl jObject = new JObjectImpl();
+	public JObject createJObject()
+	{
+		JObjectImplCustom jObject = new JObjectImplCustom();
 		return jObject;
 	}
 
@@ -88,8 +94,9 @@ public class JSONFactoryImpl extends EFactoryImpl implements JSONFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JArray createJArray() {
-		JArrayImpl jArray = new JArrayImpl();
+	public JArray createJArray()
+	{
+		JArrayImplCustom jArray = new JArrayImplCustom();
 		return jArray;
 	}
 
@@ -98,18 +105,9 @@ public class JSONFactoryImpl extends EFactoryImpl implements JSONFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JField createJField() {
-		JFieldImpl jField = new JFieldImpl();
-		return jField;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public JBoolean createJBoolean() {
-		JBooleanImpl jBoolean = new JBooleanImpl();
+	public JBoolean createJBoolean()
+	{
+		JBooleanImplCustom jBoolean = new JBooleanImplCustom();
 		return jBoolean;
 	}
 
@@ -118,8 +116,9 @@ public class JSONFactoryImpl extends EFactoryImpl implements JSONFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNumber createJNumber() {
-		JNumberImpl jNumber = new JNumberImpl();
+	public JNumber createJNumber()
+	{
+		JNumberImplCustom jNumber = new JNumberImplCustom();
 		return jNumber;
 	}
 
@@ -128,8 +127,9 @@ public class JSONFactoryImpl extends EFactoryImpl implements JSONFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNull createJNull() {
-		JNullImpl jNull = new JNullImpl();
+	public JNull createJNull()
+	{
+		JNullImplCustom jNull = new JNullImplCustom();
 		return jNull;
 	}
 
@@ -138,8 +138,9 @@ public class JSONFactoryImpl extends EFactoryImpl implements JSONFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JString createJString() {
-		JStringImpl jString = new JStringImpl();
+	public JString createJString()
+	{
+		JStringImplCustom jString = new JStringImplCustom();
 		return jString;
 	}
 
@@ -148,7 +149,19 @@ public class JSONFactoryImpl extends EFactoryImpl implements JSONFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JSONPackage getJSONPackage() {
+	public Map.Entry<String, JNode> createEntry()
+	{
+		EntryImplCustom entry = new EntryImplCustom();
+		return entry;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JSONPackage getJSONPackage()
+	{
 		return (JSONPackage)getEPackage();
 	}
 
@@ -159,7 +172,8 @@ public class JSONFactoryImpl extends EFactoryImpl implements JSONFactory {
 	 * @generated
 	 */
 	@Deprecated
-	public static JSONPackage getPackage() {
+	public static JSONPackage getPackage()
+	{
 		return JSONPackage.eINSTANCE;
 	}
 

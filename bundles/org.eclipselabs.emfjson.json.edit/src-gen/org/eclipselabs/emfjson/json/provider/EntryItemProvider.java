@@ -5,6 +5,7 @@ package org.eclipselabs.emfjson.json.provider;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
@@ -19,36 +20,39 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
+import org.eclipse.emf.edit.provider.ITableItemLabelProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
-import org.eclipselabs.emfjson.json.JField;
 import org.eclipselabs.emfjson.json.JSONFactory;
 import org.eclipselabs.emfjson.json.JSONPackage;
 
 /**
- * This is the item provider adapter for a {@link org.eclipselabs.emfjson.json.JField} object.
+ * This is the item provider adapter for a {@link java.util.Map.Entry} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class JFieldItemProvider
+public class EntryItemProvider
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
 		ITreeItemContentProvider,
 		IItemLabelProvider,
-		IItemPropertySource {
+		IItemPropertySource,
+		ITableItemLabelProvider
+{
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JFieldItemProvider(AdapterFactory adapterFactory) {
+	public EntryItemProvider(AdapterFactory adapterFactory)
+	{
 		super(adapterFactory);
 	}
 
@@ -59,8 +63,10 @@ public class JFieldItemProvider
 	 * @generated
 	 */
 	@Override
-	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
-		if (itemPropertyDescriptors == null) {
+	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object)
+	{
+		if (itemPropertyDescriptors == null)
+		{
 			super.getPropertyDescriptors(object);
 
 			addKeyPropertyDescriptor(object);
@@ -74,14 +80,15 @@ public class JFieldItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addKeyPropertyDescriptor(Object object) {
+	protected void addKeyPropertyDescriptor(Object object)
+	{
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_JField_key_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_JField_key_feature", "_UI_JField_type"),
-				 JSONPackage.Literals.JFIELD__KEY,
+				 getString("_UI_Entry_key_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Entry_key_feature", "_UI_Entry_type"),
+				 JSONPackage.Literals.ENTRY__KEY,
 				 true,
 				 false,
 				 false,
@@ -99,10 +106,12 @@ public class JFieldItemProvider
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object)
+	{
+		if (childrenFeatures == null)
+		{
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(JSONPackage.Literals.JFIELD__VALUE);
+			childrenFeatures.add(JSONPackage.Literals.ENTRY__VALUE);
 		}
 		return childrenFeatures;
 	}
@@ -113,7 +122,8 @@ public class JFieldItemProvider
 	 * @generated
 	 */
 	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
+	protected EStructuralFeature getChildFeature(Object object, Object child)
+	{
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
 
@@ -126,19 +136,21 @@ public class JFieldItemProvider
 	 * @generated
 	 */
 	@Override
-	public boolean hasChildren(Object object) {
+	public boolean hasChildren(Object object)
+	{
 		return hasChildren(object, true);
 	}
 
 	/**
-	 * This returns JField.gif.
+	 * This returns Entry.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/JField"));
+	public Object getImage(Object object)
+	{
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Entry"));
 	}
 
 	/**
@@ -148,12 +160,12 @@ public class JFieldItemProvider
 	 * @generated
 	 */
 	@Override
-	public String getText(Object object) {
-		String label = ((JField)object).getKey();
-		return label == null || label.length() == 0 ?
-			getString("_UI_JField_type") :
-			getString("_UI_JField_type") + " " + label;
+	public String getText(Object object)
+	{
+		Map.Entry<?, ?> entry = (Map.Entry<?, ?>)object;
+		return "" + entry.getKey() + " -> " + entry.getValue();
 	}
+	
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached
@@ -163,14 +175,16 @@ public class JFieldItemProvider
 	 * @generated
 	 */
 	@Override
-	public void notifyChanged(Notification notification) {
+	public void notifyChanged(Notification notification)
+	{
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(JField.class)) {
-			case JSONPackage.JFIELD__KEY:
+		switch (notification.getFeatureID(Map.Entry.class))
+		{
+			case JSONPackage.ENTRY__KEY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case JSONPackage.JFIELD__VALUE:
+			case JSONPackage.ENTRY__VALUE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -185,37 +199,38 @@ public class JFieldItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object)
+	{
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add
 			(createChildParameter
-				(JSONPackage.Literals.JFIELD__VALUE,
+				(JSONPackage.Literals.ENTRY__VALUE,
 				 JSONFactory.eINSTANCE.createJObject()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(JSONPackage.Literals.JFIELD__VALUE,
+				(JSONPackage.Literals.ENTRY__VALUE,
 				 JSONFactory.eINSTANCE.createJArray()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(JSONPackage.Literals.JFIELD__VALUE,
+				(JSONPackage.Literals.ENTRY__VALUE,
 				 JSONFactory.eINSTANCE.createJBoolean()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(JSONPackage.Literals.JFIELD__VALUE,
+				(JSONPackage.Literals.ENTRY__VALUE,
 				 JSONFactory.eINSTANCE.createJNumber()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(JSONPackage.Literals.JFIELD__VALUE,
+				(JSONPackage.Literals.ENTRY__VALUE,
 				 JSONFactory.eINSTANCE.createJNull()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(JSONPackage.Literals.JFIELD__VALUE,
+				(JSONPackage.Literals.ENTRY__VALUE,
 				 JSONFactory.eINSTANCE.createJString()));
 	}
 
@@ -226,7 +241,8 @@ public class JFieldItemProvider
 	 * @generated
 	 */
 	@Override
-	public ResourceLocator getResourceLocator() {
+	public ResourceLocator getResourceLocator()
+	{
 		return JSONEditPlugin.INSTANCE;
 	}
 

@@ -19,7 +19,8 @@ package org.eclipselabs.emfjson.json;
  * @model
  * @generated
  */
-public interface JString extends JValue {
+public interface JString extends JValue
+{
 	/**
 	 * Returns the value of the '<em><b>String Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->

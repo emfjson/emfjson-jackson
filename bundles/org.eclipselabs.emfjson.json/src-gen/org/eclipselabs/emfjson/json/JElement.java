@@ -14,5 +14,6 @@ import org.eclipse.emf.ecore.EObject;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface JElement extends EObject {
+public interface JElement extends EObject
+{
 } // JElement

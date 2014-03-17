@@ -2,20 +2,14 @@
  */
 package org.eclipselabs.emfjson.json.util;
 
+import java.util.Map;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+
 import org.eclipse.emf.ecore.util.Switch;
-import org.eclipselabs.emfjson.json.JArray;
-import org.eclipselabs.emfjson.json.JBoolean;
-import org.eclipselabs.emfjson.json.JElement;
-import org.eclipselabs.emfjson.json.JField;
-import org.eclipselabs.emfjson.json.JNode;
-import org.eclipselabs.emfjson.json.JNull;
-import org.eclipselabs.emfjson.json.JNumber;
-import org.eclipselabs.emfjson.json.JObject;
-import org.eclipselabs.emfjson.json.JSONPackage;
-import org.eclipselabs.emfjson.json.JString;
-import org.eclipselabs.emfjson.json.JValue;
+
+import org.eclipselabs.emfjson.json.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,7 +24,8 @@ import org.eclipselabs.emfjson.json.JValue;
  * @see org.eclipselabs.emfjson.json.JSONPackage
  * @generated
  */
-public class JSONSwitch<T> extends Switch<T> {
+public class JSONSwitch<T> extends Switch<T>
+{
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
@@ -45,8 +40,10 @@ public class JSONSwitch<T> extends Switch<T> {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JSONSwitch() {
-		if (modelPackage == null) {
+	public JSONSwitch()
+	{
+		if (modelPackage == null)
+		{
 			modelPackage = JSONPackage.eINSTANCE;
 		}
 	}
@@ -60,7 +57,8 @@ public class JSONSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	@Override
-	protected boolean isSwitchFor(EPackage ePackage) {
+	protected boolean isSwitchFor(EPackage ePackage)
+	{
 		return ePackage == modelPackage;
 	}
 
@@ -72,22 +70,27 @@ public class JSONSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	@Override
-	protected T doSwitch(int classifierID, EObject theEObject) {
-		switch (classifierID) {
-			case JSONPackage.JELEMENT: {
+	protected T doSwitch(int classifierID, EObject theEObject)
+	{
+		switch (classifierID)
+		{
+			case JSONPackage.JELEMENT:
+			{
 				JElement jElement = (JElement)theEObject;
 				T result = caseJElement(jElement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case JSONPackage.JNODE: {
+			case JSONPackage.JNODE:
+			{
 				JNode jNode = (JNode)theEObject;
 				T result = caseJNode(jNode);
 				if (result == null) result = caseJElement(jNode);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case JSONPackage.JOBJECT: {
+			case JSONPackage.JOBJECT:
+			{
 				JObject jObject = (JObject)theEObject;
 				T result = caseJObject(jObject);
 				if (result == null) result = caseJNode(jObject);
@@ -95,7 +98,8 @@ public class JSONSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case JSONPackage.JARRAY: {
+			case JSONPackage.JARRAY:
+			{
 				JArray jArray = (JArray)theEObject;
 				T result = caseJArray(jArray);
 				if (result == null) result = caseJNode(jArray);
@@ -103,14 +107,8 @@ public class JSONSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case JSONPackage.JFIELD: {
-				JField jField = (JField)theEObject;
-				T result = caseJField(jField);
-				if (result == null) result = caseJElement(jField);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case JSONPackage.JVALUE: {
+			case JSONPackage.JVALUE:
+			{
 				JValue jValue = (JValue)theEObject;
 				T result = caseJValue(jValue);
 				if (result == null) result = caseJNode(jValue);
@@ -118,7 +116,8 @@ public class JSONSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case JSONPackage.JBOOLEAN: {
+			case JSONPackage.JBOOLEAN:
+			{
 				JBoolean jBoolean = (JBoolean)theEObject;
 				T result = caseJBoolean(jBoolean);
 				if (result == null) result = caseJValue(jBoolean);
@@ -127,7 +126,8 @@ public class JSONSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case JSONPackage.JNUMBER: {
+			case JSONPackage.JNUMBER:
+			{
 				JNumber jNumber = (JNumber)theEObject;
 				T result = caseJNumber(jNumber);
 				if (result == null) result = caseJValue(jNumber);
@@ -136,7 +136,8 @@ public class JSONSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case JSONPackage.JNULL: {
+			case JSONPackage.JNULL:
+			{
 				JNull jNull = (JNull)theEObject;
 				T result = caseJNull(jNull);
 				if (result == null) result = caseJValue(jNull);
@@ -145,12 +146,20 @@ public class JSONSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case JSONPackage.JSTRING: {
+			case JSONPackage.JSTRING:
+			{
 				JString jString = (JString)theEObject;
 				T result = caseJString(jString);
 				if (result == null) result = caseJValue(jString);
 				if (result == null) result = caseJNode(jString);
 				if (result == null) result = caseJElement(jString);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JSONPackage.ENTRY:
+			{
+				@SuppressWarnings("unchecked") Map.Entry<String, JNode> entry = (Map.Entry<String, JNode>)theEObject;
+				T result = caseEntry(entry);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -169,7 +178,8 @@ public class JSONSwitch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseJElement(JElement object) {
+	public T caseJElement(JElement object)
+	{
 		return null;
 	}
 
@@ -184,7 +194,8 @@ public class JSONSwitch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseJNode(JNode object) {
+	public T caseJNode(JNode object)
+	{
 		return null;
 	}
 
@@ -199,7 +210,8 @@ public class JSONSwitch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseJObject(JObject object) {
+	public T caseJObject(JObject object)
+	{
 		return null;
 	}
 
@@ -214,22 +226,8 @@ public class JSONSwitch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseJArray(JArray object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>JField</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>JField</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseJField(JField object) {
+	public T caseJArray(JArray object)
+	{
 		return null;
 	}
 
@@ -244,7 +242,8 @@ public class JSONSwitch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseJValue(JValue object) {
+	public T caseJValue(JValue object)
+	{
 		return null;
 	}
 
@@ -259,7 +258,8 @@ public class JSONSwitch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseJBoolean(JBoolean object) {
+	public T caseJBoolean(JBoolean object)
+	{
 		return null;
 	}
 
@@ -274,7 +274,8 @@ public class JSONSwitch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseJNumber(JNumber object) {
+	public T caseJNumber(JNumber object)
+	{
 		return null;
 	}
 
@@ -289,7 +290,8 @@ public class JSONSwitch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseJNull(JNull object) {
+	public T caseJNull(JNull object)
+	{
 		return null;
 	}
 
@@ -304,7 +306,24 @@ public class JSONSwitch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseJString(JString object) {
+	public T caseJString(JString object)
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Entry</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Entry</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEntry(Map.Entry<String, JNode> object)
+	{
 		return null;
 	}
 
@@ -320,7 +339,8 @@ public class JSONSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	@Override
-	public T defaultCase(EObject object) {
+	public T defaultCase(EObject object)
+	{
 		return null;
 	}
 

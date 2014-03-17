@@ -9,7 +9,7 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated json -->
       <package
-            uri="http://eclipselabs.org/emfjson/2013/json"
+            uri="http://eclipselabs.org/emfjson/JSON"
             class="org.eclipselabs.emfjson.json.JSONPackage"
             genModel="model/json.genmodel"/>
    </extension>

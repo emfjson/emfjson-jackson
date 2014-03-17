@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: EMF JSON Model 
+Bundle-Name: JSON Model
 Bundle-SymbolicName: org.eclipselabs.emfjson.json;singleton:=true
-Bundle-Version: 0.7.0.qualifier
+Bundle-Version: 0.8.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: Eclipse Labs
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
@@ -12,8 +12,8 @@ Export-Package: org.eclipselabs.emfjson.json,
  org.eclipselabs.emfjson.json.resource,
  org.eclipselabs.emfjson.json.streams,
  org.eclipselabs.emfjson.json.util
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.ecore;bundle-version="[2.8.0,3.0.0)";visibility:=reexport
+Require-Bundle: org.eclipse.core.runtime;resolution:=optional,
+ org.eclipse.emf.ecore;visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Import-Package: com.fasterxml.jackson.core,
  com.fasterxml.jackson.databind,

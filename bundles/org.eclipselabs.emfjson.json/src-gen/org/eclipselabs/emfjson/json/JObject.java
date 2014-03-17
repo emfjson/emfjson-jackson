@@ -2,7 +2,7 @@
  */
 package org.eclipselabs.emfjson.json;
 
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,21 +20,71 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface JObject extends JNode {
+public interface JObject extends JNode
+{
 	/**
-	 * Returns the value of the '<em><b>Fields</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipselabs.emfjson.json.JField}.
+	 * Returns the value of the '<em><b>Fields</b></em>' map.
+	 * The key is of type {@link java.lang.String},
+	 * and the value is of type {@link org.eclipselabs.emfjson.json.JNode},
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Fields</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Fields</em>' map isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Fields</em>' containment reference list.
+	 * @return the value of the '<em>Fields</em>' map.
 	 * @see org.eclipselabs.emfjson.json.JSONPackage#getJObject_Fields()
-	 * @model containment="true"
+	 * @model mapType="org.eclipselabs.emfjson.json.Entry<org.eclipse.emf.ecore.EString, org.eclipselabs.emfjson.json.JNode>"
 	 * @generated
 	 */
-	EList<JField> getFields();
+	EMap<String, JNode> getFields();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model keyRequired="true" valueRequired="true"
+	 * @generated
+	 */
+	void put(String key, JNode value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	void put(String key, String value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	void put(String key, boolean value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	void put(String key, double value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	JNode get(String key);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	boolean contains(String key);
 
 } // JObject

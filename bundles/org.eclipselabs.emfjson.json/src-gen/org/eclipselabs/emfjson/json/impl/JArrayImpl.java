@@ -4,10 +4,18 @@ package org.eclipselabs.emfjson.json.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.eclipselabs.emfjson.json.JArray;
 import org.eclipselabs.emfjson.json.JNode;
 import org.eclipselabs.emfjson.json.JSONPackage;
@@ -25,9 +33,10 @@ import org.eclipselabs.emfjson.json.JSONPackage;
  *
  * @generated
  */
-public class JArrayImpl extends MinimalEObjectImpl.Container implements JArray {
+public class JArrayImpl extends MinimalEObjectImpl.Container implements JArray
+{
 	/**
-	 * The cached value of the '{@link #getElements() <em>Elements</em>}' reference list.
+	 * The cached value of the '{@link #getElements() <em>Elements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getElements()
@@ -41,7 +50,8 @@ public class JArrayImpl extends MinimalEObjectImpl.Container implements JArray {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected JArrayImpl() {
+	protected JArrayImpl()
+	{
 		super();
 	}
 
@@ -51,7 +61,8 @@ public class JArrayImpl extends MinimalEObjectImpl.Container implements JArray {
 	 * @generated
 	 */
 	@Override
-	protected EClass eStaticClass() {
+	protected EClass eStaticClass()
+	{
 		return JSONPackage.Literals.JARRAY;
 	}
 
@@ -60,9 +71,11 @@ public class JArrayImpl extends MinimalEObjectImpl.Container implements JArray {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<JNode> getElements() {
-		if (elements == null) {
-			elements = new EObjectResolvingEList<JNode>(JNode.class, this, JSONPackage.JARRAY__ELEMENTS);
+	public EList<JNode> getElements()
+	{
+		if (elements == null)
+		{
+			elements = new EObjectContainmentEList<JNode>(JNode.class, this, JSONPackage.JARRAY__ELEMENTS);
 		}
 		return elements;
 	}
@@ -73,8 +86,26 @@ public class JArrayImpl extends MinimalEObjectImpl.Container implements JArray {
 	 * @generated
 	 */
 	@Override
-	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+	{
+		switch (featureID)
+		{
+			case JSONPackage.JARRAY__ELEMENTS:
+				return ((InternalEList<?>)getElements()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType)
+	{
+		switch (featureID)
+		{
 			case JSONPackage.JARRAY__ELEMENTS:
 				return getElements();
 		}
@@ -88,8 +119,10 @@ public class JArrayImpl extends MinimalEObjectImpl.Container implements JArray {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
+	public void eSet(int featureID, Object newValue)
+	{
+		switch (featureID)
+		{
 			case JSONPackage.JARRAY__ELEMENTS:
 				getElements().clear();
 				getElements().addAll((Collection<? extends JNode>)newValue);
@@ -104,8 +137,10 @@ public class JArrayImpl extends MinimalEObjectImpl.Container implements JArray {
 	 * @generated
 	 */
 	@Override
-	public void eUnset(int featureID) {
-		switch (featureID) {
+	public void eUnset(int featureID)
+	{
+		switch (featureID)
+		{
 			case JSONPackage.JARRAY__ELEMENTS:
 				getElements().clear();
 				return;
@@ -119,8 +154,10 @@ public class JArrayImpl extends MinimalEObjectImpl.Container implements JArray {
 	 * @generated
 	 */
 	@Override
-	public boolean eIsSet(int featureID) {
-		switch (featureID) {
+	public boolean eIsSet(int featureID)
+	{
+		switch (featureID)
+		{
 			case JSONPackage.JARRAY__ELEMENTS:
 				return elements != null && !elements.isEmpty();
 		}

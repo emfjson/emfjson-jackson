@@ -19,6 +19,7 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.INotifyChangedListener;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
+import org.eclipse.emf.edit.provider.ITableItemLabelProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 
 import org.eclipselabs.emfjson.json.util.JSONAdapterFactory;
@@ -32,7 +33,8 @@ import org.eclipselabs.emfjson.json.util.JSONAdapterFactory;
  * <!-- end-user-doc -->
  * @generated
  */
-public class JSONItemProviderAdapterFactory extends JSONAdapterFactory implements ComposeableAdapterFactory, IChangeNotifier, IDisposable {
+public class JSONItemProviderAdapterFactory extends JSONAdapterFactory implements ComposeableAdapterFactory, IChangeNotifier, IDisposable
+{
 	/**
 	 * This keeps track of the root adapter factory that delegates to this adapter factory.
 	 * <!-- begin-user-doc -->
@@ -63,12 +65,14 @@ public class JSONItemProviderAdapterFactory extends JSONAdapterFactory implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JSONItemProviderAdapterFactory() {
+	public JSONItemProviderAdapterFactory()
+	{
 		supportedTypes.add(IEditingDomainItemProvider.class);
 		supportedTypes.add(IStructuredItemContentProvider.class);
 		supportedTypes.add(ITreeItemContentProvider.class);
 		supportedTypes.add(IItemLabelProvider.class);
 		supportedTypes.add(IItemPropertySource.class);
+		supportedTypes.add(ITableItemLabelProvider.class);
 	}
 
 	/**
@@ -86,8 +90,10 @@ public class JSONItemProviderAdapterFactory extends JSONAdapterFactory implement
 	 * @generated
 	 */
 	@Override
-	public Adapter createJObjectAdapter() {
-		if (jObjectItemProvider == null) {
+	public Adapter createJObjectAdapter()
+	{
+		if (jObjectItemProvider == null)
+		{
 			jObjectItemProvider = new JObjectItemProvider(this);
 		}
 
@@ -109,35 +115,14 @@ public class JSONItemProviderAdapterFactory extends JSONAdapterFactory implement
 	 * @generated
 	 */
 	@Override
-	public Adapter createJArrayAdapter() {
-		if (jArrayItemProvider == null) {
+	public Adapter createJArrayAdapter()
+	{
+		if (jArrayItemProvider == null)
+		{
 			jArrayItemProvider = new JArrayItemProvider(this);
 		}
 
 		return jArrayItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipselabs.emfjson.json.JField} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected JFieldItemProvider jFieldItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipselabs.emfjson.json.JField}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createJFieldAdapter() {
-		if (jFieldItemProvider == null) {
-			jFieldItemProvider = new JFieldItemProvider(this);
-		}
-
-		return jFieldItemProvider;
 	}
 
 	/**
@@ -155,8 +140,10 @@ public class JSONItemProviderAdapterFactory extends JSONAdapterFactory implement
 	 * @generated
 	 */
 	@Override
-	public Adapter createJBooleanAdapter() {
-		if (jBooleanItemProvider == null) {
+	public Adapter createJBooleanAdapter()
+	{
+		if (jBooleanItemProvider == null)
+		{
 			jBooleanItemProvider = new JBooleanItemProvider(this);
 		}
 
@@ -178,8 +165,10 @@ public class JSONItemProviderAdapterFactory extends JSONAdapterFactory implement
 	 * @generated
 	 */
 	@Override
-	public Adapter createJNumberAdapter() {
-		if (jNumberItemProvider == null) {
+	public Adapter createJNumberAdapter()
+	{
+		if (jNumberItemProvider == null)
+		{
 			jNumberItemProvider = new JNumberItemProvider(this);
 		}
 
@@ -201,8 +190,10 @@ public class JSONItemProviderAdapterFactory extends JSONAdapterFactory implement
 	 * @generated
 	 */
 	@Override
-	public Adapter createJNullAdapter() {
-		if (jNullItemProvider == null) {
+	public Adapter createJNullAdapter()
+	{
+		if (jNullItemProvider == null)
+		{
 			jNullItemProvider = new JNullItemProvider(this);
 		}
 
@@ -224,12 +215,39 @@ public class JSONItemProviderAdapterFactory extends JSONAdapterFactory implement
 	 * @generated
 	 */
 	@Override
-	public Adapter createJStringAdapter() {
-		if (jStringItemProvider == null) {
+	public Adapter createJStringAdapter()
+	{
+		if (jStringItemProvider == null)
+		{
 			jStringItemProvider = new JStringItemProvider(this);
 		}
 
 		return jStringItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link java.util.Map.Entry} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EntryItemProvider entryItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link java.util.Map.Entry}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEntryAdapter()
+	{
+		if (entryItemProvider == null)
+		{
+			entryItemProvider = new EntryItemProvider(this);
+		}
+
+		return entryItemProvider;
 	}
 
 	/**
@@ -238,7 +256,8 @@ public class JSONItemProviderAdapterFactory extends JSONAdapterFactory implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ComposeableAdapterFactory getRootAdapterFactory() {
+	public ComposeableAdapterFactory getRootAdapterFactory()
+	{
 		return parentAdapterFactory == null ? this : parentAdapterFactory.getRootAdapterFactory();
 	}
 
@@ -248,7 +267,8 @@ public class JSONItemProviderAdapterFactory extends JSONAdapterFactory implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setParentAdapterFactory(ComposedAdapterFactory parentAdapterFactory) {
+	public void setParentAdapterFactory(ComposedAdapterFactory parentAdapterFactory)
+	{
 		this.parentAdapterFactory = parentAdapterFactory;
 	}
 
@@ -258,7 +278,8 @@ public class JSONItemProviderAdapterFactory extends JSONAdapterFactory implement
 	 * @generated
 	 */
 	@Override
-	public boolean isFactoryForType(Object type) {
+	public boolean isFactoryForType(Object type)
+	{
 		return supportedTypes.contains(type) || super.isFactoryForType(type);
 	}
 
@@ -269,7 +290,8 @@ public class JSONItemProviderAdapterFactory extends JSONAdapterFactory implement
 	 * @generated
 	 */
 	@Override
-	public Adapter adapt(Notifier notifier, Object type) {
+	public Adapter adapt(Notifier notifier, Object type)
+	{
 		return super.adapt(notifier, this);
 	}
 
@@ -279,10 +301,13 @@ public class JSONItemProviderAdapterFactory extends JSONAdapterFactory implement
 	 * @generated
 	 */
 	@Override
-	public Object adapt(Object object, Object type) {
-		if (isFactoryForType(type)) {
+	public Object adapt(Object object, Object type)
+	{
+		if (isFactoryForType(type))
+		{
 			Object adapter = super.adapt(object, type);
-			if (!(type instanceof Class<?>) || (((Class<?>)type).isInstance(adapter))) {
+			if (!(type instanceof Class<?>) || (((Class<?>)type).isInstance(adapter)))
+			{
 				return adapter;
 			}
 		}
@@ -296,7 +321,8 @@ public class JSONItemProviderAdapterFactory extends JSONAdapterFactory implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void addListener(INotifyChangedListener notifyChangedListener) {
+	public void addListener(INotifyChangedListener notifyChangedListener)
+	{
 		changeNotifier.addListener(notifyChangedListener);
 	}
 
@@ -306,7 +332,8 @@ public class JSONItemProviderAdapterFactory extends JSONAdapterFactory implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void removeListener(INotifyChangedListener notifyChangedListener) {
+	public void removeListener(INotifyChangedListener notifyChangedListener)
+	{
 		changeNotifier.removeListener(notifyChangedListener);
 	}
 
@@ -316,10 +343,12 @@ public class JSONItemProviderAdapterFactory extends JSONAdapterFactory implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void fireNotifyChanged(Notification notification) {
+	public void fireNotifyChanged(Notification notification)
+	{
 		changeNotifier.fireNotifyChanged(notification);
 
-		if (parentAdapterFactory != null) {
+		if (parentAdapterFactory != null)
+		{
 			parentAdapterFactory.fireNotifyChanged(notification);
 		}
 	}
@@ -330,14 +359,15 @@ public class JSONItemProviderAdapterFactory extends JSONAdapterFactory implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void dispose() {
+	public void dispose()
+	{
 		if (jObjectItemProvider != null) jObjectItemProvider.dispose();
 		if (jArrayItemProvider != null) jArrayItemProvider.dispose();
-		if (jFieldItemProvider != null) jFieldItemProvider.dispose();
 		if (jBooleanItemProvider != null) jBooleanItemProvider.dispose();
 		if (jNumberItemProvider != null) jNumberItemProvider.dispose();
 		if (jNullItemProvider != null) jNullItemProvider.dispose();
 		if (jStringItemProvider != null) jStringItemProvider.dispose();
+		if (entryItemProvider != null) entryItemProvider.dispose();
 	}
 
 }

@@ -2,21 +2,16 @@
  */
 package org.eclipselabs.emfjson.json.util;
 
+import java.util.Map;
+
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
+
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
+
 import org.eclipse.emf.ecore.EObject;
-import org.eclipselabs.emfjson.json.JArray;
-import org.eclipselabs.emfjson.json.JBoolean;
-import org.eclipselabs.emfjson.json.JElement;
-import org.eclipselabs.emfjson.json.JField;
-import org.eclipselabs.emfjson.json.JNode;
-import org.eclipselabs.emfjson.json.JNull;
-import org.eclipselabs.emfjson.json.JNumber;
-import org.eclipselabs.emfjson.json.JObject;
-import org.eclipselabs.emfjson.json.JSONPackage;
-import org.eclipselabs.emfjson.json.JString;
-import org.eclipselabs.emfjson.json.JValue;
+
+import org.eclipselabs.emfjson.json.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,7 +21,8 @@ import org.eclipselabs.emfjson.json.JValue;
  * @see org.eclipselabs.emfjson.json.JSONPackage
  * @generated
  */
-public class JSONAdapterFactory extends AdapterFactoryImpl {
+public class JSONAdapterFactory extends AdapterFactoryImpl
+{
 	/**
 	 * The cached model package.
 	 * <!-- begin-user-doc -->
@@ -41,8 +37,10 @@ public class JSONAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JSONAdapterFactory() {
-		if (modelPackage == null) {
+	public JSONAdapterFactory()
+	{
+		if (modelPackage == null)
+		{
 			modelPackage = JSONPackage.eINSTANCE;
 		}
 	}
@@ -56,11 +54,14 @@ public class JSONAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	@Override
-	public boolean isFactoryForType(Object object) {
-		if (object == modelPackage) {
+	public boolean isFactoryForType(Object object)
+	{
+		if (object == modelPackage)
+		{
 			return true;
 		}
-		if (object instanceof EObject) {
+		if (object instanceof EObject)
+		{
 			return ((EObject)object).eClass().getEPackage() == modelPackage;
 		}
 		return false;
@@ -73,49 +74,61 @@ public class JSONAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	protected JSONSwitch<Adapter> modelSwitch =
-		new JSONSwitch<Adapter>() {
+		new JSONSwitch<Adapter>()
+		{
 			@Override
-			public Adapter caseJElement(JElement object) {
+			public Adapter caseJElement(JElement object)
+			{
 				return createJElementAdapter();
 			}
 			@Override
-			public Adapter caseJNode(JNode object) {
+			public Adapter caseJNode(JNode object)
+			{
 				return createJNodeAdapter();
 			}
 			@Override
-			public Adapter caseJObject(JObject object) {
+			public Adapter caseJObject(JObject object)
+			{
 				return createJObjectAdapter();
 			}
 			@Override
-			public Adapter caseJArray(JArray object) {
+			public Adapter caseJArray(JArray object)
+			{
 				return createJArrayAdapter();
 			}
 			@Override
-			public Adapter caseJField(JField object) {
-				return createJFieldAdapter();
-			}
-			@Override
-			public Adapter caseJValue(JValue object) {
+			public Adapter caseJValue(JValue object)
+			{
 				return createJValueAdapter();
 			}
 			@Override
-			public Adapter caseJBoolean(JBoolean object) {
+			public Adapter caseJBoolean(JBoolean object)
+			{
 				return createJBooleanAdapter();
 			}
 			@Override
-			public Adapter caseJNumber(JNumber object) {
+			public Adapter caseJNumber(JNumber object)
+			{
 				return createJNumberAdapter();
 			}
 			@Override
-			public Adapter caseJNull(JNull object) {
+			public Adapter caseJNull(JNull object)
+			{
 				return createJNullAdapter();
 			}
 			@Override
-			public Adapter caseJString(JString object) {
+			public Adapter caseJString(JString object)
+			{
 				return createJStringAdapter();
 			}
 			@Override
-			public Adapter defaultCase(EObject object) {
+			public Adapter caseEntry(Map.Entry<String, JNode> object)
+			{
+				return createEntryAdapter();
+			}
+			@Override
+			public Adapter defaultCase(EObject object)
+			{
 				return createEObjectAdapter();
 			}
 		};
@@ -129,7 +142,8 @@ public class JSONAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	@Override
-	public Adapter createAdapter(Notifier target) {
+	public Adapter createAdapter(Notifier target)
+	{
 		return modelSwitch.doSwitch((EObject)target);
 	}
 
@@ -144,7 +158,8 @@ public class JSONAdapterFactory extends AdapterFactoryImpl {
 	 * @see org.eclipselabs.emfjson.json.JElement
 	 * @generated
 	 */
-	public Adapter createJElementAdapter() {
+	public Adapter createJElementAdapter()
+	{
 		return null;
 	}
 
@@ -158,7 +173,8 @@ public class JSONAdapterFactory extends AdapterFactoryImpl {
 	 * @see org.eclipselabs.emfjson.json.JNode
 	 * @generated
 	 */
-	public Adapter createJNodeAdapter() {
+	public Adapter createJNodeAdapter()
+	{
 		return null;
 	}
 
@@ -172,7 +188,8 @@ public class JSONAdapterFactory extends AdapterFactoryImpl {
 	 * @see org.eclipselabs.emfjson.json.JObject
 	 * @generated
 	 */
-	public Adapter createJObjectAdapter() {
+	public Adapter createJObjectAdapter()
+	{
 		return null;
 	}
 
@@ -186,21 +203,8 @@ public class JSONAdapterFactory extends AdapterFactoryImpl {
 	 * @see org.eclipselabs.emfjson.json.JArray
 	 * @generated
 	 */
-	public Adapter createJArrayAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipselabs.emfjson.json.JField <em>JField</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipselabs.emfjson.json.JField
-	 * @generated
-	 */
-	public Adapter createJFieldAdapter() {
+	public Adapter createJArrayAdapter()
+	{
 		return null;
 	}
 
@@ -214,7 +218,8 @@ public class JSONAdapterFactory extends AdapterFactoryImpl {
 	 * @see org.eclipselabs.emfjson.json.JValue
 	 * @generated
 	 */
-	public Adapter createJValueAdapter() {
+	public Adapter createJValueAdapter()
+	{
 		return null;
 	}
 
@@ -228,7 +233,8 @@ public class JSONAdapterFactory extends AdapterFactoryImpl {
 	 * @see org.eclipselabs.emfjson.json.JBoolean
 	 * @generated
 	 */
-	public Adapter createJBooleanAdapter() {
+	public Adapter createJBooleanAdapter()
+	{
 		return null;
 	}
 
@@ -242,7 +248,8 @@ public class JSONAdapterFactory extends AdapterFactoryImpl {
 	 * @see org.eclipselabs.emfjson.json.JNumber
 	 * @generated
 	 */
-	public Adapter createJNumberAdapter() {
+	public Adapter createJNumberAdapter()
+	{
 		return null;
 	}
 
@@ -256,7 +263,8 @@ public class JSONAdapterFactory extends AdapterFactoryImpl {
 	 * @see org.eclipselabs.emfjson.json.JNull
 	 * @generated
 	 */
-	public Adapter createJNullAdapter() {
+	public Adapter createJNullAdapter()
+	{
 		return null;
 	}
 
@@ -270,7 +278,23 @@ public class JSONAdapterFactory extends AdapterFactoryImpl {
 	 * @see org.eclipselabs.emfjson.json.JString
 	 * @generated
 	 */
-	public Adapter createJStringAdapter() {
+	public Adapter createJStringAdapter()
+	{
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>Entry</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see java.util.Map.Entry
+	 * @generated
+	 */
+	public Adapter createEntryAdapter()
+	{
 		return null;
 	}
 
@@ -282,7 +306,8 @@ public class JSONAdapterFactory extends AdapterFactoryImpl {
 	 * @return the new adapter.
 	 * @generated
 	 */
-	public Adapter createEObjectAdapter() {
+	public Adapter createEObjectAdapter()
+	{
 		return null;
 	}
 

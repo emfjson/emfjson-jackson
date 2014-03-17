@@ -1,8 +1,9 @@
 package org.eclipselabs.emfjson.json.map;
 
+import java.util.Map.Entry;
+
 import org.eclipselabs.emfjson.json.JArray;
 import org.eclipselabs.emfjson.json.JBoolean;
-import org.eclipselabs.emfjson.json.JField;
 import org.eclipselabs.emfjson.json.JNode;
 import org.eclipselabs.emfjson.json.JNumber;
 import org.eclipselabs.emfjson.json.JObject;
@@ -24,26 +25,29 @@ public class Serializer {
 
 	public ObjectNode to(JObject node, ObjectMapper mapper) {
 		ObjectNode result = mapper.createObjectNode();
-		for (JField field : node.getFields()) {
-			setValue(result, field, mapper);
+		for (Entry<String, JNode> entry: node.getFields()) {
+			setValue(result, entry.getKey(), entry.getValue(), mapper);
 		}
 
 		return result;
 	}
 
-	private void setValue(ObjectNode node, JField field, ObjectMapper mapper) {
-		JNode value = field.getValue();
-
+	private void setValue(ObjectNode node, String key, JNode value, ObjectMapper mapper) {
 		if (value instanceof JObject) {
-			node.put(field.getKey(), to((JObject) value, mapper));
+			node.put(key, to((JObject) value, mapper));
 		} else if (value instanceof JArray) {
-			node.put(field.getKey(), to((JArray) value, mapper));
+			node.put(key, to((JArray) value, mapper));
 		} else if (value instanceof JString) {
-			node.put(field.getKey(), ((JString) value).getStringValue());
+			node.put(key, ((JString) value).getStringValue());
 		} else if (value instanceof JNumber) {
-			node.put(field.getKey(), ((JNumber) value).getNumberValue());
+			double d = ((JNumber) value).getNumberValue();
+			if (d % 1 == 0) {
+				node.put(key, (int) d);
+			} else {
+				node.put(key, d);
+			}
 		} else if (value instanceof JBoolean) {
-			node.put(field.getKey(), ((JBoolean) value).isBooleanValue());
+			node.put(key, ((JBoolean) value).isBooleanValue());
 		}
 	}
 

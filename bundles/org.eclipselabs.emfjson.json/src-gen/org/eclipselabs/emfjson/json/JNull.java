@@ -13,5 +13,6 @@ package org.eclipselabs.emfjson.json;
  * @model
  * @generated
  */
-public interface JNull extends JValue {
+public interface JNull extends JValue
+{
 } // JNull

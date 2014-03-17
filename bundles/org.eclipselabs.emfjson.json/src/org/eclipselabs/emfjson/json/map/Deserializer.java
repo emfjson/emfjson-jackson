@@ -6,7 +6,6 @@ import java.util.Map.Entry;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipselabs.emfjson.json.JArray;
 import org.eclipselabs.emfjson.json.JBoolean;
-import org.eclipselabs.emfjson.json.JField;
 import org.eclipselabs.emfjson.json.JNode;
 import org.eclipselabs.emfjson.json.JNumber;
 import org.eclipselabs.emfjson.json.JObject;
@@ -52,10 +51,7 @@ public class Deserializer {
 		JObject result = factory.createJObject();
 		for (Iterator<Entry<String, JsonNode>> it = node.fields(); it.hasNext();) {
 			Entry<String, JsonNode> current = it.next();
-			JField field = factory.createJField();
-			field.setKey(current.getKey());
-			field.setValue(from(current.getValue(), resource, false));
-			result.getFields().add(field);
+			result.put(current.getKey(), from(current.getValue(), resource, false));
 		}
 		return result;
 	}

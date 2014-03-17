@@ -24,7 +24,8 @@ import org.eclipse.emf.ecore.EReference;
  * @model kind="package"
  * @generated
  */
-public interface JSONPackage extends EPackage {
+public interface JSONPackage extends EPackage
+{
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
@@ -39,7 +40,7 @@ public interface JSONPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://eclipselabs.org/emfjson/2013/json";
+	String eNS_URI = "http://eclipselabs.org/emfjson/JSON";
 
 	/**
 	 * The package namespace name.
@@ -124,7 +125,7 @@ public interface JSONPackage extends EPackage {
 	int JOBJECT = 2;
 
 	/**
-	 * The feature id for the '<em><b>Fields</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Fields</b></em>' map.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -142,13 +143,67 @@ public interface JSONPackage extends EPackage {
 	int JOBJECT_FEATURE_COUNT = JNODE_FEATURE_COUNT + 1;
 
 	/**
+	 * The operation id for the '<em>Put</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JOBJECT___PUT__STRING_JNODE = JNODE_OPERATION_COUNT + 0;
+
+	/**
+	 * The operation id for the '<em>Put</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JOBJECT___PUT__STRING_STRING = JNODE_OPERATION_COUNT + 1;
+
+	/**
+	 * The operation id for the '<em>Put</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JOBJECT___PUT__STRING_BOOLEAN = JNODE_OPERATION_COUNT + 2;
+
+	/**
+	 * The operation id for the '<em>Put</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JOBJECT___PUT__STRING_DOUBLE = JNODE_OPERATION_COUNT + 3;
+
+	/**
+	 * The operation id for the '<em>Get</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JOBJECT___GET__STRING = JNODE_OPERATION_COUNT + 4;
+
+	/**
+	 * The operation id for the '<em>Contains</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JOBJECT___CONTAINS__STRING = JNODE_OPERATION_COUNT + 5;
+
+	/**
 	 * The number of operations of the '<em>JObject</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JOBJECT_OPERATION_COUNT = JNODE_OPERATION_COUNT + 0;
+	int JOBJECT_OPERATION_COUNT = JNODE_OPERATION_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipselabs.emfjson.json.impl.JArrayImpl <em>JArray</em>}' class.
@@ -161,7 +216,7 @@ public interface JSONPackage extends EPackage {
 	int JARRAY = 3;
 
 	/**
-	 * The feature id for the '<em><b>Elements</b></em>' reference list.
+	 * The feature id for the '<em><b>Elements</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -188,52 +243,6 @@ public interface JSONPackage extends EPackage {
 	int JARRAY_OPERATION_COUNT = JNODE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipselabs.emfjson.json.impl.JFieldImpl <em>JField</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipselabs.emfjson.json.impl.JFieldImpl
-	 * @see org.eclipselabs.emfjson.json.impl.JSONPackageImpl#getJField()
-	 * @generated
-	 */
-	int JFIELD = 4;
-
-	/**
-	 * The feature id for the '<em><b>Key</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JFIELD__KEY = JELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JFIELD__VALUE = JELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>JField</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JFIELD_FEATURE_COUNT = JELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The number of operations of the '<em>JField</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JFIELD_OPERATION_COUNT = JELEMENT_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link org.eclipselabs.emfjson.json.JValue <em>JValue</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -241,7 +250,7 @@ public interface JSONPackage extends EPackage {
 	 * @see org.eclipselabs.emfjson.json.impl.JSONPackageImpl#getJValue()
 	 * @generated
 	 */
-	int JVALUE = 5;
+	int JVALUE = 4;
 
 	/**
 	 * The number of structural features of the '<em>JValue</em>' class.
@@ -278,7 +287,7 @@ public interface JSONPackage extends EPackage {
 	 * @see org.eclipselabs.emfjson.json.impl.JSONPackageImpl#getJBoolean()
 	 * @generated
 	 */
-	int JBOOLEAN = 6;
+	int JBOOLEAN = 5;
 
 	/**
 	 * The feature id for the '<em><b>Boolean Value</b></em>' attribute.
@@ -324,7 +333,7 @@ public interface JSONPackage extends EPackage {
 	 * @see org.eclipselabs.emfjson.json.impl.JSONPackageImpl#getJNumber()
 	 * @generated
 	 */
-	int JNUMBER = 7;
+	int JNUMBER = 6;
 
 	/**
 	 * The feature id for the '<em><b>Number Value</b></em>' attribute.
@@ -370,7 +379,7 @@ public interface JSONPackage extends EPackage {
 	 * @see org.eclipselabs.emfjson.json.impl.JSONPackageImpl#getJNull()
 	 * @generated
 	 */
-	int JNULL = 8;
+	int JNULL = 7;
 
 	/**
 	 * The number of structural features of the '<em>JNull</em>' class.
@@ -407,7 +416,7 @@ public interface JSONPackage extends EPackage {
 	 * @see org.eclipselabs.emfjson.json.impl.JSONPackageImpl#getJString()
 	 * @generated
 	 */
-	int JSTRING = 9;
+	int JSTRING = 8;
 
 	/**
 	 * The feature id for the '<em><b>String Value</b></em>' attribute.
@@ -445,6 +454,52 @@ public interface JSONPackage extends EPackage {
 	 */
 	int JSTRING_OPERATION_COUNT = JVALUE_OPERATION_COUNT + 0;
 
+	/**
+	 * The meta object id for the '{@link org.eclipselabs.emfjson.json.impl.EntryImpl <em>Entry</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipselabs.emfjson.json.impl.EntryImpl
+	 * @see org.eclipselabs.emfjson.json.impl.JSONPackageImpl#getEntry()
+	 * @generated
+	 */
+	int ENTRY = 9;
+
+	/**
+	 * The feature id for the '<em><b>Key</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTRY__KEY = 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTRY__VALUE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Entry</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTRY_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Entry</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTRY_OPERATION_COUNT = 0;
+
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipselabs.emfjson.json.JElement <em>JElement</em>}'.
@@ -477,15 +532,75 @@ public interface JSONPackage extends EPackage {
 	EClass getJObject();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipselabs.emfjson.json.JObject#getFields <em>Fields</em>}'.
+	 * Returns the meta object for the map '{@link org.eclipselabs.emfjson.json.JObject#getFields <em>Fields</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Fields</em>'.
+	 * @return the meta object for the map '<em>Fields</em>'.
 	 * @see org.eclipselabs.emfjson.json.JObject#getFields()
 	 * @see #getJObject()
 	 * @generated
 	 */
 	EReference getJObject_Fields();
+
+	/**
+	 * Returns the meta object for the '{@link org.eclipselabs.emfjson.json.JObject#put(java.lang.String, org.eclipselabs.emfjson.json.JNode) <em>Put</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Put</em>' operation.
+	 * @see org.eclipselabs.emfjson.json.JObject#put(java.lang.String, org.eclipselabs.emfjson.json.JNode)
+	 * @generated
+	 */
+	EOperation getJObject__Put__String_JNode();
+
+	/**
+	 * Returns the meta object for the '{@link org.eclipselabs.emfjson.json.JObject#put(java.lang.String, java.lang.String) <em>Put</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Put</em>' operation.
+	 * @see org.eclipselabs.emfjson.json.JObject#put(java.lang.String, java.lang.String)
+	 * @generated
+	 */
+	EOperation getJObject__Put__String_String();
+
+	/**
+	 * Returns the meta object for the '{@link org.eclipselabs.emfjson.json.JObject#put(java.lang.String, boolean) <em>Put</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Put</em>' operation.
+	 * @see org.eclipselabs.emfjson.json.JObject#put(java.lang.String, boolean)
+	 * @generated
+	 */
+	EOperation getJObject__Put__String_boolean();
+
+	/**
+	 * Returns the meta object for the '{@link org.eclipselabs.emfjson.json.JObject#put(java.lang.String, double) <em>Put</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Put</em>' operation.
+	 * @see org.eclipselabs.emfjson.json.JObject#put(java.lang.String, double)
+	 * @generated
+	 */
+	EOperation getJObject__Put__String_double();
+
+	/**
+	 * Returns the meta object for the '{@link org.eclipselabs.emfjson.json.JObject#get(java.lang.String) <em>Get</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Get</em>' operation.
+	 * @see org.eclipselabs.emfjson.json.JObject#get(java.lang.String)
+	 * @generated
+	 */
+	EOperation getJObject__Get__String();
+
+	/**
+	 * Returns the meta object for the '{@link org.eclipselabs.emfjson.json.JObject#contains(java.lang.String) <em>Contains</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Contains</em>' operation.
+	 * @see org.eclipselabs.emfjson.json.JObject#contains(java.lang.String)
+	 * @generated
+	 */
+	EOperation getJObject__Contains__String();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipselabs.emfjson.json.JArray <em>JArray</em>}'.
@@ -498,47 +613,15 @@ public interface JSONPackage extends EPackage {
 	EClass getJArray();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.eclipselabs.emfjson.json.JArray#getElements <em>Elements</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipselabs.emfjson.json.JArray#getElements <em>Elements</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Elements</em>'.
+	 * @return the meta object for the containment reference list '<em>Elements</em>'.
 	 * @see org.eclipselabs.emfjson.json.JArray#getElements()
 	 * @see #getJArray()
 	 * @generated
 	 */
 	EReference getJArray_Elements();
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipselabs.emfjson.json.JField <em>JField</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>JField</em>'.
-	 * @see org.eclipselabs.emfjson.json.JField
-	 * @generated
-	 */
-	EClass getJField();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipselabs.emfjson.json.JField#getKey <em>Key</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Key</em>'.
-	 * @see org.eclipselabs.emfjson.json.JField#getKey()
-	 * @see #getJField()
-	 * @generated
-	 */
-	EAttribute getJField_Key();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipselabs.emfjson.json.JField#getValue <em>Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Value</em>'.
-	 * @see org.eclipselabs.emfjson.json.JField#getValue()
-	 * @see #getJField()
-	 * @generated
-	 */
-	EReference getJField_Value();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipselabs.emfjson.json.JValue <em>JValue</em>}'.
@@ -634,6 +717,40 @@ public interface JSONPackage extends EPackage {
 	EAttribute getJString_StringValue();
 
 	/**
+	 * Returns the meta object for class '{@link java.util.Map.Entry <em>Entry</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Entry</em>'.
+	 * @see java.util.Map.Entry
+	 * @model keyDataType="org.eclipse.emf.ecore.EString"
+	 *        valueType="org.eclipselabs.emfjson.json.JNode" valueContainment="true"
+	 * @generated
+	 */
+	EClass getEntry();
+
+	/**
+	 * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Key</em>'.
+	 * @see java.util.Map.Entry
+	 * @see #getEntry()
+	 * @generated
+	 */
+	EAttribute getEntry_Key();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link java.util.Map.Entry <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Value</em>'.
+	 * @see java.util.Map.Entry
+	 * @see #getEntry()
+	 * @generated
+	 */
+	EReference getEntry_Value();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -655,7 +772,8 @@ public interface JSONPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	interface Literals {
+	interface Literals
+	{
 		/**
 		 * The meta object literal for the '{@link org.eclipselabs.emfjson.json.JElement <em>JElement</em>}' class.
 		 * <!-- begin-user-doc -->
@@ -687,12 +805,60 @@ public interface JSONPackage extends EPackage {
 		EClass JOBJECT = eINSTANCE.getJObject();
 
 		/**
-		 * The meta object literal for the '<em><b>Fields</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Fields</b></em>' map feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference JOBJECT__FIELDS = eINSTANCE.getJObject_Fields();
+
+		/**
+		 * The meta object literal for the '<em><b>Put</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EOperation JOBJECT___PUT__STRING_JNODE = eINSTANCE.getJObject__Put__String_JNode();
+
+		/**
+		 * The meta object literal for the '<em><b>Put</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EOperation JOBJECT___PUT__STRING_STRING = eINSTANCE.getJObject__Put__String_String();
+
+		/**
+		 * The meta object literal for the '<em><b>Put</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EOperation JOBJECT___PUT__STRING_BOOLEAN = eINSTANCE.getJObject__Put__String_boolean();
+
+		/**
+		 * The meta object literal for the '<em><b>Put</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EOperation JOBJECT___PUT__STRING_DOUBLE = eINSTANCE.getJObject__Put__String_double();
+
+		/**
+		 * The meta object literal for the '<em><b>Get</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EOperation JOBJECT___GET__STRING = eINSTANCE.getJObject__Get__String();
+
+		/**
+		 * The meta object literal for the '<em><b>Contains</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EOperation JOBJECT___CONTAINS__STRING = eINSTANCE.getJObject__Contains__String();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipselabs.emfjson.json.impl.JArrayImpl <em>JArray</em>}' class.
@@ -705,38 +871,12 @@ public interface JSONPackage extends EPackage {
 		EClass JARRAY = eINSTANCE.getJArray();
 
 		/**
-		 * The meta object literal for the '<em><b>Elements</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Elements</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference JARRAY__ELEMENTS = eINSTANCE.getJArray_Elements();
-
-		/**
-		 * The meta object literal for the '{@link org.eclipselabs.emfjson.json.impl.JFieldImpl <em>JField</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipselabs.emfjson.json.impl.JFieldImpl
-		 * @see org.eclipselabs.emfjson.json.impl.JSONPackageImpl#getJField()
-		 * @generated
-		 */
-		EClass JFIELD = eINSTANCE.getJField();
-
-		/**
-		 * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute JFIELD__KEY = eINSTANCE.getJField_Key();
-
-		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference JFIELD__VALUE = eINSTANCE.getJField_Value();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipselabs.emfjson.json.JValue <em>JValue</em>}' class.
@@ -819,6 +959,32 @@ public interface JSONPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute JSTRING__STRING_VALUE = eINSTANCE.getJString_StringValue();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipselabs.emfjson.json.impl.EntryImpl <em>Entry</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipselabs.emfjson.json.impl.EntryImpl
+		 * @see org.eclipselabs.emfjson.json.impl.JSONPackageImpl#getEntry()
+		 * @generated
+		 */
+		EClass ENTRY = eINSTANCE.getEntry();
+
+		/**
+		 * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ENTRY__KEY = eINSTANCE.getEntry_Key();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENTRY__VALUE = eINSTANCE.getEntry_Value();
 
 	}
 

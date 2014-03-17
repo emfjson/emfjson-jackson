@@ -19,9 +19,11 @@ package org.eclipselabs.emfjson.json;
  * @model
  * @generated
  */
-public interface JBoolean extends JValue {
+public interface JBoolean extends JValue
+{
 	/**
 	 * Returns the value of the '<em><b>Boolean Value</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Boolean Value</em>' attribute isn't clear,
@@ -31,7 +33,7 @@ public interface JBoolean extends JValue {
 	 * @return the value of the '<em>Boolean Value</em>' attribute.
 	 * @see #setBooleanValue(boolean)
 	 * @see org.eclipselabs.emfjson.json.JSONPackage#getJBoolean_BooleanValue()
-	 * @model
+	 * @model default="false"
 	 * @generated
 	 */
 	boolean isBooleanValue();

@@ -14,7 +14,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipselabs.emfjson.json.JArray;
 import org.eclipselabs.emfjson.json.JBoolean;
-import org.eclipselabs.emfjson.json.JField;
 import org.eclipselabs.emfjson.json.JNumber;
 import org.eclipselabs.emfjson.json.JObject;
 import org.eclipselabs.emfjson.json.JSONFactory;
@@ -65,38 +64,25 @@ public class SaveTest {
 		Resource js = resourceSet.createResource(URI.createURI("test.json"));
 
 		JObject o = factory.createJObject();
-
 		{
-			JField field = factory.createJField();
-			field.setKey("hello");
 			JString value = factory.createJString();
 			value.setStringValue("world");
-			field.setValue(value);
-			o.getFields().add(field);
+			o.put("hello", value);
 		}
 		{
-			JField field = factory.createJField();
-			field.setKey("two");
 			JNumber value = factory.createJNumber();
 			value.setNumberValue(1);
-			field.setValue(value);
-			o.getFields().add(field);
+			o.put("two", value);
 		}
 		{
-			JField field = factory.createJField();
-			field.setKey("three");
 			JBoolean value = factory.createJBoolean();
 			value.setBooleanValue(true);
-			field.setValue(value);
-			o.getFields().add(field);
+			o.put("three", value);
 		}
 		{
-			JField field = factory.createJField();
-			field.setKey("four");
 			JBoolean value = factory.createJBoolean();
 			value.setBooleanValue(false);
-			field.setValue(value);
-			o.getFields().add(field);
+			o.put("four", value);
 		}
 
 		js.getContents().add(o);

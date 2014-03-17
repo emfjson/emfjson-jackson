@@ -19,7 +19,8 @@ package org.eclipselabs.emfjson.json;
  * @model
  * @generated
  */
-public interface JNumber extends JValue {
+public interface JNumber extends JValue
+{
 	/**
 	 * Returns the value of the '<em><b>Number Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -29,12 +30,12 @@ public interface JNumber extends JValue {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Number Value</em>' attribute.
-	 * @see #setNumberValue(int)
+	 * @see #setNumberValue(double)
 	 * @see org.eclipselabs.emfjson.json.JSONPackage#getJNumber_NumberValue()
 	 * @model
 	 * @generated
 	 */
-	int getNumberValue();
+	double getNumberValue();
 
 	/**
 	 * Sets the value of the '{@link org.eclipselabs.emfjson.json.JNumber#getNumberValue <em>Number Value</em>}' attribute.
@@ -44,6 +45,6 @@ public interface JNumber extends JValue {
 	 * @see #getNumberValue()
 	 * @generated
 	 */
-	void setNumberValue(int value);
+	void setNumberValue(double value);
 
 } // JNumber

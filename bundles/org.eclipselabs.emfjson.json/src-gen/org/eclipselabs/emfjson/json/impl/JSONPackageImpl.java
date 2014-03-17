@@ -2,16 +2,19 @@
  */
 package org.eclipselabs.emfjson.json.impl;
 
+import java.util.Map;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+
 import org.eclipselabs.emfjson.json.JArray;
 import org.eclipselabs.emfjson.json.JBoolean;
 import org.eclipselabs.emfjson.json.JElement;
-import org.eclipselabs.emfjson.json.JField;
 import org.eclipselabs.emfjson.json.JNode;
 import org.eclipselabs.emfjson.json.JNull;
 import org.eclipselabs.emfjson.json.JNumber;
@@ -27,7 +30,8 @@ import org.eclipselabs.emfjson.json.JValue;
  * <!-- end-user-doc -->
  * @generated
  */
-public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
+public class JSONPackageImpl extends EPackageImpl implements JSONPackage
+{
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -55,13 +59,6 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 * @generated
 	 */
 	private EClass jArrayEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass jFieldEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -99,6 +96,13 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	private EClass jStringEClass = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass entryEClass = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -113,7 +117,8 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 * @see #init()
 	 * @generated
 	 */
-	private JSONPackageImpl() {
+	private JSONPackageImpl()
+	{
 		super(eNS_URI, JSONFactory.eINSTANCE);
 	}
 
@@ -136,7 +141,8 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 * @see #initializePackageContents()
 	 * @generated
 	 */
-	public static JSONPackage init() {
+	public static JSONPackage init()
+	{
 		if (isInited) return (JSONPackage)EPackage.Registry.INSTANCE.getEPackage(JSONPackage.eNS_URI);
 
 		// Obtain or create and register package
@@ -164,7 +170,8 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getJElement() {
+	public EClass getJElement()
+	{
 		return jElementEClass;
 	}
 
@@ -173,7 +180,8 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getJNode() {
+	public EClass getJNode()
+	{
 		return jNodeEClass;
 	}
 
@@ -182,7 +190,8 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getJObject() {
+	public EClass getJObject()
+	{
 		return jObjectEClass;
 	}
 
@@ -191,7 +200,8 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getJObject_Fields() {
+	public EReference getJObject_Fields()
+	{
 		return (EReference)jObjectEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -200,7 +210,68 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getJArray() {
+	public EOperation getJObject__Put__String_JNode()
+	{
+		return jObjectEClass.getEOperations().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EOperation getJObject__Put__String_String()
+	{
+		return jObjectEClass.getEOperations().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EOperation getJObject__Put__String_boolean()
+	{
+		return jObjectEClass.getEOperations().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EOperation getJObject__Put__String_double()
+	{
+		return jObjectEClass.getEOperations().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EOperation getJObject__Get__String()
+	{
+		return jObjectEClass.getEOperations().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EOperation getJObject__Contains__String()
+	{
+		return jObjectEClass.getEOperations().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getJArray()
+	{
 		return jArrayEClass;
 	}
 
@@ -209,7 +280,8 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getJArray_Elements() {
+	public EReference getJArray_Elements()
+	{
 		return (EReference)jArrayEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -218,34 +290,8 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getJField() {
-		return jFieldEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getJField_Key() {
-		return (EAttribute)jFieldEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getJField_Value() {
-		return (EReference)jFieldEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getJValue() {
+	public EClass getJValue()
+	{
 		return jValueEClass;
 	}
 
@@ -254,7 +300,8 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EOperation getJValue__AsText() {
+	public EOperation getJValue__AsText()
+	{
 		return jValueEClass.getEOperations().get(0);
 	}
 
@@ -263,7 +310,8 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getJBoolean() {
+	public EClass getJBoolean()
+	{
 		return jBooleanEClass;
 	}
 
@@ -272,7 +320,8 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJBoolean_BooleanValue() {
+	public EAttribute getJBoolean_BooleanValue()
+	{
 		return (EAttribute)jBooleanEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -281,7 +330,8 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getJNumber() {
+	public EClass getJNumber()
+	{
 		return jNumberEClass;
 	}
 
@@ -290,7 +340,8 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJNumber_NumberValue() {
+	public EAttribute getJNumber_NumberValue()
+	{
 		return (EAttribute)jNumberEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -299,7 +350,8 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getJNull() {
+	public EClass getJNull()
+	{
 		return jNullEClass;
 	}
 
@@ -308,7 +360,8 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getJString() {
+	public EClass getJString()
+	{
 		return jStringEClass;
 	}
 
@@ -317,7 +370,8 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJString_StringValue() {
+	public EAttribute getJString_StringValue()
+	{
 		return (EAttribute)jStringEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -326,7 +380,38 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JSONFactory getJSONFactory() {
+	public EClass getEntry()
+	{
+		return entryEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getEntry_Key()
+	{
+		return (EAttribute)entryEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEntry_Value()
+	{
+		return (EReference)entryEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JSONFactory getJSONFactory()
+	{
 		return (JSONFactory)getEFactoryInstance();
 	}
 
@@ -344,7 +429,8 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void createPackageContents() {
+	public void createPackageContents()
+	{
 		if (isCreated) return;
 		isCreated = true;
 
@@ -355,13 +441,15 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 
 		jObjectEClass = createEClass(JOBJECT);
 		createEReference(jObjectEClass, JOBJECT__FIELDS);
+		createEOperation(jObjectEClass, JOBJECT___PUT__STRING_JNODE);
+		createEOperation(jObjectEClass, JOBJECT___PUT__STRING_STRING);
+		createEOperation(jObjectEClass, JOBJECT___PUT__STRING_BOOLEAN);
+		createEOperation(jObjectEClass, JOBJECT___PUT__STRING_DOUBLE);
+		createEOperation(jObjectEClass, JOBJECT___GET__STRING);
+		createEOperation(jObjectEClass, JOBJECT___CONTAINS__STRING);
 
 		jArrayEClass = createEClass(JARRAY);
 		createEReference(jArrayEClass, JARRAY__ELEMENTS);
-
-		jFieldEClass = createEClass(JFIELD);
-		createEAttribute(jFieldEClass, JFIELD__KEY);
-		createEReference(jFieldEClass, JFIELD__VALUE);
 
 		jValueEClass = createEClass(JVALUE);
 		createEOperation(jValueEClass, JVALUE___AS_TEXT);
@@ -376,6 +464,10 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 
 		jStringEClass = createEClass(JSTRING);
 		createEAttribute(jStringEClass, JSTRING__STRING_VALUE);
+
+		entryEClass = createEClass(ENTRY);
+		createEAttribute(entryEClass, ENTRY__KEY);
+		createEReference(entryEClass, ENTRY__VALUE);
 	}
 
 	/**
@@ -392,7 +484,8 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void initializePackageContents() {
+	public void initializePackageContents()
+	{
 		if (isInitialized) return;
 		isInitialized = true;
 
@@ -409,7 +502,6 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 		jNodeEClass.getESuperTypes().add(this.getJElement());
 		jObjectEClass.getESuperTypes().add(this.getJNode());
 		jArrayEClass.getESuperTypes().add(this.getJNode());
-		jFieldEClass.getESuperTypes().add(this.getJElement());
 		jValueEClass.getESuperTypes().add(this.getJNode());
 		jBooleanEClass.getESuperTypes().add(this.getJValue());
 		jNumberEClass.getESuperTypes().add(this.getJValue());
@@ -422,29 +514,51 @@ public class JSONPackageImpl extends EPackageImpl implements JSONPackage {
 		initEClass(jNodeEClass, JNode.class, "JNode", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(jObjectEClass, JObject.class, "JObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getJObject_Fields(), this.getJField(), null, "fields", null, 0, -1, JObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJObject_Fields(), this.getEntry(), null, "fields", null, 0, -1, JObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		EOperation op = initEOperation(getJObject__Put__String_JNode(), null, "put", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "key", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getJNode(), "value", 1, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = initEOperation(getJObject__Put__String_String(), null, "put", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "key", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "value", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = initEOperation(getJObject__Put__String_boolean(), null, "put", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "key", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEBoolean(), "value", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = initEOperation(getJObject__Put__String_double(), null, "put", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "key", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEDouble(), "value", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = initEOperation(getJObject__Get__String(), this.getJNode(), "get", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "key", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = initEOperation(getJObject__Contains__String(), ecorePackage.getEBoolean(), "contains", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "key", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(jArrayEClass, JArray.class, "JArray", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getJArray_Elements(), this.getJNode(), null, "elements", null, 0, -1, JArray.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(jFieldEClass, JField.class, "JField", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getJField_Key(), ecorePackage.getEString(), "key", null, 0, 1, JField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getJField_Value(), this.getJNode(), null, "value", null, 0, 1, JField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJArray_Elements(), this.getJNode(), null, "elements", null, 0, -1, JArray.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(jValueEClass, JValue.class, "JValue", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEOperation(getJValue__AsText(), ecorePackage.getEString(), "asText", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(jBooleanEClass, JBoolean.class, "JBoolean", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getJBoolean_BooleanValue(), ecorePackage.getEBoolean(), "booleanValue", null, 0, 1, JBoolean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJBoolean_BooleanValue(), ecorePackage.getEBoolean(), "booleanValue", "false", 0, 1, JBoolean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(jNumberEClass, JNumber.class, "JNumber", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getJNumber_NumberValue(), ecorePackage.getEInt(), "numberValue", null, 0, 1, JNumber.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJNumber_NumberValue(), ecorePackage.getEDouble(), "numberValue", null, 0, 1, JNumber.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(jNullEClass, JNull.class, "JNull", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(jStringEClass, JString.class, "JString", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getJString_StringValue(), ecorePackage.getEString(), "stringValue", null, 0, 1, JString.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(entryEClass, Map.Entry.class, "Entry", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getEntry_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEntry_Value(), this.getJNode(), null, "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

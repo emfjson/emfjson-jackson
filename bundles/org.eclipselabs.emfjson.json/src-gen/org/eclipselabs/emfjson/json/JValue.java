@@ -13,7 +13,8 @@ package org.eclipselabs.emfjson.json;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface JValue extends JNode {
+public interface JValue extends JNode
+{
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

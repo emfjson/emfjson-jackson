@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
@@ -21,7 +22,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipselabs.emfjson.json.JArray;
-import org.eclipselabs.emfjson.json.JField;
+import org.eclipselabs.emfjson.json.JNode;
 import org.eclipselabs.emfjson.json.JNumber;
 import org.eclipselabs.emfjson.json.JObject;
 import org.eclipselabs.emfjson.json.JSONPackage;
@@ -59,11 +60,11 @@ public class LoadTest {
 		JObject node = (JObject) root;
 		assertEquals(1, node.getFields().size());
 
-		JField field = node.getFields().get(0);
-		assertEquals("hello", field.getKey());
-		assertTrue(field.getValue() instanceof JString);
+		Entry<String, JNode> entry = node.getFields().get(0);
+		assertEquals("hello", entry.getKey());
+		assertTrue(entry.getValue() instanceof JString);
 
-		JString value = (JString) field.getValue();
+		JString value = (JString) entry.getValue();
 		assertEquals("world", value.getStringValue());
 	}
 
@@ -116,11 +117,11 @@ public class LoadTest {
 
 		assertTrue(node.getElements().get(0) instanceof JNumber);
 		JNumber first = (JNumber) node.getElements().get(0);
-		assertEquals(1, first.getNumberValue());
+		assertEquals(1, first.getNumberValue(), 0);
 
 		assertTrue(node.getElements().get(1) instanceof JNumber);
 		JNumber second = (JNumber) node.getElements().get(1);
-		assertEquals(2, second.getNumberValue());
+		assertEquals(2, second.getNumberValue(), 0);
 
 		assertTrue(node.getElements().get(2) instanceof JString);
 		JString third = (JString) node.getElements().get(2);
@@ -130,11 +131,11 @@ public class LoadTest {
 		JObject fourth = (JObject) node.getElements().get(3);
 		assertEquals(1, fourth.getFields().size());
 
-		JField field = fourth.getFields().get(0);
-		assertEquals("hello", field.getKey());
-		assertTrue(field.getValue() instanceof JString);
+		Entry<String, JNode> entry = fourth.getFields().get(0);
+		assertEquals("hello", entry.getKey());
+		assertTrue(entry.getValue() instanceof JString);
 		
-		JString value = (JString) field.getValue();
+		JString value = (JString) entry.getValue();
 		assertEquals("world", value.getStringValue());
 	}
 
@@ -172,12 +173,12 @@ public class LoadTest {
 
 		JObject root = (JObject) json.getContents().get(0);
 		assertEquals(2, root.getFields().size());
-
-		JField first = root.getFields().get(0);
+		
+		Entry<String, JNode> first = root.getFields().get(0);
 		assertEquals("eClass", first.getKey());
 		assertEquals("model.ejs#//A", ((JValue) first.getValue()).asText());
 
-		JField second = root.getFields().get(1);
+		Entry<String, JNode> second = root.getFields().get(1);
 		assertEquals("foo", second.getKey());
 		assertEquals("Hello", ((JValue) second.getValue()).asText());
 	}
