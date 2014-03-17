@@ -27,7 +27,7 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipselabs.emfjson.ui.dialogs.XMI2JSONDialog;
 
-public class XMI2JSONHandler extends AbstractResourceHandler {
+public class XMI2JSHandler extends AbstractResourceHandler {
 
 	@Override
 	protected Object executeOnResource(final ExecutionEvent event, final Resource resource, IContainer container) {
