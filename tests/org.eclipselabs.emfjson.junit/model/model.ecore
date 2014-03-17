@@ -83,7 +83,7 @@
         eType="#//TargetObject" resolveProxies="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureMapReferenceType1"
         upperBound="-1" eType="#//TargetObject" volatile="true" transient="true" derived="true"
-        containment="true" resolveProxies="false">
+        resolveProxies="false">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="group" value="#featureMapReferenceCollection"/>
       </eAnnotations>

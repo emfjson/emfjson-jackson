@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: EMF JSON Tests
 Bundle-SymbolicName: org.eclipselabs.emfjson.junit;singleton:=true
-Bundle-Version: 0.7.0.qualifier
+Bundle-Version: 0.8.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: Eclipse Labs
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
@@ -22,7 +22,6 @@ Require-Bundle: org.eclipse.osgi,
  com.fasterxml.jackson.core.jackson-databind,
  org.junit
 Bundle-ActivationPolicy: lazy
-Bundle-Activator: org.eclipselabs.emfjson.junit.Activator
 Import-Package: org.junit,
  org.junit.runner,
  org.junit.runners
