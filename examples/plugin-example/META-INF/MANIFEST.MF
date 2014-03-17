@@ -1,11 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: EMFJs Example
+Bundle-Name: EMF JSON Example
 Bundle-SymbolicName: org.eclipselabs.emfjson.example;singleton:=true
-Bundle-Version: 0.7.0.qualifier
+Bundle-Version: 0.8.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: Eclipse Labs
-Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.eclipselabs.examples,
  org.eclipselabs.examples.library,
@@ -14,8 +13,8 @@ Export-Package: org.eclipselabs.examples,
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.eclipselabs.examples.Activator
 Require-Bundle: org.eclipse.emf.ecore,
- org.eclipselabs.emfjson;bundle-version="0.7.0",
- com.fasterxml.jackson.annotations;bundle-version="2.2.3",
- com.fasterxml.jackson.core;bundle-version="2.2.3",
- com.fasterxml.jackson.databind;bundle-version="2.2.3"
-Import-Package: org.osgi.framework;version="1.7.0"
+ org.eclipselabs.emfjson,
+ com.fasterxml.jackson.core.jackson-annotations,
+ com.fasterxml.jackson.core.jackson-core,
+ com.fasterxml.jackson.core.jackson-databind
+Import-Package: org.osgi.framework
