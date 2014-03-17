@@ -1,0 +1,30 @@
+module emfjson.codegen.build
+
+import org.eclipse.emf.mwe.utils.*
+import org.eclipse.xtext.generator.*
+import org.eclipse.xtext.ui.generator.*
+
+Workflow {
+
+	bean = StandaloneSetup {
+		platformUri = "../../bundles/org.eclipselabs.emfjson.json/.."
+		registerGenModelFile = "platform:/resource/org.eclipselabs.emfjson.json/model/json.genmodel"
+				
+	}
+
+	component = DirectoryCleaner {
+		directory = "../../bundles/org.eclipselabs.emfjson.json/src-gen"
+	}
+
+	component = DirectoryCleaner {
+		directory = "../../bundles/org.eclipselabs.emfjson.json.edit/src-gen"
+	}
+
+	component = org.eclipse.emf.mwe2.ecore.EcoreGenerator {
+		genModel = "platform:/resource/org.eclipselabs.emfjson.json/model/json.genmodel"
+		srcPath ="platform:/resource/org.eclipselabs.emfjson.json/src"
+		generateCustomClasses = true
+		generateEdit = true
+	}
+
+}
