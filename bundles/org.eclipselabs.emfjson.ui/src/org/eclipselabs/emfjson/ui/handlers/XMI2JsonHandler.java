@@ -11,54 +11,64 @@
 package org.eclipselabs.emfjson.ui.handlers;
 
 import java.io.IOException;
-import java.net.URI;
-import java.util.HashMap;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
-import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.window.Window;
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.eclipselabs.emfjson.EMFJs;
+import org.eclipselabs.emfjson.ui.dialogs.XMI2JSONDialog;
 
-public class XMI2JsonHandler extends AbstractHandler {
+public class XMI2JSONHandler extends AbstractResourceHandler {
 
-	public Object execute(ExecutionEvent event) throws ExecutionException {
-		IStructuredSelection selection = (IStructuredSelection) HandlerUtil.getActiveMenuSelection(event);
-		Object firstElement = selection.getFirstElement();
-	
-		ResourceSet resourceSet = new ResourceSetImpl();
+	@Override
+	protected Object executeOnResource(final ExecutionEvent event, final Resource resource, IContainer container) {
+		if (resource != null) {
+			String fileName = resource.getURI().trimFileExtension().appendFileExtension("json").lastSegment();
+			XMI2JSONDialog dialog = new XMI2JSONDialog(container, fileName, HandlerUtil.getActiveShell(event));
+			dialog.create();
 
-		if (firstElement instanceof IResource) {
-			URI locationURI = ((IResource) firstElement).getLocationURI();
-			Resource model = resourceSet.createResource(org.eclipse.emf.common.util.URI.createURI(locationURI.toString()));
-			try {
-				model.load(null);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-			if (model.isLoaded()) {
-				Resource json = resourceSet.createResource(model.getURI().trimFileExtension().appendFileExtension("json"));
-				json.getContents().addAll(model.getContents());
-
-				Map<String, Object> options = new HashMap<String, Object>();
-				options.put(EMFJs.OPTION_INDENT_OUTPUT, true);
+			if (Window.OK == dialog.open()) {
+				final Map<String, Object> options = dialog.getOptions();
+				final URI outputURI = dialog.getOutputURI();
 
 				try {
-					json.save(options);
-				} catch (IOException e) {
+					HandlerUtil.getActiveWorkbenchWindow(event).run(true, false, new WorkspaceModifyOperation() {
+						@Override
+						protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+							if (!resource.isLoaded()) {
+								try {
+									resource.load(null);
+								} catch (IOException e) {
+									MessageDialog.openError(HandlerUtil.getActiveShell(event), "Error", e.getMessage());
+									return;
+								}
+							}
+
+							Resource output = resource.getResourceSet().createResource(outputURI);
+
+							output.getContents().addAll(EcoreUtil.copyAll(resource.getContents()));
+
+							try {
+								output.save(options);
+							} catch (IOException e) {
+								e.printStackTrace();
+								MessageDialog.openError(HandlerUtil.getActiveShell(event), "Error", e.getMessage());
+							}
+						}
+					});
+				} catch (InvocationTargetException e) {
 					e.printStackTrace();
-				}
-				try {
-					((IResource) firstElement).getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
-				} catch (CoreException e) {
+					MessageDialog.openError(HandlerUtil.getActiveShell(event), "Error", e.getTargetException().getMessage());
+				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}

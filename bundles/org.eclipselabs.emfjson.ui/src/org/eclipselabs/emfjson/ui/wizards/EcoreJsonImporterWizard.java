@@ -13,7 +13,7 @@ package org.eclipselabs.emfjson.ui.wizards;
 import org.eclipse.emf.converter.ModelConverter;
 import org.eclipse.emf.importer.ui.contribution.base.ModelImporterPackagePage;
 import org.eclipse.emf.importer.ui.contribution.base.ModelImporterWizard;
-import org.eclipselabs.emfjson.ui.EcoreJsonModelImporter;
+import org.eclipselabs.emfjson.ui.importer.EcoreJsonModelImporter;
 
 public class EcoreJsonImporterWizard extends ModelImporterWizard {
 	

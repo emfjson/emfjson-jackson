@@ -6,67 +6,41 @@
       <menuContribution
             allPopups="false"
             locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
-            <command
-                  commandId="org.eclipselabs.emfjson.ui.json2xmi"
-                  label="Convert to XMI">
-                   <visibleWhen>
-   					<iterate operator="and" ifEmpty="false">
-      				
-      				<adapt type="org.eclipse.core.resources.IResource">
-         				<test property="org.eclipse.core.resources.name" value="*.json"/> 
-      				</adapt>
-      			
-   				</iterate>
-        </visibleWhen>
+         <menu
+               label="EMF JSON">
+            <command commandId="org.eclipselabs.emfjson.ui.xmi2json" style="push">
+               <visibleWhen checkEnabled="false">
+                     <iterate ifEmpty="false" operator="and">
+                     	<adapt type="org.eclipse.core.resources.IResource">
+                      		<test property="org.eclipse.core.resources.name" value="*.xmi"></test>
+                     	</adapt>
+                     </iterate>
+				</visibleWhen>
             </command>
-            <command
-                  commandId="org.eclipselabs.emfjson.ui.xmi2json"
-                  label="Convert to JSON"
-                  style="push">
-               <visibleWhen
-                     checkEnabled="false">
-                  <iterate
-                        ifEmpty="false"
-                        operator="or">
-                        <or>
-                           <adapt
-                                 type="org.eclipse.core.resources.IResource">
-                              <test
-                                    forcePluginActivation="true"
-                                    property="org.eclipse.core.resources.name"
-                                    value="*.ecore">
-                              </test>
-                           </adapt>
-                           <adapt
-                                 type="org.eclipse.core.resources.IResource">
-                              <test
-                                    forcePluginActivation="true"
-                                    property="org.eclipse.core.resources.name"
-                                    value="*.xmi">
-                              </test>
-                           </adapt>
-                        </or>
-                  </iterate>
-               </visibleWhen>
+            <command commandId="org.eclipselabs.emfjson.ui.json2xmi" style="push">
+            	<visibleWhen checkEnabled="false">
+                     <iterate ifEmpty="false" operator="and">
+                     	<adapt type="org.eclipse.core.resources.IResource">
+                      		<test property="org.eclipse.core.resources.name" value="*.json"></test>
+                     	</adapt>
+                     </iterate>
+				</visibleWhen>
             </command>
+         </menu>
       </menuContribution>
-      
    </extension>
-    <extension
+   <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="org.eclipselabs.emfjson.ui.handlers.Json2XMIHandler"
             id="org.eclipselabs.emfjson.ui.json2xmi"
-            name="JSON2XMI">
+            name="JSON -&gt; XMI">
       </command>
       <command
-            defaultHandler="org.eclipselabs.emfjson.ui.handlers.XMI2JsonHandler"
             id="org.eclipselabs.emfjson.ui.xmi2json"
-            name="XMI2JSON">
+            name="XMI -&gt; JSON">
       </command>
    </extension>
-   
-   
+
    <extension
          point="org.eclipse.ui.newWizards">
       <category
@@ -102,7 +76,7 @@
             name="Ecore Model from JSON API">
       </wizard> -->
    </extension>
-   
+
    <extension point="org.eclipse.emf.importer.modelImporterDescriptors">
     <modelImporterDescriptor 
     	id="org.eclipse.emf.importer.ecore" 
@@ -112,5 +86,15 @@
     	description="Import Ecore Model from JSON." 
     	wizard="org.eclipselabs.emfjson.ui.wizards.EcoreJsonImporterWizard" />
   </extension>
-  
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.eclipselabs.emfjson.ui.handlers.JSON2XMIHandler"
+            commandId="org.eclipselabs.emfjson.ui.json2xmi">
+      </handler>
+      <handler
+            class="org.eclipselabs.emfjson.ui.handlers.XMI2JSONHandler"
+            commandId="org.eclipselabs.emfjson.ui.xmi2json">
+      </handler>
+   </extension>
 </plugin>
