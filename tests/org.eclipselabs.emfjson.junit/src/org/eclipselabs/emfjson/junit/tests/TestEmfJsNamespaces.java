@@ -27,7 +27,12 @@ public class TestEmfJsNamespaces extends TestSupport {
 
 	@Test
 	public void testSaveTypesNamespacesForSingleRoot() throws IOException {
-		String expectedString = "{\"@ns\":{\"model\":\"http://www.eclipselabs.org/emfjson/junit\"},\"eClass\":\"model://User\",\"userId\":\"1\"}";
+		String expectedString = "{\"@ns\":{"
+				+ "\"model\":\"http://www.eclipselabs.org/emfjson/junit\""
+				+ "},"
+				+ "\"eClass\":\"model://User\","
+				+ "\"userId\":\"1\","
+				+ "\"sex\":\"MALE\"}";
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test_ns_1.json"));
 
 		User user = ModelFactory.eINSTANCE.createUser();
@@ -47,7 +52,17 @@ public class TestEmfJsNamespaces extends TestSupport {
 
 	@Test
 	public void testSaveTypesNamespacesForManyRoot() throws IOException {
-		String expectedString = "[{\"@ns\":{\"model\":\"http://www.eclipselabs.org/emfjson/junit\"}},{\"eClass\":\"model://User\",\"userId\":\"1\"},{\"eClass\":\"model://User\",\"userId\":\"2\"}]";
+		String expectedString = "[{\"@ns\":{"
+				+ "\"model\":\"http://www.eclipselabs.org/emfjson/junit\"}"
+				+ "},{"
+				+ "\"eClass\":\"model://User\","
+				+ "\"userId\":\"1\","
+				+ "\"sex\":\"MALE\""
+				+ "},{"
+				+ "\"eClass\":\"model://User\","
+				+ "\"userId\":\"2\","
+				+ "\"sex\":\"MALE\""
+				+ "}]";
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test_ns_2.json"));
 
 		User u1 = ModelFactory.eINSTANCE.createUser();

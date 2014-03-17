@@ -22,12 +22,10 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashSet;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -284,9 +282,12 @@ public class TestEmfJsAttributes extends TestSupport {
 	}
 
 	@Test
-	public void testFeatureMap() throws IOException {
-		// Setup : Create a primary object and two attributes for the feature
-		// map.
+	public void testSaveFeatureMap() throws IOException {
+		String expectedString = 
+				"{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//PrimaryObject\","
+				+ "\"name\":\"junit\","
+				+ "\"featureMapAttributeType1\":\"Hello\","
+				+ "\"featureMapAttributeType2\":\"World\"}";
 
 		PrimaryObject primaryObject = ModelFactory.eINSTANCE.createPrimaryObject();
 		primaryObject.setName("junit");
@@ -298,20 +299,28 @@ public class TestEmfJsAttributes extends TestSupport {
 		assertEquals(1, primaryObject.getFeatureMapAttributeType1().size());
 		assertEquals(1, primaryObject.getFeatureMapAttributeType2().size());
 
-		// Test : Store the object to MongDB
-
 		Resource resource = resourceSet.createResource(URI.createURI("test.json"));
 		resource.getContents().add(primaryObject);
 
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-		resource.save(outStream, null);
+		resource.save(outStream, options);
 
-		// Verify : Check that the object was stored correctly.
+		assertEquals(expectedString, new String(outStream.toByteArray()));
+	}
 
-		HashSet<EStructuralFeature> excludeFeatures = new HashSet<EStructuralFeature>(1);
-		excludeFeatures.add(ModelPackage.Literals.PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_COLLECTION);
-
-		// assertThat(actual.getFeatureMapAttributeCollection().size(), is(2));
+	@Test
+	public void testLoadFeatureMap() throws IOException {
+		Resource resource = resourceSet.createResource(uri("test-load-feature-map.json"));
+		resource.load(null);
+		
+		assertEquals(1, resource.getContents().size());
+		assertTrue(resource.getContents().get(0) instanceof PrimaryObject);
+		
+		PrimaryObject o = (PrimaryObject) resource.getContents().get(0);
+		assertEquals("junit", o.getName());
+		assertEquals("Hello", o.getFeatureMapAttributeType1().get(0));
+		assertEquals("World", o.getFeatureMapAttributeType2().get(0));
+		assertEquals(2, o.getFeatureMapAttributeCollection().size());
 	}
 
 	@Test

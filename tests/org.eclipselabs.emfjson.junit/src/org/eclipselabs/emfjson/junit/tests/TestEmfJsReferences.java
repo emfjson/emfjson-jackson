@@ -36,6 +36,8 @@ import org.eclipselabs.emfjson.junit.model.ModelFactory;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
 import org.eclipselabs.emfjson.junit.model.Node;
 import org.eclipselabs.emfjson.junit.model.ObjectWithMap;
+import org.eclipselabs.emfjson.junit.model.PrimaryObject;
+import org.eclipselabs.emfjson.junit.model.TargetObject;
 import org.eclipselabs.emfjson.junit.model.User;
 import org.eclipselabs.emfjson.junit.support.TestSupport;
 import org.junit.Test;
@@ -51,13 +53,11 @@ public class TestEmfJsReferences extends TestSupport {
 		user.setName("John");
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test-save-1.json"));
-
 		assertNotNull(resource);
 
 		resource.getContents().add(user);
 
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-
 		resource.save(outStream, options);
 
 		assertEquals(expectedString, new String(outStream.toByteArray()));
@@ -87,7 +87,6 @@ public class TestEmfJsReferences extends TestSupport {
 		resource.getContents().add(user2);
 
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-
 		resource.save(outStream, options);
 
 		assertEquals(expectedString, new String(outStream.toByteArray()));
@@ -112,7 +111,6 @@ public class TestEmfJsReferences extends TestSupport {
 		user1.setUniqueFriend(user2);
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test-save-3.json"));
-
 		assertNotNull(resource);
 
 		resource.getContents().add(user1);
@@ -146,7 +144,6 @@ public class TestEmfJsReferences extends TestSupport {
 		user1.setUniqueFriend(user2);
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test-save-3.json"));
-
 		assertNotNull(resource);
 
 		resource.getContents().add(user1);
@@ -525,6 +522,81 @@ public class TestEmfJsReferences extends TestSupport {
 
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 		resource.save(outStream, options);
+		assertEquals(expectedString, new String(outStream.toByteArray()));
+	}
+	
+	@Test
+	public void testLoadFeatureMapReferences() throws IOException {
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test-load-feature-map-refs.json"));
+		assertNotNull(resource);
+		resource.load(options);
+
+		assertEquals(1, resource.getContents().size());
+		assertEquals(ModelPackage.Literals.PRIMARY_OBJECT, resource.getContents().get(0).eClass());
+
+		PrimaryObject p = (PrimaryObject) resource.getContents().get(0);
+
+		assertEquals(6, p.getFeatureMapReferenceCollection().size());
+		assertEquals(2, p.getFeatureMapReferenceType1().size());
+		assertEquals(4, p.getFeatureMapReferenceType2().size());
+
+		TargetObject t1 = p.getFeatureMapReferenceType2().get(0);
+		assertEquals("1", t1.getSingleAttribute());
+		TargetObject t2 = p.getFeatureMapReferenceType2().get(1);
+		assertEquals("2", t2.getSingleAttribute());
+		TargetObject t3 = p.getFeatureMapReferenceType2().get(2);
+		assertEquals("3", t3.getSingleAttribute());
+		TargetObject t4 = p.getFeatureMapReferenceType2().get(3);
+		assertEquals("4", t4.getSingleAttribute());
+
+		assertEquals(t1, p.getFeatureMapReferenceType1().get(0));
+		assertEquals(t2, p.getFeatureMapReferenceType1().get(1));
+	}
+	
+	@Test
+	public void testSaveFeatureMapReferences() throws IOException {
+		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//PrimaryObject\","
+				+ "\"featureMapReferenceType1\":[{"
+				+ "\"$ref\":\"//@featureMapReferenceType2.0\","
+				+ "\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//TargetObject\"},{"
+				+ "\"$ref\":\"//@featureMapReferenceType2.1\","
+				+ "\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//TargetObject\"}],"
+				+ "\"featureMapReferenceType2\":[{"
+				+ "\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//TargetObject\","
+				+ "\"singleAttribute\":\"1\"},{"
+				+ "\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//TargetObject\","
+				+ "\"singleAttribute\":\"2\"},{"
+				+ "\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//TargetObject\","
+				+ "\"singleAttribute\":\"3\"},{"
+				+ "\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//TargetObject\","
+				+ "\"singleAttribute\":\"4\"}]}";
+
+		Resource resource = resourceSet.createResource(URI.createURI("tests.json"));
+		assertNotNull(resource);
+
+		PrimaryObject p = ModelFactory.eINSTANCE.createPrimaryObject();
+		TargetObject t1 = ModelFactory.eINSTANCE.createTargetObject();
+		t1.setSingleAttribute("1");
+		TargetObject t2 = ModelFactory.eINSTANCE.createTargetObject();
+		t2.setSingleAttribute("2");
+		TargetObject t3 = ModelFactory.eINSTANCE.createTargetObject();
+		t3.setSingleAttribute("3");
+		TargetObject t4 = ModelFactory.eINSTANCE.createTargetObject();
+		t4.setSingleAttribute("4");
+
+		p.getFeatureMapReferenceType1().add(t1);
+		p.getFeatureMapReferenceType1().add(t2);
+
+		p.getFeatureMapReferenceType2().add(t1);
+		p.getFeatureMapReferenceType2().add(t2);
+		p.getFeatureMapReferenceType2().add(t3);
+		p.getFeatureMapReferenceType2().add(t4);
+
+		resource.getContents().add(p);
+
+		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+		resource.save(outStream, options);
+
 		assertEquals(expectedString, new String(outStream.toByteArray()));
 	}
 
