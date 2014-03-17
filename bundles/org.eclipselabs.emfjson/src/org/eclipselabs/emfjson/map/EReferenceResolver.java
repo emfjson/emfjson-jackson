@@ -57,8 +57,10 @@ class EReferenceResolver {
 			JsonNode value = field.getValue();
 
 			EReference reference = getEReference(eClass, key);
-			if (reference != null && !reference.isContainment() && !reference.isDerived() && !reference.isTransient()) {
 
+			// we allow deserialization of derived feature to 
+			// populate feature maps.
+			if (reference != null && !reference.isContainment()) {
 				if (value.isArray()) {
 					for (Iterator<JsonNode> itEl = value.elements(); itEl.hasNext();) {
 						JsonNode current = itEl.next();

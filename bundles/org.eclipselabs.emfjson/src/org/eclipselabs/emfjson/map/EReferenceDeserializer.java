@@ -48,9 +48,11 @@ class EReferenceDeserializer {
 
 			String key = field.getKey();
 			JsonNode value = field.getValue();
-
 			EReference reference = getEReference(eClass, key);
-			if (reference != null && reference.isContainment() && !reference.isTransient()) {
+
+			// we allow deserialization of derived feature to 
+			// populate feature maps.
+			if (reference != null && reference.isContainment()) {
 				if (isMapEntry(reference.getEType()) && value.isObject()) {
 					mapDeserializer.deSerializeMapEntry(eObject, reference, value);
 				} else {

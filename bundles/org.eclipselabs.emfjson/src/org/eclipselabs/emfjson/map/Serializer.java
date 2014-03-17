@@ -37,15 +37,16 @@ class Serializer {
 	boolean serializeTypes = true;
 	boolean serializeRefTypes = true;
 	boolean serializeNamespaces = false;
-	private EAttributeSerializer eAttributeSerializer;
-	private EReferenceSerializer eReferenceSerializer;
-	private MapSerializer mapSerializer;
-	private NamespaceSerializer nsSerializer;
 
-	private Map<String, String> namespaces = new HashMap<String, String>();
+	private final EAttributeSerializer eAttributeSerializer;
+	private final EReferenceSerializer eReferenceSerializer;
+	private final MapSerializer mapSerializer;
+	private final NamespaceSerializer nsSerializer;
+
+	final private Map<String, String> namespaces = new HashMap<String, String>();
 
 	Serializer() {
-		this.eAttributeSerializer = new EAttributeSerializer();
+		this.eAttributeSerializer = new EAttributeSerializer(this);
 		this.eReferenceSerializer = new EReferenceSerializer(this);
 		this.mapSerializer = new MapSerializer();
 		this.nsSerializer = new NamespaceSerializer();
@@ -132,6 +133,22 @@ class Serializer {
 		} else {
 			return eClassURI.toString();
 		}
+	}
+
+	public EAttributeSerializer getAttributeSerializer() {
+		return eAttributeSerializer;
+	}
+
+	public EReferenceSerializer getReferenceSerializer() {
+		return eReferenceSerializer;
+	}
+
+	public MapSerializer getMapSerializer() {
+		return mapSerializer;
+	}
+
+	public NamespaceSerializer getNsSerializer() {
+		return nsSerializer;
 	}
 
 }

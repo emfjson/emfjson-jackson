@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
@@ -36,7 +37,11 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
  */
 class EAttributeSerializer {
 
-	EAttributeSerializer() {}
+	private final Serializer serializer;
+
+	EAttributeSerializer(Serializer serializer) {
+		this.serializer = serializer;
+	}
 
 	void serialize(EObject eObject, ObjectNode node) {
 		for (EAttribute eAttribute: eObject.eClass().getEAllAttributes()) {
@@ -75,9 +80,16 @@ class EAttributeSerializer {
 		while (iterator.hasNext()) {
 			FeatureMap.Entry entry = iterator.next();
 			EStructuralFeature feature = entry.getEStructuralFeature();
+			Object value = entry.getValue();
 
 			if (feature instanceof EAttribute) {
-				serializeValue(node, (EAttribute) feature, entry.getValue());
+				serializeValue(node, (EAttribute) feature, value);
+			} else if (feature instanceof EReference) {
+				if (((EReference) feature).isContainment()) {
+					serializer.getReferenceSerializer().serializeContainments(eObject, (EReference) feature, node, eObject.eResource());
+				} else {
+					serializer.getReferenceSerializer().serializeReferences(node, eObject, (EReference) feature);
+				}
 			}
 		}
 	}
@@ -95,7 +107,7 @@ class EAttributeSerializer {
 
 	void serializeValue(JsonNode node, EAttribute attribute, Object value) {
 		if (value == null) return;
-		
+
 		String key = getElementName(attribute);
 
 		if (value instanceof Integer) {
@@ -141,7 +153,7 @@ class EAttributeSerializer {
 			((ArrayNode)node).add(value);
 		}
 	}
-	
+
 	void serializeInteger(JsonNode node, String key, Integer value) {
 		if (node.isObject()) {
 			((ObjectNode)node).put(key, value);
@@ -149,7 +161,7 @@ class EAttributeSerializer {
 			((ArrayNode)node).add(value);
 		}
 	}
-	
+
 	void serializeDouble(JsonNode node, String key, Double value) {
 		if (node.isObject()) {
 			((ObjectNode)node).put(key, value);
@@ -157,7 +169,7 @@ class EAttributeSerializer {
 			((ArrayNode)node).add(value);
 		}
 	}
-	
+
 	void serializeLong(JsonNode node, String key, Long value) {
 		if (node.isObject()) {
 			((ObjectNode)node).put(key, value);
@@ -173,7 +185,7 @@ class EAttributeSerializer {
 			((ArrayNode)node).add(value);
 		}
 	}
-	
+
 	void serializeFloat(JsonNode node, String key, Float value) {
 		if (node.isObject()) {
 			((ObjectNode)node).put(key, value);
@@ -185,7 +197,7 @@ class EAttributeSerializer {
 	void serializeDate(JsonNode node, String key, Date value) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		String dateValue = sdf.format(value);
-		
+
 		if (node.isObject()) {
 			((ObjectNode)node).put(key, dateValue);
 		} else {

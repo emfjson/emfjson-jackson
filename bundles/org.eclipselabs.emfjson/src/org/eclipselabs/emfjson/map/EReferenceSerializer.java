@@ -123,6 +123,8 @@ class EReferenceSerializer {
 	}
 
 	void serializeContainmentValue(EObject eObject, EObject value, EReference reference, ObjectNode parent, ObjectNode target, Resource resource) {
+		if (value == null) return;
+
 		if (value.eIsProxy() || !value.eResource().equals(resource)) {
 			target.put(EJS_REF_KEYWORD, getReference(value, resource));
 		}

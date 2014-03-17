@@ -41,6 +41,7 @@ class EAtttributeDeserializer {
 			return;
 
 		final ObjectNode root = (ObjectNode) node;
+		final EStructuralFeature dynamicMapEntry = getDynamicMapEntryFeature(eClass);
 
 		// Iterates over all key values of the JSON Object,
 		// if the value is not an object then
@@ -57,7 +58,9 @@ class EAtttributeDeserializer {
 				continue;
 
 			EAttribute attribute = getEAttribute(eClass, key);
-			if (isCandidate(attribute)) {
+			// we allow deserialization of derived feature to 
+			// populate feature maps.
+			if (attribute != null) {
 				if (value.isArray()) {
 					for (Iterator<JsonNode> itValue = value.elements(); itValue.hasNext();) {
 						deSerializeValue(eObject, attribute, itValue.next());
@@ -65,13 +68,10 @@ class EAtttributeDeserializer {
 				} else {
 					deSerializeValue(eObject, attribute, value);
 				}
-			} else {
-				EStructuralFeature eFeature = getDynamicMapEntryFeature(eClass);
-				if (eFeature != null) {
-					@SuppressWarnings("unchecked")
-					EList<EObject> values = (EList<EObject>) eObject.eGet(eFeature);
-					values.add(mapDeserializer.deSerializeEntry(key, value));
-				}
+			} else if (dynamicMapEntry != null) {
+				@SuppressWarnings("unchecked")
+				EList<EObject> values = (EList<EObject>) eObject.eGet(dynamicMapEntry);
+				values.add(mapDeserializer.deSerializeEntry(key, value));
 			}
 		}
 	}
@@ -96,10 +96,6 @@ class EAtttributeDeserializer {
 				values.add(newValue);
 			}
 		}
-	}
-
-	boolean isCandidate(EAttribute attribute) {
-		return attribute != null && !attribute.isTransient() && !attribute.isDerived();
 	}
 
 }

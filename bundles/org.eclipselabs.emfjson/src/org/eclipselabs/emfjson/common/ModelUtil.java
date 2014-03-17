@@ -70,14 +70,15 @@ public class ModelUtil {
         EStructuralFeature eStructuralFeature = eClass.getEStructuralFeature(key);
         if (eStructuralFeature == null) {
             int i = 0;
-            while (i < eClass.getEAllReferences().size() && eStructuralFeature == null) {
-                EReference eReference = eClass.getEAllReferences().get(i);
-                if (key.equals(getElementName(eReference))) {
-                    eStructuralFeature = eReference;
+            while (i < eClass.getEAllStructuralFeatures().size() && eStructuralFeature == null) {
+                EStructuralFeature current = eClass.getEAllStructuralFeatures().get(i);
+                if (key.equals(getElementName(current))) {
+                    eStructuralFeature = current;
                 }
                 i++;
             }
         }
+
         return eStructuralFeature instanceof EReference ? (EReference) eStructuralFeature : null;
     }
 
