@@ -84,6 +84,8 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 		switch (eDataType.getClassifierID()) {
 			case ModelPackage.SEX:
 				return createSexFromString(eDataType, initialValue);
+			case ModelPackage.SOME_KIND:
+				return createSomeKindFromString(eDataType, initialValue);
 			case ModelPackage.URI:
 				return createURIFromString(eDataType, initialValue);
 			default:
@@ -101,6 +103,8 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 		switch (eDataType.getClassifierID()) {
 			case ModelPackage.SEX:
 				return convertSexToString(eDataType, instanceValue);
+			case ModelPackage.SOME_KIND:
+				return convertSomeKindToString(eDataType, instanceValue);
 			case ModelPackage.URI:
 				return convertURIToString(eDataType, instanceValue);
 			default:
@@ -225,6 +229,26 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * @generated
 	 */
 	public String convertSexToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SomeKind createSomeKindFromString(EDataType eDataType, String initialValue) {
+		SomeKind result = SomeKind.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertSomeKindToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

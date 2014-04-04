@@ -566,13 +566,22 @@ public interface ModelPackage extends EPackage {
 	int PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_COLLECTION = 18;
 
 	/**
+	 * The feature id for the '<em><b>Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMARY_OBJECT__KIND = 19;
+
+	/**
 	 * The number of structural features of the '<em>Primary Object</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PRIMARY_OBJECT_FEATURE_COUNT = 19;
+	int PRIMARY_OBJECT_FEATURE_COUNT = 20;
 
 	/**
 	 * The meta object id for the '{@link org.eclipselabs.emfjson.junit.model.impl.ContainerImpl <em>Container</em>}' class.
@@ -889,6 +898,16 @@ public interface ModelPackage extends EPackage {
 	int SEX = 11;
 
 	/**
+	 * The meta object id for the '{@link org.eclipselabs.emfjson.junit.model.SomeKind <em>Some Kind</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipselabs.emfjson.junit.model.SomeKind
+	 * @see org.eclipselabs.emfjson.junit.model.impl.ModelPackageImpl#getSomeKind()
+	 * @generated
+	 */
+	int SOME_KIND = 12;
+
+	/**
 	 * The meta object id for the '<em>URI</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -896,7 +915,7 @@ public interface ModelPackage extends EPackage {
 	 * @see org.eclipselabs.emfjson.junit.model.impl.ModelPackageImpl#getURI()
 	 * @generated
 	 */
-	int URI = 12;
+	int URI = 13;
 
 
 	/**
@@ -1479,6 +1498,17 @@ public interface ModelPackage extends EPackage {
 	EAttribute getPrimaryObject_FeatureMapAttributeCollection();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipselabs.emfjson.junit.model.PrimaryObject#getKind <em>Kind</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Kind</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.PrimaryObject#getKind()
+	 * @see #getPrimaryObject()
+	 * @generated
+	 */
+	EAttribute getPrimaryObject_Kind();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipselabs.emfjson.junit.model.Container <em>Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1722,6 +1752,16 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getSex();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipselabs.emfjson.junit.model.SomeKind <em>Some Kind</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Some Kind</em>'.
+	 * @see org.eclipselabs.emfjson.junit.model.SomeKind
+	 * @generated
+	 */
+	EEnum getSomeKind();
 
 	/**
 	 * Returns the meta object for data type '{@link org.eclipse.emf.common.util.URI <em>URI</em>}'.
@@ -2189,6 +2229,14 @@ public interface ModelPackage extends EPackage {
 		EAttribute PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_COLLECTION = eINSTANCE.getPrimaryObject_FeatureMapAttributeCollection();
 
 		/**
+		 * The meta object literal for the '<em><b>Kind</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PRIMARY_OBJECT__KIND = eINSTANCE.getPrimaryObject_Kind();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipselabs.emfjson.junit.model.impl.ContainerImpl <em>Container</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2387,6 +2435,16 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum SEX = eINSTANCE.getSex();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipselabs.emfjson.junit.model.SomeKind <em>Some Kind</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipselabs.emfjson.junit.model.SomeKind
+		 * @see org.eclipselabs.emfjson.junit.model.impl.ModelPackageImpl#getSomeKind()
+		 * @generated
+		 */
+		EEnum SOME_KIND = eINSTANCE.getSomeKind();
 
 		/**
 		 * The meta object literal for the '<em>URI</em>' data type.

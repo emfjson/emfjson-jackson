@@ -39,6 +39,7 @@ import org.eclipselabs.emfjson.junit.model.Node;
 import org.eclipselabs.emfjson.junit.model.ObjectWithMap;
 import org.eclipselabs.emfjson.junit.model.PrimaryObject;
 import org.eclipselabs.emfjson.junit.model.Sex;
+import org.eclipselabs.emfjson.junit.model.SomeKind;
 import org.eclipselabs.emfjson.junit.model.User;
 import org.eclipselabs.emfjson.junit.support.TestSupport;
 import org.junit.Test;
@@ -282,12 +283,70 @@ public class TestEmfJsAttributes extends TestSupport {
 	}
 
 	@Test
+	public void testSaveEnumDifferentCases() throws IOException {
+		String expectedString = "["
+				+ "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//PrimaryObject\",\"kind\":\"one\"},"
+				+ "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//PrimaryObject\",\"kind\":\"two\"},"
+				+ "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//PrimaryObject\",\"kind\":\"Three-is-Three\"}]";
+
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+		{
+			PrimaryObject p = ModelFactory.eINSTANCE.createPrimaryObject();
+			p.setKind(SomeKind.ONE);
+			resource.getContents().add(p);
+		}
+		{
+			PrimaryObject p = ModelFactory.eINSTANCE.createPrimaryObject();
+			p.setKind(SomeKind.TWO);
+			resource.getContents().add(p);
+		}
+		{
+			PrimaryObject p = ModelFactory.eINSTANCE.createPrimaryObject();
+			p.setKind(SomeKind.THREE);
+			resource.getContents().add(p);
+		}
+
+		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+		resource.save(outStream, options);
+
+		assertEquals(expectedString, new String(outStream.toByteArray()));
+	}
+
+	@Test
+	public void testLoadEnumDifferentCases() throws IOException {
+		String inputString = "["
+				+ "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//PrimaryObject\",\"kind\":\"one\"},"
+				+ "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//PrimaryObject\",\"kind\":\"two\"},"
+				+ "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//PrimaryObject\",\"kind\":\"Three-is-Three\"}]";
+		
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+
+		ByteArrayInputStream inStream = new ByteArrayInputStream(inputString.getBytes());
+		resource.load(inStream, options);
+
+		assertEquals(3, resource.getContents().size());
+		
+		EObject one = resource.getContents().get(0);
+		EObject two = resource.getContents().get(1);
+		EObject three = resource.getContents().get(2);
+		
+		assertEquals(ModelPackage.Literals.PRIMARY_OBJECT, one.eClass());
+		assertEquals(ModelPackage.Literals.PRIMARY_OBJECT, two.eClass());
+		assertEquals(ModelPackage.Literals.PRIMARY_OBJECT, three.eClass());
+		
+		assertEquals(SomeKind.ONE, ((PrimaryObject) one).getKind());
+		assertEquals(SomeKind.TWO, ((PrimaryObject) two).getKind());
+		assertEquals(SomeKind.THREE, ((PrimaryObject) three).getKind());
+	}
+
+	@Test
 	public void testSaveFeatureMap() throws IOException {
 		String expectedString = 
 				"{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//PrimaryObject\","
 				+ "\"name\":\"junit\","
 				+ "\"featureMapAttributeType1\":\"Hello\","
-				+ "\"featureMapAttributeType2\":\"World\"}";
+				+ "\"featureMapAttributeType2\":\"World\","
+				+ "\"kind\":\"one\"}";
 
 		PrimaryObject primaryObject = ModelFactory.eINSTANCE.createPrimaryObject();
 		primaryObject.setName("junit");

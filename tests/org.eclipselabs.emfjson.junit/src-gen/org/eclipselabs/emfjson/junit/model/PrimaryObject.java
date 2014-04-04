@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  *   <li>{@link org.eclipselabs.emfjson.junit.model.PrimaryObject#getFeatureMapAttributeType1 <em>Feature Map Attribute Type1</em>}</li>
  *   <li>{@link org.eclipselabs.emfjson.junit.model.PrimaryObject#getFeatureMapAttributeType2 <em>Feature Map Attribute Type2</em>}</li>
  *   <li>{@link org.eclipselabs.emfjson.junit.model.PrimaryObject#getFeatureMapAttributeCollection <em>Feature Map Attribute Collection</em>}</li>
+ *   <li>{@link org.eclipselabs.emfjson.junit.model.PrimaryObject#getKind <em>Kind</em>}</li>
  * </ul>
  * </p>
  *
@@ -534,5 +535,34 @@ public interface PrimaryObject extends EObject {
 	 * @generated
 	 */
 	FeatureMap getFeatureMapAttributeCollection();
+
+	/**
+	 * Returns the value of the '<em><b>Kind</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.eclipselabs.emfjson.junit.model.SomeKind}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Kind</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Kind</em>' attribute.
+	 * @see org.eclipselabs.emfjson.junit.model.SomeKind
+	 * @see #setKind(SomeKind)
+	 * @see org.eclipselabs.emfjson.junit.model.ModelPackage#getPrimaryObject_Kind()
+	 * @model
+	 * @generated
+	 */
+	SomeKind getKind();
+
+	/**
+	 * Sets the value of the '{@link org.eclipselabs.emfjson.junit.model.PrimaryObject#getKind <em>Kind</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Kind</em>' attribute.
+	 * @see org.eclipselabs.emfjson.junit.model.SomeKind
+	 * @see #getKind()
+	 * @generated
+	 */
+	void setKind(SomeKind value);
 
 } // PrimaryObject

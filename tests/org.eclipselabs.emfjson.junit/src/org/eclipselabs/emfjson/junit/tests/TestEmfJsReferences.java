@@ -555,7 +555,8 @@ public class TestEmfJsReferences extends TestSupport {
 	
 	@Test
 	public void testSaveFeatureMapReferences() throws IOException {
-		String expectedString = "{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//PrimaryObject\","
+		String expectedString = "{"
+				+ "\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//PrimaryObject\","
 				+ "\"featureMapReferenceType1\":[{"
 				+ "\"$ref\":\"//@featureMapReferenceType2.0\","
 				+ "\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//TargetObject\"},{"
@@ -569,7 +570,8 @@ public class TestEmfJsReferences extends TestSupport {
 				+ "\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//TargetObject\","
 				+ "\"singleAttribute\":\"3\"},{"
 				+ "\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//TargetObject\","
-				+ "\"singleAttribute\":\"4\"}]}";
+				+ "\"singleAttribute\":\"4\"}],"
+				+ "\"kind\":\"one\"}";
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests.json"));
 		assertNotNull(resource);

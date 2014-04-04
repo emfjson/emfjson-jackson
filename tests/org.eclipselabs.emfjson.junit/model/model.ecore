@@ -121,6 +121,7 @@
         <details key="kind" value="group"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//SomeKind"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Container">
     <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
@@ -167,5 +168,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="dependencies" upperBound="-1"
         eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EStringToStringMapEntry"
         containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="SomeKind">
+    <eLiterals name="one" literal="one"/>
+    <eLiterals name="Two" value="1" literal="two"/>
+    <eLiterals name="Three" value="3" literal="Three-is-Three"/>
   </eClassifiers>
 </ecore:EPackage>

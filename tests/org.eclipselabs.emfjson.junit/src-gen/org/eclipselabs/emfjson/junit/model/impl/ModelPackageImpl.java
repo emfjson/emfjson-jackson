@@ -22,6 +22,7 @@ import org.eclipselabs.emfjson.junit.model.Node;
 import org.eclipselabs.emfjson.junit.model.ObjectWithMap;
 import org.eclipselabs.emfjson.junit.model.PrimaryObject;
 import org.eclipselabs.emfjson.junit.model.Sex;
+import org.eclipselabs.emfjson.junit.model.SomeKind;
 import org.eclipselabs.emfjson.junit.model.TargetObject;
 import org.eclipselabs.emfjson.junit.model.User;
 
@@ -115,6 +116,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	private EEnum sexEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum someKindEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -666,6 +674,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getPrimaryObject_Kind() {
+		return (EAttribute)primaryObjectEClass.getEStructuralFeatures().get(19);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getContainer() {
 		return containerEClass;
 	}
@@ -873,6 +890,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getSomeKind() {
+		return someKindEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EDataType getURI() {
 		return uriEDataType;
 	}
@@ -961,6 +987,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEAttribute(primaryObjectEClass, PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_TYPE1);
 		createEAttribute(primaryObjectEClass, PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_TYPE2);
 		createEAttribute(primaryObjectEClass, PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_COLLECTION);
+		createEAttribute(primaryObjectEClass, PRIMARY_OBJECT__KIND);
 
 		containerEClass = createEClass(CONTAINER);
 		createEReference(containerEClass, CONTAINER__ELEMENTS);
@@ -993,6 +1020,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		// Create enums
 		sexEEnum = createEEnum(SEX);
+		someKindEEnum = createEEnum(SOME_KIND);
 
 		// Create data types
 		uriEDataType = createEDataType(URI);
@@ -1086,6 +1114,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEAttribute(getPrimaryObject_FeatureMapAttributeType1(), ecorePackage.getEString(), "featureMapAttributeType1", null, 0, -1, PrimaryObject.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPrimaryObject_FeatureMapAttributeType2(), ecorePackage.getEString(), "featureMapAttributeType2", null, 0, -1, PrimaryObject.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPrimaryObject_FeatureMapAttributeCollection(), ecorePackage.getEFeatureMapEntry(), "featureMapAttributeCollection", null, 0, -1, PrimaryObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPrimaryObject_Kind(), this.getSomeKind(), "kind", null, 0, 1, PrimaryObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(containerEClass, org.eclipselabs.emfjson.junit.model.Container.class, "Container", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getContainer_Elements(), this.getAbstractType(), null, "elements", null, 0, -1, org.eclipselabs.emfjson.junit.model.Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1120,6 +1149,11 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEEnum(sexEEnum, Sex.class, "Sex");
 		addEEnumLiteral(sexEEnum, Sex.MALE);
 		addEEnumLiteral(sexEEnum, Sex.FEMALE);
+
+		initEEnum(someKindEEnum, SomeKind.class, "SomeKind");
+		addEEnumLiteral(someKindEEnum, SomeKind.ONE);
+		addEEnumLiteral(someKindEEnum, SomeKind.TWO);
+		addEEnumLiteral(someKindEEnum, SomeKind.THREE);
 
 		// Initialize data types
 		initEDataType(uriEDataType, org.eclipse.emf.common.util.URI.class, "URI", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

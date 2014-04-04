@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
 import org.eclipselabs.emfjson.junit.model.PrimaryObject;
+import org.eclipselabs.emfjson.junit.model.SomeKind;
 import org.eclipselabs.emfjson.junit.model.TargetObject;
 
 /**
@@ -51,6 +52,7 @@ import org.eclipselabs.emfjson.junit.model.TargetObject;
  *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.PrimaryObjectImpl#getFeatureMapAttributeType1 <em>Feature Map Attribute Type1</em>}</li>
  *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.PrimaryObjectImpl#getFeatureMapAttributeType2 <em>Feature Map Attribute Type2</em>}</li>
  *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.PrimaryObjectImpl#getFeatureMapAttributeCollection <em>Feature Map Attribute Collection</em>}</li>
+ *   <li>{@link org.eclipselabs.emfjson.junit.model.impl.PrimaryObjectImpl#getKind <em>Kind</em>}</li>
  * </ul>
  * </p>
  *
@@ -273,6 +275,26 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	 * @ordered
 	 */
 	protected FeatureMap featureMapAttributeCollection;
+
+	/**
+	 * The default value of the '{@link #getKind() <em>Kind</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getKind()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final SomeKind KIND_EDEFAULT = SomeKind.ONE;
+
+	/**
+	 * The cached value of the '{@link #getKind() <em>Kind</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getKind()
+	 * @generated
+	 * @ordered
+	 */
+	protected SomeKind kind = KIND_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -825,6 +847,27 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public SomeKind getKind() {
+		return kind;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setKind(SomeKind newKind) {
+		SomeKind oldKind = kind;
+		kind = newKind == null ? KIND_EDEFAULT : newKind;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.PRIMARY_OBJECT__KIND, oldKind, kind));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -900,6 +943,8 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 			case ModelPackage.PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_COLLECTION:
 				if (coreType) return getFeatureMapAttributeCollection();
 				return ((FeatureMap.Internal)getFeatureMapAttributeCollection()).getWrapper();
+			case ModelPackage.PRIMARY_OBJECT__KIND:
+				return getKind();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -977,6 +1022,9 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 			case ModelPackage.PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_COLLECTION:
 				((FeatureMap.Internal)getFeatureMapAttributeCollection()).set(newValue);
 				return;
+			case ModelPackage.PRIMARY_OBJECT__KIND:
+				setKind((SomeKind)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1046,6 +1094,9 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 			case ModelPackage.PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_COLLECTION:
 				getFeatureMapAttributeCollection().clear();
 				return;
+			case ModelPackage.PRIMARY_OBJECT__KIND:
+				setKind(KIND_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1096,6 +1147,8 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 				return !getFeatureMapAttributeType2().isEmpty();
 			case ModelPackage.PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_COLLECTION:
 				return featureMapAttributeCollection != null && !featureMapAttributeCollection.isEmpty();
+			case ModelPackage.PRIMARY_OBJECT__KIND:
+				return kind != KIND_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1122,6 +1175,8 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 		result.append(featureMapReferenceCollection);
 		result.append(", featureMapAttributeCollection: ");
 		result.append(featureMapAttributeCollection);
+		result.append(", kind: ");
+		result.append(kind);
 		result.append(')');
 		return result.toString();
 	}

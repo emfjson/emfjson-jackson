@@ -11,6 +11,11 @@
       <genEnumLiterals ecoreEnumLiteral="model.ecore#//Sex/MALE"/>
       <genEnumLiterals ecoreEnumLiteral="model.ecore#//Sex/FEMALE"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="model.ecore#//SomeKind">
+      <genEnumLiterals ecoreEnumLiteral="model.ecore#//SomeKind/one"/>
+      <genEnumLiterals ecoreEnumLiteral="model.ecore#//SomeKind/Two"/>
+      <genEnumLiterals ecoreEnumLiteral="model.ecore#//SomeKind/Three"/>
+    </genEnums>
     <genDataTypes ecoreDataType="model.ecore#//URI"/>
     <genClasses ecoreClass="model.ecore#//User">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//User/userId"/>
@@ -68,6 +73,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//PrimaryObject/featureMapAttributeType1"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//PrimaryObject/featureMapAttributeType2"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute model.ecore#//PrimaryObject/featureMapAttributeCollection"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//PrimaryObject/kind"/>
     </genClasses>
     <genClasses ecoreClass="model.ecore#//Container">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference model.ecore#//Container/elements"/>
