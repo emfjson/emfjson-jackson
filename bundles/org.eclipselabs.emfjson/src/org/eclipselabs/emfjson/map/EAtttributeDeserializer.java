@@ -80,13 +80,7 @@ class EAtttributeDeserializer {
 		final String stringValue = value.asText();
 
 		if (stringValue != null && !stringValue.trim().isEmpty()) {
-			Object newValue;
-
-			if (attribute.getEAttributeType().getInstanceClass().isEnum()) {
-				newValue = EcoreUtil.createFromString(attribute.getEAttributeType(), stringValue.toUpperCase());
-			} else {
-				newValue = EcoreUtil.createFromString(attribute.getEAttributeType(), stringValue);
-			}
+			Object newValue  = EcoreUtil.createFromString(attribute.getEAttributeType(), stringValue);
 
 			if (!attribute.isMany()) {
 				eObject.eSet(attribute, newValue);
