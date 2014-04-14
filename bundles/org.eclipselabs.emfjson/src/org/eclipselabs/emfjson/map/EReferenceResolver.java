@@ -38,11 +38,11 @@ class EReferenceResolver {
 
 	void resolve(Map<EObject, JsonNode> processed, Resource resource) {
 		for (EObject eObject : processed.keySet()) {
-			resolve(eObject, processed.get(eObject), resource, processed);
+			resolve(eObject, processed.get(eObject), resource);
 		}
 	}
 
-	void resolve(EObject eObject, JsonNode node, Resource resource, Map<EObject, JsonNode> processed) {
+	void resolve(EObject eObject, JsonNode node, Resource resource) {
 
 		if (!node.isObject())
 			return;
@@ -55,7 +55,6 @@ class EReferenceResolver {
 
 			String key = field.getKey();
 			JsonNode value = field.getValue();
-
 			EReference reference = getEReference(eClass, key);
 
 			// we allow deserialization of derived feature to 
@@ -89,7 +88,7 @@ class EReferenceResolver {
 		if (proxy != null && reference.isMany()) {
 			@SuppressWarnings("unchecked")
 			InternalEList<EObject> values = (InternalEList<EObject>) eObject.eGet(reference);
-			values.addUnique(proxy);
+			values.add(proxy);
 		} else if (proxy != null) {
 			eObject.eSet(reference, proxy);
 		}
@@ -98,8 +97,7 @@ class EReferenceResolver {
 	EObject findEObject(Resource resource, JsonNode node) {
 		EObject eObject = null;
 		if (node.isObject()) {
-			final URI objectURI = getEObjectURI(node.get(EJS_REF_KEYWORD), resource, deserializer.getNamespaces());
-
+			URI objectURI = getEObjectURI(node.get(EJS_REF_KEYWORD), resource, deserializer.getNamespaces());
 			eObject = resource.getResourceSet().getEObject(objectURI, false);
 		}
 		return eObject;
