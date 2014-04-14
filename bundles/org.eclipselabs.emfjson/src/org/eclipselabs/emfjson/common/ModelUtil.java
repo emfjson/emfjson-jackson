@@ -138,7 +138,7 @@ public class ModelUtil {
      * 
      * <pre>
      * example: 
-     * {"$ref": "#//fragment"} returns resourceURI + #//fragment
+     * {"$ref": "//fragment"} returns resourceURI + #//fragment
      * {"$ref": "model://fragment"} returns resolve URI against nsMap + #//fragement 
      * {"$ref": "id"} returns resourceURI + #id
      * </pre>
@@ -154,10 +154,7 @@ public class ModelUtil {
 
         final String value = jsonNode.asText();
 
-        if (value.startsWith("#//")) {
-            // is fragment
-            return resource.getURI().appendFragment(value.substring(1));
-        } else if (value.contains(":")) {
+        if (value.contains(":")) {
             String[] split = value.split(":");
             // is namespaced prefix:fragment
             if (split.length == 2) {
@@ -166,8 +163,9 @@ public class ModelUtil {
                     return URI.createURI(nsURI).appendFragment(split[1]);
                 }
             }
+            // is full uri
             return URI.createURI(value);
-        } else { // is ID
+        } else { // is fragment
             return resource.getURI().appendFragment(value.startsWith("#") ? value.substring(1) : value);
         }
     }

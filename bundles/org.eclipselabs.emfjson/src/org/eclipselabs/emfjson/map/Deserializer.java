@@ -66,7 +66,7 @@ class Deserializer {
 
 		if (eClass != null && eClass instanceof EClass) {
 			eObject = EcoreUtil.create(eClass);
-			processed.put(eObject, node);
+			getProcessed().put(eObject, node);
 
 			eAtttributeDeserializer.deSerialize(eObject, node);
 			eReferenceDeserializer.deSerialize(eObject, node, resource);
@@ -101,7 +101,7 @@ class Deserializer {
 	}
 
 	void resolve(Resource resource) {
-		resolver.resolve(processed, resource);
+		resolver.resolve(getProcessed(), resource);
 		processed.clear();
 	}
 
