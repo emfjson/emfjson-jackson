@@ -1,0 +1,23 @@
+{
+  "eClass" : "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject",
+  "featureMapReferenceType1" : [ {
+    "$ref" : "//@featureMapReferenceType2.0",
+    "eClass" : "http://www.eclipselabs.org/emfjson/junit#//TargetObject"
+  }, {
+    "$ref" : "//@featureMapReferenceType2.1",
+    "eClass" : "http://www.eclipselabs.org/emfjson/junit#//TargetObject"
+  } ],
+  "featureMapReferenceType2" : [ {
+    "eClass" : "http://www.eclipselabs.org/emfjson/junit#//TargetObject",
+    "singleAttribute" : "1"
+  }, {
+    "eClass" : "http://www.eclipselabs.org/emfjson/junit#//TargetObject",
+    "singleAttribute" : "2"
+  }, {
+    "eClass" : "http://www.eclipselabs.org/emfjson/junit#//TargetObject",
+    "singleAttribute" : "3"
+  }, {
+    "eClass" : "http://www.eclipselabs.org/emfjson/junit#//TargetObject",
+    "singleAttribute" : "4"
+  } ]
+}

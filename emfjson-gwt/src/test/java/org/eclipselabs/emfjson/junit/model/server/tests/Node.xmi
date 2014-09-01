@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ASCII"?>
+<model:Node
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:model="http://www.eclipselabs.org/emfjson/junit"
+    xsi:schemaLocation="http://www.eclipselabs.org/emfjson/junit ../model/model.ecore"
+    label="root"
+    target="//@child.0/@child.0">
+  <child label="n1">
+    <child label="n2"
+        target="//@child.0/@single"
+        source="/"/>
+    <single
+        label="n4"
+        source="//@child.0/@child.0"/>
+  </child>
+  <single label="n3"/>
+</model:Node>

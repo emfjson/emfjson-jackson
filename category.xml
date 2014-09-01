@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.eclipselabs.emfjson.feature_0.9.0.qualifier.jar" id="org.eclipselabs.emfjson.feature" version="0.9.0.qualifier">
+      <category name="org.eclipselabs.emfjson"/>
+   </feature>
+   <feature url="features/org.eclipselabs.emfjson.source.feature_0.9.0.qualifier.jar" id="org.eclipselabs.emfjson.source.feature" version="0.9.0.qualifier">
+      <category name="org.eclipselabs.emfjson"/>
+   </feature>
+   <category-def name="org.eclipselabs.emfjson" label="EMF JSON">
+      <description>
+         EMF binding for JSON.
+      </description>
+   </category-def>
+</site>

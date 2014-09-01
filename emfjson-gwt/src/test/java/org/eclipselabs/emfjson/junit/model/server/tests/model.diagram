@@ -1,0 +1,76 @@
+{
+  "eClass": "http://www.eclipse.org/gmf/runtime/1.0.2/notation#//Diagram",
+  "type": "Bar",
+  "name": "untitled",
+  "children": [
+    {
+      "eClass": "http://www.eclipse.org/gmf/runtime/1.0.2/notation#//Node",
+      "type": "2001",
+      "children": [
+        {
+          "eClass": "http://www.eclipse.org/gmf/runtime/1.0.2/notation#//Node",
+          "type": "5001"
+        },
+        {
+          "eClass": "http://www.eclipse.org/gmf/runtime/1.0.2/notation#//Node",
+          "type": "7001",
+          "children": [
+            {
+              "eClass": "http://www.eclipse.org/gmf/runtime/1.0.2/notation#//Node",
+              "type": "3001",
+              "children": [
+                {
+                  "eClass": "http://www.eclipse.org/gmf/runtime/1.0.2/notation#//Node",
+                  "type": "5002"
+                }
+              ],
+              "styles": [
+                {
+                  "eClass": "http://www.eclipse.org/gmf/runtime/1.0.2/notation#//FontStyle",
+                  "fontColor": 6579300,
+                  "fontName": "",
+                  "fontHeight": 12
+                }
+              ],
+              "element": {
+                "$ref": "http://models/untitled.bar#//@entities.0/@features.0",
+                "eClass": "http://sample.app/Bar#//Feature"
+              }
+            }
+          ],
+          "styles": [
+            {
+              "eClass": "http://www.eclipse.org/gmf/runtime/1.0.2/notation#//DrawerStyle"
+            },
+            {
+              "eClass": "http://www.eclipse.org/gmf/runtime/1.0.2/notation#//TitleStyle"
+            }
+          ]
+        }
+      ],
+      "styles": [
+        {
+          "eClass": "http://www.eclipse.org/gmf/runtime/1.0.2/notation#//FontStyle",
+          "fontColor": 6579300,
+          "fontName": "",
+          "fontHeight": 12
+        }
+      ],
+      "element": {
+        "$ref": "http://models/untitled.bar#//@entities.0",
+        "eClass": "http://sample.app/Bar#//Entity"
+      },
+      "layoutConstraint": {
+        "eClass": "http://www.eclipse.org/gmf/runtime/1.0.2/notation#//Bounds",
+        "x": 89,
+        "y": 49,
+        "width": 320,
+        "height": 192
+      }
+    }
+  ],
+  "element": {
+    "$ref": "http://models/untitled.bar#/",
+    "eClass": "http://sample.app/Bar#//DomainModel"
+  }
+}
