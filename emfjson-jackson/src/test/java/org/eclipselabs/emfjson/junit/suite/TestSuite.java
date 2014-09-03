@@ -17,6 +17,8 @@ import org.eclipselabs.emfjson.junit.tests.PolymorphicTest;
 import org.eclipselabs.emfjson.junit.tests.ReferenceTest;
 import org.eclipselabs.emfjson.junit.tests.TestEmfJsAttributes;
 import org.eclipselabs.emfjson.junit.tests.TestEmfJsReferences;
+import org.eclipselabs.emfjson.junit.tests.UuidLoadTest;
+import org.eclipselabs.emfjson.junit.tests.UuidSaveTest;
 import org.eclipselabs.emfjson.junit.tests.ValueTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -32,8 +34,9 @@ import org.junit.runners.Suite.SuiteClasses;
 	ReferenceTest.class,
 	TestEmfJsReferences.class, 
 	TestEmfJsAttributes.class,
+	UuidSaveTest.class,
+	UuidLoadTest.class
+	
 	//	TestEmfJsNamespaces.class,
-	//	TestUuidSerialization.class,
-	//	TestUuidDeserialization.class
 })
 public class TestSuite {}

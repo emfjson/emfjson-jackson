@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipselabs.emfjson.EMFJs;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
-import org.eclipselabs.emfjson.resource.JsResourceFactoryImpl;
+import org.eclipselabs.emfjson.resource.JsonResourceFactory;
 import org.junit.Before;
 
 public abstract class TestSupport {
@@ -38,7 +38,7 @@ public abstract class TestSupport {
 		URI baseURI = URI.createURI("http://eclipselabs.org/emfjson/tests/");
 
 		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("*", new JsResourceFactoryImpl());
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("*", new JsonResourceFactory());
 
 		options.clear();
 		options.put(EMFJs.OPTION_INDENT_OUTPUT, false);

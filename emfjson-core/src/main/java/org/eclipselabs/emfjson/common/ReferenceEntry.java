@@ -19,7 +19,6 @@ public class ReferenceEntry {
 
 	public void resolve(ResourceSet resourceSet, IDResolver idResolver) {
 		final URI ref = idResolver.get(id);
-		System.out.println("get " + ref);
 		final EObject target = resourceSet.getEObject(ref, true);
 
 		if (target != null) {

@@ -20,7 +20,7 @@ import org.eclipselabs.emfjson.junit.model.User;
 import org.eclipselabs.emfjson.junit.model.support.TestSupport;
 import org.junit.Test;
 
-public class TestEmfJsHttpUriHandler extends TestSupport {
+public class HttpUriHandlerTest extends TestSupport {
 
 	@Test
 	public void testPostMethod() throws IOException {
@@ -30,19 +30,19 @@ public class TestEmfJsHttpUriHandler extends TestSupport {
 		Resource resource = resourceSet.createResource(URI.createURI(BASE_URI).appendSegment("test_post"));
 		resource.getContents().add(u);
 
+		delayTestFinish(500);
 		resource.save(options, new Callback<Resource>() {
 			@Override
 			public void onSuccess(Resource result) {
-				System.out.println("posted");
+				assertNotNull(result);
 				finishTest();
 			}
 			@Override
 			public void onFailure(Throwable caught) {
+				assertNull(caught);
 				finishTest();
 			}
 		});
-
-		delayTestFinish(500);
 	}
 
 }

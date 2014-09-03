@@ -13,7 +13,6 @@ package org.eclipselabs.emfjson.junit.model.tests;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.eclipse.emf.common.util.Callback;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
@@ -22,17 +21,17 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipselabs.emfjson.junit.model.support.TestSupport;
 import org.junit.Test;
 
-public class TestEmfJsExternalReferences extends TestSupport {
+public class ExternalReferenceTest extends TestSupport {
 
 	@Test
 	public void testLoadSingleInstance() {
 		resourceSet.getURIConverter().getURIMap().put(
 				URI.createURI("http://www.example.org/model"),
-				URI.createURI(baseURI+"/model.json"));
+				URI.createURI(baseURI + "/model.json"));
 
-		asyncLoad("instances-library-1.json", new Callback<Resource>() {
-			@Override
-			public void onSuccess(Resource result) {
+		delayTestFinish(500);
+		asyncLoad("instances-library-1.json", new TestCallback() {
+			@Override public void onSuccess(Resource result) {
 				assertEquals(1, result.getContents().size());
 
 				EObject root = result.getContents().get(0);
@@ -46,13 +45,7 @@ public class TestEmfJsExternalReferences extends TestSupport {
 
 				finishTest();
 			}
-			@Override
-			public void onFailure(Throwable caught) {
-				caught.printStackTrace();
-				finishTest();
-			}
 		});
-		delayTestFinish(500);
 	}
 	
 	@Test
@@ -61,7 +54,8 @@ public class TestEmfJsExternalReferences extends TestSupport {
 				URI.createURI("http://www.example.org/model"),
 				URI.createURI(baseURI+"/model.json"));
 
-		asyncLoad("instances-library-2.json", new Callback<Resource>() {
+		delayTestFinish(500);
+		asyncLoad("instances-library-2.json", new TestCallback() {
 			@Override
 			public void onSuccess(Resource result) {
 				assertEquals(1, result.getContents().size());
@@ -98,12 +92,6 @@ public class TestEmfJsExternalReferences extends TestSupport {
 
 				finishTest();
 			}
-			@Override
-			public void onFailure(Throwable caught) {
-				caught.printStackTrace();
-				finishTest();
-			}
 		});
-		delayTestFinish(500);
 	}
 }

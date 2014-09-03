@@ -8,20 +8,38 @@
  * Contributors:
  *    Guillaume Hillairet - initial API and implementation
  *******************************************************************************/
-package org.eclipselabs.emfjson.gwt.resource;
+package org.eclipselabs.emfjson.gwt.streams;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collections;
+import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
+import org.eclipse.emf.ecore.resource.URIConverter;
 
 /**
  * 
  * @author ghillairet
  *
  */
-public class JsResourceFactoryImpl extends ResourceFactoryImpl {
-	@Override
-	public Resource createResource(URI uri) {
-		return new JsResourceImpl(uri);
+public abstract class JsonInputStream extends InputStream implements URIConverter.Loadable {
+
+	protected URI uri;
+	protected Map<?, ?> options;
+	
+	public JsonInputStream(URI uri, Map<?, ?> options) {
+		this.uri = uri;
+		this.options = options == null ? Collections.emptyMap() : options;
 	}
+	
+	@Override
+	public abstract void loadResource(Resource resource) throws IOException;
+	
+	@Override
+	public int read() throws IOException {
+		return 0;
+	}
+
 }

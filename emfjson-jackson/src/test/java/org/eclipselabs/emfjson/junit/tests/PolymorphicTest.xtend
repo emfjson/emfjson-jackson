@@ -105,7 +105,7 @@ class PolymorphicTest extends TestSupport {
 		assertEquals(1, first.getRefProperty().size())
 
 		val ref = first.getRefProperty().get(0)
-		assertEquals(second, ref)
+		assertSame(second, ref)
 	}
 
 }

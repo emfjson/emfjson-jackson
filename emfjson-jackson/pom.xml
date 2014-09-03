@@ -6,6 +6,7 @@
 		<artifactId>emfjson</artifactId>
 		<version>0.9.0-SNAPSHOT</version>
 	</parent>
+	<packaging>bundle</packaging>
 	<artifactId>emfjson-jackson</artifactId>
 
 	<dependencies>
@@ -73,6 +74,19 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<osgiManifest>
+						<bundleName>emfjson-jackson</bundleName>
+						<bundleDescription>emfjson jackson</bundleDescription>
+						<bundleVendor>Eclipse Labs</bundleVendor>
+					</osgiManifest>
+				</configuration>
 			</plugin>
 
 			<plugin>

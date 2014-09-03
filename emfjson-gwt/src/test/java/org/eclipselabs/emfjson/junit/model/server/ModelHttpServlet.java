@@ -62,8 +62,6 @@ public class ModelHttpServlet extends HttpServlet {
 			out.write(c);
 		}
 
-		System.out.println(new String(out.toByteArray()));
-
 		super.doPost(req, resp);
 	}
 

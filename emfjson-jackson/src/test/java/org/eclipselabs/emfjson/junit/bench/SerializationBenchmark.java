@@ -18,7 +18,7 @@ import org.eclipselabs.emfjson.junit.model.Container;
 import org.eclipselabs.emfjson.junit.model.ModelFactory;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
 import org.eclipselabs.emfjson.junit.model.Node;
-import org.eclipselabs.emfjson.resource.JsResourceFactoryImpl;
+import org.eclipselabs.emfjson.resource.JsonResourceFactory;
 
 public class SerializationBenchmark {
 
@@ -131,7 +131,7 @@ public class SerializationBenchmark {
 		System.out.println("Start json....");
 		for (int i = 0; i < times; i++) {
 			ResourceSet resourceSet = new ResourceSetImpl();
-			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new JsResourceFactoryImpl());
+			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new JsonResourceFactory());
 			resourceSet.getPackageRegistry().put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
 			Resource resource = resourceSet.createResource(URI.createURI("bench1-model.json"));
 			resource.getContents().add(container);

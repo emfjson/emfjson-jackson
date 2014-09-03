@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
-import org.eclipselabs.emfjson.resource.JsResourceFactoryImpl;
+import org.eclipselabs.emfjson.resource.JsonResourceFactory;
 
 public class DeserializationBenchmark {
 
@@ -50,7 +50,7 @@ public class DeserializationBenchmark {
 		long[] all = new long[times];
 		for (int i = 0; i < times; i++) {
 			ResourceSet resourceSet = new ResourceSetImpl();
-			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new JsResourceFactoryImpl());
+			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new JsonResourceFactory());
 			resourceSet.getPackageRegistry().put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
 			Resource resource = resourceSet.createResource(baseTestFilesFileDirectory.appendSegment("bench1-model.json"));
 
@@ -66,7 +66,7 @@ public class DeserializationBenchmark {
 
 	public void test() throws IOException {
 		ResourceSet resourceSet = new ResourceSetImpl();
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new JsResourceFactoryImpl());
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new JsonResourceFactory());
 		resourceSet.getPackageRegistry().put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
 		Resource resource = resourceSet.createResource(baseTestFilesFileDirectory.appendSegment("nodes1.json"));
 		resource.load(null);

@@ -15,11 +15,13 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
 
 /**
- * An implementation of {@link Resource.Factory} that creates {@link JsResourceImpl}. 
+ * An implementation of {@link Resource.Factory} that creates {@link JsonResource}. 
  */
-public class JsResourceFactoryImpl extends ResourceFactoryImpl {
+public class JsonResourceFactory extends ResourceFactoryImpl {
+
 	@Override
 	public Resource createResource(URI uri) {
-		return new JsResourceImpl(uri);
+		return new JsonResource(uri);
 	}
+
 }

@@ -19,19 +19,19 @@ import java.util.Map;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
-import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
+import org.eclipselabs.emfjson.common.resource.AbstractUuidResource;
 import org.eclipselabs.emfjson.map.streaming.JacksonStreamMapper;
 
 /**
  * A {@link Resource} implementation that read and write it's content in JSON.
  */
-public class JsResourceImpl extends ResourceImpl {
+public class JsonResource extends AbstractUuidResource {
 
-	public JsResourceImpl() {
+	public JsonResource() {
 		super();
 	}
 
-	public JsResourceImpl(URI uri) {
+	public JsonResource(URI uri) {
 		super(uri);
 	}
 
@@ -44,14 +44,6 @@ public class JsResourceImpl extends ResourceImpl {
 		if (inputStream instanceof URIConverter.Loadable) {
 			((URIConverter.Loadable) inputStream).loadResource(this);
 		} else {
-//			ObjectMapper o = new ObjectMapper();
-//			JacksonMapper mapper = JacksonMapperFactory.create(this, Options.from(options).build());
-//			JsonNode node = o.readTree(inputStream);
-//			if (node.isObject()) {
-//				mapper.fromObject((ObjectNode) node);
-//			} else if (node.isArray()) {
-//				mapper.fromArray((ArrayNode) node);
-//			}
 			new JacksonStreamMapper().parse(this, inputStream, options);
 		}
 	}

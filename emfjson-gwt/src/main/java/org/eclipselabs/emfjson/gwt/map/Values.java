@@ -20,25 +20,26 @@ import com.google.gwt.json.client.JSONValue;
 
 public class Values {
 
-	public void setOrAdd(EObject eObject, EAttribute attribute, JSONValue value) {
-		final String stringValue;
-
-		if (value.isString() != null)
-		 stringValue = value.isString().stringValue();
-		else if (value.isBoolean() != null)
-			stringValue = Boolean.toString(value.isBoolean().booleanValue());
-		else if (value.isNumber() != null)
-			stringValue = value.toString();
-		else stringValue = "";
-
-		if (stringValue != null && !stringValue.trim().isEmpty()) {
-			EObjects.setOrAdd(eObject, attribute, stringValue);
+	public void setOrAdd(EObject owner, EAttribute attribute, JSONValue value) {
+		JSONString stringValue = value.isString();
+		if (stringValue != null) {
+			EObjects.setOrAdd(owner, attribute, stringValue.stringValue());
+		}
+		
+		JSONBoolean booleanValue = value.isBoolean();
+		if (booleanValue != null) {
+			EObjects.setOrAdd(owner, attribute, booleanValue.toString());
+		}
+		
+		JSONNumber numberValue = value.isNumber();
+		if (numberValue != null) {
+			EObjects.setOrAdd(owner, attribute, numberValue.toString());
 		}
 	}
 
 	public void serialize(JSONObject node, String key, EAttribute attribute, Object value) {
 		final EDataType type = attribute.getEAttributeType();
-		
+
 		if (attribute.isMany()) {
 			final Collection<?> values = (Collection<?>) value;
 			final JSONArray array = new JSONArray();

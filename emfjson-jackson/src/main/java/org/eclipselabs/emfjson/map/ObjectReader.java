@@ -2,6 +2,7 @@ package org.eclipselabs.emfjson.map;
 
 import static org.eclipselabs.emfjson.common.Constants.EJS_REF_KEYWORD;
 import static org.eclipselabs.emfjson.common.Constants.EJS_TYPE_KEYWORD;
+import static org.eclipselabs.emfjson.common.Constants.EJS_UUID_ANNOTATION;
 import static org.eclipselabs.emfjson.common.EObjects.setOrAdd;
 
 import java.util.HashSet;
@@ -23,6 +24,7 @@ import org.eclipselabs.emfjson.common.Cache;
 import org.eclipselabs.emfjson.common.IDResolver;
 import org.eclipselabs.emfjson.common.Options;
 import org.eclipselabs.emfjson.common.ReferenceEntry;
+import org.eclipselabs.emfjson.common.resource.UuidResource;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -37,8 +39,10 @@ public class ObjectReader {
 
 	private final Set<ReferenceEntry> resolveEntries = new HashSet<>();
 	private final Cache cache = new Cache();
+	private final Resource resource;
 
 	public ObjectReader(Resource resource, ResourceSet resourceSet, Options options) {
+		this.resource = resource;
 		this.resourceSet = resourceSet;
 		this.options = options;
 		this.namespaces = new Namespaces();
@@ -59,6 +63,11 @@ public class ObjectReader {
 		if (object == null) return null;
 
 		final EClass eClass = object.eClass();
+
+		if (options.useUUID && node.has(EJS_UUID_ANNOTATION) && resource instanceof UuidResource) {
+			String _id = node.get(EJS_UUID_ANNOTATION).asText();
+			((UuidResource) resource).setID(object, _id);
+		}
 
 		for (final Iterator<Entry<String, JsonNode>> it = node.fields(); it.hasNext();) {
 			final Entry<String, JsonNode> entry = it.next();

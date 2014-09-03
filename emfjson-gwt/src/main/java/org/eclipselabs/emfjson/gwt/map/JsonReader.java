@@ -2,14 +2,17 @@ package org.eclipselabs.emfjson.gwt.map;
 
 import static org.eclipselabs.emfjson.common.Constants.EJS_REF_KEYWORD;
 import static org.eclipselabs.emfjson.common.Constants.EJS_TYPE_KEYWORD;
+import static org.eclipselabs.emfjson.common.Constants.EJS_UUID_ANNOTATION;
+import static org.eclipselabs.emfjson.common.EObjects.createEntry;
+import static org.eclipselabs.emfjson.common.EObjects.isMapEntry;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.Callback;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -19,11 +22,11 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipselabs.emfjson.common.IDResolver;
-import org.eclipselabs.emfjson.common.NamespaceHolder;
 import org.eclipselabs.emfjson.common.Options;
 import org.eclipselabs.emfjson.common.ReferenceEntry;
+import org.eclipselabs.emfjson.common.resource.UuidResource;
 import org.eclipselabs.emfjson.gwt.common.AsyncCache;
-import org.eclipselabs.emfjson.gwt.common.AsyncHelper;
+import org.eclipselabs.emfjson.gwt.common.AsyncIterator;
 
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
@@ -48,7 +51,7 @@ public class JsonReader {
 	public void parse(JSONValue value, final Callback<Resource> done) {
 		final JSONObject object = value.isObject();
 		if (object != null) {
-			parseObject(object, new Callback<EObject>() {
+			parseObject(object, null, new Callback<EObject>() {
 				@Override public void onFailure(Throwable caught) {
 					done.onFailure(caught);
 				}
@@ -59,7 +62,7 @@ public class JsonReader {
 				}
 			});
 		}
-		
+
 		final JSONArray array = value.isArray();
 		if (array != null) {
 			parseArray(array, new Callback<Resource>() {
@@ -75,11 +78,11 @@ public class JsonReader {
 	}
 
 	void parseArray(JSONArray array, Callback<Resource> done) {
-		AsyncHelper.forEach(resource, 0, array, this, done);
+		AsyncIterator.forEach(resource, 0, array, this, done);
 	}
 
-	public void parseObject(final JSONObject node, final Callback<EObject> done) {
-		create(node, new Callback<EObject>() {
+	public void parseObject(final JSONObject node, final EReference container, final Callback<EObject> done) {
+		create(node, container, new Callback<EObject>() {
 			@Override public void onSuccess(EObject result) {
 				fillObject(node, result, new Callback<EObject>() {
 					@Override public void onFailure(Throwable caught) {
@@ -98,7 +101,7 @@ public class JsonReader {
 
 	private void fillObject(JSONObject node, EObject object, final Callback<EObject> done) {
 		if (node == null || object == null) return;
-		
+
 		final EClass eClass = object.eClass();
 		final Map<EReference, JSONValue> containments = new HashMap<>();
 
@@ -114,7 +117,17 @@ public class JsonReader {
 				EReference reference = (EReference) feature;
 
 				if (reference.isContainment()) {
-					containments.put(reference, value);
+
+					if (isMapEntry(reference.getEReferenceType())) {
+
+						parseEntry(object, reference, value);
+
+					} else {
+
+						containments.put(reference, value);
+
+					}
+
 				} else {
 					addEntry(object, reference, value);
 				}
@@ -122,7 +135,7 @@ public class JsonReader {
 			}
 		}
 
-		AsyncHelper.forEach(object, containments.keySet().iterator(), containments, new Callback<EObject>() {
+		AsyncIterator.forEach(object, containments, new Callback<EObject>() {
 			@Override public void onFailure(Throwable caught) {
 				done.onFailure(caught);
 			}
@@ -130,6 +143,49 @@ public class JsonReader {
 				done.onSuccess(result);
 			}
 		}, this);
+	}
+
+	private void parseEntry(EObject owner, EReference reference, JSONValue value) {
+		final JSONObject entryObject = value.isObject();
+		if (entryObject != null) {
+			setEntryObject(entryObject, owner, reference);
+		} else {
+			final JSONArray array = value.isArray();
+			if (array != null) {
+				for (int i = 0; i < array.size(); i++) {
+					JSONValue current = array.get(i);
+					if (current.isObject() != null) {
+						setEntryObject(current.isObject(), owner, reference);
+					}
+				}
+			}
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private void setEntryObject(JSONObject entryObject, EObject owner, EReference reference) {
+		EList<EObject> values = null;
+
+		if (reference.isMany()) {
+			values = (EList<EObject>) owner.eGet(reference);
+		}
+
+		if (entryObject != null) {
+
+			for (String key: entryObject.keySet()) {
+				final JSONValue entryValue = entryObject.get(key);
+				final JSONString stringValue = entryValue.isString();
+
+				if (stringValue != null) {
+					if (reference.isMany() && values != null) {
+						values.add(createEntry(key, stringValue.stringValue()));
+					} else {
+						owner.eSet(reference, createEntry(key, stringValue.stringValue()));
+					}
+				}
+			}
+
+		}
 	}
 
 	private void addEntry(EObject object, EReference reference, JSONValue value) {
@@ -163,16 +219,42 @@ public class JsonReader {
 		return null;
 	}
 
-	private void create(final JSONObject node, final Callback<EObject> callback) {
-		cache.getEClass(resourceSet, getType(node), new Callback<EClass>() {
-			@Override public void onSuccess(EClass result) {
-				EObject object = EcoreUtil.create(result);
-				callback.onSuccess(object);
+	private void create(final JSONObject node, final EReference container, final Callback<EObject> callback) {
+		if (container != null &&
+				container.getEReferenceType() != null &&
+				!container.getEReferenceType().isAbstract()) {
+
+			callback.onSuccess(create(container.getEReferenceType(), node));
+
+		} else if (container == null && options.rootElement != null) {
+
+			callback.onSuccess(create(options.rootElement, node));
+
+		} else {
+
+			cache.getEClass(resourceSet, getType(node), new Callback<EClass>() {
+				@Override public void onSuccess(EClass result) {
+					callback.onSuccess(create(result, node));
+				}
+				@Override public void onFailure(Throwable caught) {
+					callback.onFailure(caught);
+				}
+			});
+
+		}
+	}
+
+	private EObject create(EClass eClass, JSONObject node) {
+		EObject object = EcoreUtil.create(eClass);
+
+		if (options.useUUID && node.containsKey(EJS_UUID_ANNOTATION)) {
+			JSONString stringValue = node.get(EJS_UUID_ANNOTATION).isString();
+			if (stringValue != null && object != null && resource instanceof UuidResource) {
+				((UuidResource) resource).setID(object, stringValue.stringValue());
 			}
-			@Override public void onFailure(Throwable caught) {
-				callback.onFailure(caught);
-			}
-		});
+		}
+
+		return object;
 	}
 
 	private String getType(JSONObject node) {
@@ -199,11 +281,7 @@ public class JsonReader {
 
 	private void resolveEntries() {
 		for (ReferenceEntry entry: entries) {
-			entry.resolve(resource.getResourceSet(), new IDResolver(false, resource.getURI(), new NamespaceHolder() {
-				@Override public Map<String, String> getNamespaces() {
-					return Collections.emptyMap();
-				}
-			}));
+			entry.resolve(resource.getResourceSet(), new IDResolver(resource.getURI()));
 		}
 	}
 

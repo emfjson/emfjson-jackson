@@ -83,7 +83,7 @@ public class Cache {
 
 		return feature;
 	}
-	
+
     private EStructuralFeature findEStructuralFeature(EClass eClass, String key) {
         if (eClass == null || key == null)
             return null;
@@ -104,4 +104,5 @@ public class Cache {
 
         return eStructuralFeature;
     }
+
 }

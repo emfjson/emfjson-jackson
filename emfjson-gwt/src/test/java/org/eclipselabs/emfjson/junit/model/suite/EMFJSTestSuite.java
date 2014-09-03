@@ -13,7 +13,13 @@ package org.eclipselabs.emfjson.junit.model.suite;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.eclipselabs.emfjson.junit.model.tests.AnnotationTest;
+import org.eclipselabs.emfjson.junit.model.tests.PolymorphicTest;
+import org.eclipselabs.emfjson.junit.model.tests.ReferenceTest;
 import org.eclipselabs.emfjson.junit.model.tests.SimpleTest;
+import org.eclipselabs.emfjson.junit.model.tests.UuidLoadTest;
+import org.eclipselabs.emfjson.junit.model.tests.UuidSaveTest;
+import org.eclipselabs.emfjson.junit.model.tests.ValueTest;
 
 import com.google.gwt.junit.tools.GWTTestSuite;
 
@@ -21,14 +27,14 @@ public class EMFJSTestSuite extends GWTTestSuite {
 
 	public static Test suite() {
 		TestSuite suite = new TestSuite("EMFJSON Tests");
-//	    suite.addTestSuite(TestEmfJsReferences.class); 
-//	    suite.addTestSuite(TestEmfJsAttributes.class);
-//	    suite.addTestSuite(TestEmfJsExternalReferences.class);
-//	    suite.addTestSuite(TestEmfJsAnnotations.class);
-//	    suite.addTestSuite(TestPolymorphicType.class);
-//	    suite.addTestSuite(TestEmfJsHttpUriHandler.class);
-//	    suite.addTestSuite(TestEmfJsNamespaces.class);
+	    suite.addTestSuite(ValueTest.class);
+	    suite.addTestSuite(AnnotationTest.class);
 		suite.addTestSuite(SimpleTest.class);
+		suite.addTestSuite(UuidSaveTest.class);
+		suite.addTestSuite(UuidLoadTest.class);
+		suite.addTestSuite(PolymorphicTest.class);
+		suite.addTestSuite(ReferenceTest.class);
 	    return suite;
 	}
+
 }

@@ -83,4 +83,11 @@ public class EObjects {
 		return features;
 	}
 
+	public static EObject createEntry(String key, String value) {
+		EObject eObject = EcoreUtil.create(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY);
+		eObject.eSet(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY__KEY, key);
+		eObject.eSet(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY__VALUE, value);
+		return eObject;
+	}
+
 }

@@ -1,5 +1,7 @@
 package org.eclipselabs.emfjson.junit.model.tests;
 
+import static org.eclipselabs.emfjson.junit.model.support.JsonHelper.stringify;
+
 import java.util.Map;
 
 import org.eclipse.emf.common.util.Callback;
@@ -9,7 +11,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipselabs.emfjson.gwt.map.JsonMapper;
-import org.eclipselabs.emfjson.gwt.resource.JsResourceFactoryImpl;
+import org.eclipselabs.emfjson.gwt.resource.JsonResourceFactory;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
 import org.eclipselabs.emfjson.junit.model.Node;
 import org.eclipselabs.emfjson.junit.model.User;
@@ -27,13 +29,21 @@ public class SimpleTest extends GWTTestCase {
 	@Override
 	protected void gwtSetUp() throws Exception {
 		ResourceSet resourceSet = new ResourceSetImpl();
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new JsResourceFactoryImpl());
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new JsonResourceFactory());
 		resourceSet.getPackageRegistry().put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
 		resourceSet.getPackageRegistry().put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
 
 		resource = resourceSet.createResource(URI.createURI("test"));
 		mapper = new JsonMapper();
 	}
+
+	public static native JavaScriptObject oneObject() /*-{
+	  return {
+	  	'eClass':'http://www.eclipselabs.org/emfjson/junit#//User',
+	  	'userId':'1',
+	  	'name':'Paul'
+	  };
+	}-*/;
 
 	@Test
 	public void testOneObject() {
@@ -60,6 +70,54 @@ public class SimpleTest extends GWTTestCase {
 			}
 		});
 	}
+
+	public static native JavaScriptObject twoObject() /*-{
+	  return [ 
+	  	{
+	  		'eClass':'http://www.eclipselabs.org/emfjson/junit#//User'
+	  	},
+	  	{
+	  		'eClass':'http://www.eclipselabs.org/emfjson/junit#//User'
+	  	} 
+	  ]
+	}-*/;
+	
+	@Test
+	public void testTwoObject() {
+		assertNotNull(resource);
+
+		delayTestFinish(100);
+
+		mapper.parse(resource, stringify(twoObject()), options, new Callback<Resource>() {
+			@Override public void onSuccess(Resource result) {
+				assertNotNull(result);
+				assertEquals(2, result.getContents().size());
+				assertEquals(ModelPackage.Literals.USER, result.getContents().get(0).eClass());
+				assertEquals(ModelPackage.Literals.USER, result.getContents().get(1).eClass());
+
+				finishTest();
+			}
+			@Override public void onFailure(Throwable caught) {
+				assertNull(caught);
+				finishTest();
+			}
+		});
+	}
+
+	public static native JavaScriptObject oneObjectWithOneChild() /*-{
+	  return {
+	  	'eClass':'http://www.eclipselabs.org/emfjson/junit#//User',
+	  	'userId':'1',
+	  	'name':'Paul',
+	  	'address' : {
+	  		'eClass':'http://www.eclipselabs.org/emfjson/junit#//Address',
+			'addId': 'a1',
+			'city': 'Paris',
+			'street': 'la rue',
+			'number': 12 
+		}
+	  };
+	}-*/;
 
 	@Test
 	public void testOneObjectOneContainment() {
@@ -91,6 +149,23 @@ public class SimpleTest extends GWTTestCase {
 		});
 	}
 
+	public static native JavaScriptObject oneObjectWithTwoChild() /*-{
+	  return {
+	  	'eClass':'http://www.eclipselabs.org/emfjson/junit#//Node',
+	  	'label':'1',
+	  	'child' : [
+	  		{
+	  			'eClass':'http://www.eclipselabs.org/emfjson/junit#//Node',
+				'label': '2'
+			},
+			{
+	  			'eClass':'http://www.eclipselabs.org/emfjson/junit#//Node',
+				'label': '3'
+			}
+		]
+	  };
+	}-*/;
+
 	@Test
 	public void testOneObjectTwoChild() {
 		assertNotNull(resource);
@@ -117,112 +192,6 @@ public class SimpleTest extends GWTTestCase {
 			}
 		});
 	}
-
-	@Test
-	public void testOneObjectDeepChild() {
-		assertNotNull(resource);
-
-		delayTestFinish(100);
-
-		mapper.parse(resource, stringify(oneObjectWithDeepChild()), options, new Callback<Resource>() {
-			@Override public void onSuccess(Resource result) {
-				assertNotNull(result);
-				assertEquals(1, result.getContents().size());
-				assertEquals(ModelPackage.Literals.NODE, result.getContents().get(0).eClass());
-
-				Node n1 = (Node) result.getContents().get(0);
-				assertEquals("1", n1.getLabel());
-				assertEquals(2, n1.getChild().size());
-
-				Node n2 = n1.getChild().get(0);
-				assertEquals("2", n2.getLabel());
-				assertEquals(2, n2.getChild().size());
-				
-				Node n21 = n2.getChild().get(0);
-				assertEquals(2, n21.getChild().size());
-
-				Node n3 = n1.getChild().get(1);
-				assertEquals("3", n3.getLabel());
-				assertEquals(2, n3.getChild().size());
-
-				finishTest();
-			}
-			@Override public void onFailure(Throwable caught) {
-				assertNull(caught);
-				finishTest();
-			}
-		});
-	}
-
-	@Test
-	public void testOneObjectWithOneRef() {
-		assertNotNull(resource);
-
-		delayTestFinish(100);
-
-		mapper.parse(resource, stringify(oneObjectWithReference()), options, new Callback<Resource>() {
-			@Override public void onSuccess(Resource result) {
-				assertNotNull(result);
-				assertEquals(1, result.getContents().size());
-				assertEquals(ModelPackage.Literals.NODE, result.getContents().get(0).eClass());
-
-				Node n1 = (Node) result.getContents().get(0);
-				assertEquals(1, n1.getChild().size());
-				assertEquals(1, n1.getManyRef().size());
-
-				Node n2 = n1.getChild().get(0);
-				Node n2ref = n1.getManyRef().get(0);
-
-				assertEquals(n2, n2ref);
-
-				finishTest();
-			}
-			@Override public void onFailure(Throwable caught) {
-				assertNull(caught);
-				finishTest();
-			}
-		});
-	}
-
-	public static native JavaScriptObject oneObject() /*-{
-	  return {
-	  	'eClass':'http://www.eclipselabs.org/emfjson/junit#//User',
-	  	'userId':'1',
-	  	'name':'Paul'
-	  };
-	}-*/;
-
-	public static native JavaScriptObject oneObjectWithOneChild() /*-{
-	  return {
-	  	'eClass':'http://www.eclipselabs.org/emfjson/junit#//User',
-	  	'userId':'1',
-	  	'name':'Paul',
-	  	'address' : {
-	  		'eClass':'http://www.eclipselabs.org/emfjson/junit#//Address',
-			'addId': 'a1',
-			'city': 'Paris',
-			'street': 'la rue',
-			'number': 12 
-		}
-	  };
-	}-*/;
-
-	public static native JavaScriptObject oneObjectWithTwoChild() /*-{
-	  return {
-	  	'eClass':'http://www.eclipselabs.org/emfjson/junit#//Node',
-	  	'label':'1',
-	  	'child' : [
-	  		{
-	  			'eClass':'http://www.eclipselabs.org/emfjson/junit#//Node',
-				'label': '2'
-			},
-			{
-	  			'eClass':'http://www.eclipselabs.org/emfjson/junit#//Node',
-				'label': '3'
-			}
-		]
-	  };
-	}-*/;
 
 	public static native JavaScriptObject oneObjectWithDeepChild() /*-{
 	  return {
@@ -271,6 +240,42 @@ public class SimpleTest extends GWTTestCase {
 	  };
 	}-*/;
 
+	@Test
+	public void testOneObjectDeepChild() {
+		assertNotNull(resource);
+
+		delayTestFinish(100);
+
+		mapper.parse(resource, stringify(oneObjectWithDeepChild()), options, new Callback<Resource>() {
+			@Override public void onSuccess(Resource result) {
+				assertNotNull(result);
+				assertEquals(1, result.getContents().size());
+				assertEquals(ModelPackage.Literals.NODE, result.getContents().get(0).eClass());
+
+				Node n1 = (Node) result.getContents().get(0);
+				assertEquals("1", n1.getLabel());
+				assertEquals(2, n1.getChild().size());
+
+				Node n2 = n1.getChild().get(0);
+				assertEquals("2", n2.getLabel());
+				assertEquals(2, n2.getChild().size());
+				
+				Node n21 = n2.getChild().get(0);
+				assertEquals(2, n21.getChild().size());
+
+				Node n3 = n1.getChild().get(1);
+				assertEquals("3", n3.getLabel());
+				assertEquals(2, n3.getChild().size());
+
+				finishTest();
+			}
+			@Override public void onFailure(Throwable caught) {
+				assertNull(caught);
+				finishTest();
+			}
+		});
+	}
+
 	public static native JavaScriptObject oneObjectWithReference() /*-{
 		return {
 			"eClass" : "http://www.eclipselabs.org/emfjson/junit#//Node",
@@ -288,12 +293,39 @@ public class SimpleTest extends GWTTestCase {
 		};
 	}-*/;
 
-	public static native String stringify(JavaScriptObject object) /*-{
-		return JSON.stringify(object);
-	}-*/;
+	@Test
+	public void testOneObjectWithOneRef() {
+		assertNotNull(resource);
+
+		delayTestFinish(100);
+
+		mapper.parse(resource, stringify(oneObjectWithReference()), options, new Callback<Resource>() {
+			@Override public void onSuccess(Resource result) {
+				assertNotNull(result);
+				assertEquals(1, result.getContents().size());
+				assertEquals(ModelPackage.Literals.NODE, result.getContents().get(0).eClass());
+
+				Node n1 = (Node) result.getContents().get(0);
+				assertEquals(1, n1.getChild().size());
+				assertEquals(1, n1.getManyRef().size());
+
+				Node n2 = n1.getChild().get(0);
+				Node n2ref = n1.getManyRef().get(0);
+
+				assertEquals(n2, n2ref);
+
+				finishTest();
+			}
+			@Override public void onFailure(Throwable caught) {
+				assertNull(caught);
+				finishTest();
+			}
+		});
+	}
 
 	@Override
 	public String getModuleName() {
 		return "org.eclipselabs.emfjson.junit.model.Model";
 	}
+
 }

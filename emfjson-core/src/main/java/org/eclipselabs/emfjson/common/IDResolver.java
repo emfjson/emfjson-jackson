@@ -21,6 +21,10 @@ public class IDResolver {
 		this.namespaces = namespaces;
 	}
 
+	public IDResolver(URI resourceURI) {
+		this(false, resourceURI, null);
+	}
+
 	public String get(EObject object) {
 		String key = mapOfID.get(object);
 		if (key != null) {
@@ -31,7 +35,7 @@ public class IDResolver {
 		final String fragment = eObjectURI.fragment();
 		final URI baseURI = eObjectURI.trimFragment().trimQuery();
 
-		if (useNamespaces) {
+		if (useNamespaces && namespaces != null) {
 			String prefix = baseURI.lastSegment();
 			namespaces.getNamespaces().put(prefix, baseURI.toString());
 			key = prefix + ":" + fragment;
@@ -60,7 +64,7 @@ public class IDResolver {
             	String prefix = split[0];
             	String fragment = split[1];
 
-                if (namespaces.getNamespaces().keySet().contains(prefix)) {
+                if (namespaces != null && namespaces.getNamespaces().keySet().contains(prefix)) {
                     return URI.createURI(namespaces.getNamespaces().get(prefix)).appendFragment(fragment);
                 }
             }

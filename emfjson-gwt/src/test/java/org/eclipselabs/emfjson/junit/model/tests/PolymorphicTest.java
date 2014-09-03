@@ -10,10 +10,8 @@
  *******************************************************************************/
 package org.eclipselabs.emfjson.junit.model.tests;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import org.eclipse.emf.common.util.Callback;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -27,26 +25,34 @@ import org.eclipselabs.emfjson.junit.model.ModelPackage;
 import org.eclipselabs.emfjson.junit.model.support.TestSupport;
 import org.junit.Test;
 
-public class TestPolymorphicType extends TestSupport {
+import com.google.gwt.core.client.JavaScriptObject;
+
+public class PolymorphicTest extends TestSupport {
+
+	private static native JavaScriptObject firstTest() /*-{
+		return {
+			"eClass" : "http://www.eclipselabs.org/emfjson/junit#//Container",
+			"elements" : [
+				{
+					"eClass" : "http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeOne",
+					"name" : "First"
+				},
+				{
+					"eClass" : "http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeTwo",
+					"name" : "Two"
+				}
+			]
+		}
+	}-*/;
 
 	@Test
 	public void testSaveTwoObjectsWithTypeInformation() throws IOException {
-		String expectedString = 
-				"{" +
-						"\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//Container\", \"elements\":" +
-						"[" +
-						"{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeOne\", \"name\":\"First\"}," +
-						"{\"eClass\":\"http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeTwo\", \"name\":\"Two\"}" +
-						"]" +
-						"}";
-
 		Resource resource = resourceSet.createResource(URI.createURI("types.json"));
-
-		assertNotNull(resource);
 
 		Container c = ModelFactory.eINSTANCE.createContainer();
 		ConcreteTypeOne one = ModelFactory.eINSTANCE.createConcreteTypeOne();
 		one.setName("First");
+
 		ConcreteTypeTwo two = ModelFactory.eINSTANCE.createConcreteTypeTwo();
 		two.setName("Two");
 		c.getElements().add(one);
@@ -54,18 +60,15 @@ public class TestPolymorphicType extends TestSupport {
 
 		resource.getContents().add(c);
 
-		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-
-		resource.save(outStream, options);
-
-		assertEquals(expectedString, new String(outStream.toByteArray()));
+		isSame(firstTest(), resource);
 	}
 
 	@Test
 	public void testLoadTwoObjectsWithTypeInformation() throws IOException {
 		options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getContainer());
 
-		asyncLoad("test-load-types.json", new Callback<Resource>() {
+		delayTestFinish(500);
+		asyncLoad("test-load-types.json", new TestCallback() {
 			@Override
 			public void onSuccess(Resource resource) {
 				assertEquals(1, resource.getContents().size());
@@ -89,19 +92,15 @@ public class TestPolymorphicType extends TestSupport {
 
 				finishTest();
 			}
-			public void onFailure(Throwable caught) {
-				finishTest();
-			};
 		});
-
-		delayTestFinish(500);
 	}
 
 	@Test
 	public void testLoadTwoObjectsWithReferenceAndTypeInformation() throws IOException {
 		options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getContainer());
 
-		asyncLoad("test-load-types-2.json", new Callback<Resource>() {
+		delayTestFinish(500);
+		asyncLoad("test-load-types-2.json", new TestCallback() {
 			@Override
 			public void onSuccess(Resource resource) {
 				assertEquals(1, resource.getContents().size());
@@ -122,19 +121,11 @@ public class TestPolymorphicType extends TestSupport {
 
 				EObject ref = first.getRefProperty().get(0);
 
-				assertEquals(second, ref);
+				assertSame(second, ref);
 
 				finishTest();
 			}
-			public void onFailure(Throwable caught) {
-				finishTest();
-			};
 		});
-		delayTestFinish(500);
 	}
 
-	@Override
-	public String getModuleName() {
-		return "org.eclipselabs.emfjson.junit.model.Model";
-	}
 }

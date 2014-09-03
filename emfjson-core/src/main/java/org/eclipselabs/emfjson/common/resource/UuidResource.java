@@ -1,8 +1,8 @@
-package org.eclipselabs.emfjson.resource;
+package org.eclipselabs.emfjson.common.resource;
 
 import org.eclipse.emf.ecore.EObject;
 
-public interface UUIDResource {
+public interface UuidResource {
 
 	/**
 	 * Returns the ID that was assigned with {@link #setID(EObject, String)}; if there is

@@ -20,7 +20,7 @@ import org.eclipselabs.emfjson.junit.model.User;
 import org.eclipselabs.emfjson.junit.model.support.TestSupport;
 import org.junit.Test;
 
-public class TestEmfJsNamespaces extends TestSupport {
+public class NamespaceTest extends TestSupport {
 
 	@Test
 	public void testSaveTypesNamespacesForSingleRoot() throws IOException {

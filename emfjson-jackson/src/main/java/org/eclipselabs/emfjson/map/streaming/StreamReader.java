@@ -1,6 +1,8 @@
 package org.eclipselabs.emfjson.map.streaming;
 
 import static org.eclipselabs.emfjson.common.Constants.EJS_TYPE_KEYWORD;
+import static org.eclipselabs.emfjson.common.Constants.EJS_UUID_ANNOTATION;
+import static org.eclipselabs.emfjson.common.EObjects.createEntry;
 import static org.eclipselabs.emfjson.common.EObjects.isMapEntry;
 
 import java.io.IOException;
@@ -13,7 +15,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -24,6 +25,7 @@ import org.eclipselabs.emfjson.common.EObjects;
 import org.eclipselabs.emfjson.common.IDResolver;
 import org.eclipselabs.emfjson.common.Options;
 import org.eclipselabs.emfjson.common.ReferenceEntry;
+import org.eclipselabs.emfjson.common.resource.UuidResource;
 import org.eclipselabs.emfjson.map.Namespaces;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -107,6 +109,13 @@ public class StreamReader {
 				switch (fieldname) {
 				case EJS_TYPE_KEYWORD:
 					current = create(parser.nextTextValue());
+					break;
+				case EJS_UUID_ANNOTATION:
+					if (options.useUUID && resource instanceof UuidResource) {
+						if (current != null) {
+							((UuidResource) resource).setID(current, parser.nextTextValue());
+						}
+					}
 					break;
 				default:
 					if (current == null && containment != null) {
@@ -239,13 +248,6 @@ public class StreamReader {
 		for (ReferenceEntry entry: entries) {
 			entry.resolve(resourceSet, idResolver);
 		}
-	}
-
-	private EObject createEntry(String key, String value) {
-		EObject eObject = EcoreUtil.create(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY);
-		eObject.eSet(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY__KEY, key);
-		eObject.eSet(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY__VALUE, value);
-		return eObject;
 	}
 
 }

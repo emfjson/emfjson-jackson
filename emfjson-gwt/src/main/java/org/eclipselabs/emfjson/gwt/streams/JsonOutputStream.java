@@ -10,36 +10,36 @@
  *******************************************************************************/
 package org.eclipselabs.emfjson.gwt.streams;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Collections;
 import java.util.Map;
 
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
+import org.eclipselabs.emfjson.gwt.map.JsonMapper;
+
+import com.google.gwt.json.client.JSONValue;
 
 /**
  * 
- * @author ghillairet
- *
+ * 	@author ghillairet
+ *	
  */
-public abstract class JsInputStream extends InputStream implements URIConverter.Loadable {
+public abstract class JsonOutputStream extends ByteArrayOutputStream implements URIConverter.Saveable {
 
-	protected URI uri;
-	protected Map<?, ?> options;
-	
-	public JsInputStream(URI uri, Map<?, ?> options) {
-		this.uri = uri;
+	private Map<?, ?> options;
+	protected JSONValue currentRoot;
+	protected Resource resource;
+
+	public JsonOutputStream(Map<?, ?> options) {
 		this.options = options == null ? Collections.emptyMap() : options;
 	}
-	
+
 	@Override
-	public abstract void loadResource(Resource resource) throws IOException;
-	
-	@Override
-	public int read() throws IOException {
-		return 0;
+	public void saveResource(Resource resource) throws IOException {
+		this.resource = resource;
+		this.currentRoot = new JsonMapper().write(resource, options);
 	}
 
 }
