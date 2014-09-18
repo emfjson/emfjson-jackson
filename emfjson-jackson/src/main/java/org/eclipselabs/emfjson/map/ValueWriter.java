@@ -1,7 +1,7 @@
 package org.eclipselabs.emfjson.map;
 
 import static org.eclipse.emf.ecore.util.EcoreUtil.convertToString;
-import static org.eclipselabs.emfjson.common.Dates.dateValue;
+import static org.eclipselabs.emfjson.map.Dates.dateValue;
 
 import java.util.Collection;
 import java.util.Date;

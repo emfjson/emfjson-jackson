@@ -10,7 +10,7 @@
 	<artifactId>emfjson-features</artifactId>
 
 	<modules>
-		<module>jackson-feature</module>
+<!-- 		<module>jackson-feature</module> -->
 		<module>emfjson-feature</module>
 	</modules>
 

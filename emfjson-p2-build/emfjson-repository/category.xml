@@ -3,9 +3,6 @@
    <feature url="features/org.eclipselabs.emfjson.feature_0.9.0.qualifier.jar" id="org.eclipselabs.emfjson.feature" version="0.9.0.qualifier">
       <category name="org.eclipselabs.emfjson"/>
    </feature>
-   <feature url="features/com.fasterxml.jackson.core.feature_2.4.2.qualifier.jar" id="com.fasterxml.jackson.core.feature" version="2.4.2.qualifier">
-      <category name="org.eclipselabs.emfjson"/>
-   </feature>
    <category-def name="org.eclipselabs.emfjson" label="EMF JSON">
       <description>
          EMF binding for JSON.

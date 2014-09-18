@@ -18,13 +18,11 @@
 			<groupId>org.eclipselabs</groupId>
 			<artifactId>emfjson-core</artifactId>
 			<version>${project.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipselabs</groupId>
 			<artifactId>emfjson-core</artifactId>
 			<version>${project.version}</version>
-			<scope>provided</scope>
 			<classifier>sources</classifier>
 		</dependency>
 		<dependency>

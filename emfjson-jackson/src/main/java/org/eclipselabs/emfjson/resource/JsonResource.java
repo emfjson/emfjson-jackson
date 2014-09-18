@@ -19,7 +19,6 @@ import java.util.Map;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
-import org.eclipselabs.emfjson.common.resource.AbstractUuidResource;
 import org.eclipselabs.emfjson.map.streaming.JacksonStreamMapper;
 
 /**

@@ -15,52 +15,56 @@ import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 
 public class JacksonStreamMapper {
 
-	public void parse(Resource resource, String content, Map<?, ?> options) {
+	public void parse(Resource resource, String content, Map<?, ?> options) throws IOException {
 		if (resource == null || content == null) return;
 
 		final JsonFactory factory = new JsonFactory();
 		try {
 			doParse(factory.createParser(content), resource, options);
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw e;
 		}
 	}
 
-	public void parse(Resource resource, InputStream inputStream, Map<?, ?> options) {
+	public void parse(Resource resource, InputStream inputStream, Map<?, ?> options) throws IOException {
 		if (resource == null || inputStream == null) return;
 
 		final JsonFactory factory = new JsonFactory();
 		try {
 			doParse(factory.createParser(inputStream), resource, options);
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw e;
 		}
 	}
 
-	private void doParse(JsonParser parser, Resource resource, Map<?, ?> options) {
+	private void doParse(JsonParser parser, Resource resource, Map<?, ?> options) throws IOException {
 		if (parser == null) return;
 
 		final StreamReader reader = new StreamReader(resource, new Options.Builder(options).build());
-		reader.parse(parser);
+		try {
+			reader.parse(parser);
+		} catch (IOException e) {
+			throw e;
+		}
 		try {
 			parser.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw e;
 		}
 	}
 
-	public void write(Resource resource, OutputStream outputStream, Map<?, ?> options) {
+	public void write(Resource resource, OutputStream outputStream, Map<?, ?> options) throws IOException {
 		if (resource == null || outputStream == null) return;
 
 		final JsonFactory factory = new JsonFactory();
 		try {
 			doWrite(factory.createGenerator(outputStream), resource, options);
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw e;
 		}
 	}
 
-	private void doWrite(JsonGenerator generator, Resource resource, Map<?, ?> options) {
+	private void doWrite(JsonGenerator generator, Resource resource, Map<?, ?> options) throws IOException {
 		if (generator == null) return;
 
 		Options ops = new Options.Builder(options).build();
@@ -75,7 +79,7 @@ public class JacksonStreamMapper {
 		try {
 			generator.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw e;
 		}
 	}
 

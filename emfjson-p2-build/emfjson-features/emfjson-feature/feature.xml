@@ -2,7 +2,7 @@
 <feature
       id="org.eclipselabs.emfjson.feature"
       label="EMF JSON"
-      version="0.0.1.qualifier"
+      version="0.9.0.qualifier"
       provider-name="Eclipse Labs">
 
     <plugin

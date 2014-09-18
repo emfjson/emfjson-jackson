@@ -1,4 +1,4 @@
-package org.eclipselabs.emfjson.common.resource;
+package org.eclipselabs.emfjson.resource;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -9,6 +9,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipselabs.emfjson.common.resource.UuidResource;
 
 public abstract class AbstractUuidResource extends ResourceImpl implements UuidResource {
 

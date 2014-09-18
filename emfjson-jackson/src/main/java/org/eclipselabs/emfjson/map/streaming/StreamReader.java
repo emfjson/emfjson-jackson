@@ -55,7 +55,7 @@ public class StreamReader {
 		}
 	}
 
-	public void parse(JsonParser parser) {
+	public void parse(JsonParser parser) throws JsonParseException, IOException {
 		try {
 			parser.nextToken();
 		} catch (IOException e) {
@@ -95,53 +95,51 @@ public class StreamReader {
 		}
 	}
 
-	private EObject parseObject(JsonParser parser, EReference containment, EObject owner, EClass currentClass) {
+	private EObject parseObject(JsonParser parser, EReference containment, EObject owner, EClass currentClass) 
+			throws JsonParseException, IOException {
+
 		EObject current = null;
 
 		if (currentClass != null) {
 			current = EcoreUtil.create(currentClass);
 		}
 
-		try {
-			while (parser.nextToken() != JsonToken.END_OBJECT) {
-				final String fieldname = parser.getCurrentName();
+		while (parser.nextToken() != JsonToken.END_OBJECT) {
+			final String fieldname = parser.getCurrentName();
 
-				switch (fieldname) {
-				case EJS_TYPE_KEYWORD:
-					current = create(parser.nextTextValue());
-					break;
-				case EJS_UUID_ANNOTATION:
-					if (options.useUUID && resource instanceof UuidResource) {
-						if (current != null) {
-							((UuidResource) resource).setID(current, parser.nextTextValue());
-						}
-					}
-					break;
-				default:
-					if (current == null && containment != null) {
-						EClass defaultType = containment.getEReferenceType();
-						if (!defaultType.isAbstract()) {
-							current = EcoreUtil.create(defaultType);
-						}
-					}
-
+			switch (fieldname) {
+			case EJS_TYPE_KEYWORD:
+				current = create(parser.nextTextValue());
+				break;
+			case EJS_UUID_ANNOTATION:
+				if (options.useUUID && resource instanceof UuidResource) {
 					if (current != null) {
-						final EClass eClass = current.eClass();
-						final EStructuralFeature feature = cache.getEStructuralFeature(eClass, fieldname);
+						((UuidResource) resource).setID(current, parser.nextTextValue());
+					}
+				}
+				break;
+			default:
+				if (current == null && containment != null) {
+					EClass defaultType = containment.getEReferenceType();
+					if (!defaultType.isAbstract()) {
+						current = EcoreUtil.create(defaultType);
+					}
+				}
 
-						if (feature != null) {
-							if (feature instanceof EAttribute) {
-								readAttribute(parser, (EAttribute) feature, current);
-							} else {
-								readReference(parser, (EReference) feature, current);
-							}
+				if (current != null) {
+					final EClass eClass = current.eClass();
+					final EStructuralFeature feature = cache.getEStructuralFeature(eClass, fieldname);
+
+					if (feature != null) {
+						if (feature instanceof EAttribute) {
+							readAttribute(parser, (EAttribute) feature, current);
+						} else {
+							readReference(parser, (EReference) feature, current);
 						}
 					}
-					break;
 				}
+				break;
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 
 		if (current != null && containment != null && owner != null) {

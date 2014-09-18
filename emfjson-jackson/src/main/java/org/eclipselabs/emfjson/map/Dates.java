@@ -1,4 +1,4 @@
-package org.eclipselabs.emfjson.common;
+package org.eclipselabs.emfjson.map;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

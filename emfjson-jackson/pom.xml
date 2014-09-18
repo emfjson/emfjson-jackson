@@ -13,7 +13,7 @@
 		<dependency>
 			<groupId>org.eclipselabs</groupId>
 			<artifactId>emfjson-core</artifactId>
-			<version>0.9.0-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.emf</groupId>
