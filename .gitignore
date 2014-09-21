@@ -1,5 +1,9 @@
-target/
+target
 .settings
 .project
 .classpath
-
+xtend-gen
+www-test
+war
+gwt-unitCache
+tests

@@ -1,0 +1,50 @@
+[
+	{
+		"eClass": "http://www.eclipselabs.org/emfjson/junit#//Node",
+		"label": "2",
+		"child":[
+			{
+				"eClass": "http://www.eclipselabs.org/emfjson/junit#//Node",
+				"label": "21",
+				"child": [
+					{
+						"eClass": "http://www.eclipselabs.org/emfjson/junit#//Node",
+						"label": "211"
+					},
+					{
+						"eClass": "http://www.eclipselabs.org/emfjson/junit#//Node",
+						"label": "212",
+						"child": [
+							{
+								"eClass": "http://www.eclipselabs.org/emfjson/junit#//Node",
+								"label": "2121"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"eClass": "http://www.eclipselabs.org/emfjson/junit#//Node",
+		"label": "3",
+		"uniqueChild": {
+			"eClass": "http://www.eclipselabs.org/emfjson/junit#//Node",
+			"label": "31",
+			"uniqueChild": {
+				"eClass": "http://www.eclipselabs.org/emfjson/junit#//Node",
+				"label": "311",
+				"child": [
+					{
+						"eClass": "http://www.eclipselabs.org/emfjson/junit#//Node",
+						"label": "3111"
+					},
+					{
+						"eClass": "http://www.eclipselabs.org/emfjson/junit#//Node",
+						"label": "3112"
+					}
+				]
+			}
+		}
+	}
+]

@@ -1,0 +1,22 @@
+{
+	"@ns" :{
+		"model":"http://www.eclipselabs.org/emfjson/junit",
+		"model2":"http://www.eclipselabs.org/emfjson/junit"
+	},
+	"elements":[
+		{
+			"eClass": "model://ConcreteTypeOne",
+			"name":"First",
+			"propTypeOne":"one",
+			"refProperty": {
+				"eClass": "model2://ConcreteTypeTwo",
+				"$ref":"Two"
+			}
+		},
+		{
+			"eClass": "model2://ConcreteTypeTwo",
+			"name":"Two", 
+			"propTypeTwo":"two"
+		}
+	]
+}

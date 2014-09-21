@@ -1,0 +1,7 @@
+{
+	"eClass" : "http://www.eclipselabs.org/emfjson/junit#//Node",
+	"label": "2",
+	"child": [{
+		"$ref": "platform:/plugin/org.eclipselabs.emfjson.junit/tests/test-proxy-5.json#/"
+	}]
+}

@@ -1,0 +1,14 @@
+{
+    "eClass": "http://www.eclipselabs.org/emfjson/junit#//Node",
+    "label": "root",
+    "target": {
+        "$ref": "//@child.0"
+    },
+    "child": [
+        {
+            "eClass": "http://www.eclipselabs.org/emfjson/junit#//Node",
+            "label": "n1",
+            "source" : {"$ref": "/"}            
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+[
+	{
+		"userId": "1", 
+		"name": "Paul", 
+		"friends": [
+			{"$ref" : "#2"},
+			{"$ref" : "#3"}
+		]
+	},
+	{
+		"userId": "2",
+		"name": "Pierre"
+	},
+	{
+		"userId": "3",
+		"name": "Victor"
+	}
+]

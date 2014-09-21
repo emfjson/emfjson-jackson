@@ -1,0 +1,12 @@
+[
+	{
+		"eClass": "http://www.eclipselabs.org/emfjson/junit#//User",
+		"userId": "2",
+		"name": "Pierre"
+	},
+	{
+		"eClass": "http://www.eclipselabs.org/emfjson/junit#//User",
+		"userId": "3",
+		"name": "Paul"
+	}
+]
