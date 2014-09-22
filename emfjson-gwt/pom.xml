@@ -66,6 +66,7 @@
 				</executions>
 				<configuration>
 					<sourceLevel>1.7</sourceLevel>
+					<logLevel>TRACE</logLevel>
 					<includes>**/Gwt*Suite.java</includes>
 					<mode>htmlunit</mode>	
 				</configuration>
