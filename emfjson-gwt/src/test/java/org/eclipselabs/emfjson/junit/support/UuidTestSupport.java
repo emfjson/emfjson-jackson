@@ -1,4 +1,4 @@
-package org.eclipselabs.emfjson.junit.model.support;
+package org.eclipselabs.emfjson.junit.support;
 
 import static org.eclipse.emf.ecore.util.EcoreUtil.getURI;
 import static org.eclipselabs.emfjson.common.Constants.EJS_UUID_ANNOTATION;
@@ -57,7 +57,7 @@ public class UuidTestSupport extends GWTTestCase {
 
 	@Override
 	public String getModuleName() {
-		return "org.eclipselabs.emfjson.junit.model.Model";
+		return "org.eclipselabs.emfjson.junit.Model";
 	}
 
 }

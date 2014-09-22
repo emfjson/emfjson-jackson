@@ -1,4 +1,4 @@
-package org.eclipselabs.emfjson.junit.model.server;
+package org.eclipselabs.emfjson.junit.server;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

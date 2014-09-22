@@ -18,11 +18,13 @@
 			<groupId>org.eclipselabs</groupId>
 			<artifactId>emfjson-core</artifactId>
 			<version>${project.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipselabs</groupId>
 			<artifactId>emfjson-core</artifactId>
 			<version>${project.version}</version>
+			<scope>provided</scope>
 			<classifier>sources</classifier>
 		</dependency>
 		<dependency>
@@ -55,30 +57,29 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
 				<version>${gwtVersion}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<sourceLevel>1.7</sourceLevel>
+					<includes>**/Gwt*Suite.java</includes>
+					<mode>htmlunit</mode>	
+				</configuration>
 			</plugin>
 
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<additionalClasspathElements>
-						<additionalClasspathElement>${project.build.sourceDirectory}</additionalClasspathElement>
-						<additionalClasspathElement>${project.build.testSourceDirectory}</additionalClasspathElement>
-					</additionalClasspathElements>
-					<useManifestOnlyJar>false</useManifestOnlyJar>
-					<reuseForks>true</reuseForks>
-					<systemProperties>
-						<property>
-							<name>gwt.args</name>
-							<value>-war www-test</value>
-						</property>
-					</systemProperties>
-					<argLine>-Xmx512M</argLine>
-					<includes>
-						<include>**/suite/EMFJSTestSuite.java</include>
-					</includes>
+					<excludes>
+						<exclude>**/Gwt*Suite.java</exclude>
+						<exclude>**/GwtTest*.java</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
-
 		</plugins>
 
 		<resources>

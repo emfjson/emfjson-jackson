@@ -1,4 +1,4 @@
-package org.eclipselabs.emfjson.junit.model.tests;
+package org.eclipselabs.emfjson.junit.tests;
 
 import static org.eclipselabs.emfjson.common.Constants.EJS_UUID_ANNOTATION;
 
@@ -10,13 +10,13 @@ import org.eclipselabs.emfjson.common.Constants;
 import org.eclipselabs.emfjson.junit.model.ConcreteTypeOne;
 import org.eclipselabs.emfjson.junit.model.Container;
 import org.eclipselabs.emfjson.junit.model.ModelFactory;
-import org.eclipselabs.emfjson.junit.model.support.UuidTestSupport;
+import org.eclipselabs.emfjson.junit.support.UuidTestSupport;
 import org.junit.Test;
 
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONValue;
 
-public class UuidSaveTest extends UuidTestSupport {
+public class GwtTestUuidSave extends UuidTestSupport {
 
 	@Test
 	public void testSerializeOneObjectWithUuid() {

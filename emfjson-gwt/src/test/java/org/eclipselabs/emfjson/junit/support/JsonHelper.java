@@ -1,4 +1,4 @@
-package org.eclipselabs.emfjson.junit.model.support;
+package org.eclipselabs.emfjson.junit.support;
 
 import com.google.gwt.core.client.JavaScriptObject;
 

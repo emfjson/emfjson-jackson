@@ -8,9 +8,9 @@
  * Contributors:
  *    Guillaume Hillairet - initial API and implementation
  *******************************************************************************/
-package org.eclipselabs.emfjson.junit.model.support;
+package org.eclipselabs.emfjson.junit.support;
 
-import static org.eclipselabs.emfjson.junit.model.support.JsonHelper.stringify;
+import static org.eclipselabs.emfjson.junit.support.JsonHelper.stringify;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -52,9 +52,6 @@ public abstract class TestSupport extends GWTTestCase {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("*", new JsonResourceFactory());
 		options.put(EMFJs.OPTION_INDENT_OUTPUT, false);
 		resourceSet = new ResourceSetImpl();
-
-//		final URIServiceAsync modelService = GWT.create(URIService.class);
-//		final URIServiceCallback modelCallback = new URIServiceCallback(modelService);
 
 		resourceSet.getURIConverter().getURIHandlers().add(0, new HttpHandler());
 		resourceSet.getURIConverter().getURIMap().put(
@@ -113,6 +110,6 @@ public abstract class TestSupport extends GWTTestCase {
 
 	@Override
 	public String getModuleName() {
-		return "org.eclipselabs.emfjson.junit.model.Model";
+		return "org.eclipselabs.emfjson.junit.Model";
 	}
 }

@@ -8,7 +8,7 @@
  * Contributors:
  *    Guillaume Hillairet - initial API and implementation
  *******************************************************************************/
-package org.eclipselabs.emfjson.junit.model.tests;
+package org.eclipselabs.emfjson.junit.tests;
 
 import static org.eclipse.emf.ecore.util.EcoreUtil.createFromString;
 
@@ -25,12 +25,12 @@ import org.eclipselabs.emfjson.junit.model.ModelFactory;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
 import org.eclipselabs.emfjson.junit.model.Sex;
 import org.eclipselabs.emfjson.junit.model.User;
-import org.eclipselabs.emfjson.junit.model.support.TestSupport;
+import org.eclipselabs.emfjson.junit.support.TestSupport;
 import org.junit.Test;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
-public class ValueTest extends TestSupport {
+public class GwtTestValue extends TestSupport {
 
 	private static native JavaScriptObject stringValues() /*-{
 		return {

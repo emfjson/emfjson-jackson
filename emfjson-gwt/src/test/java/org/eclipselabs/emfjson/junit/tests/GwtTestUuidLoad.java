@@ -1,4 +1,4 @@
-package org.eclipselabs.emfjson.junit.model.tests;
+package org.eclipselabs.emfjson.junit.tests;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -14,12 +14,12 @@ import org.eclipselabs.emfjson.junit.model.ConcreteTypeOne;
 import org.eclipselabs.emfjson.junit.model.Container;
 import org.eclipselabs.emfjson.junit.model.ModelFactory;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
-import org.eclipselabs.emfjson.junit.model.support.UuidTestSupport;
+import org.eclipselabs.emfjson.junit.support.UuidTestSupport;
 import org.junit.Test;
 
 import com.google.gwt.json.client.JSONValue;
 
-public class UuidLoadTest extends UuidTestSupport {
+public class GwtTestUuidLoad extends UuidTestSupport {
 
 	@Test
 	public void testUuidBehavior() throws IOException {

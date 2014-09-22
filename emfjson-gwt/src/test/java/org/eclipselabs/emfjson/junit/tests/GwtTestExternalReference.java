@@ -8,7 +8,7 @@
  * Contributors:
  *    Guillaume Hillairet - initial API and implementation
  *******************************************************************************/
-package org.eclipselabs.emfjson.junit.model.tests;
+package org.eclipselabs.emfjson.junit.tests;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -18,10 +18,10 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipselabs.emfjson.junit.model.support.TestSupport;
+import org.eclipselabs.emfjson.junit.support.TestSupport;
 import org.junit.Test;
 
-public class ExternalReferenceTest extends TestSupport {
+public class GwtTestExternalReference extends TestSupport {
 
 	@Test
 	public void testLoadSingleInstance() {

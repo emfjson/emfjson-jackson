@@ -1,6 +1,6 @@
-package org.eclipselabs.emfjson.junit.model.tests;
+package org.eclipselabs.emfjson.junit.tests;
 
-import static org.eclipselabs.emfjson.junit.model.support.JsonHelper.stringify;
+import static org.eclipselabs.emfjson.junit.support.JsonHelper.stringify;
 
 import java.util.Map;
 
@@ -20,7 +20,7 @@ import org.junit.Test;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.junit.client.GWTTestCase;
 
-public class SimpleTest extends GWTTestCase {
+public class GwtTestSimple extends GWTTestCase {
 
 	private Map<?, ?> options = null;
 	private Resource resource;
@@ -325,7 +325,7 @@ public class SimpleTest extends GWTTestCase {
 
 	@Override
 	public String getModuleName() {
-		return "org.eclipselabs.emfjson.junit.model.Model";
+		return "org.eclipselabs.emfjson.junit.Model";
 	}
 
 }

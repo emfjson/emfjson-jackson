@@ -8,7 +8,7 @@
  * Contributors:
  *    Guillaume Hillairet - initial API and implementation
  *******************************************************************************/
-package org.eclipselabs.emfjson.junit.model.tests;
+package org.eclipselabs.emfjson.junit.tests;
 
 import java.io.IOException;
 
@@ -27,12 +27,12 @@ import org.eclipselabs.emfjson.junit.model.ModelFactory;
 import org.eclipselabs.emfjson.junit.model.ModelPackage;
 import org.eclipselabs.emfjson.junit.model.Node;
 import org.eclipselabs.emfjson.junit.model.User;
-import org.eclipselabs.emfjson.junit.model.support.TestSupport;
+import org.eclipselabs.emfjson.junit.support.TestSupport;
 import org.junit.Test;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
-public class ReferenceTest extends TestSupport {
+public class GwtTestReference extends TestSupport {
 
 	private native JavaScriptObject one() /*-{
 		return {
