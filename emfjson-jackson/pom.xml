@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.eclipselabs</groupId>
+		<groupId>org.emfjson</groupId>
 		<artifactId>emfjson</artifactId>
 		<version>0.9.0-SNAPSHOT</version>
 	</parent>
@@ -11,7 +11,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.eclipselabs</groupId>
+			<groupId>org.emfjson</groupId>
 			<artifactId>emfjson-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
@@ -76,11 +76,11 @@
 				<artifactId>maven-bundle-plugin</artifactId>
 				<extensions>true</extensions>
 				<configuration>
-					<osgiManifest>
-						<bundleName>emfjson-jackson</bundleName>
-						<bundleDescription>emfjson jackson</bundleDescription>
-						<bundleVendor>Eclipse Labs</bundleVendor>
-					</osgiManifest>
+					<instructions>
+						<Bundle-SymbolicName>org.emfjson.emfjson-jackson</Bundle-SymbolicName>
+						<Bundle-Name>emfjson-jackson</Bundle-Name>
+						<Bundle-Version>0.9.0.qualifier</Bundle-Version>
+					</instructions>
 				</configuration>
 			</plugin>
 
@@ -91,14 +91,8 @@
 				<executions>
 					<execution>
 						<goals>
-							<goal>compile</goal>
 							<goal>testCompile</goal>
 						</goals>
-						<!-- By default the plugin will look for eclipse settings, and if non 
-							were found will generate to -->
-						<!-- ${basedir}/src/main/generated-sources/xtend -->
-						<!-- You can optionally configure a different target folder like so 
-							: -->
 						<configuration>
 							<outputDirectory>${basedir}/src/main/xtend-gen</outputDirectory>
 							<testOutputDirectory>${basedir}/src/test/xtend-gen</testOutputDirectory>

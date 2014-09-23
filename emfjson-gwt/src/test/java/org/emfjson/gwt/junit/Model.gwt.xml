@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+	<inherits name="com.google.gwt.user.User" />
+	<inherits name="org.eclipse.emf.ecore.Ecore" />
+	<inherits name="org.emfjson.gwt.EMFJs" />
+
+	<source path="model" />
+	<source path="support" />
+	<source path="tests" />
+
+<!-- 	<servlet path='/uriService' class='org.emfjson.junit.server.ModelURIService' /> -->
+	<servlet path='/model/*' class='org.emfjson.gwt.junit.server.ModelHttpServlet' />
+</module>

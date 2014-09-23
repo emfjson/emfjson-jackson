@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.eclipselabs</groupId>
+	<groupId>org.emfjson</groupId>
 	<artifactId>emfjson</artifactId>
 	<packaging>pom</packaging>
 	<version>0.9.0-SNAPSHOT</version>
@@ -39,16 +39,6 @@
 		<developerConnection>scm:git:git@github.com:ghillairet/emfjson.git</developerConnection>
 	</scm>
 
-	<repositories>
-		<repository>
-			<id>emfgwt-repository</id>
-			<url>http://repository-ghillairet.forge.cloudbees.com/snapshot</url>
-			<snapshots>
-				<updatePolicy>always</updatePolicy>
-			</snapshots>
-		</repository>
-	</repositories>
-
 	<modules>
 		<module>emfjson-core</module>
 		<module>emfjson-jackson</module>
@@ -57,6 +47,7 @@
 
 	<properties>
 		<emfVersion>2.10.0-v20140514-1158</emfVersion>
+		<emf.gwt.version>2.9.0-SNAPSHOT</emf.gwt.version>
 	</properties>
 
 	<dependencyManagement>
@@ -75,6 +66,11 @@
 				<groupId>org.eclipse.emf</groupId>
 				<artifactId>org.eclipse.emf.ecore.xmi</artifactId>
 				<version>${emfVersion}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipselabs</groupId>
+				<artifactId>org.eclipse.emf.gwt.ecore</artifactId>
+				<version>${emf.gwt.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
