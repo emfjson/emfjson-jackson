@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.eclipselabs</groupId>
+		<groupId>org.emfjson</groupId>
 		<artifactId>emfjson</artifactId>
 		<version>0.9.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
@@ -17,16 +17,21 @@
 	</properties>
 
 	<modules>
-		<module>emfjson-features</module>
+		<module>emfjson-feature</module>
 		<module>emfjson-target</module>
 		<module>emfjson-repository</module>
 	</modules>
 
 	<dependencies>
 		<dependency>
-			<groupId>org.eclipselabs</groupId>
+			<groupId>org.emfjson</groupId>
+			<artifactId>emfjson-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.emfjson</groupId>
 			<artifactId>emfjson-jackson</artifactId>
-			<version>0.9.0-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -51,7 +56,7 @@
 					<pomDependencies>consider</pomDependencies>
 					<target>
 						<artifact>
-							<groupId>org.eclipselabs</groupId>
+							<groupId>org.emfjson</groupId>
 							<artifactId>emfjson-target</artifactId>
 							<version>${project.version}</version>
 						</artifact>

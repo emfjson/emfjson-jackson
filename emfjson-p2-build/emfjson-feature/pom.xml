@@ -2,16 +2,15 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.eclipselabs</groupId>
+		<groupId>org.emfjson</groupId>
 		<artifactId>emfjson-p2-build</artifactId>
 		<version>0.9.0-SNAPSHOT</version>
 	</parent>
-	<packaging>pom</packaging>
-	<artifactId>emfjson-features</artifactId>
+	<artifactId>org.eclipselabs.emfjson.feature</artifactId>
+	<packaging>eclipse-feature</packaging>
 
-	<modules>
-<!-- 		<module>jackson-feature</module> -->
-		<module>emfjson-feature</module>
-	</modules>
+	<description>
+		Feature containing emfjson-core and emfjson-jackson.
+	</description>
 
 </project>

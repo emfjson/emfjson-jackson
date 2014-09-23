@@ -6,14 +6,14 @@
       provider-name="Eclipse Labs">
 
     <plugin
-         id="org.eclipselabs.emfjson-core"
+         id="org.emfjson.emfjson-core"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
          
     <plugin
-         id="org.eclipselabs.emfjson-jackson"
+         id="org.emfjson.emfjson-jackson"
          download-size="0"
          install-size="0"
          version="0.0.0"
