@@ -1,4 +1,4 @@
-package sample;
+package example;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -15,16 +15,21 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipselabs.emfjson.EMFJs;
-import org.eclipselabs.emfjson.resource.JsResourceFactoryImpl;
+import org.emfjson.EMFJs;
+import org.emfjson.jackson.resource.JsonResourceFactory;
 
+/**
+ * Example shows how to configure a ResourceSet to read and write JSON files using 
+ * the EMF Resource API.
+ * 
+ */
 public class Main {
 
 	public static void main(String[] args) throws IOException {
 		// setting up the resourceSet with resourceFactory for JSON
 		//
 		ResourceSet rs = new ResourceSetImpl();
-		rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new JsResourceFactoryImpl());
+		rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new JsonResourceFactory());
 
 		// register ecore package for standalone (outside eclipse) execution
 		//
@@ -32,9 +37,8 @@ public class Main {
 
 		// optional options
 		//
-		Map<String, Object> options = new HashMap<String, Object>();
+		Map<String, Object> options = new HashMap<>();
 		options.put(EMFJs.OPTION_INDENT_OUTPUT, true);
-		options.put(EMFJs.OPTION_SERIALIZE_NAMESPACES, false);
 
 		// create a model
 		//
