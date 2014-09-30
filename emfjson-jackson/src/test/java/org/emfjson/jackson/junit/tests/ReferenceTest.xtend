@@ -1,5 +1,16 @@
+/*
+ * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Guillaume Hillairet - initial API and implementation
+ */
 package org.emfjson.jackson.junit.tests
 
+import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import org.eclipse.emf.common.util.URI
@@ -164,6 +175,68 @@ class ReferenceTest extends TestSupport {
 		resource.save(outStream, options)
 
 		assertEquals(expectedString, new String(outStream.toByteArray()))
+	}
+
+	@Test
+	def testLoadWithResolveProxies() throws IOException {
+		options.put(EMFJs.OPTION_RESOLVE_PROXY, true)
+
+		val data ='''
+			{
+			  "eClass" : "http://www.eclipselabs.org/emfjson/junit#//User",
+			  "userId" : "2",
+			  "uniqueFriend" : {
+			    "eClass" : "http://www.eclipselabs.org/emfjson/junit#//User",
+			    "$ref" : "http://eclipselabs.org/emfjson/tests/test-load-1.json#1"
+			  }
+			  
+			 }
+		'''
+
+		val resource = resourceSet.createResource(URI.createURI("http://resources/second"))
+		resource.load(new ByteArrayInputStream(data.bytes), options)
+		
+		assertFalse(resource.contents.empty)
+
+		val u2 = resource.contents.get(0) as User
+
+		assertNotNull(u2.uniqueFriend)
+		assertFalse(u2.uniqueFriend.eIsProxy)
+	}
+
+	@Test
+	def testLoadWithExternalReference() throws IOException {
+		val firstResource ='''
+			{
+			  "eClass" : "http://www.eclipselabs.org/emfjson/junit#//User",
+			  "userId" : "1"
+			 }
+		'''
+		val secondResource ='''
+			{
+			  "eClass" : "http://www.eclipselabs.org/emfjson/junit#//User",
+			  "userId" : "2",
+			  "uniqueFriend" : {
+			    "eClass" : "http://www.eclipselabs.org/emfjson/junit#//User",
+			    "$ref" : "http://resources/first#1"
+			  }
+			  
+			 }
+		'''
+
+		val first = resourceSet.createResource(URI.createURI("http://resources/first"))
+		val second = resourceSet.createResource(URI.createURI("http://resources/second"))
+
+		first.load(new ByteArrayInputStream(firstResource.bytes), options)
+		second.load(new ByteArrayInputStream(secondResource.bytes), options)
+
+		assertFalse(first.contents.empty)
+		assertFalse(second.contents.empty)
+
+		val u1 = first.contents.get(0) as User
+		val u2 = second.contents.get(0) as User
+
+		assertEquals(u1, u2.uniqueFriend)
 	}
 
 	@Test

@@ -1,5 +1,5 @@
-/*******************************************************************************
- * Copyright (c) 2011 Guillaume Hillairet.
+/*
+ * Copyright (c) 2011-2014 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Guillaume Hillairet - initial API and implementation
- *******************************************************************************/
+ */
 package org.emfjson.jackson.resource;
 
 import org.eclipse.emf.common.util.URI;
@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
 
 /**
- * An implementation of {@link Resource.Factory} that creates {@link JsonResource}. 
+ * An implementation of Resource Factory that creates JsonResource. 
  */
 public class JsonResourceFactory extends ResourceFactoryImpl {
 

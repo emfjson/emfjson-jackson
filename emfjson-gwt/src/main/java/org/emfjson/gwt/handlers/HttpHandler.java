@@ -1,5 +1,5 @@
-/*******************************************************************************
- * Copyright (c) 2013 Guillaume Hillairet.
+/*
+ * Copyright (c) 2011-2014 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Guillaume Hillairet - initial API and implementation
- *******************************************************************************/
+ */
 package org.emfjson.gwt.handlers;
 
 import java.io.ByteArrayInputStream;
@@ -31,9 +31,7 @@ import com.google.gwt.http.client.Response;
 import com.google.gwt.http.client.URL;
 
 /**
- * {@link HttpHandler}
- * 
- * {@link URIHandler} implementation that uses {@link RequestBuilder} to communicate with 
+ * URIHandler implementation that uses RequestBuilder to communicate with 
  * an HTTP server in JSON format.
  * 
  * @author ghillairet

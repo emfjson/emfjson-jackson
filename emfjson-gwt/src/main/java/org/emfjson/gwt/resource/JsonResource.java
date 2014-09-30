@@ -1,5 +1,5 @@
-/*******************************************************************************
- * Copyright (c) 2011 Guillaume Hillairet.
+/*
+ * Copyright (c) 2011-2014 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Guillaume Hillairet - initial API and implementation
- *******************************************************************************/
+ */
 package org.emfjson.gwt.resource;
 
 import java.io.IOException;
@@ -31,7 +31,7 @@ import org.emfjson.gwt.map.JsonMapper;
 import com.google.gwt.core.shared.GWT;
 
 /**
- * {@link Resource} implementation meant to be used on the client side of a 
+ * Resource implementation meant to be used on the client side of a 
  * GWT application.
  * 
  * @author ghillairet

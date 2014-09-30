@@ -1,5 +1,5 @@
-/*******************************************************************************
- * Copyright (c) 2011 Guillaume Hillairet.
+/*
+ * Copyright (c) 2011-2014 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Guillaume Hillairet - initial API and implementation
- *******************************************************************************/
+ */
 package org.emfjson.jackson.resource;
 
 import java.io.IOException;
@@ -17,12 +17,11 @@ import java.util.Collections;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.emfjson.jackson.streaming.JacksonStreamMapper;
 
 /**
- * A {@link Resource} implementation that read and write it's content in JSON.
+ * A Resource implementation that read and write it's content in JSON.
  */
 public class JsonResource extends AbstractUuidResource {
 

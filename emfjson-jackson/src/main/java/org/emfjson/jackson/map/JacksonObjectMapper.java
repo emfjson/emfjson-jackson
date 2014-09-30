@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Guillaume Hillairet - initial API and implementation
+ */
 package org.emfjson.jackson.map;
 
 import java.io.IOException;
@@ -81,7 +91,7 @@ public class JacksonObjectMapper {
 		final ObjectMapper mapper = new ObjectMapper();
 		final ObjectWriter writer = new ObjectWriter(mapper, object.eResource(), Options.from(options).build());
 
-		return writer.generate(object);
+		return writer.toNode(object);
 	}
 
 	public JsonNode toNode(Resource resource, Map<?, ?> options) {

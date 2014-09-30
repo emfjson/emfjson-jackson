@@ -47,7 +47,8 @@
 
 	<properties>
 		<emfVersion>2.10.0-v20140514-1158</emfVersion>
-		<emf.gwt.version>2.9.0-SNAPSHOT</emf.gwt.version>
+		<emf.gwt.version>2.9.0</emf.gwt.version>
+		<gwtVersion>2.6.1</gwtVersion>
 	</properties>
 
 	<dependencyManagement>

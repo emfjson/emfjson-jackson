@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Guillaume Hillairet - initial API and implementation
+ */
 package org.emfjson.jackson.map;
 
 import static org.eclipse.emf.ecore.util.EcoreUtil.getURI;
@@ -31,6 +41,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+/**
+ * ObjectWriter provides methods to convert the content of a Resource or 
+ * a single EObject instance into their representation in JSON. 
+ * 
+ * <p>ObjectWriter uses the Jackson Object API to create a JSON representation</p>    
+ * 
+ * @since 0.9.0
+ */
 public class ObjectWriter {
 
 	private final ObjectMapper mapper;
@@ -42,6 +60,12 @@ public class ObjectWriter {
 	private final ValueWriter valueWriter = new ValueWriter();
 	private final Cache cache = new Cache();
 
+	/**
+	 * 
+	 * @param mapper to be used
+	 * @param resource to be converted
+	 * @param options to be used
+	 */
 	public ObjectWriter(ObjectMapper mapper, Resource resource, Options options) {
 		this.mapper = mapper;
 		this.resource = resource;
@@ -53,13 +77,12 @@ public class ObjectWriter {
 	/**
 	 * Returns the Json Object created from the input EObject.
 	 * 
-	 * This method creates for each feature of the object a pair of key value.
+	 * <p>This method creates for each feature of the object a pair of key value.</p>
 	 * 
-	 * 
-	 * @param object
-	 * @return {@link ObjectNode}
+	 * @param object to be converted
+	 * @return JSON object
 	 */
-	public ObjectNode generate(EObject object) {
+	public ObjectNode toNode(EObject object) {
 		ObjectNode result = mapper.createObjectNode();
 
 		to(object, (ObjectNode) result);
@@ -70,14 +93,14 @@ public class ObjectWriter {
 	/**
 	 * Returns the Json representation of the current Resource.
 	 * 
-	 * @return {@link JsonNode}
+	 * @return JSON node
 	 */
 	public JsonNode toNode() {
 		final EList<EObject> contents = resource.getContents();
 		JsonNode result;
 
 		if (contents.size() == 1) {
-			result = generate(contents.get(0));
+			result = toNode(contents.get(0));
 		} else {
 			result = mapper.createArrayNode();
 

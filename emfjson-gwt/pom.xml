@@ -8,12 +8,13 @@
 	</parent>
 	<artifactId>emfjson-gwt</artifactId>
 
-	<properties>
-		<gwtVersion>2.6.1</gwtVersion>
-		<emfVersion>2.9.0-SNAPSHOT</emfVersion>
-	</properties>
-
 	<dependencies>
+		<dependency>
+			<groupId>org.emfjson</groupId>
+			<artifactId>emfjson-core</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.emfjson</groupId>
 			<artifactId>emfjson-core</artifactId>

@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Guillaume Hillairet - initial API and implementation
+ */
 package org.emfjson.common;
 
 import org.eclipse.emf.common.util.URI;
@@ -17,9 +27,10 @@ public class ReferenceEntry {
 		this.id = id;
 	}
 
-	public void resolve(ResourceSet resourceSet, IDResolver idResolver) {
+	public void resolve(ResourceSet resourceSet, IDResolver idResolver, Options options) {
 		final URI ref = idResolver.get(id);
-		final EObject target = resourceSet.getEObject(ref, true);
+		
+		EObject target = resourceSet.getEObject(ref, options.resolveProxy);
 
 		if (target != null) {
 			EObjects.setOrAdd(owner, reference, target);
