@@ -56,6 +56,13 @@ public class ObjectReader {
 		this.options = options;
 		this.idResolver = new IDResolver(resource.getURI());
 	}
+	
+	public ObjectReader(Resource resource, Options options) {
+		this.resource = resource;
+		this.resourceSet = resource.getResourceSet();
+		this.options = options;
+		this.idResolver = new IDResolver(resource.getURI());
+	}
 
 	public EObject from(JsonNode node) {
 		EObject result = create(node);
@@ -148,12 +155,15 @@ public class ObjectReader {
 	}
 
 	private EObject create(JsonNode current, EReference reference) {
-		EClass type = reference.getEReferenceType();
-		if (type.isAbstract()) {
-			return create(current);
+		EObject result = create(current);
+		if (result == null) {
+			EClass type = reference.getEReferenceType();
+			if (!type.isAbstract()) {
+				return EcoreUtil.create(type);
+			}
 		}
 
-		return EcoreUtil.create(type);
+		return result;
 	}
 
 	private EObject create(JsonNode node) {
