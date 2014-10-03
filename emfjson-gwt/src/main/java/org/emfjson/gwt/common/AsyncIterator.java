@@ -160,4 +160,27 @@ public class AsyncIterator {
 			}
 		}
 	}
+	
+	public static void forEach(
+			final Resource resource, 
+			final Iterator<AsyncReferenceEntry> it, 
+			final Callback<Resource> callback) {
+
+		if (!it.hasNext()) {
+			callback.onSuccess(resource);
+		} else {
+			AsyncReferenceEntry entry = it.next();
+			entry.resolve(resource, new Callback<Resource>() {
+				@Override
+				public void onFailure(Throwable caught) {
+					callback.onFailure(caught);
+				}
+				@Override
+				public void onSuccess(Resource result) {
+					forEach(resource, it, callback);
+				}
+			});
+		}
+	}
+
 }

@@ -31,12 +31,11 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emfjson.common.IDResolver;
 import org.emfjson.common.Options;
-import org.emfjson.common.ReferenceEntry;
 import org.emfjson.common.resource.UuidResource;
 import org.emfjson.gwt.common.AsyncCache;
 import org.emfjson.gwt.common.AsyncIterator;
+import org.emfjson.gwt.common.AsyncReferenceEntry;
 
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
@@ -50,7 +49,7 @@ public class JsonReader {
 	private final Options options;
 	private final AsyncCache cache = new AsyncCache();
 	private final Values values = new Values();
-	private final List<ReferenceEntry> entries = new ArrayList<>();
+	private final List<AsyncReferenceEntry> entries = new ArrayList<>();
 
 	public JsonReader(Resource resource, Options options) {
 		this.resource = resource;
@@ -67,8 +66,16 @@ public class JsonReader {
 				}
 				@Override public void onSuccess(EObject result) {
 					resource.getContents().add(result);
-					resolveEntries();
-					done.onSuccess(resource);
+					resolveEntries(new Callback<Resource>() {
+						@Override
+						public void onFailure(Throwable caught) {
+							done.onFailure(caught);
+						}
+						@Override
+						public void onSuccess(Resource resource) {
+							done.onSuccess(resource);
+						}
+					});
 				}
 			});
 		}
@@ -79,9 +86,17 @@ public class JsonReader {
 				@Override public void onFailure(Throwable caught) {
 					done.onFailure(caught);
 				}
-				@Override public void onSuccess(Resource result) {
-					resolveEntries();
-					done.onSuccess(result);
+				@Override public void onSuccess(final Resource result) {
+					resolveEntries(new Callback<Resource>() {
+						@Override
+						public void onFailure(Throwable caught) {
+							done.onFailure(caught);
+						}
+						@Override
+						public void onSuccess(Resource resource) {
+							done.onSuccess(result);
+						}
+					});
 				}
 			});
 		}
@@ -204,13 +219,13 @@ public class JsonReader {
 			for (int i = 0; i < array.size(); i++) {
 				String ref = getRef(array.get(i));
 				if (ref != null) {
-					entries.add(new ReferenceEntry(object, reference, ref));
+					entries.add(new AsyncReferenceEntry(object, reference, ref));
 				}
 			}
 		} else {
 			String ref = getRef(value);
 			if (ref != null) {
-				entries.add(new ReferenceEntry(object, reference, ref));
+				entries.add(new AsyncReferenceEntry(object, reference, ref));
 			}
 		}
 	}
@@ -289,10 +304,8 @@ public class JsonReader {
 		}
 	}
 
-	private void resolveEntries() {
-		for (ReferenceEntry entry: entries) {
-			entry.resolve(resource.getResourceSet(), new IDResolver(resource.getURI()), options);
-		}
+	private void resolveEntries(Callback<Resource> callback) {
+		AsyncIterator.forEach(resource, entries.iterator(), callback);
 	}
 
 }
