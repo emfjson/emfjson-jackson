@@ -28,7 +28,7 @@ public class ReferenceEntry {
 	}
 
 	public void resolve(ResourceSet resourceSet, IDResolver idResolver, Options options) {
-		final URI ref = idResolver.get(id);
+		final URI ref = idResolver.createFromValue(id);
 		
 		EObject target = resourceSet.getEObject(ref, options.resolveProxy);
 

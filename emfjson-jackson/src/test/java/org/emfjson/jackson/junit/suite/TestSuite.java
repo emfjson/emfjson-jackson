@@ -13,6 +13,7 @@ package org.emfjson.jackson.junit.suite;
 import org.emfjson.jackson.junit.tests.AnnotationTest;
 import org.emfjson.jackson.junit.tests.EnumTest;
 import org.emfjson.jackson.junit.tests.FeatureMapTest;
+import org.emfjson.jackson.junit.tests.ModuleTest;
 import org.emfjson.jackson.junit.tests.PolymorphicTest;
 import org.emfjson.jackson.junit.tests.ProxyAttributeTest;
 import org.emfjson.jackson.junit.tests.ReferenceTest;
@@ -33,6 +34,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	ReferenceTest.class, 
 	ProxyAttributeTest.class,
 	UuidSaveTest.class,
-	UuidLoadTest.class
+	UuidLoadTest.class,
+	ModuleTest.class
 })
 public class TestSuite {}

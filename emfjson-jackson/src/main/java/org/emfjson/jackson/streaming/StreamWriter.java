@@ -53,6 +53,10 @@ public class StreamWriter {
 		this.idResolver = new IDResolver(resourceURI);
 		this.referenceWriter = new ReferenceStreamWriter(idResolver, options);
 	}
+	
+	public StreamWriter(URI resourceURI) {
+		this(null, new Options.Builder().build());
+	}
 
 	public void generate(final JsonGenerator generator, final EList<EObject> contents) {
 		if (contents.size() == 1) {
@@ -84,7 +88,7 @@ public class StreamWriter {
 		generator.writeStartObject();
 
 		if (options.serializeTypes) {
-			generator.writeStringField(EJS_TYPE_KEYWORD, idResolver.get(eClass));	
+			generator.writeStringField(EJS_TYPE_KEYWORD, idResolver.getValue(eClass));	
 		}
 		if (options.useUUID) {
 			generator.writeStringField(EJS_UUID_ANNOTATION, getURI(object).fragment());

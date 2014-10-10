@@ -52,8 +52,8 @@ public class References {
 		for (Object current: values) {
 			if (current instanceof EObject) {
 				EObject value = (EObject) current;
-				String ref = ids.get(value);
-				String type = ids.get(value.eClass());
+				String ref = ids.getValue(value);
+				String type = ids.getValue(value.eClass());
 				arrayNode.set(i, createObjectRef(new JSONObject(), ref, type));
 				i++;
 			}
@@ -62,8 +62,8 @@ public class References {
 
 	public void serializeOne(JSONObject parent, String key, EObject value) {
 		if (value != null) {
-			final String ref = ids.get(value);
-			final String type = ids.get(value.eClass());
+			final String ref = ids.getValue(value);
+			final String type = ids.getValue(value.eClass());
 
 			parent.put(key, createObjectRef(new JSONObject(), ref, type));
 		}
@@ -78,8 +78,8 @@ public class References {
 	}
 
 	public JSONObject createObjectRef(JSONObject target, EObject object) {
-		final String ref = ids.get(object);
-		final String type = ids.get(object.eClass());
+		final String ref = ids.getValue(object);
+		final String type = ids.getValue(object.eClass());
 
 		return createObjectRef(target, ref, type);
 	}

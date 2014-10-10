@@ -38,6 +38,7 @@ import org.emfjson.common.Options;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -72,6 +73,10 @@ public class ObjectWriter {
 		this.options = options;
 		this.idResolver = new IDResolver(resource.getURI());
 		this.referenceWriter = new ReferenceWriter(idResolver, options);
+		
+		if (options.indentOutput) {
+			mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+		}
 	}
 
 	/**
@@ -118,7 +123,7 @@ public class ObjectWriter {
 		final EClass eClass = object.eClass();
 
 		if (options.serializeTypes) {
-			node.put(EJS_TYPE_KEYWORD, idResolver.get(eClass));	
+			node.put(EJS_TYPE_KEYWORD, idResolver.getValue(eClass));	
 		}
 		if (options.useUUID) {
 			node.put(EJS_UUID_ANNOTATION, getURI(object).fragment());

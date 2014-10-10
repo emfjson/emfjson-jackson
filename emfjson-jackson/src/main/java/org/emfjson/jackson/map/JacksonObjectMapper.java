@@ -93,7 +93,7 @@ public class JacksonObjectMapper {
 
 		return writer.toNode(object);
 	}
-
+	
 	public JsonNode toNode(Resource resource, Map<?, ?> options) {
 		if (resource == null) return null;
 

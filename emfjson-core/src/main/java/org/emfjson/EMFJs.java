@@ -61,5 +61,7 @@ public final class EMFJs {
 	 * <p>Default value is true</p>
 	 */
 	public static final String OPTION_RESOLVE_PROXY = "OPTION_RESOLVE_PROXY";
+	
+	public static final String OPTION_URI_HANDLER = "OPTION_URI_HANDLER"; 
 
 }

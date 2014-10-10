@@ -20,14 +20,25 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 public class IDResolver {
 
 	private final URI resourceURI;
+	private final Options options;
 	
 	private final Map<EObject, String> mapOfID = new HashMap<>();
 
 	public IDResolver(URI resourceURI) {
+		this(resourceURI, null);
+	}
+	
+	public IDResolver(URI resourceURI, Options options) {
 		this.resourceURI = resourceURI;
+		this.options = options;
 	}
 
-	public String get(EObject object) {
+	/**
+	 * 
+	 * @param object
+	 * @return
+	 */
+	public String getValue(EObject object) {
 		String key = mapOfID.get(object);
 		if (key != null) {
 			return key;
@@ -35,12 +46,18 @@ public class IDResolver {
 
 		final URI eObjectURI = EcoreUtil.getURI(object);
 		final String fragment = eObjectURI.fragment();
-		final URI baseURI = eObjectURI.trimFragment().trimQuery();
+		final String query = eObjectURI.query();
+
+		URI baseURI = eObjectURI.trimFragment().trimQuery();
+		if (options != null && options.uriHandler != null) {
+			baseURI = options.uriHandler.dereseolve(baseURI);
+		}
 
 		if (baseURI.equals(resourceURI)) {
 			key = fragment;
 		} else {
-			key = eObjectURI.toString();
+			baseURI = baseURI.appendFragment(fragment).appendQuery(query);
+			key = baseURI.toString();
 		}
 
 		mapOfID.put(object, key);
@@ -48,13 +65,23 @@ public class IDResolver {
 		return key;
 	}
 
-	public URI get(String value) {
+	/**
+	 * 
+	 * @param value
+	 * @return
+	 */
+	public URI createFromValue(String value) {
 		if (value == null) {
 			return null;
 		}
+
 		if (value.contains(":")) {
             // is full
-            return URI.createURI(value);
+            URI uri = URI.createURI(value);
+            if (options != null && options.uriHandler != null) {
+            	uri = options.uriHandler.resolve(uri);
+            }
+            return uri;
         } else { 
         	// is fragment
             return resourceURI.appendFragment(value.startsWith("#") ? value.substring(1) : value);

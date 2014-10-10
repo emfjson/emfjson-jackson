@@ -17,7 +17,7 @@ public class AsyncReferenceEntry extends ReferenceEntry {
 
 	public void resolve(final Resource resource, final Callback<Resource> callback) {
 		final IDResolver resolver = new IDResolver(resource.getURI());
-		final URI ref = resolver.get(id);
+		final URI ref = resolver.createFromValue(id);
 
 		resource.getResourceSet().getEObject(ref, new Callback<EObject>() {
 			@Override

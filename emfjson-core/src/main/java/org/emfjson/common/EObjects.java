@@ -78,7 +78,7 @@ public class EObjects {
     }
 
 	public static boolean isContainmentProxy(EObject owner, EObject contained) {
-		return contained.eIsProxy() || !owner.eResource().equals(contained.eResource());
+		return contained.eIsProxy() || owner.eResource() != null ? !owner.eResource().equals(contained.eResource()) : false;
 	}
 
 	public static Set<EStructuralFeature> featureMaps(EObject owner, EAttribute attribute) {

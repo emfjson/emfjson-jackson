@@ -50,12 +50,16 @@ public class StreamReader {
 	private final List<ReferenceEntry> entries = new ArrayList<>();
 	private final Cache cache = new Cache();
 
+	public StreamReader(Resource resource) {
+		this(resource, new Options.Builder().build());
+	}
+
 	public StreamReader(Resource resource, Options options) {
 		this.resource = resource;
 		this.options = options;
-		this.idResolver = new IDResolver(resource.getURI());
+		this.idResolver = new IDResolver(resource == null ? null : resource.getURI());
 
-		if (resource.getResourceSet() == null) {
+		if (resource == null || resource.getResourceSet() == null) {
 			resourceSet = new ResourceSetImpl();
 		} else {
 			resourceSet = resource.getResourceSet();
@@ -63,10 +67,12 @@ public class StreamReader {
 	}
 
 	public void parse(JsonParser parser) throws JsonParseException, IOException {
-		try {
-			parser.nextToken();
-		} catch (IOException e) {
-			return;
+		if (parser.getCurrentToken() == null) {
+			try {
+				parser.nextToken();
+			} catch (IOException e) {
+				throw e;
+			}
 		}
 
 		switch (parser.getCurrentToken()) {
@@ -102,7 +108,7 @@ public class StreamReader {
 		}
 	}
 
-	private EObject parseObject(JsonParser parser, EReference containment, EObject owner, EClass currentClass) 
+	public EObject parseObject(JsonParser parser, EReference containment, EObject owner, EClass currentClass) 
 			throws JsonParseException, IOException {
 
 		EObject current = null;

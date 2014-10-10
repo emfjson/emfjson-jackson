@@ -67,10 +67,10 @@ public class ReferenceStreamWriter {
 	}
 
 	public void writeObjectRef(JsonGenerator generator, EObject object) throws IOException {
-		String ref = idResolver.get(object);
+		String ref = idResolver.getValue(object);
 		generator.writeStartObject();
 		if (options.serializeRefTypes) {
-			String type = idResolver.get(object.eClass());
+			String type = idResolver.getValue(object.eClass());
 			generator.writeStringField(EJS_TYPE_KEYWORD, type);
 		}
 		generator.writeStringField(EJS_REF_KEYWORD, ref);
