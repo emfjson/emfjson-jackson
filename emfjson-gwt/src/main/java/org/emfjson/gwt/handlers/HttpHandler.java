@@ -104,6 +104,7 @@ public class HttpHandler extends URIHandlerImpl implements URIHandler {
 	@Override
 	public void delete(URI uri, Map<?, ?> options, final Callback<Map<?, ?>> callback) {
 		RequestBuilder builder = new RequestBuilder(RequestBuilder.DELETE, URL.encode(uri.toString()));
+		builder.setHeader("Content-Type", "application/json");
 		builder.setCallback(new RequestCallback() {
 			@Override
 			public void onResponseReceived(Request request, Response response) {
