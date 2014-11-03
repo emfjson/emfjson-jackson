@@ -272,8 +272,9 @@ public class JsonReader {
 	private EObject create(EClass eClass, JSONObject node) {
 		EObject object = EcoreUtil.create(eClass);
 
-		if (options.useUUID && node.containsKey(EJS_UUID_ANNOTATION)) {
+		if (node.containsKey(EJS_UUID_ANNOTATION)) {
 			JSONString stringValue = node.get(EJS_UUID_ANNOTATION).isString();
+
 			if (stringValue != null && object != null && resource instanceof UuidResource) {
 				((UuidResource) resource).setID(object, stringValue.stringValue());
 			}

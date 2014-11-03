@@ -10,7 +10,6 @@
  */
 package org.emfjson.jackson.streaming;
 
-import static org.eclipse.emf.ecore.util.EcoreUtil.getURI;
 import static org.emfjson.common.Constants.EJS_TYPE_KEYWORD;
 import static org.emfjson.common.Constants.EJS_UUID_ANNOTATION;
 import static org.emfjson.common.EObjects.featureMaps;
@@ -21,44 +20,86 @@ import static org.emfjson.common.EObjects.isMapEntry;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.emfjson.common.Cache;
-import org.emfjson.common.IDResolver;
 import org.emfjson.common.Options;
+import org.emfjson.common.resource.UuidResource;
+import org.emfjson.converters.DataTypeConverter;
+import org.emfjson.jackson.converters.DefaultDateConverter;
+import org.emfjson.jackson.streaming.References.RefAsObjectWriter;
+import org.emfjson.jackson.streaming.References.RefWriter;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 
 public class StreamWriter {
 
 	private final Options options;
-	private final IDResolver idResolver;
-	private final ReferenceStreamWriter referenceWriter;
-
 	private final Cache cache = new Cache();
-	private final ValueStreamWriter valueWriter = new ValueStreamWriter();
 
-	public StreamWriter(URI resourceURI, Options options) {
-		this.options = options;
-		this.idResolver = new IDResolver(resourceURI);
-		this.referenceWriter = new ReferenceStreamWriter(idResolver, options);
-	}
+	private References referenceWriter;
+	private Values values;
 	
-	public StreamWriter(URI resourceURI) {
-		this(null, new Options.Builder().build());
+	private Map<EDataType, DataTypeConverter<?, ?>> converters = new HashMap<>();
+
+	private boolean isPrepared = false;
+	private RefWriter refWriter;
+
+	public StreamWriter(Options options) {
+		this.options = options;		
 	}
 
-	public void generate(final JsonGenerator generator, final EList<EObject> contents) {
+	public void setRefWriter(RefWriter refWriter) {
+		this.refWriter = refWriter; 
+	}
+
+	public void register(DataTypeConverter<?, ?> converter) {
+		if (converter != null && converter.getDataType() != null) {
+			this.converters.put(converter.getDataType(), converter);
+		}
+	}
+
+	private void prepare(JsonGenerator generator, Resource resource) {
+		if (isPrepared) return;
+
+		if (options.indentOutput) {
+			DefaultPrettyPrinter printer = new DefaultPrettyPrinter();
+			generator.setPrettyPrinter(printer);
+		}
+
+		if (refWriter == null) {
+			refWriter = new RefAsObjectWriter();
+		}
+
+		if (!converters.containsKey(EcorePackage.Literals.EDATE)) {
+			converters.put(EcorePackage.Literals.EDATE, new DefaultDateConverter());
+		}
+
+		referenceWriter = new References(cache, resource, refWriter, options);
+		values = new Values(converters);
+
+		isPrepared = true;
+	}
+
+	public void generate(final JsonGenerator generator, Resource resource) {
+		prepare(generator, resource);
+
+		final EList<EObject> contents = resource.getContents();
+
 		if (contents.size() == 1) {
 			try {
 				generate(generator, contents.get(0));
@@ -80,6 +121,7 @@ public class StreamWriter {
 
 	public void generate(final JsonGenerator generator, final EObject object) 
 			throws IOException {
+		prepare(generator, object.eResource());
 
 		final EClass eClass = object.eClass();
 		final List<EAttribute> attributes = cache.getAttributes(eClass);
@@ -88,10 +130,14 @@ public class StreamWriter {
 		generator.writeStartObject();
 
 		if (options.serializeTypes) {
-			generator.writeStringField(EJS_TYPE_KEYWORD, idResolver.getValue(eClass));	
+			generator.writeStringField(EJS_TYPE_KEYWORD, cache.getHref(null, eClass));	
 		}
-		if (options.useUUID) {
-			generator.writeStringField(EJS_UUID_ANNOTATION, getURI(object).fragment());
+
+		if (object.eResource() instanceof UuidResource) {
+			String id = ((UuidResource) object.eResource()).getID(object);
+			if (id != null) {
+				generator.writeStringField(EJS_UUID_ANNOTATION, id);
+			}
 		}
 
 		for (final EAttribute attribute: attributes) {
@@ -102,7 +148,7 @@ public class StreamWriter {
 				if (isFeatureMap(attribute)) {
 					serializeFeatureMap(generator, attribute, object);
 				} else {
-					valueWriter.serialize(generator, key, attribute, value);
+					values.serialize(generator, key, attribute, value);
 				}
 			}
 		}
@@ -156,7 +202,7 @@ public class StreamWriter {
 			final String key = cache.getKey(feature);
 
 			if (feature instanceof EAttribute) {
-				valueWriter.serialize(generator, key, (EAttribute) feature, value);
+				values.serialize(generator, key, (EAttribute) feature, value);
 			} else {
 				final EReference reference = (EReference) feature;
 				if (reference.isContainment()) {
@@ -180,7 +226,7 @@ public class StreamWriter {
 				EObject target = (EObject) current;
 
 				if (isContainmentProxy(owner, target)) {
-					referenceWriter.writeObjectRef(generator, target);
+					referenceWriter.writeRef(generator, target);
 				} else {
 					generate(generator, target);
 				}
@@ -192,7 +238,7 @@ public class StreamWriter {
 
 			generator.writeFieldName(key);
 			if (isContainmentProxy(owner, (EObject) value)) {
-				referenceWriter.writeObjectRef(generator, (EObject) value);
+				referenceWriter.writeRef(generator, (EObject) value);
 			} else {
 				generate(generator, (EObject) value);
 			}

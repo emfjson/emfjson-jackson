@@ -11,9 +11,12 @@
 package org.emfjson.jackson.module;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.emfjson.common.Options;
 import org.emfjson.jackson.resource.JsonResource;
 import org.emfjson.jackson.streaming.StreamReader;
 import org.emfjson.jackson.streaming.StreamWriter;
@@ -36,8 +39,16 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 public class EMFModule extends SimpleModule {
 
 	private static final long serialVersionUID = 1L;
+	
+	private final Options options;
 
 	public EMFModule() {
+		this(Collections.emptyMap());
+	}
+
+	public EMFModule(Map<?, ?> options) {
+		this.options = Options.from(options).build();
+
 		addSerializer(new EObjectJsonSerializer());
 		addSerializer(new ResourceJsonSerializer());
 		addDeserializer(EObject.class, new EObjectJsonDeserializer());
@@ -49,18 +60,29 @@ public class EMFModule extends SimpleModule {
 		return "emfjson-module";
 	}
 
+	public void configure(StreamWriter writer) {}
+
+	public void configure(StreamReader reader) {}
+
 	@Override
 	public Version version() {
 		return new Version(0, 9, 0, "SNAPSHOT", "org.emfjson", "emfjson-jackson");
 	}
 
-	public static class EObjectJsonSerializer extends JsonSerializer<EObject> {
+	public class EObjectJsonSerializer extends JsonSerializer<EObject> {
+
 		@Override
 		public void serialize(EObject value, JsonGenerator jgen, SerializerProvider provider) 
 				throws IOException, JsonProcessingException {
 
-			StreamWriter writer = new StreamWriter(null);
-			writer.generate(jgen, value);
+			StreamWriter writer = new StreamWriter(options);
+			configure(writer);
+
+			if (value instanceof Resource) {
+				writer.generate(jgen, (Resource) value);
+			} else {
+				writer.generate(jgen, value);
+			}
 		}
 
 		@Override
@@ -69,13 +91,15 @@ public class EMFModule extends SimpleModule {
 		}
 	}
 
-	public static class ResourceJsonSerializer extends JsonSerializer<Resource> {
+	public class ResourceJsonSerializer extends JsonSerializer<Resource> {
+
 		@Override
 		public void serialize(Resource value, JsonGenerator jgen, SerializerProvider provider) 
 				throws IOException, JsonProcessingException {
 
-			StreamWriter writer = new StreamWriter(value.getURI());
-			writer.generate(jgen, value.getContents());
+			StreamWriter writer = new StreamWriter(options);
+			configure(writer);
+			writer.generate(jgen, value);
 		}
 
 		@Override
@@ -84,13 +108,19 @@ public class EMFModule extends SimpleModule {
 		}
 	}
 
-	public static class EObjectJsonDeserializer extends JsonDeserializer<EObject> {
+	public class EObjectJsonDeserializer extends JsonDeserializer<EObject> {
+
 		@Override
 		public EObject deserialize(JsonParser jp, DeserializationContext ctxt) 
 				throws IOException, JsonProcessingException {
 
-			StreamReader reader = new StreamReader(null);
-			return reader.parseObject(jp, null, null, null);
+			StreamReader reader = new StreamReader(options);
+			configure(reader);
+
+			Resource resource = new JsonResource();
+			reader.parse(resource, jp);
+
+			return resource.getContents().isEmpty() ? null : resource.getContents().get(0);
 		}
 
 		@Override
@@ -99,14 +129,17 @@ public class EMFModule extends SimpleModule {
 		}
 	}
 
-	public static class ResourceJsonDeserializer extends JsonDeserializer<Resource> {
+	public class ResourceJsonDeserializer extends JsonDeserializer<Resource> {
+
 		@Override
 		public Resource deserialize(JsonParser jp, DeserializationContext ctxt) 
 				throws IOException, JsonProcessingException {
 
+			StreamReader reader = new StreamReader(options);
+			configure(reader);
+			
 			Resource resource = new JsonResource();
-			StreamReader reader = new StreamReader(resource);
-			reader.parse(jp);
+			reader.parse(resource, jp);
 
 			return resource;
 		}

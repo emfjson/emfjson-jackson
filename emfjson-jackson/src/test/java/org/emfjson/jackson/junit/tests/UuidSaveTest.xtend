@@ -10,6 +10,7 @@
  */
 package org.emfjson.jackson.junit.tests
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ArrayNode
 import java.io.IOException
 import java.util.HashMap
@@ -20,7 +21,7 @@ import org.emfjson.common.Constants
 import org.emfjson.jackson.junit.model.ModelFactory
 import org.emfjson.jackson.junit.model.ModelPackage
 import org.emfjson.jackson.junit.support.UuidSupport
-import org.emfjson.jackson.map.JacksonObjectMapper
+import org.emfjson.jackson.module.EMFModule
 import org.junit.Before
 import org.junit.Test
 
@@ -28,15 +29,14 @@ import static org.junit.Assert.*
 
 class UuidSaveTest extends UuidSupport {
 	
-	var JacksonObjectMapper mapper
+	val ObjectMapper mapper = new ObjectMapper
 	var options = new HashMap()
 
 	@Before
 	def void setUp() {
 		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE)
-		mapper = new JacksonObjectMapper()
 		options.put(EMFJs.OPTION_INDENT_OUTPUT, true)
-		options.put(EMFJs.OPTION_USE_UUID, true)
+		mapper.registerModule(new EMFModule(options))
 	}
 	
 	@Test
@@ -48,7 +48,7 @@ class UuidSaveTest extends UuidSupport {
 		// Make sure the fragment identifier is a UUID 
 		assertTrue(EcoreUtil.getURI(root).fragment().startsWith("_"))
 
-		val node = mapper.toObject(root, options)
+		val node = mapper.valueToTree(root)
 
 		assertNotNull(node)
 		assertNotNull(node.get(Constants.EJS_UUID_ANNOTATION))
@@ -73,7 +73,7 @@ class UuidSaveTest extends UuidSupport {
 
 		resource.getContents().add(root)
 
-		val node = mapper.toObject(root, options)
+		val node = mapper.valueToTree(root)
 
 		assertNotNull(node)
 		assertNotNull(node.get(Constants.EJS_UUID_ANNOTATION))

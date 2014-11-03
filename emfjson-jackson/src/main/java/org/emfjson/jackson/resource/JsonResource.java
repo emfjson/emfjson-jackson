@@ -18,7 +18,12 @@ import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.URIConverter;
-import org.emfjson.jackson.streaming.JacksonStreamMapper;
+import org.emfjson.common.Options;
+import org.emfjson.jackson.streaming.StreamReader;
+import org.emfjson.jackson.streaming.StreamWriter;
+
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
 
 /**
  * A Resource implementation that read and write it's content in JSON.
@@ -33,6 +38,10 @@ public class JsonResource extends AbstractUuidResource {
 		super(uri);
 	}
 
+	public void configure(StreamWriter writer) {}
+
+	public void configure(StreamReader reader) {}
+
 	@Override
 	protected void doLoad(InputStream inputStream, Map<?, ?> options) throws IOException {
 		if (options == null) {
@@ -42,7 +51,11 @@ public class JsonResource extends AbstractUuidResource {
 		if (inputStream instanceof URIConverter.Loadable) {
 			((URIConverter.Loadable) inputStream).loadResource(this);
 		} else {
-			new JacksonStreamMapper().parse(this, inputStream, options);
+			StreamReader reader = new StreamReader(Options.from(options).build());
+			configure(reader);
+
+			JsonFactory factory = new JsonFactory();
+			reader.parse(this, factory.createParser(inputStream));
 		}
 	}
 
@@ -55,7 +68,13 @@ public class JsonResource extends AbstractUuidResource {
 		if (outputStream instanceof URIConverter.Saveable) {
 			((URIConverter.Saveable) outputStream).saveResource(this);
 		} else {
-			new JacksonStreamMapper().write(this, outputStream, options);
+			StreamWriter writer = new StreamWriter(Options.from(options).build());
+			configure(writer);
+
+			JsonFactory factory = new JsonFactory();
+			JsonGenerator generator = factory.createGenerator(outputStream);
+			writer.generate(generator, this);
+			generator.close();
 		}
 	}
 

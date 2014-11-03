@@ -17,13 +17,13 @@ import java.io.IOException
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EcoreFactory
+import org.eclipse.emf.ecore.EcorePackage
 import org.eclipse.emf.ecore.resource.Resource
 import org.emfjson.jackson.module.EMFModule
 import org.emfjson.jackson.resource.JsonResource
 import org.junit.Test
 
 import static org.junit.Assert.*
-import org.eclipse.emf.ecore.EcorePackage
 
 class ModuleTest {
 
@@ -79,6 +79,22 @@ class ModuleTest {
 		r.contents.add(c)
 
 		assertEquals(expected, mapper.writer().writeValueAsString(r))
+	}
+	
+	@Test
+	def void testSaveResourceWithModuleAsTree() throws JsonProcessingException {
+		val expected = '''{"eClass":"http://www.eclipse.org/emf/2002/Ecore#//EClass","name":"A"}'''
+
+		val mapper = new ObjectMapper()
+		mapper.registerModule(new EMFModule())
+		
+		val r = new JsonResource
+		val c = EcoreFactory.eINSTANCE.createEClass()
+		c.setName("A")
+		r.contents.add(c)
+
+		val o = mapper.valueToTree(r)
+		assertEquals(expected, mapper.writeValueAsString(o))
 	}
 
 	@Test

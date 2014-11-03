@@ -17,7 +17,8 @@ import java.util.Collection;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.emfjson.common.IDResolver;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.emfjson.common.Cache;
 import org.emfjson.common.Options;
 
 import com.google.gwt.json.client.JSONArray;
@@ -26,11 +27,13 @@ import com.google.gwt.json.client.JSONString;
 
 public class References {
 
-	private Options options;
-	private IDResolver ids;
+	private final Options options;
+	private final Cache cache;
+	private final Resource resource;
 
-	public References(IDResolver idResolver, Options options) {
-		this.ids = idResolver;
+	public References(Cache cache, Resource resource, Options options) {
+		this.cache = cache;
+		this.resource = resource;
 		this.options = options;
 	}
 
@@ -52,8 +55,8 @@ public class References {
 		for (Object current: values) {
 			if (current instanceof EObject) {
 				EObject value = (EObject) current;
-				String ref = ids.getValue(value);
-				String type = ids.getValue(value.eClass());
+				String ref = cache.getHref(resource, value);
+				String type = cache.getHref(null, value.eClass());
 				arrayNode.set(i, createObjectRef(new JSONObject(), ref, type));
 				i++;
 			}
@@ -62,8 +65,8 @@ public class References {
 
 	public void serializeOne(JSONObject parent, String key, EObject value) {
 		if (value != null) {
-			final String ref = ids.getValue(value);
-			final String type = ids.getValue(value.eClass());
+			final String ref = cache.getHref(resource, value);
+			final String type = cache.getHref(null, value.eClass());
 
 			parent.put(key, createObjectRef(new JSONObject(), ref, type));
 		}
@@ -78,8 +81,8 @@ public class References {
 	}
 
 	public JSONObject createObjectRef(JSONObject target, EObject object) {
-		final String ref = ids.getValue(object);
-		final String type = ids.getValue(object.eClass());
+		final String ref = cache.getHref(resource, object);
+		final String type = cache.getHref(null, object.eClass());
 
 		return createObjectRef(target, ref, type);
 	}

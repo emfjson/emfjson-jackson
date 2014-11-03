@@ -13,6 +13,7 @@ package org.emfjson.common;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
 public class ReferenceEntry {
@@ -27,14 +28,36 @@ public class ReferenceEntry {
 		this.id = id;
 	}
 
-	public void resolve(ResourceSet resourceSet, IDResolver idResolver, Options options) {
-		final URI ref = idResolver.createFromValue(id);
-		
-		EObject target = resourceSet.getEObject(ref, options.resolveProxy);
+	public void resolve(ResourceSet resourceSet, Options options) {
+		final URI ref = createURIFromID(owner.eResource(), id);
+
+		EObject target;
+		if (ref == null) {
+			target = owner.eResource().getEObject(id);
+		} else {
+			target = resourceSet.getEObject(ref, options.resolveProxy);
+		}
 
 		if (target != null) {
 			EObjects.setOrAdd(owner, reference, target);
 		}
+	}
+
+	protected URI createURIFromID(Resource current, String value) {
+		if (value == null) {
+			return null;
+		}
+
+		if (value.contains(":")) { // is full
+            URI uri = URI.createURI(value);
+            return uri;
+        } else { // is fragment
+        	if (current == null || current.getURI() == null) {
+        		return null;
+        	} else {
+        		return current.getURI().appendFragment(value.startsWith("#") ? value.substring(1) : value);
+        	}
+        }
 	}
 
 }

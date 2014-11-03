@@ -16,8 +16,6 @@ import static org.emfjson.EMFJs.OPTION_RESOLVE_PROXY;
 import static org.emfjson.EMFJs.OPTION_ROOT_ELEMENT;
 import static org.emfjson.EMFJs.OPTION_SERIALIZE_REF_TYPE;
 import static org.emfjson.EMFJs.OPTION_SERIALIZE_TYPE;
-import static org.emfjson.EMFJs.OPTION_URI_HANDLER;
-import static org.emfjson.EMFJs.OPTION_USE_UUID;
 
 import java.util.Collections;
 import java.util.Map;
@@ -30,27 +28,21 @@ public class Options {
 	public final boolean serializeTypes;
 	public final boolean serializeRefTypes;
 	public final boolean useProxyAttributes;
-	public final boolean useUUID;
 	public final boolean resolveProxy;
 	public final EClass rootElement;
-	public final URIHandler uriHandler;
 
 	Options(boolean serializeTypes,
 			boolean serializeRefTypes,
 			boolean useProxyAttributes,
-			boolean useUUID,
 			boolean indentOutput,
 			boolean resolveProxy,
-			EClass rootElement,
-			URIHandler uriHandler) {
+			EClass rootElement) {
 		this.serializeRefTypes = serializeRefTypes;
 		this.serializeTypes = serializeTypes;
 		this.useProxyAttributes = useProxyAttributes;
-		this.useUUID = useUUID;
 		this.indentOutput = indentOutput;
 		this.resolveProxy = resolveProxy;
 		this.rootElement = rootElement;
-		this.uriHandler = uriHandler;
 	}
 
 	public static Builder from(Map<?, ?> options) {
@@ -88,15 +80,6 @@ public class Options {
 			return null;
 		}
 
-		private URIHandler handlerValue(Map<?, ?> options, String key) {
-			Object optionHandler = options.get(key);
-			if (optionHandler instanceof EClass) {
-				return (URIHandler) optionHandler;
-			}
-
-			return null;
-		}
-
 		/**
 		 * @return Options setup with clients settings.
 		 */
@@ -104,12 +87,10 @@ public class Options {
 			return new Options(
 					booleanValue(options, OPTION_SERIALIZE_TYPE, true), 
 					booleanValue(options, OPTION_SERIALIZE_REF_TYPE, false), 
-					booleanValue(options, OPTION_PROXY_ATTRIBUTES, false), 
-					booleanValue(options, OPTION_USE_UUID, false), 
+					booleanValue(options, OPTION_PROXY_ATTRIBUTES, false),  
 					booleanValue(options, OPTION_INDENT_OUTPUT, true),
 					booleanValue(options, OPTION_RESOLVE_PROXY, true),
-					objectValue(options, OPTION_ROOT_ELEMENT),
-					handlerValue(options, OPTION_URI_HANDLER));
+					objectValue(options, OPTION_ROOT_ELEMENT));
 		}
 	}
 }

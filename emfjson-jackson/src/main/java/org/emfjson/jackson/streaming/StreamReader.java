@@ -32,7 +32,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emfjson.common.Cache;
 import org.emfjson.common.Constants;
 import org.emfjson.common.EObjects;
-import org.emfjson.common.IDResolver;
 import org.emfjson.common.Options;
 import org.emfjson.common.ReferenceEntry;
 import org.emfjson.common.resource.UuidResource;
@@ -43,30 +42,30 @@ import com.fasterxml.jackson.core.JsonToken;
 
 public class StreamReader {
 
-	private final ResourceSet resourceSet;
-	private final Resource resource;
-	private final IDResolver idResolver;
 	private final Options options;
 	private final List<ReferenceEntry> entries = new ArrayList<>();
 	private final Cache cache = new Cache();
 
-	public StreamReader(Resource resource) {
-		this(resource, new Options.Builder().build());
+	private Resource resource;
+	private ResourceSet resourceSet;
+
+	public StreamReader(Options options) {
+		this.options = options;
 	}
 
-	public StreamReader(Resource resource, Options options) {
+	private void prepare(Resource resource) {
 		this.resource = resource;
-		this.options = options;
-		this.idResolver = new IDResolver(resource == null ? null : resource.getURI());
 
-		if (resource == null || resource.getResourceSet() == null) {
+		if (this.resource == null || this.resource.getResourceSet() == null) {
 			resourceSet = new ResourceSetImpl();
 		} else {
-			resourceSet = resource.getResourceSet();
+			resourceSet = this.resource.getResourceSet();
 		}
 	}
 
-	public void parse(JsonParser parser) throws JsonParseException, IOException {
+	public void parse(Resource resource, JsonParser parser) throws JsonParseException, IOException {
+		prepare(resource);
+	
 		if (parser.getCurrentToken() == null) {
 			try {
 				parser.nextToken();
@@ -108,7 +107,7 @@ public class StreamReader {
 		}
 	}
 
-	public EObject parseObject(JsonParser parser, EReference containment, EObject owner, EClass currentClass) 
+	private EObject parseObject(JsonParser parser, EReference containment, EObject owner, EClass currentClass) 
 			throws JsonParseException, IOException {
 
 		EObject current = null;
@@ -125,7 +124,7 @@ public class StreamReader {
 				current = create(parser.nextTextValue());
 				break;
 			case EJS_UUID_ANNOTATION:
-				if (options.useUUID && resource instanceof UuidResource) {
+				if (resource instanceof UuidResource) {
 					if (current != null) {
 						((UuidResource) resource).setID(current, parser.nextTextValue());
 					}
@@ -257,7 +256,7 @@ public class StreamReader {
 
 	private void resolve() {
 		for (ReferenceEntry entry: entries) {
-			entry.resolve(resourceSet, idResolver, options);
+			entry.resolve(resourceSet, options);
 		}
 	}
 

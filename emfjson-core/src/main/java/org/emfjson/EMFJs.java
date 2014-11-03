@@ -23,45 +23,36 @@ public final class EMFJs {
 	 * <p>Default value is null.</p>
 	 */
 	public static final String OPTION_ROOT_ELEMENT = "OPTION_ROOT_ELEMENT";
-	
+
 	/**
 	 * When value is true, the writer will include a type to each JSON objects.
 	 * <p>Default value is true.</p>
 	 */
 	public static final String OPTION_SERIALIZE_TYPE = "OPTION_SERIALIZE_TYPE";
-	
+
 	/**
 	 * When value is true, the writer will include a type to each reference JSON
 	 * objects.
 	 * <p>Default value is false</p>
 	 */
 	public static final String OPTION_SERIALIZE_REF_TYPE = "OPTION_SERIALIZE_REF_TYPE";
-	
+
 	/**
 	 * When value is true, the writer will indent the output JSON document.
 	 * <p>Default value is true</p>
 	 */
 	public static final String OPTION_INDENT_OUTPUT = "OPTION_INDENT_OUTPUT";
-	
+
 	/**
 	 * When value is true, the reader will load attributes of proxy objects.
 	 * <p>Default value is false</p>
 	 */
 	public static final String OPTION_PROXY_ATTRIBUTES = "PROXY_ATTRIBUTES";
-	
-	/**
-	 * When value is true, the reader and writer will take into account uuids to 
-	 * identify objects.
-	 * <p>Default value is false</p>
-	 */
-	public static final String OPTION_USE_UUID = "OPTION_USE_UUID";
-	
+
 	/**
 	 * When value is true, the reader will resolve proxy objects. 
 	 * <p>Default value is true</p>
 	 */
 	public static final String OPTION_RESOLVE_PROXY = "OPTION_RESOLVE_PROXY";
-	
-	public static final String OPTION_URI_HANDLER = "OPTION_URI_HANDLER"; 
 
 }

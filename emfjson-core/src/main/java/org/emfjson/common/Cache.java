@@ -19,18 +19,22 @@ import java.util.Map;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 public class Cache {
 
-	protected  final Map<EClass, List<EReference>> mapOfReferences = new HashMap<>();
-	protected final Map<EClass, List<EAttribute>> mapOfAttributes = new HashMap<>();
-	protected final Map<EStructuralFeature, String> mapOfNames = new HashMap<>();
+	private final Map<EObject, String> mapOfID = new HashMap<>();
+	private final Map<EClass, List<EReference>> mapOfReferences = new HashMap<>();
+	private final Map<EClass, List<EAttribute>> mapOfAttributes = new HashMap<>();
+	private final Map<EStructuralFeature, String> mapOfNames = new HashMap<>();
 	protected final Map<String, EClass> mapOfClasses = new HashMap<>();
 	protected final Map<String, URI> mapOfURIs = new HashMap<>();
-	protected final Map<EClass, Map<String, EStructuralFeature>> mapOfFeatures = new HashMap<>();
+	private final Map<EClass, Map<String, EStructuralFeature>> mapOfFeatures = new HashMap<>();
 
 	public String getKey(EStructuralFeature feature) {
 		String key = mapOfNames.get(feature);
@@ -114,5 +118,26 @@ public class Cache {
 
         return eStructuralFeature;
     }
+
+    public String getHref(Resource current, EObject object) {
+		String key = mapOfID.get(object);
+		if (key != null) {
+			return key;
+		}
+
+		final URI eObjectURI = EcoreUtil.getURI(object);
+		final String fragment = eObjectURI.fragment();
+		final URI baseURI = eObjectURI.trimFragment().trimQuery();
+
+		if (current != null && baseURI.equals(current.getURI())) {
+			key = fragment;
+		} else {
+			key = eObjectURI.toString();
+		}
+
+		mapOfID.put(object, key);
+
+		return key;
+	}
 
 }

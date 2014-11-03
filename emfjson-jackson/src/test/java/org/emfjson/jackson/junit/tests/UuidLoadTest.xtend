@@ -10,18 +10,20 @@
  */
 package org.emfjson.jackson.junit.tests
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.util.HashMap
 import java.util.Map
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EPackage
 import org.emfjson.EMFJs
 import org.emfjson.jackson.junit.model.Container
 import org.emfjson.jackson.junit.model.ModelFactory
 import org.emfjson.jackson.junit.model.ModelPackage
 import org.emfjson.jackson.junit.support.UuidSupport
-import org.emfjson.jackson.map.JacksonObjectMapper
+import org.emfjson.jackson.module.EMFModule
 import org.junit.Before
 import org.junit.Test
 
@@ -29,16 +31,14 @@ import static org.junit.Assert.*
 
 class UuidLoadTest extends UuidSupport {
 	
-	var JacksonObjectMapper mapper
 	var Map<Object, Object> options = new HashMap()
+	val mapper = new ObjectMapper()
 
 	@Before
 	def void setUp() {
 		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE)
-
-		mapper = new JacksonObjectMapper()
 		options.put(EMFJs.OPTION_INDENT_OUTPUT, true)
-		options.put(EMFJs.OPTION_USE_UUID, true)
+		mapper.registerModule(new EMFModule(options))
 	}
 
 	@Test
@@ -65,8 +65,8 @@ class UuidLoadTest extends UuidSupport {
 		val root = ModelFactory.eINSTANCE.createContainer()
 		resource.getContents().add(root)
 
-		val node = mapper.toObject(root, options)
-		val result = mapper.fromObject(node, createJsUuidResource("result.json"), options)
+		val node = mapper.valueToTree(root)
+		val result = mapper.readValue(mapper.writeValueAsString(node), typeof(EObject))
 
 		assertNotNull(result)
 		assertEquals(uuid(root), uuid(result))
@@ -86,8 +86,8 @@ class UuidLoadTest extends UuidSupport {
 		root.getElements().add(two)
 		resource.getContents().add(root)
 
-		val node = mapper.toObject(root, options)
-		val result = mapper.fromObject(node, createJsUuidResource("result.json"), options)
+		val node = mapper.valueToTree(root)
+		val result = mapper.readValue(mapper.writeValueAsString(node), typeof(EObject))
 
 		assertNotNull(result)
 		assertEquals(uuid(root), uuid(result))

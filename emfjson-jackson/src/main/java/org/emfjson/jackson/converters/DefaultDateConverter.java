@@ -8,14 +8,24 @@
  * Contributors:
  *    Guillaume Hillairet - initial API and implementation
  */
-package org.emfjson.jackson.map;
+package org.emfjson.jackson.converters;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Dates {
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.emfjson.converters.DateConverter;
 
-	public static String dateValue(Date date) {
+public class DefaultDateConverter extends DateConverter {
+
+	@Override
+	public Date createFromValue(String value) {
+		return (Date) EcoreUtil.createFromString(EcorePackage.Literals.EDATE, value);
+	}
+
+	@Override
+	public String getValue(Object date) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		return sdf.format(date);
 	}

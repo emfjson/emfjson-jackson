@@ -18,18 +18,23 @@ import java.util.Collection;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.emfjson.common.IDResolver;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.emfjson.common.Cache;
 import org.emfjson.common.Options;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 
-public class ReferenceStreamWriter {
+public class References {
 
-	private final IDResolver idResolver;
+	private final Cache cache;
 	private final Options options;
+	private final RefWriter writer;
+	private final Resource resource;
 
-	public ReferenceStreamWriter(IDResolver idResolver, Options options) {
-		this.idResolver = idResolver;
+	public References(Cache cache, Resource resource, RefWriter writer, Options options) {
+		this.cache = cache;
+		this.resource = resource;
+		this.writer = writer;
 		this.options = options;
 	}
 
@@ -47,7 +52,7 @@ public class ReferenceStreamWriter {
 			generator.writeStartArray();
 			for (Object current: values) {
 				if (current instanceof EObject) {
-					writeObjectRef(generator, (EObject) current);
+					writeRef(generator, (EObject) current);
 				}
 			}
 			generator.writeEndArray();
@@ -60,21 +65,39 @@ public class ReferenceStreamWriter {
 	public void serializeOne(JsonGenerator generator, String key, EObject value) {
 		try {
 			generator.writeFieldName(key);
-			writeObjectRef(generator, value);
+			writeRef(generator, value);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void writeObjectRef(JsonGenerator generator, EObject object) throws IOException {
-		String ref = idResolver.getValue(object);
-		generator.writeStartObject();
-		if (options.serializeRefTypes) {
-			String type = idResolver.getValue(object.eClass());
-			generator.writeStringField(EJS_TYPE_KEYWORD, type);
+	public void writeRef(JsonGenerator generator, EObject object) throws IOException {
+		writer.write(cache, resource, generator, object, options);
+	}
+
+	public interface RefWriter {
+		void write(Cache cache, Resource resource, JsonGenerator generator, EObject object, Options options) throws IOException;
+	}
+
+	public static class RefAsObjectWriter implements RefWriter {
+		@Override
+		public void write(Cache cache, Resource resource, JsonGenerator generator, EObject object, Options options) throws IOException {
+			String ref = cache.getHref(resource, object);
+			generator.writeStartObject();
+			if (options.serializeRefTypes) {
+				String type = cache.getHref(null, object.eClass());
+				generator.writeStringField(EJS_TYPE_KEYWORD, type);
+			}
+			generator.writeStringField(EJS_REF_KEYWORD, ref);
+			generator.writeEndObject();
 		}
-		generator.writeStringField(EJS_REF_KEYWORD, ref);
-		generator.writeEndObject();
+	}
+	
+	public static class RefAsValueWriter implements RefWriter {
+		@Override
+		public void write(Cache cache, Resource resource, JsonGenerator generator, EObject object, Options options) throws IOException {
+			generator.writeString(cache.getHref(resource, object));
+		}
 	}
 
 }

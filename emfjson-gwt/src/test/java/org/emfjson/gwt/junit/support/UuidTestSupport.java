@@ -62,7 +62,6 @@ public class UuidTestSupport extends GWTTestCase {
 		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
 		mapper = new JsonMapper();
 		options.put(EMFJs.OPTION_INDENT_OUTPUT, true);
-		options.put(EMFJs.OPTION_USE_UUID, true);
 	}
 
 	@Override

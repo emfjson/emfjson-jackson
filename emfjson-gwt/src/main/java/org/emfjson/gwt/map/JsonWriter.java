@@ -32,8 +32,8 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emfjson.common.Cache;
-import org.emfjson.common.IDResolver;
 import org.emfjson.common.Options;
+import org.emfjson.common.resource.UuidResource;
 
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
@@ -51,7 +51,7 @@ public class JsonWriter {
 	public JsonWriter(Resource resource, Options options) {
 		this.resource = resource;
 		this.options = options;
-		this.referencers = new References(new IDResolver(resource.getURI()), options);
+		this.referencers = new References(cache, resource, options);
 	}
 
 	public JSONValue toValue() {
@@ -70,8 +70,12 @@ public class JsonWriter {
 		if (options.serializeTypes) {
 			node.put(EJS_TYPE_KEYWORD, new JSONString(getURI(eClass).toString()));
 		}
-		if (options.useUUID) {
-			node.put(EJS_UUID_ANNOTATION, new JSONString(getURI(object).fragment()));
+
+		if (object.eResource() instanceof UuidResource) {
+			String id = ((UuidResource) object.eResource()).getID(object);
+			if (id != null) {
+				node.put(EJS_UUID_ANNOTATION, new JSONString(id));
+			}
 		}
 
 		final List<EAttribute> attributes = cache.getAttributes(eClass);
