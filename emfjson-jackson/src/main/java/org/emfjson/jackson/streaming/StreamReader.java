@@ -42,9 +42,9 @@ import com.fasterxml.jackson.core.JsonToken;
 
 public class StreamReader {
 
-	private final Options options;
-	private final List<ReferenceEntry> entries = new ArrayList<>();
-	private final Cache cache = new Cache();
+	protected final Options options;
+	protected final List<ReferenceEntry> entries = new ArrayList<>();
+	protected final Cache cache = new Cache();
 
 	private Resource resource;
 	private ResourceSet resourceSet;
@@ -65,7 +65,7 @@ public class StreamReader {
 
 	public void parse(Resource resource, JsonParser parser) throws JsonParseException, IOException {
 		prepare(resource);
-	
+
 		if (parser.getCurrentToken() == null) {
 			try {
 				parser.nextToken();
@@ -107,7 +107,7 @@ public class StreamReader {
 		}
 	}
 
-	private EObject parseObject(JsonParser parser, EReference containment, EObject owner, EClass currentClass) 
+	protected EObject parseObject(JsonParser parser, EReference containment, EObject owner, EClass currentClass) 
 			throws JsonParseException, IOException {
 
 		EObject current = null;
@@ -161,7 +161,7 @@ public class StreamReader {
 		return current;
 	}
 
-	private void readAttribute(JsonParser parser, EAttribute attribute, EObject owner) 
+	protected  void readAttribute(JsonParser parser, EAttribute attribute, EObject owner) 
 			throws JsonParseException, IOException {
 
 		final JsonToken token = parser.nextToken();
@@ -175,7 +175,7 @@ public class StreamReader {
 		}
 	}
 
-	private void readReference(JsonParser parser, EReference reference, EObject owner) 
+	protected  void readReference(JsonParser parser, EReference reference, EObject owner) 
 			throws JsonParseException, IOException {
 
 		JsonToken token = parser.nextToken();
@@ -200,17 +200,17 @@ public class StreamReader {
 
 			if (token == JsonToken.START_ARRAY) {
 				while (parser.nextToken() != JsonToken.END_ARRAY) {
-					addReferenceEntry(parser, reference, owner);
+					entries.add(createReferenceEntry(parser, reference, owner));
 				}
 			} else {
-				addReferenceEntry(parser, reference, owner);
+				entries.add(createReferenceEntry(parser, reference, owner));
 			}
 		}
 
 	}
 
 	@SuppressWarnings("unchecked")
-	private JsonToken parseEntry(JsonParser parser, EReference reference, EObject owner) 
+	protected  JsonToken parseEntry(JsonParser parser, EReference reference, EObject owner) 
 			throws JsonParseException, IOException {
 
 		EList<EObject> values = null;
@@ -232,7 +232,7 @@ public class StreamReader {
 		return parser.getCurrentToken();
 	}
 
-	private void addReferenceEntry(JsonParser parser, EReference reference, EObject owner) 
+	protected ReferenceEntry createReferenceEntry(JsonParser parser, EReference reference, EObject owner) 
 			throws JsonParseException, IOException {
 
 		String id = null;
@@ -243,10 +243,12 @@ public class StreamReader {
 				id = parser.nextTextValue();
 			}
 		}
-		entries.add(new ReferenceEntry(owner, reference, id));
+
+		return new ReferenceEntry(owner, reference, id);
 	}
 
-	private EObject create(String type) {
+
+	protected EObject create(String type) {
 		EClass eClass = cache.getEClass(resourceSet, type);
 		if (eClass != null) {
 			return EcoreUtil.create(eClass);
@@ -254,7 +256,7 @@ public class StreamReader {
 		return null;
 	}
 
-	private void resolve() {
+	protected void resolve() {
 		for (ReferenceEntry entry: entries) {
 			entry.resolve(resourceSet, options);
 		}

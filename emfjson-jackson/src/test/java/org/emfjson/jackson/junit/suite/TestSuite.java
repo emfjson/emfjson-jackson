@@ -17,6 +17,7 @@ import org.emfjson.jackson.junit.tests.ModuleTest;
 import org.emfjson.jackson.junit.tests.PolymorphicTest;
 import org.emfjson.jackson.junit.tests.ProxyAttributeTest;
 import org.emfjson.jackson.junit.tests.ReferenceTest;
+import org.emfjson.jackson.junit.tests.UpdateObjectTest;
 import org.emfjson.jackson.junit.tests.UuidLoadTest;
 import org.emfjson.jackson.junit.tests.UuidSaveTest;
 import org.emfjson.jackson.junit.tests.ValueTest;
@@ -35,6 +36,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	ProxyAttributeTest.class,
 	UuidSaveTest.class,
 	UuidLoadTest.class,
-	ModuleTest.class
+	ModuleTest.class,
+	UpdateObjectTest.class
 })
 public class TestSuite {}
