@@ -10,12 +10,16 @@
  */
 package org.emfjson.jackson.junit.bench;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.URL;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.BinaryResourceImpl;
+import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.emfjson.jackson.junit.model.ModelPackage;
@@ -24,63 +28,101 @@ import org.emfjson.jackson.resource.JsonResourceFactory;
 public class DeserializationBenchmark {
 
 	int times = 10;
-	protected final URL testURI = getClass().getResource("/tests");
-	protected URI baseTestFilesFileDirectory = URI.createFileURI(testURI.getFile()).appendSegment("");
 
 	public static void main(String[] args) throws IOException {
 		DeserializationBenchmark b = new DeserializationBenchmark();
-		b.benchmarkJson();
-		b.benchmarkXmi();
-//		b.test();
+		// first
+		System.out.println("--- 1st benchmarck ---");
+		b.benchmarkXmi(Benchmarks.first());
+//		b.benchmarkBinary(Benchmarks.first());
+		b.benchmarkJson(Benchmarks.first());
+		// second
+		System.out.println("--- 2nd benchmarck ---");
+		b.benchmarkXmi(Benchmarks.second());
+//		b.benchmarkBinary(Benchmarks.second());
+		b.benchmarkJson(Benchmarks.second());
+		// third
+		System.out.println("--- 3rd benchmarck ---");
+		b.benchmarkXmi(Benchmarks.third());
+//		b.benchmarkBinary(Benchmarks.third());
+		b.benchmarkJson(Benchmarks.third());
 	}
 
-	public void benchmarkXmi() throws IOException {
-		System.out.println("Start xmi....");
+	private String content(EObject content, ResourceSet rs) {
+		Resource resource = rs.createResource(URI.createURI("save"));
+		resource.getContents().add(content);
 
-		long[] all = new long[times];
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		try {
+			resource.save(outputStream, null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return new String(outputStream.toByteArray());
+	}
+
+	private long load(Resource resource, String content) {
+		long start = System.currentTimeMillis();
+		try {
+			resource.load(new ByteArrayInputStream(content.getBytes()), null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return System.currentTimeMillis() - start;
+	}
+
+	public void benchmarkXmi(EObject content) throws IOException {
+		long sum = 0;
+
 		for (int i = 0; i < times; i++) {
 			ResourceSet resourceSet = new ResourceSetImpl();
 			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
 			resourceSet.getPackageRegistry().put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
-			Resource resource = resourceSet.createResource(baseTestFilesFileDirectory.appendSegment("bench1-model.xmi"));
+			Resource resource = resourceSet.createResource(URI.createURI("test"));
 
-			long start = System.currentTimeMillis();
-			resource.load(null);
-			all[i] = System.currentTimeMillis() - start;
+			sum += load(resource, content(content, resourceSet));
 		}
 
-		for (long a: all) {
-			System.out.println("Time for XMI: " + a / 1000.);
-		}
+		long average = sum / times;
+		System.out.println("XMI: " + average / 1000.);
 	}
 
-	public void benchmarkJson() throws IOException {
-		System.out.println("Start json....");
+	public void benchmarkBinary(EObject content) throws IOException {
+		long sum = 0;
 
-		long[] all = new long[times];
+		for (int i = 0; i < times; i++) {
+			ResourceSet resourceSet = new ResourceSetImpl();
+			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new ResourceFactoryImpl() {
+				@Override
+				public Resource createResource(URI uri) {
+					return new BinaryResourceImpl(uri);
+				}
+			});
+			resourceSet.getPackageRegistry().put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
+			Resource resource = resourceSet.createResource(URI.createURI("test"));
+
+			sum += load(resource, content(content, resourceSet));
+		}
+
+		long average = sum / times;
+		System.out.println("Binary: " + average / 1000.);
+	}
+
+	public void benchmarkJson(EObject content) throws IOException {
+		long sum = 0;
+
 		for (int i = 0; i < times; i++) {
 			ResourceSet resourceSet = new ResourceSetImpl();
 			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new JsonResourceFactory());
 			resourceSet.getPackageRegistry().put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
-			Resource resource = resourceSet.createResource(baseTestFilesFileDirectory.appendSegment("bench1-model.json"));
+			Resource resource = resourceSet.createResource(URI.createURI("test"));
 
-			long start = System.currentTimeMillis();
-			resource.load(null);
-			all[i] = System.currentTimeMillis() - start;
+			sum += load(resource, content(content, resourceSet));
 		}
 
-		for (long a: all) {
-			System.out.println("Time for JSON: " + a / 1000.);
-		}
+		long average = sum / times;
+		System.out.println("JSON: " + average / 1000.);
 	}
 
-	public void test() throws IOException {
-		ResourceSet resourceSet = new ResourceSetImpl();
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new JsonResourceFactory());
-		resourceSet.getPackageRegistry().put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
-		Resource resource = resourceSet.createResource(baseTestFilesFileDirectory.appendSegment("nodes1.json"));
-		resource.load(null);
-		
-		System.out.println(resource.getContents().get(0));
-	}
 }

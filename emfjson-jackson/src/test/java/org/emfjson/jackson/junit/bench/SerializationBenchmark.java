@@ -23,76 +23,45 @@ import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.emfjson.EMFJs;
-import org.emfjson.jackson.junit.model.ConcreteTypeOne;
-import org.emfjson.jackson.junit.model.Container;
-import org.emfjson.jackson.junit.model.ModelFactory;
 import org.emfjson.jackson.junit.model.ModelPackage;
-import org.emfjson.jackson.junit.model.Node;
 import org.emfjson.jackson.resource.JsonResourceFactory;
 
 public class SerializationBenchmark {
 
-	int times = 10;
+	int times = 100;
 
 	public static void main(String[] args) {
 		SerializationBenchmark b =  new SerializationBenchmark();
 		// first
-		b.benchmarkSerializeXmi(b.setUpFirst());
-		b.benchmarkSerializeBinary(b.setUpFirst());
-		b.benchmarkSerializeJson(b.setUpFirst());
+		System.out.println("--- 1st benchmarck ---");
+		b.benchmarkSerializeXmi(Benchmarks.first());
+		b.benchmarkSerializeBinary(Benchmarks.first());
+		b.benchmarkSerializeJson(Benchmarks.first());
 		// second
-		b.benchmarkSerializeXmi(b.setUpSecond());
-		b.benchmarkSerializeBinary(b.setUpSecond());
-		b.benchmarkSerializeJson(b.setUpSecond());
+		System.out.println("--- 2nd benchmarck ---");
+		b.benchmarkSerializeXmi(Benchmarks.second());
+		b.benchmarkSerializeBinary(Benchmarks.second());
+		b.benchmarkSerializeJson(Benchmarks.second());
+		// third
+		System.out.println("--- 3rd benchmarck ---");
+		b.benchmarkSerializeXmi(Benchmarks.third());
+		b.benchmarkSerializeBinary(Benchmarks.third());
+		b.benchmarkSerializeJson(Benchmarks.third());
 	}
 
 	private long performSave(Resource resource, Map<String, Object> options) {
-		long start = System.nanoTime();
+		long start = System.currentTimeMillis();
 		try {
 			resource.save(options);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return System.nanoTime() - start;
-	}
-
-	public EObject setUpFirst() {
-		Container root = ModelFactory.eINSTANCE.createContainer();
-		for (int i = 0; i < 100000; i++) {
-			ConcreteTypeOne child = ModelFactory.eINSTANCE.createConcreteTypeOne();
-			child.setName("Concrete" + i);
-			root.getElements().add(child);
-		}
-		return root;
-	}
-
-	public EObject setUpSecond() {
-		Node root = ModelFactory.eINSTANCE.createNode();
-		
-		for (int i = 0; i < 100; i++) {
-			Node n1 = ModelFactory.eINSTANCE.createNode();
-			n1.setLabel("first" + i);
-			root.getChild().add(n1);
-
-			for (int j = 0; j < 100; j++) {
-				Node n2 = ModelFactory.eINSTANCE.createNode();
-				n2.setLabel("second" + j);
-				n1.getChild().add(n2);
-				
-				for (int k = 0; k < 100; k++) {
-					Node n3 = ModelFactory.eINSTANCE.createNode();
-					n3.setLabel("third" + k);
-					n2.getChild().add(n3);
-				}
-			}
-		}
-		return root;
+		return System.currentTimeMillis() - start;
 	}
 
 	public void benchmarkSerializeXmi(EObject container) {
 		long sum = 0;
 
-		System.out.println("Start xmi....");
 		for (int i = 0; i < times; i++) {
 			ResourceSet resourceSet = new ResourceSetImpl();
 			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
@@ -104,13 +73,12 @@ public class SerializationBenchmark {
 		}
 
 		long average = sum / times;
-		System.out.println("Time for XMI: " + average);
+		System.out.println("XMI: " + average / 1000.);
 	}
 
 	public void benchmarkSerializeBinary(EObject container) {
 		long sum = 0;
 
-		System.out.println("Start Binary....");
 		for (int i = 0; i < times; i++) {
 			ResourceSet resourceSet = new ResourceSetImpl();
 			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new ResourceFactoryImpl() {
@@ -127,17 +95,16 @@ public class SerializationBenchmark {
 		}
 
 		long average = sum / times;
-		System.out.println("Time for Binary: " + average);
+		System.out.println("Binary: " + average / 1000.);
 	}
 
 	public void benchmarkSerializeJson(EObject container) {
 		long sum = 0;
 		Map<String, Object> options = new HashMap<>();
-		options.put(EMFJs.OPTION_INDENT_OUTPUT, true);
+		options.put(EMFJs.OPTION_INDENT_OUTPUT, false);
 		options.put(EMFJs.OPTION_SERIALIZE_REF_TYPE, false);
 		options.put(EMFJs.OPTION_SERIALIZE_TYPE, false);
 
-		System.out.println("Start json....");
 		for (int i = 0; i < times; i++) {
 			ResourceSet resourceSet = new ResourceSetImpl();
 			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new JsonResourceFactory());
@@ -149,7 +116,7 @@ public class SerializationBenchmark {
 		}
 
 		long average = sum / times;
-		System.out.println("Time for JSON: " + average);
+		System.out.println("JSON: " + average / 1000.);
 	}
 
 }
