@@ -16,6 +16,7 @@ import static org.emfjson.EMFJs.OPTION_RESOLVE_PROXY;
 import static org.emfjson.EMFJs.OPTION_ROOT_ELEMENT;
 import static org.emfjson.EMFJs.OPTION_SERIALIZE_REF_TYPE;
 import static org.emfjson.EMFJs.OPTION_SERIALIZE_TYPE;
+import static org.emfjson.EMFJs.OPTION_USE_ID;
 
 import java.util.Collections;
 import java.util.Map;
@@ -29,6 +30,7 @@ public class Options {
 	public final boolean serializeRefTypes;
 	public final boolean useProxyAttributes;
 	public final boolean resolveProxy;
+	public final boolean useId;
 	public final EClass rootElement;
 
 	Options(boolean serializeTypes,
@@ -36,12 +38,14 @@ public class Options {
 			boolean useProxyAttributes,
 			boolean indentOutput,
 			boolean resolveProxy,
+			boolean useId,
 			EClass rootElement) {
 		this.serializeRefTypes = serializeRefTypes;
 		this.serializeTypes = serializeTypes;
 		this.useProxyAttributes = useProxyAttributes;
 		this.indentOutput = indentOutput;
 		this.resolveProxy = resolveProxy;
+		this.useId = useId;
 		this.rootElement = rootElement;
 	}
 
@@ -90,6 +94,7 @@ public class Options {
 					booleanValue(options, OPTION_PROXY_ATTRIBUTES, false),  
 					booleanValue(options, OPTION_INDENT_OUTPUT, true),
 					booleanValue(options, OPTION_RESOLVE_PROXY, true),
+					booleanValue(options, OPTION_USE_ID, false),
 					objectValue(options, OPTION_ROOT_ELEMENT));
 		}
 	}

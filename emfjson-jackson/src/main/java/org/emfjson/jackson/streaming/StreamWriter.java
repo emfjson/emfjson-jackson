@@ -138,6 +138,13 @@ public class StreamWriter {
 			if (id != null) {
 				generator.writeStringField(EJS_UUID_ANNOTATION, id);
 			}
+		} else {
+			if (options.useId) {
+				String id = object.eResource().getURIFragment(object);
+				if (id != null) {
+					generator.writeStringField(EJS_UUID_ANNOTATION, id);
+				}
+			}
 		}
 
 		for (final EAttribute attribute: attributes) {

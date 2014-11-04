@@ -54,5 +54,12 @@ public final class EMFJs {
 	 * <p>Default value is true</p>
 	 */
 	public static final String OPTION_RESOLVE_PROXY = "OPTION_RESOLVE_PROXY";
+	
+	/**
+	 * When value is true, the writer will include an _id key to each json objects and 
+	 * sets as value the fragment identifier.
+	 * <p>Default value is false</p>
+	 */
+	public static final String OPTION_USE_ID = "OPTION_USE_ID"; 
 
 }
