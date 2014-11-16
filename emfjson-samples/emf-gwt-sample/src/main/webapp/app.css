@@ -1,0 +1,25 @@
+*, 
+*:before, 
+*:after {
+	-moz-box-sizing: border-box; 
+	-webkit-box-sizing: border-box; 
+	box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+}
+
+body {
+    background: #FFF;
+    border-radius: 5px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    color: #000;
+    margin: 0 auto;
+    overflow: hidden;
+    cursor: default;
+}

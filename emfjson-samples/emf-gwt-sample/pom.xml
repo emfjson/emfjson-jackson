@@ -1,0 +1,148 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>org.emfjson</groupId>
+		<artifactId>emfjson-samples</artifactId>
+		<version>0.9.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>emf-gwt-sample</artifactId>
+
+	<properties>
+		<gwt.module>example.App</gwt.module>
+		<gwt.genParam>false</gwt.genParam>
+		<!-- keep in sync with app-server -->
+		<runTarget>http://localhost:8080/</runTarget>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>2.7.0-rc1</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>2.7.0-rc1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.emfjson</groupId>
+			<artifactId>emfjson-gwt</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.emfjson</groupId>
+			<artifactId>emfjson-jackson</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-servlet</artifactId>
+			<version>2.13</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.8</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>2.7.0-rc1</version>
+				<configuration>
+					<module>${gwt.module}</module>
+					<strict>false</strict>
+					<genParam>${gwt.genParam}</genParam>
+					<noserver>true</noserver>
+					<runTarget>${runTarget}</runTarget>
+					<deploy>${project.build.directory}/gwtc/extra</deploy>
+					<extra>${project.build.directory}/gwtc/extra</extra>
+					<gen>${project.build.directory}/gwtc/gen</gen>
+					<!-- There's an issue on Mac: see http://code.google.com/p/google-web-toolkit/issues/detail?id=7474 
+						<workDir>${project.build.directory}/gwtc/work</workDir> <codeServerWorkDir>${project.build.directory}/gwtc/superDevMode</codeServerWorkDir> -->
+				</configuration>
+				<executions>
+					<execution>
+						<id>gwt-compile</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.1.2.v20140210</version>
+				<configuration>
+					<scanIntervalSeconds>1</scanIntervalSeconds>
+					<webApp>
+						<baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
+							<resourcesAsCSV>src/main/webapp,${basedir}/target/${project.artifactId}-${project.version}/</resourcesAsCSV>
+						</baseResource>
+					</webApp>
+					<systemProperties>
+						<systemProperty>
+							<name>gwt.codeserver.port</name>
+							<value>9876</value>
+						</systemProperty>
+					</systemProperties>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<archive>
+						<addMavenDescriptor>false</addMavenDescriptor>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>

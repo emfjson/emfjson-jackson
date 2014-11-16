@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.emfjson</groupId>
-	<artifactId>emfjson-examples</artifactId>
+	<artifactId>emfjson-samples</artifactId>
 	<version>0.9.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
@@ -13,9 +13,9 @@
 	</properties>
 
 	<modules>
-		<module>resource-example</module>
-		<module>mapper-example</module>
-		<module>gwt-example</module>
+		<module>emf-resource-sample</module>
+		<module>jackson-module-sample</module>
+		<module>emf-gwt-sample</module>
 	</modules>
 
 </project>

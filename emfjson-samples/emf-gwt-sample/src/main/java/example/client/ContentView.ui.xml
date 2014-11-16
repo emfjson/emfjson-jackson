@@ -1,0 +1,67 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder 
+	xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+	<ui:style>
+		.content {
+			padding: 20px;
+		}
+		.header {
+			border-bottom: 1px solid #EBECEC;
+			background: none repeat scroll 0% 0% #F8F9FB;
+			min-height: 40px;
+			line-height: 40px;
+			padding-left: 10px;
+			font-weight: 700;
+		}
+		.header > div[class~="gwt-Label"] {
+			float: left;
+		}
+		.header > div {
+			float: right;
+		}
+		.form {
+			clear: left;
+			background: #FFF;
+		}
+		.form > div {
+			padding: 10px;
+		}
+		.form-header {
+			height: 30px;
+			line-height: 30px;
+		}
+		.form-table {
+			display: table;
+		}
+		.form-table > div {
+			display: table-row;
+		}
+		.form-table > div > * {
+			display: table-cell;
+		}
+	</ui:style>
+
+	<g:HTMLPanel styleName="{style.content}">
+		<div class="{style.header}">
+			<g:Label ui:field="resourceLabel"></g:Label>
+			<div>
+				<g:Button ui:field="deleteButton">Delete</g:Button>
+				<g:Button ui:field="saveButton">Save</g:Button>
+			</div>
+		</div>
+		<div class="{style.form}">
+			<div class="{style.form-header}">
+				<label>Entity</label>
+			</div>
+			<div class="{style.form-table}">
+				<div>
+					<label>name: </label>
+					<g:TextBox ui:field="nameTextBox"></g:TextBox>
+				</div>
+			</div>
+		</div>
+	</g:HTMLPanel>
+
+</ui:UiBinder>

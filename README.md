@@ -21,27 +21,14 @@ This is how a model looks like in JSON format.
 
 ## Documentation
 
-[Here](http://ghillairet.github.io/emfjson/)
+[Here](http://emfjson.org)
 
 ## Installation
 
-### Eclipse Update Manager
+### Maven
 
-- Update Site: http://ghillairet.github.com/p2 (composite site with Jackson 2.2.3)
-- Eclipse Marketplace <a href='http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=188636' title='Drag and drop into a running Eclipse Indigo workspace to install EMFJs'><img src='http://marketplace.eclipse.org/misc/installbutton.png'/></a>
-
-
-### Maven repository
-
-A maven repository for emfjson is available, note that you should also include the denpendency and repository for Jackson in
-your pom file. Please refer to the [Jackson](https://github.com/FasterXML/jackson-core) documentation for more information.
 
 ```xml
-<repository>
-	<id>emfjson-repository</id>
-	<url>http://repository-ghillairet.forge.cloudbees.com/snapshot</url>
-</repository>
-
 <dependency>
 	<groupId>org.eclipselabs</groupId>
 	<artifactId>org.eclipselabs.emfjson</artifactId>
@@ -49,14 +36,14 @@ your pom file. Please refer to the [Jackson](https://github.com/FasterXML/jackso
 </dependency>
 ```
 
-A sample maven based project is provided in the [examples](https://github.com/ghillairet/emfjson/tree/master/examples/maven-example) folder.
+### Eclipse Update Manager
 
-### You want the jars
+- Update Site: http://ghillairet.github.com/p2 (composite site with Jackson 2.2.3)
 
-There is two solutions to your problem:
 
-1. Install the bundles through your eclipse update manager, go in your eclipse/plugins folder, you'll find the emfjson and jackson jars there.
-2. Browse the maven repositories for [emfjson](http://repository-ghillairet.forge.cloudbees.com/snapshot/org/eclipselabs/org.eclipselabs.emfjson/) and [jackson](http://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/).
+### Jars
+
+Browse the maven repositories for [emfjson](http://repository-ghillairet.forge.cloudbees.com/snapshot/org/eclipselabs/org.eclipselabs.emfjson/) and [jackson](http://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/).
 
 
 ## GWT Support
@@ -66,7 +53,7 @@ See [GWT edition](https://github.com/ghillairet/emfjson-gwt)
 ## Dependencies
 
 * EMF 2.7.0 or later
-* Jackson 2.0.0 or later
+* Jackson 2.3.0 or later
 
 ## How to hack (and contribute to) it
 
