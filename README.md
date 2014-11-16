@@ -30,9 +30,9 @@ This is how a model looks like in JSON format.
 
 ```xml
 <dependency>
-	<groupId>org.eclipselabs</groupId>
-	<artifactId>org.eclipselabs.emfjson</artifactId>
-	<version>0.7.0-SNAPSHOT</version>
+	<groupId>org.emfjson</groupId>
+	<artifactId>emfjson-jackson</artifactId>
+	<version>0.9.0</version>
 </dependency>
 ```
 
