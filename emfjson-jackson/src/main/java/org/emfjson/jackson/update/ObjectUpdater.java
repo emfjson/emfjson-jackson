@@ -1,20 +1,14 @@
 package org.emfjson.jackson.update;
 
-import java.io.IOException;
-import java.util.Map;
-
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
+import org.eclipse.emf.ecore.*;
 import org.emfjson.common.Options;
 import org.emfjson.jackson.streaming.StreamReader;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonToken;
+import java.io.IOException;
+import java.util.Map;
 
 public class ObjectUpdater {
 
@@ -38,11 +32,11 @@ public class ObjectUpdater {
 			super(options);
 		}
 
-		public void update(JsonParser parser, EObject current) throws JsonParseException, IOException {
+		public void update(JsonParser parser, EObject current) throws IOException {
 			while (parser.nextToken() != JsonToken.END_OBJECT) {
-				final String fieldname = parser.getCurrentName();
+				final String fieldName = parser.getCurrentName();
 				final EClass eClass = current.eClass();
-				final EStructuralFeature feature = cache.getEStructuralFeature(eClass, fieldname);
+				final EStructuralFeature feature = cache.getEStructuralFeature(eClass, fieldName);
 
 				if (feature != null) {
 					if (feature instanceof EAttribute) {

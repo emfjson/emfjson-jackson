@@ -10,35 +10,25 @@
  */
 package org.emfjson.jackson.streaming;
 
-import static org.emfjson.common.Constants.EJS_TYPE_KEYWORD;
-import static org.emfjson.common.Constants.EJS_UUID_ANNOTATION;
-import static org.emfjson.common.EObjects.createEntry;
-import static org.emfjson.common.EObjects.isMapEntry;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.*;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.emfjson.common.*;
+import org.emfjson.common.resource.UuidResource;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emfjson.common.Cache;
-import org.emfjson.common.Constants;
-import org.emfjson.common.EObjects;
-import org.emfjson.common.Options;
-import org.emfjson.common.ReferenceEntry;
-import org.emfjson.common.resource.UuidResource;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonToken;
+import static org.emfjson.common.Constants.EJS_TYPE_KEYWORD;
+import static org.emfjson.common.Constants.EJS_UUID_ANNOTATION;
+import static org.emfjson.common.EObjects.createEntry;
+import static org.emfjson.common.EObjects.isMapEntry;
 
 public class StreamReader {
 
@@ -63,15 +53,11 @@ public class StreamReader {
 		}
 	}
 
-	public void parse(Resource resource, JsonParser parser) throws JsonParseException, IOException {
+	public void parse(Resource resource, JsonParser parser) throws IOException {
 		prepare(resource);
 
 		if (parser.getCurrentToken() == null) {
-			try {
-				parser.nextToken();
-			} catch (IOException e) {
-				throw e;
-			}
+			parser.nextToken();
 		}
 
 		switch (parser.getCurrentToken()) {
@@ -86,29 +72,25 @@ public class StreamReader {
 			break;
 		default:
 			break;
-		};
+		}
 
 		resolve();
 		entries.clear();
 	}
 
-	private void parseArray(JsonParser parser) {
-		try {
-			while (parser.nextToken() != JsonToken.END_ARRAY) {
-				if (parser.getCurrentToken() == JsonToken.START_OBJECT) {
-					EObject result = parseObject(parser, null, null, options.rootElement);
-					if (result != null) {
-						resource.getContents().add(result);
-					}
+	private void parseArray(JsonParser parser) throws IOException {
+		while (parser.nextToken() != JsonToken.END_ARRAY) {
+			if (parser.getCurrentToken() == JsonToken.START_OBJECT) {
+				EObject result = parseObject(parser, null, null, options.rootElement);
+				if (result != null) {
+					resource.getContents().add(result);
 				}
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 
 	protected EObject parseObject(JsonParser parser, EReference containment, EObject owner, EClass currentClass) 
-			throws JsonParseException, IOException {
+			throws IOException {
 
 		EObject current = null;
 
@@ -162,7 +144,7 @@ public class StreamReader {
 	}
 
 	protected  void readAttribute(JsonParser parser, EAttribute attribute, EObject owner) 
-			throws JsonParseException, IOException {
+			throws IOException {
 
 		final JsonToken token = parser.nextToken();
 
@@ -176,7 +158,7 @@ public class StreamReader {
 	}
 
 	protected  void readReference(JsonParser parser, EReference reference, EObject owner) 
-			throws JsonParseException, IOException {
+			throws IOException {
 
 		JsonToken token = parser.nextToken();
 
@@ -211,7 +193,7 @@ public class StreamReader {
 
 	@SuppressWarnings("unchecked")
 	protected  JsonToken parseEntry(JsonParser parser, EReference reference, EObject owner) 
-			throws JsonParseException, IOException {
+			throws IOException {
 
 		EList<EObject> values = null;
 		if (reference.isMany()) {
@@ -233,20 +215,19 @@ public class StreamReader {
 	}
 
 	protected ReferenceEntry createReferenceEntry(JsonParser parser, EReference reference, EObject owner) 
-			throws JsonParseException, IOException {
+			throws IOException {
 
 		String id = null;
 
 		while (parser.nextToken() != JsonToken.END_OBJECT) {
 			String field = parser.getCurrentName();
-			if (field == Constants.EJS_REF_KEYWORD) {
+			if (field.equalsIgnoreCase(Constants.EJS_REF_KEYWORD)) {
 				id = parser.nextTextValue();
 			}
 		}
 
 		return new ReferenceEntry(owner, reference, id);
 	}
-
 
 	protected EObject create(String type) {
 		EClass eClass = cache.getEClass(resourceSet, type);

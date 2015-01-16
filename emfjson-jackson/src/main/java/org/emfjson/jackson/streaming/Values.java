@@ -92,7 +92,7 @@ public class Values {
 			generator.writeNumber((Float) value);
 		}
 		else {
-			generator.writeString((String) convertToString(type, value));
+			generator.writeString(convertToString(type, value));
 		}
 	}
 

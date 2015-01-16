@@ -54,10 +54,11 @@ public class Options {
 	}
 
 	public static class Builder {
-		private final Map<? extends Object, ? extends Object> options;
+
+		private final Map<?, ?> options;
 
 		public Builder() {
-			this.options = Collections.emptyMap();
+			this(Collections.emptyMap());
 		}
 
 		public Builder(Map<?, ?> options) {

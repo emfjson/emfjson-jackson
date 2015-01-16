@@ -113,21 +113,21 @@ public abstract class AbstractUuidResource extends ResourceImpl implements UuidR
 				}
 				setID(eObject, id);
 			}
-		} else if (id != null) {
+		} else {
 			getIDToEObjectMap().put(id, eObject);
 		}
 	}
 
 	public Map<String, EObject> getIDToEObjectMap() {
 		if (idToEObjectMap == null) {
-			idToEObjectMap = new HashMap<String, EObject>();
+			idToEObjectMap = new HashMap<>();
 		}
 		return idToEObjectMap;
 	}
 
 	public Map<EObject, String> getEObjectToIDMap() {
 		if (eObjectToIDMap == null) {
-			eObjectToIDMap = new HashMap<EObject, String>();
+			eObjectToIDMap = new HashMap<>();
 		}
 		return eObjectToIDMap;
 	}

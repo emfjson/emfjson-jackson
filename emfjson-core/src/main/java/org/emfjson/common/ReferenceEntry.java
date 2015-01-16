@@ -49,8 +49,7 @@ public class ReferenceEntry {
 		}
 
 		if (value.contains(":")) { // is full
-            URI uri = URI.createURI(value);
-            return uri;
+            return URI.createURI(value);
         } else { // is fragment
         	if (current == null || current.getURI() == null) {
         		return null;
