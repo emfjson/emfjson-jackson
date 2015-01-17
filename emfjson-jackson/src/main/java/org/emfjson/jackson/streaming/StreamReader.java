@@ -10,25 +10,35 @@
  */
 package org.emfjson.jackson.streaming;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonToken;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.*;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emfjson.common.*;
-import org.emfjson.common.resource.UuidResource;
+import static org.emfjson.common.Constants.EJS_TYPE_KEYWORD;
+import static org.emfjson.common.Constants.EJS_UUID_ANNOTATION;
+import static org.emfjson.common.EObjects.createEntry;
+import static org.emfjson.common.EObjects.isMapEntry;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.emfjson.common.Constants.EJS_TYPE_KEYWORD;
-import static org.emfjson.common.Constants.EJS_UUID_ANNOTATION;
-import static org.emfjson.common.EObjects.createEntry;
-import static org.emfjson.common.EObjects.isMapEntry;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.emfjson.common.Cache;
+import org.emfjson.common.Constants;
+import org.emfjson.common.EObjects;
+import org.emfjson.common.Options;
+import org.emfjson.common.ReferenceEntry;
+import org.emfjson.common.resource.UuidResource;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.databind.util.TokenBuffer;
 
 public class StreamReader {
 
@@ -97,11 +107,13 @@ public class StreamReader {
 		if (currentClass != null) {
 			current = EcoreUtil.create(currentClass);
 		}
+		
+		final TokenBuffer buffer = new TokenBuffer(parser);
 
 		while (parser.nextToken() != JsonToken.END_OBJECT) {
-			final String fieldname = parser.getCurrentName();
+			final String fieldName = parser.getCurrentName();
 
-			switch (fieldname) {
+			switch (fieldName) {
 			case EJS_TYPE_KEYWORD:
 				current = create(parser.nextTextValue());
 				break;
@@ -114,26 +126,32 @@ public class StreamReader {
 				break;
 			default:
 				if (current == null && containment != null) {
-					EClass defaultType = containment.getEReferenceType();
+					final EClass defaultType = containment.getEReferenceType();
+
 					if (!defaultType.isAbstract()) {
 						current = EcoreUtil.create(defaultType);
 					}
 				}
 
 				if (current != null) {
-					final EClass eClass = current.eClass();
-					final EStructuralFeature feature = cache.getEStructuralFeature(eClass, fieldname);
-
-					if (feature != null) {
-						if (feature instanceof EAttribute) {
-							readAttribute(parser, (EAttribute) feature, current);
-						} else {
-							readReference(parser, (EReference) feature, current);
-						}
-					}
+					readFeature(parser, current, fieldName);
+				} else {
+					buffer.copyCurrentStructure(parser);
 				}
 				break;
 			}
+		}
+
+		buffer.close();
+
+		if (current != null) {
+			final JsonParser bufferedParser = buffer.asParser();
+	
+			while(bufferedParser.nextToken() != null) {
+				readFeature(bufferedParser, current, bufferedParser.getCurrentName());
+			}
+
+			bufferedParser.close();
 		}
 
 		if (current != null && containment != null && owner != null) {
@@ -141,6 +159,21 @@ public class StreamReader {
 		}
 
 		return current;
+	}
+
+	private void readFeature(JsonParser parser, EObject current, final String fieldName) 
+			throws IOException {
+
+		final EClass eClass = current.eClass();
+		final EStructuralFeature feature = cache.getEStructuralFeature(eClass, fieldName);
+
+		if (feature != null) {
+			if (feature instanceof EAttribute) {
+				readAttribute(parser, (EAttribute) feature, current);
+			} else {
+				readReference(parser, (EReference) feature, current);
+			}
+		}
 	}
 
 	protected  void readAttribute(JsonParser parser, EAttribute attribute, EObject owner) 

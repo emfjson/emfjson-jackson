@@ -16,6 +16,7 @@ import org.emfjson.jackson.junit.tests.FeatureMapTest;
 import org.emfjson.jackson.junit.tests.ModuleTest;
 import org.emfjson.jackson.junit.tests.PolymorphicTest;
 import org.emfjson.jackson.junit.tests.ProxyAttributeTest;
+import org.emfjson.jackson.junit.tests.ReaderTest;
 import org.emfjson.jackson.junit.tests.ReferenceTest;
 import org.emfjson.jackson.junit.tests.UpdateObjectTest;
 import org.emfjson.jackson.junit.tests.UuidLoadTest;
@@ -28,6 +29,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({
 	ValueTest.class,
+	ReaderTest.class,
 	EnumTest.class,
 	FeatureMapTest.class,
 	AnnotationTest.class,
