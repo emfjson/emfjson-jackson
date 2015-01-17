@@ -2,17 +2,17 @@
 <feature
       id="org.eclipselabs.emfjson.feature"
       label="EMF JSON"
-      version="0.9.0.qualifier"
+      version="0.10.0"
       provider-name="Eclipse Labs">
 
-    <plugin
+   <plugin
          id="org.emfjson.emfjson-core"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
-    <plugin
+
+   <plugin
          id="org.emfjson.emfjson-jackson"
          download-size="0"
          install-size="0"

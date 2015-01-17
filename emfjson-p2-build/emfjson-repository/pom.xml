@@ -5,10 +5,15 @@
 	<parent>
 		<groupId>org.emfjson</groupId>
 		<artifactId>emfjson-p2-build</artifactId>
-		<version>0.9.0-SNAPSHOT</version>
+		<version>0.10.0</version>
 	</parent>
-	<artifactId>emfjson-repostory</artifactId>
+	<artifactId>emfjson-repository</artifactId>
 	<packaging>eclipse-repository</packaging>
+
+    <properties>
+        <composite-path>/Users/guillaume/Projects/p2</composite-path>
+        <release-path>releases/emfjson/${project.version}/${buildQualifier}</release-path>
+    </properties>
 
 	<build>
 		<plugins>
@@ -38,6 +43,7 @@
 				<!--Suppressing here, since it deletes the target folder for some reason. -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
+				<version>2.4</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -75,5 +81,46 @@
 
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>deploy-repo</id>
+			<activation>
+				<property>
+					<name>deploy-repo</name>
+				</property>
+			</activation>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+						<executions>
+							<execution>
+								<phase>verify</phase>
+								<configuration>
+									<target>
+										<unzip
+											src="target/emfjson-repository-${project.version}.zip"
+											dest="${composite-path}/${release-path}" />
+										<ant antfile="/Users/guillaume/bin/composite.xml" target="add">
+											<property name="user.dir" value="${composite-path}" />
+											<property name="child.repository" value="${release-path}" />
+										</ant>
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 </project>
 

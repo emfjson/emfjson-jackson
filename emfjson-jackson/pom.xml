@@ -78,12 +78,14 @@
 					<instructions>
 						<Bundle-SymbolicName>org.emfjson.emfjson-jackson</Bundle-SymbolicName>
 						<Bundle-Name>emfjson-jackson</Bundle-Name>
-						<Bundle-Version>0.9.0.qualifier</Bundle-Version>
+						<Bundle-Version>${project.version}</Bundle-Version>
 						<Import-Package>
 							com.fasterxml.jackson.core;version="[2.3.0, 3.0.0)",
 							com.fasterxml.jackson.core.util;version="[2.3.0, 3.0.0)",
 							com.fasterxml.jackson.databind;version="[2.3.0, 3.0.0)",
 							com.fasterxml.jackson.databind.node;version="[2.3.0, 3.0.0)",
+							com.fasterxml.jackson.databind.util;version="[2.3.0, 3.0.0)",
+							com.fasterxml.jackson.databind.module;version="[2.3.0, 3.0.0)",
 							*
 						</Import-Package>
 					</instructions>

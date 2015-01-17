@@ -44,7 +44,7 @@
 					<instructions>
 						<Bundle-SymbolicName>org.emfjson.emfjson-core</Bundle-SymbolicName>
 						<Bundle-Name>emfjson-core</Bundle-Name>
-						<Bundle-Version>0.9.0.qualifier</Bundle-Version>
+						<Bundle-Version>${project.version}</Bundle-Version>
 					</instructions>
 				</configuration>
 			</plugin>
