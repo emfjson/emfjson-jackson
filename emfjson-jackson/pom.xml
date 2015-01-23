@@ -76,7 +76,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Bundle-SymbolicName>org.emfjson.emfjson-jackson</Bundle-SymbolicName>
+						<Bundle-SymbolicName>org.emfjson.jackson</Bundle-SymbolicName>
 						<Bundle-Name>emfjson-jackson</Bundle-Name>
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Import-Package>

@@ -42,7 +42,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Bundle-SymbolicName>org.emfjson.emfjson-core</Bundle-SymbolicName>
+						<Bundle-SymbolicName>org.emfjson.core</Bundle-SymbolicName>
 						<Bundle-Name>emfjson-core</Bundle-Name>
 						<Bundle-Version>${project.version}</Bundle-Version>
 					</instructions>

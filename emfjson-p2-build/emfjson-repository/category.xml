@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.eclipselabs.emfjson.feature_0.10.0.jar" id="org.eclipselabs.emfjson.feature" version="0.10.0">
-      <category name="org.eclipselabs.emfjson"/>
+   <feature url="features/org.emfjson.feature_0.10.0.jar" id="org.emfjson.feature" version="0.10.0">
+      <category name="org.emfjson"/>
    </feature>
-   <category-def name="org.eclipselabs.emfjson" label="EMF JSON">
+   <category-def name="org.emfjson" label="EMF Json">
       <description>
          EMF binding for JSON.
       </description>

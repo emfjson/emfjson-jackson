@@ -6,7 +6,7 @@
 		<artifactId>emfjson-p2-build</artifactId>
 		<version>0.10.0</version>
 	</parent>
-	<artifactId>org.eclipselabs.emfjson.feature</artifactId>
+	<artifactId>org.emfjson.feature</artifactId>
 	<packaging>eclipse-feature</packaging>
 
 	<description>

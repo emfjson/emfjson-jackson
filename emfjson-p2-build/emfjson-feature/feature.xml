@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.eclipselabs.emfjson.feature"
-      label="EMF JSON"
+      id="org.emfjson.feature"
+      label="EMF Json (Jackson)"
       version="0.10.0"
       provider-name="Eclipse Labs">
 
    <plugin
-         id="org.emfjson.emfjson-core"
+         id="org.emfjson.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.emfjson.emfjson-jackson"
+         id="org.emfjson.jackson"
          download-size="0"
          install-size="0"
          version="0.0.0"
