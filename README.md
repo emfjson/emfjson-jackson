@@ -1,4 +1,4 @@
-[EMF](http://www.eclipse.org/emf) Binding for JSON. [![Build Status](https://secure.travis-ci.org/ghillairet/emfjson.png)](http://travis-ci.org/ghillairet/emfjson)
+JSON Binding for [EMF](http://www.eclipse.org/emf). [![Build Status](https://secure.travis-ci.org/ghillairet/emfjson.png)](http://travis-ci.org/ghillairet/emfjson)
 
 EMFJson provides JSON binding for the Eclipse Modeling Framework, meaning it can read and write EMF Models from/to JSON. 
 
