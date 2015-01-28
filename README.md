@@ -42,6 +42,8 @@ And it's instances can look like this:
 
 ## Getting Started
 
+Various examples are available [here](https://github.com/ghillairet/emfjson-samples).
+
 ### EMF Resource API
 
 To use EMFJson with the EMF API, simply add the JsonResourceFactory to a ResourceSet Factory map.
