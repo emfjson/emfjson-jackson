@@ -96,4 +96,69 @@ class ReaderTest extends TestSupport {
 		assertEquals(EcorePackage.Literals.EATTRIBUTE, (result as EClass).EStructuralFeatures.get(1).eClass)
 	}
 
+	@Test
+	def shouldSkipAttributeFieldForWhichThereIsNoFeature() {
+		val data = '''
+			{
+				"eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+				"name": "A",
+				"some_unknown_feature": "some value"
+			}
+		'''
+
+		val resource = resourceSet.createResource(URI.createURI("tests/test.json"))
+		resource.load(new ByteArrayInputStream(data.getBytes()), null)
+
+		assertEquals(1, resource.getContents().size())
+
+		val result = resource.contents.get(0)
+		assertEquals(EcorePackage.Literals.ECLASS, result.eClass)
+	}
+
+	@Test
+	def shouldSkipObjectFieldForWhichThereIsNoFeature() {
+		val data = '''
+			{
+				"eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+				"name": "A",
+				"some_unknown_feature":
+				{
+					"name": "foo",
+					"eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute"
+				}
+			}
+		'''
+
+		val resource = resourceSet.createResource(URI.createURI("tests/test.json"))
+		resource.load(new ByteArrayInputStream(data.getBytes()), null)
+
+		assertEquals(1, resource.getContents().size())
+
+		val result = resource.contents.get(0)
+		assertEquals(EcorePackage.Literals.ECLASS, result.eClass)
+	}
+
+	@Test
+	def shouldSkipArrayFieldForWhichThereIsNoFeature() {
+		val data = '''
+			{
+				"eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+				"name": "A",
+				"some_unknown_feature": [
+				{
+					"name": "foo",
+					"eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute"
+				} ]
+			}
+		'''
+
+		val resource = resourceSet.createResource(URI.createURI("tests/test.json"))
+		resource.load(new ByteArrayInputStream(data.getBytes()), null)
+
+		assertEquals(1, resource.getContents().size())
+
+		val result = resource.contents.get(0)
+		assertEquals(EcorePackage.Literals.ECLASS, result.eClass)
+	}
+
 }

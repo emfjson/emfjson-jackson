@@ -173,6 +173,10 @@ public class StreamReader {
 			} else {
 				readReference(parser, (EReference) feature, current);
 			}
+		} else {
+			//we didn't find a feature so consume the field and move on
+			parser.nextToken();
+			parser.skipChildren();
 		}
 	}
 
