@@ -4,7 +4,7 @@
 	<groupId>org.emfjson</groupId>
 	<artifactId>emfjson</artifactId>
 	<packaging>pom</packaging>
-	<version>0.10.1-SNAPSHOT</version>
+	<version>0.11.0-SNAPSHOT</version>
 
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -45,9 +45,10 @@
 	</modules>
 
 	<properties>
-		<emfVersion>2.10.1-v20140901-1043</emfVersion>
+		<emfVersion>2.11.0-v20150123-0347</emfVersion>
 		<emf.gwt.version>2.9.0</emf.gwt.version>
 		<gwtVersion>2.7.0</gwtVersion>
+		<jacksonVersion>2.5.3</jacksonVersion>
 	</properties>
 
 	<dependencyManagement>
@@ -75,7 +76,7 @@
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-databind</artifactId>
-				<version>2.4.2</version>
+				<version>${jacksonVersion}</version>
 			</dependency>
 			<dependency>
 				<groupId>junit</groupId>
