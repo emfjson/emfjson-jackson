@@ -21,8 +21,11 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emfjson.EMFJs;
 import org.emfjson.jackson.junit.model.ModelPackage;
+import org.emfjson.jackson.module.EMFModule;
 import org.emfjson.jackson.resource.JsonResourceFactory;
 import org.junit.Before;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public abstract class TestSupport {
 
@@ -32,6 +35,7 @@ public abstract class TestSupport {
 
 	protected final Map<String, Object> options = new HashMap<String, Object>();
 	protected ResourceSet resourceSet;
+	protected ObjectMapper mapper = new ObjectMapper();
 
 	@Before
 	public void setUp() {
@@ -45,6 +49,8 @@ public abstract class TestSupport {
 
 		resourceSet = new ResourceSetImpl();		
 		resourceSet.getURIConverter().getURIMap().put(baseURI, baseTestFilesFileDirectory);
+		
+		mapper.registerModule(new EMFModule());
 	}
 
 	protected URI uri(String fileName) {

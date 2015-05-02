@@ -6,6 +6,5 @@ xtend-gen
 www-test
 war
 gwt-unitCache
-tests
 _site
 emfjson-samples/emf-gwt-sample/files

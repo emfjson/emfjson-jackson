@@ -8,7 +8,7 @@
  * Contributors:
  *    Guillaume Hillairet - initial API and implementation
  */
-package org.emfjson.jackson.junit.suite;
+package org.emfjson.jackson.junit;
 
 import org.emfjson.jackson.junit.tests.AnnotationTest;
 import org.emfjson.jackson.junit.tests.EnumTest;
