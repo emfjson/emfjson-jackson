@@ -15,6 +15,7 @@ import java.io.*;
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.node.*;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.resource.*;
@@ -71,8 +72,44 @@ public class ReaderTest extends TestSupport {
 		EObject result = resource.getContents().get(0);
 		assertEquals(EcorePackage.Literals.ECLASS, result.eClass());
 		assertEquals(2, ((EClass) result).getEStructuralFeatures().size());
-		assertEquals(EcorePackage.Literals.EATTRIBUTE, ((EClass) result).getEStructuralFeatures().get(0).eClass());
-		assertEquals(EcorePackage.Literals.EATTRIBUTE, ((EClass) result).getEStructuralFeatures().get(1).eClass());
+		
+		EStructuralFeature firstAttribute = ((EClass) result).getEStructuralFeatures().get(0);
+		assertEquals(EcorePackage.Literals.EATTRIBUTE, firstAttribute.eClass());
+		assertEquals("foo", firstAttribute.getName());
+		
+		EStructuralFeature secondAttribute = ((EClass) result).getEStructuralFeatures().get(1);
+		assertEquals(EcorePackage.Literals.EATTRIBUTE, secondAttribute.eClass());
+		assertEquals("bar", secondAttribute.getName());
+	}
+
+	@Test
+	public void shouldReadObjectTreeWithEClassFieldNotFirstAndNonAbstractChildren() throws JsonProcessingException {
+		JsonNode data = ((ObjectNode) mapper.createObjectNode()
+				.put("name", "A")
+				.set("eOperations", mapper.createArrayNode()
+						.add(mapper.createObjectNode()
+								.put("name", "foo")
+								.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EOperation"))
+						.add(mapper.createObjectNode()
+								.put("name", "bar")
+								.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EOperation"))))
+				.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EClass");
+
+		Resource resource = mapper.treeToValue(data, Resource.class);
+
+		assertEquals(1, resource.getContents().size());
+
+		EObject result = resource.getContents().get(0);
+		assertEquals(EcorePackage.Literals.ECLASS, result.eClass());
+		assertEquals(2, ((EClass) result).getEOperations().size());
+		
+		EOperation firstOperation = ((EClass) result).getEOperations().get(0);
+		assertEquals(EcorePackage.Literals.EOPERATION, firstOperation.eClass());
+		assertEquals("foo", firstOperation.getName());
+		
+		EOperation secondOperation = ((EClass) result).getEOperations().get(1);
+		assertEquals(EcorePackage.Literals.EOPERATION, secondOperation.eClass());
+		assertEquals("bar", secondOperation.getName());
 	}
 
 	@Test

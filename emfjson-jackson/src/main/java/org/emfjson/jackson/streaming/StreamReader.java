@@ -115,7 +115,9 @@ public class StreamReader {
 
 			switch (fieldName) {
 			case EJS_TYPE_KEYWORD:
-				current = create(parser.nextTextValue());
+				if (current == null) {
+					current = create(parser.nextTextValue());
+				}
 				break;
 			case EJS_UUID_ANNOTATION:
 				if (resource instanceof UuidResource) {
