@@ -1,23 +1,26 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.map;
 
-import static org.eclipse.emf.ecore.util.EcoreUtil.getURI;
-import static org.emfjson.common.Constants.EJS_TYPE_KEYWORD;
-import static org.emfjson.common.Constants.EJS_UUID_ANNOTATION;
-import static org.emfjson.common.EObjects.featureMaps;
-import static org.emfjson.common.EObjects.isCandidate;
-import static org.emfjson.common.EObjects.isContainmentProxy;
-import static org.emfjson.common.EObjects.isFeatureMap;
-import static org.emfjson.common.EObjects.isMapEntry;
+import com.google.gwt.json.client.JSONArray;
+import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONString;
+import com.google.gwt.json.client.JSONValue;
+import org.eclipse.emf.ecore.*;
+import org.eclipse.emf.ecore.resource.Resource;
+
+import org.emfjson.common.Cache;
+import org.emfjson.common.Options;
+import org.emfjson.common.resource.UuidResource;
 
 import java.util.Collection;
 import java.util.List;
@@ -25,20 +28,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.emfjson.common.Cache;
-import org.emfjson.common.Options;
-import org.emfjson.common.resource.UuidResource;
-
-import com.google.gwt.json.client.JSONArray;
-import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONString;
-import com.google.gwt.json.client.JSONValue;
+import static org.eclipse.emf.ecore.util.EcoreUtil.getURI;
+import static org.emfjson.common.EObjects.*;
 
 public class JsonWriter {
 
@@ -68,20 +59,20 @@ public class JsonWriter {
 		final JSONObject node = new JSONObject();
 
 		if (options.serializeTypes) {
-			node.put(EJS_TYPE_KEYWORD, new JSONString(getURI(eClass).toString()));
+			node.put(options.typeField, new JSONString(getURI(eClass).toString()));
 		}
 
 		if (object.eResource() instanceof UuidResource) {
 			String id = ((UuidResource) object.eResource()).getID(object);
 			if (id != null) {
-				node.put(EJS_UUID_ANNOTATION, new JSONString(id));
+				node.put(options.idField, new JSONString(id));
 			}
 		}
 
 		final List<EAttribute> attributes = cache.getAttributes(eClass);
 		final List<EReference> references = cache.getReferences(eClass);
 
-		for (EAttribute attribute: attributes) {
+		for (EAttribute attribute : attributes) {
 			if (isCandidate(object, attribute)) {
 				final String key = cache.getKey(attribute);
 				final Object value = object.eGet(attribute);
@@ -94,7 +85,7 @@ public class JsonWriter {
 			}
 		}
 
-		for (EReference reference: references) {
+		for (EReference reference : references) {
 			if (isCandidate(object, reference)) {
 				final Object value = object.eGet(reference);
 				final String key = cache.getKey(reference);
@@ -128,7 +119,7 @@ public class JsonWriter {
 		if (reference.isMany()) {
 			@SuppressWarnings("unchecked")
 			Collection<Map.Entry<String, String>> entries = (Collection<Entry<String, String>>) value;
-			for (Map.Entry<String, String> entry: entries) {
+			for (Map.Entry<String, String> entry : entries) {
 				entryNode.put(entry.getKey(), new JSONString(entry.getValue()));
 			}
 		} else {
@@ -141,7 +132,7 @@ public class JsonWriter {
 	private void serializeFeatureMap(JSONObject node, EObject owner, EAttribute attribute) {
 		final Set<EStructuralFeature> features = featureMaps(owner, attribute);
 
-		for (EStructuralFeature feature: features) {
+		for (EStructuralFeature feature : features) {
 			final Object value = owner.eGet(feature);
 			final String key = cache.getKey(feature);
 
@@ -165,7 +156,7 @@ public class JsonWriter {
 			target.put(key, array);
 
 			int i = 0;
-			for (Object current: values) {
+			for (Object current : values) {
 				JSONObject object = new JSONObject();
 
 				if (isContainmentProxy(container, (EObject) current)) {

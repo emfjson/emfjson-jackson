@@ -1,20 +1,17 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.handlers;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.google.gwt.http.client.*;
 import org.eclipse.emf.common.util.Callback;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -23,17 +20,15 @@ import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.URIHandler;
 import org.eclipse.emf.ecore.resource.impl.URIHandlerImpl;
 
-import com.google.gwt.http.client.Request;
-import com.google.gwt.http.client.RequestBuilder;
-import com.google.gwt.http.client.RequestCallback;
-import com.google.gwt.http.client.RequestException;
-import com.google.gwt.http.client.Response;
-import com.google.gwt.http.client.URL;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * URIHandler implementation that uses RequestBuilder to communicate with 
+ * URIHandler implementation that uses RequestBuilder to communicate with
  * an HTTP server in JSON format.
- * 
+ *
  * @author ghillairet
  * @since 0.6.0
  */
@@ -53,6 +48,7 @@ public class HttpHandler extends URIHandlerImpl implements URIHandler {
 					callback.onFailure(new Exception("Resource has not been created"));
 				}
 			}
+
 			@Override
 			public void onError(Request request, Throwable exception) {
 				callback.onFailure(exception);
@@ -85,9 +81,10 @@ public class HttpHandler extends URIHandlerImpl implements URIHandler {
 					}
 					callback.onSuccess(resultMap);
 				} else {
-					callback.onFailure(new Exception("Error "+ response.getStatusCode()));
+					callback.onFailure(new Exception("Error " + response.getStatusCode()));
 				}
 			}
+
 			@Override
 			public void onError(Request request, Throwable exception) {
 				callback.onFailure(exception);
@@ -122,6 +119,7 @@ public class HttpHandler extends URIHandlerImpl implements URIHandler {
 					callback.onFailure(new Exception(response.getStatusText()));
 				}
 			}
+
 			@Override
 			public void onError(Request request, Throwable exception) {
 				callback.onFailure(exception);
@@ -149,15 +147,16 @@ public class HttpHandler extends URIHandlerImpl implements URIHandler {
 
 				int code = response.getStatusCode();
 				if (code >= 200 && code < 300) {
-					responseMap.put(URIConverter.RESPONSE_RESULT, 
-							new ByteArrayInputStream(response.getText().getBytes()));
+					responseMap.put(URIConverter.RESPONSE_RESULT,
+						new ByteArrayInputStream(response.getText().getBytes()));
 					responseMap.put(URIConverter.RESPONSE_TIME_STAMP_PROPERTY, null);
 					responseMap.put(URIConverter.RESPONSE_URI, null);
 					callback.onSuccess(resultMap);
 				} else {
-					callback.onFailure(new Exception("Error "+ response.getStatusCode()));
+					callback.onFailure(new Exception("Error " + response.getStatusCode()));
 				}
-			}			
+			}
+
 			@Override
 			public void onError(Request request, Throwable exception) {
 				callback.onFailure(exception);
@@ -175,7 +174,7 @@ public class HttpHandler extends URIHandlerImpl implements URIHandler {
 	public void exists(URI uri, Map<?, ?> options, final Callback<Boolean> callback) {
 		RequestBuilder builder = new RequestBuilder(RequestBuilder.HEAD, URL.encode(uri.toString()));
 		builder.setHeader("Content-Type", "application/json");
-		builder.setCallback( new RequestCallback() {
+		builder.setCallback(new RequestCallback() {
 			@Override
 			public void onResponseReceived(Request request, Response response) {
 				int code = response.getStatusCode();
@@ -185,6 +184,7 @@ public class HttpHandler extends URIHandlerImpl implements URIHandler {
 					callback.onSuccess(false);
 				}
 			}
+
 			@Override
 			public void onError(Request request, Throwable exception) {
 				callback.onFailure(exception);

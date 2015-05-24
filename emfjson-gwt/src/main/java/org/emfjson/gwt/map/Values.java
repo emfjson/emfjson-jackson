@@ -1,32 +1,28 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.map;
 
-import static org.eclipse.emf.ecore.util.EcoreUtil.convertToString;
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.json.client.*;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EObject;
+
+import org.emfjson.common.EObjects;
 
 import java.util.Collection;
 import java.util.Date;
 
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EObject;
-import org.emfjson.common.EObjects;
-
-import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.json.client.JSONArray;
-import com.google.gwt.json.client.JSONBoolean;
-import com.google.gwt.json.client.JSONNumber;
-import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONString;
-import com.google.gwt.json.client.JSONValue;
+import static org.eclipse.emf.ecore.util.EcoreUtil.convertToString;
 
 public class Values {
 
@@ -35,12 +31,12 @@ public class Values {
 		if (stringValue != null) {
 			EObjects.setOrAdd(owner, attribute, stringValue.stringValue());
 		}
-		
+
 		JSONBoolean booleanValue = value.isBoolean();
 		if (booleanValue != null) {
 			EObjects.setOrAdd(owner, attribute, booleanValue.toString());
 		}
-		
+
 		JSONNumber numberValue = value.isNumber();
 		if (numberValue != null) {
 			EObjects.setOrAdd(owner, attribute, numberValue.toString());
@@ -56,7 +52,7 @@ public class Values {
 			node.put(key, array);
 
 			int i = 0;
-			for (Object current: values) {
+			for (Object current : values) {
 				serialize(array, i, type, current);
 				i++;
 			}
@@ -69,30 +65,22 @@ public class Values {
 		if (value == null) return;
 
 		if (value instanceof String) {
-			node.put(key, new JSONString((String) value));	
-		}
-		else if (value instanceof Integer) {
+			node.put(key, new JSONString((String) value));
+		} else if (value instanceof Integer) {
 			node.put(key, new JSONNumber((Integer) value));
-		}
-		else if (value instanceof Boolean) {
+		} else if (value instanceof Boolean) {
 			node.put(key, JSONBoolean.getInstance((Boolean) value));
-		}
-		else if (value instanceof Date) {
+		} else if (value instanceof Date) {
 			node.put(key, new JSONString(dateValue((Date) value)));
-		}
-		else if (value instanceof Double) {
+		} else if (value instanceof Double) {
 			node.put(key, new JSONNumber((Double) value));
-		}
-		else if (value instanceof Long) {
+		} else if (value instanceof Long) {
 			node.put(key, new JSONNumber((Long) value));
-		}
-		else if (value instanceof Short) {
+		} else if (value instanceof Short) {
 			node.put(key, new JSONNumber((Short) value));
-		}
-		else if (value instanceof Float) {
+		} else if (value instanceof Float) {
 			node.put(key, new JSONNumber((Float) value));
-		}
-		else {
+		} else {
 			node.put(key, new JSONString(convertToString(type, value)));
 		}
 	}
@@ -101,30 +89,22 @@ public class Values {
 		if (value == null) return;
 
 		if (value instanceof String) {
-			node.set(position, new JSONString((String) value));	
-		}
-		else if (value instanceof Integer) {
+			node.set(position, new JSONString((String) value));
+		} else if (value instanceof Integer) {
 			node.set(position, new JSONNumber((Integer) value));
-		}
-		else if (value instanceof Boolean) {
+		} else if (value instanceof Boolean) {
 			node.set(position, JSONBoolean.getInstance((Boolean) value));
-		}
-		else if (value instanceof Date) {
+		} else if (value instanceof Date) {
 			node.set(position, new JSONString(dateValue((Date) value)));
-		}
-		else if (value instanceof Double) {
+		} else if (value instanceof Double) {
 			node.set(position, new JSONNumber((Double) value));
-		}
-		else if (value instanceof Long) {
+		} else if (value instanceof Long) {
 			node.set(position, new JSONNumber((Long) value));
-		}
-		else if (value instanceof Short) {
+		} else if (value instanceof Short) {
 			node.set(position, new JSONNumber((Short) value));
-		}
-		else if (value instanceof Float) {
+		} else if (value instanceof Float) {
 			node.set(position, new JSONNumber((Float) value));
-		}
-		else {
+		} else {
 			node.set(position, new JSONString(convertToString(type, value)));
 		}
 	}

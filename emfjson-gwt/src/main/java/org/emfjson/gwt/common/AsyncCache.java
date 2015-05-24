@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.common;
 
@@ -15,6 +16,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+
 import org.emfjson.common.Cache;
 
 public class AsyncCache extends Cache {
@@ -42,9 +44,10 @@ public class AsyncCache extends Cache {
 						callback.onFailure(new ClassCastException("Cannot cast object " + result + " as EClass."));
 					}
 				}
+
 				@Override
 				public void onFailure(Throwable caught) {
-					callback.onFailure(caught);	
+					callback.onFailure(caught);
 				}
 			});
 		} else {
