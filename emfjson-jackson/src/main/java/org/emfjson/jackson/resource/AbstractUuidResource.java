@@ -1,29 +1,32 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
  */
 package org.emfjson.jackson.resource;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.WeakHashMap;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+
 import org.emfjson.common.resource.UuidResource;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.WeakHashMap;
+
+import static java.util.Collections.synchronizedMap;
 
 public abstract class AbstractUuidResource extends ResourceImpl implements UuidResource {
 
-	protected static final Map<EObject, String> DETACHED_EOBJECT_TO_ID_MAP = Collections.synchronizedMap(new WeakHashMap<EObject, String>());
+	protected static final Map<EObject, String> DETACHED_EOBJECT_TO_ID_MAP = synchronizedMap(new WeakHashMap<EObject, String>());
+
 	private Map<String, EObject> idToEObjectMap;
 	private Map<EObject, String> eObjectToIDMap;
 
@@ -79,15 +82,14 @@ public abstract class AbstractUuidResource extends ResourceImpl implements UuidR
 
 		if (id != null) {
 			return id;
-		}
-		else {
+		} else {
 			return super.getURIFragment(eObject);
 		}
 	}
 
 	@Override
 	public void setID(EObject eObject, String id) {
-		Object oldID = id != null ?  getEObjectToIDMap().put(eObject, id) :  
+		String oldID = id != null ? getEObjectToIDMap().put(eObject, id) :
 			getEObjectToIDMap().remove(eObject);
 
 		if (oldID != null) {
