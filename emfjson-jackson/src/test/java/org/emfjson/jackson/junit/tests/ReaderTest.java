@@ -12,9 +12,7 @@
 package org.emfjson.jackson.junit.tests;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.junit.Test;
 
@@ -78,8 +76,44 @@ public class ReaderTest extends TestSupport {
 		EObject result = resource.getContents().get(0);
 		assertEquals(EcorePackage.Literals.ECLASS, result.eClass());
 		assertEquals(2, ((EClass) result).getEStructuralFeatures().size());
-		assertEquals(EcorePackage.Literals.EATTRIBUTE, ((EClass) result).getEStructuralFeatures().get(0).eClass());
-		assertEquals(EcorePackage.Literals.EATTRIBUTE, ((EClass) result).getEStructuralFeatures().get(1).eClass());
+
+		EStructuralFeature firstAttribute = ((EClass) result).getEStructuralFeatures().get(0);
+		assertEquals(EcorePackage.Literals.EATTRIBUTE, firstAttribute.eClass());
+		assertEquals("foo", firstAttribute.getName());
+
+		EStructuralFeature secondAttribute = ((EClass) result).getEStructuralFeatures().get(1);
+		assertEquals(EcorePackage.Literals.EATTRIBUTE, secondAttribute.eClass());
+		assertEquals("bar", secondAttribute.getName());
+	}
+
+	@Test
+	public void shouldReadObjectTreeWithEClassFieldNotFirstAndNonAbstractChildren() throws JsonProcessingException {
+		JsonNode data = ((ObjectNode) mapper.createObjectNode()
+			.put("name", "A")
+			.set("eOperations", mapper.createArrayNode()
+				.add(mapper.createObjectNode()
+					.put("name", "foo")
+					.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EOperation"))
+				.add(mapper.createObjectNode()
+					.put("name", "bar")
+					.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EOperation"))))
+			.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EClass");
+
+		Resource resource = mapper.treeToValue(data, Resource.class);
+
+		assertEquals(1, resource.getContents().size());
+
+		EObject result = resource.getContents().get(0);
+		assertEquals(EcorePackage.Literals.ECLASS, result.eClass());
+		assertEquals(2, ((EClass) result).getEOperations().size());
+
+		EOperation firstOperation = ((EClass) result).getEOperations().get(0);
+		assertEquals(EcorePackage.Literals.EOPERATION, firstOperation.eClass());
+		assertEquals("foo", firstOperation.getName());
+
+		EOperation secondOperation = ((EClass) result).getEOperations().get(1);
+		assertEquals(EcorePackage.Literals.EOPERATION, secondOperation.eClass());
+		assertEquals("bar", secondOperation.getName());
 	}
 
 	@Test
@@ -105,7 +139,6 @@ public class ReaderTest extends TestSupport {
 		assertEquals(EcorePackage.Literals.EATTRIBUTE, ((EClass) result).getEStructuralFeatures().get(0).eClass());
 		assertEquals(EcorePackage.Literals.EATTRIBUTE, ((EClass) result).getEStructuralFeatures().get(1).eClass());
 	}
-
 
 	@Test
 	public void shouldSkipAttributeFieldForWhichThereIsNoFeature() throws IOException {
