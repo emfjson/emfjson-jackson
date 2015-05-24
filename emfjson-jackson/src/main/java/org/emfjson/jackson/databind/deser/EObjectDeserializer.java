@@ -288,17 +288,11 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 			resourceSet.getResources().add(resource);
 		}
 
-		EReference containment = null;
-		if (property instanceof EContainmentProperty) {
-			containment = ((EContainmentProperty) property).getContainment();
-		}
-
 		if (entries == null) {
 			entries = new ArrayList<>();
 		}
 
 		ctxt.setAttribute("entries", entries);
-		ctxt.setAttribute("containment", containment);
 		ctxt.setAttribute("resource", resource);
 
 		return this;
