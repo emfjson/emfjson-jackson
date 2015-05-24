@@ -1,98 +1,100 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.emfjson</groupId>
-		<artifactId>emfjson</artifactId>
-		<version>0.11.0-SNAPSHOT</version>
-	</parent>
-	<packaging>bundle</packaging>
-	<artifactId>emfjson-jackson</artifactId>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.emfjson</groupId>
+        <artifactId>emfjson</artifactId>
+        <version>0.11.0-SNAPSHOT</version>
+    </parent>
+    <packaging>bundle</packaging>
+    <artifactId>emfjson-jackson</artifactId>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.emfjson</groupId>
-			<artifactId>emfjson-core</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.emf</groupId>
-			<artifactId>org.eclipse.emf.common</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.emf</groupId>
-			<artifactId>org.eclipse.emf.ecore</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.emf</groupId>
-			<artifactId>org.eclipse.emf.ecore.xmi</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.xtend</groupId>
-			<artifactId>org.eclipse.xtend.lib</artifactId>
-			<version>2.6.0</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.emfjson</groupId>
+            <artifactId>emfjson-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<argLine>-Xmx512M</argLine>
-					<includes>
-						<include>**/*TestSuite.java</include>
-					</includes>
-				</configuration>
-			</plugin>
+        <dependency>
+            <groupId>org.eclipse.emf</groupId>
+            <artifactId>org.eclipse.emf.common</artifactId>
+        </dependency>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+        <dependency>
+            <groupId>org.eclipse.emf</groupId>
+            <artifactId>org.eclipse.emf.ecore</artifactId>
+        </dependency>
 
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<extensions>true</extensions>
-				<configuration>
-					<instructions>
-						<Bundle-SymbolicName>org.emfjson.jackson</Bundle-SymbolicName>
-						<Bundle-Name>emfjson-jackson</Bundle-Name>
-						<Bundle-Version>${project.version}</Bundle-Version>
-						<Import-Package>
-							com.fasterxml.jackson.core;version="[2.3.0, 3.0.0)",
-							com.fasterxml.jackson.core.util;version="[2.3.0, 3.0.0)",
-							com.fasterxml.jackson.databind;version="[2.3.0, 3.0.0)",
-							com.fasterxml.jackson.databind.node;version="[2.3.0, 3.0.0)",
-							com.fasterxml.jackson.databind.util;version="[2.3.0, 3.0.0)",
-							com.fasterxml.jackson.databind.module;version="[2.3.0, 3.0.0)",
-							*
-						</Import-Package>
-					</instructions>
-				</configuration>
-			</plugin>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
 
-		</plugins>
-	</build>
+        <!-- tests -->
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.emf</groupId>
+            <artifactId>org.eclipse.emf.ecore.xmi</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>-Xmx512M</argLine>
+                    <includes>
+                        <include>**/*TestSuite.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>org.emfjson.jackson</Bundle-SymbolicName>
+                        <Bundle-Name>emfjson-jackson</Bundle-Name>
+                        <Bundle-Version>${project.version}</Bundle-Version>
+                        <Import-Package>
+                            com.fasterxml.jackson.core;version="[2.3.0, 3.0.0)",
+                            com.fasterxml.jackson.core.util;version="[2.3.0, 3.0.0)",
+                            com.fasterxml.jackson.databind;version="[2.3.0, 3.0.0)",
+                            com.fasterxml.jackson.databind.node;version="[2.3.0, 3.0.0)",
+                            com.fasterxml.jackson.databind.util;version="[2.3.0, 3.0.0)",
+                            com.fasterxml.jackson.databind.module;version="[2.3.0, 3.0.0)",
+                            *
+                        </Import-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
 
 </project>

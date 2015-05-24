@@ -1,10 +1,9 @@
 target
+.idea
 .settings
 .project
 .classpath
-xtend-gen
 www-test
 war
 gwt-unitCache
 _site
-emfjson-samples/emf-gwt-sample/files

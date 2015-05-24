@@ -1,18 +1,19 @@
 {
-	"elements":
-	[
-		{
-			"eClass":"http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeOne",
-			"name":"First", 
-			"propTypeOne":"one", 
-			"refProperty":{
-				"$ref":"#Two"
-			}
-		},
-		{
-			"eClass":"http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeTwo",
-			"name":"Two", 
-			"propTypeTwo":"two"
-		}
-	]
+  "elements": [
+    {
+      "eClass": "http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeOne",
+      "name": "First",
+      "propTypeOne": "one",
+      "refProperty": [
+        {
+          "$ref": "Two"
+        }
+      ]
+    },
+    {
+      "eClass": "http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeTwo",
+      "name": "Two",
+      "propTypeTwo": "two"
+    }
+  ]
 }
