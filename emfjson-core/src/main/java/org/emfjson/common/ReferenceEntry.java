@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.common;
 
@@ -28,14 +29,14 @@ public class ReferenceEntry {
 		this.id = id;
 	}
 
-	public void resolve(ResourceSet resourceSet, Options options) {
+	public void resolve(ResourceSet resourceSet) {
 		final URI ref = createURIFromID(owner.eResource(), id);
 
 		EObject target;
 		if (ref == null) {
 			target = owner.eResource().getEObject(id);
 		} else {
-			target = resourceSet.getEObject(ref, options.resolveProxy);
+			target = resourceSet.getEObject(ref, true);
 		}
 
 		if (target != null) {
@@ -49,14 +50,14 @@ public class ReferenceEntry {
 		}
 
 		if (value.contains(":")) { // is full
-            return URI.createURI(value);
-        } else { // is fragment
-        	if (current == null || current.getURI() == null) {
-        		return null;
-        	} else {
-        		return current.getURI().appendFragment(value.startsWith("#") ? value.substring(1) : value);
-        	}
-        }
+			return URI.createURI(value);
+		} else { // is fragment
+			if (current == null || current.getURI() == null) {
+				return null;
+			} else {
+				return current.getURI().appendFragment(value.startsWith("#") ? value.substring(1) : value);
+			}
+		}
 	}
 
 }
