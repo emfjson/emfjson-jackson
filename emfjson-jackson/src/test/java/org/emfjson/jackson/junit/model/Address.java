@@ -1,20 +1,19 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.jackson.junit.model;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
@@ -22,14 +21,14 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Address</b></em>'.
  * <!-- end-user-doc -->
- *
+ * <p/>
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emfjson.jackson.junit.model.Address#getAddId <em>Add Id</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.Address#getCity <em>City</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.Address#getStreet <em>Street</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.Address#getNumber <em>Number</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.Address#getAddId <em>Add Id</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.Address#getCity <em>City</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.Address#getStreet <em>Street</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.Address#getNumber <em>Number</em>}</li>
  * </ul>
  * </p>
  *
@@ -40,85 +39,87 @@ public class Address extends MinimalEObjectImpl.Container implements EObject {
 	 * The default value of the '{@link #getAddId() <em>Add Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAddId()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getAddId()
 	 */
 	protected static final String ADD_ID_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getAddId() <em>Add Id</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAddId()
-	 * @generated
-	 * @ordered
-	 */
-	protected String addId = ADD_ID_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getCity() <em>City</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCity()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getCity()
 	 */
 	protected static final String CITY_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getCity() <em>City</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCity()
-	 * @generated
-	 * @ordered
-	 */
-	protected String city = CITY_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getStreet() <em>Street</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getStreet()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getStreet()
 	 */
 	protected static final String STREET_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getStreet() <em>Street</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getStreet()
-	 * @generated
-	 * @ordered
-	 */
-	protected String street = STREET_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getNumber() <em>Number</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getNumber()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getNumber()
 	 */
 	protected static final Integer NUMBER_EDEFAULT = null;
-
+	/**
+	 * The cached value of the '{@link #getAddId() <em>Add Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getAddId()
+	 */
+	protected String addId = ADD_ID_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getCity() <em>City</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getCity()
+	 */
+	protected String city = CITY_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getStreet() <em>Street</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getStreet()
+	 */
+	protected String street = STREET_EDEFAULT;
 	/**
 	 * The cached value of the '{@link #getNumber() <em>Number</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getNumber()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getNumber()
 	 */
 	protected Integer number = NUMBER_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	protected Address() {
@@ -128,6 +129,7 @@ public class Address extends MinimalEObjectImpl.Container implements EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -143,9 +145,10 @@ public class Address extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Add Id</em>' attribute.
-	 * @see #setAddId(String)
 	 * @generated
+	 * @see #setAddId(String)
 	 */
 	public String getAddId() {
 		return addId;
@@ -155,9 +158,10 @@ public class Address extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.Address#getAddId <em>Add Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Add Id</em>' attribute.
-	 * @see #getAddId()
 	 * @generated
+	 * @see #getAddId()
 	 */
 	public void setAddId(String newAddId) {
 		String oldAddId = addId;
@@ -174,9 +178,10 @@ public class Address extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>City</em>' attribute.
-	 * @see #setCity(String)
 	 * @generated
+	 * @see #setCity(String)
 	 */
 	public String getCity() {
 		return city;
@@ -186,9 +191,10 @@ public class Address extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.Address#getCity <em>City</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>City</em>' attribute.
-	 * @see #getCity()
 	 * @generated
+	 * @see #getCity()
 	 */
 	public void setCity(String newCity) {
 		String oldCity = city;
@@ -205,9 +211,10 @@ public class Address extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Street</em>' attribute.
-	 * @see #setStreet(String)
 	 * @generated
+	 * @see #setStreet(String)
 	 */
 	public String getStreet() {
 		return street;
@@ -217,9 +224,10 @@ public class Address extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.Address#getStreet <em>Street</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Street</em>' attribute.
-	 * @see #getStreet()
 	 * @generated
+	 * @see #getStreet()
 	 */
 	public void setStreet(String newStreet) {
 		String oldStreet = street;
@@ -236,9 +244,10 @@ public class Address extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Number</em>' attribute.
-	 * @see #setNumber(Integer)
 	 * @generated
+	 * @see #setNumber(Integer)
 	 */
 	public Integer getNumber() {
 		return number;
@@ -248,9 +257,10 @@ public class Address extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.Address#getNumber <em>Number</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Number</em>' attribute.
-	 * @see #getNumber()
 	 * @generated
+	 * @see #getNumber()
 	 */
 	public void setNumber(Integer newNumber) {
 		Integer oldNumber = number;
@@ -262,6 +272,7 @@ public class Address extends MinimalEObjectImpl.Container implements EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -282,22 +293,23 @@ public class Address extends MinimalEObjectImpl.Container implements EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackage.ADDRESS__ADD_ID:
-				setAddId((String)newValue);
+				setAddId((String) newValue);
 				return;
 			case ModelPackage.ADDRESS__CITY:
-				setCity((String)newValue);
+				setCity((String) newValue);
 				return;
 			case ModelPackage.ADDRESS__STREET:
-				setStreet((String)newValue);
+				setStreet((String) newValue);
 				return;
 			case ModelPackage.ADDRESS__NUMBER:
-				setNumber((Integer)newValue);
+				setNumber((Integer) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -306,6 +318,7 @@ public class Address extends MinimalEObjectImpl.Container implements EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -330,6 +343,7 @@ public class Address extends MinimalEObjectImpl.Container implements EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -350,6 +364,7 @@ public class Address extends MinimalEObjectImpl.Container implements EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override

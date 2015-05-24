@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.model;
 
@@ -17,18 +18,18 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Object With Map</b></em>'.
  * <!-- end-user-doc -->
- *
+ * <p/>
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emfjson.gwt.junit.model.ObjectWithMap#getEntries <em>Entries</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.ObjectWithMap#getDependencies <em>Dependencies</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.ObjectWithMap#getEntries <em>Entries</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.ObjectWithMap#getDependencies <em>Dependencies</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.emfjson.gwt.junit.model.ModelPackage#getObjectWithMap()
  * @model
  * @generated
+ * @see org.emfjson.gwt.junit.model.ModelPackage#getObjectWithMap()
  */
 public interface ObjectWithMap extends EObject {
 	/**
@@ -41,11 +42,12 @@ public interface ObjectWithMap extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Entries</em>' map.
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getObjectWithMap_Entries()
 	 * @model mapType="org.eclipse.emf.ecore.EStringToStringMapEntry<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EString>"
-	 *        annotation="JSON dynamicMap='true'"
+	 * annotation="JSON dynamicMap='true'"
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getObjectWithMap_Entries()
 	 */
 	EMap<String, String> getEntries();
 
@@ -59,10 +61,11 @@ public interface ObjectWithMap extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Dependencies</em>' map.
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getObjectWithMap_Dependencies()
 	 * @model mapType="org.eclipse.emf.ecore.EStringToStringMapEntry<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EString>"
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getObjectWithMap_Dependencies()
 	 */
 	EMap<String, String> getDependencies();
 

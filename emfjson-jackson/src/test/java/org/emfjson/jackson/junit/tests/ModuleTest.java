@@ -1,29 +1,35 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.jackson.junit.tests;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.*;
-
-import java.io.IOException;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emfjson.jackson.module.EMFModule;
-import org.emfjson.jackson.resource.JsonResource;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import org.emfjson.jackson.module.EMFModule;
+import org.emfjson.jackson.resource.JsonResource;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
+import java.io.IOException;
+
+import static org.junit.Assert.assertEquals;
 
 public class ModuleTest {
 
@@ -32,11 +38,10 @@ public class ModuleTest {
 	@Test
 	public void testSaveWithModule() throws JsonProcessingException {
 		JsonNode expected = mapper.createObjectNode()
-				.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EClass")
-				.put("name", "A");
+			.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EClass")
+			.put("name", "A");
 
-		mapper.registerModule(new EMFModule());
-		mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+		mapper.registerModule(new EMFModule(new ResourceSetImpl()));
 
 		EClass c = EcoreFactory.eINSTANCE.createEClass();
 		c.setName("A");
@@ -47,10 +52,10 @@ public class ModuleTest {
 	@Test
 	public void testReadWithModule() throws IOException {
 		JsonNode data = mapper.createObjectNode()
-				.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EClass")
-				.put("name", "A");
+			.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EClass")
+			.put("name", "A");
 
-		mapper.registerModule(new EMFModule());
+		mapper.registerModule(new EMFModule(new ResourceSetImpl()));
 		EClass result = (EClass) mapper.treeToValue(data, EObject.class);
 
 		assertEquals("A", result.getName());
@@ -59,10 +64,10 @@ public class ModuleTest {
 	@Test
 	public void testSaveResourceWithModule() throws JsonProcessingException {
 		JsonNode expected = mapper.createObjectNode()
-				.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EClass")
-				.put("name", "A");
+			.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EClass")
+			.put("name", "A");
 
-		mapper.registerModule(new EMFModule());
+		mapper.registerModule(new EMFModule(new ResourceSetImpl()));
 		mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
 
 		Resource r = new JsonResource();
@@ -76,10 +81,10 @@ public class ModuleTest {
 	@Test
 	public void testReadResourceWithModule() throws IOException {
 		JsonNode data = mapper.createObjectNode()
-				.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EClass")
-				.put("name", "A");
+			.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EClass")
+			.put("name", "A");
 
-		mapper.registerModule(new EMFModule());
+		mapper.registerModule(new EMFModule(new ResourceSetImpl()));
 		Resource result = mapper.treeToValue(data, Resource.class);
 
 		assertEquals(1, result.getContents().size());

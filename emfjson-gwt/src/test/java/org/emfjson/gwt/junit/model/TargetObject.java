@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.model;
 
@@ -17,18 +18,18 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Target Object</b></em>'.
  * <!-- end-user-doc -->
- *
+ * <p/>
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emfjson.gwt.junit.model.TargetObject#getSingleAttribute <em>Single Attribute</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.TargetObject#getArrayAttribute <em>Array Attribute</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.TargetObject#getSingleAttribute <em>Single Attribute</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.TargetObject#getArrayAttribute <em>Array Attribute</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.emfjson.gwt.junit.model.ModelPackage#getTargetObject()
  * @model
  * @generated
+ * @see org.emfjson.gwt.junit.model.ModelPackage#getTargetObject()
  */
 public interface TargetObject extends EObject {
 	/**
@@ -39,11 +40,12 @@ public interface TargetObject extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Single Attribute</em>' attribute.
-	 * @see #setSingleAttribute(String)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getTargetObject_SingleAttribute()
 	 * @model
 	 * @generated
+	 * @see #setSingleAttribute(String)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getTargetObject_SingleAttribute()
 	 */
 	String getSingleAttribute();
 
@@ -51,9 +53,10 @@ public interface TargetObject extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.TargetObject#getSingleAttribute <em>Single Attribute</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Single Attribute</em>' attribute.
-	 * @see #getSingleAttribute()
 	 * @generated
+	 * @see #getSingleAttribute()
 	 */
 	void setSingleAttribute(String value);
 
@@ -66,10 +69,11 @@ public interface TargetObject extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Array Attribute</em>' attribute list.
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getTargetObject_ArrayAttribute()
 	 * @model
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getTargetObject_ArrayAttribute()
 	 */
 	EList<String> getArrayAttribute();
 

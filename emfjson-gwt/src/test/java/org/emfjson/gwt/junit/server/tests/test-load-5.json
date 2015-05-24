@@ -1,18 +1,22 @@
 [
-	{
-		"userId": "1", 
-		"name": "Paul", 
-		"friends": [
-			{"$ref" : "2"},
-			{"$ref" : "http://eclipselabs.org/emfjson/tests/test-load-5.json#3"}
-		]
-	},
-	{
-		"userId": "2",
-		"name": "Pierre"
-	},
-	{
-		"userId": "3",
-		"name": "Victor"
-	}
+  {
+    "userId": "1",
+    "name": "Paul",
+    "friends": [
+      {
+        "$ref": "2"
+      },
+      {
+        "$ref": "http://eclipselabs.org/emfjson/tests/test-load-5.json#3"
+      }
+    ]
+  },
+  {
+    "userId": "2",
+    "name": "Pierre"
+  },
+  {
+    "userId": "3",
+    "name": "Victor"
+  }
 ]

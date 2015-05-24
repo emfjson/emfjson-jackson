@@ -1,30 +1,21 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.model.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
-import org.emfjson.gwt.junit.model.AbstractType;
-import org.emfjson.gwt.junit.model.Address;
-import org.emfjson.gwt.junit.model.ConcreteTypeOne;
-import org.emfjson.gwt.junit.model.ConcreteTypeTwo;
-import org.emfjson.gwt.junit.model.Container;
-import org.emfjson.gwt.junit.model.ETypes;
-import org.emfjson.gwt.junit.model.ModelPackage;
-import org.emfjson.gwt.junit.model.Node;
-import org.emfjson.gwt.junit.model.ObjectWithMap;
-import org.emfjson.gwt.junit.model.PrimaryObject;
-import org.emfjson.gwt.junit.model.TargetObject;
-import org.emfjson.gwt.junit.model.User;
+
+import org.emfjson.gwt.junit.model.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -36,14 +27,16 @@ import org.emfjson.gwt.junit.model.User;
  * until a non-null result is returned,
  * which is the result of the switch.
  * <!-- end-user-doc -->
- * @see org.emfjson.gwt.junit.model.ModelPackage
+ *
  * @generated
+ * @see org.emfjson.gwt.junit.model.ModelPackage
  */
 public class ModelSwitch<T> extends Switch<T> {
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	protected static ModelPackage modelPackage;
@@ -52,6 +45,7 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * Creates an instance of the switch.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public ModelSwitch() {
@@ -64,8 +58,9 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * Checks whether this is a switch for the given package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @parameter ePackage the package in question.
+	 *
 	 * @return whether this is a switch for the given package.
+	 * @parameter ePackage the package in question.
 	 * @generated
 	 */
 	@Override
@@ -77,6 +72,7 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
@@ -84,74 +80,75 @@ public class ModelSwitch<T> extends Switch<T> {
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
 			case ModelPackage.USER: {
-				User user = (User)theEObject;
+				User user = (User) theEObject;
 				T result = caseUser(user);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ModelPackage.ADDRESS: {
-				Address address = (Address)theEObject;
+				Address address = (Address) theEObject;
 				T result = caseAddress(address);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ModelPackage.ETYPES: {
-				ETypes eTypes = (ETypes)theEObject;
+				ETypes eTypes = (ETypes) theEObject;
 				T result = caseETypes(eTypes);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ModelPackage.PRIMARY_OBJECT: {
-				PrimaryObject primaryObject = (PrimaryObject)theEObject;
+				PrimaryObject primaryObject = (PrimaryObject) theEObject;
 				T result = casePrimaryObject(primaryObject);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ModelPackage.CONTAINER: {
-				Container container = (Container)theEObject;
+				Container container = (Container) theEObject;
 				T result = caseContainer(container);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ModelPackage.TARGET_OBJECT: {
-				TargetObject targetObject = (TargetObject)theEObject;
+				TargetObject targetObject = (TargetObject) theEObject;
 				T result = caseTargetObject(targetObject);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ModelPackage.ABSTRACT_TYPE: {
-				AbstractType abstractType = (AbstractType)theEObject;
+				AbstractType abstractType = (AbstractType) theEObject;
 				T result = caseAbstractType(abstractType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ModelPackage.CONCRETE_TYPE_ONE: {
-				ConcreteTypeOne concreteTypeOne = (ConcreteTypeOne)theEObject;
+				ConcreteTypeOne concreteTypeOne = (ConcreteTypeOne) theEObject;
 				T result = caseConcreteTypeOne(concreteTypeOne);
 				if (result == null) result = caseAbstractType(concreteTypeOne);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ModelPackage.CONCRETE_TYPE_TWO: {
-				ConcreteTypeTwo concreteTypeTwo = (ConcreteTypeTwo)theEObject;
+				ConcreteTypeTwo concreteTypeTwo = (ConcreteTypeTwo) theEObject;
 				T result = caseConcreteTypeTwo(concreteTypeTwo);
 				if (result == null) result = caseAbstractType(concreteTypeTwo);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ModelPackage.NODE: {
-				Node node = (Node)theEObject;
+				Node node = (Node) theEObject;
 				T result = caseNode(node);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ModelPackage.OBJECT_WITH_MAP: {
-				ObjectWithMap objectWithMap = (ObjectWithMap)theEObject;
+				ObjectWithMap objectWithMap = (ObjectWithMap) theEObject;
 				T result = caseObjectWithMap(objectWithMap);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			default: return defaultCase(theEObject);
+			default:
+				return defaultCase(theEObject);
 		}
 	}
 
@@ -161,10 +158,11 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>User</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 */
 	public T caseUser(User object) {
 		return null;
@@ -176,10 +174,11 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Address</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 */
 	public T caseAddress(Address object) {
 		return null;
@@ -191,10 +190,11 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>ETypes</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 */
 	public T caseETypes(ETypes object) {
 		return null;
@@ -206,10 +206,11 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Primary Object</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 */
 	public T casePrimaryObject(PrimaryObject object) {
 		return null;
@@ -221,10 +222,11 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Container</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 */
 	public T caseContainer(Container object) {
 		return null;
@@ -236,10 +238,11 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Target Object</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 */
 	public T caseTargetObject(TargetObject object) {
 		return null;
@@ -251,10 +254,11 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Abstract Type</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 */
 	public T caseAbstractType(AbstractType object) {
 		return null;
@@ -266,10 +270,11 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Concrete Type One</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 */
 	public T caseConcreteTypeOne(ConcreteTypeOne object) {
 		return null;
@@ -281,10 +286,11 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Concrete Type Two</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 */
 	public T caseConcreteTypeTwo(ConcreteTypeTwo object) {
 		return null;
@@ -296,10 +302,11 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Node</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 */
 	public T caseNode(Node object) {
 		return null;
@@ -311,10 +318,11 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Object With Map</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 */
 	public T caseObjectWithMap(ObjectWithMap object) {
 		return null;
@@ -326,10 +334,11 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch, but this is the last case anyway.
 	 * <!-- end-user-doc -->
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 */
 	@Override
 	public T defaultCase(EObject object) {

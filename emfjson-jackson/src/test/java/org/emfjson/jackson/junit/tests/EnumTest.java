@@ -1,39 +1,42 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.jackson.junit.tests;
 
-import com.fasterxml.jackson.databind.*;
-import org.eclipse.emf.common.util.*;
-import org.eclipse.emf.ecore.*;
-import org.eclipse.emf.ecore.resource.*;
-import org.emfjson.*;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.junit.Test;
+
 import org.emfjson.jackson.junit.model.*;
-import org.emfjson.jackson.junit.support.*;
-import org.junit.*;
+import org.emfjson.jackson.junit.support.TestSupport;
 
-import java.io.*;
+import com.fasterxml.jackson.databind.JsonNode;
 
-import static org.junit.Assert.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+
+import static org.junit.Assert.assertEquals;
 
 public class EnumTest extends TestSupport {
 
 	@Test
 	public void testEnums() throws IOException {
 		JsonNode expected = mapper.createArrayNode()
-				.add(mapper.createObjectNode()
-						.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
-						.put("sex", "MALE"))
-				.add(mapper.createObjectNode()
-						.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
-						.put("sex", "FEMALE"));
+			.add(mapper.createObjectNode()
+				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+				.put("sex", "MALE"))
+			.add(mapper.createObjectNode()
+				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+				.put("sex", "FEMALE"));
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 
@@ -52,16 +55,16 @@ public class EnumTest extends TestSupport {
 	@Test
 	public void testLoadEnums() throws IOException {
 		JsonNode data = mapper.createArrayNode()
-				.add(mapper.createObjectNode()
-						.put("name", "A")
-						.put("sex", "MALE"))
-				.add(mapper.createObjectNode()
-						.put("name", "B")
-						.put("sex", "FEMALE"));
+			.add(mapper.createObjectNode()
+				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+				.put("name", "A")
+				.put("sex", "MALE"))
+			.add(mapper.createObjectNode()
+				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+				.put("name", "B")
+				.put("sex", "FEMALE"));
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
-		options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.Literals.USER);
-
 		resource.load(new ByteArrayInputStream(mapper.writeValueAsBytes(data)), options);
 
 		assertEquals(2, resource.getContents().size());
@@ -81,15 +84,15 @@ public class EnumTest extends TestSupport {
 	@Test
 	public void testSaveEnumDifferentCases() throws IOException {
 		JsonNode expected = mapper.createArrayNode()
-				.add(mapper.createObjectNode()
-						.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
-						.put("kind", "one"))
-				.add(mapper.createObjectNode()
-						.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
-						.put("kind", "two"))
-				.add(mapper.createObjectNode()
-						.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
-						.put("kind", "Three-is-Three"));
+			.add(mapper.createObjectNode()
+				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
+				.put("kind", "one"))
+			.add(mapper.createObjectNode()
+				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
+				.put("kind", "two"))
+			.add(mapper.createObjectNode()
+				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
+				.put("kind", "Three-is-Three"));
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 		{
@@ -110,19 +113,19 @@ public class EnumTest extends TestSupport {
 
 		assertEquals(expected, mapper.valueToTree(resource));
 	}
-	
+
 	@Test
 	public void testLoadEnumDifferentCases() throws IOException {
 		JsonNode data = mapper.createArrayNode()
-				.add(mapper.createObjectNode()
-						.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
-						.put("kind", "one"))
-				.add(mapper.createObjectNode()
-						.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
-						.put("kind", "two"))
-				.add(mapper.createObjectNode()
-						.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
-						.put("kind", "Three-is-Three"));
+			.add(mapper.createObjectNode()
+				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
+				.put("kind", "one"))
+			.add(mapper.createObjectNode()
+				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
+				.put("kind", "two"))
+			.add(mapper.createObjectNode()
+				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
+				.put("kind", "Three-is-Three"));
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 		resource.load(new ByteArrayInputStream(mapper.writeValueAsBytes(data)), options);

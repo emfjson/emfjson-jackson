@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.model.util;
 
@@ -14,40 +15,102 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.emfjson.gwt.junit.model.AbstractType;
-import org.emfjson.gwt.junit.model.Address;
-import org.emfjson.gwt.junit.model.ConcreteTypeOne;
-import org.emfjson.gwt.junit.model.ConcreteTypeTwo;
-import org.emfjson.gwt.junit.model.Container;
-import org.emfjson.gwt.junit.model.ETypes;
-import org.emfjson.gwt.junit.model.ModelPackage;
-import org.emfjson.gwt.junit.model.Node;
-import org.emfjson.gwt.junit.model.ObjectWithMap;
-import org.emfjson.gwt.junit.model.PrimaryObject;
-import org.emfjson.gwt.junit.model.TargetObject;
-import org.emfjson.gwt.junit.model.User;
+
+import org.emfjson.gwt.junit.model.*;
 
 /**
  * <!-- begin-user-doc -->
  * The <b>Adapter Factory</b> for the model.
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
- * @see org.emfjson.gwt.junit.model.ModelPackage
+ *
  * @generated
+ * @see org.emfjson.gwt.junit.model.ModelPackage
  */
 public class ModelAdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * The cached model package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	protected static ModelPackage modelPackage;
+	/**
+	 * The switch that delegates to the <code>createXXX</code> methods.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	protected ModelSwitch<Adapter> modelSwitch =
+		new ModelSwitch<Adapter>() {
+			@Override
+			public Adapter caseUser(User object) {
+				return createUserAdapter();
+			}
+
+			@Override
+			public Adapter caseAddress(Address object) {
+				return createAddressAdapter();
+			}
+
+			@Override
+			public Adapter caseETypes(ETypes object) {
+				return createETypesAdapter();
+			}
+
+			@Override
+			public Adapter casePrimaryObject(PrimaryObject object) {
+				return createPrimaryObjectAdapter();
+			}
+
+			@Override
+			public Adapter caseContainer(Container object) {
+				return createContainerAdapter();
+			}
+
+			@Override
+			public Adapter caseTargetObject(TargetObject object) {
+				return createTargetObjectAdapter();
+			}
+
+			@Override
+			public Adapter caseAbstractType(AbstractType object) {
+				return createAbstractTypeAdapter();
+			}
+
+			@Override
+			public Adapter caseConcreteTypeOne(ConcreteTypeOne object) {
+				return createConcreteTypeOneAdapter();
+			}
+
+			@Override
+			public Adapter caseConcreteTypeTwo(ConcreteTypeTwo object) {
+				return createConcreteTypeTwoAdapter();
+			}
+
+			@Override
+			public Adapter caseNode(Node object) {
+				return createNodeAdapter();
+			}
+
+			@Override
+			public Adapter caseObjectWithMap(ObjectWithMap object) {
+				return createObjectWithMapAdapter();
+			}
+
+			@Override
+			public Adapter defaultCase(EObject object) {
+				return createEObjectAdapter();
+			}
+		};
 
 	/**
 	 * Creates an instance of the adapter factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public ModelAdapterFactory() {
@@ -61,6 +124,7 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- begin-user-doc -->
 	 * This implementation returns <code>true</code> if the object is either the model's package or is an instance object of the model.
 	 * <!-- end-user-doc -->
+	 *
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
@@ -70,80 +134,23 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 			return true;
 		}
 		if (object instanceof EObject) {
-			return ((EObject)object).eClass().getEPackage() == modelPackage;
+			return ((EObject) object).eClass().getEPackage() == modelPackage;
 		}
 		return false;
 	}
 
 	/**
-	 * The switch that delegates to the <code>createXXX</code> methods.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ModelSwitch<Adapter> modelSwitch =
-		new ModelSwitch<Adapter>() {
-			@Override
-			public Adapter caseUser(User object) {
-				return createUserAdapter();
-			}
-			@Override
-			public Adapter caseAddress(Address object) {
-				return createAddressAdapter();
-			}
-			@Override
-			public Adapter caseETypes(ETypes object) {
-				return createETypesAdapter();
-			}
-			@Override
-			public Adapter casePrimaryObject(PrimaryObject object) {
-				return createPrimaryObjectAdapter();
-			}
-			@Override
-			public Adapter caseContainer(Container object) {
-				return createContainerAdapter();
-			}
-			@Override
-			public Adapter caseTargetObject(TargetObject object) {
-				return createTargetObjectAdapter();
-			}
-			@Override
-			public Adapter caseAbstractType(AbstractType object) {
-				return createAbstractTypeAdapter();
-			}
-			@Override
-			public Adapter caseConcreteTypeOne(ConcreteTypeOne object) {
-				return createConcreteTypeOneAdapter();
-			}
-			@Override
-			public Adapter caseConcreteTypeTwo(ConcreteTypeTwo object) {
-				return createConcreteTypeTwoAdapter();
-			}
-			@Override
-			public Adapter caseNode(Node object) {
-				return createNodeAdapter();
-			}
-			@Override
-			public Adapter caseObjectWithMap(ObjectWithMap object) {
-				return createObjectWithMapAdapter();
-			}
-			@Override
-			public Adapter defaultCase(EObject object) {
-				return createEObjectAdapter();
-			}
-		};
-
-	/**
 	 * Creates an adapter for the <code>target</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param target the object to adapt.
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
 	@Override
 	public Adapter createAdapter(Notifier target) {
-		return modelSwitch.doSwitch((EObject)target);
+		return modelSwitch.doSwitch((EObject) target);
 	}
 
 
@@ -153,9 +160,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the new adapter.
-	 * @see org.emfjson.gwt.junit.model.User
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.User
 	 */
 	public Adapter createUserAdapter() {
 		return null;
@@ -167,9 +175,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the new adapter.
-	 * @see org.emfjson.gwt.junit.model.Address
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.Address
 	 */
 	public Adapter createAddressAdapter() {
 		return null;
@@ -181,9 +190,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the new adapter.
-	 * @see org.emfjson.gwt.junit.model.ETypes
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.ETypes
 	 */
 	public Adapter createETypesAdapter() {
 		return null;
@@ -195,9 +205,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the new adapter.
-	 * @see org.emfjson.gwt.junit.model.PrimaryObject
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.PrimaryObject
 	 */
 	public Adapter createPrimaryObjectAdapter() {
 		return null;
@@ -209,9 +220,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the new adapter.
-	 * @see org.emfjson.gwt.junit.model.Container
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.Container
 	 */
 	public Adapter createContainerAdapter() {
 		return null;
@@ -223,9 +235,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the new adapter.
-	 * @see org.emfjson.gwt.junit.model.TargetObject
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.TargetObject
 	 */
 	public Adapter createTargetObjectAdapter() {
 		return null;
@@ -237,9 +250,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the new adapter.
-	 * @see org.emfjson.gwt.junit.model.AbstractType
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.AbstractType
 	 */
 	public Adapter createAbstractTypeAdapter() {
 		return null;
@@ -251,9 +265,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the new adapter.
-	 * @see org.emfjson.gwt.junit.model.ConcreteTypeOne
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.ConcreteTypeOne
 	 */
 	public Adapter createConcreteTypeOneAdapter() {
 		return null;
@@ -265,9 +280,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the new adapter.
-	 * @see org.emfjson.gwt.junit.model.ConcreteTypeTwo
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.ConcreteTypeTwo
 	 */
 	public Adapter createConcreteTypeTwoAdapter() {
 		return null;
@@ -279,9 +295,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the new adapter.
-	 * @see org.emfjson.gwt.junit.model.Node
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.Node
 	 */
 	public Adapter createNodeAdapter() {
 		return null;
@@ -293,9 +310,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the new adapter.
-	 * @see org.emfjson.gwt.junit.model.ObjectWithMap
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.ObjectWithMap
 	 */
 	public Adapter createObjectWithMapAdapter() {
 		return null;
@@ -306,6 +324,7 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null.
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the new adapter.
 	 * @generated
 	 */

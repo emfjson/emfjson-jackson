@@ -1,18 +1,17 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.model.impl;
 
-import java.util.Collection;
-import java.util.Date;
-
+import com.google.gwt.user.client.rpc.GwtTransient;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -20,10 +19,12 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
+
 import org.emfjson.gwt.junit.model.ETypes;
 import org.emfjson.gwt.junit.model.ModelPackage;
 
-import com.google.gwt.user.client.rpc.GwtTransient;
+import java.util.Collection;
+import java.util.Date;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,23 +33,23 @@ import com.google.gwt.user.client.rpc.GwtTransient;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEString <em>EString</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEStrings <em>EStrings</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#isEBoolean <em>EBoolean</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEBooleans <em>EBooleans</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEInt <em>EInt</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEInts <em>EInts</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getDoubleValue <em>Double Value</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEDouble <em>EDouble</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEDoubles <em>EDoubles</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEByte <em>EByte</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEByteArray <em>EByte Array</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEChar <em>EChar</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEDate <em>EDate</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEFloat <em>EFloat</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getELong <em>ELong</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEShort <em>EShort</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getUris <em>Uris</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEString <em>EString</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEStrings <em>EStrings</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#isEBoolean <em>EBoolean</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEBooleans <em>EBooleans</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEInt <em>EInt</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEInts <em>EInts</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getDoubleValue <em>Double Value</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEDouble <em>EDouble</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEDoubles <em>EDoubles</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEByte <em>EByte</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEByteArray <em>EByte Array</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEChar <em>EChar</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEDate <em>EDate</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEFloat <em>EFloat</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getELong <em>ELong</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getEShort <em>EShort</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.ETypesImpl#getUris <em>Uris</em>}</li>
  * </ul>
  * </p>
  *
@@ -59,294 +60,295 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	 * The default value of the '{@link #getEString() <em>EString</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEString()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEString()
 	 */
 	protected static final String ESTRING_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getEString() <em>EString</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEString()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected String eString = ESTRING_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getEStrings() <em>EStrings</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEStrings()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected EList<String> eStrings;
-
 	/**
 	 * The default value of the '{@link #isEBoolean() <em>EBoolean</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isEBoolean()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #isEBoolean()
 	 */
 	protected static final boolean EBOOLEAN_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isEBoolean() <em>EBoolean</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isEBoolean()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected boolean eBoolean = EBOOLEAN_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getEBooleans() <em>EBooleans</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEBooleans()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected EList<Boolean> eBooleans;
-
 	/**
 	 * The default value of the '{@link #getEInt() <em>EInt</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEInt()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEInt()
 	 */
 	protected static final int EINT_EDEFAULT = 0;
-
-	/**
-	 * The cached value of the '{@link #getEInt() <em>EInt</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEInt()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected int eInt = EINT_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getEInts() <em>EInts</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEInts()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected EList<Integer> eInts;
-
 	/**
 	 * The default value of the '{@link #getDoubleValue() <em>Double Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDoubleValue()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getDoubleValue()
 	 */
 	protected static final Double DOUBLE_VALUE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getDoubleValue() <em>Double Value</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDoubleValue()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected Double doubleValue = DOUBLE_VALUE_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getEDouble() <em>EDouble</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEDouble()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEDouble()
 	 */
 	protected static final double EDOUBLE_EDEFAULT = 0.0;
-
-	/**
-	 * The cached value of the '{@link #getEDouble() <em>EDouble</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEDouble()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected double eDouble = EDOUBLE_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getEDoubles() <em>EDoubles</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEDoubles()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected EList<Double> eDoubles;
-
 	/**
 	 * The default value of the '{@link #getEByte() <em>EByte</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEByte()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEByte()
 	 */
 	protected static final byte EBYTE_EDEFAULT = 0x00;
-
-	/**
-	 * The cached value of the '{@link #getEByte() <em>EByte</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEByte()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected byte eByte = EBYTE_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getEByteArray() <em>EByte Array</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEByteArray()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEByteArray()
 	 */
 	protected static final byte[] EBYTE_ARRAY_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getEByteArray() <em>EByte Array</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEByteArray()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected byte[] eByteArray = EBYTE_ARRAY_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getEChar() <em>EChar</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEChar()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEChar()
 	 */
 	protected static final char ECHAR_EDEFAULT = '\u0000';
-
-	/**
-	 * The cached value of the '{@link #getEChar() <em>EChar</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEChar()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected char eChar = ECHAR_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getEDate() <em>EDate</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEDate()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEDate()
 	 */
 	protected static final Date EDATE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getEDate() <em>EDate</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEDate()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected Date eDate = EDATE_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getEFloat() <em>EFloat</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEFloat()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEFloat()
 	 */
 	protected static final float EFLOAT_EDEFAULT = 0.0F;
-
-	/**
-	 * The cached value of the '{@link #getEFloat() <em>EFloat</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEFloat()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected float eFloat = EFLOAT_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getELong() <em>ELong</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getELong()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getELong()
 	 */
 	protected static final long ELONG_EDEFAULT = 0L;
-
-	/**
-	 * The cached value of the '{@link #getELong() <em>ELong</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getELong()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected long eLong = ELONG_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getEShort() <em>EShort</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEShort()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEShort()
 	 */
 	protected static final short ESHORT_EDEFAULT = 0;
-
+	/**
+	 * The cached value of the '{@link #getEString() <em>EString</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEString()
+	 */
+	@GwtTransient
+	protected String eString = ESTRING_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getEStrings() <em>EStrings</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEStrings()
+	 */
+	@GwtTransient
+	protected EList<String> eStrings;
+	/**
+	 * The cached value of the '{@link #isEBoolean() <em>EBoolean</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #isEBoolean()
+	 */
+	@GwtTransient
+	protected boolean eBoolean = EBOOLEAN_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getEBooleans() <em>EBooleans</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEBooleans()
+	 */
+	@GwtTransient
+	protected EList<Boolean> eBooleans;
+	/**
+	 * The cached value of the '{@link #getEInt() <em>EInt</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEInt()
+	 */
+	@GwtTransient
+	protected int eInt = EINT_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getEInts() <em>EInts</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEInts()
+	 */
+	@GwtTransient
+	protected EList<Integer> eInts;
+	/**
+	 * The cached value of the '{@link #getDoubleValue() <em>Double Value</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getDoubleValue()
+	 */
+	@GwtTransient
+	protected Double doubleValue = DOUBLE_VALUE_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getEDouble() <em>EDouble</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEDouble()
+	 */
+	@GwtTransient
+	protected double eDouble = EDOUBLE_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getEDoubles() <em>EDoubles</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEDoubles()
+	 */
+	@GwtTransient
+	protected EList<Double> eDoubles;
+	/**
+	 * The cached value of the '{@link #getEByte() <em>EByte</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEByte()
+	 */
+	@GwtTransient
+	protected byte eByte = EBYTE_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getEByteArray() <em>EByte Array</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEByteArray()
+	 */
+	@GwtTransient
+	protected byte[] eByteArray = EBYTE_ARRAY_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getEChar() <em>EChar</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEChar()
+	 */
+	@GwtTransient
+	protected char eChar = ECHAR_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getEDate() <em>EDate</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEDate()
+	 */
+	@GwtTransient
+	protected Date eDate = EDATE_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getEFloat() <em>EFloat</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEFloat()
+	 */
+	@GwtTransient
+	protected float eFloat = EFLOAT_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getELong() <em>ELong</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getELong()
+	 */
+	@GwtTransient
+	protected long eLong = ELONG_EDEFAULT;
 	/**
 	 * The cached value of the '{@link #getEShort() <em>EShort</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEShort()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEShort()
 	 */
 	@GwtTransient
 	protected short eShort = ESHORT_EDEFAULT;
@@ -355,9 +357,10 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	 * The cached value of the '{@link #getUris() <em>Uris</em>}' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getUris()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getUris()
 	 */
 	@GwtTransient
 	protected EList<URI> uris;
@@ -365,6 +368,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	protected ETypesImpl() {
@@ -374,6 +378,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -384,6 +389,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public String getEString() {
@@ -393,6 +399,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setEString(String newEString) {
@@ -405,6 +412,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EList<String> getEStrings() {
@@ -417,6 +425,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public boolean isEBoolean() {
@@ -426,6 +435,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setEBoolean(boolean newEBoolean) {
@@ -438,6 +448,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EList<Boolean> getEBooleans() {
@@ -450,6 +461,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public int getEInt() {
@@ -459,6 +471,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setEInt(int newEInt) {
@@ -471,6 +484,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EList<Integer> getEInts() {
@@ -483,6 +497,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public Double getDoubleValue() {
@@ -492,6 +507,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setDoubleValue(Double newDoubleValue) {
@@ -504,6 +520,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public double getEDouble() {
@@ -513,6 +530,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setEDouble(double newEDouble) {
@@ -525,6 +543,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EList<Double> getEDoubles() {
@@ -537,6 +556,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public byte getEByte() {
@@ -546,6 +566,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setEByte(byte newEByte) {
@@ -558,6 +579,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public byte[] getEByteArray() {
@@ -567,6 +589,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setEByteArray(byte[] newEByteArray) {
@@ -579,6 +602,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public char getEChar() {
@@ -588,6 +612,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setEChar(char newEChar) {
@@ -600,6 +625,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public Date getEDate() {
@@ -609,6 +635,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setEDate(Date newEDate) {
@@ -621,6 +648,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public float getEFloat() {
@@ -630,6 +658,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setEFloat(float newEFloat) {
@@ -642,6 +671,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public long getELong() {
@@ -651,6 +681,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setELong(long newELong) {
@@ -663,6 +694,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public short getEShort() {
@@ -672,6 +704,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setEShort(short newEShort) {
@@ -684,6 +717,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EList<URI> getUris() {
@@ -696,6 +730,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -742,6 +777,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -749,60 +785,60 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackage.ETYPES__ESTRING:
-				setEString((String)newValue);
+				setEString((String) newValue);
 				return;
 			case ModelPackage.ETYPES__ESTRINGS:
 				getEStrings().clear();
-				getEStrings().addAll((Collection<? extends String>)newValue);
+				getEStrings().addAll((Collection<? extends String>) newValue);
 				return;
 			case ModelPackage.ETYPES__EBOOLEAN:
-				setEBoolean((Boolean)newValue);
+				setEBoolean((Boolean) newValue);
 				return;
 			case ModelPackage.ETYPES__EBOOLEANS:
 				getEBooleans().clear();
-				getEBooleans().addAll((Collection<? extends Boolean>)newValue);
+				getEBooleans().addAll((Collection<? extends Boolean>) newValue);
 				return;
 			case ModelPackage.ETYPES__EINT:
-				setEInt((Integer)newValue);
+				setEInt((Integer) newValue);
 				return;
 			case ModelPackage.ETYPES__EINTS:
 				getEInts().clear();
-				getEInts().addAll((Collection<? extends Integer>)newValue);
+				getEInts().addAll((Collection<? extends Integer>) newValue);
 				return;
 			case ModelPackage.ETYPES__DOUBLE_VALUE:
-				setDoubleValue((Double)newValue);
+				setDoubleValue((Double) newValue);
 				return;
 			case ModelPackage.ETYPES__EDOUBLE:
-				setEDouble((Double)newValue);
+				setEDouble((Double) newValue);
 				return;
 			case ModelPackage.ETYPES__EDOUBLES:
 				getEDoubles().clear();
-				getEDoubles().addAll((Collection<? extends Double>)newValue);
+				getEDoubles().addAll((Collection<? extends Double>) newValue);
 				return;
 			case ModelPackage.ETYPES__EBYTE:
-				setEByte((Byte)newValue);
+				setEByte((Byte) newValue);
 				return;
 			case ModelPackage.ETYPES__EBYTE_ARRAY:
-				setEByteArray((byte[])newValue);
+				setEByteArray((byte[]) newValue);
 				return;
 			case ModelPackage.ETYPES__ECHAR:
-				setEChar((Character)newValue);
+				setEChar((Character) newValue);
 				return;
 			case ModelPackage.ETYPES__EDATE:
-				setEDate((Date)newValue);
+				setEDate((Date) newValue);
 				return;
 			case ModelPackage.ETYPES__EFLOAT:
-				setEFloat((Float)newValue);
+				setEFloat((Float) newValue);
 				return;
 			case ModelPackage.ETYPES__ELONG:
-				setELong((Long)newValue);
+				setELong((Long) newValue);
 				return;
 			case ModelPackage.ETYPES__ESHORT:
-				setEShort((Short)newValue);
+				setEShort((Short) newValue);
 				return;
 			case ModelPackage.ETYPES__URIS:
 				getUris().clear();
-				getUris().addAll((Collection<? extends URI>)newValue);
+				getUris().addAll((Collection<? extends URI>) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -811,6 +847,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -874,6 +911,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -920,6 +958,7 @@ public class ETypesImpl extends EObjectImpl implements ETypes {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override

@@ -1,37 +1,40 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.jackson.junit.model;
+
+import org.eclipse.emf.common.util.Enumerator;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
  * A representation of the literals of the enumeration '<em><b>Some Kind</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
- * @see org.emfjson.jackson.junit.model.ModelPackage#getSomeKind()
+ *
  * @generated
+ * @see org.emfjson.jackson.junit.model.ModelPackage#getSomeKind()
  */
 public enum SomeKind implements Enumerator {
 	/**
 	 * The '<em><b>One</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #ONE_VALUE
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #ONE_VALUE
 	 */
 	ONE(0, "one", "one"),
 
@@ -39,9 +42,10 @@ public enum SomeKind implements Enumerator {
 	 * The '<em><b>Two</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #TWO_VALUE
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #TWO_VALUE
 	 */
 	TWO(1, "Two", "two"),
 
@@ -49,9 +53,10 @@ public enum SomeKind implements Enumerator {
 	 * The '<em><b>Three</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #THREE_VALUE
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #THREE_VALUE
 	 */
 	THREE(3, "Three", "Three-is-Three");
 
@@ -63,9 +68,10 @@ public enum SomeKind implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #ONE
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #ONE
 	 */
 	public static final int ONE_VALUE = 0;
 
@@ -77,9 +83,10 @@ public enum SomeKind implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #TWO
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #TWO
 	 */
 	public static final int TWO_VALUE = 1;
 
@@ -91,9 +98,10 @@ public enum SomeKind implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #THREE
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #THREE
 	 */
 	public static final int THREE_VALUE = 3;
 
@@ -101,10 +109,11 @@ public enum SomeKind implements Enumerator {
 	 * An array of all the '<em><b>Some Kind</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	private static final SomeKind[] VALUES_ARRAY =
-		new SomeKind[] {
+		new SomeKind[]{
 			ONE,
 			TWO,
 			THREE,
@@ -114,14 +123,50 @@ public enum SomeKind implements Enumerator {
 	 * A public read-only list of all the '<em><b>Some Kind</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public static final List<SomeKind> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	private final int value;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	private final String name;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	private final String literal;
+
+	/**
+	 * Only this class can construct instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	private SomeKind(int value, String name, String literal) {
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
+	}
 
 	/**
 	 * Returns the '<em><b>Some Kind</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public static SomeKind get(String literal) {
@@ -138,6 +183,7 @@ public enum SomeKind implements Enumerator {
 	 * Returns the '<em><b>Some Kind</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public static SomeKind getByName(String name) {
@@ -154,13 +200,17 @@ public enum SomeKind implements Enumerator {
 	 * Returns the '<em><b>Some Kind</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public static SomeKind get(int value) {
 		switch (value) {
-			case ONE_VALUE: return ONE;
-			case TWO_VALUE: return TWO;
-			case THREE_VALUE: return THREE;
+			case ONE_VALUE:
+				return ONE;
+			case TWO_VALUE:
+				return TWO;
+			case THREE_VALUE:
+				return THREE;
 		}
 		return null;
 	}
@@ -168,72 +218,43 @@ public enum SomeKind implements Enumerator {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private final int value;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private final String name;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private final String literal;
-
-	/**
-	 * Only this class can construct instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private SomeKind(int value, String name, String literal) {
-		this.value = value;
-		this.name = name;
-		this.literal = literal;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public int getValue() {
-	  return value;
+		return value;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public String getName() {
-	  return name;
+		return name;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public String getLiteral() {
-	  return literal;
+		return literal;
 	}
 
 	/**
 	 * Returns the literal value of the enumerator, which is its string representation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
 	public String toString() {
 		return literal;
 	}
-	
+
 } //SomeKind

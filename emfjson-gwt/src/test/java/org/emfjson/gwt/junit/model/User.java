@@ -1,41 +1,42 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.model;
 
-import java.util.Date;
-
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+
+import java.util.Date;
 
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>User</b></em>'.
  * <!-- end-user-doc -->
- *
+ * <p/>
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emfjson.gwt.junit.model.User#getUserId <em>User Id</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.User#getName <em>Name</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.User#getBirthDate <em>Birth Date</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.User#getSex <em>Sex</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.User#getFriends <em>Friends</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.User#getUniqueFriend <em>Unique Friend</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.User#getAddress <em>Address</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.User#getUserId <em>User Id</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.User#getName <em>Name</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.User#getBirthDate <em>Birth Date</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.User#getSex <em>Sex</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.User#getFriends <em>Friends</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.User#getUniqueFriend <em>Unique Friend</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.User#getAddress <em>Address</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.emfjson.gwt.junit.model.ModelPackage#getUser()
  * @model annotation="JSON root='true'"
  * @generated
+ * @see org.emfjson.gwt.junit.model.ModelPackage#getUser()
  */
 public interface User extends EObject {
 	/**
@@ -46,11 +47,12 @@ public interface User extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>User Id</em>' attribute.
-	 * @see #setUserId(String)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getUser_UserId()
 	 * @model id="true"
 	 * @generated
+	 * @see #setUserId(String)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getUser_UserId()
 	 */
 	String getUserId();
 
@@ -58,9 +60,10 @@ public interface User extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.User#getUserId <em>User Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>User Id</em>' attribute.
-	 * @see #getUserId()
 	 * @generated
+	 * @see #getUserId()
 	 */
 	void setUserId(String value);
 
@@ -72,11 +75,12 @@ public interface User extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see #setName(String)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getUser_Name()
 	 * @model
 	 * @generated
+	 * @see #setName(String)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getUser_Name()
 	 */
 	String getName();
 
@@ -84,9 +88,10 @@ public interface User extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.User#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Name</em>' attribute.
-	 * @see #getName()
 	 * @generated
+	 * @see #getName()
 	 */
 	void setName(String value);
 
@@ -98,11 +103,12 @@ public interface User extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Birth Date</em>' attribute.
-	 * @see #setBirthDate(Date)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getUser_BirthDate()
 	 * @model
 	 * @generated
+	 * @see #setBirthDate(Date)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getUser_BirthDate()
 	 */
 	Date getBirthDate();
 
@@ -110,9 +116,10 @@ public interface User extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.User#getBirthDate <em>Birth Date</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Birth Date</em>' attribute.
-	 * @see #getBirthDate()
 	 * @generated
+	 * @see #getBirthDate()
 	 */
 	void setBirthDate(Date value);
 
@@ -125,12 +132,13 @@ public interface User extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Sex</em>' attribute.
+	 * @model
+	 * @generated
 	 * @see org.emfjson.gwt.junit.model.Sex
 	 * @see #setSex(Sex)
 	 * @see org.emfjson.gwt.junit.model.ModelPackage#getUser_Sex()
-	 * @model
-	 * @generated
 	 */
 	Sex getSex();
 
@@ -138,10 +146,11 @@ public interface User extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.User#getSex <em>Sex</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Sex</em>' attribute.
+	 * @generated
 	 * @see org.emfjson.gwt.junit.model.Sex
 	 * @see #getSex()
-	 * @generated
 	 */
 	void setSex(Sex value);
 
@@ -154,10 +163,11 @@ public interface User extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Friends</em>' reference list.
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getUser_Friends()
 	 * @model resolveProxies="false"
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getUser_Friends()
 	 */
 	EList<User> getFriends();
 
@@ -169,11 +179,12 @@ public interface User extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Unique Friend</em>' reference.
-	 * @see #setUniqueFriend(User)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getUser_UniqueFriend()
 	 * @model resolveProxies="false"
 	 * @generated
+	 * @see #setUniqueFriend(User)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getUser_UniqueFriend()
 	 */
 	User getUniqueFriend();
 
@@ -181,9 +192,10 @@ public interface User extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.User#getUniqueFriend <em>Unique Friend</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Unique Friend</em>' reference.
-	 * @see #getUniqueFriend()
 	 * @generated
+	 * @see #getUniqueFriend()
 	 */
 	void setUniqueFriend(User value);
 
@@ -195,11 +207,12 @@ public interface User extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Address</em>' containment reference.
-	 * @see #setAddress(Address)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getUser_Address()
 	 * @model containment="true" resolveProxies="true"
 	 * @generated
+	 * @see #setAddress(Address)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getUser_Address()
 	 */
 	Address getAddress();
 
@@ -207,9 +220,10 @@ public interface User extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.User#getAddress <em>Address</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Address</em>' containment reference.
-	 * @see #getAddress()
 	 * @generated
+	 * @see #getAddress()
 	 */
 	void setAddress(Address value);
 

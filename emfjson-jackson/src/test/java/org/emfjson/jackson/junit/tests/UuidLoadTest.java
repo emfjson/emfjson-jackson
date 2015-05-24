@@ -1,48 +1,61 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.jackson.junit.tests;
 
-import com.fasterxml.jackson.databind.*;
-import org.eclipse.emf.ecore.*;
-import org.eclipse.emf.ecore.resource.*;
-import org.emfjson.*;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.junit.Before;
+import org.junit.Test;
+
+import org.emfjson.EMFJs;
+import org.emfjson.jackson.JacksonOptions;
 import org.emfjson.jackson.junit.model.*;
-import org.emfjson.jackson.junit.support.*;
-import org.emfjson.jackson.module.*;
-import org.junit.*;
+import org.emfjson.jackson.junit.support.UuidSupport;
+import org.emfjson.jackson.module.EMFModule;
 
-import java.io.*;
-import java.util.*;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import static org.junit.Assert.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class UuidLoadTest extends UuidSupport {
-	
+
 	private final Map<String, Object> options = new HashMap<>();
 	private final ObjectMapper mapper = new ObjectMapper();
+	{
+		options.put(EMFJs.OPTION_USE_ID, true);
+	}
 
 	@Before
 	public void setUp() {
 		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
-		options.put(EMFJs.OPTION_INDENT_OUTPUT, true);
-		mapper.registerModule(new EMFModule(options));
+		mapper.registerModule(new EMFModule(new ResourceSetImpl(), JacksonOptions.from(options)));
 	}
 
 	@Test
 	public void testUuidBehavior() throws IOException {
-		Resource in = createUuidResource("in.xmi");
+		Resource in = createUuidResource("in");
 		Container root = ModelFactory.eINSTANCE.createContainer();
 		in.getContents().add(root);
 
-		Resource out = createUuidResource("out.xmi");
+		Resource out = createUuidResource("out");
 		out.load(new ByteArrayInputStream(mapper.writeValueAsBytes(in)), options);
 
 		assertEquals(1, out.getContents().size());
@@ -59,10 +72,10 @@ public class UuidLoadTest extends UuidSupport {
 		resource.getContents().add(root);
 
 		JsonNode node = mapper.valueToTree(root);
-		EObject result = mapper.readValue(mapper.writeValueAsString(node), EObject.class);
+		Resource result = mapper.treeToValue(node, Resource.class);
+		EObject eObject = result.getContents().get(0);
 
-		assertNotNull(result);
-		assertEquals(uuid(root), uuid(result));
+		assertEquals(uuid(root), uuid(eObject));
 	}
 
 	@Test
@@ -80,13 +93,14 @@ public class UuidLoadTest extends UuidSupport {
 		resource.getContents().add(root);
 
 		JsonNode node = mapper.valueToTree(root);
-		EObject result = mapper.readValue(mapper.writeValueAsString(node), EObject.class);
+		Resource result = mapper.treeToValue(node, Resource.class);
 
+		EObject eObject = result.getContents().get(0);
 		assertNotNull(result);
-		assertEquals(uuid(root), uuid(result));
-		assertEquals(ModelPackage.Literals.CONTAINER, result.eClass());
+		assertEquals(uuid(root), uuid(eObject));
+		assertEquals(ModelPackage.Literals.CONTAINER, eObject.eClass());
 
-		Container resultContainer = (Container) result;
+		Container resultContainer = (Container) eObject;
 		assertEquals(2, resultContainer.getElements().size());
 
 		AbstractType firstResult = resultContainer.getElements().get(0);

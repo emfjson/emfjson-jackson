@@ -1,17 +1,17 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.model.impl;
 
-import java.util.Collection;
-
+import com.google.gwt.user.client.rpc.GwtTransient;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -22,10 +22,11 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.emfjson.gwt.junit.model.ModelPackage;
 import org.emfjson.gwt.junit.model.Node;
 
-import com.google.gwt.user.client.rpc.GwtTransient;
+import java.util.Collection;
 
 /**
  * <!-- begin-user-doc -->
@@ -34,12 +35,12 @@ import com.google.gwt.user.client.rpc.GwtTransient;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.NodeImpl#getLabel <em>Label</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.NodeImpl#getTarget <em>Target</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.NodeImpl#getSource <em>Source</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.NodeImpl#getManyRef <em>Many Ref</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.NodeImpl#getChild <em>Child</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.NodeImpl#getUniqueChild <em>Unique Child</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.NodeImpl#getLabel <em>Label</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.NodeImpl#getTarget <em>Target</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.NodeImpl#getSource <em>Source</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.NodeImpl#getManyRef <em>Many Ref</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.NodeImpl#getChild <em>Child</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.NodeImpl#getUniqueChild <em>Unique Child</em>}</li>
  * </ul>
  * </p>
  *
@@ -50,9 +51,10 @@ public class NodeImpl extends EObjectImpl implements Node {
 	 * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getLabel()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getLabel()
 	 */
 	protected static final String LABEL_EDEFAULT = null;
 
@@ -60,9 +62,10 @@ public class NodeImpl extends EObjectImpl implements Node {
 	 * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getLabel()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getLabel()
 	 */
 	@GwtTransient
 	protected String label = LABEL_EDEFAULT;
@@ -71,9 +74,10 @@ public class NodeImpl extends EObjectImpl implements Node {
 	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTarget()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getTarget()
 	 */
 	@GwtTransient
 	protected Node target;
@@ -82,9 +86,10 @@ public class NodeImpl extends EObjectImpl implements Node {
 	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSource()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getSource()
 	 */
 	@GwtTransient
 	protected Node source;
@@ -93,9 +98,10 @@ public class NodeImpl extends EObjectImpl implements Node {
 	 * The cached value of the '{@link #getManyRef() <em>Many Ref</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getManyRef()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getManyRef()
 	 */
 	@GwtTransient
 	protected EList<Node> manyRef;
@@ -104,9 +110,10 @@ public class NodeImpl extends EObjectImpl implements Node {
 	 * The cached value of the '{@link #getChild() <em>Child</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getChild()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getChild()
 	 */
 	@GwtTransient
 	protected EList<Node> child;
@@ -115,9 +122,10 @@ public class NodeImpl extends EObjectImpl implements Node {
 	 * The cached value of the '{@link #getUniqueChild() <em>Unique Child</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getUniqueChild()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getUniqueChild()
 	 */
 	@GwtTransient
 	protected Node uniqueChild;
@@ -125,6 +133,7 @@ public class NodeImpl extends EObjectImpl implements Node {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	protected NodeImpl() {
@@ -134,6 +143,7 @@ public class NodeImpl extends EObjectImpl implements Node {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -144,6 +154,7 @@ public class NodeImpl extends EObjectImpl implements Node {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public String getLabel() {
@@ -153,6 +164,7 @@ public class NodeImpl extends EObjectImpl implements Node {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setLabel(String newLabel) {
@@ -165,6 +177,7 @@ public class NodeImpl extends EObjectImpl implements Node {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public Node getTarget() {
@@ -174,6 +187,26 @@ public class NodeImpl extends EObjectImpl implements Node {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	public void setTarget(Node newTarget) {
+		if (newTarget != target) {
+			NotificationChain msgs = null;
+			if (target != null)
+				msgs = ((InternalEObject) target).eInverseRemove(this, ModelPackage.NODE__SOURCE, Node.class, msgs);
+			if (newTarget != null)
+				msgs = ((InternalEObject) newTarget).eInverseAdd(this, ModelPackage.NODE__SOURCE, Node.class, msgs);
+			msgs = basicSetTarget(newTarget, msgs);
+			if (msgs != null) msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.NODE__TARGET, newTarget, newTarget));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public NotificationChain basicSetTarget(Node newTarget, NotificationChain msgs) {
@@ -181,7 +214,8 @@ public class NodeImpl extends EObjectImpl implements Node {
 		target = newTarget;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.NODE__TARGET, oldTarget, newTarget);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+			if (msgs == null) msgs = notification;
+			else msgs.add(notification);
 		}
 		return msgs;
 	}
@@ -189,25 +223,7 @@ public class NodeImpl extends EObjectImpl implements Node {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTarget(Node newTarget) {
-		if (newTarget != target) {
-			NotificationChain msgs = null;
-			if (target != null)
-				msgs = ((InternalEObject)target).eInverseRemove(this, ModelPackage.NODE__SOURCE, Node.class, msgs);
-			if (newTarget != null)
-				msgs = ((InternalEObject)newTarget).eInverseAdd(this, ModelPackage.NODE__SOURCE, Node.class, msgs);
-			msgs = basicSetTarget(newTarget, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.NODE__TARGET, newTarget, newTarget));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public Node getSource() {
@@ -217,6 +233,26 @@ public class NodeImpl extends EObjectImpl implements Node {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	public void setSource(Node newSource) {
+		if (newSource != source) {
+			NotificationChain msgs = null;
+			if (source != null)
+				msgs = ((InternalEObject) source).eInverseRemove(this, ModelPackage.NODE__TARGET, Node.class, msgs);
+			if (newSource != null)
+				msgs = ((InternalEObject) newSource).eInverseAdd(this, ModelPackage.NODE__TARGET, Node.class, msgs);
+			msgs = basicSetSource(newSource, msgs);
+			if (msgs != null) msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.NODE__SOURCE, newSource, newSource));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public NotificationChain basicSetSource(Node newSource, NotificationChain msgs) {
@@ -224,7 +260,8 @@ public class NodeImpl extends EObjectImpl implements Node {
 		source = newSource;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.NODE__SOURCE, oldSource, newSource);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+			if (msgs == null) msgs = notification;
+			else msgs.add(notification);
 		}
 		return msgs;
 	}
@@ -232,25 +269,7 @@ public class NodeImpl extends EObjectImpl implements Node {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSource(Node newSource) {
-		if (newSource != source) {
-			NotificationChain msgs = null;
-			if (source != null)
-				msgs = ((InternalEObject)source).eInverseRemove(this, ModelPackage.NODE__TARGET, Node.class, msgs);
-			if (newSource != null)
-				msgs = ((InternalEObject)newSource).eInverseAdd(this, ModelPackage.NODE__TARGET, Node.class, msgs);
-			msgs = basicSetSource(newSource, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.NODE__SOURCE, newSource, newSource));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EList<Node> getManyRef() {
@@ -263,6 +282,7 @@ public class NodeImpl extends EObjectImpl implements Node {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EList<Node> getChild() {
@@ -275,14 +295,15 @@ public class NodeImpl extends EObjectImpl implements Node {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public Node getUniqueChild() {
 		if (uniqueChild != null && uniqueChild.eIsProxy()) {
-			InternalEObject oldUniqueChild = (InternalEObject)uniqueChild;
-			uniqueChild = (Node)eResolveProxy(oldUniqueChild);
+			InternalEObject oldUniqueChild = (InternalEObject) uniqueChild;
+			uniqueChild = (Node) eResolveProxy(oldUniqueChild);
 			if (uniqueChild != oldUniqueChild) {
-				InternalEObject newUniqueChild = (InternalEObject)uniqueChild;
+				InternalEObject newUniqueChild = (InternalEObject) uniqueChild;
 				NotificationChain msgs = oldUniqueChild.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.NODE__UNIQUE_CHILD, null, null);
 				if (newUniqueChild.eInternalContainer() == null) {
 					msgs = newUniqueChild.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.NODE__UNIQUE_CHILD, null, msgs);
@@ -298,6 +319,26 @@ public class NodeImpl extends EObjectImpl implements Node {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	public void setUniqueChild(Node newUniqueChild) {
+		if (newUniqueChild != uniqueChild) {
+			NotificationChain msgs = null;
+			if (uniqueChild != null)
+				msgs = ((InternalEObject) uniqueChild).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.NODE__UNIQUE_CHILD, null, msgs);
+			if (newUniqueChild != null)
+				msgs = ((InternalEObject) newUniqueChild).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.NODE__UNIQUE_CHILD, null, msgs);
+			msgs = basicSetUniqueChild(newUniqueChild, msgs);
+			if (msgs != null) msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.NODE__UNIQUE_CHILD, newUniqueChild, newUniqueChild));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public Node basicGetUniqueChild() {
@@ -307,6 +348,7 @@ public class NodeImpl extends EObjectImpl implements Node {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public NotificationChain basicSetUniqueChild(Node newUniqueChild, NotificationChain msgs) {
@@ -314,7 +356,8 @@ public class NodeImpl extends EObjectImpl implements Node {
 		uniqueChild = newUniqueChild;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.NODE__UNIQUE_CHILD, oldUniqueChild, newUniqueChild);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+			if (msgs == null) msgs = notification;
+			else msgs.add(notification);
 		}
 		return msgs;
 	}
@@ -322,25 +365,7 @@ public class NodeImpl extends EObjectImpl implements Node {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setUniqueChild(Node newUniqueChild) {
-		if (newUniqueChild != uniqueChild) {
-			NotificationChain msgs = null;
-			if (uniqueChild != null)
-				msgs = ((InternalEObject)uniqueChild).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.NODE__UNIQUE_CHILD, null, msgs);
-			if (newUniqueChild != null)
-				msgs = ((InternalEObject)newUniqueChild).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.NODE__UNIQUE_CHILD, null, msgs);
-			msgs = basicSetUniqueChild(newUniqueChild, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.NODE__UNIQUE_CHILD, newUniqueChild, newUniqueChild));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -348,12 +373,12 @@ public class NodeImpl extends EObjectImpl implements Node {
 		switch (featureID) {
 			case ModelPackage.NODE__TARGET:
 				if (target != null)
-					msgs = ((InternalEObject)target).eInverseRemove(this, ModelPackage.NODE__SOURCE, Node.class, msgs);
-				return basicSetTarget((Node)otherEnd, msgs);
+					msgs = ((InternalEObject) target).eInverseRemove(this, ModelPackage.NODE__SOURCE, Node.class, msgs);
+				return basicSetTarget((Node) otherEnd, msgs);
 			case ModelPackage.NODE__SOURCE:
 				if (source != null)
-					msgs = ((InternalEObject)source).eInverseRemove(this, ModelPackage.NODE__TARGET, Node.class, msgs);
-				return basicSetSource((Node)otherEnd, msgs);
+					msgs = ((InternalEObject) source).eInverseRemove(this, ModelPackage.NODE__TARGET, Node.class, msgs);
+				return basicSetSource((Node) otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -361,6 +386,7 @@ public class NodeImpl extends EObjectImpl implements Node {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -371,7 +397,7 @@ public class NodeImpl extends EObjectImpl implements Node {
 			case ModelPackage.NODE__SOURCE:
 				return basicSetSource(null, msgs);
 			case ModelPackage.NODE__CHILD:
-				return ((InternalEList<?>)getChild()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>) getChild()).basicRemove(otherEnd, msgs);
 			case ModelPackage.NODE__UNIQUE_CHILD:
 				return basicSetUniqueChild(null, msgs);
 		}
@@ -381,6 +407,7 @@ public class NodeImpl extends EObjectImpl implements Node {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -406,6 +433,7 @@ public class NodeImpl extends EObjectImpl implements Node {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -413,24 +441,24 @@ public class NodeImpl extends EObjectImpl implements Node {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackage.NODE__LABEL:
-				setLabel((String)newValue);
+				setLabel((String) newValue);
 				return;
 			case ModelPackage.NODE__TARGET:
-				setTarget((Node)newValue);
+				setTarget((Node) newValue);
 				return;
 			case ModelPackage.NODE__SOURCE:
-				setSource((Node)newValue);
+				setSource((Node) newValue);
 				return;
 			case ModelPackage.NODE__MANY_REF:
 				getManyRef().clear();
-				getManyRef().addAll((Collection<? extends Node>)newValue);
+				getManyRef().addAll((Collection<? extends Node>) newValue);
 				return;
 			case ModelPackage.NODE__CHILD:
 				getChild().clear();
-				getChild().addAll((Collection<? extends Node>)newValue);
+				getChild().addAll((Collection<? extends Node>) newValue);
 				return;
 			case ModelPackage.NODE__UNIQUE_CHILD:
-				setUniqueChild((Node)newValue);
+				setUniqueChild((Node) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -439,6 +467,7 @@ public class NodeImpl extends EObjectImpl implements Node {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -448,10 +477,10 @@ public class NodeImpl extends EObjectImpl implements Node {
 				setLabel(LABEL_EDEFAULT);
 				return;
 			case ModelPackage.NODE__TARGET:
-				setTarget((Node)null);
+				setTarget((Node) null);
 				return;
 			case ModelPackage.NODE__SOURCE:
-				setSource((Node)null);
+				setSource((Node) null);
 				return;
 			case ModelPackage.NODE__MANY_REF:
 				getManyRef().clear();
@@ -460,7 +489,7 @@ public class NodeImpl extends EObjectImpl implements Node {
 				getChild().clear();
 				return;
 			case ModelPackage.NODE__UNIQUE_CHILD:
-				setUniqueChild((Node)null);
+				setUniqueChild((Node) null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -469,6 +498,7 @@ public class NodeImpl extends EObjectImpl implements Node {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -493,6 +523,7 @@ public class NodeImpl extends EObjectImpl implements Node {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override

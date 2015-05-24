@@ -1,33 +1,37 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.jackson.junit.tests;
 
-import org.eclipse.emf.ecore.resource.*;
-import org.eclipse.emf.ecore.util.*;
-import org.emfjson.*;
-import org.emfjson.jackson.junit.model.*;
-import org.emfjson.jackson.junit.support.*;
-import org.junit.*;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.InternalEList;
+import org.junit.Test;
 
-import java.io.*;
+import org.emfjson.EMFJs;
+import org.emfjson.jackson.junit.model.ModelPackage;
+import org.emfjson.jackson.junit.model.Node;
+import org.emfjson.jackson.junit.model.User;
+import org.emfjson.jackson.junit.support.TestSupport;
+
+import java.io.IOException;
 
 import static org.junit.Assert.*;
 
 public class ProxyAttributeTest extends TestSupport {
-	
+
 	@Test
 	public void testOptionProxyAttributesWithID() throws IOException {
 		options.put(EMFJs.OPTION_PROXY_ATTRIBUTES, true);
 		options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.Literals.USER);
-		
+
 		Resource resource = resourceSet.createResource(uri("test-proxy-1.json"));
 		resource.load(options);
 

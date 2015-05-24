@@ -1,14 +1,14 @@
 {
-	"eClass": "http://www.example.org/model#//Library",
-	"name": "My Library",
-	"books": [
-		{
-			"eClass": "http://www.example.org/model#//Book",
-			"title": "Hobbit"
-		},
-		{
-			"eClass": "http://www.example.org/model#//Book",
-			"title": "Foundation"
-		}
-	]
+  "eClass": "http://www.example.org/model#//Library",
+  "name": "My Library",
+  "books": [
+    {
+      "eClass": "http://www.example.org/model#//Book",
+      "title": "Hobbit"
+    },
+    {
+      "eClass": "http://www.example.org/model#//Book",
+      "title": "Foundation"
+    }
+  ]
 }

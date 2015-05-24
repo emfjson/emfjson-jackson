@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.model;
 
@@ -17,18 +18,18 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Abstract Type</b></em>'.
  * <!-- end-user-doc -->
- *
+ * <p/>
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emfjson.gwt.junit.model.AbstractType#getName <em>Name</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.AbstractType#getRefProperty <em>Ref Property</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.AbstractType#getName <em>Name</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.AbstractType#getRefProperty <em>Ref Property</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.emfjson.gwt.junit.model.ModelPackage#getAbstractType()
  * @model abstract="true"
  * @generated
+ * @see org.emfjson.gwt.junit.model.ModelPackage#getAbstractType()
  */
 public interface AbstractType extends EObject {
 	/**
@@ -39,11 +40,12 @@ public interface AbstractType extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see #setName(String)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getAbstractType_Name()
 	 * @model id="true" required="true"
 	 * @generated
+	 * @see #setName(String)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getAbstractType_Name()
 	 */
 	String getName();
 
@@ -51,9 +53,10 @@ public interface AbstractType extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.AbstractType#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Name</em>' attribute.
-	 * @see #getName()
 	 * @generated
+	 * @see #getName()
 	 */
 	void setName(String value);
 
@@ -66,10 +69,11 @@ public interface AbstractType extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Ref Property</em>' reference list.
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getAbstractType_RefProperty()
 	 * @model
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getAbstractType_RefProperty()
 	 */
 	EList<AbstractType> getRefProperty();
 

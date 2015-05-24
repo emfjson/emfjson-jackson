@@ -1,23 +1,29 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.jackson.junit.tests;
 
-import com.fasterxml.jackson.databind.node.*;
-import org.eclipse.emf.common.util.*;
-import org.eclipse.emf.ecore.resource.*;
-import org.emfjson.jackson.junit.model.*;
-import org.emfjson.jackson.junit.support.*;
-import org.junit.*;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.junit.Test;
 
-import java.io.*;
+import org.emfjson.jackson.junit.model.ModelFactory;
+import org.emfjson.jackson.junit.model.ModelPackage;
+import org.emfjson.jackson.junit.model.PrimaryObject;
+import org.emfjson.jackson.junit.model.TargetObject;
+import org.emfjson.jackson.junit.support.TestSupport;
+
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import java.io.IOException;
 
 import static org.junit.Assert.*;
 
@@ -26,9 +32,9 @@ public class FeatureMapTest extends TestSupport {
 	@Test
 	public void testSaveFeatureMap() throws IOException {
 		ObjectNode expected = mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
-				.put("name", "junit")
-				.put("kind", "one");
+			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
+			.put("name", "junit")
+			.put("kind", "one");
 
 		expected.set("featureMapAttributeType1", mapper.createArrayNode().add("Hello"));
 		expected.set("featureMapAttributeType2", mapper.createArrayNode().add("World"));
@@ -74,30 +80,61 @@ public class FeatureMapTest extends TestSupport {
 	}
 
 	@Test
+	public void testLoadFeatureMapReferences() throws IOException {
+		Resource resource = resourceSet.createResource(uri("test-load-feature-map-refs.json"));
+		assertNotNull(resource);
+		resource.load(options);
+
+		assertEquals(1, resource.getContents().size());
+		assertEquals(ModelPackage.Literals.PRIMARY_OBJECT, resource.getContents().get(0).eClass());
+
+		PrimaryObject p = (PrimaryObject) resource.getContents().get(0);
+
+		assertEquals(6, p.getFeatureMapReferenceCollection().size());
+		assertEquals(2, p.getFeatureMapReferenceType1().size());
+		assertEquals(4, p.getFeatureMapReferenceType2().size());
+
+		TargetObject t1 = p.getFeatureMapReferenceType2().get(0);
+		assertEquals("1", t1.getSingleAttribute());
+
+		TargetObject t2 = p.getFeatureMapReferenceType2().get(1);
+		assertEquals("2", t2.getSingleAttribute());
+
+		TargetObject t3 = p.getFeatureMapReferenceType2().get(2);
+		assertEquals("3", t3.getSingleAttribute());
+
+		TargetObject t4 = p.getFeatureMapReferenceType2().get(3);
+		assertEquals("4", t4.getSingleAttribute());
+
+		assertEquals(t1, p.getFeatureMapReferenceType1().get(0));
+		assertEquals(t2, p.getFeatureMapReferenceType1().get(1));
+	}
+
+	@Test
 	public void testSaveFeatureMapReferences() throws IOException {
 		ObjectNode expected = mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
-				.put("kind", "one");
+			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
+			.put("kind", "one");
 
 		expected.set("featureMapReferenceType1", mapper.createArrayNode()
-				.add(mapper.createObjectNode()
-						.put("$ref", "//@featureMapReferenceType2.0"))
-				.add(mapper.createObjectNode()
-						.put("$ref", "//@featureMapReferenceType2.1")));
+			.add(mapper.createObjectNode()
+				.put("$ref", "//@featureMapReferenceType2.0"))
+			.add(mapper.createObjectNode()
+				.put("$ref", "//@featureMapReferenceType2.1")));
 
 		expected.set("featureMapReferenceType2", mapper.createArrayNode()
-				.add(mapper.createObjectNode()
-						.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//TargetObject")
-						.put("singleAttribute", "1"))
-				.add(mapper.createObjectNode()
-						.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//TargetObject")
-						.put("singleAttribute", "2"))
-				.add(mapper.createObjectNode()
-						.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//TargetObject")
-						.put("singleAttribute", "3"))
-				.add(mapper.createObjectNode()
-						.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//TargetObject")
-						.put("singleAttribute", "4")));
+			.add(mapper.createObjectNode()
+				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//TargetObject")
+				.put("singleAttribute", "1"))
+			.add(mapper.createObjectNode()
+				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//TargetObject")
+				.put("singleAttribute", "2"))
+			.add(mapper.createObjectNode()
+				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//TargetObject")
+				.put("singleAttribute", "3"))
+			.add(mapper.createObjectNode()
+				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//TargetObject")
+				.put("singleAttribute", "4")));
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests.json"));
 		assertNotNull(resource);

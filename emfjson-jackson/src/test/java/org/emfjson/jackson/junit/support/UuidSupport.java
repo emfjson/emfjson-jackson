@@ -1,26 +1,27 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.jackson.junit.support;
-
-import static org.eclipse.emf.ecore.util.EcoreUtil.getURI;
-import static org.emfjson.common.Constants.EJS_UUID_ANNOTATION;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+
 import org.emfjson.jackson.resource.JsonResource;
 
 import com.fasterxml.jackson.databind.JsonNode;
+
+import static org.eclipse.emf.ecore.util.EcoreUtil.getURI;
 
 public abstract class UuidSupport {
 
@@ -31,21 +32,10 @@ public abstract class UuidSupport {
 	}
 
 	protected String uuid(JsonNode node) {
-		return node.get(EJS_UUID_ANNOTATION).asText();
-	}
-	
-	protected Resource createUuidResource(String name) {
-		Resource resource = new JsonResource(URI.createURI(name)) {
-			@Override
-			protected boolean useUUIDs() {
-				return true;
-			}
-		};
-		resourceSet.getResources().add(resource);
-		return resource;
+		return node.get("_id").asText();
 	}
 
-	protected Resource createJsUuidResource(String name) {
+	protected Resource createUuidResource(String name) {
 		Resource resource = new JsonResource(URI.createURI(name)) {
 			@Override
 			protected boolean useUUIDs() {

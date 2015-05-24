@@ -1,13 +1,15 @@
 [
-	{
-		"userId": "1", 
-		"name": "Paul", 
-		"friends": [{
-			"$ref" : "2"
-		}]
-	},
-	{
-		"userId": "2",
-		"name": "Pierre"
-	}
+  {
+    "userId": "1",
+    "name": "Paul",
+    "friends": [
+      {
+        "$ref": "2"
+      }
+    ]
+  },
+  {
+    "userId": "2",
+    "name": "Pierre"
+  }
 ]

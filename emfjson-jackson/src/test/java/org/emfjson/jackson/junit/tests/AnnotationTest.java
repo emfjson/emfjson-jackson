@@ -1,47 +1,44 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.jackson.junit.tests;
 
-import static org.junit.Assert.assertEquals;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.*;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.junit.Test;
+
+import org.emfjson.jackson.junit.support.TestSupport;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.emfjson.EMFJs;
-import org.emfjson.jackson.junit.support.TestSupport;
-import org.junit.Test;
-
-import com.fasterxml.jackson.databind.JsonNode;
+import static org.junit.Assert.assertEquals;
 
 public class AnnotationTest extends TestSupport {
 
 	@Test
 	public void testSaveAnnotation() throws IOException {
 		JsonNode expected = mapper.createObjectNode()
-				.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EClass")
-				.put("name", "Foo")
-				.set("eAnnotations", mapper.createArrayNode()
-						.add(mapper.createObjectNode()
-								.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EAnnotation")
-								.put("source", "source")
-								.set("details", mapper.createObjectNode()
-										.put("displayName", "value"))));
+			.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EClass")
+			.put("name", "Foo")
+			.set("eAnnotations", mapper.createArrayNode()
+				.add(mapper.createObjectNode()
+					.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EAnnotation")
+					.put("source", "source")
+					.set("details", mapper.createObjectNode()
+						.put("displayName", "value"))));
 
 		EClass eClass = EcoreFactory.eINSTANCE.createEClass();
 		eClass.setName("Foo");
@@ -63,14 +60,14 @@ public class AnnotationTest extends TestSupport {
 	@Test
 	public void testLoadAnnotation() throws IOException {
 		JsonNode data = mapper.createObjectNode()
-				.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EClass")
-				.put("name", "Foo")
-				.set("eAnnotations", mapper.createArrayNode()
-						.add(mapper.createObjectNode()
-								.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EAnnotation")
-								.put("source", "source")
-								.set("details", mapper.createObjectNode()
-										.put("displayName", "value"))));
+			.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EClass")
+			.put("name", "Foo")
+			.set("eAnnotations", mapper.createArrayNode()
+				.add(mapper.createObjectNode()
+					.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EAnnotation")
+					.put("source", "source")
+					.set("details", mapper.createObjectNode()
+						.put("displayName", "value"))));
 
 		Resource resource = resourceSet.createResource(URI.createURI("test.json"));
 		resource.load(new ByteArrayInputStream(mapper.writeValueAsBytes(data)), null);

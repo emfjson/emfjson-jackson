@@ -1,27 +1,28 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.model.impl;
 
-import java.util.Collection;
-
+import com.google.gwt.user.client.rpc.GwtTransient;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
+
 import org.emfjson.gwt.junit.model.ModelPackage;
 import org.emfjson.gwt.junit.model.TargetObject;
 
-import com.google.gwt.user.client.rpc.GwtTransient;
+import java.util.Collection;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,8 +31,8 @@ import com.google.gwt.user.client.rpc.GwtTransient;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.TargetObjectImpl#getSingleAttribute <em>Single Attribute</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.TargetObjectImpl#getArrayAttribute <em>Array Attribute</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.TargetObjectImpl#getSingleAttribute <em>Single Attribute</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.TargetObjectImpl#getArrayAttribute <em>Array Attribute</em>}</li>
  * </ul>
  * </p>
  *
@@ -42,9 +43,10 @@ public class TargetObjectImpl extends EObjectImpl implements TargetObject {
 	 * The default value of the '{@link #getSingleAttribute() <em>Single Attribute</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSingleAttribute()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getSingleAttribute()
 	 */
 	protected static final String SINGLE_ATTRIBUTE_EDEFAULT = null;
 
@@ -52,9 +54,10 @@ public class TargetObjectImpl extends EObjectImpl implements TargetObject {
 	 * The cached value of the '{@link #getSingleAttribute() <em>Single Attribute</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSingleAttribute()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getSingleAttribute()
 	 */
 	@GwtTransient
 	protected String singleAttribute = SINGLE_ATTRIBUTE_EDEFAULT;
@@ -63,9 +66,10 @@ public class TargetObjectImpl extends EObjectImpl implements TargetObject {
 	 * The cached value of the '{@link #getArrayAttribute() <em>Array Attribute</em>}' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getArrayAttribute()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getArrayAttribute()
 	 */
 	@GwtTransient
 	protected EList<String> arrayAttribute;
@@ -73,6 +77,7 @@ public class TargetObjectImpl extends EObjectImpl implements TargetObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	protected TargetObjectImpl() {
@@ -82,6 +87,7 @@ public class TargetObjectImpl extends EObjectImpl implements TargetObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -92,6 +98,7 @@ public class TargetObjectImpl extends EObjectImpl implements TargetObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public String getSingleAttribute() {
@@ -101,6 +108,7 @@ public class TargetObjectImpl extends EObjectImpl implements TargetObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setSingleAttribute(String newSingleAttribute) {
@@ -113,6 +121,7 @@ public class TargetObjectImpl extends EObjectImpl implements TargetObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EList<String> getArrayAttribute() {
@@ -125,6 +134,7 @@ public class TargetObjectImpl extends EObjectImpl implements TargetObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -141,6 +151,7 @@ public class TargetObjectImpl extends EObjectImpl implements TargetObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -148,11 +159,11 @@ public class TargetObjectImpl extends EObjectImpl implements TargetObject {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackage.TARGET_OBJECT__SINGLE_ATTRIBUTE:
-				setSingleAttribute((String)newValue);
+				setSingleAttribute((String) newValue);
 				return;
 			case ModelPackage.TARGET_OBJECT__ARRAY_ATTRIBUTE:
 				getArrayAttribute().clear();
-				getArrayAttribute().addAll((Collection<? extends String>)newValue);
+				getArrayAttribute().addAll((Collection<? extends String>) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -161,6 +172,7 @@ public class TargetObjectImpl extends EObjectImpl implements TargetObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -179,6 +191,7 @@ public class TargetObjectImpl extends EObjectImpl implements TargetObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -195,6 +208,7 @@ public class TargetObjectImpl extends EObjectImpl implements TargetObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override

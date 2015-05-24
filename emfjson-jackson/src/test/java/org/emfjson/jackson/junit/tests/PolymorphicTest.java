@@ -1,25 +1,28 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.jackson.junit.tests;
 
-import com.fasterxml.jackson.databind.*;
-import org.eclipse.emf.common.util.*;
-import org.eclipse.emf.ecore.*;
-import org.eclipse.emf.ecore.resource.*;
-import org.emfjson.*;
-import org.emfjson.jackson.junit.model.*;
-import org.emfjson.jackson.junit.support.*;
-import org.junit.*;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.junit.Test;
 
-import java.io.*;
+import org.emfjson.EMFJs;
+import org.emfjson.jackson.junit.model.*;
+import org.emfjson.jackson.junit.support.TestSupport;
+
+import com.fasterxml.jackson.databind.JsonNode;
+
+import java.io.IOException;
 
 import static org.junit.Assert.*;
 
@@ -28,14 +31,14 @@ public class PolymorphicTest extends TestSupport {
 	@Test
 	public void testSaveTwoObjectsWithTypeInformation() throws IOException {
 		JsonNode expected = mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Container")
-				.set("elements", mapper.createArrayNode()
-						.add(mapper.createObjectNode()
-								.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeOne")
-								.put("name", "First"))
-						.add(mapper.createObjectNode()
-								.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeTwo")
-								.put("name", "Two")));
+			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Container")
+			.set("elements", mapper.createArrayNode()
+				.add(mapper.createObjectNode()
+					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeOne")
+					.put("name", "First"))
+				.add(mapper.createObjectNode()
+					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeTwo")
+					.put("name", "Two")));
 
 		Resource resource = resourceSet.createResource(URI.createURI("types.json"));
 

@@ -1,1 +1,15 @@
-{"eClass":"http://sample.app/Bar#//DomainModel", "entities":[{"eClass":"http://sample.app/Bar#//Entity", "name":"E", "features":[{"eClass":"http://sample.app/Bar#//Feature", "name":"D"}]}]}
+{
+  "eClass": "http://sample.app/Bar#//DomainModel",
+  "entities": [
+    {
+      "eClass": "http://sample.app/Bar#//Entity",
+      "name": "E",
+      "features": [
+        {
+          "eClass": "http://sample.app/Bar#//Feature",
+          "name": "D"
+        }
+      ]
+    }
+  ]
+}

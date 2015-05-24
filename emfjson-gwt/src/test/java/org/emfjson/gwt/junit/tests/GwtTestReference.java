@@ -1,36 +1,28 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.tests;
 
-import java.io.IOException;
-
+import com.google.gwt.core.client.JavaScriptObject;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emfjson.EMFJs;
-import org.emfjson.gwt.junit.model.Address;
-import org.emfjson.gwt.junit.model.ModelFactory;
-import org.emfjson.gwt.junit.model.ModelPackage;
-import org.emfjson.gwt.junit.model.Node;
-import org.emfjson.gwt.junit.model.User;
-import org.emfjson.gwt.junit.support.TestSupport;
 import org.junit.Test;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import org.emfjson.EMFJs;
+import org.emfjson.gwt.junit.model.*;
+import org.emfjson.gwt.junit.support.TestSupport;
+
+import java.io.IOException;
 
 public class GwtTestReference extends TestSupport {
 
@@ -233,8 +225,8 @@ public class GwtTestReference extends TestSupport {
 				friend = EcoreUtil.resolve(friend, resource);
 
 				assertEquals(obj2, friend);
-				assertEquals("2", ((User)friend).getUserId());
-				assertEquals("Pierre", ((User)friend).getName());
+				assertEquals("2", ((User) friend).getUserId());
+				assertEquals("Pierre", ((User) friend).getName());
 
 				finishTest();
 			}
@@ -436,8 +428,8 @@ public class GwtTestReference extends TestSupport {
 		asyncLoad("test-proxy-5b.json", new TestCallback() {
 			@Override
 			public void onSuccess(Resource resource) {
-				assertFalse(resource.getContents().isEmpty());		
-				assertEquals(1, resource.getContents().size());		
+				assertFalse(resource.getContents().isEmpty());
+				assertEquals(1, resource.getContents().size());
 				Node root = (Node) resource.getContents().get(0);
 
 				assertEquals("2", root.getLabel());

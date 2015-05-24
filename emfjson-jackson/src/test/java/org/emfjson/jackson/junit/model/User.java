@@ -1,48 +1,45 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.jackson.junit.model;
+
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectEList;
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectEList;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>User</b></em>'.
  * <!-- end-user-doc -->
- *
+ * <p/>
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emfjson.jackson.junit.model.User#getUserId <em>User Id</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.User#getName <em>Name</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.User#getBirthDate <em>Birth Date</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.User#getSex <em>Sex</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.User#getFriends <em>Friends</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.User#getUniqueFriend <em>Unique Friend</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.User#getAddress <em>Address</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.User#getUserId <em>User Id</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.User#getName <em>Name</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.User#getBirthDate <em>Birth Date</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.User#getSex <em>Sex</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.User#getFriends <em>Friends</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.User#getUniqueFriend <em>Unique Friend</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.User#getAddress <em>Address</em>}</li>
  * </ul>
  * </p>
  *
@@ -53,79 +50,80 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	 * The default value of the '{@link #getUserId() <em>User Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getUserId()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getUserId()
 	 */
 	protected static final String USER_ID_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getUserId() <em>User Id</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getUserId()
-	 * @generated
-	 * @ordered
-	 */
-	protected String userId = USER_ID_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getName()
 	 */
 	protected static final String NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String name = NAME_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getBirthDate() <em>Birth Date</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBirthDate()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getBirthDate()
 	 */
 	protected static final Date BIRTH_DATE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getBirthDate() <em>Birth Date</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getBirthDate()
-	 * @generated
-	 * @ordered
-	 */
-	protected Date birthDate = BIRTH_DATE_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getSex() <em>Sex</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSex()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getSex()
 	 */
 	protected static final Sex SEX_EDEFAULT = Sex.MALE;
-
+	/**
+	 * The cached value of the '{@link #getUserId() <em>User Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getUserId()
+	 */
+	protected String userId = USER_ID_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getName()
+	 */
+	protected String name = NAME_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getBirthDate() <em>Birth Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getBirthDate()
+	 */
+	protected Date birthDate = BIRTH_DATE_EDEFAULT;
 	/**
 	 * The cached value of the '{@link #getSex() <em>Sex</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSex()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getSex()
 	 */
 	protected Sex sex = SEX_EDEFAULT;
 
@@ -133,9 +131,10 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	 * The cached value of the '{@link #getFriends() <em>Friends</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getFriends()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getFriends()
 	 */
 	protected EList<User> friends;
 
@@ -143,9 +142,10 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	 * The cached value of the '{@link #getUniqueFriend() <em>Unique Friend</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getUniqueFriend()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getUniqueFriend()
 	 */
 	protected User uniqueFriend;
 
@@ -153,15 +153,17 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	 * The cached value of the '{@link #getAddress() <em>Address</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAddress()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getAddress()
 	 */
 	protected Address address;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	protected User() {
@@ -171,6 +173,7 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -186,9 +189,10 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>User Id</em>' attribute.
-	 * @see #setUserId(String)
 	 * @generated
+	 * @see #setUserId(String)
 	 */
 	public String getUserId() {
 		return userId;
@@ -198,9 +202,10 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.User#getUserId <em>User Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>User Id</em>' attribute.
-	 * @see #getUserId()
 	 * @generated
+	 * @see #getUserId()
 	 */
 	public void setUserId(String newUserId) {
 		String oldUserId = userId;
@@ -217,9 +222,10 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see #setName(String)
 	 * @generated
+	 * @see #setName(String)
 	 */
 	public String getName() {
 		return name;
@@ -229,9 +235,10 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.User#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Name</em>' attribute.
-	 * @see #getName()
 	 * @generated
+	 * @see #getName()
 	 */
 	public void setName(String newName) {
 		String oldName = name;
@@ -248,9 +255,10 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Birth Date</em>' attribute.
-	 * @see #setBirthDate(Date)
 	 * @generated
+	 * @see #setBirthDate(Date)
 	 */
 	public Date getBirthDate() {
 		return birthDate;
@@ -260,9 +268,10 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.User#getBirthDate <em>Birth Date</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Birth Date</em>' attribute.
-	 * @see #getBirthDate()
 	 * @generated
+	 * @see #getBirthDate()
 	 */
 	public void setBirthDate(Date newBirthDate) {
 		Date oldBirthDate = birthDate;
@@ -280,10 +289,11 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Sex</em>' attribute.
+	 * @generated
 	 * @see org.emfjson.jackson.junit.model.Sex
 	 * @see #setSex(Sex)
-	 * @generated
 	 */
 	public Sex getSex() {
 		return sex;
@@ -293,10 +303,11 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.User#getSex <em>Sex</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Sex</em>' attribute.
+	 * @generated
 	 * @see org.emfjson.jackson.junit.model.Sex
 	 * @see #getSex()
-	 * @generated
 	 */
 	public void setSex(Sex newSex) {
 		Sex oldSex = sex;
@@ -314,6 +325,7 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Friends</em>' reference list.
 	 * @generated
 	 */
@@ -332,9 +344,10 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Unique Friend</em>' reference.
-	 * @see #setUniqueFriend(User)
 	 * @generated
+	 * @see #setUniqueFriend(User)
 	 */
 	public User getUniqueFriend() {
 		return uniqueFriend;
@@ -344,9 +357,10 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.User#getUniqueFriend <em>Unique Friend</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Unique Friend</em>' reference.
-	 * @see #getUniqueFriend()
 	 * @generated
+	 * @see #getUniqueFriend()
 	 */
 	public void setUniqueFriend(User newUniqueFriend) {
 		User oldUniqueFriend = uniqueFriend;
@@ -363,16 +377,17 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Address</em>' containment reference.
-	 * @see #setAddress(Address)
 	 * @generated
+	 * @see #setAddress(Address)
 	 */
 	public Address getAddress() {
 		if (address != null && address.eIsProxy()) {
-			InternalEObject oldAddress = (InternalEObject)address;
-			address = (Address)eResolveProxy(oldAddress);
+			InternalEObject oldAddress = (InternalEObject) address;
+			address = (Address) eResolveProxy(oldAddress);
 			if (address != oldAddress) {
-				InternalEObject newAddress = (InternalEObject)address;
+				InternalEObject newAddress = (InternalEObject) address;
 				NotificationChain msgs = oldAddress.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.USER__ADDRESS, null, null);
 				if (newAddress.eInternalContainer() == null) {
 					msgs = newAddress.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.USER__ADDRESS, null, msgs);
@@ -386,8 +401,31 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	}
 
 	/**
+	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.User#getAddress <em>Address</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
+	 * @param value the new value of the '<em>Address</em>' containment reference.
+	 * @generated
+	 * @see #getAddress()
+	 */
+	public void setAddress(Address newAddress) {
+		if (newAddress != address) {
+			NotificationChain msgs = null;
+			if (address != null)
+				msgs = ((InternalEObject) address).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.USER__ADDRESS, null, msgs);
+			if (newAddress != null)
+				msgs = ((InternalEObject) newAddress).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.USER__ADDRESS, null, msgs);
+			msgs = basicSetAddress(newAddress, msgs);
+			if (msgs != null) msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.USER__ADDRESS, newAddress, newAddress));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public Address basicGetAddress() {
@@ -397,6 +435,7 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public NotificationChain basicSetAddress(Address newAddress, NotificationChain msgs) {
@@ -404,36 +443,16 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 		address = newAddress;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.USER__ADDRESS, oldAddress, newAddress);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+			if (msgs == null) msgs = notification;
+			else msgs.add(notification);
 		}
 		return msgs;
 	}
 
 	/**
-	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.User#getAddress <em>Address</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Address</em>' containment reference.
-	 * @see #getAddress()
-	 * @generated
-	 */
-	public void setAddress(Address newAddress) {
-		if (newAddress != address) {
-			NotificationChain msgs = null;
-			if (address != null)
-				msgs = ((InternalEObject)address).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.USER__ADDRESS, null, msgs);
-			if (newAddress != null)
-				msgs = ((InternalEObject)newAddress).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.USER__ADDRESS, null, msgs);
-			msgs = basicSetAddress(newAddress, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.USER__ADDRESS, newAddress, newAddress));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -448,6 +467,7 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -475,6 +495,7 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -482,26 +503,26 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackage.USER__USER_ID:
-				setUserId((String)newValue);
+				setUserId((String) newValue);
 				return;
 			case ModelPackage.USER__NAME:
-				setName((String)newValue);
+				setName((String) newValue);
 				return;
 			case ModelPackage.USER__BIRTH_DATE:
-				setBirthDate((Date)newValue);
+				setBirthDate((Date) newValue);
 				return;
 			case ModelPackage.USER__SEX:
-				setSex((Sex)newValue);
+				setSex((Sex) newValue);
 				return;
 			case ModelPackage.USER__FRIENDS:
 				getFriends().clear();
-				getFriends().addAll((Collection<? extends User>)newValue);
+				getFriends().addAll((Collection<? extends User>) newValue);
 				return;
 			case ModelPackage.USER__UNIQUE_FRIEND:
-				setUniqueFriend((User)newValue);
+				setUniqueFriend((User) newValue);
 				return;
 			case ModelPackage.USER__ADDRESS:
-				setAddress((Address)newValue);
+				setAddress((Address) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -510,6 +531,7 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -531,10 +553,10 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 				getFriends().clear();
 				return;
 			case ModelPackage.USER__UNIQUE_FRIEND:
-				setUniqueFriend((User)null);
+				setUniqueFriend((User) null);
 				return;
 			case ModelPackage.USER__ADDRESS:
-				setAddress((Address)null);
+				setAddress((Address) null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -543,6 +565,7 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -569,6 +592,7 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override

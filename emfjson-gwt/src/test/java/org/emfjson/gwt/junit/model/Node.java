@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.model;
 
@@ -17,22 +18,22 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Node</b></em>'.
  * <!-- end-user-doc -->
- *
+ * <p/>
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emfjson.gwt.junit.model.Node#getLabel <em>Label</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.Node#getTarget <em>Target</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.Node#getSource <em>Source</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.Node#getManyRef <em>Many Ref</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.Node#getChild <em>Child</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.Node#getUniqueChild <em>Unique Child</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.Node#getLabel <em>Label</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.Node#getTarget <em>Target</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.Node#getSource <em>Source</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.Node#getManyRef <em>Many Ref</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.Node#getChild <em>Child</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.Node#getUniqueChild <em>Unique Child</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.emfjson.gwt.junit.model.ModelPackage#getNode()
  * @model
  * @generated
+ * @see org.emfjson.gwt.junit.model.ModelPackage#getNode()
  */
 public interface Node extends EObject {
 	/**
@@ -43,11 +44,12 @@ public interface Node extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Label</em>' attribute.
-	 * @see #setLabel(String)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getNode_Label()
 	 * @model
 	 * @generated
+	 * @see #setLabel(String)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getNode_Label()
 	 */
 	String getLabel();
 
@@ -55,9 +57,10 @@ public interface Node extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.Node#getLabel <em>Label</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Label</em>' attribute.
-	 * @see #getLabel()
 	 * @generated
+	 * @see #getLabel()
 	 */
 	void setLabel(String value);
 
@@ -70,12 +73,13 @@ public interface Node extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Target</em>' reference.
+	 * @model opposite="source" resolveProxies="false"
+	 * @generated
 	 * @see #setTarget(Node)
 	 * @see org.emfjson.gwt.junit.model.ModelPackage#getNode_Target()
 	 * @see org.emfjson.gwt.junit.model.Node#getSource
-	 * @model opposite="source" resolveProxies="false"
-	 * @generated
 	 */
 	Node getTarget();
 
@@ -83,9 +87,10 @@ public interface Node extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.Node#getTarget <em>Target</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Target</em>' reference.
-	 * @see #getTarget()
 	 * @generated
+	 * @see #getTarget()
 	 */
 	void setTarget(Node value);
 
@@ -98,12 +103,13 @@ public interface Node extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Source</em>' reference.
+	 * @model opposite="target" resolveProxies="false"
+	 * @generated
 	 * @see #setSource(Node)
 	 * @see org.emfjson.gwt.junit.model.ModelPackage#getNode_Source()
 	 * @see org.emfjson.gwt.junit.model.Node#getTarget
-	 * @model opposite="target" resolveProxies="false"
-	 * @generated
 	 */
 	Node getSource();
 
@@ -111,9 +117,10 @@ public interface Node extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.Node#getSource <em>Source</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Source</em>' reference.
-	 * @see #getSource()
 	 * @generated
+	 * @see #getSource()
 	 */
 	void setSource(Node value);
 
@@ -126,10 +133,11 @@ public interface Node extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Many Ref</em>' reference list.
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getNode_ManyRef()
 	 * @model resolveProxies="false"
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getNode_ManyRef()
 	 */
 	EList<Node> getManyRef();
 
@@ -142,10 +150,11 @@ public interface Node extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Child</em>' containment reference list.
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getNode_Child()
 	 * @model containment="true" resolveProxies="true"
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getNode_Child()
 	 */
 	EList<Node> getChild();
 
@@ -157,11 +166,12 @@ public interface Node extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Unique Child</em>' containment reference.
-	 * @see #setUniqueChild(Node)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getNode_UniqueChild()
 	 * @model containment="true" resolveProxies="true"
 	 * @generated
+	 * @see #setUniqueChild(Node)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getNode_UniqueChild()
 	 */
 	Node getUniqueChild();
 
@@ -169,9 +179,10 @@ public interface Node extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.Node#getUniqueChild <em>Unique Child</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Unique Child</em>' containment reference.
-	 * @see #getUniqueChild()
 	 * @generated
+	 * @see #getUniqueChild()
 	 */
 	void setUniqueChild(Node value);
 

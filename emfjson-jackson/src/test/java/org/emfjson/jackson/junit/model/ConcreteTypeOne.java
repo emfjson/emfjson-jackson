@@ -1,30 +1,29 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.jackson.junit.model;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Concrete Type One</b></em>'.
  * <!-- end-user-doc -->
- *
+ * <p/>
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emfjson.jackson.junit.model.ConcreteTypeOne#getPropTypeOne <em>Prop Type One</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.ConcreteTypeOne#getPropTypeOne <em>Prop Type One</em>}</li>
  * </ul>
  * </p>
  *
@@ -35,9 +34,10 @@ public class ConcreteTypeOne extends AbstractType {
 	 * The default value of the '{@link #getPropTypeOne() <em>Prop Type One</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPropTypeOne()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getPropTypeOne()
 	 */
 	protected static final String PROP_TYPE_ONE_EDEFAULT = null;
 
@@ -45,15 +45,17 @@ public class ConcreteTypeOne extends AbstractType {
 	 * The cached value of the '{@link #getPropTypeOne() <em>Prop Type One</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPropTypeOne()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getPropTypeOne()
 	 */
 	protected String propTypeOne = PROP_TYPE_ONE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	protected ConcreteTypeOne() {
@@ -63,6 +65,7 @@ public class ConcreteTypeOne extends AbstractType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -78,9 +81,10 @@ public class ConcreteTypeOne extends AbstractType {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Prop Type One</em>' attribute.
-	 * @see #setPropTypeOne(String)
 	 * @generated
+	 * @see #setPropTypeOne(String)
 	 */
 	public String getPropTypeOne() {
 		return propTypeOne;
@@ -90,9 +94,10 @@ public class ConcreteTypeOne extends AbstractType {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.ConcreteTypeOne#getPropTypeOne <em>Prop Type One</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Prop Type One</em>' attribute.
-	 * @see #getPropTypeOne()
 	 * @generated
+	 * @see #getPropTypeOne()
 	 */
 	public void setPropTypeOne(String newPropTypeOne) {
 		String oldPropTypeOne = propTypeOne;
@@ -104,6 +109,7 @@ public class ConcreteTypeOne extends AbstractType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -118,13 +124,14 @@ public class ConcreteTypeOne extends AbstractType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackage.CONCRETE_TYPE_ONE__PROP_TYPE_ONE:
-				setPropTypeOne((String)newValue);
+				setPropTypeOne((String) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -133,6 +140,7 @@ public class ConcreteTypeOne extends AbstractType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -148,6 +156,7 @@ public class ConcreteTypeOne extends AbstractType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -162,6 +171,7 @@ public class ConcreteTypeOne extends AbstractType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override

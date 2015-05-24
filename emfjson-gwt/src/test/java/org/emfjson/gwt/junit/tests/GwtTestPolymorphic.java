@@ -1,31 +1,27 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.tests;
 
-import java.io.IOException;
-
+import com.google.gwt.core.client.JavaScriptObject;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emfjson.EMFJs;
-import org.emfjson.gwt.junit.model.AbstractType;
-import org.emfjson.gwt.junit.model.ConcreteTypeOne;
-import org.emfjson.gwt.junit.model.ConcreteTypeTwo;
-import org.emfjson.gwt.junit.model.Container;
-import org.emfjson.gwt.junit.model.ModelFactory;
-import org.emfjson.gwt.junit.model.ModelPackage;
-import org.emfjson.gwt.junit.support.TestSupport;
 import org.junit.Test;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import org.emfjson.EMFJs;
+import org.emfjson.gwt.junit.model.*;
+import org.emfjson.gwt.junit.support.TestSupport;
+
+import java.io.IOException;
 
 public class GwtTestPolymorphic extends TestSupport {
 
@@ -86,9 +82,9 @@ public class GwtTestPolymorphic extends TestSupport {
 				assertTrue(second instanceof ConcreteTypeTwo);
 
 				assertEquals("First", first.getName());
-				assertEquals("one", ((ConcreteTypeOne)first).getPropTypeOne());
+				assertEquals("one", ((ConcreteTypeOne) first).getPropTypeOne());
 				assertEquals("Two", second.getName());
-				assertEquals("two", ((ConcreteTypeTwo)second).getPropTypeTwo());
+				assertEquals("two", ((ConcreteTypeTwo) second).getPropTypeTwo());
 
 				finishTest();
 			}

@@ -1,27 +1,28 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.model.impl;
 
-import java.util.Collection;
-
+import com.google.gwt.user.client.rpc.GwtTransient;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+
 import org.emfjson.gwt.junit.model.AbstractType;
 import org.emfjson.gwt.junit.model.ModelPackage;
 
-import com.google.gwt.user.client.rpc.GwtTransient;
+import java.util.Collection;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,8 +31,8 @@ import com.google.gwt.user.client.rpc.GwtTransient;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.AbstractTypeImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.AbstractTypeImpl#getRefProperty <em>Ref Property</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.AbstractTypeImpl#getName <em>Name</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.AbstractTypeImpl#getRefProperty <em>Ref Property</em>}</li>
  * </ul>
  * </p>
  *
@@ -42,9 +43,10 @@ public abstract class AbstractTypeImpl extends EObjectImpl implements AbstractTy
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getName()
 	 */
 	protected static final String NAME_EDEFAULT = null;
 
@@ -52,9 +54,10 @@ public abstract class AbstractTypeImpl extends EObjectImpl implements AbstractTy
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getName()
 	 */
 	@GwtTransient
 	protected String name = NAME_EDEFAULT;
@@ -63,9 +66,10 @@ public abstract class AbstractTypeImpl extends EObjectImpl implements AbstractTy
 	 * The cached value of the '{@link #getRefProperty() <em>Ref Property</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRefProperty()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getRefProperty()
 	 */
 	@GwtTransient
 	protected EList<AbstractType> refProperty;
@@ -73,6 +77,7 @@ public abstract class AbstractTypeImpl extends EObjectImpl implements AbstractTy
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	protected AbstractTypeImpl() {
@@ -82,6 +87,7 @@ public abstract class AbstractTypeImpl extends EObjectImpl implements AbstractTy
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -92,6 +98,7 @@ public abstract class AbstractTypeImpl extends EObjectImpl implements AbstractTy
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public String getName() {
@@ -101,6 +108,7 @@ public abstract class AbstractTypeImpl extends EObjectImpl implements AbstractTy
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setName(String newName) {
@@ -113,6 +121,7 @@ public abstract class AbstractTypeImpl extends EObjectImpl implements AbstractTy
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EList<AbstractType> getRefProperty() {
@@ -125,6 +134,7 @@ public abstract class AbstractTypeImpl extends EObjectImpl implements AbstractTy
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -141,6 +151,7 @@ public abstract class AbstractTypeImpl extends EObjectImpl implements AbstractTy
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -148,11 +159,11 @@ public abstract class AbstractTypeImpl extends EObjectImpl implements AbstractTy
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackage.ABSTRACT_TYPE__NAME:
-				setName((String)newValue);
+				setName((String) newValue);
 				return;
 			case ModelPackage.ABSTRACT_TYPE__REF_PROPERTY:
 				getRefProperty().clear();
-				getRefProperty().addAll((Collection<? extends AbstractType>)newValue);
+				getRefProperty().addAll((Collection<? extends AbstractType>) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -161,6 +172,7 @@ public abstract class AbstractTypeImpl extends EObjectImpl implements AbstractTy
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -179,6 +191,7 @@ public abstract class AbstractTypeImpl extends EObjectImpl implements AbstractTy
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -195,6 +208,7 @@ public abstract class AbstractTypeImpl extends EObjectImpl implements AbstractTy
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override

@@ -1,30 +1,29 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.jackson.junit.model;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Concrete Type Two</b></em>'.
  * <!-- end-user-doc -->
- *
+ * <p/>
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emfjson.jackson.junit.model.ConcreteTypeTwo#getPropTypeTwo <em>Prop Type Two</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.ConcreteTypeTwo#getPropTypeTwo <em>Prop Type Two</em>}</li>
  * </ul>
  * </p>
  *
@@ -35,9 +34,10 @@ public class ConcreteTypeTwo extends AbstractType {
 	 * The default value of the '{@link #getPropTypeTwo() <em>Prop Type Two</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPropTypeTwo()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getPropTypeTwo()
 	 */
 	protected static final String PROP_TYPE_TWO_EDEFAULT = null;
 
@@ -45,15 +45,17 @@ public class ConcreteTypeTwo extends AbstractType {
 	 * The cached value of the '{@link #getPropTypeTwo() <em>Prop Type Two</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPropTypeTwo()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getPropTypeTwo()
 	 */
 	protected String propTypeTwo = PROP_TYPE_TWO_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	protected ConcreteTypeTwo() {
@@ -63,6 +65,7 @@ public class ConcreteTypeTwo extends AbstractType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -78,9 +81,10 @@ public class ConcreteTypeTwo extends AbstractType {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Prop Type Two</em>' attribute.
-	 * @see #setPropTypeTwo(String)
 	 * @generated
+	 * @see #setPropTypeTwo(String)
 	 */
 	public String getPropTypeTwo() {
 		return propTypeTwo;
@@ -90,9 +94,10 @@ public class ConcreteTypeTwo extends AbstractType {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.ConcreteTypeTwo#getPropTypeTwo <em>Prop Type Two</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Prop Type Two</em>' attribute.
-	 * @see #getPropTypeTwo()
 	 * @generated
+	 * @see #getPropTypeTwo()
 	 */
 	public void setPropTypeTwo(String newPropTypeTwo) {
 		String oldPropTypeTwo = propTypeTwo;
@@ -104,6 +109,7 @@ public class ConcreteTypeTwo extends AbstractType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -118,13 +124,14 @@ public class ConcreteTypeTwo extends AbstractType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackage.CONCRETE_TYPE_TWO__PROP_TYPE_TWO:
-				setPropTypeTwo((String)newValue);
+				setPropTypeTwo((String) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -133,6 +140,7 @@ public class ConcreteTypeTwo extends AbstractType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -148,6 +156,7 @@ public class ConcreteTypeTwo extends AbstractType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -162,6 +171,7 @@ public class ConcreteTypeTwo extends AbstractType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override

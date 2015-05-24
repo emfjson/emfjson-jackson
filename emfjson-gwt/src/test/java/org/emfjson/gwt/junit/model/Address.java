@@ -1,12 +1,13 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.model;
 
@@ -16,20 +17,20 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Address</b></em>'.
  * <!-- end-user-doc -->
- *
+ * <p/>
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emfjson.gwt.junit.model.Address#getAddId <em>Add Id</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.Address#getCity <em>City</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.Address#getStreet <em>Street</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.Address#getNumber <em>Number</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.Address#getAddId <em>Add Id</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.Address#getCity <em>City</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.Address#getStreet <em>Street</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.Address#getNumber <em>Number</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.emfjson.gwt.junit.model.ModelPackage#getAddress()
  * @model
  * @generated
+ * @see org.emfjson.gwt.junit.model.ModelPackage#getAddress()
  */
 public interface Address extends EObject {
 	/**
@@ -40,11 +41,12 @@ public interface Address extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Add Id</em>' attribute.
-	 * @see #setAddId(String)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getAddress_AddId()
 	 * @model id="true"
 	 * @generated
+	 * @see #setAddId(String)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getAddress_AddId()
 	 */
 	String getAddId();
 
@@ -52,9 +54,10 @@ public interface Address extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.Address#getAddId <em>Add Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Add Id</em>' attribute.
-	 * @see #getAddId()
 	 * @generated
+	 * @see #getAddId()
 	 */
 	void setAddId(String value);
 
@@ -66,11 +69,12 @@ public interface Address extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>City</em>' attribute.
-	 * @see #setCity(String)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getAddress_City()
 	 * @model
 	 * @generated
+	 * @see #setCity(String)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getAddress_City()
 	 */
 	String getCity();
 
@@ -78,9 +82,10 @@ public interface Address extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.Address#getCity <em>City</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>City</em>' attribute.
-	 * @see #getCity()
 	 * @generated
+	 * @see #getCity()
 	 */
 	void setCity(String value);
 
@@ -92,11 +97,12 @@ public interface Address extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Street</em>' attribute.
-	 * @see #setStreet(String)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getAddress_Street()
 	 * @model
 	 * @generated
+	 * @see #setStreet(String)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getAddress_Street()
 	 */
 	String getStreet();
 
@@ -104,9 +110,10 @@ public interface Address extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.Address#getStreet <em>Street</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Street</em>' attribute.
-	 * @see #getStreet()
 	 * @generated
+	 * @see #getStreet()
 	 */
 	void setStreet(String value);
 
@@ -118,11 +125,12 @@ public interface Address extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Number</em>' attribute.
-	 * @see #setNumber(Integer)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getAddress_Number()
 	 * @model
 	 * @generated
+	 * @see #setNumber(Integer)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getAddress_Number()
 	 */
 	Integer getNumber();
 
@@ -130,9 +138,10 @@ public interface Address extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.Address#getNumber <em>Number</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Number</em>' attribute.
-	 * @see #getNumber()
 	 * @generated
+	 * @see #getNumber()
 	 */
 	void setNumber(Integer value);
 

@@ -1,62 +1,58 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.jackson.junit.model;
 
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
-
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-
-import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>ETypes</b></em>'.
  * <!-- end-user-doc -->
- *
+ * <p/>
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emfjson.jackson.junit.model.ETypes#getEString <em>EString</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.ETypes#getEStrings <em>EStrings</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.ETypes#isEBoolean <em>EBoolean</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.ETypes#getEBooleans <em>EBooleans</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.ETypes#getEInt <em>EInt</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.ETypes#getEInts <em>EInts</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.ETypes#getDoubleValue <em>Double Value</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.ETypes#getEDouble <em>EDouble</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.ETypes#getEDoubles <em>EDoubles</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.ETypes#getEBigDecimal <em>EBig Decimal</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.ETypes#getEBigInteger <em>EBig Integer</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.ETypes#getEByte <em>EByte</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.ETypes#getEByteArray <em>EByte Array</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.ETypes#getEChar <em>EChar</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.ETypes#getEDate <em>EDate</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.ETypes#getEFloat <em>EFloat</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.ETypes#getELong <em>ELong</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.ETypes#getEShort <em>EShort</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.ETypes#getUris <em>Uris</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.ETypes#getEString <em>EString</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.ETypes#getEStrings <em>EStrings</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.ETypes#isEBoolean <em>EBoolean</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.ETypes#getEBooleans <em>EBooleans</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.ETypes#getEInt <em>EInt</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.ETypes#getEInts <em>EInts</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.ETypes#getDoubleValue <em>Double Value</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.ETypes#getEDouble <em>EDouble</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.ETypes#getEDoubles <em>EDoubles</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.ETypes#getEBigDecimal <em>EBig Decimal</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.ETypes#getEBigInteger <em>EBig Integer</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.ETypes#getEByte <em>EByte</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.ETypes#getEByteArray <em>EByte Array</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.ETypes#getEChar <em>EChar</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.ETypes#getEDate <em>EDate</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.ETypes#getEFloat <em>EFloat</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.ETypes#getELong <em>ELong</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.ETypes#getEShort <em>EShort</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.ETypes#getUris <em>Uris</em>}</li>
  * </ul>
  * </p>
  *
@@ -67,319 +63,320 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * The default value of the '{@link #getEString() <em>EString</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEString()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEString()
 	 */
 	protected static final String ESTRING_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getEString() <em>EString</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEString()
-	 * @generated
-	 * @ordered
-	 */
-	protected String eString = ESTRING_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getEStrings() <em>EStrings</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEStrings()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<String> eStrings;
-
 	/**
 	 * The default value of the '{@link #isEBoolean() <em>EBoolean</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isEBoolean()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #isEBoolean()
 	 */
 	protected static final boolean EBOOLEAN_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isEBoolean() <em>EBoolean</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isEBoolean()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean eBoolean = EBOOLEAN_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getEBooleans() <em>EBooleans</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEBooleans()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Boolean> eBooleans;
-
 	/**
 	 * The default value of the '{@link #getEInt() <em>EInt</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEInt()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEInt()
 	 */
 	protected static final int EINT_EDEFAULT = 0;
-
-	/**
-	 * The cached value of the '{@link #getEInt() <em>EInt</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEInt()
-	 * @generated
-	 * @ordered
-	 */
-	protected int eInt = EINT_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getEInts() <em>EInts</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEInts()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Integer> eInts;
-
 	/**
 	 * The default value of the '{@link #getDoubleValue() <em>Double Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDoubleValue()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getDoubleValue()
 	 */
 	protected static final Double DOUBLE_VALUE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getDoubleValue() <em>Double Value</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDoubleValue()
-	 * @generated
-	 * @ordered
-	 */
-	protected Double doubleValue = DOUBLE_VALUE_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getEDouble() <em>EDouble</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEDouble()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEDouble()
 	 */
 	protected static final double EDOUBLE_EDEFAULT = 0.0;
-
-	/**
-	 * The cached value of the '{@link #getEDouble() <em>EDouble</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEDouble()
-	 * @generated
-	 * @ordered
-	 */
-	protected double eDouble = EDOUBLE_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getEDoubles() <em>EDoubles</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEDoubles()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Double> eDoubles;
-
 	/**
 	 * The default value of the '{@link #getEBigDecimal() <em>EBig Decimal</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEBigDecimal()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEBigDecimal()
 	 */
 	protected static final BigDecimal EBIG_DECIMAL_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getEBigDecimal() <em>EBig Decimal</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEBigDecimal()
-	 * @generated
-	 * @ordered
-	 */
-	protected BigDecimal eBigDecimal = EBIG_DECIMAL_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getEBigInteger() <em>EBig Integer</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEBigInteger()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEBigInteger()
 	 */
 	protected static final BigInteger EBIG_INTEGER_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getEBigInteger() <em>EBig Integer</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEBigInteger()
-	 * @generated
-	 * @ordered
-	 */
-	protected BigInteger eBigInteger = EBIG_INTEGER_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getEByte() <em>EByte</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEByte()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEByte()
 	 */
 	protected static final byte EBYTE_EDEFAULT = 0x00;
-
-	/**
-	 * The cached value of the '{@link #getEByte() <em>EByte</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEByte()
-	 * @generated
-	 * @ordered
-	 */
-	protected byte eByte = EBYTE_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getEByteArray() <em>EByte Array</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEByteArray()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEByteArray()
 	 */
 	protected static final byte[] EBYTE_ARRAY_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getEByteArray() <em>EByte Array</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEByteArray()
-	 * @generated
-	 * @ordered
-	 */
-	protected byte[] eByteArray = EBYTE_ARRAY_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getEChar() <em>EChar</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEChar()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEChar()
 	 */
 	protected static final char ECHAR_EDEFAULT = '\u0000';
-
-	/**
-	 * The cached value of the '{@link #getEChar() <em>EChar</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEChar()
-	 * @generated
-	 * @ordered
-	 */
-	protected char eChar = ECHAR_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getEDate() <em>EDate</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEDate()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEDate()
 	 */
 	protected static final Date EDATE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getEDate() <em>EDate</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEDate()
-	 * @generated
-	 * @ordered
-	 */
-	protected Date eDate = EDATE_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getEFloat() <em>EFloat</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEFloat()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEFloat()
 	 */
 	protected static final float EFLOAT_EDEFAULT = 0.0F;
-
-	/**
-	 * The cached value of the '{@link #getEFloat() <em>EFloat</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEFloat()
-	 * @generated
-	 * @ordered
-	 */
-	protected float eFloat = EFLOAT_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getELong() <em>ELong</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getELong()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getELong()
 	 */
 	protected static final long ELONG_EDEFAULT = 0L;
-
-	/**
-	 * The cached value of the '{@link #getELong() <em>ELong</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getELong()
-	 * @generated
-	 * @ordered
-	 */
-	protected long eLong = ELONG_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getEShort() <em>EShort</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEShort()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEShort()
 	 */
 	protected static final short ESHORT_EDEFAULT = 0;
-
+	/**
+	 * The cached value of the '{@link #getEString() <em>EString</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEString()
+	 */
+	protected String eString = ESTRING_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getEStrings() <em>EStrings</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEStrings()
+	 */
+	protected EList<String> eStrings;
+	/**
+	 * The cached value of the '{@link #isEBoolean() <em>EBoolean</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #isEBoolean()
+	 */
+	protected boolean eBoolean = EBOOLEAN_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getEBooleans() <em>EBooleans</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEBooleans()
+	 */
+	protected EList<Boolean> eBooleans;
+	/**
+	 * The cached value of the '{@link #getEInt() <em>EInt</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEInt()
+	 */
+	protected int eInt = EINT_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getEInts() <em>EInts</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEInts()
+	 */
+	protected EList<Integer> eInts;
+	/**
+	 * The cached value of the '{@link #getDoubleValue() <em>Double Value</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getDoubleValue()
+	 */
+	protected Double doubleValue = DOUBLE_VALUE_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getEDouble() <em>EDouble</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEDouble()
+	 */
+	protected double eDouble = EDOUBLE_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getEDoubles() <em>EDoubles</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEDoubles()
+	 */
+	protected EList<Double> eDoubles;
+	/**
+	 * The cached value of the '{@link #getEBigDecimal() <em>EBig Decimal</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEBigDecimal()
+	 */
+	protected BigDecimal eBigDecimal = EBIG_DECIMAL_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getEBigInteger() <em>EBig Integer</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEBigInteger()
+	 */
+	protected BigInteger eBigInteger = EBIG_INTEGER_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getEByte() <em>EByte</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEByte()
+	 */
+	protected byte eByte = EBYTE_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getEByteArray() <em>EByte Array</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEByteArray()
+	 */
+	protected byte[] eByteArray = EBYTE_ARRAY_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getEChar() <em>EChar</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEChar()
+	 */
+	protected char eChar = ECHAR_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getEDate() <em>EDate</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEDate()
+	 */
+	protected Date eDate = EDATE_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getEFloat() <em>EFloat</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getEFloat()
+	 */
+	protected float eFloat = EFLOAT_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getELong() <em>ELong</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getELong()
+	 */
+	protected long eLong = ELONG_EDEFAULT;
 	/**
 	 * The cached value of the '{@link #getEShort() <em>EShort</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEShort()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEShort()
 	 */
 	protected short eShort = ESHORT_EDEFAULT;
 
@@ -387,15 +384,17 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * The cached value of the '{@link #getUris() <em>Uris</em>}' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getUris()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getUris()
 	 */
 	protected EList<URI> uris;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	protected ETypes() {
@@ -405,6 +404,7 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -420,9 +420,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EString</em>' attribute.
-	 * @see #setEString(String)
 	 * @generated
+	 * @see #setEString(String)
 	 */
 	public String getEString() {
 		return eString;
@@ -432,9 +433,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.ETypes#getEString <em>EString</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>EString</em>' attribute.
-	 * @see #getEString()
 	 * @generated
+	 * @see #getEString()
 	 */
 	public void setEString(String newEString) {
 		String oldEString = eString;
@@ -452,6 +454,7 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EStrings</em>' attribute list.
 	 * @generated
 	 */
@@ -470,9 +473,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EBoolean</em>' attribute.
-	 * @see #setEBoolean(boolean)
 	 * @generated
+	 * @see #setEBoolean(boolean)
 	 */
 	public boolean isEBoolean() {
 		return eBoolean;
@@ -482,9 +486,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.ETypes#isEBoolean <em>EBoolean</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>EBoolean</em>' attribute.
-	 * @see #isEBoolean()
 	 * @generated
+	 * @see #isEBoolean()
 	 */
 	public void setEBoolean(boolean newEBoolean) {
 		boolean oldEBoolean = eBoolean;
@@ -502,6 +507,7 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EBooleans</em>' attribute list.
 	 * @generated
 	 */
@@ -520,9 +526,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EInt</em>' attribute.
-	 * @see #setEInt(int)
 	 * @generated
+	 * @see #setEInt(int)
 	 */
 	public int getEInt() {
 		return eInt;
@@ -532,9 +539,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.ETypes#getEInt <em>EInt</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>EInt</em>' attribute.
-	 * @see #getEInt()
 	 * @generated
+	 * @see #getEInt()
 	 */
 	public void setEInt(int newEInt) {
 		int oldEInt = eInt;
@@ -552,6 +560,7 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EInts</em>' attribute list.
 	 * @generated
 	 */
@@ -570,9 +579,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Double Value</em>' attribute.
-	 * @see #setDoubleValue(Double)
 	 * @generated
+	 * @see #setDoubleValue(Double)
 	 */
 	public Double getDoubleValue() {
 		return doubleValue;
@@ -582,9 +592,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.ETypes#getDoubleValue <em>Double Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Double Value</em>' attribute.
-	 * @see #getDoubleValue()
 	 * @generated
+	 * @see #getDoubleValue()
 	 */
 	public void setDoubleValue(Double newDoubleValue) {
 		Double oldDoubleValue = doubleValue;
@@ -601,9 +612,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EDouble</em>' attribute.
-	 * @see #setEDouble(double)
 	 * @generated
+	 * @see #setEDouble(double)
 	 */
 	public double getEDouble() {
 		return eDouble;
@@ -613,9 +625,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.ETypes#getEDouble <em>EDouble</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>EDouble</em>' attribute.
-	 * @see #getEDouble()
 	 * @generated
+	 * @see #getEDouble()
 	 */
 	public void setEDouble(double newEDouble) {
 		double oldEDouble = eDouble;
@@ -633,6 +646,7 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EDoubles</em>' attribute list.
 	 * @generated
 	 */
@@ -651,9 +665,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EBig Decimal</em>' attribute.
-	 * @see #setEBigDecimal(BigDecimal)
 	 * @generated
+	 * @see #setEBigDecimal(BigDecimal)
 	 */
 	public BigDecimal getEBigDecimal() {
 		return eBigDecimal;
@@ -663,9 +678,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.ETypes#getEBigDecimal <em>EBig Decimal</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>EBig Decimal</em>' attribute.
-	 * @see #getEBigDecimal()
 	 * @generated
+	 * @see #getEBigDecimal()
 	 */
 	public void setEBigDecimal(BigDecimal newEBigDecimal) {
 		BigDecimal oldEBigDecimal = eBigDecimal;
@@ -682,9 +698,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EBig Integer</em>' attribute.
-	 * @see #setEBigInteger(BigInteger)
 	 * @generated
+	 * @see #setEBigInteger(BigInteger)
 	 */
 	public BigInteger getEBigInteger() {
 		return eBigInteger;
@@ -694,9 +711,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.ETypes#getEBigInteger <em>EBig Integer</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>EBig Integer</em>' attribute.
-	 * @see #getEBigInteger()
 	 * @generated
+	 * @see #getEBigInteger()
 	 */
 	public void setEBigInteger(BigInteger newEBigInteger) {
 		BigInteger oldEBigInteger = eBigInteger;
@@ -713,9 +731,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EByte</em>' attribute.
-	 * @see #setEByte(byte)
 	 * @generated
+	 * @see #setEByte(byte)
 	 */
 	public byte getEByte() {
 		return eByte;
@@ -725,9 +744,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.ETypes#getEByte <em>EByte</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>EByte</em>' attribute.
-	 * @see #getEByte()
 	 * @generated
+	 * @see #getEByte()
 	 */
 	public void setEByte(byte newEByte) {
 		byte oldEByte = eByte;
@@ -744,9 +764,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EByte Array</em>' attribute.
-	 * @see #setEByteArray(byte[])
 	 * @generated
+	 * @see #setEByteArray(byte[])
 	 */
 	public byte[] getEByteArray() {
 		return eByteArray;
@@ -756,9 +777,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.ETypes#getEByteArray <em>EByte Array</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>EByte Array</em>' attribute.
-	 * @see #getEByteArray()
 	 * @generated
+	 * @see #getEByteArray()
 	 */
 	public void setEByteArray(byte[] newEByteArray) {
 		byte[] oldEByteArray = eByteArray;
@@ -775,9 +797,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EChar</em>' attribute.
-	 * @see #setEChar(char)
 	 * @generated
+	 * @see #setEChar(char)
 	 */
 	public char getEChar() {
 		return eChar;
@@ -787,9 +810,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.ETypes#getEChar <em>EChar</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>EChar</em>' attribute.
-	 * @see #getEChar()
 	 * @generated
+	 * @see #getEChar()
 	 */
 	public void setEChar(char newEChar) {
 		char oldEChar = eChar;
@@ -806,9 +830,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EDate</em>' attribute.
-	 * @see #setEDate(Date)
 	 * @generated
+	 * @see #setEDate(Date)
 	 */
 	public Date getEDate() {
 		return eDate;
@@ -818,9 +843,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.ETypes#getEDate <em>EDate</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>EDate</em>' attribute.
-	 * @see #getEDate()
 	 * @generated
+	 * @see #getEDate()
 	 */
 	public void setEDate(Date newEDate) {
 		Date oldEDate = eDate;
@@ -837,9 +863,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EFloat</em>' attribute.
-	 * @see #setEFloat(float)
 	 * @generated
+	 * @see #setEFloat(float)
 	 */
 	public float getEFloat() {
 		return eFloat;
@@ -849,9 +876,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.ETypes#getEFloat <em>EFloat</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>EFloat</em>' attribute.
-	 * @see #getEFloat()
 	 * @generated
+	 * @see #getEFloat()
 	 */
 	public void setEFloat(float newEFloat) {
 		float oldEFloat = eFloat;
@@ -868,9 +896,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>ELong</em>' attribute.
-	 * @see #setELong(long)
 	 * @generated
+	 * @see #setELong(long)
 	 */
 	public long getELong() {
 		return eLong;
@@ -880,9 +909,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.ETypes#getELong <em>ELong</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>ELong</em>' attribute.
-	 * @see #getELong()
 	 * @generated
+	 * @see #getELong()
 	 */
 	public void setELong(long newELong) {
 		long oldELong = eLong;
@@ -899,9 +929,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EShort</em>' attribute.
-	 * @see #setEShort(short)
 	 * @generated
+	 * @see #setEShort(short)
 	 */
 	public short getEShort() {
 		return eShort;
@@ -911,9 +942,10 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.ETypes#getEShort <em>EShort</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>EShort</em>' attribute.
-	 * @see #getEShort()
 	 * @generated
+	 * @see #getEShort()
 	 */
 	public void setEShort(short newEShort) {
 		short oldEShort = eShort;
@@ -931,6 +963,7 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Uris</em>' attribute list.
 	 * @generated
 	 */
@@ -944,6 +977,7 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -994,6 +1028,7 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -1001,66 +1036,66 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackage.ETYPES__ESTRING:
-				setEString((String)newValue);
+				setEString((String) newValue);
 				return;
 			case ModelPackage.ETYPES__ESTRINGS:
 				getEStrings().clear();
-				getEStrings().addAll((Collection<? extends String>)newValue);
+				getEStrings().addAll((Collection<? extends String>) newValue);
 				return;
 			case ModelPackage.ETYPES__EBOOLEAN:
-				setEBoolean((Boolean)newValue);
+				setEBoolean((Boolean) newValue);
 				return;
 			case ModelPackage.ETYPES__EBOOLEANS:
 				getEBooleans().clear();
-				getEBooleans().addAll((Collection<? extends Boolean>)newValue);
+				getEBooleans().addAll((Collection<? extends Boolean>) newValue);
 				return;
 			case ModelPackage.ETYPES__EINT:
-				setEInt((Integer)newValue);
+				setEInt((Integer) newValue);
 				return;
 			case ModelPackage.ETYPES__EINTS:
 				getEInts().clear();
-				getEInts().addAll((Collection<? extends Integer>)newValue);
+				getEInts().addAll((Collection<? extends Integer>) newValue);
 				return;
 			case ModelPackage.ETYPES__DOUBLE_VALUE:
-				setDoubleValue((Double)newValue);
+				setDoubleValue((Double) newValue);
 				return;
 			case ModelPackage.ETYPES__EDOUBLE:
-				setEDouble((Double)newValue);
+				setEDouble((Double) newValue);
 				return;
 			case ModelPackage.ETYPES__EDOUBLES:
 				getEDoubles().clear();
-				getEDoubles().addAll((Collection<? extends Double>)newValue);
+				getEDoubles().addAll((Collection<? extends Double>) newValue);
 				return;
 			case ModelPackage.ETYPES__EBIG_DECIMAL:
-				setEBigDecimal((BigDecimal)newValue);
+				setEBigDecimal((BigDecimal) newValue);
 				return;
 			case ModelPackage.ETYPES__EBIG_INTEGER:
-				setEBigInteger((BigInteger)newValue);
+				setEBigInteger((BigInteger) newValue);
 				return;
 			case ModelPackage.ETYPES__EBYTE:
-				setEByte((Byte)newValue);
+				setEByte((Byte) newValue);
 				return;
 			case ModelPackage.ETYPES__EBYTE_ARRAY:
-				setEByteArray((byte[])newValue);
+				setEByteArray((byte[]) newValue);
 				return;
 			case ModelPackage.ETYPES__ECHAR:
-				setEChar((Character)newValue);
+				setEChar((Character) newValue);
 				return;
 			case ModelPackage.ETYPES__EDATE:
-				setEDate((Date)newValue);
+				setEDate((Date) newValue);
 				return;
 			case ModelPackage.ETYPES__EFLOAT:
-				setEFloat((Float)newValue);
+				setEFloat((Float) newValue);
 				return;
 			case ModelPackage.ETYPES__ELONG:
-				setELong((Long)newValue);
+				setELong((Long) newValue);
 				return;
 			case ModelPackage.ETYPES__ESHORT:
-				setEShort((Short)newValue);
+				setEShort((Short) newValue);
 				return;
 			case ModelPackage.ETYPES__URIS:
 				getUris().clear();
-				getUris().addAll((Collection<? extends URI>)newValue);
+				getUris().addAll((Collection<? extends URI>) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -1069,6 +1104,7 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -1138,6 +1174,7 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -1188,6 +1225,7 @@ public class ETypes extends MinimalEObjectImpl.Container implements EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override

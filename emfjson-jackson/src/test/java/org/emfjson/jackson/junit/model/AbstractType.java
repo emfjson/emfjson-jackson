@@ -1,40 +1,37 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.jackson.junit.model;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Abstract Type</b></em>'.
  * <!-- end-user-doc -->
- *
+ * <p/>
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emfjson.jackson.junit.model.AbstractType#getName <em>Name</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.AbstractType#getRefProperty <em>Ref Property</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.AbstractType#getName <em>Name</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.AbstractType#getRefProperty <em>Ref Property</em>}</li>
  * </ul>
  * </p>
  *
@@ -45,9 +42,10 @@ public abstract class AbstractType extends MinimalEObjectImpl.Container implemen
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getName()
 	 */
 	protected static final String NAME_EDEFAULT = null;
 
@@ -55,9 +53,10 @@ public abstract class AbstractType extends MinimalEObjectImpl.Container implemen
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getName()
 	 */
 	protected String name = NAME_EDEFAULT;
 
@@ -65,15 +64,17 @@ public abstract class AbstractType extends MinimalEObjectImpl.Container implemen
 	 * The cached value of the '{@link #getRefProperty() <em>Ref Property</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRefProperty()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getRefProperty()
 	 */
 	protected EList<AbstractType> refProperty;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	protected AbstractType() {
@@ -83,6 +84,7 @@ public abstract class AbstractType extends MinimalEObjectImpl.Container implemen
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -98,9 +100,10 @@ public abstract class AbstractType extends MinimalEObjectImpl.Container implemen
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see #setName(String)
 	 * @generated
+	 * @see #setName(String)
 	 */
 	public String getName() {
 		return name;
@@ -110,9 +113,10 @@ public abstract class AbstractType extends MinimalEObjectImpl.Container implemen
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.AbstractType#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Name</em>' attribute.
-	 * @see #getName()
 	 * @generated
+	 * @see #getName()
 	 */
 	public void setName(String newName) {
 		String oldName = name;
@@ -130,6 +134,7 @@ public abstract class AbstractType extends MinimalEObjectImpl.Container implemen
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Ref Property</em>' reference list.
 	 * @generated
 	 */
@@ -143,6 +148,7 @@ public abstract class AbstractType extends MinimalEObjectImpl.Container implemen
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -159,6 +165,7 @@ public abstract class AbstractType extends MinimalEObjectImpl.Container implemen
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -166,11 +173,11 @@ public abstract class AbstractType extends MinimalEObjectImpl.Container implemen
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackage.ABSTRACT_TYPE__NAME:
-				setName((String)newValue);
+				setName((String) newValue);
 				return;
 			case ModelPackage.ABSTRACT_TYPE__REF_PROPERTY:
 				getRefProperty().clear();
-				getRefProperty().addAll((Collection<? extends AbstractType>)newValue);
+				getRefProperty().addAll((Collection<? extends AbstractType>) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -179,6 +186,7 @@ public abstract class AbstractType extends MinimalEObjectImpl.Container implemen
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -197,6 +205,7 @@ public abstract class AbstractType extends MinimalEObjectImpl.Container implemen
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -213,6 +222,7 @@ public abstract class AbstractType extends MinimalEObjectImpl.Container implemen
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override

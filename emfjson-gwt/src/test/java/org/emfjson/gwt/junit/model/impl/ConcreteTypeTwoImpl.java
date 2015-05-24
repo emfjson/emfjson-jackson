@@ -1,22 +1,23 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.model.impl;
 
+import com.google.gwt.user.client.rpc.GwtTransient;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.emfjson.gwt.junit.model.ConcreteTypeTwo;
 import org.emfjson.gwt.junit.model.ModelPackage;
-
-import com.google.gwt.user.client.rpc.GwtTransient;
 
 /**
  * <!-- begin-user-doc -->
@@ -25,7 +26,7 @@ import com.google.gwt.user.client.rpc.GwtTransient;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.ConcreteTypeTwoImpl#getPropTypeTwo <em>Prop Type Two</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.ConcreteTypeTwoImpl#getPropTypeTwo <em>Prop Type Two</em>}</li>
  * </ul>
  * </p>
  *
@@ -36,9 +37,10 @@ public class ConcreteTypeTwoImpl extends AbstractTypeImpl implements ConcreteTyp
 	 * The default value of the '{@link #getPropTypeTwo() <em>Prop Type Two</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPropTypeTwo()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getPropTypeTwo()
 	 */
 	protected static final String PROP_TYPE_TWO_EDEFAULT = null;
 
@@ -46,9 +48,10 @@ public class ConcreteTypeTwoImpl extends AbstractTypeImpl implements ConcreteTyp
 	 * The cached value of the '{@link #getPropTypeTwo() <em>Prop Type Two</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPropTypeTwo()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getPropTypeTwo()
 	 */
 	@GwtTransient
 	protected String propTypeTwo = PROP_TYPE_TWO_EDEFAULT;
@@ -56,6 +59,7 @@ public class ConcreteTypeTwoImpl extends AbstractTypeImpl implements ConcreteTyp
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	protected ConcreteTypeTwoImpl() {
@@ -65,6 +69,7 @@ public class ConcreteTypeTwoImpl extends AbstractTypeImpl implements ConcreteTyp
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -75,6 +80,7 @@ public class ConcreteTypeTwoImpl extends AbstractTypeImpl implements ConcreteTyp
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public String getPropTypeTwo() {
@@ -84,6 +90,7 @@ public class ConcreteTypeTwoImpl extends AbstractTypeImpl implements ConcreteTyp
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setPropTypeTwo(String newPropTypeTwo) {
@@ -96,6 +103,7 @@ public class ConcreteTypeTwoImpl extends AbstractTypeImpl implements ConcreteTyp
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -110,13 +118,14 @@ public class ConcreteTypeTwoImpl extends AbstractTypeImpl implements ConcreteTyp
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackage.CONCRETE_TYPE_TWO__PROP_TYPE_TWO:
-				setPropTypeTwo((String)newValue);
+				setPropTypeTwo((String) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -125,6 +134,7 @@ public class ConcreteTypeTwoImpl extends AbstractTypeImpl implements ConcreteTyp
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -140,6 +150,7 @@ public class ConcreteTypeTwoImpl extends AbstractTypeImpl implements ConcreteTyp
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -154,6 +165,7 @@ public class ConcreteTypeTwoImpl extends AbstractTypeImpl implements ConcreteTyp
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override

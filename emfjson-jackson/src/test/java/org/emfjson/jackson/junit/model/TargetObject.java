@@ -1,40 +1,37 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.jackson.junit.model;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Target Object</b></em>'.
  * <!-- end-user-doc -->
- *
+ * <p/>
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emfjson.jackson.junit.model.TargetObject#getSingleAttribute <em>Single Attribute</em>}</li>
- *   <li>{@link org.emfjson.jackson.junit.model.TargetObject#getArrayAttribute <em>Array Attribute</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.TargetObject#getSingleAttribute <em>Single Attribute</em>}</li>
+ * <li>{@link org.emfjson.jackson.junit.model.TargetObject#getArrayAttribute <em>Array Attribute</em>}</li>
  * </ul>
  * </p>
  *
@@ -45,9 +42,10 @@ public class TargetObject extends MinimalEObjectImpl.Container implements EObjec
 	 * The default value of the '{@link #getSingleAttribute() <em>Single Attribute</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSingleAttribute()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getSingleAttribute()
 	 */
 	protected static final String SINGLE_ATTRIBUTE_EDEFAULT = null;
 
@@ -55,9 +53,10 @@ public class TargetObject extends MinimalEObjectImpl.Container implements EObjec
 	 * The cached value of the '{@link #getSingleAttribute() <em>Single Attribute</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSingleAttribute()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getSingleAttribute()
 	 */
 	protected String singleAttribute = SINGLE_ATTRIBUTE_EDEFAULT;
 
@@ -65,15 +64,17 @@ public class TargetObject extends MinimalEObjectImpl.Container implements EObjec
 	 * The cached value of the '{@link #getArrayAttribute() <em>Array Attribute</em>}' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getArrayAttribute()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getArrayAttribute()
 	 */
 	protected EList<String> arrayAttribute;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	protected TargetObject() {
@@ -83,6 +84,7 @@ public class TargetObject extends MinimalEObjectImpl.Container implements EObjec
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -98,9 +100,10 @@ public class TargetObject extends MinimalEObjectImpl.Container implements EObjec
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Single Attribute</em>' attribute.
-	 * @see #setSingleAttribute(String)
 	 * @generated
+	 * @see #setSingleAttribute(String)
 	 */
 	public String getSingleAttribute() {
 		return singleAttribute;
@@ -110,9 +113,10 @@ public class TargetObject extends MinimalEObjectImpl.Container implements EObjec
 	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.TargetObject#getSingleAttribute <em>Single Attribute</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Single Attribute</em>' attribute.
-	 * @see #getSingleAttribute()
 	 * @generated
+	 * @see #getSingleAttribute()
 	 */
 	public void setSingleAttribute(String newSingleAttribute) {
 		String oldSingleAttribute = singleAttribute;
@@ -130,6 +134,7 @@ public class TargetObject extends MinimalEObjectImpl.Container implements EObjec
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Array Attribute</em>' attribute list.
 	 * @generated
 	 */
@@ -143,6 +148,7 @@ public class TargetObject extends MinimalEObjectImpl.Container implements EObjec
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -159,6 +165,7 @@ public class TargetObject extends MinimalEObjectImpl.Container implements EObjec
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -166,11 +173,11 @@ public class TargetObject extends MinimalEObjectImpl.Container implements EObjec
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackage.TARGET_OBJECT__SINGLE_ATTRIBUTE:
-				setSingleAttribute((String)newValue);
+				setSingleAttribute((String) newValue);
 				return;
 			case ModelPackage.TARGET_OBJECT__ARRAY_ATTRIBUTE:
 				getArrayAttribute().clear();
-				getArrayAttribute().addAll((Collection<? extends String>)newValue);
+				getArrayAttribute().addAll((Collection<? extends String>) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -179,6 +186,7 @@ public class TargetObject extends MinimalEObjectImpl.Container implements EObjec
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -197,6 +205,7 @@ public class TargetObject extends MinimalEObjectImpl.Container implements EObjec
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -213,6 +222,7 @@ public class TargetObject extends MinimalEObjectImpl.Container implements EObjec
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override

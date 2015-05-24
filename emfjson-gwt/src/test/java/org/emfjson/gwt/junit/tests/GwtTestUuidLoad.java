@@ -1,33 +1,30 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.tests;
+
+import com.google.gwt.json.client.JSONValue;
+import org.eclipse.emf.common.util.Callback;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.junit.Test;
+
+import org.emfjson.gwt.junit.model.*;
+import org.emfjson.gwt.junit.support.UuidTestSupport;
+import org.emfjson.gwt.map.JsonMapper;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import org.eclipse.emf.common.util.Callback;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.emfjson.gwt.junit.model.AbstractType;
-import org.emfjson.gwt.junit.model.ConcreteTypeOne;
-import org.emfjson.gwt.junit.model.Container;
-import org.emfjson.gwt.junit.model.ModelFactory;
-import org.emfjson.gwt.junit.model.ModelPackage;
-import org.emfjson.gwt.junit.support.UuidTestSupport;
-import org.emfjson.gwt.map.JsonMapper;
-import org.junit.Test;
-
-import com.google.gwt.json.client.JSONValue;
 
 public class GwtTestUuidLoad extends UuidTestSupport {
 
@@ -52,6 +49,7 @@ public class GwtTestUuidLoad extends UuidTestSupport {
 				assertEquals(uuid(root), uuid(output));
 				finishTest();
 			}
+
 			@Override
 			public void onFailure(Throwable caught) {
 				assertNull(caught);
@@ -78,6 +76,7 @@ public class GwtTestUuidLoad extends UuidTestSupport {
 
 				finishTest();
 			}
+
 			@Override
 			public void onFailure(Throwable caught) {
 				assertNull(caught);
@@ -105,10 +104,13 @@ public class GwtTestUuidLoad extends UuidTestSupport {
 		delayTestFinish(100);
 
 		mapper.parse(createUuidResource("result.json"), node, options, new Callback<Resource>() {
-			@Override public void onFailure(Throwable caught) {
+			@Override
+			public void onFailure(Throwable caught) {
 				assertNull(caught);
 			}
-			@Override public void onSuccess(Resource result) {
+
+			@Override
+			public void onSuccess(Resource result) {
 				assertNotNull(result);
 
 				EObject first = result.getContents().get(0);
@@ -130,7 +132,7 @@ public class GwtTestUuidLoad extends UuidTestSupport {
 				assertEquals(1, firstResult.getRefProperty().size());
 				assertEquals(uuid(secondResult), uuid(firstResult.getRefProperty().get(0)));
 				assertEquals(secondResult, firstResult.getRefProperty().get(0));
-				
+
 				finishTest();
 			}
 		});

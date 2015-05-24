@@ -1,34 +1,31 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.tests;
 
-import static org.eclipse.emf.ecore.util.EcoreUtil.createFromString;
+import com.google.gwt.core.client.JavaScriptObject;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.junit.Test;
+
+import org.emfjson.gwt.junit.model.*;
+import org.emfjson.gwt.junit.support.TestSupport;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
 
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.emfjson.gwt.junit.model.ETypes;
-import org.emfjson.gwt.junit.model.ModelFactory;
-import org.emfjson.gwt.junit.model.ModelPackage;
-import org.emfjson.gwt.junit.model.Sex;
-import org.emfjson.gwt.junit.model.User;
-import org.emfjson.gwt.junit.support.TestSupport;
-import org.junit.Test;
-
-import com.google.gwt.core.client.JavaScriptObject;
+import static org.eclipse.emf.ecore.util.EcoreUtil.createFromString;
 
 public class GwtTestValue extends TestSupport {
 
@@ -38,6 +35,52 @@ public class GwtTestValue extends TestSupport {
 			"eString": "Hello",
 			"eStrings": [ "Hello", "World" ]
 		}
+	}-*/;
+
+	private static native JavaScriptObject intValues() /*-{
+		return {
+			"eClass": "http://www.eclipselabs.org/emfjson/junit#//ETypes",
+			"eInt": 1,
+			"eInts": [ 1, 2 ]
+		}
+	}-*/;
+
+	private static native JavaScriptObject doubleValues() /*-{
+		return {
+			"eClass": "http://www.eclipselabs.org/emfjson/junit#//ETypes",
+			"eDouble": 1.2,
+			"eDoubles": [ 1.2, 2.2]
+		}
+	}-*/;
+
+	private static native JavaScriptObject booleanValues() /*-{
+		return {
+			"eClass": "http://www.eclipselabs.org/emfjson/junit#//ETypes",
+			"eBoolean": true,
+			"eBooleans": [ false, true ]
+		}
+	}-*/;
+
+	private static native JavaScriptObject dateValues() /*-{
+		return {
+			"eClass" : "http://www.eclipselabs.org/emfjson/junit#//ETypes",
+			"eDate" : "2011-10-10T00:00:00"
+		}
+	}-*/;
+
+	private static native JavaScriptObject enumValues() /*-{
+		return [
+			{
+				"eClass" : "http://www.eclipselabs.org/emfjson/junit#//User",
+				"name": "A",
+				"sex": "MALE"
+			},
+			{
+				"eClass" : "http://www.eclipselabs.org/emfjson/junit#//User",
+				"name": "B",
+				"sex": "FEMALE"
+			}
+		]
 	}-*/;
 
 	@Test
@@ -76,14 +119,6 @@ public class GwtTestValue extends TestSupport {
 		});
 	}
 
-	private static native JavaScriptObject intValues() /*-{
-		return {
-			"eClass": "http://www.eclipselabs.org/emfjson/junit#//ETypes",  
-			"eInt": 1, 
-			"eInts": [ 1, 2 ]
-		}
-	}-*/;
-
 	@Test
 	public void testIntValues() throws IOException {
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
@@ -98,14 +133,6 @@ public class GwtTestValue extends TestSupport {
 
 		isSame(intValues(), resource);
 	}
-
-	private static native JavaScriptObject doubleValues() /*-{
-		return {
-			"eClass": "http://www.eclipselabs.org/emfjson/junit#//ETypes", 
-			"eDouble": 1.2, 
-			"eDoubles": [ 1.2, 2.2]
-		}
-	}-*/;
 
 	@Test
 	public void testDoubleValues() throws IOException {
@@ -132,24 +159,16 @@ public class GwtTestValue extends TestSupport {
 				EObject root = resource.getContents().get(0);
 				assertEquals(ModelPackage.Literals.ETYPES, root.eClass());
 
-				ETypes types = (ETypes)root;
+				ETypes types = (ETypes) root;
 				assertEquals(1.2, types.getEDouble());
 				assertEquals(2, types.getEDoubles().size());
 				assertEquals(1.2, types.getEDoubles().get(0));
 				assertEquals(2.2, types.getEDoubles().get(1));
-				
+
 				finishTest();
 			}
 		});
 	}
-
-	private static native JavaScriptObject booleanValues() /*-{
-		return {
-			"eClass": "http://www.eclipselabs.org/emfjson/junit#//ETypes", 
-			"eBoolean": true, 
-			"eBooleans": [ false, true ]
-		}
-	}-*/;
 
 	@Test
 	public void testBooleanValues() throws IOException {
@@ -165,7 +184,7 @@ public class GwtTestValue extends TestSupport {
 
 		isSame(booleanValues(), resource);
 	}
-	
+
 	@Test
 	public void testLoadBooleanValues() throws IOException {
 		parse(booleanValues(), new TestCallback() {
@@ -176,23 +195,16 @@ public class GwtTestValue extends TestSupport {
 				EObject root = resource.getContents().get(0);
 				assertEquals(ModelPackage.Literals.ETYPES, root.eClass());
 
-				ETypes types = (ETypes)root;
+				ETypes types = (ETypes) root;
 				assertTrue(types.isEBoolean());
 				assertEquals(2, types.getEBooleans().size());
 				assertFalse(types.getEBooleans().get(0));
 				assertTrue(types.getEBooleans().get(1));
-				
+
 				finishTest();
 			}
 		});
 	}
-
-	private static native JavaScriptObject dateValues() /*-{
-		return {
-			"eClass" : "http://www.eclipselabs.org/emfjson/junit#//ETypes",
-			"eDate" : "2011-10-10T00:00:00"
-		}
-	}-*/;
 
 	@Test
 	public void testDateValue() throws IOException {
@@ -224,21 +236,6 @@ public class GwtTestValue extends TestSupport {
 			}
 		});
 	}
-
-	private static native JavaScriptObject enumValues() /*-{
-		return [
-			{
-				"eClass" : "http://www.eclipselabs.org/emfjson/junit#//User",
-				"name": "A",
-				"sex": "MALE"
-			},
-			{
-				"eClass" : "http://www.eclipselabs.org/emfjson/junit#//User",
-				"name": "B", 
-				"sex": "FEMALE"
-			}
-		]
-	}-*/;
 
 	@Test
 	public void testEnums() throws IOException {

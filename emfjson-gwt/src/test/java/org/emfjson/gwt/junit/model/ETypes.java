@@ -1,52 +1,53 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.model;
-
-import java.util.Date;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 
+import java.util.Date;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>ETypes</b></em>'.
  * <!-- end-user-doc -->
- *
+ * <p/>
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emfjson.gwt.junit.model.ETypes#getEString <em>EString</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.ETypes#getEStrings <em>EStrings</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.ETypes#isEBoolean <em>EBoolean</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.ETypes#getEBooleans <em>EBooleans</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.ETypes#getEInt <em>EInt</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.ETypes#getEInts <em>EInts</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.ETypes#getDoubleValue <em>Double Value</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.ETypes#getEDouble <em>EDouble</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.ETypes#getEDoubles <em>EDoubles</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.ETypes#getEByte <em>EByte</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.ETypes#getEByteArray <em>EByte Array</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.ETypes#getEChar <em>EChar</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.ETypes#getEDate <em>EDate</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.ETypes#getEFloat <em>EFloat</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.ETypes#getELong <em>ELong</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.ETypes#getEShort <em>EShort</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.ETypes#getUris <em>Uris</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.ETypes#getEString <em>EString</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.ETypes#getEStrings <em>EStrings</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.ETypes#isEBoolean <em>EBoolean</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.ETypes#getEBooleans <em>EBooleans</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.ETypes#getEInt <em>EInt</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.ETypes#getEInts <em>EInts</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.ETypes#getDoubleValue <em>Double Value</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.ETypes#getEDouble <em>EDouble</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.ETypes#getEDoubles <em>EDoubles</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.ETypes#getEByte <em>EByte</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.ETypes#getEByteArray <em>EByte Array</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.ETypes#getEChar <em>EChar</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.ETypes#getEDate <em>EDate</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.ETypes#getEFloat <em>EFloat</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.ETypes#getELong <em>ELong</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.ETypes#getEShort <em>EShort</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.ETypes#getUris <em>Uris</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes()
  * @model
  * @generated
+ * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes()
  */
 public interface ETypes extends EObject {
 	/**
@@ -57,11 +58,12 @@ public interface ETypes extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EString</em>' attribute.
-	 * @see #setEString(String)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EString()
 	 * @model
 	 * @generated
+	 * @see #setEString(String)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EString()
 	 */
 	String getEString();
 
@@ -69,9 +71,10 @@ public interface ETypes extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.ETypes#getEString <em>EString</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>EString</em>' attribute.
-	 * @see #getEString()
 	 * @generated
+	 * @see #getEString()
 	 */
 	void setEString(String value);
 
@@ -84,10 +87,11 @@ public interface ETypes extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EStrings</em>' attribute list.
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EStrings()
 	 * @model
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EStrings()
 	 */
 	EList<String> getEStrings();
 
@@ -99,11 +103,12 @@ public interface ETypes extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EBoolean</em>' attribute.
-	 * @see #setEBoolean(boolean)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EBoolean()
 	 * @model
 	 * @generated
+	 * @see #setEBoolean(boolean)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EBoolean()
 	 */
 	boolean isEBoolean();
 
@@ -111,9 +116,10 @@ public interface ETypes extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.ETypes#isEBoolean <em>EBoolean</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>EBoolean</em>' attribute.
-	 * @see #isEBoolean()
 	 * @generated
+	 * @see #isEBoolean()
 	 */
 	void setEBoolean(boolean value);
 
@@ -126,10 +132,11 @@ public interface ETypes extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EBooleans</em>' attribute list.
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EBooleans()
 	 * @model
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EBooleans()
 	 */
 	EList<Boolean> getEBooleans();
 
@@ -141,11 +148,12 @@ public interface ETypes extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EInt</em>' attribute.
-	 * @see #setEInt(int)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EInt()
 	 * @model
 	 * @generated
+	 * @see #setEInt(int)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EInt()
 	 */
 	int getEInt();
 
@@ -153,9 +161,10 @@ public interface ETypes extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.ETypes#getEInt <em>EInt</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>EInt</em>' attribute.
-	 * @see #getEInt()
 	 * @generated
+	 * @see #getEInt()
 	 */
 	void setEInt(int value);
 
@@ -168,10 +177,11 @@ public interface ETypes extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EInts</em>' attribute list.
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EInts()
 	 * @model
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EInts()
 	 */
 	EList<Integer> getEInts();
 
@@ -183,11 +193,12 @@ public interface ETypes extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Double Value</em>' attribute.
-	 * @see #setDoubleValue(Double)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_DoubleValue()
 	 * @model
 	 * @generated
+	 * @see #setDoubleValue(Double)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_DoubleValue()
 	 */
 	Double getDoubleValue();
 
@@ -195,9 +206,10 @@ public interface ETypes extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.ETypes#getDoubleValue <em>Double Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>Double Value</em>' attribute.
-	 * @see #getDoubleValue()
 	 * @generated
+	 * @see #getDoubleValue()
 	 */
 	void setDoubleValue(Double value);
 
@@ -209,11 +221,12 @@ public interface ETypes extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EDouble</em>' attribute.
-	 * @see #setEDouble(double)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EDouble()
 	 * @model
 	 * @generated
+	 * @see #setEDouble(double)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EDouble()
 	 */
 	double getEDouble();
 
@@ -221,9 +234,10 @@ public interface ETypes extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.ETypes#getEDouble <em>EDouble</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>EDouble</em>' attribute.
-	 * @see #getEDouble()
 	 * @generated
+	 * @see #getEDouble()
 	 */
 	void setEDouble(double value);
 
@@ -236,10 +250,11 @@ public interface ETypes extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EDoubles</em>' attribute list.
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EDoubles()
 	 * @model
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EDoubles()
 	 */
 	EList<Double> getEDoubles();
 
@@ -251,11 +266,12 @@ public interface ETypes extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EByte</em>' attribute.
-	 * @see #setEByte(byte)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EByte()
 	 * @model
 	 * @generated
+	 * @see #setEByte(byte)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EByte()
 	 */
 	byte getEByte();
 
@@ -263,9 +279,10 @@ public interface ETypes extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.ETypes#getEByte <em>EByte</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>EByte</em>' attribute.
-	 * @see #getEByte()
 	 * @generated
+	 * @see #getEByte()
 	 */
 	void setEByte(byte value);
 
@@ -277,11 +294,12 @@ public interface ETypes extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EByte Array</em>' attribute.
-	 * @see #setEByteArray(byte[])
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EByteArray()
 	 * @model
 	 * @generated
+	 * @see #setEByteArray(byte[])
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EByteArray()
 	 */
 	byte[] getEByteArray();
 
@@ -289,9 +307,10 @@ public interface ETypes extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.ETypes#getEByteArray <em>EByte Array</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>EByte Array</em>' attribute.
-	 * @see #getEByteArray()
 	 * @generated
+	 * @see #getEByteArray()
 	 */
 	void setEByteArray(byte[] value);
 
@@ -303,11 +322,12 @@ public interface ETypes extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EChar</em>' attribute.
-	 * @see #setEChar(char)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EChar()
 	 * @model
 	 * @generated
+	 * @see #setEChar(char)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EChar()
 	 */
 	char getEChar();
 
@@ -315,9 +335,10 @@ public interface ETypes extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.ETypes#getEChar <em>EChar</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>EChar</em>' attribute.
-	 * @see #getEChar()
 	 * @generated
+	 * @see #getEChar()
 	 */
 	void setEChar(char value);
 
@@ -329,11 +350,12 @@ public interface ETypes extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EDate</em>' attribute.
-	 * @see #setEDate(Date)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EDate()
 	 * @model
 	 * @generated
+	 * @see #setEDate(Date)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EDate()
 	 */
 	Date getEDate();
 
@@ -341,9 +363,10 @@ public interface ETypes extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.ETypes#getEDate <em>EDate</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>EDate</em>' attribute.
-	 * @see #getEDate()
 	 * @generated
+	 * @see #getEDate()
 	 */
 	void setEDate(Date value);
 
@@ -355,11 +378,12 @@ public interface ETypes extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EFloat</em>' attribute.
-	 * @see #setEFloat(float)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EFloat()
 	 * @model
 	 * @generated
+	 * @see #setEFloat(float)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EFloat()
 	 */
 	float getEFloat();
 
@@ -367,9 +391,10 @@ public interface ETypes extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.ETypes#getEFloat <em>EFloat</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>EFloat</em>' attribute.
-	 * @see #getEFloat()
 	 * @generated
+	 * @see #getEFloat()
 	 */
 	void setEFloat(float value);
 
@@ -381,11 +406,12 @@ public interface ETypes extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>ELong</em>' attribute.
-	 * @see #setELong(long)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_ELong()
 	 * @model
 	 * @generated
+	 * @see #setELong(long)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_ELong()
 	 */
 	long getELong();
 
@@ -393,9 +419,10 @@ public interface ETypes extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.ETypes#getELong <em>ELong</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>ELong</em>' attribute.
-	 * @see #getELong()
 	 * @generated
+	 * @see #getELong()
 	 */
 	void setELong(long value);
 
@@ -407,11 +434,12 @@ public interface ETypes extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>EShort</em>' attribute.
-	 * @see #setEShort(short)
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EShort()
 	 * @model
 	 * @generated
+	 * @see #setEShort(short)
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_EShort()
 	 */
 	short getEShort();
 
@@ -419,9 +447,10 @@ public interface ETypes extends EObject {
 	 * Sets the value of the '{@link org.emfjson.gwt.junit.model.ETypes#getEShort <em>EShort</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @param value the new value of the '<em>EShort</em>' attribute.
-	 * @see #getEShort()
 	 * @generated
+	 * @see #getEShort()
 	 */
 	void setEShort(short value);
 
@@ -434,10 +463,11 @@ public interface ETypes extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 *
 	 * @return the value of the '<em>Uris</em>' attribute list.
-	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_Uris()
 	 * @model dataType="org.eclipselabs.emfjson.junit.model.URI"
 	 * @generated
+	 * @see org.emfjson.gwt.junit.model.ModelPackage#getETypes_Uris()
 	 */
 	EList<URI> getUris();
 

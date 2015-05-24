@@ -1,18 +1,17 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.model.impl;
 
-import java.util.Collection;
-import java.util.Date;
-
+import com.google.gwt.user.client.rpc.GwtTransient;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -21,12 +20,14 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectEList;
+
 import org.emfjson.gwt.junit.model.Address;
 import org.emfjson.gwt.junit.model.ModelPackage;
 import org.emfjson.gwt.junit.model.Sex;
 import org.emfjson.gwt.junit.model.User;
 
-import com.google.gwt.user.client.rpc.GwtTransient;
+import java.util.Collection;
+import java.util.Date;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,13 +36,13 @@ import com.google.gwt.user.client.rpc.GwtTransient;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.UserImpl#getUserId <em>User Id</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.UserImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.UserImpl#getBirthDate <em>Birth Date</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.UserImpl#getSex <em>Sex</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.UserImpl#getFriends <em>Friends</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.UserImpl#getUniqueFriend <em>Unique Friend</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.UserImpl#getAddress <em>Address</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.UserImpl#getUserId <em>User Id</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.UserImpl#getName <em>Name</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.UserImpl#getBirthDate <em>Birth Date</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.UserImpl#getSex <em>Sex</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.UserImpl#getFriends <em>Friends</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.UserImpl#getUniqueFriend <em>Unique Friend</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.UserImpl#getAddress <em>Address</em>}</li>
  * </ul>
  * </p>
  *
@@ -52,82 +53,83 @@ public class UserImpl extends EObjectImpl implements User {
 	 * The default value of the '{@link #getUserId() <em>User Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getUserId()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getUserId()
 	 */
 	protected static final String USER_ID_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getUserId() <em>User Id</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getUserId()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected String userId = USER_ID_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getName()
 	 */
 	protected static final String NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected String name = NAME_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getBirthDate() <em>Birth Date</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBirthDate()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getBirthDate()
 	 */
 	protected static final Date BIRTH_DATE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getBirthDate() <em>Birth Date</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getBirthDate()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected Date birthDate = BIRTH_DATE_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getSex() <em>Sex</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSex()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getSex()
 	 */
 	protected static final Sex SEX_EDEFAULT = Sex.MALE;
-
+	/**
+	 * The cached value of the '{@link #getUserId() <em>User Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getUserId()
+	 */
+	@GwtTransient
+	protected String userId = USER_ID_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getName()
+	 */
+	@GwtTransient
+	protected String name = NAME_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getBirthDate() <em>Birth Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getBirthDate()
+	 */
+	@GwtTransient
+	protected Date birthDate = BIRTH_DATE_EDEFAULT;
 	/**
 	 * The cached value of the '{@link #getSex() <em>Sex</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSex()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getSex()
 	 */
 	@GwtTransient
 	protected Sex sex = SEX_EDEFAULT;
@@ -136,9 +138,10 @@ public class UserImpl extends EObjectImpl implements User {
 	 * The cached value of the '{@link #getFriends() <em>Friends</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getFriends()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getFriends()
 	 */
 	@GwtTransient
 	protected EList<User> friends;
@@ -147,9 +150,10 @@ public class UserImpl extends EObjectImpl implements User {
 	 * The cached value of the '{@link #getUniqueFriend() <em>Unique Friend</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getUniqueFriend()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getUniqueFriend()
 	 */
 	@GwtTransient
 	protected User uniqueFriend;
@@ -158,9 +162,10 @@ public class UserImpl extends EObjectImpl implements User {
 	 * The cached value of the '{@link #getAddress() <em>Address</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAddress()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getAddress()
 	 */
 	@GwtTransient
 	protected Address address;
@@ -168,6 +173,7 @@ public class UserImpl extends EObjectImpl implements User {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	protected UserImpl() {
@@ -177,6 +183,7 @@ public class UserImpl extends EObjectImpl implements User {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -187,6 +194,7 @@ public class UserImpl extends EObjectImpl implements User {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public String getUserId() {
@@ -196,6 +204,7 @@ public class UserImpl extends EObjectImpl implements User {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setUserId(String newUserId) {
@@ -208,6 +217,7 @@ public class UserImpl extends EObjectImpl implements User {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public String getName() {
@@ -217,6 +227,7 @@ public class UserImpl extends EObjectImpl implements User {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setName(String newName) {
@@ -229,6 +240,7 @@ public class UserImpl extends EObjectImpl implements User {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public Date getBirthDate() {
@@ -238,6 +250,7 @@ public class UserImpl extends EObjectImpl implements User {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setBirthDate(Date newBirthDate) {
@@ -250,6 +263,7 @@ public class UserImpl extends EObjectImpl implements User {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public Sex getSex() {
@@ -259,6 +273,7 @@ public class UserImpl extends EObjectImpl implements User {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setSex(Sex newSex) {
@@ -271,6 +286,7 @@ public class UserImpl extends EObjectImpl implements User {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EList<User> getFriends() {
@@ -283,6 +299,7 @@ public class UserImpl extends EObjectImpl implements User {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public User getUniqueFriend() {
@@ -292,6 +309,7 @@ public class UserImpl extends EObjectImpl implements User {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setUniqueFriend(User newUniqueFriend) {
@@ -304,14 +322,15 @@ public class UserImpl extends EObjectImpl implements User {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public Address getAddress() {
 		if (address != null && address.eIsProxy()) {
-			InternalEObject oldAddress = (InternalEObject)address;
-			address = (Address)eResolveProxy(oldAddress);
+			InternalEObject oldAddress = (InternalEObject) address;
+			address = (Address) eResolveProxy(oldAddress);
 			if (address != oldAddress) {
-				InternalEObject newAddress = (InternalEObject)address;
+				InternalEObject newAddress = (InternalEObject) address;
 				NotificationChain msgs = oldAddress.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.USER__ADDRESS, null, null);
 				if (newAddress.eInternalContainer() == null) {
 					msgs = newAddress.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.USER__ADDRESS, null, msgs);
@@ -327,6 +346,26 @@ public class UserImpl extends EObjectImpl implements User {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	public void setAddress(Address newAddress) {
+		if (newAddress != address) {
+			NotificationChain msgs = null;
+			if (address != null)
+				msgs = ((InternalEObject) address).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.USER__ADDRESS, null, msgs);
+			if (newAddress != null)
+				msgs = ((InternalEObject) newAddress).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.USER__ADDRESS, null, msgs);
+			msgs = basicSetAddress(newAddress, msgs);
+			if (msgs != null) msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.USER__ADDRESS, newAddress, newAddress));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public Address basicGetAddress() {
@@ -336,6 +375,7 @@ public class UserImpl extends EObjectImpl implements User {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public NotificationChain basicSetAddress(Address newAddress, NotificationChain msgs) {
@@ -343,7 +383,8 @@ public class UserImpl extends EObjectImpl implements User {
 		address = newAddress;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.USER__ADDRESS, oldAddress, newAddress);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+			if (msgs == null) msgs = notification;
+			else msgs.add(notification);
 		}
 		return msgs;
 	}
@@ -351,25 +392,7 @@ public class UserImpl extends EObjectImpl implements User {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setAddress(Address newAddress) {
-		if (newAddress != address) {
-			NotificationChain msgs = null;
-			if (address != null)
-				msgs = ((InternalEObject)address).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.USER__ADDRESS, null, msgs);
-			if (newAddress != null)
-				msgs = ((InternalEObject)newAddress).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.USER__ADDRESS, null, msgs);
-			msgs = basicSetAddress(newAddress, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.USER__ADDRESS, newAddress, newAddress));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -384,6 +407,7 @@ public class UserImpl extends EObjectImpl implements User {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -411,6 +435,7 @@ public class UserImpl extends EObjectImpl implements User {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -418,26 +443,26 @@ public class UserImpl extends EObjectImpl implements User {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackage.USER__USER_ID:
-				setUserId((String)newValue);
+				setUserId((String) newValue);
 				return;
 			case ModelPackage.USER__NAME:
-				setName((String)newValue);
+				setName((String) newValue);
 				return;
 			case ModelPackage.USER__BIRTH_DATE:
-				setBirthDate((Date)newValue);
+				setBirthDate((Date) newValue);
 				return;
 			case ModelPackage.USER__SEX:
-				setSex((Sex)newValue);
+				setSex((Sex) newValue);
 				return;
 			case ModelPackage.USER__FRIENDS:
 				getFriends().clear();
-				getFriends().addAll((Collection<? extends User>)newValue);
+				getFriends().addAll((Collection<? extends User>) newValue);
 				return;
 			case ModelPackage.USER__UNIQUE_FRIEND:
-				setUniqueFriend((User)newValue);
+				setUniqueFriend((User) newValue);
 				return;
 			case ModelPackage.USER__ADDRESS:
-				setAddress((Address)newValue);
+				setAddress((Address) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -446,6 +471,7 @@ public class UserImpl extends EObjectImpl implements User {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -467,10 +493,10 @@ public class UserImpl extends EObjectImpl implements User {
 				getFriends().clear();
 				return;
 			case ModelPackage.USER__UNIQUE_FRIEND:
-				setUniqueFriend((User)null);
+				setUniqueFriend((User) null);
 				return;
 			case ModelPackage.USER__ADDRESS:
-				setAddress((Address)null);
+				setAddress((Address) null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -479,6 +505,7 @@ public class UserImpl extends EObjectImpl implements User {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -505,6 +532,7 @@ public class UserImpl extends EObjectImpl implements User {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override

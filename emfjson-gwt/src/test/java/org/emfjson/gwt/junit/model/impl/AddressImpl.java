@@ -1,23 +1,24 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.model.impl;
 
+import com.google.gwt.user.client.rpc.GwtTransient;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.emfjson.gwt.junit.model.Address;
 import org.emfjson.gwt.junit.model.ModelPackage;
-
-import com.google.gwt.user.client.rpc.GwtTransient;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,10 +27,10 @@ import com.google.gwt.user.client.rpc.GwtTransient;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.AddressImpl#getAddId <em>Add Id</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.AddressImpl#getCity <em>City</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.AddressImpl#getStreet <em>Street</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.AddressImpl#getNumber <em>Number</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.AddressImpl#getAddId <em>Add Id</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.AddressImpl#getCity <em>City</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.AddressImpl#getStreet <em>Street</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.AddressImpl#getNumber <em>Number</em>}</li>
  * </ul>
  * </p>
  *
@@ -40,82 +41,83 @@ public class AddressImpl extends EObjectImpl implements Address {
 	 * The default value of the '{@link #getAddId() <em>Add Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAddId()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getAddId()
 	 */
 	protected static final String ADD_ID_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getAddId() <em>Add Id</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAddId()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected String addId = ADD_ID_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getCity() <em>City</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCity()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getCity()
 	 */
 	protected static final String CITY_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getCity() <em>City</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCity()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected String city = CITY_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getStreet() <em>Street</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getStreet()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getStreet()
 	 */
 	protected static final String STREET_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getStreet() <em>Street</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getStreet()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected String street = STREET_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getNumber() <em>Number</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getNumber()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getNumber()
 	 */
 	protected static final Integer NUMBER_EDEFAULT = null;
-
+	/**
+	 * The cached value of the '{@link #getAddId() <em>Add Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getAddId()
+	 */
+	@GwtTransient
+	protected String addId = ADD_ID_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getCity() <em>City</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getCity()
+	 */
+	@GwtTransient
+	protected String city = CITY_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getStreet() <em>Street</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getStreet()
+	 */
+	@GwtTransient
+	protected String street = STREET_EDEFAULT;
 	/**
 	 * The cached value of the '{@link #getNumber() <em>Number</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getNumber()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getNumber()
 	 */
 	@GwtTransient
 	protected Integer number = NUMBER_EDEFAULT;
@@ -123,6 +125,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	protected AddressImpl() {
@@ -132,6 +135,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -142,6 +146,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public String getAddId() {
@@ -151,6 +156,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setAddId(String newAddId) {
@@ -163,6 +169,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public String getCity() {
@@ -172,6 +179,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setCity(String newCity) {
@@ -184,6 +192,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public String getStreet() {
@@ -193,6 +202,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setStreet(String newStreet) {
@@ -205,6 +215,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public Integer getNumber() {
@@ -214,6 +225,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setNumber(Integer newNumber) {
@@ -226,6 +238,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -246,22 +259,23 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackage.ADDRESS__ADD_ID:
-				setAddId((String)newValue);
+				setAddId((String) newValue);
 				return;
 			case ModelPackage.ADDRESS__CITY:
-				setCity((String)newValue);
+				setCity((String) newValue);
 				return;
 			case ModelPackage.ADDRESS__STREET:
-				setStreet((String)newValue);
+				setStreet((String) newValue);
 				return;
 			case ModelPackage.ADDRESS__NUMBER:
-				setNumber((Integer)newValue);
+				setNumber((Integer) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -270,6 +284,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -294,6 +309,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -314,6 +330,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override

@@ -1,136 +1,143 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.model.impl;
 
-import org.eclipse.emf.common.util.Reflect;
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EEnum;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.emfjson.gwt.junit.model.AbstractType;
-import org.emfjson.gwt.junit.model.Address;
-import org.emfjson.gwt.junit.model.ConcreteTypeOne;
-import org.emfjson.gwt.junit.model.ConcreteTypeTwo;
-import org.emfjson.gwt.junit.model.ETypes;
-import org.emfjson.gwt.junit.model.ModelFactory;
-import org.emfjson.gwt.junit.model.ModelPackage;
-import org.emfjson.gwt.junit.model.Node;
-import org.emfjson.gwt.junit.model.ObjectWithMap;
-import org.emfjson.gwt.junit.model.PrimaryObject;
-import org.emfjson.gwt.junit.model.Sex;
-import org.emfjson.gwt.junit.model.TargetObject;
-import org.emfjson.gwt.junit.model.User;
-
 import com.google.gwt.user.client.rpc.IsSerializable;
+import org.eclipse.emf.common.util.Reflect;
+import org.eclipse.emf.ecore.*;
+import org.eclipse.emf.ecore.impl.EPackageImpl;
+
+import org.emfjson.gwt.junit.model.*;
 
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model <b>Package</b>.
  * <!-- end-user-doc -->
+ *
  * @generated
  */
 public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	private static boolean isInited = false;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	private EClass userEClass = null;
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	private EClass addressEClass = null;
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	private EClass eTypesEClass = null;
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	private EClass primaryObjectEClass = null;
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	private EClass containerEClass = null;
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	private EClass targetObjectEClass = null;
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	private EClass abstractTypeEClass = null;
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	private EClass concreteTypeOneEClass = null;
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	private EClass concreteTypeTwoEClass = null;
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	private EClass nodeEClass = null;
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	private EClass objectWithMapEClass = null;
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	private EEnum sexEEnum = null;
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	private EDataType uriEDataType = null;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	private boolean isCreated = false;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	private boolean isInitialized = false;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -142,41 +149,36 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * if one already exists.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
+	 * @generated
 	 * @see org.eclipse.emf.ecore.EPackage.Registry
 	 * @see org.emfjson.gwt.junit.model.ModelPackage#eNS_URI
 	 * @see #init()
-	 * @generated
 	 */
 	private ModelPackageImpl() {
 		super(eNS_URI, ModelFactory.eINSTANCE);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private static boolean isInited = false;
-
-	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 * <p/>
 	 * <p>This method is used to initialize {@link ModelPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
+	 * @generated
 	 * @see #eNS_URI
 	 * @see #createPackageContents()
 	 * @see #initializePackageContents()
-	 * @generated
 	 */
 	public static ModelPackage init() {
-		if (isInited) return (ModelPackage)EPackage.Registry.INSTANCE.getEPackage(ModelPackage.eNS_URI);
+		if (isInited) return (ModelPackage) EPackage.Registry.INSTANCE.getEPackage(ModelPackage.eNS_URI);
 
 		initializeRegistryHelpers();
 
 		// Obtain or create and register package
-		ModelPackageImpl theModelPackage = (ModelPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ModelPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ModelPackageImpl());
+		ModelPackageImpl theModelPackage = (ModelPackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ModelPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ModelPackageImpl());
 
 		isInited = true;
 
@@ -189,7 +191,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		// Mark meta-data to indicate it can't be changed
 		theModelPackage.freeze();
 
-  
+
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, theModelPackage);
 		return theModelPackage;
@@ -198,257 +200,159 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public static void initializeRegistryHelpers() {
 		Reflect.register
-			(User.class, 
-			 new Reflect.Helper() {
-				 public boolean isInstance(Object instance) {
-					 return instance instanceof User;
-				 }
+			(User.class,
+				new Reflect.Helper() {
+					public boolean isInstance(Object instance) {
+						return instance instanceof User;
+					}
 
-				 public Object newArrayInstance(int size) {
-					 return new User[size];
-				 }
-			 });
+					public Object newArrayInstance(int size) {
+						return new User[size];
+					}
+				});
 		Reflect.register
-			(Address.class, 
-			 new Reflect.Helper() {
-				 public boolean isInstance(Object instance) {
-					 return instance instanceof Address;
-				 }
+			(Address.class,
+				new Reflect.Helper() {
+					public boolean isInstance(Object instance) {
+						return instance instanceof Address;
+					}
 
-				 public Object newArrayInstance(int size) {
-					 return new Address[size];
-				 }
-			 });
+					public Object newArrayInstance(int size) {
+						return new Address[size];
+					}
+				});
 		Reflect.register
-			(ETypes.class, 
-			 new Reflect.Helper() {
-				 public boolean isInstance(Object instance) {
-					 return instance instanceof ETypes;
-				 }
+			(ETypes.class,
+				new Reflect.Helper() {
+					public boolean isInstance(Object instance) {
+						return instance instanceof ETypes;
+					}
 
-				 public Object newArrayInstance(int size) {
-					 return new ETypes[size];
-				 }
-			 });
+					public Object newArrayInstance(int size) {
+						return new ETypes[size];
+					}
+				});
 		Reflect.register
-			(PrimaryObject.class, 
-			 new Reflect.Helper() {
-				 public boolean isInstance(Object instance) {
-					 return instance instanceof PrimaryObject;
-				 }
+			(PrimaryObject.class,
+				new Reflect.Helper() {
+					public boolean isInstance(Object instance) {
+						return instance instanceof PrimaryObject;
+					}
 
-				 public Object newArrayInstance(int size) {
-					 return new PrimaryObject[size];
-				 }
-			 });
+					public Object newArrayInstance(int size) {
+						return new PrimaryObject[size];
+					}
+				});
 		Reflect.register
-			(org.emfjson.gwt.junit.model.Container.class, 
-			 new Reflect.Helper() {
-				 public boolean isInstance(Object instance) {
-					 return instance instanceof org.emfjson.gwt.junit.model.Container;
-				 }
+			(org.emfjson.gwt.junit.model.Container.class,
+				new Reflect.Helper() {
+					public boolean isInstance(Object instance) {
+						return instance instanceof org.emfjson.gwt.junit.model.Container;
+					}
 
-				 public Object newArrayInstance(int size) {
-					 return new org.emfjson.gwt.junit.model.Container[size];
-				 }
-			 });
+					public Object newArrayInstance(int size) {
+						return new org.emfjson.gwt.junit.model.Container[size];
+					}
+				});
 		Reflect.register
-			(TargetObject.class, 
-			 new Reflect.Helper() {
-				 public boolean isInstance(Object instance) {
-					 return instance instanceof TargetObject;
-				 }
+			(TargetObject.class,
+				new Reflect.Helper() {
+					public boolean isInstance(Object instance) {
+						return instance instanceof TargetObject;
+					}
 
-				 public Object newArrayInstance(int size) {
-					 return new TargetObject[size];
-				 }
-			 });
+					public Object newArrayInstance(int size) {
+						return new TargetObject[size];
+					}
+				});
 		Reflect.register
-			(AbstractType.class, 
-			 new Reflect.Helper() {
-				 public boolean isInstance(Object instance) {
-					 return instance instanceof AbstractType;
-				 }
+			(AbstractType.class,
+				new Reflect.Helper() {
+					public boolean isInstance(Object instance) {
+						return instance instanceof AbstractType;
+					}
 
-				 public Object newArrayInstance(int size) {
-					 return new AbstractType[size];
-				 }
-			 });
+					public Object newArrayInstance(int size) {
+						return new AbstractType[size];
+					}
+				});
 		Reflect.register
-			(ConcreteTypeOne.class, 
-			 new Reflect.Helper() {
-				 public boolean isInstance(Object instance) {
-					 return instance instanceof ConcreteTypeOne;
-				 }
+			(ConcreteTypeOne.class,
+				new Reflect.Helper() {
+					public boolean isInstance(Object instance) {
+						return instance instanceof ConcreteTypeOne;
+					}
 
-				 public Object newArrayInstance(int size) {
-					 return new ConcreteTypeOne[size];
-				 }
-			 });
+					public Object newArrayInstance(int size) {
+						return new ConcreteTypeOne[size];
+					}
+				});
 		Reflect.register
-			(ConcreteTypeTwo.class, 
-			 new Reflect.Helper() {
-				 public boolean isInstance(Object instance) {
-					 return instance instanceof ConcreteTypeTwo;
-				 }
+			(ConcreteTypeTwo.class,
+				new Reflect.Helper() {
+					public boolean isInstance(Object instance) {
+						return instance instanceof ConcreteTypeTwo;
+					}
 
-				 public Object newArrayInstance(int size) {
-					 return new ConcreteTypeTwo[size];
-				 }
-			 });
+					public Object newArrayInstance(int size) {
+						return new ConcreteTypeTwo[size];
+					}
+				});
 		Reflect.register
-			(Node.class, 
-			 new Reflect.Helper() {
-				 public boolean isInstance(Object instance) {
-					 return instance instanceof Node;
-				 }
+			(Node.class,
+				new Reflect.Helper() {
+					public boolean isInstance(Object instance) {
+						return instance instanceof Node;
+					}
 
-				 public Object newArrayInstance(int size) {
-					 return new Node[size];
-				 }
-			 });
+					public Object newArrayInstance(int size) {
+						return new Node[size];
+					}
+				});
 		Reflect.register
-			(ObjectWithMap.class, 
-			 new Reflect.Helper() {
-				 public boolean isInstance(Object instance) {
-					 return instance instanceof ObjectWithMap;
-				 }
+			(ObjectWithMap.class,
+				new Reflect.Helper() {
+					public boolean isInstance(Object instance) {
+						return instance instanceof ObjectWithMap;
+					}
 
-				 public Object newArrayInstance(int size) {
-					 return new ObjectWithMap[size];
-				 }
-			 });
+					public Object newArrayInstance(int size) {
+						return new ObjectWithMap[size];
+					}
+				});
 		Reflect.register
-			(Sex.class, 
-			 new Reflect.Helper() {
-				 public boolean isInstance(Object instance) {
-					 return instance instanceof Sex;
-				 }
+			(Sex.class,
+				new Reflect.Helper() {
+					public boolean isInstance(Object instance) {
+						return instance instanceof Sex;
+					}
 
-				 public Object newArrayInstance(int size) {
-					 return new Sex[size];
-				 }
-		});
+					public Object newArrayInstance(int size) {
+						return new Sex[size];
+					}
+				});
 		Reflect.register
-			(org.eclipse.emf.common.util.URI.class, 
-			 new Reflect.Helper() {
-				 public boolean isInstance(Object instance) {
-					 return instance instanceof org.eclipse.emf.common.util.URI;
-				 }
+			(org.eclipse.emf.common.util.URI.class,
+				new Reflect.Helper() {
+					public boolean isInstance(Object instance) {
+						return instance instanceof org.eclipse.emf.common.util.URI;
+					}
 
-				 public Object newArrayInstance(int size) {
-					 return new org.eclipse.emf.common.util.URI[size];
-				 }
-		});
-	}
-
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static class WhiteList implements IsSerializable, EBasicWhiteList {
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected User user;
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected Address address;
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected ETypes eTypes;
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected PrimaryObject primaryObject;
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected org.emfjson.gwt.junit.model.Container container;
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected TargetObject targetObject;
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected AbstractType abstractType;
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected ConcreteTypeOne concreteTypeOne;
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected ConcreteTypeTwo concreteTypeTwo;
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected Node node;
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected ObjectWithMap objectWithMap;
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected Sex sex;
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected org.eclipse.emf.common.util.URI uri;
-
+					public Object newArrayInstance(int size) {
+						return new org.eclipse.emf.common.util.URI[size];
+					}
+				});
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EClass getUser() {
@@ -458,69 +362,77 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getUser_UserId() {
-		return (EAttribute)userEClass.getEStructuralFeatures().get(0);
+		return (EAttribute) userEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getUser_Name() {
-		return (EAttribute)userEClass.getEStructuralFeatures().get(1);
+		return (EAttribute) userEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getUser_BirthDate() {
-		return (EAttribute)userEClass.getEStructuralFeatures().get(2);
+		return (EAttribute) userEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getUser_Sex() {
-		return (EAttribute)userEClass.getEStructuralFeatures().get(3);
+		return (EAttribute) userEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getUser_Friends() {
-		return (EReference)userEClass.getEStructuralFeatures().get(4);
+		return (EReference) userEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getUser_UniqueFriend() {
-		return (EReference)userEClass.getEStructuralFeatures().get(5);
+		return (EReference) userEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getUser_Address() {
-		return (EReference)userEClass.getEStructuralFeatures().get(6);
+		return (EReference) userEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EClass getAddress() {
@@ -530,42 +442,47 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getAddress_AddId() {
-		return (EAttribute)addressEClass.getEStructuralFeatures().get(0);
+		return (EAttribute) addressEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getAddress_City() {
-		return (EAttribute)addressEClass.getEStructuralFeatures().get(1);
+		return (EAttribute) addressEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getAddress_Street() {
-		return (EAttribute)addressEClass.getEStructuralFeatures().get(2);
+		return (EAttribute) addressEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getAddress_Number() {
-		return (EAttribute)addressEClass.getEStructuralFeatures().get(3);
+		return (EAttribute) addressEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EClass getETypes() {
@@ -575,159 +492,177 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getETypes_EString() {
-		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(0);
+		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getETypes_EStrings() {
-		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(1);
+		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getETypes_EBoolean() {
-		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(2);
+		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getETypes_EBooleans() {
-		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(3);
+		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getETypes_EInt() {
-		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(4);
+		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getETypes_EInts() {
-		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(5);
+		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getETypes_DoubleValue() {
-		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(6);
+		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getETypes_EDouble() {
-		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(7);
+		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getETypes_EDoubles() {
-		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(8);
+		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getETypes_EByte() {
-		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(9);
+		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getETypes_EByteArray() {
-		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(10);
+		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getETypes_EChar() {
-		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(11);
+		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getETypes_EDate() {
-		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(12);
+		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(12);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getETypes_EFloat() {
-		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(13);
+		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(13);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getETypes_ELong() {
-		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(14);
+		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(14);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getETypes_EShort() {
-		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(15);
+		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(15);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getETypes_Uris() {
-		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(16);
+		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(16);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EClass getPrimaryObject() {
@@ -737,177 +672,197 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getPrimaryObject_Name() {
-		return (EAttribute)primaryObjectEClass.getEStructuralFeatures().get(0);
+		return (EAttribute) primaryObjectEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getPrimaryObject_IdAttribute() {
-		return (EAttribute)primaryObjectEClass.getEStructuralFeatures().get(1);
+		return (EAttribute) primaryObjectEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getPrimaryObject_UnsettableAttribute() {
-		return (EAttribute)primaryObjectEClass.getEStructuralFeatures().get(2);
+		return (EAttribute) primaryObjectEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getPrimaryObject_UnsettableAttributeWithNonNullDefault() {
-		return (EAttribute)primaryObjectEClass.getEStructuralFeatures().get(3);
+		return (EAttribute) primaryObjectEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getPrimaryObject_UnsettableReference() {
-		return (EReference)primaryObjectEClass.getEStructuralFeatures().get(4);
+		return (EReference) primaryObjectEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getPrimaryObject_ContainmentReferenceSameCollectioin() {
-		return (EReference)primaryObjectEClass.getEStructuralFeatures().get(5);
+		return (EReference) primaryObjectEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getPrimaryObject_SingleNonContainmentReference() {
-		return (EReference)primaryObjectEClass.getEStructuralFeatures().get(6);
+		return (EReference) primaryObjectEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getPrimaryObject_MultipleNonContainmentReference() {
-		return (EReference)primaryObjectEClass.getEStructuralFeatures().get(7);
+		return (EReference) primaryObjectEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getPrimaryObject_SingleContainmentReferenceNoProxies() {
-		return (EReference)primaryObjectEClass.getEStructuralFeatures().get(8);
+		return (EReference) primaryObjectEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getPrimaryObject_MultipleContainmentReferenceNoProxies() {
-		return (EReference)primaryObjectEClass.getEStructuralFeatures().get(9);
+		return (EReference) primaryObjectEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getPrimaryObject_SingleContainmentReferenceProxies() {
-		return (EReference)primaryObjectEClass.getEStructuralFeatures().get(10);
+		return (EReference) primaryObjectEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getPrimaryObject_MultipleContainmentReferenceProxies() {
-		return (EReference)primaryObjectEClass.getEStructuralFeatures().get(11);
+		return (EReference) primaryObjectEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getPrimaryObject_SingleNonContainmentReferenceNoProxies() {
-		return (EReference)primaryObjectEClass.getEStructuralFeatures().get(12);
+		return (EReference) primaryObjectEClass.getEStructuralFeatures().get(12);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getPrimaryObject_FeatureMapReferenceType1() {
-		return (EReference)primaryObjectEClass.getEStructuralFeatures().get(13);
+		return (EReference) primaryObjectEClass.getEStructuralFeatures().get(13);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getPrimaryObject_FeatureMapReferenceType2() {
-		return (EReference)primaryObjectEClass.getEStructuralFeatures().get(14);
+		return (EReference) primaryObjectEClass.getEStructuralFeatures().get(14);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getPrimaryObject_FeatureMapReferenceCollection() {
-		return (EAttribute)primaryObjectEClass.getEStructuralFeatures().get(15);
+		return (EAttribute) primaryObjectEClass.getEStructuralFeatures().get(15);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getPrimaryObject_FeatureMapAttributeType1() {
-		return (EAttribute)primaryObjectEClass.getEStructuralFeatures().get(16);
+		return (EAttribute) primaryObjectEClass.getEStructuralFeatures().get(16);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getPrimaryObject_FeatureMapAttributeType2() {
-		return (EAttribute)primaryObjectEClass.getEStructuralFeatures().get(17);
+		return (EAttribute) primaryObjectEClass.getEStructuralFeatures().get(17);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getPrimaryObject_FeatureMapAttributeCollection() {
-		return (EAttribute)primaryObjectEClass.getEStructuralFeatures().get(18);
+		return (EAttribute) primaryObjectEClass.getEStructuralFeatures().get(18);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EClass getContainer() {
@@ -917,15 +872,17 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getContainer_Elements() {
-		return (EReference)containerEClass.getEStructuralFeatures().get(0);
+		return (EReference) containerEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EClass getTargetObject() {
@@ -935,24 +892,27 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getTargetObject_SingleAttribute() {
-		return (EAttribute)targetObjectEClass.getEStructuralFeatures().get(0);
+		return (EAttribute) targetObjectEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getTargetObject_ArrayAttribute() {
-		return (EAttribute)targetObjectEClass.getEStructuralFeatures().get(1);
+		return (EAttribute) targetObjectEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EClass getAbstractType() {
@@ -962,24 +922,27 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getAbstractType_Name() {
-		return (EAttribute)abstractTypeEClass.getEStructuralFeatures().get(0);
+		return (EAttribute) abstractTypeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getAbstractType_RefProperty() {
-		return (EReference)abstractTypeEClass.getEStructuralFeatures().get(1);
+		return (EReference) abstractTypeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EClass getConcreteTypeOne() {
@@ -989,15 +952,17 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getConcreteTypeOne_PropTypeOne() {
-		return (EAttribute)concreteTypeOneEClass.getEStructuralFeatures().get(0);
+		return (EAttribute) concreteTypeOneEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EClass getConcreteTypeTwo() {
@@ -1007,15 +972,17 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getConcreteTypeTwo_PropTypeTwo() {
-		return (EAttribute)concreteTypeTwoEClass.getEStructuralFeatures().get(0);
+		return (EAttribute) concreteTypeTwoEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EClass getNode() {
@@ -1025,60 +992,67 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EAttribute getNode_Label() {
-		return (EAttribute)nodeEClass.getEStructuralFeatures().get(0);
+		return (EAttribute) nodeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getNode_Target() {
-		return (EReference)nodeEClass.getEStructuralFeatures().get(1);
+		return (EReference) nodeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getNode_Source() {
-		return (EReference)nodeEClass.getEStructuralFeatures().get(2);
+		return (EReference) nodeEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getNode_ManyRef() {
-		return (EReference)nodeEClass.getEStructuralFeatures().get(3);
+		return (EReference) nodeEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getNode_Child() {
-		return (EReference)nodeEClass.getEStructuralFeatures().get(4);
+		return (EReference) nodeEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getNode_UniqueChild() {
-		return (EReference)nodeEClass.getEStructuralFeatures().get(5);
+		return (EReference) nodeEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EClass getObjectWithMap() {
@@ -1088,24 +1062,27 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getObjectWithMap_Entries() {
-		return (EReference)objectWithMapEClass.getEStructuralFeatures().get(0);
+		return (EReference) objectWithMapEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EReference getObjectWithMap_Dependencies() {
-		return (EReference)objectWithMapEClass.getEStructuralFeatures().get(1);
+		return (EReference) objectWithMapEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EEnum getSex() {
@@ -1115,6 +1092,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EDataType getURI() {
@@ -1124,24 +1102,19 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public ModelFactory getModelFactory() {
-		return (ModelFactory)getEFactoryInstance();
+		return (ModelFactory) getEFactoryInstance();
 	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private boolean isCreated = false;
 
 	/**
 	 * Creates the meta-model objects for the package.  This method is
 	 * guarded to have no affect on any invocation but its first.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void createPackageContents() {
@@ -1241,17 +1214,11 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private boolean isInitialized = false;
-
-	/**
 	 * Complete the initialization of the package and its meta-model.  This
 	 * method is guarded to have no affect on any invocation but its first.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void initializePackageContents() {
@@ -1378,68 +1345,183 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * Initializes the annotations for <b>JSON</b>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	protected void createJSONAnnotations() {
-		String source = "JSON";		
+		String source = "JSON";
 		addAnnotation
-		  (userEClass, 
-		   source, 
-		   new String[] {
-			 "root", "true"
-		   });								
+			(userEClass,
+				source,
+				new String[]{
+					"root", "true"
+				});
 		addAnnotation
-		  (getObjectWithMap_Entries(), 
-		   source, 
-		   new String[] {
-			 "dynamicMap", "true"
-		   });
+			(getObjectWithMap_Entries(),
+				source,
+				new String[]{
+					"dynamicMap", "true"
+				});
 	}
 
 	/**
 	 * Initializes the annotations for <b>http:///org/eclipse/emf/ecore/util/ExtendedMetaData</b>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	protected void createExtendedMetaDataAnnotations() {
-		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";			
+		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
 		addAnnotation
-		  (getPrimaryObject_FeatureMapReferenceType1(), 
-		   source, 
-		   new String[] {
-			 "group", "#featureMapReferenceCollection"
-		   });		
+			(getPrimaryObject_FeatureMapReferenceType1(),
+				source,
+				new String[]{
+					"group", "#featureMapReferenceCollection"
+				});
 		addAnnotation
-		  (getPrimaryObject_FeatureMapReferenceType2(), 
-		   source, 
-		   new String[] {
-			 "group", "#featureMapReferenceCollection"
-		   });		
+			(getPrimaryObject_FeatureMapReferenceType2(),
+				source,
+				new String[]{
+					"group", "#featureMapReferenceCollection"
+				});
 		addAnnotation
-		  (getPrimaryObject_FeatureMapReferenceCollection(), 
-		   source, 
-		   new String[] {
-			 "kind", "group"
-		   });		
+			(getPrimaryObject_FeatureMapReferenceCollection(),
+				source,
+				new String[]{
+					"kind", "group"
+				});
 		addAnnotation
-		  (getPrimaryObject_FeatureMapAttributeType1(), 
-		   source, 
-		   new String[] {
-			 "group", "#featureMapAttributeCollection"
-		   });		
+			(getPrimaryObject_FeatureMapAttributeType1(),
+				source,
+				new String[]{
+					"group", "#featureMapAttributeCollection"
+				});
 		addAnnotation
-		  (getPrimaryObject_FeatureMapAttributeType2(), 
-		   source, 
-		   new String[] {
-			 "group", "#featureMapAttributeCollection"
-		   });		
+			(getPrimaryObject_FeatureMapAttributeType2(),
+				source,
+				new String[]{
+					"group", "#featureMapAttributeCollection"
+				});
 		addAnnotation
-		  (getPrimaryObject_FeatureMapAttributeCollection(), 
-		   source, 
-		   new String[] {
-			 "kind", "group"
-		   });	
+			(getPrimaryObject_FeatureMapAttributeCollection(),
+				source,
+				new String[]{
+					"kind", "group"
+				});
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	public static class WhiteList implements IsSerializable, EBasicWhiteList {
+		/**
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 *
+		 * @generated
+		 */
+		protected User user;
+
+		/**
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 *
+		 * @generated
+		 */
+		protected Address address;
+
+		/**
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 *
+		 * @generated
+		 */
+		protected ETypes eTypes;
+
+		/**
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 *
+		 * @generated
+		 */
+		protected PrimaryObject primaryObject;
+
+		/**
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 *
+		 * @generated
+		 */
+		protected org.emfjson.gwt.junit.model.Container container;
+
+		/**
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 *
+		 * @generated
+		 */
+		protected TargetObject targetObject;
+
+		/**
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 *
+		 * @generated
+		 */
+		protected AbstractType abstractType;
+
+		/**
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 *
+		 * @generated
+		 */
+		protected ConcreteTypeOne concreteTypeOne;
+
+		/**
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 *
+		 * @generated
+		 */
+		protected ConcreteTypeTwo concreteTypeTwo;
+
+		/**
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 *
+		 * @generated
+		 */
+		protected Node node;
+
+		/**
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 *
+		 * @generated
+		 */
+		protected ObjectWithMap objectWithMap;
+
+		/**
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 *
+		 * @generated
+		 */
+		protected Sex sex;
+
+		/**
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 *
+		 * @generated
+		 */
+		protected org.eclipse.emf.common.util.URI uri;
+
 	}
 
 } //ModelPackageImpl

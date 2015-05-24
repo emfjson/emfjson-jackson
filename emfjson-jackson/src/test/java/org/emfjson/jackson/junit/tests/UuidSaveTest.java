@@ -1,46 +1,56 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.jackson.junit.tests;
 
-import com.fasterxml.jackson.databind.*;
-
-import java.io.IOException;
-import java.util.*;
-
-import com.fasterxml.jackson.databind.node.*;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.resource.*;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emfjson.EMFJs;
-import org.emfjson.common.Constants;
-import org.emfjson.jackson.junit.model.*;
-import org.emfjson.jackson.junit.support.UuidSupport;
-import org.emfjson.jackson.module.EMFModule;
 import org.junit.Before;
 import org.junit.Test;
+
+import org.emfjson.EMFJs;
+import org.emfjson.jackson.JacksonOptions;
+import org.emfjson.jackson.junit.model.ConcreteTypeOne;
+import org.emfjson.jackson.junit.model.Container;
+import org.emfjson.jackson.junit.model.ModelFactory;
+import org.emfjson.jackson.junit.model.ModelPackage;
+import org.emfjson.jackson.junit.support.UuidSupport;
+import org.emfjson.jackson.module.EMFModule;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
 public class UuidSaveTest extends UuidSupport {
-	
+
 	private final ObjectMapper mapper = new ObjectMapper();
 	private Map<String, Object> options = new HashMap<>();
+	{
+		options.put(EMFJs.OPTION_USE_ID, true);
+	}
 
 	@Before
 	public void setUp() {
 		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
-		options.put(EMFJs.OPTION_INDENT_OUTPUT, true);
-		mapper.registerModule(new EMFModule(options));
+		mapper.registerModule(new EMFModule(new ResourceSetImpl(), JacksonOptions.from(options)));
 	}
-	
+
 	@Test
 	public void testSerializeOneObjectWithUuid() {
 		Resource resource = createUuidResource("test.xmi");
@@ -53,7 +63,7 @@ public class UuidSaveTest extends UuidSupport {
 		JsonNode node = mapper.valueToTree(root);
 
 		assertNotNull(node);
-		assertNotNull(node.get(Constants.EJS_UUID_ANNOTATION));
+		assertNotNull(node.get("_id"));
 		assertEquals(uuid(root), uuid(node));
 	}
 
@@ -78,7 +88,7 @@ public class UuidSaveTest extends UuidSupport {
 		JsonNode node = mapper.valueToTree(root);
 
 		assertNotNull(node);
-		assertNotNull(node.get(Constants.EJS_UUID_ANNOTATION));
+		assertNotNull(node.get("_id"));
 		assertEquals(uuid(root), uuid(node));
 
 		assertTrue(node.get("elements").isArray());
@@ -89,10 +99,10 @@ public class UuidSaveTest extends UuidSupport {
 		JsonNode node1 = elements.get(0);
 		JsonNode node2 = elements.get(1);
 
-		assertNotNull(node1.get(Constants.EJS_UUID_ANNOTATION));
+		assertNotNull(node1.get("_id"));
 		assertEquals(uuid(one), uuid(node1));
 
-		assertNotNull(node2.get(Constants.EJS_UUID_ANNOTATION));
+		assertNotNull(node2.get("_id"));
 		assertEquals(uuid(two), uuid(node2));
 
 		assertNotNull(node1.get("refProperty"));
@@ -103,9 +113,9 @@ public class UuidSaveTest extends UuidSupport {
 		assertEquals(1, refProperty.size());
 
 		JsonNode ref = refProperty.get(0);
-		assertNotNull(ref.get(Constants.EJS_REF_KEYWORD));
+		assertNotNull(ref.get("$ref"));
 
-		assertEquals(uuid(two), ref.get(Constants.EJS_REF_KEYWORD).asText());
+		assertEquals(uuid(two), ref.get("$ref").asText());
 	}
 
 }

@@ -1,4 +1,4 @@
 {
-	"eClass": "http://www.example.org/model#//Library",
-	"name": "My Library"
+  "eClass": "http://www.example.org/model#//Library",
+  "name": "My Library"
 }

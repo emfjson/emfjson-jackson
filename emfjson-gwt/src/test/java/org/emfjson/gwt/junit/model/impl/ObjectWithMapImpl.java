@@ -1,15 +1,17 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.model.impl;
 
+import com.google.gwt.user.client.rpc.GwtTransient;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
@@ -20,10 +22,9 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.impl.EStringToStringMapEntryImpl;
 import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.emfjson.gwt.junit.model.ModelPackage;
 import org.emfjson.gwt.junit.model.ObjectWithMap;
-
-import com.google.gwt.user.client.rpc.GwtTransient;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,8 +33,8 @@ import com.google.gwt.user.client.rpc.GwtTransient;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.ObjectWithMapImpl#getEntries <em>Entries</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.ObjectWithMapImpl#getDependencies <em>Dependencies</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.ObjectWithMapImpl#getEntries <em>Entries</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.ObjectWithMapImpl#getDependencies <em>Dependencies</em>}</li>
  * </ul>
  * </p>
  *
@@ -44,9 +45,10 @@ public class ObjectWithMapImpl extends EObjectImpl implements ObjectWithMap {
 	 * The cached value of the '{@link #getEntries() <em>Entries</em>}' map.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEntries()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getEntries()
 	 */
 	@GwtTransient
 	protected EMap<String, String> entries;
@@ -55,9 +57,10 @@ public class ObjectWithMapImpl extends EObjectImpl implements ObjectWithMap {
 	 * The cached value of the '{@link #getDependencies() <em>Dependencies</em>}' map.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDependencies()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getDependencies()
 	 */
 	@GwtTransient
 	protected EMap<String, String> dependencies;
@@ -65,6 +68,7 @@ public class ObjectWithMapImpl extends EObjectImpl implements ObjectWithMap {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	protected ObjectWithMapImpl() {
@@ -74,6 +78,7 @@ public class ObjectWithMapImpl extends EObjectImpl implements ObjectWithMap {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -84,11 +89,12 @@ public class ObjectWithMapImpl extends EObjectImpl implements ObjectWithMap {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EMap<String, String> getEntries() {
 		if (entries == null) {
-			entries = new EcoreEMap<String,String>(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY, EStringToStringMapEntryImpl.class, this, ModelPackage.OBJECT_WITH_MAP__ENTRIES);
+			entries = new EcoreEMap<String, String>(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY, EStringToStringMapEntryImpl.class, this, ModelPackage.OBJECT_WITH_MAP__ENTRIES);
 		}
 		return entries;
 	}
@@ -96,11 +102,12 @@ public class ObjectWithMapImpl extends EObjectImpl implements ObjectWithMap {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EMap<String, String> getDependencies() {
 		if (dependencies == null) {
-			dependencies = new EcoreEMap<String,String>(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY, EStringToStringMapEntryImpl.class, this, ModelPackage.OBJECT_WITH_MAP__DEPENDENCIES);
+			dependencies = new EcoreEMap<String, String>(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY, EStringToStringMapEntryImpl.class, this, ModelPackage.OBJECT_WITH_MAP__DEPENDENCIES);
 		}
 		return dependencies;
 	}
@@ -108,15 +115,16 @@ public class ObjectWithMapImpl extends EObjectImpl implements ObjectWithMap {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ModelPackage.OBJECT_WITH_MAP__ENTRIES:
-				return ((InternalEList<?>)getEntries()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>) getEntries()).basicRemove(otherEnd, msgs);
 			case ModelPackage.OBJECT_WITH_MAP__DEPENDENCIES:
-				return ((InternalEList<?>)getDependencies()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>) getDependencies()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -124,6 +132,7 @@ public class ObjectWithMapImpl extends EObjectImpl implements ObjectWithMap {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -142,16 +151,17 @@ public class ObjectWithMapImpl extends EObjectImpl implements ObjectWithMap {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackage.OBJECT_WITH_MAP__ENTRIES:
-				((EStructuralFeature.Setting)getEntries()).set(newValue);
+				((EStructuralFeature.Setting) getEntries()).set(newValue);
 				return;
 			case ModelPackage.OBJECT_WITH_MAP__DEPENDENCIES:
-				((EStructuralFeature.Setting)getDependencies()).set(newValue);
+				((EStructuralFeature.Setting) getDependencies()).set(newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -160,6 +170,7 @@ public class ObjectWithMapImpl extends EObjectImpl implements ObjectWithMap {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -178,6 +189,7 @@ public class ObjectWithMapImpl extends EObjectImpl implements ObjectWithMap {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override

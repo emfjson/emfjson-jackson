@@ -1,17 +1,17 @@
 /*
- * Copyright (c) 2011-2014 Guillaume Hillairet.
+ * Copyright (c) 2015 Guillaume Hillairet.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Guillaume Hillairet - initial API and implementation
+ *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.gwt.junit.model.impl;
 
-import java.util.Collection;
-
+import com.google.gwt.user.client.rpc.GwtTransient;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -19,16 +19,13 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.BasicFeatureMap;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-import org.eclipse.emf.ecore.util.FeatureMap;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.util.*;
+
 import org.emfjson.gwt.junit.model.ModelPackage;
 import org.emfjson.gwt.junit.model.PrimaryObject;
 import org.emfjson.gwt.junit.model.TargetObject;
 
-import com.google.gwt.user.client.rpc.GwtTransient;
+import java.util.Collection;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,25 +34,25 @@ import com.google.gwt.user.client.rpc.GwtTransient;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getIdAttribute <em>Id Attribute</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getUnsettableAttribute <em>Unsettable Attribute</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getUnsettableAttributeWithNonNullDefault <em>Unsettable Attribute With Non Null Default</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getUnsettableReference <em>Unsettable Reference</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getContainmentReferenceSameCollectioin <em>Containment Reference Same Collectioin</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getSingleNonContainmentReference <em>Single Non Containment Reference</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getMultipleNonContainmentReference <em>Multiple Non Containment Reference</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getSingleContainmentReferenceNoProxies <em>Single Containment Reference No Proxies</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getMultipleContainmentReferenceNoProxies <em>Multiple Containment Reference No Proxies</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getSingleContainmentReferenceProxies <em>Single Containment Reference Proxies</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getMultipleContainmentReferenceProxies <em>Multiple Containment Reference Proxies</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getSingleNonContainmentReferenceNoProxies <em>Single Non Containment Reference No Proxies</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getFeatureMapReferenceType1 <em>Feature Map Reference Type1</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getFeatureMapReferenceType2 <em>Feature Map Reference Type2</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getFeatureMapReferenceCollection <em>Feature Map Reference Collection</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getFeatureMapAttributeType1 <em>Feature Map Attribute Type1</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getFeatureMapAttributeType2 <em>Feature Map Attribute Type2</em>}</li>
- *   <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getFeatureMapAttributeCollection <em>Feature Map Attribute Collection</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getName <em>Name</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getIdAttribute <em>Id Attribute</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getUnsettableAttribute <em>Unsettable Attribute</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getUnsettableAttributeWithNonNullDefault <em>Unsettable Attribute With Non Null Default</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getUnsettableReference <em>Unsettable Reference</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getContainmentReferenceSameCollectioin <em>Containment Reference Same Collectioin</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getSingleNonContainmentReference <em>Single Non Containment Reference</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getMultipleNonContainmentReference <em>Multiple Non Containment Reference</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getSingleContainmentReferenceNoProxies <em>Single Containment Reference No Proxies</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getMultipleContainmentReferenceNoProxies <em>Multiple Containment Reference No Proxies</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getSingleContainmentReferenceProxies <em>Single Containment Reference Proxies</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getMultipleContainmentReferenceProxies <em>Multiple Containment Reference Proxies</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getSingleNonContainmentReferenceNoProxies <em>Single Non Containment Reference No Proxies</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getFeatureMapReferenceType1 <em>Feature Map Reference Type1</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getFeatureMapReferenceType2 <em>Feature Map Reference Type2</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getFeatureMapReferenceCollection <em>Feature Map Reference Collection</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getFeatureMapAttributeType1 <em>Feature Map Attribute Type1</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getFeatureMapAttributeType2 <em>Feature Map Attribute Type2</em>}</li>
+ * <li>{@link org.emfjson.gwt.junit.model.impl.PrimaryObjectImpl#getFeatureMapAttributeCollection <em>Feature Map Attribute Collection</em>}</li>
  * </ul>
  * </p>
  *
@@ -66,92 +63,93 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getName()
 	 */
 	protected static final String NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected String name = NAME_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getIdAttribute() <em>Id Attribute</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIdAttribute()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getIdAttribute()
 	 */
 	protected static final String ID_ATTRIBUTE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getIdAttribute() <em>Id Attribute</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getIdAttribute()
-	 * @generated
-	 * @ordered
-	 */
-	@GwtTransient
-	protected String idAttribute = ID_ATTRIBUTE_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getUnsettableAttribute() <em>Unsettable Attribute</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getUnsettableAttribute()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getUnsettableAttribute()
 	 */
 	protected static final String UNSETTABLE_ATTRIBUTE_EDEFAULT = null;
-
+	/**
+	 * The default value of the '{@link #getUnsettableAttributeWithNonNullDefault() <em>Unsettable Attribute With Non Null Default</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getUnsettableAttributeWithNonNullDefault()
+	 */
+	protected static final String UNSETTABLE_ATTRIBUTE_WITH_NON_NULL_DEFAULT_EDEFAULT = "junit";
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getName()
+	 */
+	@GwtTransient
+	protected String name = NAME_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getIdAttribute() <em>Id Attribute</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 * @ordered
+	 * @see #getIdAttribute()
+	 */
+	@GwtTransient
+	protected String idAttribute = ID_ATTRIBUTE_EDEFAULT;
 	/**
 	 * The cached value of the '{@link #getUnsettableAttribute() <em>Unsettable Attribute</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getUnsettableAttribute()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getUnsettableAttribute()
 	 */
 	@GwtTransient
 	protected String unsettableAttribute = UNSETTABLE_ATTRIBUTE_EDEFAULT;
-
 	/**
 	 * This is true if the Unsettable Attribute attribute has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 * @ordered
 	 */
 	@GwtTransient
 	protected boolean unsettableAttributeESet;
-
-	/**
-	 * The default value of the '{@link #getUnsettableAttributeWithNonNullDefault() <em>Unsettable Attribute With Non Null Default</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getUnsettableAttributeWithNonNullDefault()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String UNSETTABLE_ATTRIBUTE_WITH_NON_NULL_DEFAULT_EDEFAULT = "junit";
-
 	/**
 	 * The cached value of the '{@link #getUnsettableAttributeWithNonNullDefault() <em>Unsettable Attribute With Non Null Default</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getUnsettableAttributeWithNonNullDefault()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getUnsettableAttributeWithNonNullDefault()
 	 */
 	@GwtTransient
 	protected String unsettableAttributeWithNonNullDefault = UNSETTABLE_ATTRIBUTE_WITH_NON_NULL_DEFAULT_EDEFAULT;
@@ -160,6 +158,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	 * This is true if the Unsettable Attribute With Non Null Default attribute has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -170,9 +169,10 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	 * The cached value of the '{@link #getUnsettableReference() <em>Unsettable Reference</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getUnsettableReference()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getUnsettableReference()
 	 */
 	@GwtTransient
 	protected TargetObject unsettableReference;
@@ -181,6 +181,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	 * This is true if the Unsettable Reference reference has been set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -191,9 +192,10 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	 * The cached value of the '{@link #getContainmentReferenceSameCollectioin() <em>Containment Reference Same Collectioin</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getContainmentReferenceSameCollectioin()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getContainmentReferenceSameCollectioin()
 	 */
 	@GwtTransient
 	protected PrimaryObject containmentReferenceSameCollectioin;
@@ -202,9 +204,10 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	 * The cached value of the '{@link #getSingleNonContainmentReference() <em>Single Non Containment Reference</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSingleNonContainmentReference()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getSingleNonContainmentReference()
 	 */
 	@GwtTransient
 	protected TargetObject singleNonContainmentReference;
@@ -213,9 +216,10 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	 * The cached value of the '{@link #getMultipleNonContainmentReference() <em>Multiple Non Containment Reference</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getMultipleNonContainmentReference()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getMultipleNonContainmentReference()
 	 */
 	@GwtTransient
 	protected EList<TargetObject> multipleNonContainmentReference;
@@ -224,9 +228,10 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	 * The cached value of the '{@link #getSingleContainmentReferenceNoProxies() <em>Single Containment Reference No Proxies</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSingleContainmentReferenceNoProxies()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getSingleContainmentReferenceNoProxies()
 	 */
 	@GwtTransient
 	protected TargetObject singleContainmentReferenceNoProxies;
@@ -235,9 +240,10 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	 * The cached value of the '{@link #getMultipleContainmentReferenceNoProxies() <em>Multiple Containment Reference No Proxies</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getMultipleContainmentReferenceNoProxies()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getMultipleContainmentReferenceNoProxies()
 	 */
 	@GwtTransient
 	protected EList<TargetObject> multipleContainmentReferenceNoProxies;
@@ -246,9 +252,10 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	 * The cached value of the '{@link #getSingleContainmentReferenceProxies() <em>Single Containment Reference Proxies</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSingleContainmentReferenceProxies()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getSingleContainmentReferenceProxies()
 	 */
 	@GwtTransient
 	protected TargetObject singleContainmentReferenceProxies;
@@ -257,9 +264,10 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	 * The cached value of the '{@link #getMultipleContainmentReferenceProxies() <em>Multiple Containment Reference Proxies</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getMultipleContainmentReferenceProxies()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getMultipleContainmentReferenceProxies()
 	 */
 	@GwtTransient
 	protected EList<TargetObject> multipleContainmentReferenceProxies;
@@ -268,9 +276,10 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	 * The cached value of the '{@link #getSingleNonContainmentReferenceNoProxies() <em>Single Non Containment Reference No Proxies</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSingleNonContainmentReferenceNoProxies()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getSingleNonContainmentReferenceNoProxies()
 	 */
 	@GwtTransient
 	protected TargetObject singleNonContainmentReferenceNoProxies;
@@ -279,9 +288,10 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	 * The cached value of the '{@link #getFeatureMapReferenceCollection() <em>Feature Map Reference Collection</em>}' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getFeatureMapReferenceCollection()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getFeatureMapReferenceCollection()
 	 */
 	@GwtTransient
 	protected FeatureMap featureMapReferenceCollection;
@@ -290,9 +300,10 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	 * The cached value of the '{@link #getFeatureMapAttributeCollection() <em>Feature Map Attribute Collection</em>}' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getFeatureMapAttributeCollection()
+	 *
 	 * @generated
 	 * @ordered
+	 * @see #getFeatureMapAttributeCollection()
 	 */
 	@GwtTransient
 	protected FeatureMap featureMapAttributeCollection;
@@ -300,6 +311,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	protected PrimaryObjectImpl() {
@@ -309,6 +321,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -319,6 +332,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public String getName() {
@@ -328,6 +342,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setName(String newName) {
@@ -340,6 +355,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public String getIdAttribute() {
@@ -349,6 +365,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setIdAttribute(String newIdAttribute) {
@@ -361,6 +378,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public String getUnsettableAttribute() {
@@ -370,6 +388,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setUnsettableAttribute(String newUnsettableAttribute) {
@@ -384,6 +403,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void unsetUnsettableAttribute() {
@@ -398,6 +418,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public boolean isSetUnsettableAttribute() {
@@ -407,6 +428,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public String getUnsettableAttributeWithNonNullDefault() {
@@ -416,6 +438,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setUnsettableAttributeWithNonNullDefault(String newUnsettableAttributeWithNonNullDefault) {
@@ -430,6 +453,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void unsetUnsettableAttributeWithNonNullDefault() {
@@ -444,6 +468,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public boolean isSetUnsettableAttributeWithNonNullDefault() {
@@ -453,12 +478,13 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public TargetObject getUnsettableReference() {
 		if (unsettableReference != null && unsettableReference.eIsProxy()) {
-			InternalEObject oldUnsettableReference = (InternalEObject)unsettableReference;
-			unsettableReference = (TargetObject)eResolveProxy(oldUnsettableReference);
+			InternalEObject oldUnsettableReference = (InternalEObject) unsettableReference;
+			unsettableReference = (TargetObject) eResolveProxy(oldUnsettableReference);
 			if (unsettableReference != oldUnsettableReference) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.PRIMARY_OBJECT__UNSETTABLE_REFERENCE, oldUnsettableReference, unsettableReference));
@@ -470,15 +496,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TargetObject basicGetUnsettableReference() {
-		return unsettableReference;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setUnsettableReference(TargetObject newUnsettableReference) {
@@ -493,6 +511,17 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	public TargetObject basicGetUnsettableReference() {
+		return unsettableReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void unsetUnsettableReference() {
@@ -507,6 +536,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public boolean isSetUnsettableReference() {
@@ -516,14 +546,15 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public PrimaryObject getContainmentReferenceSameCollectioin() {
 		if (containmentReferenceSameCollectioin != null && containmentReferenceSameCollectioin.eIsProxy()) {
-			InternalEObject oldContainmentReferenceSameCollectioin = (InternalEObject)containmentReferenceSameCollectioin;
-			containmentReferenceSameCollectioin = (PrimaryObject)eResolveProxy(oldContainmentReferenceSameCollectioin);
+			InternalEObject oldContainmentReferenceSameCollectioin = (InternalEObject) containmentReferenceSameCollectioin;
+			containmentReferenceSameCollectioin = (PrimaryObject) eResolveProxy(oldContainmentReferenceSameCollectioin);
 			if (containmentReferenceSameCollectioin != oldContainmentReferenceSameCollectioin) {
-				InternalEObject newContainmentReferenceSameCollectioin = (InternalEObject)containmentReferenceSameCollectioin;
+				InternalEObject newContainmentReferenceSameCollectioin = (InternalEObject) containmentReferenceSameCollectioin;
 				NotificationChain msgs = oldContainmentReferenceSameCollectioin.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.PRIMARY_OBJECT__CONTAINMENT_REFERENCE_SAME_COLLECTIOIN, null, null);
 				if (newContainmentReferenceSameCollectioin.eInternalContainer() == null) {
 					msgs = newContainmentReferenceSameCollectioin.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.PRIMARY_OBJECT__CONTAINMENT_REFERENCE_SAME_COLLECTIOIN, null, msgs);
@@ -539,6 +570,26 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	public void setContainmentReferenceSameCollectioin(PrimaryObject newContainmentReferenceSameCollectioin) {
+		if (newContainmentReferenceSameCollectioin != containmentReferenceSameCollectioin) {
+			NotificationChain msgs = null;
+			if (containmentReferenceSameCollectioin != null)
+				msgs = ((InternalEObject) containmentReferenceSameCollectioin).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.PRIMARY_OBJECT__CONTAINMENT_REFERENCE_SAME_COLLECTIOIN, null, msgs);
+			if (newContainmentReferenceSameCollectioin != null)
+				msgs = ((InternalEObject) newContainmentReferenceSameCollectioin).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.PRIMARY_OBJECT__CONTAINMENT_REFERENCE_SAME_COLLECTIOIN, null, msgs);
+			msgs = basicSetContainmentReferenceSameCollectioin(newContainmentReferenceSameCollectioin, msgs);
+			if (msgs != null) msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.PRIMARY_OBJECT__CONTAINMENT_REFERENCE_SAME_COLLECTIOIN, newContainmentReferenceSameCollectioin, newContainmentReferenceSameCollectioin));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public PrimaryObject basicGetContainmentReferenceSameCollectioin() {
@@ -548,6 +599,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public NotificationChain basicSetContainmentReferenceSameCollectioin(PrimaryObject newContainmentReferenceSameCollectioin, NotificationChain msgs) {
@@ -555,7 +607,8 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 		containmentReferenceSameCollectioin = newContainmentReferenceSameCollectioin;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.PRIMARY_OBJECT__CONTAINMENT_REFERENCE_SAME_COLLECTIOIN, oldContainmentReferenceSameCollectioin, newContainmentReferenceSameCollectioin);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+			if (msgs == null) msgs = notification;
+			else msgs.add(notification);
 		}
 		return msgs;
 	}
@@ -563,31 +616,13 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setContainmentReferenceSameCollectioin(PrimaryObject newContainmentReferenceSameCollectioin) {
-		if (newContainmentReferenceSameCollectioin != containmentReferenceSameCollectioin) {
-			NotificationChain msgs = null;
-			if (containmentReferenceSameCollectioin != null)
-				msgs = ((InternalEObject)containmentReferenceSameCollectioin).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.PRIMARY_OBJECT__CONTAINMENT_REFERENCE_SAME_COLLECTIOIN, null, msgs);
-			if (newContainmentReferenceSameCollectioin != null)
-				msgs = ((InternalEObject)newContainmentReferenceSameCollectioin).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.PRIMARY_OBJECT__CONTAINMENT_REFERENCE_SAME_COLLECTIOIN, null, msgs);
-			msgs = basicSetContainmentReferenceSameCollectioin(newContainmentReferenceSameCollectioin, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.PRIMARY_OBJECT__CONTAINMENT_REFERENCE_SAME_COLLECTIOIN, newContainmentReferenceSameCollectioin, newContainmentReferenceSameCollectioin));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public TargetObject getSingleNonContainmentReference() {
 		if (singleNonContainmentReference != null && singleNonContainmentReference.eIsProxy()) {
-			InternalEObject oldSingleNonContainmentReference = (InternalEObject)singleNonContainmentReference;
-			singleNonContainmentReference = (TargetObject)eResolveProxy(oldSingleNonContainmentReference);
+			InternalEObject oldSingleNonContainmentReference = (InternalEObject) singleNonContainmentReference;
+			singleNonContainmentReference = (TargetObject) eResolveProxy(oldSingleNonContainmentReference);
 			if (singleNonContainmentReference != oldSingleNonContainmentReference) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.PRIMARY_OBJECT__SINGLE_NON_CONTAINMENT_REFERENCE, oldSingleNonContainmentReference, singleNonContainmentReference));
@@ -599,15 +634,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TargetObject basicGetSingleNonContainmentReference() {
-		return singleNonContainmentReference;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setSingleNonContainmentReference(TargetObject newSingleNonContainmentReference) {
@@ -620,6 +647,17 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	public TargetObject basicGetSingleNonContainmentReference() {
+		return singleNonContainmentReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EList<TargetObject> getMultipleNonContainmentReference() {
@@ -632,6 +670,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public TargetObject getSingleContainmentReferenceNoProxies() {
@@ -641,6 +680,26 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	public void setSingleContainmentReferenceNoProxies(TargetObject newSingleContainmentReferenceNoProxies) {
+		if (newSingleContainmentReferenceNoProxies != singleContainmentReferenceNoProxies) {
+			NotificationChain msgs = null;
+			if (singleContainmentReferenceNoProxies != null)
+				msgs = ((InternalEObject) singleContainmentReferenceNoProxies).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_NO_PROXIES, null, msgs);
+			if (newSingleContainmentReferenceNoProxies != null)
+				msgs = ((InternalEObject) newSingleContainmentReferenceNoProxies).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_NO_PROXIES, null, msgs);
+			msgs = basicSetSingleContainmentReferenceNoProxies(newSingleContainmentReferenceNoProxies, msgs);
+			if (msgs != null) msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_NO_PROXIES, newSingleContainmentReferenceNoProxies, newSingleContainmentReferenceNoProxies));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public NotificationChain basicSetSingleContainmentReferenceNoProxies(TargetObject newSingleContainmentReferenceNoProxies, NotificationChain msgs) {
@@ -648,7 +707,8 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 		singleContainmentReferenceNoProxies = newSingleContainmentReferenceNoProxies;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_NO_PROXIES, oldSingleContainmentReferenceNoProxies, newSingleContainmentReferenceNoProxies);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+			if (msgs == null) msgs = notification;
+			else msgs.add(notification);
 		}
 		return msgs;
 	}
@@ -656,25 +716,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSingleContainmentReferenceNoProxies(TargetObject newSingleContainmentReferenceNoProxies) {
-		if (newSingleContainmentReferenceNoProxies != singleContainmentReferenceNoProxies) {
-			NotificationChain msgs = null;
-			if (singleContainmentReferenceNoProxies != null)
-				msgs = ((InternalEObject)singleContainmentReferenceNoProxies).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_NO_PROXIES, null, msgs);
-			if (newSingleContainmentReferenceNoProxies != null)
-				msgs = ((InternalEObject)newSingleContainmentReferenceNoProxies).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_NO_PROXIES, null, msgs);
-			msgs = basicSetSingleContainmentReferenceNoProxies(newSingleContainmentReferenceNoProxies, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_NO_PROXIES, newSingleContainmentReferenceNoProxies, newSingleContainmentReferenceNoProxies));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EList<TargetObject> getMultipleContainmentReferenceNoProxies() {
@@ -687,14 +729,15 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public TargetObject getSingleContainmentReferenceProxies() {
 		if (singleContainmentReferenceProxies != null && singleContainmentReferenceProxies.eIsProxy()) {
-			InternalEObject oldSingleContainmentReferenceProxies = (InternalEObject)singleContainmentReferenceProxies;
-			singleContainmentReferenceProxies = (TargetObject)eResolveProxy(oldSingleContainmentReferenceProxies);
+			InternalEObject oldSingleContainmentReferenceProxies = (InternalEObject) singleContainmentReferenceProxies;
+			singleContainmentReferenceProxies = (TargetObject) eResolveProxy(oldSingleContainmentReferenceProxies);
 			if (singleContainmentReferenceProxies != oldSingleContainmentReferenceProxies) {
-				InternalEObject newSingleContainmentReferenceProxies = (InternalEObject)singleContainmentReferenceProxies;
+				InternalEObject newSingleContainmentReferenceProxies = (InternalEObject) singleContainmentReferenceProxies;
 				NotificationChain msgs = oldSingleContainmentReferenceProxies.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_PROXIES, null, null);
 				if (newSingleContainmentReferenceProxies.eInternalContainer() == null) {
 					msgs = newSingleContainmentReferenceProxies.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_PROXIES, null, msgs);
@@ -710,6 +753,26 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
+	 * @generated
+	 */
+	public void setSingleContainmentReferenceProxies(TargetObject newSingleContainmentReferenceProxies) {
+		if (newSingleContainmentReferenceProxies != singleContainmentReferenceProxies) {
+			NotificationChain msgs = null;
+			if (singleContainmentReferenceProxies != null)
+				msgs = ((InternalEObject) singleContainmentReferenceProxies).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_PROXIES, null, msgs);
+			if (newSingleContainmentReferenceProxies != null)
+				msgs = ((InternalEObject) newSingleContainmentReferenceProxies).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_PROXIES, null, msgs);
+			msgs = basicSetSingleContainmentReferenceProxies(newSingleContainmentReferenceProxies, msgs);
+			if (msgs != null) msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_PROXIES, newSingleContainmentReferenceProxies, newSingleContainmentReferenceProxies));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public TargetObject basicGetSingleContainmentReferenceProxies() {
@@ -719,6 +782,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public NotificationChain basicSetSingleContainmentReferenceProxies(TargetObject newSingleContainmentReferenceProxies, NotificationChain msgs) {
@@ -726,7 +790,8 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 		singleContainmentReferenceProxies = newSingleContainmentReferenceProxies;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_PROXIES, oldSingleContainmentReferenceProxies, newSingleContainmentReferenceProxies);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+			if (msgs == null) msgs = notification;
+			else msgs.add(notification);
 		}
 		return msgs;
 	}
@@ -734,25 +799,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSingleContainmentReferenceProxies(TargetObject newSingleContainmentReferenceProxies) {
-		if (newSingleContainmentReferenceProxies != singleContainmentReferenceProxies) {
-			NotificationChain msgs = null;
-			if (singleContainmentReferenceProxies != null)
-				msgs = ((InternalEObject)singleContainmentReferenceProxies).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_PROXIES, null, msgs);
-			if (newSingleContainmentReferenceProxies != null)
-				msgs = ((InternalEObject)newSingleContainmentReferenceProxies).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_PROXIES, null, msgs);
-			msgs = basicSetSingleContainmentReferenceProxies(newSingleContainmentReferenceProxies, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_PROXIES, newSingleContainmentReferenceProxies, newSingleContainmentReferenceProxies));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EList<TargetObject> getMultipleContainmentReferenceProxies() {
@@ -765,6 +812,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public TargetObject getSingleNonContainmentReferenceNoProxies() {
@@ -774,6 +822,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public void setSingleNonContainmentReferenceNoProxies(TargetObject newSingleNonContainmentReferenceNoProxies) {
@@ -786,6 +835,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EList<TargetObject> getFeatureMapReferenceType1() {
@@ -795,6 +845,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EList<TargetObject> getFeatureMapReferenceType2() {
@@ -804,6 +855,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public FeatureMap getFeatureMapReferenceCollection() {
@@ -816,6 +868,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EList<String> getFeatureMapAttributeType1() {
@@ -825,6 +878,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public EList<String> getFeatureMapAttributeType2() {
@@ -834,6 +888,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	public FeatureMap getFeatureMapAttributeCollection() {
@@ -846,6 +901,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -856,19 +912,19 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 			case ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_NO_PROXIES:
 				return basicSetSingleContainmentReferenceNoProxies(null, msgs);
 			case ModelPackage.PRIMARY_OBJECT__MULTIPLE_CONTAINMENT_REFERENCE_NO_PROXIES:
-				return ((InternalEList<?>)getMultipleContainmentReferenceNoProxies()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>) getMultipleContainmentReferenceNoProxies()).basicRemove(otherEnd, msgs);
 			case ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_PROXIES:
 				return basicSetSingleContainmentReferenceProxies(null, msgs);
 			case ModelPackage.PRIMARY_OBJECT__MULTIPLE_CONTAINMENT_REFERENCE_PROXIES:
-				return ((InternalEList<?>)getMultipleContainmentReferenceProxies()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>) getMultipleContainmentReferenceProxies()).basicRemove(otherEnd, msgs);
 			case ModelPackage.PRIMARY_OBJECT__FEATURE_MAP_REFERENCE_TYPE1:
-				return ((InternalEList<?>)getFeatureMapReferenceType1()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>) getFeatureMapReferenceType1()).basicRemove(otherEnd, msgs);
 			case ModelPackage.PRIMARY_OBJECT__FEATURE_MAP_REFERENCE_TYPE2:
-				return ((InternalEList<?>)getFeatureMapReferenceType2()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>) getFeatureMapReferenceType2()).basicRemove(otherEnd, msgs);
 			case ModelPackage.PRIMARY_OBJECT__FEATURE_MAP_REFERENCE_COLLECTION:
-				return ((InternalEList<?>)getFeatureMapReferenceCollection()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>) getFeatureMapReferenceCollection()).basicRemove(otherEnd, msgs);
 			case ModelPackage.PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_COLLECTION:
-				return ((InternalEList<?>)getFeatureMapAttributeCollection()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>) getFeatureMapAttributeCollection()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -876,6 +932,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -917,14 +974,14 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 				return getFeatureMapReferenceType2();
 			case ModelPackage.PRIMARY_OBJECT__FEATURE_MAP_REFERENCE_COLLECTION:
 				if (coreType) return getFeatureMapReferenceCollection();
-				return ((FeatureMap.Internal)getFeatureMapReferenceCollection()).getWrapper();
+				return ((FeatureMap.Internal) getFeatureMapReferenceCollection()).getWrapper();
 			case ModelPackage.PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_TYPE1:
 				return getFeatureMapAttributeType1();
 			case ModelPackage.PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_TYPE2:
 				return getFeatureMapAttributeType2();
 			case ModelPackage.PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_COLLECTION:
 				if (coreType) return getFeatureMapAttributeCollection();
-				return ((FeatureMap.Internal)getFeatureMapAttributeCollection()).getWrapper();
+				return ((FeatureMap.Internal) getFeatureMapAttributeCollection()).getWrapper();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -932,6 +989,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -939,68 +997,68 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackage.PRIMARY_OBJECT__NAME:
-				setName((String)newValue);
+				setName((String) newValue);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__ID_ATTRIBUTE:
-				setIdAttribute((String)newValue);
+				setIdAttribute((String) newValue);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__UNSETTABLE_ATTRIBUTE:
-				setUnsettableAttribute((String)newValue);
+				setUnsettableAttribute((String) newValue);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__UNSETTABLE_ATTRIBUTE_WITH_NON_NULL_DEFAULT:
-				setUnsettableAttributeWithNonNullDefault((String)newValue);
+				setUnsettableAttributeWithNonNullDefault((String) newValue);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__UNSETTABLE_REFERENCE:
-				setUnsettableReference((TargetObject)newValue);
+				setUnsettableReference((TargetObject) newValue);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__CONTAINMENT_REFERENCE_SAME_COLLECTIOIN:
-				setContainmentReferenceSameCollectioin((PrimaryObject)newValue);
+				setContainmentReferenceSameCollectioin((PrimaryObject) newValue);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__SINGLE_NON_CONTAINMENT_REFERENCE:
-				setSingleNonContainmentReference((TargetObject)newValue);
+				setSingleNonContainmentReference((TargetObject) newValue);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__MULTIPLE_NON_CONTAINMENT_REFERENCE:
 				getMultipleNonContainmentReference().clear();
-				getMultipleNonContainmentReference().addAll((Collection<? extends TargetObject>)newValue);
+				getMultipleNonContainmentReference().addAll((Collection<? extends TargetObject>) newValue);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_NO_PROXIES:
-				setSingleContainmentReferenceNoProxies((TargetObject)newValue);
+				setSingleContainmentReferenceNoProxies((TargetObject) newValue);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__MULTIPLE_CONTAINMENT_REFERENCE_NO_PROXIES:
 				getMultipleContainmentReferenceNoProxies().clear();
-				getMultipleContainmentReferenceNoProxies().addAll((Collection<? extends TargetObject>)newValue);
+				getMultipleContainmentReferenceNoProxies().addAll((Collection<? extends TargetObject>) newValue);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_PROXIES:
-				setSingleContainmentReferenceProxies((TargetObject)newValue);
+				setSingleContainmentReferenceProxies((TargetObject) newValue);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__MULTIPLE_CONTAINMENT_REFERENCE_PROXIES:
 				getMultipleContainmentReferenceProxies().clear();
-				getMultipleContainmentReferenceProxies().addAll((Collection<? extends TargetObject>)newValue);
+				getMultipleContainmentReferenceProxies().addAll((Collection<? extends TargetObject>) newValue);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__SINGLE_NON_CONTAINMENT_REFERENCE_NO_PROXIES:
-				setSingleNonContainmentReferenceNoProxies((TargetObject)newValue);
+				setSingleNonContainmentReferenceNoProxies((TargetObject) newValue);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__FEATURE_MAP_REFERENCE_TYPE1:
 				getFeatureMapReferenceType1().clear();
-				getFeatureMapReferenceType1().addAll((Collection<? extends TargetObject>)newValue);
+				getFeatureMapReferenceType1().addAll((Collection<? extends TargetObject>) newValue);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__FEATURE_MAP_REFERENCE_TYPE2:
 				getFeatureMapReferenceType2().clear();
-				getFeatureMapReferenceType2().addAll((Collection<? extends TargetObject>)newValue);
+				getFeatureMapReferenceType2().addAll((Collection<? extends TargetObject>) newValue);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__FEATURE_MAP_REFERENCE_COLLECTION:
-				((FeatureMap.Internal)getFeatureMapReferenceCollection()).set(newValue);
+				((FeatureMap.Internal) getFeatureMapReferenceCollection()).set(newValue);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_TYPE1:
 				getFeatureMapAttributeType1().clear();
-				getFeatureMapAttributeType1().addAll((Collection<? extends String>)newValue);
+				getFeatureMapAttributeType1().addAll((Collection<? extends String>) newValue);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_TYPE2:
 				getFeatureMapAttributeType2().clear();
-				getFeatureMapAttributeType2().addAll((Collection<? extends String>)newValue);
+				getFeatureMapAttributeType2().addAll((Collection<? extends String>) newValue);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_COLLECTION:
-				((FeatureMap.Internal)getFeatureMapAttributeCollection()).set(newValue);
+				((FeatureMap.Internal) getFeatureMapAttributeCollection()).set(newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -1009,6 +1067,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -1030,28 +1089,28 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 				unsetUnsettableReference();
 				return;
 			case ModelPackage.PRIMARY_OBJECT__CONTAINMENT_REFERENCE_SAME_COLLECTIOIN:
-				setContainmentReferenceSameCollectioin((PrimaryObject)null);
+				setContainmentReferenceSameCollectioin((PrimaryObject) null);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__SINGLE_NON_CONTAINMENT_REFERENCE:
-				setSingleNonContainmentReference((TargetObject)null);
+				setSingleNonContainmentReference((TargetObject) null);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__MULTIPLE_NON_CONTAINMENT_REFERENCE:
 				getMultipleNonContainmentReference().clear();
 				return;
 			case ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_NO_PROXIES:
-				setSingleContainmentReferenceNoProxies((TargetObject)null);
+				setSingleContainmentReferenceNoProxies((TargetObject) null);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__MULTIPLE_CONTAINMENT_REFERENCE_NO_PROXIES:
 				getMultipleContainmentReferenceNoProxies().clear();
 				return;
 			case ModelPackage.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_PROXIES:
-				setSingleContainmentReferenceProxies((TargetObject)null);
+				setSingleContainmentReferenceProxies((TargetObject) null);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__MULTIPLE_CONTAINMENT_REFERENCE_PROXIES:
 				getMultipleContainmentReferenceProxies().clear();
 				return;
 			case ModelPackage.PRIMARY_OBJECT__SINGLE_NON_CONTAINMENT_REFERENCE_NO_PROXIES:
-				setSingleNonContainmentReferenceNoProxies((TargetObject)null);
+				setSingleNonContainmentReferenceNoProxies((TargetObject) null);
 				return;
 			case ModelPackage.PRIMARY_OBJECT__FEATURE_MAP_REFERENCE_TYPE1:
 				getFeatureMapReferenceType1().clear();
@@ -1078,6 +1137,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -1128,6 +1188,7 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 *
 	 * @generated
 	 */
 	@Override
@@ -1140,9 +1201,11 @@ public class PrimaryObjectImpl extends EObjectImpl implements PrimaryObject {
 		result.append(", idAttribute: ");
 		result.append(idAttribute);
 		result.append(", unsettableAttribute: ");
-		if (unsettableAttributeESet) result.append(unsettableAttribute); else result.append("<unset>");
+		if (unsettableAttributeESet) result.append(unsettableAttribute);
+		else result.append("<unset>");
 		result.append(", unsettableAttributeWithNonNullDefault: ");
-		if (unsettableAttributeWithNonNullDefaultESet) result.append(unsettableAttributeWithNonNullDefault); else result.append("<unset>");
+		if (unsettableAttributeWithNonNullDefaultESet) result.append(unsettableAttributeWithNonNullDefault);
+		else result.append("<unset>");
 		result.append(", featureMapReferenceCollection: ");
 		result.append(featureMapReferenceCollection);
 		result.append(", featureMapAttributeCollection: ");
