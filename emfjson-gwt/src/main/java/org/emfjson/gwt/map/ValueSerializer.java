@@ -24,7 +24,7 @@ import java.util.Date;
 
 import static org.eclipse.emf.ecore.util.EcoreUtil.convertToString;
 
-public class Values {
+public class ValueSerializer {
 
 	public void setOrAdd(EObject owner, EAttribute attribute, JSONValue value) {
 		JSONString stringValue = value.isString();

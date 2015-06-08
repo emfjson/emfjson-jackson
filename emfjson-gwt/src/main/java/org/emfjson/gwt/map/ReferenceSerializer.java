@@ -14,6 +14,7 @@ package org.emfjson.gwt.map;
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -23,13 +24,13 @@ import org.emfjson.common.Options;
 
 import java.util.Collection;
 
-public class References {
+public class ReferenceSerializer {
 
 	private final Options options;
 	private final Cache cache;
 	private final Resource resource;
 
-	public References(Cache cache, Resource resource, Options options) {
+	public ReferenceSerializer(Cache cache, Resource resource, Options options) {
 		this.cache = cache;
 		this.resource = resource;
 		this.options = options;
@@ -53,9 +54,7 @@ public class References {
 		for (Object current : values) {
 			if (current instanceof EObject) {
 				EObject value = (EObject) current;
-				String ref = cache.getURI(value);
-				String type = cache.getType(value.eClass());
-				arrayNode.set(i, createObjectRef(new JSONObject(), ref, type));
+				arrayNode.set(i, createObjectRef(new JSONObject(), value));
 				i++;
 			}
 		}
@@ -63,14 +62,20 @@ public class References {
 
 	public void serializeOne(JSONObject parent, String key, EObject value) {
 		if (value != null) {
-			final String ref = cache.getURI(value);
-			final String type = cache.getType(value.eClass());
-
-			parent.put(key, createObjectRef(new JSONObject(), ref, type));
+			parent.put(key, createObjectRef(new JSONObject(), value));
 		}
 	}
 
-	public JSONObject createObjectRef(JSONObject node, String ref, String type) {
+	public JSONObject createObjectRef(JSONObject node, EObject object) {
+		final URI uri = cache.getURI(object);
+		String ref;
+		if (isExternal(object)) {
+			ref = uri.toString();
+		} else {
+			ref = uri.fragment();
+		}
+
+		final String type = cache.getType(object.eClass());
 		if (options.serializeRefTypes) {
 			node.put(options.typeField, new JSONString(type));
 		}
@@ -78,11 +83,8 @@ public class References {
 		return node;
 	}
 
-	public JSONObject createObjectRef(JSONObject target, EObject object) {
-		final String ref = cache.getURI(object);
-		final String type = cache.getType(object.eClass());
-
-		return createObjectRef(target, ref, type);
+	public boolean isExternal(EObject target) {
+		return resource != null && target != null && !resource.equals(target.eResource());
 	}
 
 }

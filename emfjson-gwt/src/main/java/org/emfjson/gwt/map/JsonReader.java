@@ -42,7 +42,7 @@ public class JsonReader {
 	private final ResourceSet resourceSet;
 	private final Options options;
 	private final AsyncCache cache = new AsyncCache();
-	private final Values values = new Values();
+	private final ValueSerializer valueSerializer = new ValueSerializer();
 	private final List<AsyncReferenceEntry> entries = new ArrayList<>();
 
 	public JsonReader(Resource resource, Options options) {
@@ -312,10 +312,10 @@ public class JsonReader {
 		final JSONArray array = value.isArray();
 		if (array != null) {
 			for (int i = 0; i < array.size(); i++) {
-				values.setOrAdd(object, attribute, array.get(i));
+				valueSerializer.setOrAdd(object, attribute, array.get(i));
 			}
 		} else {
-			values.setOrAdd(object, attribute, value);
+			valueSerializer.setOrAdd(object, attribute, value);
 		}
 	}
 

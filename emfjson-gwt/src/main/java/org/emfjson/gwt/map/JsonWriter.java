@@ -36,13 +36,13 @@ public class JsonWriter {
 	private final Resource resource;
 	private final Options options;
 	private final Cache cache = new Cache();
-	private final Values values = new Values();
-	private final References referencers;
+	private final ValueSerializer valueSerializer = new ValueSerializer();
+	private final ReferenceSerializer referenceSerializer;
 
 	public JsonWriter(Resource resource, Options options) {
 		this.resource = resource;
 		this.options = options;
-		this.referencers = new References(cache, resource, options);
+		this.referenceSerializer = new ReferenceSerializer(cache, resource, options);
 	}
 
 	public JSONValue toValue() {
@@ -70,7 +70,8 @@ public class JsonWriter {
 		}
 
 		final List<EAttribute> attributes = cache.getAttributes(eClass);
-		final List<EReference> references = cache.getReferences(eClass);
+        final List<EReference> references = cache.getReferences(eClass);
+		final List<EReference> containments = cache.getContainments(eClass);
 
 		for (EAttribute attribute : attributes) {
 			if (isCandidate(object, attribute)) {
@@ -80,20 +81,27 @@ public class JsonWriter {
 				if (isFeatureMap(attribute)) {
 					serializeFeatureMap(node, object, attribute);
 				} else {
-					values.serialize(node, key, attribute, value);
+					valueSerializer.serialize(node, key, attribute, value);
 				}
 			}
 		}
 
-		for (EReference reference : references) {
+        for (EReference reference: references) {
+            if (isCandidate(object, reference)) {
+                final Object value = object.eGet(reference);
+                final String key = cache.getKey(reference);
+
+                referenceSerializer.serialize(node, key, reference, value);
+            }
+        }
+
+		for (EReference reference : containments) {
 			if (isCandidate(object, reference)) {
 				final Object value = object.eGet(reference);
 				final String key = cache.getKey(reference);
 
 				if (isMapEntry(reference.getEReferenceType())) {
 					serializeMapEntry(node, key, reference, value);
-				} else if (!reference.isContainment()) {
-					referencers.serialize(node, key, reference, value);
 				} else {
 					serializeContainment(node, key, object, reference, value);
 				}
@@ -137,13 +145,13 @@ public class JsonWriter {
 			final String key = cache.getKey(feature);
 
 			if (feature instanceof EAttribute) {
-				values.serialize(node, key, attribute, value);
+				valueSerializer.serialize(node, key, attribute, value);
 			} else {
 				final EReference reference = (EReference) feature;
 				if (reference.isContainment()) {
 					serializeContainment(node, key, owner, reference, value);
 				} else {
-					referencers.serialize(node, key, reference, value);
+					referenceSerializer.serialize(node, key, reference, value);
 				}
 			}
 		}
@@ -161,7 +169,7 @@ public class JsonWriter {
 
 				if (isContainmentProxy(container, (EObject) current)) {
 					array.set(i, object);
-					referencers.createObjectRef(object, (EObject) current);
+					referenceSerializer.createObjectRef(object, (EObject) current);
 				} else {
 					array.set(i, toNode((EObject) current));
 				}
@@ -172,7 +180,7 @@ public class JsonWriter {
 
 			JSONObject childNode = new JSONObject();
 			if (isContainmentProxy(container, (EObject) value)) {
-				target.put(key, referencers.createObjectRef(childNode, (EObject) value));
+				target.put(key, referenceSerializer.createObjectRef(childNode, (EObject) value));
 			} else {
 				target.put(key, toNode((EObject) value));
 			}

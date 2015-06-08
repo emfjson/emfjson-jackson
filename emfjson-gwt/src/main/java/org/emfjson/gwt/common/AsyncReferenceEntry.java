@@ -27,17 +27,14 @@ public class AsyncReferenceEntry extends ReferenceEntry {
 	}
 
 	public void resolve(final Resource resource, final Callback<Resource> callback) {
-		final URI ref = createURIFromID(owner.eResource(), id);
+		EObject target = owner.eResource().getEObject(id);
 
-		if (ref == null) {
-			EObject target = owner.eResource().getEObject(id);
-			if (target != null) {
-				EObjects.setOrAdd(owner, reference, target);
-				callback.onSuccess(resource);
-			} else {
-				callback.onFailure(new Exception());
-			}
+		if (target != null) {
+			EObjects.setOrAdd(owner, reference, target);
+			callback.onSuccess(resource);
 		} else {
+			URI ref = URI.createURI(id);
+
 			resource.getResourceSet().getEObject(ref, new Callback<EObject>() {
 				@Override
 				public void onSuccess(EObject result) {

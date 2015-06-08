@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static org.emfjson.common.ModelUtil.getElementName;
 
@@ -33,7 +32,7 @@ import static org.emfjson.common.ModelUtil.getElementName;
  */
 public class Cache {
 
-	public final Map<EObject, String> mapOfID = new HashMap<>();
+	public final Map<EObject, URI> mapOfID = new HashMap<>();
 	protected final Map<String, EClass> mapOfClasses = new HashMap<>();
 	protected final Map<String, URI> mapOfURIs = new HashMap<>();
 
@@ -215,7 +214,7 @@ public class Cache {
 		return uri.toString();
 	}
 
-	public String getURI(EObject object) {
+	public URI getURI(EObject object) {
 		if (object == null) {
 			return null;
 		}
@@ -225,9 +224,9 @@ public class Cache {
 		}
 
 		final URI uri = EcoreUtil.getURI(object);
-		mapOfID.put(object, uri.toString());
+		mapOfID.put(object, uri);
 
-		return uri.toString();
+		return uri;
 	}
 
 }
