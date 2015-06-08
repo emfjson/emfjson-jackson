@@ -8,6 +8,7 @@
     </parent>
     <packaging>bundle</packaging>
     <artifactId>emfjson-jackson</artifactId>
+    <description>EMF JSON Jackson</description>
 
     <dependencies>
         <dependency>
@@ -82,12 +83,7 @@
                         <Bundle-Name>emfjson-jackson</Bundle-Name>
                         <Bundle-Version>${project.version}</Bundle-Version>
                         <Import-Package>
-                            com.fasterxml.jackson.core;version="[2.3.0, 3.0.0)",
-                            com.fasterxml.jackson.core.util;version="[2.3.0, 3.0.0)",
-                            com.fasterxml.jackson.databind;version="[2.3.0, 3.0.0)",
-                            com.fasterxml.jackson.databind.node;version="[2.3.0, 3.0.0)",
-                            com.fasterxml.jackson.databind.util;version="[2.3.0, 3.0.0)",
-                            com.fasterxml.jackson.databind.module;version="[2.3.0, 3.0.0)",
+                            com.fasterxml.jackson.*;version="[2.5.0, 3.0.0)",
                             *
                         </Import-Package>
                     </instructions>

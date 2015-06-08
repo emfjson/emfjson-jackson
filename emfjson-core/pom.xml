@@ -8,6 +8,7 @@
     </parent>
     <packaging>bundle</packaging>
     <artifactId>emfjson-core</artifactId>
+    <description>EMF JSON Core</description>
 
     <dependencies>
         <dependency>
@@ -43,6 +44,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
+                        <Export-Package>org.emfjson.*</Export-Package>
                         <Bundle-SymbolicName>org.emfjson.core</Bundle-SymbolicName>
                         <Bundle-Name>emfjson-core</Bundle-Name>
                         <Bundle-Version>${project.version}</Bundle-Version>
