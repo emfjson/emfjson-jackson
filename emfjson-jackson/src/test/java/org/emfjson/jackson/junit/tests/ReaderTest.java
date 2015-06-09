@@ -28,6 +28,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
 public class ReaderTest extends TestSupport {
@@ -156,6 +157,26 @@ public class ReaderTest extends TestSupport {
 
 		assertEquals(EcorePackage.Literals.ECLASS, result.eClass());
 		assertEquals("A", result.eGet(EcorePackage.Literals.ENAMED_ELEMENT__NAME));
+	}
+
+	@Test
+	public void shouldReturnErrorsForWhichThereIsNoFeature() throws IOException {
+		JsonNode data = mapper.createObjectNode()
+				.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EClass")
+				.put("some_unknown_feature", "some value")
+				.put("name", "A");
+
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+		resource.load(new ByteArrayInputStream(mapper.writeValueAsBytes(data)), null);
+
+		assertEquals(1, resource.getContents().size());
+		assertEquals(1, resource.getErrors().size());
+
+		Resource.Diagnostic error = resource.getErrors().get(0);
+
+		assertNotNull(error.getMessage());
+		assertNotNull(error.getColumn());
+		assertNotNull(error.getLine());
 	}
 
 	@Test

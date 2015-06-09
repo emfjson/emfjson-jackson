@@ -20,6 +20,13 @@ public class JSONException extends Exception implements Resource.Diagnostic {
 	private final int line;
 	private final int column;
 
+	public JSONException(String message, JsonLocation location) {
+		super(message);
+		this.location = location.toString();
+		this.line = location.getLineNr();
+		this.column = location.getColumnNr();
+	}
+
 	public JSONException(Exception e, JsonLocation location) {
 		super(e);
 		this.location = location.toString();
