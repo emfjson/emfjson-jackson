@@ -137,6 +137,8 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 	private void readFeature(JsonParser jp, EObject current, String fieldName, DeserializationContext ctxt) throws IOException {
 		final EClass eClass = current.eClass();
 		final EStructuralFeature feature = cache.getEStructuralFeature(eClass, fieldName);
+
+		final Resource resource = (Resource) ctxt.getAttribute("resource");
 		@SuppressWarnings("unchecked")
 		final List<ReferenceEntry> entries = (List<ReferenceEntry>) ctxt.getAttribute("entries");
 
@@ -159,6 +161,11 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 			}
 
 		} else {
+			if (resource != null) {
+				resource.getErrors().add(new JSONException(
+						"Unknown feature " + fieldName,
+						jp.getCurrentLocation()));
+			}
 			// we didn't find a feature so consume
 			// the field and move on
 			jp.nextToken();
