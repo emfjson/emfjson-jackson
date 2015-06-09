@@ -17,13 +17,19 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.junit.Test;
 
 import org.emfjson.EMFJs;
+import org.emfjson.jackson.JacksonOptions;
+import org.emfjson.jackson.databind.deser.references.ReferenceAsValueDeserializer;
+import org.emfjson.jackson.databind.ser.references.ReferenceAsValueSerializer;
 import org.emfjson.jackson.junit.model.ModelFactory;
 import org.emfjson.jackson.junit.model.ModelPackage;
 import org.emfjson.jackson.junit.model.Sex;
 import org.emfjson.jackson.junit.model.User;
 import org.emfjson.jackson.junit.support.TestSupport;
+import org.emfjson.jackson.module.EMFModule;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -60,7 +66,7 @@ public class ReferenceTest extends TestSupport {
 
 		user1.setUniqueFriend(user2);
 
-		Resource resource = resourceSet.createResource(URI.createURI("tests/test-save-3.json"));
+		Resource resource = resourceSet.createResource(URI.createURI("test"));
 
 		resource.getContents().add(user1);
 		resource.getContents().add(user2);
@@ -183,5 +189,74 @@ public class ReferenceTest extends TestSupport {
 		assertEquals(obj3, friend2);
 	}
 
+	@Test
+	public void testSaveReferenceAsValue() {
+		ObjectMapper mapper = new ObjectMapper();
+		JacksonOptions opts = new JacksonOptions.Builder()
+			.withReferenceSerializer(new ReferenceAsValueSerializer())
+			.build();
+		mapper.registerModule(new EMFModule(resourceSet, opts));
+
+		JsonNode expected = mapper.createArrayNode()
+			.add(mapper.createObjectNode()
+				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+				.put("userId", "1")
+				.put("name", "John")
+				.put("sex", "MALE")
+				.put("uniqueFriend", "2"))
+			.add(mapper.createObjectNode()
+				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+				.put("userId", "2")
+				.put("name", "Mary")
+				.put("sex", "FEMALE"));
+
+		User user1 = ModelFactory.eINSTANCE.createUser();
+		user1.setUserId("1");
+		user1.setName("John");
+
+		User user2 = ModelFactory.eINSTANCE.createUser();
+		user2.setUserId("2");
+		user2.setName("Mary");
+		user2.setSex(Sex.FEMALE);
+
+		user1.setUniqueFriend(user2);
+
+		Resource resource = resourceSet.createResource(URI.createURI("test"));
+		resource.getContents().add(user1);
+		resource.getContents().add(user2);
+
+		assertEquals(expected, mapper.valueToTree(resource));
+	}
+
+	@Test
+	public void testLoadReferenceAsValue() throws JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper();
+		JacksonOptions opts = new JacksonOptions.Builder()
+			.withReferenceDeserializer(new ReferenceAsValueDeserializer())
+			.build();
+		mapper.registerModule(new EMFModule(resourceSet, opts));
+
+		JsonNode data = mapper.createArrayNode()
+			.add(mapper.createObjectNode()
+				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+				.put("userId", "1")
+				.put("name", "John")
+				.put("sex", "MALE")
+				.put("uniqueFriend", "2"))
+			.add(mapper.createObjectNode()
+				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+				.put("userId", "2")
+				.put("name", "Mary")
+				.put("sex", "FEMALE"));
+
+		Resource resource = mapper.treeToValue(data, Resource.class);
+
+		assertEquals(2, resource.getContents().size());
+
+		User first = (User) resource.getContents().get(0);
+		User second = (User) resource.getContents().get(1);
+
+		assertSame(second, first.getUniqueFriend());
+	}
 
 }

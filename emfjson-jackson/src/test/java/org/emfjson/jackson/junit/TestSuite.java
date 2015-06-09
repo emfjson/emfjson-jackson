@@ -19,21 +19,22 @@ import org.emfjson.jackson.junit.tests.*;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-	ValueTest.class,
-	ContainmentTest.class,
-	ReaderTest.class,
-	EnumTest.class,
-	FeatureMapTest.class,
-	AnnotationTest.class,
-	PolymorphicTest.class,
-	ReferenceTest.class,
-	ProxyAttributeTest.class,
-	UuidSaveTest.class,
-	UuidLoadTest.class,
-	ModuleTest.class,
-	ExternalReferencesTest.class,
-	NoTypeTest.class,
-	DynamicPackageTest.class,
-	DynamicInstanceTest.class
+        AnnotationTest.class,
+        ContainmentTest.class,
+        DynamicInstanceTest.class,
+        DynamicPackageTest.class,
+        EnumTest.class,
+        ExternalReferencesTest.class,
+        FeatureMapTest.class,
+        JacksonOptionTest.class,
+        ModuleTest.class,
+        NoTypeTest.class,
+        PolymorphicTest.class,
+        ProxyAttributeTest.class,
+        ReaderTest.class,
+        ReferenceTest.class,
+        UuidLoadTest.class,
+        UuidSaveTest.class,
+        ValueTest.class
 })
 public class TestSuite {}
