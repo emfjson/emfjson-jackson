@@ -21,28 +21,18 @@ import org.emfjson.handlers.URIHandler;
  */
 public class BaseURIHandler implements URIHandler {
 
-	private URI baseURI;
-	private boolean resolve;
+    protected boolean resolve(URI baseURI) {
+        return baseURI != null && baseURI.isHierarchical() && !baseURI.isRelative();
+    }
 
 	@Override
-	public URI getBaseURI() {
-		return baseURI;
+	public URI resolve(URI baseURI, URI uri) {
+		return resolve(baseURI) && uri.isRelative() && uri.hasRelativePath() ? uri.resolve(baseURI) : uri;
 	}
 
 	@Override
-	public void setBaseURI(URI uri) {
-		baseURI = uri;
-		resolve = uri != null && uri.isHierarchical() && !uri.isRelative();
-	}
-
-	@Override
-	public URI resolve(URI uri) {
-		return resolve && uri.isRelative() && uri.hasRelativePath() ? uri.resolve(baseURI) : uri;
-	}
-
-	@Override
-	public URI deresolve(URI uri) {
-		if (resolve && !uri.isRelative()) {
+	public URI deresolve(URI baseURI, URI uri) {
+		if (resolve(baseURI) && !uri.isRelative()) {
 			URI deresolvedURI = uri.deresolve(baseURI, true, true, false);
 			if (deresolvedURI.hasRelativePath()) {
 				uri = deresolvedURI;

@@ -16,24 +16,8 @@ import org.eclipse.emf.common.util.URI;
 /**
  * URIHandler is used during serialization/deserialization
  * of external references.
- *
  */
 public interface URIHandler {
-
-	/**
-	 * Returns the base URI used by the handler.
-	 *
-	 * @return uri the new base URI.
-	 */
-	URI getBaseURI();
-
-	/**
-	 * Sets base URI used by the handler.
-	 * It will be called before load or save begins.
-	 *
-	 * @param uri the new base URI.
-	 */
-	void setBaseURI(URI uri);
 
 	/**
 	 * Returns the URI {@link URI#resolve(URI) resolved} against the base URI.
@@ -42,7 +26,7 @@ public interface URIHandler {
 	 * @return the URI resolved against the base URI.
 	 * @see URI#resolve(URI)
 	 */
-	URI resolve(URI uri);
+	URI resolve(URI baseURI, URI uri);
 
 	/**
 	 * Returns the URI {@link URI#deresolve(URI) deresolved} against the base URI.
@@ -51,6 +35,6 @@ public interface URIHandler {
 	 * @return the URI resolved against the base URI.
 	 * @see URI#deresolve(URI)
 	 */
-	URI deresolve(URI uri);
+	URI deresolve(URI baseURI, URI uri);
 
 }

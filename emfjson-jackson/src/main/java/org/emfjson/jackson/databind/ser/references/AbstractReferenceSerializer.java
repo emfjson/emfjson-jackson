@@ -11,12 +11,25 @@
  */
 package org.emfjson.jackson.databind.ser.references;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.emfjson.handlers.URIHandler;
+import org.emfjson.jackson.handlers.BaseURIHandler;
 
 public abstract class AbstractReferenceSerializer implements ReferenceSerializer {
 
 	public boolean isExternal(EObject source, EObject target) {
 		return !source.eResource().equals(target.eResource());
+	}
+
+	protected URI deresolve(URIHandler handler, URI targetURI, EObject source) {
+		URI sourceURI = EcoreUtil.getURI(source);
+		if (handler == null) {
+			handler = new BaseURIHandler();
+		}
+
+		return handler.deresolve(sourceURI, targetURI);
 	}
 
 }

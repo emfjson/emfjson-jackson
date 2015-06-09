@@ -27,24 +27,23 @@ public class ReferenceAsObjectSerializer extends AbstractReferenceSerializer {
 	@Override
 	public void serialize(EObject source, EObject target, JsonGenerator jg, JacksonOptions options) throws IOException {
 		URIHandler handler = options.uriHandler;
-		handler.setBaseURI(source.eResource().getURI());
 
 		if (target == null) {
 			jg.writeNull();
 		} else {
-			final URI uri = EcoreUtil.getURI(target);
+			URI targetURI = EcoreUtil.getURI(target);
 
 			jg.writeStartObject();
 			if (isExternal(source, target)) {
-				String value = handler.deresolve(uri).toString();
+				targetURI = deresolve(handler, targetURI, source);
 
-				if (uri == null) {
+				if (targetURI == null) {
 					jg.writeNullField(options.refField);
 				} else {
-					jg.writeStringField(options.refField, value);
+					jg.writeStringField(options.refField, targetURI.toString());
 				}
 			} else {
-				jg.writeStringField(options.refField, uri.fragment());
+				jg.writeStringField(options.refField, targetURI.fragment());
 			}
 			jg.writeEndObject();
 		}

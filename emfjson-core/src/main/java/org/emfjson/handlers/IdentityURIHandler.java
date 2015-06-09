@@ -19,25 +19,13 @@ import org.eclipse.emf.common.util.URI;
  */
 public class IdentityURIHandler implements URIHandler {
 
-	private URI baseURI;
-
 	@Override
-	public URI getBaseURI() {
-		return baseURI;
-	}
-
-	@Override
-	public void setBaseURI(URI uri) {
-		this.baseURI = uri;
-	}
-
-	@Override
-	public URI resolve(URI uri) {
+	public URI resolve(URI baseURI, URI uri) {
 		return uri;
 	}
 
 	@Override
-	public URI deresolve(URI uri) {
+	public URI deresolve(URI baseURI, URI uri) {
 		return uri;
 	}
 

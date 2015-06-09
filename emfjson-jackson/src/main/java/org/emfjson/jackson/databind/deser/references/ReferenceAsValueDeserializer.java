@@ -18,6 +18,7 @@ import org.emfjson.common.ReferenceEntry;
 import org.emfjson.jackson.JacksonOptions;
 
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
 
 import java.io.IOException;
 
@@ -26,6 +27,10 @@ public class ReferenceAsValueDeserializer implements ReferenceDeserializer {
 	@Override
 	public ReferenceEntry deserialize(JsonParser jp, EObject owner, EReference reference, JacksonOptions options)
 		throws IOException {
+
+		if (JsonToken.VALUE_STRING.equals(jp.getCurrentToken())) {
+			return new ReferenceEntry(owner, reference, jp.getText());
+		}
 
 		return null;
 	}

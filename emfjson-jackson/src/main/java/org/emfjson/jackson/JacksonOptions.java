@@ -71,7 +71,7 @@ public class JacksonOptions extends Options {
 		protected void init(Map<?, ?> options) {
 			super.init(options);
 
-			uriHandler = objectValue(options, OPTION_URI_HANDLER, new BaseURIHandler());
+			uriHandler = objectValue(options, OPTION_URI_HANDLER, null);
 			referenceSerializer = objectValue(options, OPTION_REF_SERIALIZER, referenceSerializer);
 			referenceDeserializer = objectValue(options, OPTION_REF_DESERIALIZER, referenceDeserializer);
 			idSerializer = objectValue(options, OPTION_ID_SERIALIZER, idSerializer);
@@ -91,6 +91,26 @@ public class JacksonOptions extends Options {
 		@Override
 		public Builder withRoot(EClass root) {
 			return (Builder) super.withRoot(root);
+		}
+
+		public Builder withReferenceSerializer(ReferenceSerializer serializer) {
+			referenceSerializer = serializer;
+			return this;
+		}
+
+		public Builder withReferenceDeserializer(ReferenceDeserializer deserializer) {
+			referenceDeserializer = deserializer;
+			return this;
+		}
+
+		public Builder withIdSerializer(IdSerializer serializer) {
+			idSerializer = serializer;
+			return this;
+		}
+
+		public Builder withIdDeserializer(IdDeserializer deserializer) {
+			idDeserializer = deserializer;
+			return this;
 		}
 
 	}

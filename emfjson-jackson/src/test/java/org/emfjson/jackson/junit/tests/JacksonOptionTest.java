@@ -39,8 +39,7 @@ public class JacksonOptionTest {
 		assertEquals(ReferenceAsObjectSerializer.class, options.referenceSerializer.getClass());
 		assertEquals(ReferenceAsObjectDeserializer.class, options.referenceDeserializer.getClass());
 
-		assertEquals(BaseURIHandler.class, options.uriHandler.getClass());
-
+		assertNull(options.uriHandler);
 		assertTrue(options.indentOutput);
 		assertNull(options.rootElement);
 	}

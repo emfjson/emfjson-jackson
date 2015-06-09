@@ -31,16 +31,18 @@ public class ReferenceAsValueSerializer extends AbstractReferenceSerializer {
 		if (target == null) {
 			jg.writeNull();
 		} else {
-			URI uri = EcoreUtil.getURI(target);
+			URI targetURI = EcoreUtil.getURI(target);
 
 			if (isExternal(source, target)) {
-				if (uri == null) {
+				targetURI = deresolve(handler, targetURI, source);
+
+				if (targetURI == null) {
 					jg.writeNull();
 				} else {
-					jg.writeString(handler.deresolve(uri).toString());
+					jg.writeString(targetURI.toString());
 				}
 			} else {
-				jg.writeString(uri.fragment());
+				jg.writeString(targetURI.fragment());
 			}
 		}
 	}

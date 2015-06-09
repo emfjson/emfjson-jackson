@@ -12,10 +12,10 @@
 package org.emfjson.common;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.emfjson.handlers.IdentityURIHandler;
 import org.emfjson.handlers.URIHandler;
 
+import java.util.Collections;
 import java.util.Map;
 
 import static org.emfjson.EMFJs.*;
@@ -119,6 +119,10 @@ public class Options {
 		}
 
 		protected void init(Map<?, ?> options) {
+			if (options == null) {
+				options = Collections.emptyMap();
+			}
+
 			withTypes = booleanValue(options, OPTION_SERIALIZE_TYPE, withTypes);
 			withRefTypes = booleanValue(options, OPTION_SERIALIZE_REF_TYPE, withRefTypes);
 			withProxyAttributes = booleanValue(options, OPTION_PROXY_ATTRIBUTES, withProxyAttributes);

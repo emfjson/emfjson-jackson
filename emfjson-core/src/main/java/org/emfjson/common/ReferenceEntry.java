@@ -14,8 +14,9 @@ package org.emfjson.common;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+
+import org.emfjson.handlers.URIHandler;
 
 public class ReferenceEntry {
 
@@ -29,33 +30,25 @@ public class ReferenceEntry {
 		this.id = id;
 	}
 
-	public void resolve(ResourceSet resourceSet) {
-		final URI ref = createURIFromID(owner.eResource(), id);
-
-		EObject target;
-		if (ref == null) {
-			target = owner.eResource().getEObject(id);
-		} else {
-			target = resourceSet.getEObject(ref, true);
-		}
+	public void resolve(ResourceSet resourceSet, URIHandler handler) {
+		EObject target = owner.eResource().getEObject(id);
 
 		if (target != null) {
 			EObjects.setOrAdd(owner, reference, target);
-		}
-	}
+		} else {
+			URI baseURI = owner.eResource().getURI().trimFragment();
+            URI uri = URI.createURI(id);
 
-	protected URI createURIFromID(Resource current, String value) {
-		if (value == null) {
-			return null;
-		}
+			if (handler != null) {
+                uri = handler.resolve(baseURI, uri);
+            } else {
+                uri = uri.resolve(baseURI, false);
+            }
 
-		if (value.contains(":")) { // is full
-			return URI.createURI(value);
-		} else { // is fragment
-			if (current == null || current.getURI() == null) {
-				return null;
-			} else {
-				return current.getURI().appendFragment(value.startsWith("#") ? value.substring(1) : value);
+			target = resourceSet.getEObject(uri, true);
+
+			if (target != null) {
+				EObjects.setOrAdd(owner, reference, target);
 			}
 		}
 	}

@@ -19,11 +19,12 @@ import org.emfjson.jackson.junit.model.ModelFactory;
 import org.emfjson.jackson.junit.model.Node;
 import org.emfjson.jackson.junit.support.TestSupport;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class ExternalReferencesTest extends TestSupport {
 
@@ -59,6 +60,40 @@ public class ExternalReferencesTest extends TestSupport {
 		JsonNode result = mapper.valueToTree(second);
 
 		assertEquals("../first.json#/", result.get("target").get("$ref").asText());
+	}
+
+	@Test
+	public void testLoadExternalReferenceOnSameBaseURI() throws JsonProcessingException {
+		JsonNode first = mapper.createObjectNode()
+			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Node");
+
+		JsonNode second = mapper.createObjectNode()
+			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Node")
+			.set("target", mapper.createObjectNode()
+				.put("$ref", "../first.json#/"));
+
+
+		Resource r1 = mapper.reader()
+			.withAttribute("uri", "file://folder/first.json")
+			.treeToValue(first, Resource.class);
+
+		Resource r2 = mapper.reader()
+			.withAttribute("uri", "file://folder/second.json")
+			.treeToValue(second, Resource.class);
+
+		assertNotNull(r1);
+		assertNotNull(r2);
+
+		assertEquals("file://folder/first.json", r1.getURI().toString());
+		assertEquals("file://folder/second.json", r2.getURI().toString());
+
+		assertEquals(1, r1.getContents().size());
+		assertEquals(1, r2.getContents().size());
+
+		Node n1 = (Node) r1.getContents().get(0);
+		Node n2 = (Node) r2.getContents().get(0);
+
+		assertSame(n2.getTarget(), n1);
 	}
 
 }

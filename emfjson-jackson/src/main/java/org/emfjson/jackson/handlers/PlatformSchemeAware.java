@@ -19,11 +19,11 @@ import org.eclipse.emf.common.util.URI;
 public class PlatformSchemeAware extends BaseURIHandler {
 
 	@Override
-	public URI deresolve(URI uri) {
+	public URI deresolve(URI baseURI, URI uri) {
 		return !uri.isPlatform() ||
 			(uri.segmentCount() > 0 &&
-				getBaseURI().segmentCount() > 0 && uri.segment(0).equals(getBaseURI().segment(0))) ?
-			super.deresolve(uri) : uri;
+				baseURI.segmentCount() > 0 && uri.segment(0).equals(baseURI.segment(0))) ?
+			super.deresolve(baseURI, uri) : uri;
 	}
 
 }

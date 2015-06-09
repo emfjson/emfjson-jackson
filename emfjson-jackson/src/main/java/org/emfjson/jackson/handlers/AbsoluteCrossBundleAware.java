@@ -21,12 +21,12 @@ import org.eclipse.emf.common.util.URI;
 public class AbsoluteCrossBundleAware extends BaseURIHandler {
 
 	@Override
-	public URI deresolve(URI uri) {
+	public URI deresolve(URI baseURI, URI uri) {
 		return !uri.isPlatform() ||
-			(uri.segmentCount() > 1 && getBaseURI().segmentCount() > 1 &&
-				uri.segment(0).equals(getBaseURI().segment(0)) &&
-				uri.segment(1).equals(getBaseURI().segment(1))) ?
-			super.deresolve(uri) : uri;
+			(uri.segmentCount() > 1 && baseURI.segmentCount() > 1 &&
+				uri.segment(0).equals(baseURI.segment(0)) &&
+				uri.segment(1).equals(baseURI.segment(1))) ?
+			super.deresolve(baseURI, uri) : uri;
 	}
 
 }
