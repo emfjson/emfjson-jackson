@@ -65,7 +65,7 @@ public class EMFModule extends SimpleModule {
 		addSerializer(new EMapSerializer());
 		addSerializer(new EStringToStringMapEntrySerializer());
 		addDeserializer(EObject.class, new EObjectDeserializer(resourceSet, options));
-		addDeserializer(Resource.class, new ResourceDeserializer(resourceSet));
+		addDeserializer(Resource.class, new ResourceDeserializer(resourceSet, options));
 		addDeserializer(Date.class, new DateDeserializer());
 	}
 

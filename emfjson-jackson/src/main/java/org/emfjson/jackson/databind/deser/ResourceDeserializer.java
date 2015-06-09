@@ -17,40 +17,36 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
 import org.emfjson.common.ReferenceEntry;
+import org.emfjson.jackson.JacksonOptions;
 import org.emfjson.jackson.resource.JsonResource;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.databind.BeanProperty;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResourceDeserializer extends JsonDeserializer<Resource> implements ContextualDeserializer {
+public class ResourceDeserializer extends JsonDeserializer<Resource> {
 
-	private final Resource resource;
-	private final List<ReferenceEntry> entries;
 	private final ResourceSet resourceSet;
+	private final JacksonOptions options;
 
-	public ResourceDeserializer(ResourceSet resourceSet) {
+	public ResourceDeserializer(ResourceSet resourceSet, JacksonOptions options) {
 		this.resourceSet = resourceSet;
-		this.resource = null;
-		this.entries = new ArrayList<>();
-	}
-
-	public ResourceDeserializer(ResourceSet resourceSet, Resource resource, List<ReferenceEntry> entries) {
-		this.resourceSet = resourceSet;
-		this.resource = resource;
-		this.entries = entries;
+		this.options = options;
 	}
 
 	@Override
 	public Resource deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
+		final Resource resource = getResource(ctxt);
+		final List<ReferenceEntry> entries = new ArrayList<>();
+
+		ctxt.setAttribute("resource", resource);
+		ctxt.setAttribute("entries", entries);
+
 		if (!jp.hasCurrentToken()) {
 			jp.nextToken();
 		}
@@ -77,20 +73,28 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> implements 
 		}
 
 		for (ReferenceEntry entry : entries) {
-			entry.resolve(resource.getResourceSet());
+			entry.resolve(resource.getResourceSet(), options.uriHandler);
 		}
 
 		return resource;
 	}
 
-	@Override
-	public Class<?> handledType() {
-		return Resource.class;
+	private Resource getResource(DeserializationContext ctxt) {
+		Resource resource = (Resource) ctxt.getAttribute("resource");
+		URI uri = getURI(ctxt);
+
+		if (resource == null) {
+			resource = new JsonResource(uri);
+		}
+
+		if (!resourceSet.equals(resource.getResourceSet())) {
+			resourceSet.getResources().add(resource);
+		}
+
+		return resource;
 	}
 
-	@Override
-	public JsonDeserializer<?> createContextual(DeserializationContext ctxt, BeanProperty property) throws JsonMappingException {
-		Resource resource = (Resource) ctxt.getAttribute("resource");
+	private URI getURI(DeserializationContext ctxt) {
 		Object uri = ctxt.getAttribute("uri");
 
 		URI realURI;
@@ -102,18 +106,12 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> implements 
 			realURI = URI.createURI("default");
 		}
 
-		if (resource == null) {
-			resource = new JsonResource(realURI);
-		}
+		return realURI;
+	}
 
-		if (!resourceSet.equals(resource.getResourceSet())) {
-			resourceSet.getResources().add(resource);
-		}
-
-		ctxt.setAttribute("resource", resource);
-		ctxt.setAttribute("entries", entries);
-
-		return new ResourceDeserializer(resourceSet, resource, entries);
+	@Override
+	public Class<?> handledType() {
+		return Resource.class;
 	}
 
 }
