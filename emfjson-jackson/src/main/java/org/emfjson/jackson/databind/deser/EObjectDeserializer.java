@@ -11,22 +11,6 @@
  */
 package org.emfjson.jackson.databind.deser;
 
-import org.eclipse.emf.common.util.EMap;
-import org.eclipse.emf.common.util.Enumerator;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.*;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-
-import org.emfjson.EMFJs;
-import org.emfjson.common.Cache;
-import org.emfjson.common.EObjects;
-import org.emfjson.common.ReferenceEntry;
-import org.emfjson.jackson.JacksonOptions;
-import org.emfjson.jackson.errors.JSONException;
-import org.emfjson.jackson.resource.JsonResource;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.BeanProperty;
@@ -35,10 +19,22 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
 import com.fasterxml.jackson.databind.util.TokenBuffer;
+import org.eclipse.emf.common.util.EMap;
+import org.eclipse.emf.common.util.Enumerator;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.*;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.emfjson.EMFJs;
+import org.emfjson.common.Cache;
+import org.emfjson.common.EObjects;
+import org.emfjson.common.ReferenceEntries;
+import org.emfjson.jackson.JacksonOptions;
+import org.emfjson.jackson.errors.JSONException;
+import org.emfjson.jackson.resource.JsonResource;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class EObjectDeserializer extends JsonDeserializer<EObject> implements ContextualDeserializer {
@@ -80,6 +76,7 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 
 	protected EObject doDeserialize(JsonParser jp, EObject current,  DeserializationContext ctxt) throws IOException {
 		final Resource resource = (Resource) ctxt.getAttribute("resource");
+		final ReferenceEntries entries = (ReferenceEntries) ctxt.getAttribute("entries");
 		final TokenBuffer buffer = new TokenBuffer(jp);
 
 		while (jp.nextToken() != JsonToken.END_OBJECT) {
@@ -98,7 +95,7 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 			} else {
 
 				if (current != null) {
-					readFeature(jp, current, fieldName, ctxt);
+					readFeature(jp, current, fieldName, ctxt, resource, entries);
 				} else {
 					buffer.copyCurrentStructure(jp);
 				}
@@ -116,10 +113,12 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		if (object == null)
 			return;
 
+		final Resource resource = (Resource) ctxt.getAttribute("resource");
+		final ReferenceEntries entries = (ReferenceEntries) ctxt.getAttribute("entries");
 		final JsonParser bufferedParser = buffer.asParser();
 
 		while (bufferedParser.nextToken() != null) {
-			readFeature(bufferedParser, object, bufferedParser.getCurrentName(), ctxt);
+			readFeature(bufferedParser, object, bufferedParser.getCurrentName(), ctxt, resource, entries);
 		}
 
 		bufferedParser.close();
@@ -134,13 +133,15 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		return options.rootElement;
 	}
 
-	private void readFeature(JsonParser jp, EObject current, String fieldName, DeserializationContext ctxt) throws IOException {
+	private void readFeature(JsonParser jp,
+							 EObject current,
+							 String fieldName,
+							 DeserializationContext ctxt,
+							 Resource resource,
+							 ReferenceEntries entries) throws IOException {
+
 		final EClass eClass = current.eClass();
 		final EStructuralFeature feature = cache.getEStructuralFeature(eClass, fieldName);
-
-		final Resource resource = (Resource) ctxt.getAttribute("resource");
-		@SuppressWarnings("unchecked")
-		final List<ReferenceEntry> entries = (List<ReferenceEntry>) ctxt.getAttribute("entries");
 
 		if (feature != null) {
 
@@ -149,12 +150,12 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 			}
 
 			if (feature instanceof EAttribute) {
-				readAttribute(jp, current, (EAttribute) feature, ctxt);
+				readAttribute(jp, current, (EAttribute) feature, resource);
 			} else {
 				EReference reference = (EReference) feature;
 
 				if (reference.isContainment()) {
-					readContainment(jp, current, reference, ctxt);
+					readContainment(jp, current, ctxt, reference, resource, entries);
 				} else {
 					readReference(jp, current, reference, entries);
 				}
@@ -174,8 +175,13 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 	}
 
 	@SuppressWarnings("unchecked")
-	private void readContainment(JsonParser jp, EObject owner, EReference reference, DeserializationContext ctxt) throws IOException {
-		final Resource resource = (Resource) ctxt.getAttribute("resource");
+	private void readContainment(JsonParser jp,
+								 EObject owner,
+								 DeserializationContext ctxt,
+								 EReference reference,
+								 Resource resource,
+								 ReferenceEntries entries) throws IOException {
+
 		final Class<?> type = reference.getEReferenceType().getInstanceClass();
 
 		if (type != null && Map.Entry.class.isAssignableFrom(type)) {
@@ -195,7 +201,10 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 
 					try {
 						EObject value = deserialize(jp, ctxt, reference);
-						EObjects.setOrAdd(owner, reference, value);
+						if (value != null) {
+							EObjects.setOrAdd(owner, reference, value);
+							entries.store(resource, value);
+						}
 					} catch (Exception e) {
 						if (resource != null) {
 							resource.getErrors().add(new JSONException(e, jp.getCurrentLocation()));
@@ -206,6 +215,9 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 
 				try {
 					EObject value = deserialize(jp, ctxt, reference);
+					if (value != null) {
+						entries.store(resource, value);
+					}
 					EObjects.setOrAdd(owner, reference, value);
 				} catch (Exception e) {
 					if (resource != null) {
@@ -216,7 +228,7 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		}
 	}
 
-	private void readReference(JsonParser jp, EObject owner, EReference reference, List<ReferenceEntry> entries) throws IOException {
+	private void readReference(JsonParser jp, EObject owner, EReference reference, ReferenceEntries entries) throws IOException {
 		if (jp.getCurrentToken() == JsonToken.START_ARRAY) {
 			while (jp.nextToken() != JsonToken.END_ARRAY) {
 				entries.add(options.referenceDeserializer.deserialize(jp, owner, reference, options));
@@ -226,8 +238,7 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		}
 	}
 
-	private void readAttribute(JsonParser jp, EObject owner, EAttribute attribute, DeserializationContext ctxt) throws IOException {
-		final Resource resource = (Resource) ctxt.getAttribute("resource");
+	private void readAttribute(JsonParser jp, EObject owner, EAttribute attribute, Resource resource) throws IOException {
 		final Class<?> type = attribute.getEAttributeType().getInstanceClass();
 
 		if (jp.getCurrentToken() == JsonToken.START_ARRAY) {
@@ -280,8 +291,7 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 
 	@Override
 	public JsonDeserializer<?> createContextual(DeserializationContext ctxt, BeanProperty property) throws JsonMappingException {
-		@SuppressWarnings("unchecked")
-		List<ReferenceEntry> entries = (List<ReferenceEntry>) ctxt.getAttribute("entries");
+		ReferenceEntries entries = (ReferenceEntries) ctxt.getAttribute("entries");
 		Resource resource = (Resource) ctxt.getAttribute("resource");
 
 		if (property instanceof ResourceProperty) {
@@ -296,7 +306,7 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		}
 
 		if (entries == null) {
-			entries = new ArrayList<>();
+			entries = new ReferenceEntries();
 		}
 
 		ctxt.setAttribute("entries", entries);

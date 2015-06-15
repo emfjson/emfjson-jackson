@@ -11,16 +11,16 @@
  */
 package org.emfjson.jackson.databind.deser.references;
 
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
-
-import org.emfjson.common.ReferenceEntry;
-import org.emfjson.jackson.JacksonOptions;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.emfjson.common.DefaultReferenceEntry;
+import org.emfjson.jackson.JacksonOptions;
 
 import java.io.IOException;
+
+import static org.emfjson.common.ReferenceEntries.ReferenceEntry;
 
 public class ReferenceAsValueDeserializer implements ReferenceDeserializer {
 
@@ -29,7 +29,7 @@ public class ReferenceAsValueDeserializer implements ReferenceDeserializer {
 		throws IOException {
 
 		if (JsonToken.VALUE_STRING.equals(jp.getCurrentToken())) {
-			return new ReferenceEntry(owner, reference, jp.getText());
+			return new DefaultReferenceEntry(owner, reference, jp.getText());
 		}
 
 		return null;

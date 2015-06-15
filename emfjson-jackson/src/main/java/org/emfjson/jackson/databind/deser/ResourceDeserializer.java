@@ -11,23 +11,19 @@
  */
 package org.emfjson.jackson.databind.deser;
 
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-
-import org.emfjson.common.ReferenceEntry;
-import org.emfjson.jackson.JacksonOptions;
-import org.emfjson.jackson.resource.JsonResource;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.emfjson.common.ReferenceEntries;
+import org.emfjson.jackson.JacksonOptions;
+import org.emfjson.jackson.resource.JsonResource;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ResourceDeserializer extends JsonDeserializer<Resource> {
 
@@ -42,7 +38,7 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 	@Override
 	public Resource deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
 		final Resource resource = getResource(ctxt);
-		final List<ReferenceEntry> entries = new ArrayList<>();
+		final ReferenceEntries entries = new ReferenceEntries();
 
 		ctxt.setAttribute("resource", resource);
 		ctxt.setAttribute("entries", entries);
@@ -59,7 +55,10 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 					new ResourceProperty(resourceSet, resource, entries),
 					EObject.class);
 
-				resource.getContents().add(result);
+				if (result != null) {
+					resource.getContents().add(result);
+					entries.store(resource, result);
+				}
 			}
 
 		} else if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
@@ -68,13 +67,14 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 				new ResourceProperty(resourceSet, resource, entries),
 				EObject.class);
 
-			resource.getContents().add(result);
+			if (result != null) {
+				resource.getContents().add(result);
+				entries.store(resource, result);
+			}
 
 		}
 
-		for (ReferenceEntry entry : entries) {
-			entry.resolve(resource.getResourceSet(), options.uriHandler);
-		}
+		entries.resolve(resourceSet, options.uriHandler);
 
 		return resource;
 	}

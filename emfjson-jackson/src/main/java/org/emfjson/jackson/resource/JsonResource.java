@@ -68,7 +68,7 @@ public class JsonResource extends AbstractUuidResource {
 	@Override
 	protected void doSave(OutputStream outputStream, Map<?, ?> options) throws IOException {
 		if (options == null) {
-			options = Collections.<String, Object>emptyMap();
+			options = Collections.<String, Object> emptyMap();
 		}
 
 		if (outputStream instanceof URIConverter.Saveable) {

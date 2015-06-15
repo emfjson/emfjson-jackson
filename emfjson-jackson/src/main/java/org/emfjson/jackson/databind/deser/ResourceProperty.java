@@ -11,27 +11,24 @@
  */
 package org.emfjson.jackson.databind.deser;
 
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-
-import org.emfjson.common.ReferenceEntry;
-
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMember;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonObjectFormatVisitor;
 import com.fasterxml.jackson.databind.type.SimpleType;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.emfjson.common.ReferenceEntries;
 
 import java.lang.annotation.Annotation;
-import java.util.List;
 
 public class ResourceProperty implements BeanProperty {
 
 	private final ResourceSet resourceSet;
 	private final Resource resource;
-	private final List<ReferenceEntry> entries;
+	private final ReferenceEntries entries;
 
-	public ResourceProperty(ResourceSet resourceSet, Resource resource, List<ReferenceEntry> entries) {
+	public ResourceProperty(ResourceSet resourceSet, Resource resource, ReferenceEntries entries) {
 		this.resourceSet = resourceSet;
 		this.resource = resource;
 		this.entries = entries;
@@ -45,7 +42,7 @@ public class ResourceProperty implements BeanProperty {
 		return resource;
 	}
 
-	public List<ReferenceEntry> getEntries() {
+	public ReferenceEntries getEntries() {
 		return entries;
 	}
 

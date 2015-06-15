@@ -18,9 +18,9 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 
 import org.emfjson.common.EObjects;
-import org.emfjson.common.ReferenceEntry;
+import org.emfjson.common.DefaultReferenceEntry;
 
-public class AsyncReferenceEntry extends ReferenceEntry {
+public class AsyncReferenceEntry extends DefaultReferenceEntry {
 
 	public AsyncReferenceEntry(EObject owner, EReference reference, String id) {
 		super(owner, reference, id);

@@ -11,19 +11,16 @@
  */
 package org.emfjson.jackson.databind.deser.references;
 
+import com.fasterxml.jackson.core.JsonParser;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-
-import org.emfjson.common.ReferenceEntry;
+import org.emfjson.common.ReferenceEntries.ReferenceEntry;
 import org.emfjson.jackson.JacksonOptions;
-
-import com.fasterxml.jackson.core.JsonParser;
 
 import java.io.IOException;
 
 public interface ReferenceDeserializer {
 
-	ReferenceEntry deserialize(JsonParser jp, EObject owner, EReference reference, JacksonOptions options)
-		throws IOException;
+	ReferenceEntry deserialize(JsonParser jp, EObject owner, EReference reference, JacksonOptions options) throws IOException;
 
 }
