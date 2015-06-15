@@ -12,8 +12,8 @@
 package org.emfjson.jackson;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.emfjson.common.Options;
+import org.emfjson.handlers.URIHandler;
 import org.emfjson.jackson.databind.deser.FragmentIdDeserializer;
 import org.emfjson.jackson.databind.deser.IdDeserializer;
 import org.emfjson.jackson.databind.deser.references.ReferenceAsObjectDeserializer;
@@ -22,7 +22,6 @@ import org.emfjson.jackson.databind.ser.FragmentIdSerializer;
 import org.emfjson.jackson.databind.ser.IdSerializer;
 import org.emfjson.jackson.databind.ser.references.ReferenceAsObjectSerializer;
 import org.emfjson.jackson.databind.ser.references.ReferenceSerializer;
-import org.emfjson.jackson.handlers.BaseURIHandler;
 
 import java.util.Collections;
 import java.util.Map;
@@ -94,25 +93,29 @@ public class JacksonOptions extends Options {
 		}
 
 		public Builder withReferenceSerializer(ReferenceSerializer serializer) {
-			referenceSerializer = serializer;
+			this.referenceSerializer = serializer;
 			return this;
 		}
 
 		public Builder withReferenceDeserializer(ReferenceDeserializer deserializer) {
-			referenceDeserializer = deserializer;
+			this.referenceDeserializer = deserializer;
 			return this;
 		}
 
 		public Builder withIdSerializer(IdSerializer serializer) {
-			idSerializer = serializer;
+			this.idSerializer = serializer;
 			return this;
 		}
 
 		public Builder withIdDeserializer(IdDeserializer deserializer) {
-			idDeserializer = deserializer;
+			this.idDeserializer = deserializer;
 			return this;
 		}
 
+		public Builder withUriHandler(URIHandler uriHandler) {
+			this.uriHandler = uriHandler;
+			return this;
+		}
 	}
 
 }
