@@ -101,9 +101,7 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 	}
 
 	protected void writeType(EClass eClass, JsonGenerator jg) throws IOException {
-		if (options.serializeTypes) {
-			jg.writeStringField(options.typeField, cache.getType(eClass));
-		}
+		options.typeSerializer.serialize(eClass, jg, cache, options);
 	}
 
 	private void writeRef(JsonGenerator jg, EObject source, String field, Object value) throws IOException {

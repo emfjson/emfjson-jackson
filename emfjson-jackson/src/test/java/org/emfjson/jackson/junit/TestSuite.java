@@ -21,6 +21,8 @@ import org.emfjson.jackson.junit.tests.*;
 @SuiteClasses({
         AnnotationTest.class,
         ContainmentTest.class,
+        CustomDeserializersTest.class,
+        CustomSerializersTest.class,
         DynamicInstanceTest.class,
         DynamicPackageTest.class,
         EnumTest.class,

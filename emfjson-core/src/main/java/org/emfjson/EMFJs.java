@@ -80,6 +80,18 @@ public final class EMFJs {
 	 */
 	public static final String OPTION_ID_DESERIALIZER = "OPTION_ID_DESERIALIZER";
 	/**
+	 * Specify the TypeSerializer object to use during serialization of object's type.
+	 * <p/>
+	 * <p>By default org.emfjson.jackson.databind.deser.DefaultTypeSerializer will be use</p>
+	 */
+	public static final String OPTION_TYPE_SERIALIZER = "OPTION_ID_SERIALIZER";
+	/**
+	 * Specify the TypeDeserializer object to use during deserialization of object's type.
+	 * <p/>
+	 * <p>By default org.emfjson.jackson.databind.deser.DefaultTypeDeserializer will be use</p>
+	 */
+	public static final String OPTION_TYPE_DESERIALIZER = "OPTION_ID_DESERIALIZER";
+	/**
 	 * Specify the field name that will be use to denote the type of objects.
 	 * <p>By default eClass will be use</p>
 	 */

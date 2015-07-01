@@ -7,18 +7,20 @@
  *
  * Contributors:
  *     Guillaume Hillairet - initial API and implementation
+ *
  */
-package org.emfjson.jackson.databind.ser;
+package org.emfjson.jackson.databind.deser;
 
-import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.emfjson.common.Cache;
-import org.emfjson.jackson.JacksonOptions;
 
 import java.io.IOException;
 
-public interface TypeSerializer {
-
-	void serialize(EClass eClass, JsonGenerator jg, Cache cache, JacksonOptions options) throws IOException;
-
+public class DefaultTypeDeserializer implements TypeDeserializer {
+	@Override
+	public EClass deserialize(JsonParser jp, ResourceSet resourceSet, Cache cache) throws IOException {
+		return cache.getEClass(resourceSet, jp.nextTextValue());
+	}
 }

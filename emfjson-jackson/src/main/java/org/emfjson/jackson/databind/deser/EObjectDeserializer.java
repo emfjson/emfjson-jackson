@@ -85,7 +85,7 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 			if (options.typeField.equalsIgnoreCase(fieldName)) {
 
 				if (current == null) {
-					current = create(resourceSet, jp.nextTextValue());
+					current = create(resourceSet, jp);
 				}
 
 			} else if (options.idField.equalsIgnoreCase(fieldName)) {
@@ -276,8 +276,8 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		}
 	}
 
-	protected EObject create(ResourceSet resourceSet, String type) {
-		EClass eClass = cache.getEClass(resourceSet, type);
+	protected EObject create(ResourceSet resourceSet, JsonParser jp) throws IOException {
+		EClass eClass = options.typeDeserializer.deserialize(jp, resourceSet, cache);
 		if (eClass != null) {
 			return EcoreUtil.create(eClass);
 		}

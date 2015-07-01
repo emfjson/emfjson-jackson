@@ -14,12 +14,16 @@ package org.emfjson.jackson;
 import org.eclipse.emf.ecore.EClass;
 import org.emfjson.common.Options;
 import org.emfjson.handlers.URIHandler;
+import org.emfjson.jackson.databind.deser.DefaultTypeDeserializer;
 import org.emfjson.jackson.databind.deser.FragmentIdDeserializer;
 import org.emfjson.jackson.databind.deser.IdDeserializer;
+import org.emfjson.jackson.databind.deser.TypeDeserializer;
 import org.emfjson.jackson.databind.deser.references.ReferenceAsObjectDeserializer;
 import org.emfjson.jackson.databind.deser.references.ReferenceDeserializer;
+import org.emfjson.jackson.databind.ser.DefaultTypeSerializer;
 import org.emfjson.jackson.databind.ser.FragmentIdSerializer;
 import org.emfjson.jackson.databind.ser.IdSerializer;
+import org.emfjson.jackson.databind.ser.TypeSerializer;
 import org.emfjson.jackson.databind.ser.references.ReferenceAsObjectSerializer;
 import org.emfjson.jackson.databind.ser.references.ReferenceSerializer;
 
@@ -34,6 +38,8 @@ public class JacksonOptions extends Options {
 	public final ReferenceDeserializer referenceDeserializer;
 	public final IdSerializer idSerializer;
 	public final IdDeserializer idDeserializer;
+	public final TypeSerializer typeSerializer;
+	public final TypeDeserializer typeDeserializer;
 
 	protected JacksonOptions(JacksonOptions.Builder builder) {
 		super(builder);
@@ -42,6 +48,8 @@ public class JacksonOptions extends Options {
 		this.referenceDeserializer = builder.referenceDeserializer;
 		this.idSerializer = builder.idSerializer;
 		this.idDeserializer = builder.idDeserializer;
+		this.typeSerializer = builder.typeSerializer;
+		this.typeDeserializer = builder.typeDeserializer;
 	}
 
 	public static JacksonOptions from(Map<?, ?> options) {
@@ -54,6 +62,8 @@ public class JacksonOptions extends Options {
 		protected ReferenceDeserializer referenceDeserializer = new ReferenceAsObjectDeserializer();
 		protected IdSerializer idSerializer = new FragmentIdSerializer();
 		protected IdDeserializer idDeserializer = new FragmentIdDeserializer();
+		private TypeSerializer typeSerializer = new DefaultTypeSerializer();
+		private TypeDeserializer typeDeserializer = new DefaultTypeDeserializer();
 
 		@Override
 		public JacksonOptions build(Map<?, ?> options) {
@@ -114,6 +124,31 @@ public class JacksonOptions extends Options {
 
 		public Builder withUriHandler(URIHandler uriHandler) {
 			this.uriHandler = uriHandler;
+			return this;
+		}
+
+		public Builder withTypeField(String typeField) {
+			this.typeField = typeField;
+			return this;
+		}
+
+		public Builder withIdField(String idField) {
+			this.idField = idField;
+			return this;
+		}
+
+		public Builder withRefField(String refField) {
+			this.refField = refField;
+			return this;
+		}
+
+		public Builder withTypeSerializer(TypeSerializer typeSerializer) {
+			this.typeSerializer = typeSerializer;
+			return this;
+		}
+
+		public Builder withTypeDeserializer(TypeDeserializer typeDeserializer) {
+			this.typeDeserializer = typeDeserializer;
 			return this;
 		}
 	}

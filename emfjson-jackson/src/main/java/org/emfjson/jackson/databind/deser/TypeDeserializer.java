@@ -13,9 +13,13 @@ package org.emfjson.jackson.databind.deser;
 import org.eclipse.emf.ecore.EClass;
 
 import com.fasterxml.jackson.core.JsonParser;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.emfjson.common.Cache;
+
+import java.io.IOException;
 
 public interface TypeDeserializer {
 
-	EClass deserialize(JsonParser jp);
+	EClass deserialize(JsonParser jp, ResourceSet resourceSet, Cache cache) throws IOException;
 
 }

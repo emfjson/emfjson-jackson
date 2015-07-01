@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     Guillaume Hillairet - initial API and implementation
+ *
  */
 package org.emfjson.jackson.databind.ser;
 
@@ -17,8 +18,11 @@ import org.emfjson.jackson.JacksonOptions;
 
 import java.io.IOException;
 
-public interface TypeSerializer {
-
-	void serialize(EClass eClass, JsonGenerator jg, Cache cache, JacksonOptions options) throws IOException;
-
+public class DefaultTypeSerializer implements TypeSerializer {
+	@Override
+	public void serialize(EClass eClass, JsonGenerator jg, Cache cache, JacksonOptions options) throws IOException {
+		if (options.serializeTypes) {
+			jg.writeStringField(options.typeField, cache.getType(eClass));
+		}
+	}
 }
