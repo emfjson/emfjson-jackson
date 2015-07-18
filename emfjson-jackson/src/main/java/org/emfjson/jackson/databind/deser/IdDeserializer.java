@@ -11,15 +11,14 @@
  */
 package org.emfjson.jackson.databind.deser;
 
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import org.eclipse.emf.ecore.EObject;
 
 import java.io.IOException;
 
 public interface IdDeserializer {
 
-	void deserialize(JsonParser jp, Resource resource, EObject object) throws IOException;
+	void deserialize(JsonParser jp, EObject object, DeserializationContext ctxt) throws IOException;
 
 }

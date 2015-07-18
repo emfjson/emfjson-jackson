@@ -11,30 +11,31 @@
  */
 package org.emfjson.jackson.databind.ser.references;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.SerializerProvider;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-
-import org.emfjson.jackson.JacksonOptions;
+import org.emfjson.common.Cache;
 import org.emfjson.handlers.URIHandler;
-
-import com.fasterxml.jackson.core.JsonGenerator;
+import org.emfjson.jackson.JacksonOptions;
 
 import java.io.IOException;
 
 public class ReferenceAsValueSerializer extends AbstractReferenceSerializer {
 
 	@Override
-	public void serialize(EObject source, EObject target, JsonGenerator jg, JacksonOptions options) throws IOException {
-		URIHandler handler = options.uriHandler;
+	public void serialize(EObject source, EObject target, JsonGenerator jg, SerializerProvider provider) throws IOException {
+		final Cache cache = (Cache) provider.getAttribute("cache");
+		final JacksonOptions options = (JacksonOptions) provider.getAttribute("options");
+		final URIHandler handler = options.uriHandler;
 
 		if (target == null) {
 			jg.writeNull();
 		} else {
-			URI targetURI = EcoreUtil.getURI(target);
+			URI targetURI = cache.getURI(target);
 
 			if (isExternal(source, target)) {
-				targetURI = deresolve(handler, targetURI, source);
+				targetURI = deresolve(handler, targetURI, cache, source);
 
 				if (targetURI == null) {
 					jg.writeNull();

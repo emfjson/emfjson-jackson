@@ -14,6 +14,7 @@ package org.emfjson.jackson.junit.tests;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -21,8 +22,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emfjson.common.Cache;
-import org.emfjson.common.Options;
 import org.emfjson.jackson.JacksonOptions;
 import org.emfjson.jackson.databind.ser.IdSerializer;
 import org.emfjson.jackson.databind.ser.TypeSerializer;
@@ -43,19 +42,19 @@ public class CustomSerializersTest {
 
 	private IdSerializer serializer = new IdSerializer() {
 		@Override
-		public void serialize(EObject object, JsonGenerator jg, Options options) throws IOException {}
+		public void serialize(EObject object, JsonGenerator jg, SerializerProvider provider) throws IOException {}
 	};
 
 	private ReferenceSerializer referenceSerializer = new ReferenceSerializer() {
 		@Override
-		public void serialize(EObject source, EObject value, JsonGenerator jg, JacksonOptions options) throws IOException {
+		public void serialize(EObject source, EObject value, JsonGenerator jg, SerializerProvider provider) throws IOException {
 			jg.writeString(EcoreUtil.getID(value));
 		}
 	};
 
 	private TypeSerializer typeSerializer = new TypeSerializer() {
 		@Override
-		public void serialize(EClass eClass, JsonGenerator jg, Cache cache, JacksonOptions options) throws IOException {
+		public void serialize(EClass eClass, JsonGenerator jg, SerializerProvider provider) throws IOException {
 			jg.writeStringField("type", eClass.getName());
 		}
 	};

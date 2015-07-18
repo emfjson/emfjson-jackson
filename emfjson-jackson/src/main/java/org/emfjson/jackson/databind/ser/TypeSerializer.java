@@ -11,14 +11,13 @@
 package org.emfjson.jackson.databind.ser;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.SerializerProvider;
 import org.eclipse.emf.ecore.EClass;
-import org.emfjson.common.Cache;
-import org.emfjson.jackson.JacksonOptions;
 
 import java.io.IOException;
 
 public interface TypeSerializer {
 
-	void serialize(EClass eClass, JsonGenerator jg, Cache cache, JacksonOptions options) throws IOException;
+	void serialize(EClass eClass, JsonGenerator jg, SerializerProvider provider) throws IOException;
 
 }

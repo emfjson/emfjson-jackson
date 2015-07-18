@@ -11,22 +11,29 @@
  */
 package org.emfjson.jackson.databind.deser;
 
+import com.fasterxml.jackson.databind.DeserializationContext;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 
+import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.emfjson.common.resource.UuidResource;
 
 import com.fasterxml.jackson.core.JsonParser;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FragmentIdDeserializer implements IdDeserializer {
 
 	@Override
-	public void deserialize(JsonParser jp, Resource resource, EObject current) throws IOException {
+	public void deserialize(JsonParser jp, EObject current, DeserializationContext ctxt) throws IOException {
+		Resource resource = (Resource) ctxt.getAttribute("resource");
+		String id = jp.nextTextValue();
+
 		if (current != null && resource != null) {
 			if (resource instanceof UuidResource) {
-				((UuidResource) resource).setID(current, jp.nextTextValue());
+				((UuidResource) resource).setID(current, id);
 			}
 		}
 	}

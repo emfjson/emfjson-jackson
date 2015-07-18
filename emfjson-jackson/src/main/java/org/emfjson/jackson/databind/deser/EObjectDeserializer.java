@@ -85,12 +85,12 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 			if (options.typeField.equalsIgnoreCase(fieldName)) {
 
 				if (current == null) {
-					current = create(resourceSet, jp);
+					current = create(jp, ctxt);
 				}
 
 			} else if (options.idField.equalsIgnoreCase(fieldName)) {
 
-				options.idDeserializer.deserialize(jp, resource, current);
+				options.idDeserializer.deserialize(jp, current, ctxt);
 
 			} else {
 
@@ -157,7 +157,7 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 				if (reference.isContainment()) {
 					readContainment(jp, current, ctxt, reference, resource, entries);
 				} else {
-					readReference(jp, current, reference, entries);
+					readReference(jp, current, reference, entries, ctxt);
 				}
 			}
 
@@ -228,13 +228,13 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		}
 	}
 
-	private void readReference(JsonParser jp, EObject owner, EReference reference, ReferenceEntries entries) throws IOException {
+	private void readReference(JsonParser jp, EObject owner, EReference reference, ReferenceEntries entries, DeserializationContext context) throws IOException {
 		if (jp.getCurrentToken() == JsonToken.START_ARRAY) {
 			while (jp.nextToken() != JsonToken.END_ARRAY) {
-				entries.add(options.referenceDeserializer.deserialize(jp, owner, reference, options));
+				entries.add(options.referenceDeserializer.deserialize(jp, owner, reference, context));
 			}
 		} else {
-			entries.add(options.referenceDeserializer.deserialize(jp, owner, reference, options));
+			entries.add(options.referenceDeserializer.deserialize(jp, owner, reference, context));
 		}
 	}
 
@@ -276,8 +276,9 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		}
 	}
 
-	protected EObject create(ResourceSet resourceSet, JsonParser jp) throws IOException {
-		EClass eClass = options.typeDeserializer.deserialize(jp, resourceSet, cache);
+	protected EObject create(JsonParser jp, DeserializationContext context) throws IOException {
+		EClass eClass = options.typeDeserializer.deserialize(jp, context);
+
 		if (eClass != null) {
 			return EcoreUtil.create(eClass);
 		}
@@ -311,6 +312,9 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 
 		ctxt.setAttribute("entries", entries);
 		ctxt.setAttribute("resource", resource);
+		ctxt.setAttribute("cache", cache);
+		ctxt.setAttribute("resourceSet", resourceSet);
+		ctxt.setAttribute("options", options);
 
 		return this;
 	}

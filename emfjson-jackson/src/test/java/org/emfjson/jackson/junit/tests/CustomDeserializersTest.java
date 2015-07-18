@@ -14,6 +14,7 @@ package org.emfjson.jackson.junit.tests;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.emf.ecore.EClass;
@@ -22,7 +23,6 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.emfjson.common.Cache;
 import org.emfjson.common.DefaultReferenceEntry;
 import org.emfjson.common.ReferenceEntries;
 import org.emfjson.jackson.JacksonOptions;
@@ -40,15 +40,14 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.*;
 
 public class CustomDeserializersTest {
 
 	private IdDeserializer idDeserializer = new IdDeserializer() {
 		@Override
-		public void deserialize(JsonParser jp, Resource resource, EObject object) throws IOException {
+		public void deserialize(JsonParser jp, EObject object, DeserializationContext ctxt) throws IOException {
+			Resource resource = (Resource) ctxt.getAttribute("resource");
 			String text = jp.nextTextValue();
 
 			if (resource instanceof JsonResource) {
@@ -60,14 +59,14 @@ public class CustomDeserializersTest {
 
 	private TypeDeserializer typeDeserializer = new TypeDeserializer() {
 		@Override
-		public EClass deserialize(JsonParser jp, ResourceSet resourceSet, Cache cache) throws IOException {
+		public EClass deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
 			return ModelPackage.Literals.USER;
 		}
 	};
 
 	private ReferenceDeserializer referenceDeserializer = new ReferenceDeserializer() {
 		@Override
-		public ReferenceEntries.ReferenceEntry deserialize(JsonParser jp, EObject owner, EReference reference, JacksonOptions options)
+		public ReferenceEntries.ReferenceEntry deserialize(JsonParser jp, EObject owner, EReference reference, DeserializationContext ctxt)
 				throws IOException {
 
 			if (JsonToken.VALUE_STRING.equals(jp.getCurrentToken())) {

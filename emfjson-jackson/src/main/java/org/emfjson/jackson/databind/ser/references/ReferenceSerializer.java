@@ -11,16 +11,14 @@
  */
 package org.emfjson.jackson.databind.ser.references;
 
-import org.eclipse.emf.ecore.EObject;
-
-import org.emfjson.jackson.JacksonOptions;
-
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import org.eclipse.emf.ecore.EObject;
 
 import java.io.IOException;
 
 public interface ReferenceSerializer {
 
-	void serialize(EObject source, EObject value, JsonGenerator jg, JacksonOptions options) throws IOException;
+	void serialize(EObject source, EObject value, JsonGenerator jg, SerializerProvider provider) throws IOException;
 
 }

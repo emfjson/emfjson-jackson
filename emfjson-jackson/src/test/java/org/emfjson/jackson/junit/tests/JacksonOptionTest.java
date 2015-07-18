@@ -11,9 +11,9 @@
 package org.emfjson.jackson.junit.tests;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.SerializerProvider;
 import org.eclipse.emf.ecore.EObject;
 import org.emfjson.EMFJs;
-import org.emfjson.common.Options;
 import org.emfjson.jackson.JacksonOptions;
 import org.emfjson.jackson.databind.deser.DefaultTypeDeserializer;
 import org.emfjson.jackson.databind.deser.FragmentIdDeserializer;
@@ -59,11 +59,11 @@ public class JacksonOptionTest {
 	public void testCustomSerializer() {
 		IdSerializer idSerializer = new IdSerializer() {
 			@Override
-			public void serialize(EObject object, JsonGenerator jg, Options options) throws IOException {}
+			public void serialize(EObject object, JsonGenerator jg, SerializerProvider provider) throws IOException {}
 		};
 		ReferenceSerializer referenceSerializer = new ReferenceSerializer() {
 			@Override
-			public void serialize(EObject source, EObject value, JsonGenerator jg, JacksonOptions options) throws IOException {}
+			public void serialize(EObject source, EObject value, JsonGenerator jg, SerializerProvider provider) throws IOException {}
 		};
 
 		JacksonOptions jacksonOptions = new JacksonOptions.Builder()
@@ -80,11 +80,11 @@ public class JacksonOptionTest {
 		Map<String, Object> options = new HashMap<>();
 		IdSerializer idSerializer = new IdSerializer() {
 			@Override
-			public void serialize(EObject object, JsonGenerator jg, Options options) throws IOException {}
+			public void serialize(EObject object, JsonGenerator jg, SerializerProvider provider) throws IOException {}
 		};
 		ReferenceSerializer referenceSerializer = new ReferenceSerializer() {
 			@Override
-			public void serialize(EObject source, EObject value, JsonGenerator jg, JacksonOptions options) throws IOException {}
+			public void serialize(EObject source, EObject value, JsonGenerator jg, SerializerProvider provider) throws IOException {}
 		};
 		options.put(EMFJs.OPTION_ID_SERIALIZER, idSerializer);
 		options.put(EMFJs.OPTION_REF_SERIALIZER, referenceSerializer);

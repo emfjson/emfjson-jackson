@@ -30,7 +30,6 @@ import static org.emfjson.common.EObjects.featureMaps;
 public class EObjectSerializer extends JsonSerializer<EObject> {
 
 	private final JacksonOptions options;
-	private final Cache cache = new Cache();
 
 	public EObjectSerializer(JacksonOptions options) {
 		this.options = options;
@@ -48,8 +47,15 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 			return;
 		}
 
+		provider.setAttribute("options", options);
+
+		Cache cache = (Cache) provider.getAttribute("cache");
+		if (cache == null) {
+			provider.setAttribute("cache", cache = new Cache());
+		}
+
 		if (object.eContainer() != null && EObjects.isContainmentProxy(object.eContainer(), object)) {
-			options.referenceSerializer.serialize(object.eContainer(), object, jg, options);
+			options.referenceSerializer.serialize(object.eContainer(), object, jg, provider);
 			return;
 		}
 
@@ -60,8 +66,8 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 
 		jg.writeStartObject();
 
-		writeType(eClass, jg);
-		writeId(object, jg);
+		writeType(eClass, jg, provider);
+		writeId(object, jg, provider);
 
 		for (EAttribute attribute : attributes) {
 			if (EObjects.isCandidate(object, attribute)) {
@@ -69,7 +75,7 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 				final Object value = object.eGet(attribute);
 
 				if (EObjects.isFeatureMap(attribute)) {
-					writeFeatureMap(jg, attribute, object);
+					writeFeatureMap(object, attribute, jg, provider);
 				} else {
 					jg.writeObjectField(field, value);
 				}
@@ -81,7 +87,7 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 				final String field = cache.getKey(reference);
 				final Object value = object.eGet(reference);
 
-				writeRef(jg, object, field, value);
+				writeRef(object, field, value, jg, provider);
 			}
 		}
 
@@ -96,15 +102,15 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 		jg.writeEndObject();
 	}
 
-	protected void writeId(EObject object, JsonGenerator jg) throws IOException {
-		options.idSerializer.serialize(object, jg, options);
+	protected void writeId(EObject object, JsonGenerator jg, SerializerProvider provider) throws IOException {
+		options.idSerializer.serialize(object, jg, provider);
 	}
 
-	protected void writeType(EClass eClass, JsonGenerator jg) throws IOException {
-		options.typeSerializer.serialize(eClass, jg, cache, options);
+	protected void writeType(EClass eClass, JsonGenerator jg, SerializerProvider provider) throws IOException {
+		options.typeSerializer.serialize(eClass, jg, provider);
 	}
 
-	private void writeRef(JsonGenerator jg, EObject source, String field, Object value) throws IOException {
+	private void writeRef(EObject source, String field, Object value, JsonGenerator jg, SerializerProvider provider) throws IOException {
 		jg.writeFieldName(field);
 
 		if (value instanceof Iterable<?>) {
@@ -112,17 +118,18 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 
 			jg.writeStartArray();
 			for (Object current : values) {
-				options.referenceSerializer.serialize(source, (EObject) current, jg, options);
+				options.referenceSerializer.serialize(source, (EObject) current, jg, provider);
 			}
 			jg.writeEndArray();
 
 		} else {
-			options.referenceSerializer.serialize(source, (EObject) value, jg, options);
+			options.referenceSerializer.serialize(source, (EObject) value, jg, provider);
 		}
 	}
 
-	private void writeFeatureMap(JsonGenerator jg, EAttribute attribute, EObject owner) throws IOException {
+	private void writeFeatureMap(EObject owner, EAttribute attribute, JsonGenerator jg, SerializerProvider provider) throws IOException {
 		final Set<EStructuralFeature> features = featureMaps(owner, attribute);
+		final Cache cache = (Cache) provider.getAttribute("cache");
 
 		for (EStructuralFeature feature : features) {
 			final Object value = owner.eGet(feature);
@@ -136,7 +143,7 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 				if (reference.isContainment()) {
 					jg.writeObjectField(key, value);
 				} else {
-					writeRef(jg, owner, key, value);
+					writeRef(owner, key, value, jg, provider);
 				}
 			}
 		}

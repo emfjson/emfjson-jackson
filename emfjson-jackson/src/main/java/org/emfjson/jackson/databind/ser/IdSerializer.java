@@ -11,16 +11,14 @@
  */
 package org.emfjson.jackson.databind.ser;
 
-import org.eclipse.emf.ecore.EObject;
-
-import org.emfjson.common.Options;
-
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import org.eclipse.emf.ecore.EObject;
 
 import java.io.IOException;
 
 public interface IdSerializer {
 
-	void serialize(EObject object, JsonGenerator jg, Options options) throws IOException;
+	void serialize(EObject object, JsonGenerator jg, SerializerProvider provider) throws IOException;
 
 }
