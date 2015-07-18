@@ -5,15 +5,15 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.emfjson.handlers.URIHandler;
 
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class ReferenceEntries {
 
 	private final Set<ReferenceEntry> entries = new LinkedHashSet<>();
-	private final Map<String, EObject> mapOfObjects = new ConcurrentHashMap<>();
+	private final Map<String, EObject> mapOfObjects = new HashMap<>();
 
 	public void resolve(ResourceSet resourceSet, URIHandler handler) {
 		for (ReferenceEntry entry: all()) {
