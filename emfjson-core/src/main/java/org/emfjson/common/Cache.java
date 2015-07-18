@@ -223,7 +223,11 @@ public class Cache {
 			return mapOfID.get(object);
 		}
 
-		final URI uri = EcoreUtil.getURI(object);
+		URI uri = ((InternalEObject) object).eProxyURI();
+		if (uri == null) {
+			uri = EcoreUtil.getURI(object);
+		}
+
 		mapOfID.put(object, uri);
 
 		return uri;
