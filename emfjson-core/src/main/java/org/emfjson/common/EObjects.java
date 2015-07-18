@@ -81,9 +81,7 @@ public class EObjects {
 	 */
 	public static boolean isCandidate(EObject object, EAttribute attribute) {
 		return (object.eIsSet(attribute) || attribute.getEType() instanceof EEnum) &&
-			!attribute.isDerived() &&
-			!attribute.isTransient() &&
-			!attribute.isUnsettable();
+			!attribute.isDerived() && !attribute.isTransient();
 	}
 
 	/**
