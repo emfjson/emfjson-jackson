@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.emfjson.common.ReferenceEntries;
 import org.emfjson.jackson.JacksonOptions;
-import org.emfjson.jackson.resource.JsonResource;
 
 import java.io.IOException;
 
@@ -29,10 +28,12 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 
 	private final ResourceSet resourceSet;
 	private final JacksonOptions options;
+	private Resource.Factory factory;
 
-	public ResourceDeserializer(ResourceSet resourceSet, JacksonOptions options) {
+	public ResourceDeserializer(ResourceSet resourceSet, JacksonOptions options, Resource.Factory factory) {
 		this.resourceSet = resourceSet;
 		this.options = options;
+		this.factory = factory;
 	}
 
 	@Override
@@ -52,8 +53,8 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 			while (jp.nextToken() != JsonToken.END_ARRAY) {
 
 				EObject result = ctxt.readPropertyValue(jp,
-					new ResourceProperty(resourceSet, resource, entries),
-					EObject.class);
+						new ResourceProperty(resourceSet, resource, entries),
+						EObject.class);
 
 				if (result != null) {
 					resource.getContents().add(result);
@@ -64,8 +65,8 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 		} else if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
 
 			EObject result = ctxt.readPropertyValue(jp,
-				new ResourceProperty(resourceSet, resource, entries),
-				EObject.class);
+					new ResourceProperty(resourceSet, resource, entries),
+					EObject.class);
 
 			if (result != null) {
 				resource.getContents().add(result);
@@ -84,7 +85,7 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 		URI uri = getURI(ctxt);
 
 		if (resource == null) {
-			resource = new JsonResource(uri);
+			resource = factory.createResource(uri);
 		}
 
 		if (!resourceSet.equals(resource.getResourceSet())) {
