@@ -32,7 +32,6 @@ import org.emfjson.common.EObjects;
 import org.emfjson.common.ReferenceEntries;
 import org.emfjson.jackson.JacksonOptions;
 import org.emfjson.jackson.errors.JSONException;
-import org.emfjson.jackson.resource.JsonResource;
 
 import java.io.IOException;
 import java.util.Map;
@@ -42,10 +41,12 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 	private final Cache cache = new Cache();
 	private final ResourceSet resourceSet;
 	private final JacksonOptions options;
+	private Resource.Factory factory;
 
-	public EObjectDeserializer(ResourceSet resourceSet, JacksonOptions options) {
+	public EObjectDeserializer(ResourceSet resourceSet, JacksonOptions options, Resource.Factory factory) {
 		this.resourceSet = resourceSet;
 		this.options = options;
+		this.factory = factory;
 	}
 
 	@Override
@@ -239,7 +240,8 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 	}
 
 	private void readAttribute(JsonParser jp, EObject owner, EAttribute attribute, Resource resource) throws IOException {
-		final Class<?> type = attribute.getEAttributeType().getInstanceClass();
+		final EDataType eAttributeType = attribute.getEAttributeType();
+		final Class<?> type = eAttributeType.getInstanceClass();
 
 		if (jp.getCurrentToken() == JsonToken.START_ARRAY) {
 			while (jp.nextToken() != JsonToken.END_ARRAY) {
@@ -259,11 +261,15 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 				}
 			}
 		} else {
-			Object value;
-			if (type != null && Enumerator.class.isAssignableFrom(type)) {
+			Object value = null;
+			if (eAttributeType instanceof EEnum){
 				value = EcoreUtil.createFromString((EDataType) attribute.getEType(), jp.getText());
 			} else {
-				value = jp.readValueAs(type);
+				if (type == null){
+					resource.getErrors().add(new JSONException("type == null", jp.getCurrentLocation()));
+				} else {
+					value = jp.readValueAs(type);
+				}
 			}
 
 			try {
@@ -302,7 +308,7 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		}
 
 		if (resource == null) {
-			resource = new JsonResource(URI.createURI("default"));
+			resource = factory.createResource(URI.createURI("default"));
 			resourceSet.getResources().add(resource);
 		}
 

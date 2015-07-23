@@ -80,8 +80,11 @@ public class EObjects {
 	 * @return true if serializable
 	 */
 	public static boolean isCandidate(EObject object, EAttribute attribute) {
-		return (object.eIsSet(attribute) || attribute.getEType() instanceof EEnum) &&
-			!attribute.isDerived() && !attribute.isTransient();
+		return (object.eIsSet(attribute) ||
+				(attribute.getEType() instanceof EEnum) &&
+						(!attribute.getDefaultValue().equals(object.eGet(attribute)) || !attribute.isUnsettable())) &&
+			!attribute.isDerived() &&
+			!attribute.isTransient();
 	}
 
 	/**
