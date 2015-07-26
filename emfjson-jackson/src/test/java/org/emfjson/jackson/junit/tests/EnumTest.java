@@ -11,20 +11,20 @@
  */
 package org.emfjson.jackson.junit.tests;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.junit.Test;
-
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emfjson.jackson.junit.model.*;
 import org.emfjson.jackson.junit.support.TestSupport;
-
-import com.fasterxml.jackson.databind.JsonNode;
+import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class EnumTest extends TestSupport {
 
@@ -85,8 +85,8 @@ public class EnumTest extends TestSupport {
 	public void testSaveEnumDifferentCases() throws IOException {
 		JsonNode expected = mapper.createArrayNode()
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
-				.put("kind", "one"))
+					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
+					.put("kind", "one"))
 			.add(mapper.createObjectNode()
 				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
 				.put("kind", "two"))
@@ -118,14 +118,14 @@ public class EnumTest extends TestSupport {
 	public void testLoadEnumDifferentCases() throws IOException {
 		JsonNode data = mapper.createArrayNode()
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
-				.put("kind", "one"))
+					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
+					.put("kind", "one"))
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
-				.put("kind", "two"))
+					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
+					.put("kind", "two"))
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
-				.put("kind", "Three-is-Three"));
+					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
+					.put("kind", "Three-is-Three"));
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 		resource.load(new ByteArrayInputStream(mapper.writeValueAsBytes(data)), options);
@@ -143,6 +143,43 @@ public class EnumTest extends TestSupport {
 		assertEquals(SomeKind.ONE, ((PrimaryObject) one).getKind());
 		assertEquals(SomeKind.TWO, ((PrimaryObject) two).getKind());
 		assertEquals(SomeKind.THREE, ((PrimaryObject) three).getKind());
+	}
+
+	@Test
+	public void testSaveDynamicEnum() {
+		JsonNode expected = mapper.createObjectNode()
+				.put("eClass", "http://emfjson/dynamic/model#//A")
+				.put("singleKind", "e1");
+
+		EClass a = (EClass) resourceSet.getEObject(URI.createURI("http://emfjson/dynamic/model#//A"), true);
+		EObject a1 = EcoreUtil.create(a);
+
+		JsonNode result = mapper.valueToTree(a1);
+
+		assertEquals(expected, result);
+	}
+
+	@Test
+	public void testLoadDynamicEnum() throws IOException {
+		JsonNode data = mapper.createObjectNode()
+				.put("eClass", "http://emfjson/dynamic/model#//A")
+				.put("singleKind", "E2");
+
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+		resource.load(new ByteArrayInputStream(mapper.writeValueAsBytes(data)), options);
+
+		assertEquals(1, resource.getContents().size());
+
+		EObject root = resource.getContents().get(0);
+
+		assertEquals("A", root.eClass().getName());
+
+		Object literal = root.eGet(root.eClass().getEStructuralFeature("singleKind"));
+
+		assertTrue(literal instanceof EEnumLiteral);
+
+		assertEquals("e2", ((EEnumLiteral) literal).getName());
+		assertEquals("E2", ((EEnumLiteral) literal).getLiteral());
 	}
 
 }

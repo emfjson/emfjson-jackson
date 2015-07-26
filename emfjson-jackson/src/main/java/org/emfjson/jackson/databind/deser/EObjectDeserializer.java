@@ -20,7 +20,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
 import com.fasterxml.jackson.databind.util.TokenBuffer;
 import org.eclipse.emf.common.util.EMap;
-import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -133,13 +132,7 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		return options.rootElement;
 	}
 
-	private void readFeature(JsonParser jp,
-							 EObject current,
-							 String fieldName,
-							 DeserializationContext ctxt,
-							 Resource resource,
-							 ReferenceEntries entries) throws IOException {
-
+	private void readFeature(JsonParser jp, EObject current, String fieldName, DeserializationContext ctxt, Resource resource, ReferenceEntries entries) throws IOException {
 		final EClass eClass = current.eClass();
 		final EStructuralFeature feature = cache.getEStructuralFeature(eClass, fieldName);
 
@@ -239,46 +232,43 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 	}
 
 	private void readAttribute(JsonParser jp, EObject owner, EAttribute attribute, Resource resource) throws IOException {
-		final Class<?> type = attribute.getEAttributeType().getInstanceClass();
+		final EDataType dataType = attribute.getEAttributeType();
+		if (dataType == null) {
+			resource.getErrors().add(new JSONException("Missing feature type", jp.getCurrentLocation()));
+			jp.nextToken();
+			return;
+		}
 
 		if (jp.getCurrentToken() == JsonToken.START_ARRAY) {
 			while (jp.nextToken() != JsonToken.END_ARRAY) {
-				Object value;
-				if (type != null && Enumerator.class.isAssignableFrom(type)) {
-					value = EcoreUtil.createFromString((EDataType) attribute.getEType(), jp.getText());
-				} else {
-					value = jp.readValueAs(type);
-				}
-
-				try {
-					EObjects.setOrAdd(owner, attribute, value);
-				} catch (Exception e) {
-					if (resource != null) {
-						resource.getErrors().add(new JSONException(e, jp.getCurrentLocation()));
-					}
-				}
+				readSingleAttribute(owner, attribute, resource, dataType, jp);
 			}
 		} else {
-			Object value;
-			if (type != null && Enumerator.class.isAssignableFrom(type)) {
-				value = EcoreUtil.createFromString((EDataType) attribute.getEType(), jp.getText());
-			} else {
-				value = jp.readValueAs(type);
-			}
+			readSingleAttribute(owner, attribute, resource, dataType, jp);
+		}
+	}
 
-			try {
-				EObjects.setOrAdd(owner, attribute, value);
-			} catch (Exception e) {
-				if (resource != null) {
-					resource.getErrors().add(new JSONException(e, jp.getCurrentLocation()));
-				}
+	private void readSingleAttribute(EObject owner, EAttribute attribute, Resource resource, EDataType dataType, JsonParser jp) throws IOException {
+		final Class<?> type = dataType.getInstanceClass();
+
+		Object value;
+		if (type == null || dataType instanceof EEnum) {
+			value = EcoreUtil.createFromString(dataType, jp.getText());
+		} else {
+			value = jp.readValueAs(type);
+		}
+
+		try {
+			EObjects.setOrAdd(owner, attribute, value);
+		} catch (Exception e) {
+			if (resource != null) {
+				resource.getErrors().add(new JSONException(e, jp.getCurrentLocation()));
 			}
 		}
 	}
 
 	protected EObject create(JsonParser jp, DeserializationContext context) throws IOException {
 		EClass eClass = options.typeDeserializer.deserialize(jp, context);
-
 		if (eClass != null) {
 			return EcoreUtil.create(eClass);
 		}

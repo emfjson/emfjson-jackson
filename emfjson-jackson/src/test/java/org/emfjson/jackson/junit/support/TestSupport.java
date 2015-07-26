@@ -12,7 +12,7 @@
 package org.emfjson.jackson.junit.support;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -52,10 +52,47 @@ public abstract class TestSupport {
 		resourceSet.getURIConverter().getURIMap().put(baseURI, baseTestFilesFileDirectory);
 
 		mapper.registerModule(new EMFModule(resourceSet, from(options)));
+
+		createDynamicModel();
 	}
 
 	protected URI uri(String fileName) {
 		return URI.createURI(baseURI + fileName, true);
+	}
+
+	protected void createDynamicModel() {
+		EPackage p = EcoreFactory.eINSTANCE.createEPackage();
+		p.setName("model");
+		p.setNsPrefix("model");
+		p.setNsURI("http://emfjson/dynamic/model");
+
+		EClass a = EcoreFactory.eINSTANCE.createEClass();
+		a.setName("A");
+
+		EEnum ee = EcoreFactory.eINSTANCE.createEEnum();
+		ee.setName("Kind");
+
+		EEnumLiteral e1 = EcoreFactory.eINSTANCE.createEEnumLiteral();
+		e1.setName("e1");
+
+		EEnumLiteral e2 = EcoreFactory.eINSTANCE.createEEnumLiteral();
+		e2.setName("e2");
+		e2.setLiteral("E2");
+
+		ee.getELiterals().add(e1);
+		ee.getELiterals().add(e2);
+
+		EAttribute ae = EcoreFactory.eINSTANCE.createEAttribute();
+		ae.setName("singleKind");
+		ae.setEType(ee);
+
+		a.getEStructuralFeatures().add(ae);
+
+		p.getEClassifiers().add(a);
+		p.getEClassifiers().add(ee);
+
+		Resource model = resourceSet.createResource(URI.createURI("http://emfjson/dynamic/model"));
+		model.getContents().add(p);
 	}
 
 }

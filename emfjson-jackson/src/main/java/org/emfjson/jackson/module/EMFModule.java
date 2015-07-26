@@ -11,6 +11,8 @@
  */
 package org.emfjson.jackson.module;
 
+import org.eclipse.emf.common.util.Enumerator;
+import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -61,7 +63,8 @@ public class EMFModule extends SimpleModule {
 		addSerializer(new EObjectSerializer(options));
 		addSerializer(new ResourceSerializer());
 		addSerializer(new DateSerializer());
-		addSerializer(new EnumeratorSerializer());
+		addSerializer(Enumerator.class, new EnumeratorSerializer());
+		addSerializer(EEnumLiteral.class, new EnumeratorSerializer());
 		addSerializer(new EMapSerializer());
 		addSerializer(new EStringToStringMapEntrySerializer());
 		addDeserializer(EObject.class, new EObjectDeserializer(resourceSet, options));
