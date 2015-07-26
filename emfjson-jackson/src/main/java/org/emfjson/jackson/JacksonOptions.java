@@ -12,6 +12,7 @@
 package org.emfjson.jackson;
 
 import org.eclipse.emf.ecore.EClass;
+import org.emfjson.EMFJs;
 import org.emfjson.common.Options;
 import org.emfjson.handlers.URIHandler;
 import org.emfjson.jackson.databind.deser.DefaultTypeDeserializer;
@@ -27,6 +28,8 @@ import org.emfjson.jackson.databind.ser.TypeSerializer;
 import org.emfjson.jackson.databind.ser.references.ReferenceAsObjectSerializer;
 import org.emfjson.jackson.databind.ser.references.ReferenceSerializer;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Map;
 
@@ -40,6 +43,7 @@ public class JacksonOptions extends Options {
 	public final IdDeserializer idDeserializer;
 	public final TypeSerializer typeSerializer;
 	public final TypeDeserializer typeDeserializer;
+	public final DateFormat dateFormat;
 
 	protected JacksonOptions(JacksonOptions.Builder builder) {
 		super(builder);
@@ -50,6 +54,7 @@ public class JacksonOptions extends Options {
 		this.idDeserializer = builder.idDeserializer;
 		this.typeSerializer = builder.typeSerializer;
 		this.typeDeserializer = builder.typeDeserializer;
+		this.dateFormat = builder.dateFormat;
 	}
 
 	public static JacksonOptions from(Map<?, ?> options) {
@@ -62,8 +67,9 @@ public class JacksonOptions extends Options {
 		protected ReferenceDeserializer referenceDeserializer = new ReferenceAsObjectDeserializer();
 		protected IdSerializer idSerializer = new FragmentIdSerializer();
 		protected IdDeserializer idDeserializer = new FragmentIdDeserializer();
-		private TypeSerializer typeSerializer = new DefaultTypeSerializer();
-		private TypeDeserializer typeDeserializer = new DefaultTypeDeserializer();
+		protected TypeSerializer typeSerializer = new DefaultTypeSerializer();
+		protected TypeDeserializer typeDeserializer = new DefaultTypeDeserializer();
+		protected DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
 		@Override
 		public JacksonOptions build(Map<?, ?> options) {
@@ -85,6 +91,7 @@ public class JacksonOptions extends Options {
 			referenceDeserializer = objectValue(options, OPTION_REF_DESERIALIZER, referenceDeserializer);
 			idSerializer = objectValue(options, OPTION_ID_SERIALIZER, idSerializer);
 			idDeserializer = objectValue(options, OPTION_ID_DESERIALIZER, idDeserializer);
+			dateFormat = objectValue(options, EMFJs.OPTION_DATE_FORMAT, dateFormat);
 		}
 
 		@Override
@@ -151,6 +158,12 @@ public class JacksonOptions extends Options {
 			this.typeDeserializer = typeDeserializer;
 			return this;
 		}
+
+		public Builder withDateFormat(DateFormat dateFormat) {
+			this.dateFormat = dateFormat;
+			return this;
+		}
+
 	}
 
 }

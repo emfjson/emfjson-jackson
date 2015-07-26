@@ -19,15 +19,12 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import org.emfjson.jackson.JacksonOptions;
-import org.emfjson.jackson.databind.deser.DateDeserializer;
 import org.emfjson.jackson.databind.deser.EObjectDeserializer;
 import org.emfjson.jackson.databind.deser.ResourceDeserializer;
 import org.emfjson.jackson.databind.ser.*;
 
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-
-import java.util.Date;
 
 /**
  * Module implementation that allows serialization and deserialization of
@@ -62,14 +59,12 @@ public class EMFModule extends SimpleModule {
 	protected void configure() {
 		addSerializer(new EObjectSerializer(options));
 		addSerializer(new ResourceSerializer());
-		addSerializer(new DateSerializer());
 		addSerializer(Enumerator.class, new EnumeratorSerializer());
 		addSerializer(EEnumLiteral.class, new EnumeratorSerializer());
 		addSerializer(new EMapSerializer());
 		addSerializer(new EStringToStringMapEntrySerializer());
 		addDeserializer(EObject.class, new EObjectDeserializer(resourceSet, options));
 		addDeserializer(Resource.class, new ResourceDeserializer(resourceSet, options));
-		addDeserializer(Date.class, new DateDeserializer());
 	}
 
 	@Override
@@ -79,7 +74,7 @@ public class EMFModule extends SimpleModule {
 
 	@Override
 	public Version version() {
-		return new Version(0, 11, 0, "SNAPSHOT", "org.emfjson", "emfjson-jackson");
+		return new Version(0, 12, 0, null, "org.emfjson", "emfjson-jackson");
 	}
 
 }

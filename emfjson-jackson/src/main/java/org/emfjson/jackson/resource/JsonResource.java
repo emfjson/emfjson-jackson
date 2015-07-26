@@ -10,18 +10,18 @@
  */
 package org.emfjson.jackson.resource;
 
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.URIConverter;
-
-import org.emfjson.jackson.JacksonOptions;
-import org.emfjson.jackson.module.EMFModule;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.cfg.ContextAttributes;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.URIConverter;
+import org.emfjson.jackson.JacksonOptions;
+import org.emfjson.jackson.module.EMFModule;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Collections;
 import java.util.Map;
 
@@ -51,7 +51,9 @@ public class JsonResource extends AbstractUuidResource {
 		} else {
 
 			final ObjectMapper mapper = new ObjectMapper();
-			mapper.registerModule(new EMFModule(this.getResourceSet(), JacksonOptions.from(options)));
+			final JacksonOptions jacksonOptions = JacksonOptions.from(options);
+			mapper.setDateFormat(jacksonOptions.dateFormat);
+			mapper.registerModule(new EMFModule(this.getResourceSet(), jacksonOptions));
 
 			ContextAttributes attributes = ContextAttributes
 				.getEmpty()
@@ -79,6 +81,7 @@ public class JsonResource extends AbstractUuidResource {
 
 			final ObjectMapper mapper = new ObjectMapper();
 			final JacksonOptions jacksonOptions = JacksonOptions.from(options);
+			mapper.setDateFormat(jacksonOptions.dateFormat);
 			mapper.configure(SerializationFeature.INDENT_OUTPUT, jacksonOptions.indentOutput);
 			mapper.registerModule(new EMFModule(this.getResourceSet(), jacksonOptions));
 			outputStream.write(mapper.writeValueAsBytes(this));

@@ -84,13 +84,13 @@ public final class EMFJs {
 	 * <p/>
 	 * <p>By default org.emfjson.jackson.databind.deser.DefaultTypeSerializer will be use</p>
 	 */
-	public static final String OPTION_TYPE_SERIALIZER = "OPTION_ID_SERIALIZER";
+	public static final String OPTION_TYPE_SERIALIZER = "OPTION_TYPE_SERIALIZER";
 	/**
 	 * Specify the TypeDeserializer object to use during deserialization of object's type.
 	 * <p/>
 	 * <p>By default org.emfjson.jackson.databind.deser.DefaultTypeDeserializer will be use</p>
 	 */
-	public static final String OPTION_TYPE_DESERIALIZER = "OPTION_ID_DESERIALIZER";
+	public static final String OPTION_TYPE_DESERIALIZER = "OPTION_TYPE_DESERIALIZER";
 	/**
 	 * Specify the field name that will be use to denote the type of objects.
 	 * <p>By default eClass will be use</p>
@@ -107,6 +107,11 @@ public final class EMFJs {
 	 * <p>By default _id will be use</p>
 	 */
 	public static final String OPTION_ID_FIELD = "OPTION_ID_FIELD";
+	/**
+	 * Specify the date format that will be use to parse and write dates.
+	 * <p>By default the date format is yyyy-MM-dd'T'HH:mm:ss</p>
+	 */
+	public static final String OPTION_DATE_FORMAT = "OPTION_DATE_FORMAT";
 
 	private EMFJs() {}
 

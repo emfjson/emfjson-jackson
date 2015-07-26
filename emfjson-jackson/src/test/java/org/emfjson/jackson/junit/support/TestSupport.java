@@ -26,6 +26,7 @@ import org.emfjson.jackson.resource.JsonResourceFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,6 +53,7 @@ public abstract class TestSupport {
 		resourceSet.getURIConverter().getURIMap().put(baseURI, baseTestFilesFileDirectory);
 
 		mapper.registerModule(new EMFModule(resourceSet, from(options)));
+		mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss"));
 
 		createDynamicModel();
 	}
