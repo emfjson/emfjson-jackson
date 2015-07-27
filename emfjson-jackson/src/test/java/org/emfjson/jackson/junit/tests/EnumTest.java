@@ -149,7 +149,7 @@ public class EnumTest extends TestSupport {
 	public void testSaveDynamicEnum() {
 		JsonNode expected = mapper.createObjectNode()
 				.put("eClass", "http://emfjson/dynamic/model#//A")
-				.put("singleKind", "e1");
+				.put("someKind", "e1");
 
 		EClass a = (EClass) resourceSet.getEObject(URI.createURI("http://emfjson/dynamic/model#//A"), true);
 		EObject a1 = EcoreUtil.create(a);
@@ -163,7 +163,7 @@ public class EnumTest extends TestSupport {
 	public void testLoadDynamicEnum() throws IOException {
 		JsonNode data = mapper.createObjectNode()
 				.put("eClass", "http://emfjson/dynamic/model#//A")
-				.put("singleKind", "E2");
+				.put("someKind", "E2");
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 		resource.load(new ByteArrayInputStream(mapper.writeValueAsBytes(data)), options);
@@ -174,7 +174,7 @@ public class EnumTest extends TestSupport {
 
 		assertEquals("A", root.eClass().getName());
 
-		Object literal = root.eGet(root.eClass().getEStructuralFeature("singleKind"));
+		Object literal = root.eGet(root.eClass().getEStructuralFeature("someKind"));
 
 		assertTrue(literal instanceof EEnumLiteral);
 

@@ -48,32 +48,31 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 	}
 
 	@Override
+	public boolean isCachable() {
+		return true;
+	}
+
+	@Override
 	public EObject deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
-		final EClass root = findRoot(ctxt);
-
-		EObject current = null;
-		if (root != null) {
-			current = EcoreUtil.create(root);
-		}
-
-		return doDeserialize(jp, current, ctxt);
+		return doDeserialize(jp, findRoot(ctxt), ctxt);
 	}
 
 	public EObject deserialize(JsonParser jp, DeserializationContext ctxt, EReference containment) throws IOException {
-		EObject current = null;
+		EClass defaultType = null;
 
 		if (containment != null) {
-			final EClass defaultType = containment.getEReferenceType();
+			defaultType = containment.getEReferenceType();
 
-			if (!defaultType.isAbstract()) {
-				current = EcoreUtil.create(defaultType);
+			if (defaultType.isAbstract()) {
+				defaultType = null;
 			}
 		}
 
-		return doDeserialize(jp, current, ctxt);
+		return doDeserialize(jp, defaultType, ctxt);
 	}
 
-	protected EObject doDeserialize(JsonParser jp, EObject current,  DeserializationContext ctxt) throws IOException {
+	protected EObject doDeserialize(JsonParser jp, EClass defaultType, DeserializationContext ctxt) throws IOException {
+		EObject current = null;
 		final Resource resource = (Resource) ctxt.getAttribute("resource");
 		final ReferenceEntries entries = (ReferenceEntries) ctxt.getAttribute("entries");
 		final TokenBuffer buffer = new TokenBuffer(jp);
@@ -102,15 +101,17 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 			}
 		}
 
-		postDeserialize(buffer, current, ctxt);
-		buffer.close();
-
-		return current;
+		return postDeserialize(buffer, current, defaultType, ctxt);
 	}
 
-	protected void postDeserialize(TokenBuffer buffer, EObject object, DeserializationContext ctxt) throws IOException {
-		if (object == null)
-			return;
+	protected EObject postDeserialize(TokenBuffer buffer, EObject object, EClass defaultType, DeserializationContext ctxt) throws IOException {
+		if (object == null && defaultType == null) {
+			return null;
+		}
+
+		if (object == null) {
+			object = EcoreUtil.create(defaultType);
+		}
 
 		final Resource resource = (Resource) ctxt.getAttribute("resource");
 		final ReferenceEntries entries = (ReferenceEntries) ctxt.getAttribute("entries");
@@ -121,6 +122,9 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		}
 
 		bufferedParser.close();
+		buffer.close();
+
+		return object;
 	}
 
 	private EClass findRoot(DeserializationContext ctxt) {

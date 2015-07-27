@@ -36,6 +36,11 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 	}
 
 	@Override
+	public boolean isCachable() {
+		return true;
+	}
+
+	@Override
 	public Resource deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
 		final Resource resource = getResource(ctxt);
 		final ReferenceEntries entries = new ReferenceEntries();

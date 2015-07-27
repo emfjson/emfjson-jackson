@@ -11,18 +11,18 @@
  */
 package org.emfjson.jackson.junit.tests;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.junit.Test;
-
 import org.emfjson.EMFJs;
 import org.emfjson.jackson.junit.model.*;
 import org.emfjson.jackson.junit.support.TestSupport;
-
-import com.fasterxml.jackson.databind.JsonNode;
+import org.junit.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -105,4 +105,31 @@ public class PolymorphicTest extends TestSupport {
 		assertSame(second, ref);
 	}
 
+	@Test
+	public void testContainmentWithHierarchyOfTypes() {
+		Resource resource = resourceSet.getResource(uri("test-types-dynamic-1.json"), true);
+
+		assertEquals(1, resource.getContents().size());
+
+		EObject root = resource.getContents().get(0);
+
+		assertEquals("A", root.eClass().getName());
+
+		EClass a = root.eClass();
+		assertTrue(root.eIsSet(a.getEStructuralFeature("containB")));
+		assertTrue(root.eIsSet(a.getEStructuralFeature("containBs")));
+
+		EObject root_c1 = (EObject) root.eGet(a.getEStructuralFeature("containB"));
+		List<EObject> root_c2 = (List<EObject>) root.eGet(a.getEStructuralFeature("containBs"));
+
+		assertEquals("C", root_c1.eClass().getName());
+		assertEquals(2, root_c2.size());
+
+		assertEquals("C", root_c2.get(0).eClass().getName());
+
+		EObject c2 = root_c2.get(0);
+		assertEquals("Hello", c2.eGet(c2.eClass().getEStructuralFeature("stringValue")));
+
+		assertEquals("D", root_c2.get(1).eClass().getName());
+	}
 }

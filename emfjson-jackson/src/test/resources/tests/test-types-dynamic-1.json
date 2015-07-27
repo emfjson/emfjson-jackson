@@ -1,0 +1,19 @@
+{
+  "eClass": "http://emfjson/dynamic/model#//A",
+  "containB": {
+    "eClass": "http://emfjson/dynamic/model#//C"
+  },
+  "containBs": [
+    {
+      "stringValue": "Hello",
+      "eClass": "http://emfjson/dynamic/model#//C",
+      "containB": {
+        "eClass": "http://emfjson/dynamic/model#//C"
+      }
+    },
+    {
+      "eClass": "http://emfjson/dynamic/model#//D",
+      "stringValue": "Hello"
+    }
+  ]
+}
