@@ -11,21 +11,19 @@
  */
 package org.emfjson.jackson.junit.tests;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.junit.Test;
-
 import org.emfjson.jackson.module.EMFModule;
 import org.emfjson.jackson.resource.JsonResource;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.IOException;
 
@@ -35,13 +33,18 @@ public class ModuleTest {
 
 	private final ObjectMapper mapper = new ObjectMapper();
 
+	@Before
+	public void setUp() {
+		ResourceSetImpl resourceSet = new ResourceSetImpl();
+		resourceSet.getPackageRegistry().put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
+		mapper.registerModule(new EMFModule(resourceSet));
+	}
+
 	@Test
 	public void testSaveWithModule() throws JsonProcessingException {
 		JsonNode expected = mapper.createObjectNode()
 			.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EClass")
 			.put("name", "A");
-
-		mapper.registerModule(new EMFModule(new ResourceSetImpl()));
 
 		EClass c = EcoreFactory.eINSTANCE.createEClass();
 		c.setName("A");
@@ -55,7 +58,6 @@ public class ModuleTest {
 			.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EClass")
 			.put("name", "A");
 
-		mapper.registerModule(new EMFModule(new ResourceSetImpl()));
 		EClass result = (EClass) mapper.treeToValue(data, EObject.class);
 
 		assertEquals("A", result.getName());
@@ -66,9 +68,6 @@ public class ModuleTest {
 		JsonNode expected = mapper.createObjectNode()
 			.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EClass")
 			.put("name", "A");
-
-		mapper.registerModule(new EMFModule(new ResourceSetImpl()));
-		mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
 
 		Resource r = new JsonResource();
 		EClass c = EcoreFactory.eINSTANCE.createEClass();
@@ -84,7 +83,6 @@ public class ModuleTest {
 			.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EClass")
 			.put("name", "A");
 
-		mapper.registerModule(new EMFModule(new ResourceSetImpl()));
 		Resource result = mapper.treeToValue(data, Resource.class);
 
 		assertEquals(1, result.getContents().size());
