@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.emfjson</groupId>
         <artifactId>emfjson</artifactId>
-        <version>0.12.0</version>
+        <version>0.13.0-SNAPSHOT</version>
     </parent>
     <packaging>bundle</packaging>
     <artifactId>emfjson-jackson</artifactId>
