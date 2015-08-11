@@ -54,6 +54,8 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 
 	@Override
 	public EObject deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
+		prepareContext(ctxt, null);
+
 		return doDeserialize(jp, findRoot(ctxt), ctxt);
 	}
 
@@ -286,6 +288,11 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 
 	@Override
 	public JsonDeserializer<?> createContextual(DeserializationContext ctxt, BeanProperty property) throws JsonMappingException {
+		prepareContext(ctxt, property);
+		return this;
+	}
+
+	protected void prepareContext(DeserializationContext ctxt, BeanProperty property) {
 		ReferenceEntries entries = (ReferenceEntries) ctxt.getAttribute("entries");
 		Resource resource = (Resource) ctxt.getAttribute("resource");
 
@@ -309,8 +316,6 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		ctxt.setAttribute("cache", cache);
 		ctxt.setAttribute("resourceSet", resourceSet);
 		ctxt.setAttribute("options", options);
-
-		return this;
 	}
 
 }
