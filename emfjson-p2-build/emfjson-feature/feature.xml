@@ -2,7 +2,7 @@
 <feature
         id="org.emfjson.feature"
         label="EMF Json (Jackson)"
-        version="0.11.0"
+        version="0.12.0"
         provider-name="Eclipse Labs">
 
     <plugin

@@ -4,12 +4,12 @@
 
     <groupId>org.emfjson</groupId>
     <packaging>pom</packaging>
-    <version>0.11.0</version>
+    <version>0.12.0</version>
     <artifactId>emfjson-p2-build</artifactId>
 
     <properties>
         <tycho.version>0.22.0</tycho.version>
-        <emfjson.version>0.11.0</emfjson.version>
+        <emfjson.version>0.12.0</emfjson.version>
     </properties>
 
     <modules>
