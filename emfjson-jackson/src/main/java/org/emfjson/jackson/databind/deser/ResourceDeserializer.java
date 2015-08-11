@@ -89,7 +89,12 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 		URI uri = getURI(ctxt);
 
 		if (resource == null) {
-			resource = new JsonResource(uri);
+			resource = resourceSet.createResource(uri);
+
+			// no factory found for uri
+			if (resource == null) {
+				resource = new JsonResource(uri);
+			}
 		}
 
 		if (!resourceSet.equals(resource.getResourceSet())) {
