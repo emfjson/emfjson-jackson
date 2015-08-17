@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.emfjson</groupId>
         <artifactId>emfjson-p2-build</artifactId>
-        <version>0.12.0</version>
+        <version>0.13.0</version>
     </parent>
     <artifactId>emfjson-target</artifactId>
     <packaging>eclipse-target-definition</packaging>
