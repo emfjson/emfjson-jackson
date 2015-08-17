@@ -230,7 +230,7 @@ public class GwtTestValue extends TestSupport {
 				assertEquals(ModelPackage.Literals.ETYPES, root.eClass());
 				ETypes types = (ETypes) root;
 
-				assertEquals((Date) createFromString(EcorePackage.eINSTANCE.getEDate(), "2011-10-10"), types.getEDate());
+				assertEquals(createFromString(EcorePackage.eINSTANCE.getEDate(), "2011-10-10"), types.getEDate());
 
 				finishTest();
 			}

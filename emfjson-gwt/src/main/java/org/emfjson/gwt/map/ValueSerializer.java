@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emfjson.common.EObjects;
 
 import java.util.Collection;
@@ -27,19 +28,25 @@ import static org.eclipse.emf.ecore.util.EcoreUtil.convertToString;
 public class ValueSerializer {
 
 	public void setOrAdd(EObject owner, EAttribute attribute, JSONValue value) {
+		String asString = null;
 		JSONString stringValue = value.isString();
 		if (stringValue != null) {
-			EObjects.setOrAdd(owner, attribute, stringValue.stringValue());
+			asString = stringValue.stringValue();
 		}
 
 		JSONBoolean booleanValue = value.isBoolean();
 		if (booleanValue != null) {
-			EObjects.setOrAdd(owner, attribute, booleanValue.toString());
+			asString = booleanValue.toString();
 		}
 
 		JSONNumber numberValue = value.isNumber();
 		if (numberValue != null) {
-			EObjects.setOrAdd(owner, attribute, numberValue.toString());
+			asString = numberValue.toString();
+		}
+
+		if (asString != null) {
+			Object converted = EcoreUtil.createFromString(attribute.getEAttributeType(), asString);
+			EObjects.setOrAdd(owner, attribute, converted);
 		}
 	}
 
