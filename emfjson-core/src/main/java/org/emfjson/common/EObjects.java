@@ -57,10 +57,6 @@ public class EObjects {
 	 * @param value
 	 */
 	public static void setOrAdd(EObject owner, EAttribute attribute, Object value) {
-		if (value instanceof String) {
-			value = EcoreUtil.createFromString(attribute.getEAttributeType(), (String) value);
-		}
-
 		if (attribute.isMany()) {
 			@SuppressWarnings("unchecked")
 			Collection<Object> values = (Collection<Object>) owner.eGet(attribute);

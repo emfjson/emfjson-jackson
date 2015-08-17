@@ -11,19 +11,20 @@
  */
 package org.emfjson.jackson.junit.tests;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.junit.Test;
-
 import org.emfjson.jackson.junit.model.ETypes;
 import org.emfjson.jackson.junit.model.ModelFactory;
 import org.emfjson.jackson.junit.model.ModelPackage;
 import org.emfjson.jackson.junit.support.TestSupport;
-
-import com.fasterxml.jackson.databind.JsonNode;
+import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -246,6 +247,70 @@ public class ValueTest extends TestSupport {
 		BigDecimal value = ((ETypes) root).getEBigDecimal();
 
 		assertEquals(new BigDecimal(1.5), value);
+	}
+
+	@Test
+	public void testSaveEJavaObjectValue() {
+		EClass classA = (EClass) resourceSet.getEObject(URI.createURI("http://emfjson/dynamic/model#//A"), true);
+		EDataType type = (EDataType) classA.getEStructuralFeature("javaType").getEType();
+
+		final Object value = "Hello";
+		final EObject obj = EcoreUtil.create(classA);
+		obj.eSet(classA.getEStructuralFeature("javaType"), value);
+
+		String stringValue = EcorePackage.eINSTANCE.getEFactoryInstance().convertToString(type, value);
+
+		JsonNode result = mapper.valueToTree(obj);
+		assertEquals(stringValue, result.get("javaType").asText());
+	}
+
+	@Test
+	public void testLoadEJavaObjectValue() throws JsonProcessingException {
+		EClass classA = (EClass) resourceSet.getEObject(URI.createURI("http://emfjson/dynamic/model#//A"), true);
+		EDataType type = (EDataType) classA.getEStructuralFeature("javaType").getEType();
+
+		final Object value = "Hello";
+		String stringValue = EcorePackage.eINSTANCE.getEFactoryInstance().convertToString(type, value);
+
+		JsonNode node = mapper.createObjectNode()
+				.put("eClass", "http://emfjson/dynamic/model#//A")
+				.put("javaType", stringValue);
+
+		EObject obj = mapper.treeToValue(node, EObject.class);
+
+		assertEquals(value, obj.eGet(classA.getEStructuralFeature("javaType")));
+	}
+
+	@Test
+	public void testSaveEJavaClassValue() {
+		EClass classA = (EClass) resourceSet.getEObject(URI.createURI("http://emfjson/dynamic/model#//A"), true);
+		EDataType type = (EDataType) classA.getEStructuralFeature("javaClass").getEType();
+
+		final Object value = this.getClass();
+		final EObject obj = EcoreUtil.create(classA);
+		obj.eSet(classA.getEStructuralFeature("javaClass"), value);
+
+		String stringValue = EcorePackage.eINSTANCE.getEFactoryInstance().convertToString(type, value);
+
+		JsonNode result = mapper.valueToTree(obj);
+		assertEquals(stringValue, result.get("javaClass").asText());
+	}
+
+	@Test
+	public void testLoadEJavaClassValue() throws JsonProcessingException {
+		EClass classA = (EClass) resourceSet.getEObject(URI.createURI("http://emfjson/dynamic/model#//A"), true);
+		EDataType type = (EDataType) classA.getEStructuralFeature("javaClass").getEType();
+
+		final Object value = this.getClass();
+		String stringValue = EcorePackage.eINSTANCE.getEFactoryInstance().convertToString(type, value);
+
+		JsonNode node = mapper.createObjectNode()
+				.put("eClass", "http://emfjson/dynamic/model#//A")
+				.put("javaClass", stringValue);
+
+		EObject obj = mapper.treeToValue(node, EObject.class);
+
+		assertEquals(value, obj.eGet(classA.getEStructuralFeature("javaClass")));
 	}
 
 }

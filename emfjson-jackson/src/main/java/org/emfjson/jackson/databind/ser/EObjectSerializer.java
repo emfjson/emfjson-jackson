@@ -13,6 +13,7 @@ package org.emfjson.jackson.databind.ser;
 
 import org.eclipse.emf.ecore.*;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emfjson.common.Cache;
 import org.emfjson.common.EObjects;
 import org.emfjson.jackson.JacksonOptions;
@@ -77,7 +78,7 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 				if (EObjects.isFeatureMap(attribute)) {
 					writeFeatureMap(object, attribute, jg, provider);
 				} else {
-					jg.writeObjectField(field, value);
+					writeAttribute(jg, attribute.getEAttributeType(), field, value);
 				}
 			}
 		}
@@ -100,6 +101,14 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 			}
 		}
 		jg.writeEndObject();
+	}
+
+	private void writeAttribute(JsonGenerator jg, EDataType type, String key, Object value) throws IOException {
+		if (EcorePackage.Literals.EJAVA_OBJECT.equals(type) || EcorePackage.Literals.EJAVA_CLASS.equals(type)) {
+			jg.writeStringField(key, EcoreUtil.convertToString(type, value));
+		} else {
+			jg.writeObjectField(key, value);
+		}
 	}
 
 	protected void writeId(EObject object, JsonGenerator jg, SerializerProvider provider) throws IOException {
@@ -136,7 +145,9 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 			final String key = cache.getKey(feature);
 
 			if (feature instanceof EAttribute) {
-				jg.writeObjectField(key, value);
+
+				writeAttribute(jg, ((EAttribute) feature).getEAttributeType(), key, value);
+
 			} else {
 				final EReference reference = (EReference) feature;
 

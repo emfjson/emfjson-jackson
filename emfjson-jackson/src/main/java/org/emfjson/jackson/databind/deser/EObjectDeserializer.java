@@ -258,10 +258,16 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		final Class<?> type = dataType.getInstanceClass();
 
 		Object value;
-		if (type == null || dataType instanceof EEnum) {
+		if (type == null || dataType instanceof EEnum ||
+				EcorePackage.Literals.EJAVA_CLASS.equals(dataType) ||
+				EcorePackage.Literals.EJAVA_OBJECT.equals(dataType)) {
+
 			value = EcoreUtil.createFromString(dataType, jp.getText());
+
 		} else {
+
 			value = jp.readValueAs(type);
+
 		}
 
 		try {

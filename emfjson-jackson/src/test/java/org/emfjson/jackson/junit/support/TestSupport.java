@@ -160,6 +160,14 @@ public abstract class TestSupport {
 		customValue.setName("customValue");
 		customValue.setEType(customDataType);
 
+		EAttribute javaType = EcoreFactory.eINSTANCE.createEAttribute();
+		javaType.setName("javaType");
+		javaType.setEType(EcorePackage.Literals.EJAVA_OBJECT);
+
+		EAttribute javaClass = EcoreFactory.eINSTANCE.createEAttribute();
+		javaClass.setName("javaClass");
+		javaClass.setEType(EcorePackage.Literals.EJAVA_CLASS);
+
 		a.getEStructuralFeatures().add(stringValue);
 		a.getEStructuralFeatures().add(stringValues);
 		a.getEStructuralFeatures().add(intValue);
@@ -167,6 +175,8 @@ public abstract class TestSupport {
 		a.getEStructuralFeatures().add(dateValue);
 		a.getEStructuralFeatures().add(someKind);
 		a.getEStructuralFeatures().add(customValue);
+		a.getEStructuralFeatures().add(javaType);
+		a.getEStructuralFeatures().add(javaClass);
 
 		// references
 		// a:
