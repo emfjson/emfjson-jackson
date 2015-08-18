@@ -13,6 +13,7 @@ package org.emfjson.jackson.databind.ser.references;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.emfjson.common.Cache;
 import org.emfjson.handlers.URIHandler;
 import org.emfjson.jackson.handlers.BaseURIHandler;
@@ -20,7 +21,10 @@ import org.emfjson.jackson.handlers.BaseURIHandler;
 public abstract class AbstractReferenceSerializer implements ReferenceSerializer {
 
 	public boolean isExternal(EObject source, EObject target) {
-		return !source.eResource().equals(target.eResource());
+		Resource sourceResource = source.eResource();
+		Resource targetResource = target.eResource();
+
+		return sourceResource == null || !sourceResource.equals(targetResource);
 	}
 
 	protected URI deresolve(URIHandler handler, URI targetURI, Cache cache, EObject source) {

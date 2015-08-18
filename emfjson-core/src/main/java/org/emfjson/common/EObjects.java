@@ -88,7 +88,12 @@ public class EObjects {
 	 * @return true if serializable
 	 */
 	public static boolean isCandidate(EObject eObject, EReference eReference) {
-		return !eReference.isTransient() && eObject.eIsSet(eReference);
+		if (eReference.isTransient()) {
+			return false;
+		}
+
+		EReference opposite = eReference.getEOpposite();
+		return !(opposite != null && opposite.isContainment()) && eObject.eIsSet(eReference);
 	}
 
 	/**

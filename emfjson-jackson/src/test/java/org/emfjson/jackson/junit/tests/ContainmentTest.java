@@ -12,8 +12,12 @@
 package org.emfjson.jackson.junit.tests;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.emfjson.common.EObjects;
 import org.junit.Test;
 
 import org.emfjson.jackson.junit.model.*;
@@ -52,15 +56,15 @@ public class ContainmentTest extends TestSupport {
 	public void testSaveTwoRootObjectsWithAttributesNoReferences() throws IOException {
 		JsonNode expected = mapper.createArrayNode()
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
-				.put("userId", "1")
-				.put("name", "John")
-				.put("sex", "MALE"))
+					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+					.put("userId", "1")
+					.put("name", "John")
+					.put("sex", "MALE"))
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
-				.put("userId", "2")
-				.put("name", "Mary")
-				.put("sex", "FEMALE"));
+					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+					.put("userId", "2")
+					.put("name", "Mary")
+					.put("sex", "FEMALE"));
 
 		User user1 = ModelFactory.eINSTANCE.createUser();
 		user1.setUserId("1");
@@ -84,7 +88,7 @@ public class ContainmentTest extends TestSupport {
 			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
 			.put("sex", "MALE")
 			.set("address", mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Address"));
+					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Address"));
 
 		Resource resource = resourceSet.createResource(URI.createURI("test"));
 
@@ -101,7 +105,7 @@ public class ContainmentTest extends TestSupport {
 		JsonNode data = mapper.createObjectNode()
 			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
 			.set("address", mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Address"));
+					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Address"));
 
 		Resource resource = mapper.reader()
 			.withAttribute("resourceSet", resourceSet)
@@ -203,6 +207,41 @@ public class ContainmentTest extends TestSupport {
 		Node child = root.getChild().get(0);
 		// Proxy is resolved because GenModel.ContainmentProxy is true
 		assertFalse(child.eIsProxy());
+	}
+
+	@Test
+	public void testSaveContainmentWithOpposite() {
+		JsonNode expected = mapper.createObjectNode()
+				.put("eClass", "http://emfjson/dynamic/model#//A")
+				.put("someKind", "e1")
+				.set("containB", mapper.createObjectNode()
+						.put("eClass", "http://emfjson/dynamic/model#//B")
+						.put("someKind", "e1"));
+
+		EClass classA = (EClass) resourceSet.getEObject(URI.createURI("http://emfjson/dynamic/model#//A"), true);
+		EClass classB = (EClass) resourceSet.getEObject(URI.createURI("http://emfjson/dynamic/model#//B"), true);
+
+		EObject a1 = EcoreUtil.create(classA);
+		EObject b1 = EcoreUtil.create(classB);
+		EObjects.setOrAdd(b1, (EReference) classA.getEStructuralFeature("parent"), a1);
+
+		assertEquals(expected, mapper.valueToTree(a1));
+	}
+
+	@Test
+	public void testLoadContainmentWithOpposite() throws JsonProcessingException {
+		JsonNode data = mapper.createObjectNode()
+				.put("eClass", "http://emfjson/dynamic/model#//A")
+				.put("someKind", "e1")
+				.set("containB", mapper.createObjectNode()
+						.put("eClass", "http://emfjson/dynamic/model#//B")
+						.put("someKind", "e1"));
+
+		EObject a1 = mapper.treeToValue(data, EObject.class);
+		EObject b1 = (EObject) a1.eGet(a1.eClass().getEStructuralFeature("containB"));
+
+		assertNotNull(b1);
+		assertSame(a1, b1.eGet(b1.eClass().getEStructuralFeature("parent")));
 	}
 
 }

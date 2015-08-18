@@ -196,6 +196,13 @@ public abstract class TestSupport {
 		containBs.setUpperBound(-1);
 		containBs.setEType(b);
 
+		EReference parent = EcoreFactory.eINSTANCE.createEReference();
+		parent.setName("parent");
+		parent.setEOpposite(containB);
+		parent.setLowerBound(1);
+		parent.setUpperBound(1);
+		parent.setEType(a);
+
 		EReference refTo = EcoreFactory.eINSTANCE.createEReference();
 		refTo.setName("refTo");
 		refTo.setEType(a);
@@ -207,6 +214,7 @@ public abstract class TestSupport {
 
 		a.getEStructuralFeatures().add(containB);
 		a.getEStructuralFeatures().add(containBs);
+		a.getEStructuralFeatures().add(parent);
 		a.getEStructuralFeatures().add(refTo);
 		a.getEStructuralFeatures().add(refToMany);
 
