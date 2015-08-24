@@ -32,6 +32,7 @@ import org.emfjson.jackson.junit.tests.*;
         ModuleTest.class,
         NoTypeTest.class,
         PolymorphicTest.class,
+        GenericTest.class,
         ProxyAttributeTest.class,
         ReaderTest.class,
         ReferenceTest.class,

@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "eClass": "http://www.eclipselabs.org/emfjson/junit#//SpecialTypeOne",
+      "value": "String"
+    },
+    {
+      "eClass": "http://www.eclipselabs.org/emfjson/junit#//SpecialTypeTwo",
+      "value": true
+    }
+  ]
+}

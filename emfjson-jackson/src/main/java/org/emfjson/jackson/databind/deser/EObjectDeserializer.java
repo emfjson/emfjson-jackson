@@ -238,7 +238,7 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 	}
 
 	private void readAttribute(JsonParser jp, EObject owner, EAttribute attribute, Resource resource) throws IOException {
-		final EDataType dataType = attribute.getEAttributeType();
+	    final EDataType dataType = (EDataType) owner.eClass().getFeatureType(attribute).getEClassifier();
 		if (dataType == null) {
 			resource.getErrors().add(new JSONException("Missing feature type", jp.getCurrentLocation()));
 			jp.nextToken();
