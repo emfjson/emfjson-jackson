@@ -78,7 +78,7 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 				if (EObjects.isFeatureMap(attribute)) {
 					writeFeatureMap(object, attribute, jg, provider);
 				} else {
-					writeAttribute(jg, attribute.getEAttributeType(), field, value);
+					writeAttribute(jg, (EDataType) object.eClass().getFeatureType(attribute).getEClassifier(), field, value);
 				}
 			}
 		}

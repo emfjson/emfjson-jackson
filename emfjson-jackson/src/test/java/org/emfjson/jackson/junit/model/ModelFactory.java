@@ -24,7 +24,6 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * The <b>Factory</b> for the model.
  * It provides a create method for each non-abstract class of the model.
  * <!-- end-user-doc -->
- *
  * @generated
  */
 public class ModelFactory extends EFactoryImpl {
@@ -32,7 +31,6 @@ public class ModelFactory extends EFactoryImpl {
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public static final ModelFactory eINSTANCE = init();
@@ -41,7 +39,6 @@ public class ModelFactory extends EFactoryImpl {
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public static final ModelFactory INSTANCE = org.emfjson.jackson.junit.model.ModelFactory.eINSTANCE;
@@ -50,7 +47,6 @@ public class ModelFactory extends EFactoryImpl {
 	 * Creates an instance of the factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public ModelFactory() {
@@ -61,16 +57,16 @@ public class ModelFactory extends EFactoryImpl {
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public static ModelFactory init() {
 		try {
-			ModelFactory theModelFactory = (ModelFactory) EPackage.Registry.INSTANCE.getEFactory(ModelPackage.eNS_URI);
+			ModelFactory theModelFactory = (ModelFactory)EPackage.Registry.INSTANCE.getEFactory(ModelPackage.eNS_URI);
 			if (theModelFactory != null) {
 				return theModelFactory;
 			}
-		} catch (Exception exception) {
+		}
+		catch (Exception exception) {
 			EcorePlugin.INSTANCE.log(exception);
 		}
 		return new ModelFactory();
@@ -79,9 +75,8 @@ public class ModelFactory extends EFactoryImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
-	 * @generated
 	 * @deprecated
+	 * @generated
 	 */
 	@Deprecated
 	public static ModelPackage getPackage() {
@@ -91,32 +86,24 @@ public class ModelFactory extends EFactoryImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case ModelPackage.USER:
-				return createUser();
-			case ModelPackage.ADDRESS:
-				return createAddress();
-			case ModelPackage.ETYPES:
-				return createETypes();
-			case ModelPackage.PRIMARY_OBJECT:
-				return createPrimaryObject();
-			case ModelPackage.CONTAINER:
-				return createContainer();
-			case ModelPackage.TARGET_OBJECT:
-				return createTargetObject();
-			case ModelPackage.CONCRETE_TYPE_ONE:
-				return createConcreteTypeOne();
-			case ModelPackage.CONCRETE_TYPE_TWO:
-				return createConcreteTypeTwo();
-			case ModelPackage.NODE:
-				return createNode();
-			case ModelPackage.OBJECT_WITH_MAP:
-				return createObjectWithMap();
+			case ModelPackage.USER: return createUser();
+			case ModelPackage.ADDRESS: return createAddress();
+			case ModelPackage.ETYPES: return createETypes();
+			case ModelPackage.PRIMARY_OBJECT: return createPrimaryObject();
+			case ModelPackage.CONTAINER: return createContainer();
+			case ModelPackage.TARGET_OBJECT: return createTargetObject();
+			case ModelPackage.CONCRETE_TYPE_ONE: return createConcreteTypeOne();
+			case ModelPackage.CONCRETE_TYPE_TWO: return createConcreteTypeTwo();
+			case ModelPackage.NODE: return createNode();
+			case ModelPackage.OBJECT_WITH_MAP: return createObjectWithMap();
+			case ModelPackage.GENERIC_CONTAINER: return createGenericContainer();
+			case ModelPackage.SPECIAL_TYPE_ONE: return createSpecialTypeOne();
+			case ModelPackage.SPECIAL_TYPE_TWO: return createSpecialTypeTwo();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -125,7 +112,6 @@ public class ModelFactory extends EFactoryImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	@Override
@@ -145,7 +131,6 @@ public class ModelFactory extends EFactoryImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	@Override
@@ -165,7 +150,6 @@ public class ModelFactory extends EFactoryImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public User createUser() {
@@ -176,7 +160,6 @@ public class ModelFactory extends EFactoryImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public Address createAddress() {
@@ -187,7 +170,6 @@ public class ModelFactory extends EFactoryImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public ETypes createETypes() {
@@ -198,7 +180,6 @@ public class ModelFactory extends EFactoryImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public PrimaryObject createPrimaryObject() {
@@ -209,7 +190,6 @@ public class ModelFactory extends EFactoryImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public org.emfjson.jackson.junit.model.Container createContainer() {
@@ -220,7 +200,6 @@ public class ModelFactory extends EFactoryImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public TargetObject createTargetObject() {
@@ -231,7 +210,6 @@ public class ModelFactory extends EFactoryImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public ConcreteTypeOne createConcreteTypeOne() {
@@ -242,7 +220,6 @@ public class ModelFactory extends EFactoryImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public ConcreteTypeTwo createConcreteTypeTwo() {
@@ -253,7 +230,6 @@ public class ModelFactory extends EFactoryImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public Node createNode() {
@@ -264,7 +240,6 @@ public class ModelFactory extends EFactoryImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public ObjectWithMap createObjectWithMap() {
@@ -275,20 +250,47 @@ public class ModelFactory extends EFactoryImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
+	 * @generated
+	 */
+	public GenericContainer createGenericContainer() {
+		GenericContainer genericContainer = new GenericContainer();
+		return genericContainer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SpecialTypeOne createSpecialTypeOne() {
+		SpecialTypeOne specialTypeOne = new SpecialTypeOne();
+		return specialTypeOne;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SpecialTypeTwo createSpecialTypeTwo() {
+		SpecialTypeTwo specialTypeTwo = new SpecialTypeTwo();
+		return specialTypeTwo;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Sex createSexFromString(EDataType eDataType, String initialValue) {
 		Sex result = Sex.get(initialValue);
-		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		return result;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public String convertSexToString(EDataType eDataType, Object instanceValue) {
@@ -298,20 +300,17 @@ public class ModelFactory extends EFactoryImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public SomeKind createSomeKindFromString(EDataType eDataType, String initialValue) {
 		SomeKind result = SomeKind.get(initialValue);
-		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		return result;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public String convertSomeKindToString(EDataType eDataType, Object instanceValue) {
@@ -321,17 +320,15 @@ public class ModelFactory extends EFactoryImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public URI createURIFromString(EDataType eDataType, String initialValue) {
-		return (URI) super.createFromString(eDataType, initialValue);
+		return (URI)super.createFromString(eDataType, initialValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public String convertURIToString(EDataType eDataType, Object instanceValue) {
@@ -341,11 +338,10 @@ public class ModelFactory extends EFactoryImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public ModelPackage getModelPackage() {
-		return (ModelPackage) getEPackage();
+		return (ModelPackage)getEPackage();
 	}
 
 } //ModelFactory
