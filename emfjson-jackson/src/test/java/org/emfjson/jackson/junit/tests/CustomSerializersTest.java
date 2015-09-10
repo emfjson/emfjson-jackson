@@ -86,17 +86,14 @@ public class CustomSerializersTest {
 				.add(mapper.createObjectNode()
 						.put("type", "User")
 						.put("userId", "u1")
-						.put("sex", "MALE")
 						.put("uniqueFriend", "u2"))
 				.add(mapper.createObjectNode()
 						.put("type", "User")
 						.put("userId", "u2")
-						.put("sex", "MALE")
 						.set("friends", mapper.createArrayNode().add("u1").add("u3")))
 				.add(mapper.createObjectNode()
 						.put("type", "User")
 						.put("userId", "u3")
-						.put("sex", "MALE")
 						.set("friends", mapper.createArrayNode().add("u1").add("u2")));
 
 		User u1 = ModelFactory.eINSTANCE.createUser();

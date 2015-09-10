@@ -71,7 +71,7 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 		writeId(object, jg, provider);
 
 		for (EAttribute attribute : attributes) {
-			if (EObjects.isCandidate(object, attribute)) {
+			if (EObjects.isCandidate(object, attribute, options)) {
 				final String field = cache.getKey(attribute);
 				final Object value = object.eGet(attribute);
 

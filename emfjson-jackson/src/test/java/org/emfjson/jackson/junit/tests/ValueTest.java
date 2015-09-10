@@ -20,9 +20,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emfjson.jackson.junit.model.ETypes;
-import org.emfjson.jackson.junit.model.ModelFactory;
-import org.emfjson.jackson.junit.model.ModelPackage;
+import org.emfjson.EMFJs;
+import org.emfjson.jackson.JacksonOptions;
+import org.emfjson.jackson.junit.model.*;
 import org.emfjson.jackson.junit.support.TestSupport;
 import org.junit.Test;
 
@@ -37,6 +37,58 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ValueTest extends TestSupport {
+
+	@Test
+	public void testOptionSaveDefaultValues() throws IOException {
+		{
+			JsonNode expected = mapper.createObjectNode()
+					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+					.put("name", "u1");
+
+			User u = ModelFactory.eINSTANCE.createUser();
+			u.setName("u1");
+
+			assertEquals(expected, mapper.valueToTree(u));
+		}
+
+		{
+			JsonNode expected = mapper.createObjectNode()
+					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+					.put("name", "u1")
+					.put("sex", "FEMALE");
+
+			User u = ModelFactory.eINSTANCE.createUser();
+			u.setName("u1");
+			u.setSex(Sex.FEMALE);
+
+			assertEquals(expected, mapper.valueToTree(u));
+		}
+
+		options.put(EMFJs.OPTION_SERIALIZE_DEFAULT_VALUE, true);
+		{
+			JsonNode expected = mapper.createObjectNode()
+					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+					.put("name", "u1")
+					.put("sex", "MALE");
+
+			User u = ModelFactory.eINSTANCE.createUser();
+			u.setName("u1");
+
+			assertEquals(expected, mapper(JacksonOptions.from(options)).valueToTree(u));
+		}
+		{
+			JsonNode expected = mapper.createObjectNode()
+					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+					.put("name", "u1")
+					.put("sex", "FEMALE");
+
+			User u = ModelFactory.eINSTANCE.createUser();
+			u.setName("u1");
+			u.setSex(Sex.FEMALE);
+
+			assertEquals(expected, mapper(JacksonOptions.from(options)).valueToTree(u));
+		}
+	}
 
 	@Test
 	public void testStringValues() throws IOException {

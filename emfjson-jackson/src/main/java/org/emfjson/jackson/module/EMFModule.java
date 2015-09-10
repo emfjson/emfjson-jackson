@@ -41,17 +41,8 @@ public class EMFModule extends SimpleModule {
 	}
 
 	public EMFModule(ResourceSet resourceSet, JacksonOptions options) {
-		if (resourceSet == null) {
-			this.resourceSet = new ResourceSetImpl();
-		} else {
-			this.resourceSet = resourceSet;
-		}
-
-		if (options == null) {
-			this.options = new JacksonOptions.Builder().build();
-		} else {
-			this.options = options;
-		}
+		this.resourceSet = resourceSet == null ? new ResourceSetImpl() : resourceSet;
+		this.options = options == null ? new JacksonOptions.Builder().build() : options;
 
 		configure();
 	}
@@ -74,7 +65,7 @@ public class EMFModule extends SimpleModule {
 
 	@Override
 	public Version version() {
-		return new Version(0, 12, 0, null, "org.emfjson", "emfjson-jackson");
+		return new Version(0, 13, 0, null, "org.emfjson", "emfjson-jackson");
 	}
 
 }

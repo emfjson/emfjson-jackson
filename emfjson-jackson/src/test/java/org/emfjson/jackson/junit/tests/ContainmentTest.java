@@ -37,8 +37,7 @@ public class ContainmentTest extends TestSupport {
 		JsonNode expected = mapper.createObjectNode()
 			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
 			.put("userId", "1")
-			.put("name", "John")
-			.put("sex", "MALE");
+			.put("name", "John");
 
 		User user = ModelFactory.eINSTANCE.createUser();
 		user.setUserId("1");
@@ -58,8 +57,7 @@ public class ContainmentTest extends TestSupport {
 			.add(mapper.createObjectNode()
 					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
 					.put("userId", "1")
-					.put("name", "John")
-					.put("sex", "MALE"))
+					.put("name", "John"))
 			.add(mapper.createObjectNode()
 					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
 					.put("userId", "2")
@@ -86,7 +84,6 @@ public class ContainmentTest extends TestSupport {
 	public void testSaveOneObjectWithOneChild() throws JsonProcessingException {
 		JsonNode expected = mapper.createObjectNode()
 			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
-			.put("sex", "MALE")
 			.set("address", mapper.createObjectNode()
 					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Address"));
 
@@ -213,10 +210,8 @@ public class ContainmentTest extends TestSupport {
 	public void testSaveContainmentWithOpposite() {
 		JsonNode expected = mapper.createObjectNode()
 				.put("eClass", "http://emfjson/dynamic/model#//A")
-				.put("someKind", "e1")
 				.set("containB", mapper.createObjectNode()
-						.put("eClass", "http://emfjson/dynamic/model#//B")
-						.put("someKind", "e1"));
+						.put("eClass", "http://emfjson/dynamic/model#//B"));
 
 		EClass classA = (EClass) resourceSet.getEObject(URI.createURI("http://emfjson/dynamic/model#//A"), true);
 		EClass classB = (EClass) resourceSet.getEObject(URI.createURI("http://emfjson/dynamic/model#//B"), true);

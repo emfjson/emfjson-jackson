@@ -74,7 +74,7 @@ public class JsonWriter {
 		final List<EReference> containments = cache.getContainments(eClass);
 
 		for (EAttribute attribute : attributes) {
-			if (isCandidate(object, attribute)) {
+			if (isCandidate(object, attribute, options)) {
 				final String key = cache.getKey(attribute);
 				final Object value = object.eGet(attribute);
 

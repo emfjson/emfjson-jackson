@@ -33,8 +33,7 @@ public class FeatureMapTest extends TestSupport {
 	public void testSaveFeatureMap() throws IOException {
 		ObjectNode expected = mapper.createObjectNode()
 			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
-			.put("name", "junit")
-			.put("kind", "one");
+			.put("name", "junit");
 
 		expected.set("featureMapAttributeType1", mapper.createArrayNode().add("Hello"));
 		expected.set("featureMapAttributeType2", mapper.createArrayNode().add("World"));
@@ -113,8 +112,7 @@ public class FeatureMapTest extends TestSupport {
 	@Test
 	public void testSaveFeatureMapReferences() throws IOException {
 		ObjectNode expected = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
-			.put("kind", "one");
+			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject");
 
 		expected.set("featureMapReferenceType1", mapper.createArrayNode()
 			.add(mapper.createObjectNode()

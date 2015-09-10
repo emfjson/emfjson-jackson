@@ -47,8 +47,7 @@ public class NoTypeTest {
 	public void testSaveSingleObjectWithNoType() {
 		JsonNode expected = mapper.createObjectNode()
 			.put("userId", "1")
-			.put("name", "Paul")
-			.put("sex", "MALE");
+			.put("name", "Paul");
 
 		User u1 = ModelFactory.eINSTANCE.createUser();
 		u1.setUserId("1");
@@ -64,8 +63,7 @@ public class NoTypeTest {
 		JsonNode expected = mapper.createArrayNode()
 			.add(mapper.createObjectNode()
 				.put("userId", "1")
-				.put("name", "Paul")
-				.put("sex", "MALE"))
+				.put("name", "Paul"))
 			.add(mapper.createObjectNode()
 				.put("userId", "2")
 				.put("name", "Anna")
@@ -93,8 +91,7 @@ public class NoTypeTest {
 	public void testLoadSingleObjectWithNoType() throws JsonProcessingException {
 		JsonNode data = mapper.createObjectNode()
 			.put("userId", "1")
-			.put("name", "Paul")
-			.put("sex", "MALE");
+			.put("name", "Paul");
 
 		User result = (User) mapper.treeToValue(data, EObject.class);
 
@@ -139,7 +136,6 @@ public class NoTypeTest {
 		JsonNode expected = mapper.createObjectNode()
 			.put("userId", "1")
 			.put("name", "Paul")
-			.put("sex", "MALE")
 			.set("address", mapper.createObjectNode()
 				.put("addId", "a1")
 				.put("city", "Prague"));
@@ -164,7 +160,6 @@ public class NoTypeTest {
 		JsonNode data = mapper.createObjectNode()
 			.put("userId", "1")
 			.put("name", "Paul")
-			.put("sex", "MALE")
 			.set("address", mapper.createObjectNode()
 				.put("addId", "a1")
 				.put("city", "Prague"));

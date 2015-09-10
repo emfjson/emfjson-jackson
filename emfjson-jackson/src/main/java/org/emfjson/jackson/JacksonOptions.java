@@ -11,10 +11,8 @@
  */
 package org.emfjson.jackson;
 
-import org.eclipse.emf.ecore.EClass;
 import org.emfjson.EMFJs;
 import org.emfjson.common.Options;
-import org.emfjson.handlers.URIHandler;
 import org.emfjson.jackson.databind.deser.DefaultTypeDeserializer;
 import org.emfjson.jackson.databind.deser.FragmentIdDeserializer;
 import org.emfjson.jackson.databind.deser.IdDeserializer;
@@ -31,6 +29,7 @@ import org.emfjson.jackson.databind.ser.references.ReferenceSerializer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import static org.emfjson.EMFJs.*;
@@ -61,7 +60,7 @@ public class JacksonOptions extends Options {
 		return new Builder().build(options);
 	}
 
-	public static final class Builder extends Options.Builder {
+	public static final class Builder extends AbstractBuilder<Builder, JacksonOptions> {
 
 		protected ReferenceSerializer referenceSerializer = new ReferenceAsObjectSerializer();
 		protected ReferenceDeserializer referenceDeserializer = new ReferenceAsObjectDeserializer();
@@ -70,6 +69,11 @@ public class JacksonOptions extends Options {
 		protected TypeSerializer typeSerializer = new DefaultTypeSerializer();
 		protected TypeDeserializer typeDeserializer = new DefaultTypeDeserializer();
 		protected DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
+		@Override
+		protected Builder getThis() {
+			return this;
+		}
 
 		@Override
 		public JacksonOptions build(Map<?, ?> options) {
@@ -94,74 +98,39 @@ public class JacksonOptions extends Options {
 			dateFormat = objectValue(options, EMFJs.OPTION_DATE_FORMAT, dateFormat);
 		}
 
-		@Override
-		public Builder withTypes(boolean withTypes) {
-			return (Builder) super.withTypes(withTypes);
-		}
-
-		@Override
-		public Builder withID(boolean withID) {
-			return (Builder) super.withID(withID);
-		}
-
-		@Override
-		public Builder withRoot(EClass root) {
-			return (Builder) super.withRoot(root);
-		}
-
 		public Builder withReferenceSerializer(ReferenceSerializer serializer) {
 			this.referenceSerializer = serializer;
-			return this;
+			return getThis();
 		}
 
 		public Builder withReferenceDeserializer(ReferenceDeserializer deserializer) {
 			this.referenceDeserializer = deserializer;
-			return this;
+			return getThis();
 		}
 
 		public Builder withIdSerializer(IdSerializer serializer) {
 			this.idSerializer = serializer;
-			return this;
+			return getThis();
 		}
 
 		public Builder withIdDeserializer(IdDeserializer deserializer) {
 			this.idDeserializer = deserializer;
-			return this;
-		}
-
-		public Builder withUriHandler(URIHandler uriHandler) {
-			this.uriHandler = uriHandler;
-			return this;
-		}
-
-		public Builder withTypeField(String typeField) {
-			this.typeField = typeField;
-			return this;
-		}
-
-		public Builder withIdField(String idField) {
-			this.idField = idField;
-			return this;
-		}
-
-		public Builder withRefField(String refField) {
-			this.refField = refField;
-			return this;
+			return getThis();
 		}
 
 		public Builder withTypeSerializer(TypeSerializer typeSerializer) {
 			this.typeSerializer = typeSerializer;
-			return this;
+			return getThis();
 		}
 
 		public Builder withTypeDeserializer(TypeDeserializer typeDeserializer) {
 			this.typeDeserializer = typeDeserializer;
-			return this;
+			return getThis();
 		}
 
 		public Builder withDateFormat(DateFormat dateFormat) {
 			this.dateFormat = dateFormat;
-			return this;
+			return getThis();
 		}
 
 	}

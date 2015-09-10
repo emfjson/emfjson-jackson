@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.cfg.ContextAttributes;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
+import org.emfjson.EMFJs;
 import org.emfjson.jackson.JacksonOptions;
 import org.emfjson.jackson.module.EMFModule;
 
@@ -51,7 +52,7 @@ public class JsonResource extends AbstractUuidResource {
 		} else {
 
 			final ObjectMapper mapper = new ObjectMapper();
-			final JacksonOptions jacksonOptions = JacksonOptions.from(options);
+			final JacksonOptions jacksonOptions = getOptions(options);
 			mapper.setDateFormat(jacksonOptions.dateFormat);
 			mapper.registerModule(new EMFModule(this.getResourceSet(), jacksonOptions));
 
@@ -80,13 +81,25 @@ public class JsonResource extends AbstractUuidResource {
 		} else {
 
 			final ObjectMapper mapper = new ObjectMapper();
-			final JacksonOptions jacksonOptions = JacksonOptions.from(options);
+			final JacksonOptions jacksonOptions = getOptions(options);
 			mapper.setDateFormat(jacksonOptions.dateFormat);
 			mapper.configure(SerializationFeature.INDENT_OUTPUT, jacksonOptions.indentOutput);
 			mapper.registerModule(new EMFModule(this.getResourceSet(), jacksonOptions));
-			outputStream.write(mapper.writeValueAsBytes(this));
 
+			outputStream.write(mapper.writeValueAsBytes(this));
 		}
+	}
+
+	private JacksonOptions getOptions(Map<?, ?> options) {
+		if (options.containsKey(EMFJs.OPTIONS_OBJECT)) {
+			Object value = options.get(EMFJs.OPTIONS_OBJECT);
+
+			if (value instanceof JacksonOptions) {
+				return (JacksonOptions) value;
+			}
+		}
+
+		return JacksonOptions.from(options);
 	}
 
 }

@@ -75,9 +75,18 @@ public class EObjects {
 	 * @param attribute
 	 * @return true if serializable
 	 */
-	public static boolean isCandidate(EObject object, EAttribute attribute) {
-		return (object.eIsSet(attribute) || attribute.getEType() instanceof EEnum) &&
-			!attribute.isDerived() && !attribute.isTransient();
+	public static boolean isCandidate(EObject object, EAttribute attribute, Options options) {
+		if (attribute.isDerived() || attribute.isTransient())
+			return false;
+
+		if (object.eIsSet(attribute)) {
+			return true;
+		}
+
+		final Object value = object.eGet(attribute);
+		final boolean isDefault = value != null && value.equals(attribute.getDefaultValue());
+
+		return options.serializeDefaultValues && isDefault;
 	}
 
 	/**

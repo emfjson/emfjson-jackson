@@ -21,14 +21,14 @@ import java.util.Map;
 import static org.emfjson.EMFJs.*;
 
 /**
- * Configuration options for emfjson serializers and deserializers.
- *
+ * Configuration options for serializers and deserializers.
  */
 public class Options {
 
 	public final boolean indentOutput;
 	public final boolean serializeTypes;
 	public final boolean serializeRefTypes;
+	public final boolean serializeDefaultValues;
 	public final boolean useProxyAttributes;
 	public final boolean useId;
 	public final String typeField;
@@ -37,10 +37,11 @@ public class Options {
 	public final EClass rootElement;
 	public final URIHandler uriHandler;
 
-	protected Options(Builder builder) {
+	protected Options(AbstractBuilder<?, ?> builder) {
 		this.serializeTypes = builder.withTypes;
 		this.serializeRefTypes = builder.withRefTypes;
 		this.useProxyAttributes = builder.withProxyAttributes;
+		this.serializeDefaultValues = builder.withDefaultValues;
 		this.indentOutput = builder.indentOutput;
 		this.useId = builder.withID;
 		this.typeField = builder.typeField;
@@ -54,9 +55,10 @@ public class Options {
 		return new Builder().build(options);
 	}
 
-	public static class Builder {
+	public static abstract class AbstractBuilder<T extends AbstractBuilder<T, O>, O extends Options> {
 
 		protected boolean indentOutput = true;
+		protected boolean withDefaultValues = false;
 		protected boolean withTypes = true;
 		protected boolean withRefTypes = false;
 		protected boolean withProxyAttributes = false;
@@ -66,6 +68,26 @@ public class Options {
 		protected String refField = "$ref";
 		protected EClass rootElement = null;
 		protected URIHandler uriHandler = new IdentityURIHandler();
+
+		protected void init(Map<?, ?> options) {
+			if (options == null) {
+				options = Collections.emptyMap();
+			}
+
+			withTypes = booleanValue(options, OPTION_SERIALIZE_TYPE, withTypes);
+			withRefTypes = booleanValue(options, OPTION_SERIALIZE_REF_TYPE, withRefTypes);
+			withProxyAttributes = booleanValue(options, OPTION_PROXY_ATTRIBUTES, withProxyAttributes);
+			withDefaultValues = booleanValue(options, OPTION_SERIALIZE_DEFAULT_VALUE, withDefaultValues);
+			indentOutput = booleanValue(options, OPTION_INDENT_OUTPUT, indentOutput);
+			withID = booleanValue(options, OPTION_USE_ID, withID);
+			typeField = stringValue(options, OPTION_TYPE_FIELD, typeField);
+			idField = stringValue(options, OPTION_ID_FIELD, idField);
+			refField = stringValue(options, OPTION_REF_FIELD, refField);
+			rootElement = eClassValue(options, OPTION_ROOT_ELEMENT, rootElement);
+			uriHandler = objectValue(options, OPTION_URI_HANDLER, uriHandler);
+		}
+
+		protected abstract T getThis();
 
 		protected boolean booleanValue(Map<?, ?> options, String key, boolean _default) {
 			if (options.containsKey(key)) {
@@ -99,10 +121,10 @@ public class Options {
 		}
 
 		@SuppressWarnings("unchecked")
-		protected <T> T objectValue(Map<?, ?> options, String key, T _default) {
-			T value;
+		protected <V> V objectValue(Map<?, ?> options, String key, V _default) {
+			V value;
 			try {
-				value = (T) options.get(key);
+				value = (V) options.get(key);
 			} catch (ClassCastException e) {
 				return _default;
 			}
@@ -110,48 +132,63 @@ public class Options {
 			return value != null ? value : _default;
 		}
 
-		/**
-		 * @return Options setup with clients settings.
-		 */
+		public abstract O build();
+
+		public abstract O build(Map<?, ?> options);
+
+		public T withTypes(boolean withTypes) {
+			this.withTypes = withTypes;
+			return getThis();
+		}
+
+		public T withID(boolean withID) {
+			this.withID = withID;
+			return getThis();
+		}
+
+		public T withRoot(EClass root) {
+			this.rootElement = root;
+			return getThis();
+		}
+
+		public T withTypeField(String typeField) {
+			this.typeField = typeField;
+			return getThis();
+		}
+
+		public T withIdField(String idField) {
+			this.idField = idField;
+			return getThis();
+		}
+
+		public T withRefField(String refField) {
+			this.refField = refField;
+			return getThis();
+		}
+
+		public T withUriHandler(URIHandler uriHandler) {
+			this.uriHandler = uriHandler;
+			return getThis();
+		}
+
+	}
+
+	public static class Builder extends AbstractBuilder<Builder, Options> {
+
+		@Override
+		protected Builder getThis() {
+			return this;
+		}
+
+		@Override
 		public Options build(Map<?, ?> options) {
 			init(options);
-			return new Options(this);
+			return new Options(getThis());
 		}
 
-		protected void init(Map<?, ?> options) {
-			if (options == null) {
-				options = Collections.emptyMap();
-			}
-
-			withTypes = booleanValue(options, OPTION_SERIALIZE_TYPE, withTypes);
-			withRefTypes = booleanValue(options, OPTION_SERIALIZE_REF_TYPE, withRefTypes);
-			withProxyAttributes = booleanValue(options, OPTION_PROXY_ATTRIBUTES, withProxyAttributes);
-			indentOutput = booleanValue(options, OPTION_INDENT_OUTPUT, indentOutput);
-			withID = booleanValue(options, OPTION_USE_ID, withID);
-			typeField = stringValue(options, OPTION_TYPE_FIELD, typeField);
-			idField = stringValue(options, OPTION_ID_FIELD, idField);
-			refField = stringValue(options, OPTION_REF_FIELD, refField);
-			rootElement = eClassValue(options, OPTION_ROOT_ELEMENT, rootElement);
-			uriHandler = objectValue(options, OPTION_URI_HANDLER, uriHandler);
-		}
-
+		@Override
 		public Options build() {
-			return new Options(this);
-		}
-
-		public Builder withTypes(boolean withTypes) {
-			this.withTypes = withTypes;
-			return this;
-		}
-
-		public Builder withID(boolean withID) {
-			this.withID = withID;
-			return this;
-		}
-
-		public Builder withRoot(EClass root) {
-			this.rootElement = root;
-			return this;
+			return new Options(getThis());
 		}
 
 	}

@@ -16,6 +16,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.emfjson.EMFJs;
+import org.emfjson.jackson.JacksonOptions;
 import org.emfjson.jackson.junit.model.*;
 import org.emfjson.jackson.junit.support.TestSupport;
 import org.junit.Test;
@@ -32,8 +34,7 @@ public class EnumTest extends TestSupport {
 	public void testEnums() throws IOException {
 		JsonNode expected = mapper.createArrayNode()
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
-				.put("sex", "MALE"))
+				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User"))
 			.add(mapper.createObjectNode()
 				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
 				.put("sex", "FEMALE"));
@@ -86,13 +87,16 @@ public class EnumTest extends TestSupport {
 		JsonNode expected = mapper.createArrayNode()
 			.add(mapper.createObjectNode()
 					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
+					.put("unsettableAttributeWithNonNullDefault", "junit")
 					.put("kind", "one"))
-			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
-				.put("kind", "two"))
-			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
-				.put("kind", "Three-is-Three"));
+				.add(mapper.createObjectNode()
+						.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
+						.put("unsettableAttributeWithNonNullDefault", "junit")
+						.put("kind", "two"))
+				.add(mapper.createObjectNode()
+						.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
+						.put("unsettableAttributeWithNonNullDefault", "junit")
+						.put("kind", "Three-is-Three"));
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 		{
@@ -111,7 +115,8 @@ public class EnumTest extends TestSupport {
 			resource.getContents().add(p);
 		}
 
-		assertEquals(expected, mapper.valueToTree(resource));
+		options.put(EMFJs.OPTION_SERIALIZE_DEFAULT_VALUE, true);
+		assertEquals(expected, mapper(JacksonOptions.from(options)).valueToTree(resource));
 	}
 
 	@Test
@@ -149,12 +154,14 @@ public class EnumTest extends TestSupport {
 	public void testSaveDynamicEnum() {
 		JsonNode expected = mapper.createObjectNode()
 				.put("eClass", "http://emfjson/dynamic/model#//A")
+				.put("intValue", 0)
 				.put("someKind", "e1");
 
 		EClass a = (EClass) resourceSet.getEObject(URI.createURI("http://emfjson/dynamic/model#//A"), true);
 		EObject a1 = EcoreUtil.create(a);
 
-		JsonNode result = mapper.valueToTree(a1);
+		options.put(EMFJs.OPTION_SERIALIZE_DEFAULT_VALUE, true);
+		JsonNode result = mapper(JacksonOptions.from(options)).valueToTree(a1);
 
 		assertEquals(expected, result);
 	}

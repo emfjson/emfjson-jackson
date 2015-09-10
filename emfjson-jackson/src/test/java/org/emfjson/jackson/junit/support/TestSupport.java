@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.emfjson.jackson.JacksonOptions;
 import org.emfjson.jackson.junit.model.ModelPackage;
 import org.emfjson.jackson.module.EMFModule;
 import org.emfjson.jackson.resource.JsonResourceFactory;
@@ -54,6 +55,14 @@ public abstract class TestSupport {
 		mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss"));
 
 		createDynamicModel();
+	}
+
+	protected ObjectMapper mapper(JacksonOptions options) {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new EMFModule(resourceSet, options));
+		mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss"));
+
+		return mapper;
 	}
 
 	protected URI uri(String fileName) {

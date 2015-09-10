@@ -34,6 +34,11 @@ public final class EMFJs {
 	 */
 	public static final String OPTION_SERIALIZE_REF_TYPE = "OPTION_SERIALIZE_REF_TYPE";
 	/**
+	 * When value is true, the writer will include default values for attributes.
+	 * * <p>Default value is false.</p>
+	 */
+	public static final String OPTION_SERIALIZE_DEFAULT_VALUE = "OPTION_SERIALIZE_DEFAULT_VALUE";
+	/**
 	 * When value is true, the writer will indent the output JSON document.
 	 * <p>Default value is true</p>
 	 */
@@ -112,6 +117,10 @@ public final class EMFJs {
 	 * <p>By default the date format is yyyy-MM-dd'T'HH:mm:ss</p>
 	 */
 	public static final String OPTION_DATE_FORMAT = "OPTION_DATE_FORMAT";
+	/**
+	 * Can be use to pass an Option object.
+	 */
+	public static final String OPTIONS_OBJECT = "OPTIONS_OBJECT";
 
 	private EMFJs() {}
 
