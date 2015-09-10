@@ -11,7 +11,14 @@
  */
 package org.emfjson.jackson.junit.model;
 
-import org.eclipse.emf.ecore.*;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EGenericType;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.ETypeParameter;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 /**
@@ -26,16 +33,14 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
  * <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
- *
- * @generated
  * @see org.emfjson.jackson.junit.model.ModelFactory
+ * @generated
  */
 public class ModelPackage extends EPackageImpl {
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public static final String eNAME = "model";
@@ -44,7 +49,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The package namespace URI.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public static final String eNS_URI = "http://www.eclipselabs.org/emfjson/junit";
@@ -53,7 +57,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The package namespace name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public static final String eNS_PREFIX = "model";
@@ -61,17 +64,15 @@ public class ModelPackage extends EPackageImpl {
 	 * The meta object id for the '{@link org.emfjson.jackson.junit.model.User <em>User</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.User
 	 * @see org.emfjson.jackson.junit.model.ModelPackage#getUser()
+	 * @generated
 	 */
 	public static final int USER = 0;
 	/**
 	 * The feature id for the '<em><b>User Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -80,7 +81,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -89,7 +89,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Birth Date</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -98,7 +97,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Sex</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -107,7 +105,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Friends</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -116,7 +113,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Unique Friend</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -125,7 +121,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Address</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -134,7 +129,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The number of structural features of the '<em>User</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -143,7 +137,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The number of operations of the '<em>User</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -152,17 +145,15 @@ public class ModelPackage extends EPackageImpl {
 	 * The meta object id for the '{@link org.emfjson.jackson.junit.model.Address <em>Address</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.Address
 	 * @see org.emfjson.jackson.junit.model.ModelPackage#getAddress()
+	 * @generated
 	 */
 	public static final int ADDRESS = 1;
 	/**
 	 * The feature id for the '<em><b>Add Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -171,7 +162,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>City</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -180,7 +170,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Street</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -189,7 +178,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Number</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -198,7 +186,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The number of structural features of the '<em>Address</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -207,7 +194,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The number of operations of the '<em>Address</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -216,17 +202,15 @@ public class ModelPackage extends EPackageImpl {
 	 * The meta object id for the '{@link org.emfjson.jackson.junit.model.ETypes <em>ETypes</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ETypes
 	 * @see org.emfjson.jackson.junit.model.ModelPackage#getETypes()
+	 * @generated
 	 */
 	public static final int ETYPES = 2;
 	/**
 	 * The feature id for the '<em><b>EString</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -235,7 +219,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>EStrings</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -244,7 +227,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>EBoolean</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -253,7 +235,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>EBooleans</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -262,7 +243,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>EInt</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -271,7 +251,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>EInts</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -280,7 +259,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Double Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -289,7 +267,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>EDouble</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -298,7 +275,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>EDoubles</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -307,7 +283,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>EBig Decimal</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -316,7 +291,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>EBig Integer</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -325,7 +299,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>EByte</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -334,7 +307,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>EByte Array</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -343,7 +315,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>EChar</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -352,7 +323,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>EDate</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -361,7 +331,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>EFloat</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -370,7 +339,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>ELong</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -379,7 +347,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>EShort</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -388,7 +355,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Uris</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -397,7 +363,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The number of structural features of the '<em>ETypes</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -406,7 +371,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The number of operations of the '<em>ETypes</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -415,17 +379,15 @@ public class ModelPackage extends EPackageImpl {
 	 * The meta object id for the '{@link org.emfjson.jackson.junit.model.PrimaryObject <em>Primary Object</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.PrimaryObject
 	 * @see org.emfjson.jackson.junit.model.ModelPackage#getPrimaryObject()
+	 * @generated
 	 */
 	public static final int PRIMARY_OBJECT = 3;
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -434,7 +396,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Id Attribute</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -443,7 +404,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Unsettable Attribute</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -452,7 +412,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Unsettable Attribute With Non Null Default</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -461,7 +420,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Unsettable Reference</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -470,7 +428,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Containment Reference Same Collectioin</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -479,7 +436,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Single Non Containment Reference</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -488,7 +444,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Multiple Non Containment Reference</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -497,7 +452,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Single Containment Reference No Proxies</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -506,7 +460,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Multiple Containment Reference No Proxies</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -515,7 +468,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Single Containment Reference Proxies</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -524,7 +476,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Multiple Containment Reference Proxies</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -533,7 +484,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Single Non Containment Reference No Proxies</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -542,7 +492,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Feature Map Reference Type1</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -551,7 +500,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Feature Map Reference Type2</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -560,7 +508,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Feature Map Reference Collection</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -569,7 +516,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Feature Map Attribute Type1</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -578,7 +524,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Feature Map Attribute Type2</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -587,7 +532,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Feature Map Attribute Collection</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -596,7 +540,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Kind</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -605,7 +548,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The number of structural features of the '<em>Primary Object</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -614,7 +556,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The number of operations of the '<em>Primary Object</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -623,17 +564,15 @@ public class ModelPackage extends EPackageImpl {
 	 * The meta object id for the '{@link org.emfjson.jackson.junit.model.Container <em>Container</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.Container
 	 * @see org.emfjson.jackson.junit.model.ModelPackage#getContainer()
+	 * @generated
 	 */
 	public static final int CONTAINER = 4;
 	/**
 	 * The feature id for the '<em><b>Elements</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -642,7 +581,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The number of structural features of the '<em>Container</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -651,7 +589,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The number of operations of the '<em>Container</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -660,17 +597,15 @@ public class ModelPackage extends EPackageImpl {
 	 * The meta object id for the '{@link org.emfjson.jackson.junit.model.TargetObject <em>Target Object</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.TargetObject
 	 * @see org.emfjson.jackson.junit.model.ModelPackage#getTargetObject()
+	 * @generated
 	 */
 	public static final int TARGET_OBJECT = 5;
 	/**
 	 * The feature id for the '<em><b>Single Attribute</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -679,7 +614,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Array Attribute</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -688,7 +622,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The number of structural features of the '<em>Target Object</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -697,7 +630,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The number of operations of the '<em>Target Object</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -706,17 +638,15 @@ public class ModelPackage extends EPackageImpl {
 	 * The meta object id for the '{@link org.emfjson.jackson.junit.model.AbstractType <em>Abstract Type</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.AbstractType
 	 * @see org.emfjson.jackson.junit.model.ModelPackage#getAbstractType()
+	 * @generated
 	 */
 	public static final int ABSTRACT_TYPE = 6;
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -725,7 +655,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Ref Property</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -734,7 +663,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The number of structural features of the '<em>Abstract Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -743,7 +671,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The number of operations of the '<em>Abstract Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -752,17 +679,15 @@ public class ModelPackage extends EPackageImpl {
 	 * The meta object id for the '{@link org.emfjson.jackson.junit.model.ConcreteTypeOne <em>Concrete Type One</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ConcreteTypeOne
 	 * @see org.emfjson.jackson.junit.model.ModelPackage#getConcreteTypeOne()
+	 * @generated
 	 */
 	public static final int CONCRETE_TYPE_ONE = 7;
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -771,7 +696,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Ref Property</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -780,7 +704,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Prop Type One</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -789,7 +712,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The number of structural features of the '<em>Concrete Type One</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -798,7 +720,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The number of operations of the '<em>Concrete Type One</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -807,17 +728,15 @@ public class ModelPackage extends EPackageImpl {
 	 * The meta object id for the '{@link org.emfjson.jackson.junit.model.ConcreteTypeTwo <em>Concrete Type Two</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ConcreteTypeTwo
 	 * @see org.emfjson.jackson.junit.model.ModelPackage#getConcreteTypeTwo()
+	 * @generated
 	 */
 	public static final int CONCRETE_TYPE_TWO = 8;
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -826,7 +745,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Ref Property</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -835,7 +753,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Prop Type Two</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -844,7 +761,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The number of structural features of the '<em>Concrete Type Two</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -853,7 +769,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The number of operations of the '<em>Concrete Type Two</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -862,17 +777,15 @@ public class ModelPackage extends EPackageImpl {
 	 * The meta object id for the '{@link org.emfjson.jackson.junit.model.Node <em>Node</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.Node
 	 * @see org.emfjson.jackson.junit.model.ModelPackage#getNode()
+	 * @generated
 	 */
 	public static final int NODE = 9;
 	/**
 	 * The feature id for the '<em><b>Label</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -881,7 +794,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Target</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -890,7 +802,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Source</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -899,7 +810,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Many Ref</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -908,7 +818,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Child</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -917,7 +826,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Unique Child</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -926,7 +834,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The number of structural features of the '<em>Node</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -935,7 +842,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The number of operations of the '<em>Node</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -944,17 +850,15 @@ public class ModelPackage extends EPackageImpl {
 	 * The meta object id for the '{@link org.emfjson.jackson.junit.model.ObjectWithMap <em>Object With Map</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ObjectWithMap
 	 * @see org.emfjson.jackson.junit.model.ModelPackage#getObjectWithMap()
+	 * @generated
 	 */
 	public static final int OBJECT_WITH_MAP = 10;
 	/**
 	 * The feature id for the '<em><b>Entries</b></em>' map.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -963,7 +867,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The feature id for the '<em><b>Dependencies</b></em>' map.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -972,7 +875,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The number of structural features of the '<em>Object With Map</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -981,52 +883,194 @@ public class ModelPackage extends EPackageImpl {
 	 * The number of operations of the '<em>Object With Map</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 * @ordered
 	 */
 	public static final int OBJECT_WITH_MAP_OPERATION_COUNT = 0;
 	/**
+	 * The meta object id for the '{@link org.emfjson.jackson.junit.model.GenericContainer <em>Generic Container</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emfjson.jackson.junit.model.GenericContainer
+	 * @see org.emfjson.jackson.junit.model.ModelPackage#getGenericContainer()
+	 * @generated
+	 */
+	public static final int GENERIC_CONTAINER = 11;
+
+	/**
+	 * The feature id for the '<em><b>Values</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int GENERIC_CONTAINER__VALUES = 0;
+
+	/**
+	 * The number of structural features of the '<em>Generic Container</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int GENERIC_CONTAINER_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Generic Container</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int GENERIC_CONTAINER_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link org.emfjson.jackson.junit.model.GenericType <em>Generic Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emfjson.jackson.junit.model.GenericType
+	 * @see org.emfjson.jackson.junit.model.ModelPackage#getGenericType()
+	 * @generated
+	 */
+	public static final int GENERIC_TYPE = 12;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int GENERIC_TYPE__VALUE = 0;
+
+	/**
+	 * The number of structural features of the '<em>Generic Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int GENERIC_TYPE_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Generic Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int GENERIC_TYPE_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link org.emfjson.jackson.junit.model.SpecialTypeOne <em>Special Type One</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emfjson.jackson.junit.model.SpecialTypeOne
+	 * @see org.emfjson.jackson.junit.model.ModelPackage#getSpecialTypeOne()
+	 * @generated
+	 */
+	public static final int SPECIAL_TYPE_ONE = 13;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SPECIAL_TYPE_ONE__VALUE = GENERIC_TYPE__VALUE;
+
+	/**
+	 * The number of structural features of the '<em>Special Type One</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SPECIAL_TYPE_ONE_FEATURE_COUNT = GENERIC_TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Special Type One</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SPECIAL_TYPE_ONE_OPERATION_COUNT = GENERIC_TYPE_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.emfjson.jackson.junit.model.SpecialTypeTwo <em>Special Type Two</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emfjson.jackson.junit.model.SpecialTypeTwo
+	 * @see org.emfjson.jackson.junit.model.ModelPackage#getSpecialTypeTwo()
+	 * @generated
+	 */
+	public static final int SPECIAL_TYPE_TWO = 14;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SPECIAL_TYPE_TWO__VALUE = GENERIC_TYPE__VALUE;
+
+	/**
+	 * The number of structural features of the '<em>Special Type Two</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SPECIAL_TYPE_TWO_FEATURE_COUNT = GENERIC_TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Special Type Two</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SPECIAL_TYPE_TWO_OPERATION_COUNT = GENERIC_TYPE_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.emfjson.jackson.junit.model.Sex <em>Sex</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.Sex
 	 * @see org.emfjson.jackson.junit.model.ModelPackage#getSex()
+	 * @generated
 	 */
-	public static final int SEX = 11;
+	public static final int SEX = 15;
 	/**
 	 * The meta object id for the '{@link org.emfjson.jackson.junit.model.SomeKind <em>Some Kind</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.SomeKind
 	 * @see org.emfjson.jackson.junit.model.ModelPackage#getSomeKind()
+	 * @generated
 	 */
-	public static final int SOME_KIND = 12;
+	public static final int SOME_KIND = 16;
 	/**
 	 * The meta object id for the '<em>URI</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
-	 * @generated
 	 * @see org.eclipse.emf.common.util.URI
 	 * @see org.emfjson.jackson.junit.model.ModelPackage#getURI()
+	 * @generated
 	 */
-	public static final int URI = 13;
+	public static final int URI = 17;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	private static boolean isInited = false;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	private EClass userEClass = null;
@@ -1034,7 +1078,6 @@ public class ModelPackage extends EPackageImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	private EClass addressEClass = null;
@@ -1042,7 +1085,6 @@ public class ModelPackage extends EPackageImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	private EClass eTypesEClass = null;
@@ -1050,7 +1092,6 @@ public class ModelPackage extends EPackageImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	private EClass primaryObjectEClass = null;
@@ -1058,7 +1099,6 @@ public class ModelPackage extends EPackageImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	private EClass containerEClass = null;
@@ -1066,7 +1106,6 @@ public class ModelPackage extends EPackageImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	private EClass targetObjectEClass = null;
@@ -1074,7 +1113,6 @@ public class ModelPackage extends EPackageImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	private EClass abstractTypeEClass = null;
@@ -1082,7 +1120,6 @@ public class ModelPackage extends EPackageImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	private EClass concreteTypeOneEClass = null;
@@ -1090,7 +1127,6 @@ public class ModelPackage extends EPackageImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	private EClass concreteTypeTwoEClass = null;
@@ -1098,7 +1134,6 @@ public class ModelPackage extends EPackageImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	private EClass nodeEClass = null;
@@ -1106,7 +1141,6 @@ public class ModelPackage extends EPackageImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	private EClass objectWithMapEClass = null;
@@ -1114,7 +1148,34 @@ public class ModelPackage extends EPackageImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
+	 * @generated
+	 */
+	private EClass genericContainerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genericTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass specialTypeOneEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass specialTypeTwoEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private EEnum sexEEnum = null;
@@ -1122,7 +1183,6 @@ public class ModelPackage extends EPackageImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	private EEnum someKindEEnum = null;
@@ -1130,21 +1190,18 @@ public class ModelPackage extends EPackageImpl {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	private EDataType uriEDataType = null;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	private boolean isCreated = false;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	private boolean isInitialized = false;
@@ -1152,7 +1209,6 @@ public class ModelPackage extends EPackageImpl {
 	 * The singleton instance of the package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public static final ModelPackage eINSTANCE = org.emfjson.jackson.junit.model.ModelPackage.init();
@@ -1168,11 +1224,10 @@ public class ModelPackage extends EPackageImpl {
 	 * if one already exists.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
-	 * @generated
 	 * @see org.eclipse.emf.ecore.EPackage.Registry
 	 * @see org.emfjson.jackson.junit.model.ModelPackage#eNS_URI
 	 * @see #init()
+	 * @generated
 	 */
 	private ModelPackage() {
 		super(eNS_URI, ModelFactory.INSTANCE);
@@ -1180,22 +1235,21 @@ public class ModelPackage extends EPackageImpl {
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * <p/>
+	 * 
 	 * <p>This method is used to initialize {@link ModelPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
-	 * @generated
 	 * @see #eNS_URI
 	 * @see #createPackageContents()
 	 * @see #initializePackageContents()
+	 * @generated
 	 */
 	public static ModelPackage init() {
-		if (isInited) return (ModelPackage) EPackage.Registry.INSTANCE.getEPackage(ModelPackage.eNS_URI);
+		if (isInited) return (ModelPackage)EPackage.Registry.INSTANCE.getEPackage(ModelPackage.eNS_URI);
 
 		// Obtain or create and register package
-		ModelPackage theModelPackage = (ModelPackage) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ModelPackage ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ModelPackage());
+		ModelPackage theModelPackage = (ModelPackage)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ModelPackage ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ModelPackage());
 
 		isInited = true;
 
@@ -1208,7 +1262,7 @@ public class ModelPackage extends EPackageImpl {
 		// Mark meta-data to indicate it can't be changed
 		theModelPackage.freeze();
 
-
+  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, theModelPackage);
 		return theModelPackage;
@@ -1218,10 +1272,9 @@ public class ModelPackage extends EPackageImpl {
 	 * Returns the meta object for class '{@link org.emfjson.jackson.junit.model.User <em>User</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for class '<em>User</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.User
+	 * @generated
 	 */
 	public EClass getUser() {
 		return userEClass;
@@ -1231,108 +1284,100 @@ public class ModelPackage extends EPackageImpl {
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.User#getUserId <em>User Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>User Id</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.User#getUserId()
 	 * @see #getUser()
+	 * @generated
 	 */
 	public EAttribute getUser_UserId() {
-		return (EAttribute) userEClass.getEStructuralFeatures().get(0);
+		return (EAttribute)userEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.User#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.User#getName()
 	 * @see #getUser()
+	 * @generated
 	 */
 	public EAttribute getUser_Name() {
-		return (EAttribute) userEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)userEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.User#getBirthDate <em>Birth Date</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>Birth Date</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.User#getBirthDate()
 	 * @see #getUser()
+	 * @generated
 	 */
 	public EAttribute getUser_BirthDate() {
-		return (EAttribute) userEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)userEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.User#getSex <em>Sex</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>Sex</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.User#getSex()
 	 * @see #getUser()
+	 * @generated
 	 */
 	public EAttribute getUser_Sex() {
-		return (EAttribute) userEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)userEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.emfjson.jackson.junit.model.User#getFriends <em>Friends</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the reference list '<em>Friends</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.User#getFriends()
 	 * @see #getUser()
+	 * @generated
 	 */
 	public EReference getUser_Friends() {
-		return (EReference) userEClass.getEStructuralFeatures().get(4);
+		return (EReference)userEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
 	 * Returns the meta object for the reference '{@link org.emfjson.jackson.junit.model.User#getUniqueFriend <em>Unique Friend</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the reference '<em>Unique Friend</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.User#getUniqueFriend()
 	 * @see #getUser()
+	 * @generated
 	 */
 	public EReference getUser_UniqueFriend() {
-		return (EReference) userEClass.getEStructuralFeatures().get(5);
+		return (EReference)userEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.emfjson.jackson.junit.model.User#getAddress <em>Address</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the containment reference '<em>Address</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.User#getAddress()
 	 * @see #getUser()
+	 * @generated
 	 */
 	public EReference getUser_Address() {
-		return (EReference) userEClass.getEStructuralFeatures().get(6);
+		return (EReference)userEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
 	 * Returns the meta object for class '{@link org.emfjson.jackson.junit.model.Address <em>Address</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for class '<em>Address</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.Address
+	 * @generated
 	 */
 	public EClass getAddress() {
 		return addressEClass;
@@ -1342,66 +1387,61 @@ public class ModelPackage extends EPackageImpl {
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.Address#getAddId <em>Add Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>Add Id</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.Address#getAddId()
 	 * @see #getAddress()
+	 * @generated
 	 */
 	public EAttribute getAddress_AddId() {
-		return (EAttribute) addressEClass.getEStructuralFeatures().get(0);
+		return (EAttribute)addressEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.Address#getCity <em>City</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>City</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.Address#getCity()
 	 * @see #getAddress()
+	 * @generated
 	 */
 	public EAttribute getAddress_City() {
-		return (EAttribute) addressEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)addressEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.Address#getStreet <em>Street</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>Street</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.Address#getStreet()
 	 * @see #getAddress()
+	 * @generated
 	 */
 	public EAttribute getAddress_Street() {
-		return (EAttribute) addressEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)addressEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.Address#getNumber <em>Number</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>Number</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.Address#getNumber()
 	 * @see #getAddress()
+	 * @generated
 	 */
 	public EAttribute getAddress_Number() {
-		return (EAttribute) addressEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)addressEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
 	 * Returns the meta object for class '{@link org.emfjson.jackson.junit.model.ETypes <em>ETypes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for class '<em>ETypes</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ETypes
+	 * @generated
 	 */
 	public EClass getETypes() {
 		return eTypesEClass;
@@ -1411,276 +1451,256 @@ public class ModelPackage extends EPackageImpl {
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.ETypes#getEString <em>EString</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>EString</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ETypes#getEString()
 	 * @see #getETypes()
+	 * @generated
 	 */
 	public EAttribute getETypes_EString() {
-		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(0);
+		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * Returns the meta object for the attribute list '{@link org.emfjson.jackson.junit.model.ETypes#getEStrings <em>EStrings</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute list '<em>EStrings</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ETypes#getEStrings()
 	 * @see #getETypes()
+	 * @generated
 	 */
 	public EAttribute getETypes_EStrings() {
-		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.ETypes#isEBoolean <em>EBoolean</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>EBoolean</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ETypes#isEBoolean()
 	 * @see #getETypes()
+	 * @generated
 	 */
 	public EAttribute getETypes_EBoolean() {
-		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
 	 * Returns the meta object for the attribute list '{@link org.emfjson.jackson.junit.model.ETypes#getEBooleans <em>EBooleans</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute list '<em>EBooleans</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ETypes#getEBooleans()
 	 * @see #getETypes()
+	 * @generated
 	 */
 	public EAttribute getETypes_EBooleans() {
-		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.ETypes#getEInt <em>EInt</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>EInt</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ETypes#getEInt()
 	 * @see #getETypes()
+	 * @generated
 	 */
 	public EAttribute getETypes_EInt() {
-		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(4);
+		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
 	 * Returns the meta object for the attribute list '{@link org.emfjson.jackson.junit.model.ETypes#getEInts <em>EInts</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute list '<em>EInts</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ETypes#getEInts()
 	 * @see #getETypes()
+	 * @generated
 	 */
 	public EAttribute getETypes_EInts() {
-		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(5);
+		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.ETypes#getDoubleValue <em>Double Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>Double Value</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ETypes#getDoubleValue()
 	 * @see #getETypes()
+	 * @generated
 	 */
 	public EAttribute getETypes_DoubleValue() {
-		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(6);
+		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.ETypes#getEDouble <em>EDouble</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>EDouble</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ETypes#getEDouble()
 	 * @see #getETypes()
+	 * @generated
 	 */
 	public EAttribute getETypes_EDouble() {
-		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(7);
+		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
 	 * Returns the meta object for the attribute list '{@link org.emfjson.jackson.junit.model.ETypes#getEDoubles <em>EDoubles</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute list '<em>EDoubles</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ETypes#getEDoubles()
 	 * @see #getETypes()
+	 * @generated
 	 */
 	public EAttribute getETypes_EDoubles() {
-		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(8);
+		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.ETypes#getEBigDecimal <em>EBig Decimal</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>EBig Decimal</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ETypes#getEBigDecimal()
 	 * @see #getETypes()
+	 * @generated
 	 */
 	public EAttribute getETypes_EBigDecimal() {
-		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(9);
+		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.ETypes#getEBigInteger <em>EBig Integer</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>EBig Integer</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ETypes#getEBigInteger()
 	 * @see #getETypes()
+	 * @generated
 	 */
 	public EAttribute getETypes_EBigInteger() {
-		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(10);
+		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.ETypes#getEByte <em>EByte</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>EByte</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ETypes#getEByte()
 	 * @see #getETypes()
+	 * @generated
 	 */
 	public EAttribute getETypes_EByte() {
-		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(11);
+		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.ETypes#getEByteArray <em>EByte Array</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>EByte Array</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ETypes#getEByteArray()
 	 * @see #getETypes()
+	 * @generated
 	 */
 	public EAttribute getETypes_EByteArray() {
-		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(12);
+		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(12);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.ETypes#getEChar <em>EChar</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>EChar</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ETypes#getEChar()
 	 * @see #getETypes()
+	 * @generated
 	 */
 	public EAttribute getETypes_EChar() {
-		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(13);
+		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(13);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.ETypes#getEDate <em>EDate</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>EDate</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ETypes#getEDate()
 	 * @see #getETypes()
+	 * @generated
 	 */
 	public EAttribute getETypes_EDate() {
-		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(14);
+		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(14);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.ETypes#getEFloat <em>EFloat</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>EFloat</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ETypes#getEFloat()
 	 * @see #getETypes()
+	 * @generated
 	 */
 	public EAttribute getETypes_EFloat() {
-		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(15);
+		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(15);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.ETypes#getELong <em>ELong</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>ELong</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ETypes#getELong()
 	 * @see #getETypes()
+	 * @generated
 	 */
 	public EAttribute getETypes_ELong() {
-		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(16);
+		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(16);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.ETypes#getEShort <em>EShort</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>EShort</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ETypes#getEShort()
 	 * @see #getETypes()
+	 * @generated
 	 */
 	public EAttribute getETypes_EShort() {
-		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(17);
+		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(17);
 	}
 
 	/**
 	 * Returns the meta object for the attribute list '{@link org.emfjson.jackson.junit.model.ETypes#getUris <em>Uris</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute list '<em>Uris</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ETypes#getUris()
 	 * @see #getETypes()
+	 * @generated
 	 */
 	public EAttribute getETypes_Uris() {
-		return (EAttribute) eTypesEClass.getEStructuralFeatures().get(18);
+		return (EAttribute)eTypesEClass.getEStructuralFeatures().get(18);
 	}
 
 	/**
 	 * Returns the meta object for class '{@link org.emfjson.jackson.junit.model.PrimaryObject <em>Primary Object</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for class '<em>Primary Object</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.PrimaryObject
+	 * @generated
 	 */
 	public EClass getPrimaryObject() {
 		return primaryObjectEClass;
@@ -1690,290 +1710,269 @@ public class ModelPackage extends EPackageImpl {
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.PrimaryObject#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.PrimaryObject#getName()
 	 * @see #getPrimaryObject()
+	 * @generated
 	 */
 	public EAttribute getPrimaryObject_Name() {
-		return (EAttribute) primaryObjectEClass.getEStructuralFeatures().get(0);
+		return (EAttribute)primaryObjectEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.PrimaryObject#getIdAttribute <em>Id Attribute</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>Id Attribute</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.PrimaryObject#getIdAttribute()
 	 * @see #getPrimaryObject()
+	 * @generated
 	 */
 	public EAttribute getPrimaryObject_IdAttribute() {
-		return (EAttribute) primaryObjectEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)primaryObjectEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.PrimaryObject#getUnsettableAttribute <em>Unsettable Attribute</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>Unsettable Attribute</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.PrimaryObject#getUnsettableAttribute()
 	 * @see #getPrimaryObject()
+	 * @generated
 	 */
 	public EAttribute getPrimaryObject_UnsettableAttribute() {
-		return (EAttribute) primaryObjectEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)primaryObjectEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.PrimaryObject#getUnsettableAttributeWithNonNullDefault <em>Unsettable Attribute With Non Null Default</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>Unsettable Attribute With Non Null Default</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.PrimaryObject#getUnsettableAttributeWithNonNullDefault()
 	 * @see #getPrimaryObject()
+	 * @generated
 	 */
 	public EAttribute getPrimaryObject_UnsettableAttributeWithNonNullDefault() {
-		return (EAttribute) primaryObjectEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)primaryObjectEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
 	 * Returns the meta object for the reference '{@link org.emfjson.jackson.junit.model.PrimaryObject#getUnsettableReference <em>Unsettable Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the reference '<em>Unsettable Reference</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.PrimaryObject#getUnsettableReference()
 	 * @see #getPrimaryObject()
+	 * @generated
 	 */
 	public EReference getPrimaryObject_UnsettableReference() {
-		return (EReference) primaryObjectEClass.getEStructuralFeatures().get(4);
+		return (EReference)primaryObjectEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.emfjson.jackson.junit.model.PrimaryObject#getContainmentReferenceSameCollectioin <em>Containment Reference Same Collectioin</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the containment reference '<em>Containment Reference Same Collectioin</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.PrimaryObject#getContainmentReferenceSameCollectioin()
 	 * @see #getPrimaryObject()
+	 * @generated
 	 */
 	public EReference getPrimaryObject_ContainmentReferenceSameCollectioin() {
-		return (EReference) primaryObjectEClass.getEStructuralFeatures().get(5);
+		return (EReference)primaryObjectEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
 	 * Returns the meta object for the reference '{@link org.emfjson.jackson.junit.model.PrimaryObject#getSingleNonContainmentReference <em>Single Non Containment Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the reference '<em>Single Non Containment Reference</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.PrimaryObject#getSingleNonContainmentReference()
 	 * @see #getPrimaryObject()
+	 * @generated
 	 */
 	public EReference getPrimaryObject_SingleNonContainmentReference() {
-		return (EReference) primaryObjectEClass.getEStructuralFeatures().get(6);
+		return (EReference)primaryObjectEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.emfjson.jackson.junit.model.PrimaryObject#getMultipleNonContainmentReference <em>Multiple Non Containment Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the reference list '<em>Multiple Non Containment Reference</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.PrimaryObject#getMultipleNonContainmentReference()
 	 * @see #getPrimaryObject()
+	 * @generated
 	 */
 	public EReference getPrimaryObject_MultipleNonContainmentReference() {
-		return (EReference) primaryObjectEClass.getEStructuralFeatures().get(7);
+		return (EReference)primaryObjectEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.emfjson.jackson.junit.model.PrimaryObject#getSingleContainmentReferenceNoProxies <em>Single Containment Reference No Proxies</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the containment reference '<em>Single Containment Reference No Proxies</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.PrimaryObject#getSingleContainmentReferenceNoProxies()
 	 * @see #getPrimaryObject()
+	 * @generated
 	 */
 	public EReference getPrimaryObject_SingleContainmentReferenceNoProxies() {
-		return (EReference) primaryObjectEClass.getEStructuralFeatures().get(8);
+		return (EReference)primaryObjectEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.emfjson.jackson.junit.model.PrimaryObject#getMultipleContainmentReferenceNoProxies <em>Multiple Containment Reference No Proxies</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the containment reference list '<em>Multiple Containment Reference No Proxies</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.PrimaryObject#getMultipleContainmentReferenceNoProxies()
 	 * @see #getPrimaryObject()
+	 * @generated
 	 */
 	public EReference getPrimaryObject_MultipleContainmentReferenceNoProxies() {
-		return (EReference) primaryObjectEClass.getEStructuralFeatures().get(9);
+		return (EReference)primaryObjectEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.emfjson.jackson.junit.model.PrimaryObject#getSingleContainmentReferenceProxies <em>Single Containment Reference Proxies</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the containment reference '<em>Single Containment Reference Proxies</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.PrimaryObject#getSingleContainmentReferenceProxies()
 	 * @see #getPrimaryObject()
+	 * @generated
 	 */
 	public EReference getPrimaryObject_SingleContainmentReferenceProxies() {
-		return (EReference) primaryObjectEClass.getEStructuralFeatures().get(10);
+		return (EReference)primaryObjectEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.emfjson.jackson.junit.model.PrimaryObject#getMultipleContainmentReferenceProxies <em>Multiple Containment Reference Proxies</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the containment reference list '<em>Multiple Containment Reference Proxies</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.PrimaryObject#getMultipleContainmentReferenceProxies()
 	 * @see #getPrimaryObject()
+	 * @generated
 	 */
 	public EReference getPrimaryObject_MultipleContainmentReferenceProxies() {
-		return (EReference) primaryObjectEClass.getEStructuralFeatures().get(11);
+		return (EReference)primaryObjectEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
 	 * Returns the meta object for the reference '{@link org.emfjson.jackson.junit.model.PrimaryObject#getSingleNonContainmentReferenceNoProxies <em>Single Non Containment Reference No Proxies</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the reference '<em>Single Non Containment Reference No Proxies</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.PrimaryObject#getSingleNonContainmentReferenceNoProxies()
 	 * @see #getPrimaryObject()
+	 * @generated
 	 */
 	public EReference getPrimaryObject_SingleNonContainmentReferenceNoProxies() {
-		return (EReference) primaryObjectEClass.getEStructuralFeatures().get(12);
+		return (EReference)primaryObjectEClass.getEStructuralFeatures().get(12);
 	}
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.emfjson.jackson.junit.model.PrimaryObject#getFeatureMapReferenceType1 <em>Feature Map Reference Type1</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the reference list '<em>Feature Map Reference Type1</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.PrimaryObject#getFeatureMapReferenceType1()
 	 * @see #getPrimaryObject()
+	 * @generated
 	 */
 	public EReference getPrimaryObject_FeatureMapReferenceType1() {
-		return (EReference) primaryObjectEClass.getEStructuralFeatures().get(13);
+		return (EReference)primaryObjectEClass.getEStructuralFeatures().get(13);
 	}
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.emfjson.jackson.junit.model.PrimaryObject#getFeatureMapReferenceType2 <em>Feature Map Reference Type2</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the containment reference list '<em>Feature Map Reference Type2</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.PrimaryObject#getFeatureMapReferenceType2()
 	 * @see #getPrimaryObject()
+	 * @generated
 	 */
 	public EReference getPrimaryObject_FeatureMapReferenceType2() {
-		return (EReference) primaryObjectEClass.getEStructuralFeatures().get(14);
+		return (EReference)primaryObjectEClass.getEStructuralFeatures().get(14);
 	}
 
 	/**
 	 * Returns the meta object for the attribute list '{@link org.emfjson.jackson.junit.model.PrimaryObject#getFeatureMapReferenceCollection <em>Feature Map Reference Collection</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute list '<em>Feature Map Reference Collection</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.PrimaryObject#getFeatureMapReferenceCollection()
 	 * @see #getPrimaryObject()
+	 * @generated
 	 */
 	public EAttribute getPrimaryObject_FeatureMapReferenceCollection() {
-		return (EAttribute) primaryObjectEClass.getEStructuralFeatures().get(15);
+		return (EAttribute)primaryObjectEClass.getEStructuralFeatures().get(15);
 	}
 
 	/**
 	 * Returns the meta object for the attribute list '{@link org.emfjson.jackson.junit.model.PrimaryObject#getFeatureMapAttributeType1 <em>Feature Map Attribute Type1</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute list '<em>Feature Map Attribute Type1</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.PrimaryObject#getFeatureMapAttributeType1()
 	 * @see #getPrimaryObject()
+	 * @generated
 	 */
 	public EAttribute getPrimaryObject_FeatureMapAttributeType1() {
-		return (EAttribute) primaryObjectEClass.getEStructuralFeatures().get(16);
+		return (EAttribute)primaryObjectEClass.getEStructuralFeatures().get(16);
 	}
 
 	/**
 	 * Returns the meta object for the attribute list '{@link org.emfjson.jackson.junit.model.PrimaryObject#getFeatureMapAttributeType2 <em>Feature Map Attribute Type2</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute list '<em>Feature Map Attribute Type2</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.PrimaryObject#getFeatureMapAttributeType2()
 	 * @see #getPrimaryObject()
+	 * @generated
 	 */
 	public EAttribute getPrimaryObject_FeatureMapAttributeType2() {
-		return (EAttribute) primaryObjectEClass.getEStructuralFeatures().get(17);
+		return (EAttribute)primaryObjectEClass.getEStructuralFeatures().get(17);
 	}
 
 	/**
 	 * Returns the meta object for the attribute list '{@link org.emfjson.jackson.junit.model.PrimaryObject#getFeatureMapAttributeCollection <em>Feature Map Attribute Collection</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute list '<em>Feature Map Attribute Collection</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.PrimaryObject#getFeatureMapAttributeCollection()
 	 * @see #getPrimaryObject()
+	 * @generated
 	 */
 	public EAttribute getPrimaryObject_FeatureMapAttributeCollection() {
-		return (EAttribute) primaryObjectEClass.getEStructuralFeatures().get(18);
+		return (EAttribute)primaryObjectEClass.getEStructuralFeatures().get(18);
 	}
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.PrimaryObject#getKind <em>Kind</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>Kind</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.PrimaryObject#getKind()
 	 * @see #getPrimaryObject()
+	 * @generated
 	 */
 	public EAttribute getPrimaryObject_Kind() {
-		return (EAttribute) primaryObjectEClass.getEStructuralFeatures().get(19);
+		return (EAttribute)primaryObjectEClass.getEStructuralFeatures().get(19);
 	}
 
 	/**
 	 * Returns the meta object for class '{@link org.emfjson.jackson.junit.model.Container <em>Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for class '<em>Container</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.Container
+	 * @generated
 	 */
 	public EClass getContainer() {
 		return containerEClass;
@@ -1983,24 +1982,22 @@ public class ModelPackage extends EPackageImpl {
 	 * Returns the meta object for the containment reference list '{@link org.emfjson.jackson.junit.model.Container#getElements <em>Elements</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the containment reference list '<em>Elements</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.Container#getElements()
 	 * @see #getContainer()
+	 * @generated
 	 */
 	public EReference getContainer_Elements() {
-		return (EReference) containerEClass.getEStructuralFeatures().get(0);
+		return (EReference)containerEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * Returns the meta object for class '{@link org.emfjson.jackson.junit.model.TargetObject <em>Target Object</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for class '<em>Target Object</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.TargetObject
+	 * @generated
 	 */
 	public EClass getTargetObject() {
 		return targetObjectEClass;
@@ -2010,38 +2007,35 @@ public class ModelPackage extends EPackageImpl {
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.TargetObject#getSingleAttribute <em>Single Attribute</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>Single Attribute</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.TargetObject#getSingleAttribute()
 	 * @see #getTargetObject()
+	 * @generated
 	 */
 	public EAttribute getTargetObject_SingleAttribute() {
-		return (EAttribute) targetObjectEClass.getEStructuralFeatures().get(0);
+		return (EAttribute)targetObjectEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * Returns the meta object for the attribute list '{@link org.emfjson.jackson.junit.model.TargetObject#getArrayAttribute <em>Array Attribute</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute list '<em>Array Attribute</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.TargetObject#getArrayAttribute()
 	 * @see #getTargetObject()
+	 * @generated
 	 */
 	public EAttribute getTargetObject_ArrayAttribute() {
-		return (EAttribute) targetObjectEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)targetObjectEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * Returns the meta object for class '{@link org.emfjson.jackson.junit.model.AbstractType <em>Abstract Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for class '<em>Abstract Type</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.AbstractType
+	 * @generated
 	 */
 	public EClass getAbstractType() {
 		return abstractTypeEClass;
@@ -2051,38 +2045,35 @@ public class ModelPackage extends EPackageImpl {
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.AbstractType#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.AbstractType#getName()
 	 * @see #getAbstractType()
+	 * @generated
 	 */
 	public EAttribute getAbstractType_Name() {
-		return (EAttribute) abstractTypeEClass.getEStructuralFeatures().get(0);
+		return (EAttribute)abstractTypeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.emfjson.jackson.junit.model.AbstractType#getRefProperty <em>Ref Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the reference list '<em>Ref Property</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.AbstractType#getRefProperty()
 	 * @see #getAbstractType()
+	 * @generated
 	 */
 	public EReference getAbstractType_RefProperty() {
-		return (EReference) abstractTypeEClass.getEStructuralFeatures().get(1);
+		return (EReference)abstractTypeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * Returns the meta object for class '{@link org.emfjson.jackson.junit.model.ConcreteTypeOne <em>Concrete Type One</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for class '<em>Concrete Type One</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ConcreteTypeOne
+	 * @generated
 	 */
 	public EClass getConcreteTypeOne() {
 		return concreteTypeOneEClass;
@@ -2092,24 +2083,22 @@ public class ModelPackage extends EPackageImpl {
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.ConcreteTypeOne#getPropTypeOne <em>Prop Type One</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>Prop Type One</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ConcreteTypeOne#getPropTypeOne()
 	 * @see #getConcreteTypeOne()
+	 * @generated
 	 */
 	public EAttribute getConcreteTypeOne_PropTypeOne() {
-		return (EAttribute) concreteTypeOneEClass.getEStructuralFeatures().get(0);
+		return (EAttribute)concreteTypeOneEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * Returns the meta object for class '{@link org.emfjson.jackson.junit.model.ConcreteTypeTwo <em>Concrete Type Two</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for class '<em>Concrete Type Two</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ConcreteTypeTwo
+	 * @generated
 	 */
 	public EClass getConcreteTypeTwo() {
 		return concreteTypeTwoEClass;
@@ -2119,24 +2108,22 @@ public class ModelPackage extends EPackageImpl {
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.ConcreteTypeTwo#getPropTypeTwo <em>Prop Type Two</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>Prop Type Two</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ConcreteTypeTwo#getPropTypeTwo()
 	 * @see #getConcreteTypeTwo()
+	 * @generated
 	 */
 	public EAttribute getConcreteTypeTwo_PropTypeTwo() {
-		return (EAttribute) concreteTypeTwoEClass.getEStructuralFeatures().get(0);
+		return (EAttribute)concreteTypeTwoEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * Returns the meta object for class '{@link org.emfjson.jackson.junit.model.Node <em>Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for class '<em>Node</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.Node
+	 * @generated
 	 */
 	public EClass getNode() {
 		return nodeEClass;
@@ -2146,94 +2133,87 @@ public class ModelPackage extends EPackageImpl {
 	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.Node#getLabel <em>Label</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the attribute '<em>Label</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.Node#getLabel()
 	 * @see #getNode()
+	 * @generated
 	 */
 	public EAttribute getNode_Label() {
-		return (EAttribute) nodeEClass.getEStructuralFeatures().get(0);
+		return (EAttribute)nodeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * Returns the meta object for the reference '{@link org.emfjson.jackson.junit.model.Node#getTarget <em>Target</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the reference '<em>Target</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.Node#getTarget()
 	 * @see #getNode()
+	 * @generated
 	 */
 	public EReference getNode_Target() {
-		return (EReference) nodeEClass.getEStructuralFeatures().get(1);
+		return (EReference)nodeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * Returns the meta object for the reference '{@link org.emfjson.jackson.junit.model.Node#getSource <em>Source</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the reference '<em>Source</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.Node#getSource()
 	 * @see #getNode()
+	 * @generated
 	 */
 	public EReference getNode_Source() {
-		return (EReference) nodeEClass.getEStructuralFeatures().get(2);
+		return (EReference)nodeEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.emfjson.jackson.junit.model.Node#getManyRef <em>Many Ref</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the reference list '<em>Many Ref</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.Node#getManyRef()
 	 * @see #getNode()
+	 * @generated
 	 */
 	public EReference getNode_ManyRef() {
-		return (EReference) nodeEClass.getEStructuralFeatures().get(3);
+		return (EReference)nodeEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.emfjson.jackson.junit.model.Node#getChild <em>Child</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the containment reference list '<em>Child</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.Node#getChild()
 	 * @see #getNode()
+	 * @generated
 	 */
 	public EReference getNode_Child() {
-		return (EReference) nodeEClass.getEStructuralFeatures().get(4);
+		return (EReference)nodeEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.emfjson.jackson.junit.model.Node#getUniqueChild <em>Unique Child</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the containment reference '<em>Unique Child</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.Node#getUniqueChild()
 	 * @see #getNode()
+	 * @generated
 	 */
 	public EReference getNode_UniqueChild() {
-		return (EReference) nodeEClass.getEStructuralFeatures().get(5);
+		return (EReference)nodeEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
 	 * Returns the meta object for class '{@link org.emfjson.jackson.junit.model.ObjectWithMap <em>Object With Map</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for class '<em>Object With Map</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ObjectWithMap
+	 * @generated
 	 */
 	public EClass getObjectWithMap() {
 		return objectWithMapEClass;
@@ -2243,38 +2223,109 @@ public class ModelPackage extends EPackageImpl {
 	 * Returns the meta object for the map '{@link org.emfjson.jackson.junit.model.ObjectWithMap#getEntries <em>Entries</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the map '<em>Entries</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ObjectWithMap#getEntries()
 	 * @see #getObjectWithMap()
+	 * @generated
 	 */
 	public EReference getObjectWithMap_Entries() {
-		return (EReference) objectWithMapEClass.getEStructuralFeatures().get(0);
+		return (EReference)objectWithMapEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * Returns the meta object for the map '{@link org.emfjson.jackson.junit.model.ObjectWithMap#getDependencies <em>Dependencies</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for the map '<em>Dependencies</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.ObjectWithMap#getDependencies()
 	 * @see #getObjectWithMap()
+	 * @generated
 	 */
 	public EReference getObjectWithMap_Dependencies() {
-		return (EReference) objectWithMapEClass.getEStructuralFeatures().get(1);
+		return (EReference)objectWithMapEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * Returns the meta object for class '{@link org.emfjson.jackson.junit.model.GenericContainer <em>Generic Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Generic Container</em>'.
+	 * @see org.emfjson.jackson.junit.model.GenericContainer
+	 * @generated
+	 */
+	public EClass getGenericContainer() {
+		return genericContainerEClass;
+	}
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.emfjson.jackson.junit.model.GenericContainer#getValues <em>Values</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Values</em>'.
+	 * @see org.emfjson.jackson.junit.model.GenericContainer#getValues()
+	 * @see #getGenericContainer()
+	 * @generated
+	 */
+	public EReference getGenericContainer_Values() {
+		return (EReference)genericContainerEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * Returns the meta object for class '{@link org.emfjson.jackson.junit.model.GenericType <em>Generic Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Generic Type</em>'.
+	 * @see org.emfjson.jackson.junit.model.GenericType
+	 * @generated
+	 */
+	public EClass getGenericType() {
+		return genericTypeEClass;
+	}
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emfjson.jackson.junit.model.GenericType#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see org.emfjson.jackson.junit.model.GenericType#getValue()
+	 * @see #getGenericType()
+	 * @generated
+	 */
+	public EAttribute getGenericType_Value() {
+		return (EAttribute)genericTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * Returns the meta object for class '{@link org.emfjson.jackson.junit.model.SpecialTypeOne <em>Special Type One</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Special Type One</em>'.
+	 * @see org.emfjson.jackson.junit.model.SpecialTypeOne
+	 * @generated
+	 */
+	public EClass getSpecialTypeOne() {
+		return specialTypeOneEClass;
+	}
+
+	/**
+	 * Returns the meta object for class '{@link org.emfjson.jackson.junit.model.SpecialTypeTwo <em>Special Type Two</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Special Type Two</em>'.
+	 * @see org.emfjson.jackson.junit.model.SpecialTypeTwo
+	 * @generated
+	 */
+	public EClass getSpecialTypeTwo() {
+		return specialTypeTwoEClass;
 	}
 
 	/**
 	 * Returns the meta object for enum '{@link org.emfjson.jackson.junit.model.Sex <em>Sex</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for enum '<em>Sex</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.Sex
+	 * @generated
 	 */
 	public EEnum getSex() {
 		return sexEEnum;
@@ -2284,10 +2335,9 @@ public class ModelPackage extends EPackageImpl {
 	 * Returns the meta object for enum '{@link org.emfjson.jackson.junit.model.SomeKind <em>Some Kind</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for enum '<em>Some Kind</em>'.
-	 * @generated
 	 * @see org.emfjson.jackson.junit.model.SomeKind
+	 * @generated
 	 */
 	public EEnum getSomeKind() {
 		return someKindEEnum;
@@ -2297,10 +2347,9 @@ public class ModelPackage extends EPackageImpl {
 	 * Returns the meta object for data type '{@link org.eclipse.emf.common.util.URI <em>URI</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the meta object for data type '<em>URI</em>'.
-	 * @generated
 	 * @see org.eclipse.emf.common.util.URI
+	 * @generated
 	 */
 	public EDataType getURI() {
 		return uriEDataType;
@@ -2310,12 +2359,11 @@ public class ModelPackage extends EPackageImpl {
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
 	public ModelFactory getModelFactory() {
-		return (ModelFactory) getEFactoryInstance();
+		return (ModelFactory)getEFactoryInstance();
 	}
 
 	/**
@@ -2323,7 +2371,6 @@ public class ModelPackage extends EPackageImpl {
 	 * guarded to have no affect on any invocation but its first.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public void createPackageContents() {
@@ -2418,6 +2465,16 @@ public class ModelPackage extends EPackageImpl {
 		createEReference(objectWithMapEClass, OBJECT_WITH_MAP__ENTRIES);
 		createEReference(objectWithMapEClass, OBJECT_WITH_MAP__DEPENDENCIES);
 
+		genericContainerEClass = createEClass(GENERIC_CONTAINER);
+		createEReference(genericContainerEClass, GENERIC_CONTAINER__VALUES);
+
+		genericTypeEClass = createEClass(GENERIC_TYPE);
+		createEAttribute(genericTypeEClass, GENERIC_TYPE__VALUE);
+
+		specialTypeOneEClass = createEClass(SPECIAL_TYPE_ONE);
+
+		specialTypeTwoEClass = createEClass(SPECIAL_TYPE_TWO);
+
 		// Create enums
 		sexEEnum = createEEnum(SEX);
 		someKindEEnum = createEEnum(SOME_KIND);
@@ -2431,7 +2488,6 @@ public class ModelPackage extends EPackageImpl {
 	 * method is guarded to have no affect on any invocation but its first.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public void initializePackageContents() {
@@ -2444,12 +2500,21 @@ public class ModelPackage extends EPackageImpl {
 		setNsURI(eNS_URI);
 
 		// Create type parameters
+		ETypeParameter genericTypeEClass_T = addETypeParameter(genericTypeEClass, "T");
 
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
 		concreteTypeOneEClass.getESuperTypes().add(this.getAbstractType());
 		concreteTypeTwoEClass.getESuperTypes().add(this.getAbstractType());
+		EGenericType g1 = createEGenericType(this.getGenericType());
+		EGenericType g2 = createEGenericType(ecorePackage.getEString());
+		g1.getETypeArguments().add(g2);
+		specialTypeOneEClass.getEGenericSuperTypes().add(g1);
+		g1 = createEGenericType(this.getGenericType());
+		g2 = createEGenericType(ecorePackage.getEBooleanObject());
+		g1.getETypeArguments().add(g2);
+		specialTypeTwoEClass.getEGenericSuperTypes().add(g1);
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(userEClass, User.class, "User", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2539,6 +2604,20 @@ public class ModelPackage extends EPackageImpl {
 		initEReference(getObjectWithMap_Entries(), ecorePackage.getEStringToStringMapEntry(), null, "entries", null, 0, -1, ObjectWithMap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getObjectWithMap_Dependencies(), ecorePackage.getEStringToStringMapEntry(), null, "dependencies", null, 0, -1, ObjectWithMap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(genericContainerEClass, GenericContainer.class, "GenericContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		g1 = createEGenericType(this.getGenericType());
+		g2 = createEGenericType();
+		g1.getETypeArguments().add(g2);
+		initEReference(getGenericContainer_Values(), g1, null, "values", null, 0, -1, GenericContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(genericTypeEClass, GenericType.class, "GenericType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		g1 = createEGenericType(genericTypeEClass_T);
+		initEAttribute(getGenericType_Value(), g1, "value", null, 0, 1, GenericType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(specialTypeOneEClass, SpecialTypeOne.class, "SpecialTypeOne", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(specialTypeTwoEClass, SpecialTypeTwo.class, "SpecialTypeTwo", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
 		// Initialize enums and add enum literals
 		initEEnum(sexEEnum, Sex.class, "Sex");
 		addEEnumLiteral(sexEEnum, Sex.MALE);
@@ -2566,70 +2645,68 @@ public class ModelPackage extends EPackageImpl {
 	 * Initializes the annotations for <b>JSON</b>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	protected void createJSONAnnotations() {
-		String source = "JSON";
+		String source = "JSON";	
 		addAnnotation
-			(userEClass,
-				source,
-				new String[]{
-					"root", "true"
-				});
+		  (userEClass, 
+		   source, 
+		   new String[] {
+			 "root", "true"
+		   });	
 		addAnnotation
-			(getObjectWithMap_Entries(),
-				source,
-				new String[]{
-					"dynamicMap", "true"
-				});
+		  (getObjectWithMap_Entries(), 
+		   source, 
+		   new String[] {
+			 "dynamicMap", "true"
+		   });
 	}
 
 	/**
 	 * Initializes the annotations for <b>http:///org/eclipse/emf/ecore/util/ExtendedMetaData</b>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	protected void createExtendedMetaDataAnnotations() {
-		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
+		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";	
 		addAnnotation
-			(getPrimaryObject_FeatureMapReferenceType1(),
-				source,
-				new String[]{
-					"group", "#featureMapReferenceCollection"
-				});
+		  (getPrimaryObject_FeatureMapReferenceType1(), 
+		   source, 
+		   new String[] {
+			 "group", "#featureMapReferenceCollection"
+		   });	
 		addAnnotation
-			(getPrimaryObject_FeatureMapReferenceType2(),
-				source,
-				new String[]{
-					"group", "#featureMapReferenceCollection"
-				});
+		  (getPrimaryObject_FeatureMapReferenceType2(), 
+		   source, 
+		   new String[] {
+			 "group", "#featureMapReferenceCollection"
+		   });	
 		addAnnotation
-			(getPrimaryObject_FeatureMapReferenceCollection(),
-				source,
-				new String[]{
-					"kind", "group"
-				});
+		  (getPrimaryObject_FeatureMapReferenceCollection(), 
+		   source, 
+		   new String[] {
+			 "kind", "group"
+		   });	
 		addAnnotation
-			(getPrimaryObject_FeatureMapAttributeType1(),
-				source,
-				new String[]{
-					"group", "#featureMapAttributeCollection"
-				});
+		  (getPrimaryObject_FeatureMapAttributeType1(), 
+		   source, 
+		   new String[] {
+			 "group", "#featureMapAttributeCollection"
+		   });	
 		addAnnotation
-			(getPrimaryObject_FeatureMapAttributeType2(),
-				source,
-				new String[]{
-					"group", "#featureMapAttributeCollection"
-				});
+		  (getPrimaryObject_FeatureMapAttributeType2(), 
+		   source, 
+		   new String[] {
+			 "group", "#featureMapAttributeCollection"
+		   });	
 		addAnnotation
-			(getPrimaryObject_FeatureMapAttributeCollection(),
-				source,
-				new String[]{
-					"kind", "group"
-				});
+		  (getPrimaryObject_FeatureMapAttributeCollection(), 
+		   source, 
+		   new String[] {
+			 "kind", "group"
+		   });
 	}
 
 	/**
@@ -2643,7 +2720,6 @@ public class ModelPackage extends EPackageImpl {
 	 * <li>and each data type</li>
 	 * </ul>
 	 * <!-- end-user-doc -->
-	 *
 	 * @generated
 	 */
 	public interface Literals {
@@ -2651,10 +2727,9 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '{@link org.emfjson.jackson.junit.model.User <em>User</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
-		 * @generated
 		 * @see org.emfjson.jackson.junit.model.User
 		 * @see org.emfjson.jackson.junit.model.ModelPackage#getUser()
+		 * @generated
 		 */
 		public static final EClass USER = eINSTANCE.getUser();
 
@@ -2662,7 +2737,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>User Id</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute USER__USER_ID = eINSTANCE.getUser_UserId();
@@ -2671,7 +2745,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute USER__NAME = eINSTANCE.getUser_Name();
@@ -2680,7 +2753,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Birth Date</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute USER__BIRTH_DATE = eINSTANCE.getUser_BirthDate();
@@ -2689,7 +2761,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Sex</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute USER__SEX = eINSTANCE.getUser_Sex();
@@ -2698,7 +2769,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Friends</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference USER__FRIENDS = eINSTANCE.getUser_Friends();
@@ -2707,7 +2777,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Unique Friend</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference USER__UNIQUE_FRIEND = eINSTANCE.getUser_UniqueFriend();
@@ -2716,7 +2785,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Address</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference USER__ADDRESS = eINSTANCE.getUser_Address();
@@ -2725,10 +2793,9 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '{@link org.emfjson.jackson.junit.model.Address <em>Address</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
-		 * @generated
 		 * @see org.emfjson.jackson.junit.model.Address
 		 * @see org.emfjson.jackson.junit.model.ModelPackage#getAddress()
+		 * @generated
 		 */
 		public static final EClass ADDRESS = eINSTANCE.getAddress();
 
@@ -2736,7 +2803,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Add Id</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ADDRESS__ADD_ID = eINSTANCE.getAddress_AddId();
@@ -2745,7 +2811,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>City</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ADDRESS__CITY = eINSTANCE.getAddress_City();
@@ -2754,7 +2819,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Street</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ADDRESS__STREET = eINSTANCE.getAddress_Street();
@@ -2763,7 +2827,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Number</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ADDRESS__NUMBER = eINSTANCE.getAddress_Number();
@@ -2772,10 +2835,9 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '{@link org.emfjson.jackson.junit.model.ETypes <em>ETypes</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
-		 * @generated
 		 * @see org.emfjson.jackson.junit.model.ETypes
 		 * @see org.emfjson.jackson.junit.model.ModelPackage#getETypes()
+		 * @generated
 		 */
 		public static final EClass ETYPES = eINSTANCE.getETypes();
 
@@ -2783,7 +2845,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>EString</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ETYPES__ESTRING = eINSTANCE.getETypes_EString();
@@ -2792,7 +2853,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>EStrings</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ETYPES__ESTRINGS = eINSTANCE.getETypes_EStrings();
@@ -2801,7 +2861,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>EBoolean</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ETYPES__EBOOLEAN = eINSTANCE.getETypes_EBoolean();
@@ -2810,7 +2869,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>EBooleans</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ETYPES__EBOOLEANS = eINSTANCE.getETypes_EBooleans();
@@ -2819,7 +2877,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>EInt</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ETYPES__EINT = eINSTANCE.getETypes_EInt();
@@ -2828,7 +2885,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>EInts</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ETYPES__EINTS = eINSTANCE.getETypes_EInts();
@@ -2837,7 +2893,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Double Value</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ETYPES__DOUBLE_VALUE = eINSTANCE.getETypes_DoubleValue();
@@ -2846,7 +2901,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>EDouble</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ETYPES__EDOUBLE = eINSTANCE.getETypes_EDouble();
@@ -2855,7 +2909,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>EDoubles</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ETYPES__EDOUBLES = eINSTANCE.getETypes_EDoubles();
@@ -2864,7 +2917,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>EBig Decimal</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ETYPES__EBIG_DECIMAL = eINSTANCE.getETypes_EBigDecimal();
@@ -2873,7 +2925,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>EBig Integer</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ETYPES__EBIG_INTEGER = eINSTANCE.getETypes_EBigInteger();
@@ -2882,7 +2933,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>EByte</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ETYPES__EBYTE = eINSTANCE.getETypes_EByte();
@@ -2891,7 +2941,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>EByte Array</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ETYPES__EBYTE_ARRAY = eINSTANCE.getETypes_EByteArray();
@@ -2900,7 +2949,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>EChar</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ETYPES__ECHAR = eINSTANCE.getETypes_EChar();
@@ -2909,7 +2957,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>EDate</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ETYPES__EDATE = eINSTANCE.getETypes_EDate();
@@ -2918,7 +2965,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>EFloat</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ETYPES__EFLOAT = eINSTANCE.getETypes_EFloat();
@@ -2927,7 +2973,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>ELong</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ETYPES__ELONG = eINSTANCE.getETypes_ELong();
@@ -2936,7 +2981,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>EShort</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ETYPES__ESHORT = eINSTANCE.getETypes_EShort();
@@ -2945,7 +2989,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Uris</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ETYPES__URIS = eINSTANCE.getETypes_Uris();
@@ -2954,10 +2997,9 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '{@link org.emfjson.jackson.junit.model.PrimaryObject <em>Primary Object</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
-		 * @generated
 		 * @see org.emfjson.jackson.junit.model.PrimaryObject
 		 * @see org.emfjson.jackson.junit.model.ModelPackage#getPrimaryObject()
+		 * @generated
 		 */
 		public static final EClass PRIMARY_OBJECT = eINSTANCE.getPrimaryObject();
 
@@ -2965,7 +3007,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute PRIMARY_OBJECT__NAME = eINSTANCE.getPrimaryObject_Name();
@@ -2974,7 +3015,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Id Attribute</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute PRIMARY_OBJECT__ID_ATTRIBUTE = eINSTANCE.getPrimaryObject_IdAttribute();
@@ -2983,7 +3023,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Unsettable Attribute</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute PRIMARY_OBJECT__UNSETTABLE_ATTRIBUTE = eINSTANCE.getPrimaryObject_UnsettableAttribute();
@@ -2992,7 +3031,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Unsettable Attribute With Non Null Default</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute PRIMARY_OBJECT__UNSETTABLE_ATTRIBUTE_WITH_NON_NULL_DEFAULT = eINSTANCE.getPrimaryObject_UnsettableAttributeWithNonNullDefault();
@@ -3001,7 +3039,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Unsettable Reference</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference PRIMARY_OBJECT__UNSETTABLE_REFERENCE = eINSTANCE.getPrimaryObject_UnsettableReference();
@@ -3010,7 +3047,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Containment Reference Same Collectioin</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference PRIMARY_OBJECT__CONTAINMENT_REFERENCE_SAME_COLLECTIOIN = eINSTANCE.getPrimaryObject_ContainmentReferenceSameCollectioin();
@@ -3019,7 +3055,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Single Non Containment Reference</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference PRIMARY_OBJECT__SINGLE_NON_CONTAINMENT_REFERENCE = eINSTANCE.getPrimaryObject_SingleNonContainmentReference();
@@ -3028,7 +3063,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Multiple Non Containment Reference</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference PRIMARY_OBJECT__MULTIPLE_NON_CONTAINMENT_REFERENCE = eINSTANCE.getPrimaryObject_MultipleNonContainmentReference();
@@ -3037,7 +3071,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Single Containment Reference No Proxies</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_NO_PROXIES = eINSTANCE.getPrimaryObject_SingleContainmentReferenceNoProxies();
@@ -3046,7 +3079,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Multiple Containment Reference No Proxies</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference PRIMARY_OBJECT__MULTIPLE_CONTAINMENT_REFERENCE_NO_PROXIES = eINSTANCE.getPrimaryObject_MultipleContainmentReferenceNoProxies();
@@ -3055,7 +3087,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Single Containment Reference Proxies</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_PROXIES = eINSTANCE.getPrimaryObject_SingleContainmentReferenceProxies();
@@ -3064,7 +3095,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Multiple Containment Reference Proxies</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference PRIMARY_OBJECT__MULTIPLE_CONTAINMENT_REFERENCE_PROXIES = eINSTANCE.getPrimaryObject_MultipleContainmentReferenceProxies();
@@ -3073,7 +3103,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Single Non Containment Reference No Proxies</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference PRIMARY_OBJECT__SINGLE_NON_CONTAINMENT_REFERENCE_NO_PROXIES = eINSTANCE.getPrimaryObject_SingleNonContainmentReferenceNoProxies();
@@ -3082,7 +3111,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Feature Map Reference Type1</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference PRIMARY_OBJECT__FEATURE_MAP_REFERENCE_TYPE1 = eINSTANCE.getPrimaryObject_FeatureMapReferenceType1();
@@ -3091,7 +3119,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Feature Map Reference Type2</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference PRIMARY_OBJECT__FEATURE_MAP_REFERENCE_TYPE2 = eINSTANCE.getPrimaryObject_FeatureMapReferenceType2();
@@ -3100,7 +3127,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Feature Map Reference Collection</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute PRIMARY_OBJECT__FEATURE_MAP_REFERENCE_COLLECTION = eINSTANCE.getPrimaryObject_FeatureMapReferenceCollection();
@@ -3109,7 +3135,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Feature Map Attribute Type1</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_TYPE1 = eINSTANCE.getPrimaryObject_FeatureMapAttributeType1();
@@ -3118,7 +3143,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Feature Map Attribute Type2</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_TYPE2 = eINSTANCE.getPrimaryObject_FeatureMapAttributeType2();
@@ -3127,7 +3151,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Feature Map Attribute Collection</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute PRIMARY_OBJECT__FEATURE_MAP_ATTRIBUTE_COLLECTION = eINSTANCE.getPrimaryObject_FeatureMapAttributeCollection();
@@ -3136,7 +3159,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Kind</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute PRIMARY_OBJECT__KIND = eINSTANCE.getPrimaryObject_Kind();
@@ -3145,10 +3167,9 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '{@link org.emfjson.jackson.junit.model.Container <em>Container</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
-		 * @generated
 		 * @see org.emfjson.jackson.junit.model.Container
 		 * @see org.emfjson.jackson.junit.model.ModelPackage#getContainer()
+		 * @generated
 		 */
 		public static final EClass CONTAINER = eINSTANCE.getContainer();
 
@@ -3156,7 +3177,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Elements</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference CONTAINER__ELEMENTS = eINSTANCE.getContainer_Elements();
@@ -3165,10 +3185,9 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '{@link org.emfjson.jackson.junit.model.TargetObject <em>Target Object</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
-		 * @generated
 		 * @see org.emfjson.jackson.junit.model.TargetObject
 		 * @see org.emfjson.jackson.junit.model.ModelPackage#getTargetObject()
+		 * @generated
 		 */
 		public static final EClass TARGET_OBJECT = eINSTANCE.getTargetObject();
 
@@ -3176,7 +3195,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Single Attribute</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute TARGET_OBJECT__SINGLE_ATTRIBUTE = eINSTANCE.getTargetObject_SingleAttribute();
@@ -3185,7 +3203,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Array Attribute</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute TARGET_OBJECT__ARRAY_ATTRIBUTE = eINSTANCE.getTargetObject_ArrayAttribute();
@@ -3194,10 +3211,9 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '{@link org.emfjson.jackson.junit.model.AbstractType <em>Abstract Type</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
-		 * @generated
 		 * @see org.emfjson.jackson.junit.model.AbstractType
 		 * @see org.emfjson.jackson.junit.model.ModelPackage#getAbstractType()
+		 * @generated
 		 */
 		public static final EClass ABSTRACT_TYPE = eINSTANCE.getAbstractType();
 
@@ -3205,7 +3221,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute ABSTRACT_TYPE__NAME = eINSTANCE.getAbstractType_Name();
@@ -3214,7 +3229,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Ref Property</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference ABSTRACT_TYPE__REF_PROPERTY = eINSTANCE.getAbstractType_RefProperty();
@@ -3223,10 +3237,9 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '{@link org.emfjson.jackson.junit.model.ConcreteTypeOne <em>Concrete Type One</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
-		 * @generated
 		 * @see org.emfjson.jackson.junit.model.ConcreteTypeOne
 		 * @see org.emfjson.jackson.junit.model.ModelPackage#getConcreteTypeOne()
+		 * @generated
 		 */
 		public static final EClass CONCRETE_TYPE_ONE = eINSTANCE.getConcreteTypeOne();
 
@@ -3234,7 +3247,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Prop Type One</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute CONCRETE_TYPE_ONE__PROP_TYPE_ONE = eINSTANCE.getConcreteTypeOne_PropTypeOne();
@@ -3243,10 +3255,9 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '{@link org.emfjson.jackson.junit.model.ConcreteTypeTwo <em>Concrete Type Two</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
-		 * @generated
 		 * @see org.emfjson.jackson.junit.model.ConcreteTypeTwo
 		 * @see org.emfjson.jackson.junit.model.ModelPackage#getConcreteTypeTwo()
+		 * @generated
 		 */
 		public static final EClass CONCRETE_TYPE_TWO = eINSTANCE.getConcreteTypeTwo();
 
@@ -3254,7 +3265,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Prop Type Two</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute CONCRETE_TYPE_TWO__PROP_TYPE_TWO = eINSTANCE.getConcreteTypeTwo_PropTypeTwo();
@@ -3263,10 +3273,9 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '{@link org.emfjson.jackson.junit.model.Node <em>Node</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
-		 * @generated
 		 * @see org.emfjson.jackson.junit.model.Node
 		 * @see org.emfjson.jackson.junit.model.ModelPackage#getNode()
+		 * @generated
 		 */
 		public static final EClass NODE = eINSTANCE.getNode();
 
@@ -3274,7 +3283,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EAttribute NODE__LABEL = eINSTANCE.getNode_Label();
@@ -3283,7 +3291,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Target</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference NODE__TARGET = eINSTANCE.getNode_Target();
@@ -3292,7 +3299,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference NODE__SOURCE = eINSTANCE.getNode_Source();
@@ -3301,7 +3307,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Many Ref</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference NODE__MANY_REF = eINSTANCE.getNode_ManyRef();
@@ -3310,7 +3315,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Child</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference NODE__CHILD = eINSTANCE.getNode_Child();
@@ -3319,7 +3323,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Unique Child</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference NODE__UNIQUE_CHILD = eINSTANCE.getNode_UniqueChild();
@@ -3328,10 +3331,9 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '{@link org.emfjson.jackson.junit.model.ObjectWithMap <em>Object With Map</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
-		 * @generated
 		 * @see org.emfjson.jackson.junit.model.ObjectWithMap
 		 * @see org.emfjson.jackson.junit.model.ModelPackage#getObjectWithMap()
+		 * @generated
 		 */
 		public static final EClass OBJECT_WITH_MAP = eINSTANCE.getObjectWithMap();
 
@@ -3339,7 +3341,6 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Entries</b></em>' map feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference OBJECT_WITH_MAP__ENTRIES = eINSTANCE.getObjectWithMap_Entries();
@@ -3348,19 +3349,73 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em><b>Dependencies</b></em>' map feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
 		 * @generated
 		 */
 		public static final EReference OBJECT_WITH_MAP__DEPENDENCIES = eINSTANCE.getObjectWithMap_Dependencies();
 
 		/**
+		 * The meta object literal for the '{@link org.emfjson.jackson.junit.model.GenericContainer <em>Generic Container</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emfjson.jackson.junit.model.GenericContainer
+		 * @see org.emfjson.jackson.junit.model.ModelPackage#getGenericContainer()
+		 * @generated
+		 */
+		public static final EClass GENERIC_CONTAINER = eINSTANCE.getGenericContainer();
+
+		/**
+		 * The meta object literal for the '<em><b>Values</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EReference GENERIC_CONTAINER__VALUES = eINSTANCE.getGenericContainer_Values();
+
+		/**
+		 * The meta object literal for the '{@link org.emfjson.jackson.junit.model.GenericType <em>Generic Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emfjson.jackson.junit.model.GenericType
+		 * @see org.emfjson.jackson.junit.model.ModelPackage#getGenericType()
+		 * @generated
+		 */
+		public static final EClass GENERIC_TYPE = eINSTANCE.getGenericType();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute GENERIC_TYPE__VALUE = eINSTANCE.getGenericType_Value();
+
+		/**
+		 * The meta object literal for the '{@link org.emfjson.jackson.junit.model.SpecialTypeOne <em>Special Type One</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emfjson.jackson.junit.model.SpecialTypeOne
+		 * @see org.emfjson.jackson.junit.model.ModelPackage#getSpecialTypeOne()
+		 * @generated
+		 */
+		public static final EClass SPECIAL_TYPE_ONE = eINSTANCE.getSpecialTypeOne();
+
+		/**
+		 * The meta object literal for the '{@link org.emfjson.jackson.junit.model.SpecialTypeTwo <em>Special Type Two</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emfjson.jackson.junit.model.SpecialTypeTwo
+		 * @see org.emfjson.jackson.junit.model.ModelPackage#getSpecialTypeTwo()
+		 * @generated
+		 */
+		public static final EClass SPECIAL_TYPE_TWO = eINSTANCE.getSpecialTypeTwo();
+
+		/**
 		 * The meta object literal for the '{@link org.emfjson.jackson.junit.model.Sex <em>Sex</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
-		 * @generated
 		 * @see org.emfjson.jackson.junit.model.Sex
 		 * @see org.emfjson.jackson.junit.model.ModelPackage#getSex()
+		 * @generated
 		 */
 		public static final EEnum SEX = eINSTANCE.getSex();
 
@@ -3368,10 +3423,9 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '{@link org.emfjson.jackson.junit.model.SomeKind <em>Some Kind</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
-		 * @generated
 		 * @see org.emfjson.jackson.junit.model.SomeKind
 		 * @see org.emfjson.jackson.junit.model.ModelPackage#getSomeKind()
+		 * @generated
 		 */
 		public static final EEnum SOME_KIND = eINSTANCE.getSomeKind();
 
@@ -3379,10 +3433,9 @@ public class ModelPackage extends EPackageImpl {
 		 * The meta object literal for the '<em>URI</em>' data type.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 *
-		 * @generated
 		 * @see org.eclipse.emf.common.util.URI
 		 * @see org.emfjson.jackson.junit.model.ModelPackage#getURI()
+		 * @generated
 		 */
 		public static final EDataType URI = eINSTANCE.getURI();
 
