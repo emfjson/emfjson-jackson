@@ -20,6 +20,8 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.emfjson.jackson.junit.model.ModelFactory;
+import org.emfjson.jackson.junit.model.User;
 import org.emfjson.jackson.module.EMFModule;
 import org.emfjson.jackson.resource.JsonResource;
 import org.junit.Before;
@@ -90,4 +92,34 @@ public class ModuleTest {
 		assertEquals("A", ((EClass) result.getContents().get(0)).getName());
 	}
 
+	@Test
+	public void testLoadIntoValue() throws IOException {
+		JsonNode data = mapper.createObjectNode()
+				.put("name", "A");
+
+		User user = ModelFactory.eINSTANCE.createUser();
+		mapper.readerForUpdating(user)
+				.treeToValue(data, EObject.class);
+
+		assertEquals("A", user.getName());
+	}
+
+	@Test
+	public void testLoadIntoResource() throws JsonProcessingException {
+		JsonNode data = mapper.createObjectNode()
+				.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EClass")
+				.put("name", "A");
+
+		Resource resource = new JsonResource();
+
+		mapper.readerForUpdating(resource)
+				.treeToValue(data, Resource.class);
+
+		assertEquals(1, resource.getContents().size());
+
+		EObject root = resource.getContents().get(0);
+
+		assertEquals(EcorePackage.Literals.ECLASS, root.eClass());
+		assertEquals("A", ((EClass) root).getName());
+	}
 }

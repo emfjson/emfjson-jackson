@@ -59,6 +59,30 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		return doDeserialize(jp, findRoot(ctxt), ctxt);
 	}
 
+	@Override
+	public EObject deserialize(JsonParser jp, DeserializationContext ctxt, EObject intoValue) throws IOException {
+		if (intoValue == null) {
+			return null;
+		}
+
+		prepareContext(ctxt, null);
+
+		final Resource resource = (Resource) ctxt.getAttribute("resource");
+		final ReferenceEntries entries = (ReferenceEntries) ctxt.getAttribute("entries");
+
+		while (jp.nextToken() != JsonToken.END_OBJECT) {
+			final String fieldName = jp.getCurrentName();
+
+			if (options.idField.equalsIgnoreCase(fieldName)) {
+				options.idDeserializer.deserialize(jp, intoValue, ctxt);
+			} else {
+				readFeature(jp, intoValue, fieldName, ctxt, resource, entries);
+			}
+		}
+
+		return postDeserialize(null, intoValue, null, ctxt);
+	}
+
 	public EObject deserialize(JsonParser jp, DeserializationContext ctxt, EReference containment) throws IOException {
 		EClass defaultType = null;
 
@@ -115,16 +139,18 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 			object = EcoreUtil.create(defaultType);
 		}
 
-		final Resource resource = (Resource) ctxt.getAttribute("resource");
-		final ReferenceEntries entries = (ReferenceEntries) ctxt.getAttribute("entries");
-		final JsonParser bufferedParser = buffer.asParser();
+		if (buffer != null) {
+			final Resource resource = (Resource) ctxt.getAttribute("resource");
+			final ReferenceEntries entries = (ReferenceEntries) ctxt.getAttribute("entries");
+			final JsonParser bufferedParser = buffer.asParser();
 
-		while (bufferedParser.nextToken() != null) {
-			readFeature(bufferedParser, object, bufferedParser.getCurrentName(), ctxt, resource, entries);
+			while (bufferedParser.nextToken() != null) {
+				readFeature(bufferedParser, object, bufferedParser.getCurrentName(), ctxt, resource, entries);
+			}
+
+			bufferedParser.close();
+			buffer.close();
 		}
-
-		bufferedParser.close();
-		buffer.close();
 
 		return object;
 	}
@@ -138,7 +164,10 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		return options.rootElement;
 	}
 
-	private void readFeature(JsonParser jp, EObject current, String fieldName, DeserializationContext ctxt, Resource resource, ReferenceEntries entries) throws IOException {
+	private void readFeature(JsonParser jp, EObject current,
+							 String fieldName, DeserializationContext ctxt,
+							 Resource resource, ReferenceEntries entries) throws IOException {
+
 		final EClass eClass = current.eClass();
 		final EStructuralFeature feature = cache.getEStructuralFeature(eClass, fieldName);
 
@@ -149,7 +178,7 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 			}
 
 			if (feature instanceof EAttribute) {
-				readAttribute(jp, current, (EAttribute) feature, resource);
+				readAttribute(jp, current, (EAttribute) feature, resource, ctxt);
 			} else {
 				EReference reference = (EReference) feature;
 
@@ -174,12 +203,9 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 	}
 
 	@SuppressWarnings("unchecked")
-	private void readContainment(JsonParser jp,
-								 EObject owner,
-								 DeserializationContext ctxt,
-								 EReference reference,
-								 Resource resource,
-								 ReferenceEntries entries) throws IOException {
+	private void readContainment(JsonParser jp, EObject owner,
+								 DeserializationContext ctxt, EReference reference,
+								 Resource resource, ReferenceEntries entries) throws IOException {
 
 		final Class<?> type = reference.getEReferenceType().getInstanceClass();
 
@@ -227,7 +253,10 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		}
 	}
 
-	private void readReference(JsonParser jp, EObject owner, EReference reference, ReferenceEntries entries, DeserializationContext context) throws IOException {
+	private void readReference(JsonParser jp, EObject owner,
+							   EReference reference, ReferenceEntries entries,
+							   DeserializationContext context) throws IOException {
+
 		if (jp.getCurrentToken() == JsonToken.START_ARRAY) {
 			while (jp.nextToken() != JsonToken.END_ARRAY) {
 				entries.add(options.referenceDeserializer.deserialize(jp, owner, reference, context));
@@ -237,7 +266,9 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		}
 	}
 
-	private void readAttribute(JsonParser jp, EObject owner, EAttribute attribute, Resource resource) throws IOException {
+	private void readAttribute(JsonParser jp, EObject owner,
+							   EAttribute attribute, Resource resource,
+							   DeserializationContext ctxt) throws IOException {
 		final EDataType dataType = attribute.getEAttributeType();
 		if (dataType == null) {
 			resource.getErrors().add(new JSONException("Missing feature type", jp.getCurrentLocation()));
@@ -247,14 +278,18 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 
 		if (jp.getCurrentToken() == JsonToken.START_ARRAY) {
 			while (jp.nextToken() != JsonToken.END_ARRAY) {
-				readSingleAttribute(owner, attribute, resource, dataType, jp);
+				readSingleAttribute(jp, owner, attribute, resource, dataType, ctxt);
 			}
 		} else {
-			readSingleAttribute(owner, attribute, resource, dataType, jp);
+			readSingleAttribute(jp, owner, attribute, resource, dataType, ctxt);
 		}
 	}
 
-	private void readSingleAttribute(EObject owner, EAttribute attribute, Resource resource, EDataType dataType, JsonParser jp) throws IOException {
+	private void readSingleAttribute(JsonParser jp, EObject owner,
+									 EAttribute attribute, Resource resource,
+									 EDataType dataType,
+									 DeserializationContext ctxt) throws IOException {
+
 		final Class<?> type = dataType.getInstanceClass();
 
 		Object value;
@@ -266,7 +301,7 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 
 		} else {
 
-			value = jp.readValueAs(type);
+			value = ctxt.readValue(jp, type);
 
 		}
 

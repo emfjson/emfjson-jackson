@@ -42,9 +42,19 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 
 	@Override
 	public Resource deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
-		final Resource resource = getResource(ctxt);
-		final ReferenceEntries entries = new ReferenceEntries();
+		return doDeserialize(jp, getResource(ctxt), ctxt);
+	}
 
+	@Override
+	public Resource deserialize(JsonParser jp, DeserializationContext ctxt, Resource intoValue) throws IOException {
+		return doDeserialize(jp, intoValue, ctxt);
+	}
+
+	private Resource doDeserialize(JsonParser jp, Resource resource, DeserializationContext ctxt) throws IOException {
+		if (resource == null)
+			return null;
+
+		final ReferenceEntries entries = new ReferenceEntries();
 		ctxt.setAttribute("resource", resource);
 		ctxt.setAttribute("entries", entries);
 
@@ -57,8 +67,8 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 			while (jp.nextToken() != JsonToken.END_ARRAY) {
 
 				EObject result = ctxt.readPropertyValue(jp,
-					new ResourceProperty(resourceSet, resource, entries),
-					EObject.class);
+						new ResourceProperty(resourceSet, resource, entries),
+						EObject.class);
 
 				if (result != null) {
 					resource.getContents().add(result);
@@ -69,8 +79,8 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 		} else if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
 
 			EObject result = ctxt.readPropertyValue(jp,
-				new ResourceProperty(resourceSet, resource, entries),
-				EObject.class);
+					new ResourceProperty(resourceSet, resource, entries),
+					EObject.class);
 
 			if (result != null) {
 				resource.getContents().add(result);
