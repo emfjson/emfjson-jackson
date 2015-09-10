@@ -30,8 +30,7 @@ public class GwtTestReference extends TestSupport {
 		return {
 			"eClass":"http://www.eclipselabs.org/emfjson/junit#//User",
 			"userId":"1",
-			"name":"John",
-			"sex":"MALE"
+			"name":"John"
 		}
 	}-*/;
 
@@ -51,14 +50,12 @@ public class GwtTestReference extends TestSupport {
 			{
 				"eClass":"http://www.eclipselabs.org/emfjson/junit#//User", 
 				"userId":"1", 
-				"name":"John", 
-				"sex":"MALE"
+				"name":"John"
 			},
 			{
 				"eClass":"http://www.eclipselabs.org/emfjson/junit#//User", 
 				"userId":"2", 
-				"name":"Paul",
-				"sex":"MALE"
+				"name":"Paul"
 			}
 		]
 	}-*/;
@@ -86,14 +83,12 @@ public class GwtTestReference extends TestSupport {
 				"eClass" : "http://www.eclipselabs.org/emfjson/junit#//User",
 				"userId": "1",
 				"name": "John",
-				"sex": "MALE",
 				"uniqueFriend":{ "$ref" : "2" }
 			},
 			{
 				"eClass": "http://www.eclipselabs.org/emfjson/junit#//User",
 				"userId": "2",
-				"name": "Paul",
-				"sex": "MALE"
+				"name": "Paul"
 			}
 		]
 	}-*/;

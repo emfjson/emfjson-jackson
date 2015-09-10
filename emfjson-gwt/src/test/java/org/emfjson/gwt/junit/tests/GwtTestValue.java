@@ -72,8 +72,7 @@ public class GwtTestValue extends TestSupport {
 		return [
 			{
 				"eClass" : "http://www.eclipselabs.org/emfjson/junit#//User",
-				"name": "A",
-				"sex": "MALE"
+				"name": "A"
 			},
 			{
 				"eClass" : "http://www.eclipselabs.org/emfjson/junit#//User",
