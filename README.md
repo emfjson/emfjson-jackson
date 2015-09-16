@@ -35,7 +35,7 @@ Add the following dependency yo your POM file to use emfjson-jackson.
 <dependency>
 	<groupId>org.emfjson</groupId>
 	<artifactId>emfjson-jackson</artifactId>
-	<version>0.12.0</version>
+	<version>0.13.0</version>
 </dependency>
 ```
 
@@ -62,7 +62,7 @@ GWT is supported through the module emfjson-gwt. We recommend to use the maven-g
 <dependency>
 	<groupId>org.emfjson</groupId>
 	<artifactId>emfjson-gwt</artifactId>
-	<version>0.12.0</version>
+	<version>0.13.0</version>
 </dependency>
 ```
 

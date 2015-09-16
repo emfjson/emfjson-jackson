@@ -9,7 +9,7 @@
 
     <properties>
         <tycho.version>0.22.0</tycho.version>
-        <emfjson.version>0.13.0-SNAPSHOT</emfjson.version>
+        <emfjson.version>0.13.0</emfjson.version>
     </properties>
 
     <modules>
