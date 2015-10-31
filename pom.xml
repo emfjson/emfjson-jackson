@@ -2,8 +2,8 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.emfjson</groupId>
-    <artifactId>emfjson</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>emfjson-jackson</artifactId>
+    <packaging>jar</packaging>
     <version>0.14.0-SNAPSHOT</version>
 
     <parent>
@@ -21,7 +21,7 @@
 
     <issueManagement>
         <system>GitHub Issues</system>
-        <url>https://github.com/ghillairet/emfjson/issues</url>
+        <url>https://github.com/emfjson/emfjson-jackson/issues</url>
     </issueManagement>
 
     <developers>
@@ -33,60 +33,52 @@
     </developers>
 
     <scm>
-        <url>scm:git:git@github.com:ghillairet/emfjson.git</url>
-        <connection>scm:git:git@github.com:ghillairet/emfjson.git</connection>
-        <developerConnection>scm:git:git@github.com:ghillairet/emfjson.git</developerConnection>
+        <url>scm:git:git@github.com:emfjson/emfjson-jackson.git</url>
+        <connection>scm:git:git@github.com:emfjson/emfjson-jackson.git</connection>
+        <developerConnection>scm:git:git@github.com:emfjson/emfjson-jackson.git</developerConnection>
       <tag>HEAD</tag>
   </scm>
 
-    <modules>
-        <module>emfjson-core</module>
-        <module>emfjson-jackson</module>
-        <module>emfjson-gwt</module>
-    </modules>
-
     <properties>
         <emfVersion>2.11.0-v20150123-0347</emfVersion>
-        <emf.gwt.version>2.9.0</emf.gwt.version>
-        <gwtVersion>2.7.0</gwtVersion>
-        <jacksonVersion>2.5.3</jacksonVersion>
+        <jacksonVersion>2.6.1</jacksonVersion>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.eclipse.emf</groupId>
-                <artifactId>org.eclipse.emf.common</artifactId>
-                <version>${emfVersion}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.emf</groupId>
-                <artifactId>org.eclipse.emf.ecore</artifactId>
-                <version>${emfVersion}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.emf</groupId>
-                <artifactId>org.eclipse.emf.ecore.xmi</artifactId>
-                <version>${emfVersion}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipselabs</groupId>
-                <artifactId>org.eclipse.emf.gwt.ecore</artifactId>
-                <version>${emf.gwt.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>${jacksonVersion}</version>
-            </dependency>
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.12</version>
-                <scope>test</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.emf</groupId>
+            <artifactId>org.eclipse.emf.common</artifactId>
+            <version>${emfVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.emf</groupId>
+            <artifactId>org.eclipse.emf.ecore</artifactId>
+            <version>${emfVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jacksonVersion}</version>
+        </dependency>
+
+        <!-- tests -->
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.emf</groupId>
+            <artifactId>org.eclipse.emf.ecore.xmi</artifactId>
+            <version>${emfVersion}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -103,10 +95,37 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10</version>
                 <configuration>
                     <additionalparam>-Xdoclint:none</additionalparam>
                     <failOnError>false</failOnError>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.18.1</version>
+                <configuration>
+                    <argLine>-Xmx512M</argLine>
+                    <includes>
+                        <include>**/*TestSuite.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
@@ -117,27 +136,25 @@
                     <tagNameFormat>@{project.version}</tagNameFormat>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>org.emfjson.jackson</Bundle-SymbolicName>
+                        <Bundle-Name>emfjson-jackson</Bundle-Name>
+                        <Bundle-Version>${project.version}</Bundle-Version>
+                        <Import-Package>
+                            com.fasterxml.jackson.*;version="[2.5.0, 3.0.0)",
+                            *
+                        </Import-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
         </plugins>
 
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.18.1</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <version>2.4</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.felix</groupId>
-                    <artifactId>maven-bundle-plugin</artifactId>
-                    <version>2.5.3</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
 
 </project>

@@ -53,19 +53,6 @@ This update site contains the bundles emfjson-core and emfjson-jackson.
 
 You can download the jars from [Maven Central](http://search.maven.org/#search|ga|1|emfjson).
 
-## GWT Support
-
-GWT is supported through the module emfjson-gwt. We recommend to use the maven-gwt plugin. The GWT 
- version of emfjson is available in Maven central.
-
-```xml
-<dependency>
-	<groupId>org.emfjson</groupId>
-	<artifactId>emfjson-gwt</artifactId>
-	<version>0.13.0</version>
-</dependency>
-```
-
 ## Dependencies
 
 * Java 7
