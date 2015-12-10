@@ -1,5 +1,5 @@
 {
-  "eClass": "http://www.eclipselabs.org/emfjson/junit#//User",
+  "eClass": "http://www.emfjson.org/jackson/model#//User",
   "userId": "1",
   "name": "Paul"
 }

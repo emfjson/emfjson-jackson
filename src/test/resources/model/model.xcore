@@ -1,0 +1,158 @@
+@Ecore(nsURI="http://www.emfjson.org/jackson/model")
+@GenModel(
+    modelDirectory="emfjson-jackson/src/test/java-gen",
+    updateClasspath="false",
+    bundleManifest="false",
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl",
+    complianceLevel="7.0"
+)
+package org.emfjson.jackson.junit.model
+
+import org.eclipse.emf.ecore.EByteArray
+import org.eclipse.emf.ecore.EFeatureMapEntry
+import org.eclipse.emf.ecore.EStringToStringMapEntry
+import java.util.Map
+
+annotation "JSON" as JSON @JSON(root="true")
+class User {
+	id String userId
+	String name
+	Date birthDate
+	Sex sex
+	refers local User[] friends
+	refers local User uniqueFriend
+	contains resolving Address address
+}
+
+enum Sex {
+	MALE = 0
+	FEMALE = 1
+}
+
+class Address {
+	id String addId
+	String city
+	String street
+	Integer number
+}
+
+class ETypes {
+	String eString
+	unique String[] eStrings
+	boolean eBoolean
+	unique Boolean[] eBooleans
+	int eInt
+	unique int[] eInts
+	Double doubleValue
+	double eDouble
+	unique Double[] eDoubles
+	BigDecimal eBigDecimal
+	BigInteger eBigInteger
+	byte eByte
+	EByteArray eByteArray
+	char eChar
+	Date eDate
+	float eFloat
+	long eLong
+	short eShort
+	contains TMap[*] values
+	unique URI[] uris
+}
+
+class TMap wraps Map.Entry {
+	contains Type key
+	contains Value value 
+}
+
+class Type {
+    String name
+}
+class Value {
+    int value
+}
+
+type URI wraps org.eclipse.emf.common.util.URI
+
+class PrimaryObject {
+	String name
+	id String idAttribute
+	unsettable String unsettableAttribute
+	unsettable String unsettableAttributeWithNonNullDefault = "junit"
+	refers unsettable TargetObject unsettableReference
+	contains resolving PrimaryObject containmentReferenceSameCollection
+	refers TargetObject singleNonContainmentReference
+	refers TargetObject[] multipleNonContainmentReference
+	contains TargetObject singleContainmentReferenceNoProxies
+	contains TargetObject[] multipleContainmentReferenceNoProxies
+	contains resolving TargetObject singleContainmentReferenceProxies
+	contains resolving TargetObject[] multipleContainmentReferenceProxies
+	refers local TargetObject singleNonContainmentReferenceNoProxies
+	@ExtendedMetaData(group="#featureMapReferenceCollection")
+	refers local transient volatile derived TargetObject[] featureMapReferenceType1
+	@ExtendedMetaData(group="#featureMapReferenceCollection")
+	contains transient volatile derived TargetObject[] featureMapReferenceType2
+	@ExtendedMetaData(kind="group")
+	unique EFeatureMapEntry featureMapReferenceCollection
+	@ExtendedMetaData(group="#featureMapAttributeCollection")
+	unique transient volatile derived String[] featureMapAttributeType1
+	@ExtendedMetaData(group="#featureMapAttributeCollection")
+	unique transient volatile derived String[] featureMapAttributeType2
+	@ExtendedMetaData(kind="group")
+	unique EFeatureMapEntry[] featureMapAttributeCollection
+	SomeKind kind
+}
+
+class Container {
+	contains resolving AbstractType[] elements
+}
+
+class TargetObject {
+	String singleAttribute
+	unique String[] arrayAttribute
+}
+
+abstract class AbstractType {
+	id String[1] name
+	refers AbstractType[] refProperty
+}
+
+class ConcreteTypeOne extends AbstractType {
+	String propTypeOne
+}
+
+class ConcreteTypeTwo extends AbstractType {
+	String propTypeTwo
+}
+
+class Node {
+	String label
+	refers local Node target opposite source
+	refers local Node source opposite target
+	refers local Node[] manyRef
+	contains resolving Node[] child
+	contains resolving Node uniqueChild
+}
+
+class ObjectWithMap {
+	@JSON(dynamicMap="true")
+	contains resolving EStringToStringMapEntry[] entries
+	contains resolving EStringToStringMapEntry[] dependencies
+}
+
+enum SomeKind {
+	one = 0
+	Two as "two" = 1
+	Three as "Three-is-Three" = 3
+}
+
+class GenericContainer {
+	contains resolving GenericType < ? >[] values
+}
+
+abstract class GenericType<T> {
+	T value
+}
+
+class SpecialTypeOne extends GenericType<String> {}
+
+class SpecialTypeTwo extends GenericType<Boolean> {}

@@ -34,9 +34,9 @@ public class EnumTest extends TestSupport {
 	public void testEnums() throws IOException {
 		JsonNode expected = mapper.createArrayNode()
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User"))
+				.put("eClass", "http://www.emfjson.org/jackson/model#//User"))
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 				.put("sex", "FEMALE"));
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
@@ -57,11 +57,11 @@ public class EnumTest extends TestSupport {
 	public void testLoadEnums() throws IOException {
 		JsonNode data = mapper.createArrayNode()
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 				.put("name", "A")
 				.put("sex", "MALE"))
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 				.put("name", "B")
 				.put("sex", "FEMALE"));
 
@@ -86,15 +86,15 @@ public class EnumTest extends TestSupport {
 	public void testSaveEnumDifferentCases() throws IOException {
 		JsonNode expected = mapper.createArrayNode()
 			.add(mapper.createObjectNode()
-					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
+					.put("eClass", "http://www.emfjson.org/jackson/model#//PrimaryObject")
 					.put("unsettableAttributeWithNonNullDefault", "junit")
 					.put("kind", "one"))
 				.add(mapper.createObjectNode()
-						.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
+						.put("eClass", "http://www.emfjson.org/jackson/model#//PrimaryObject")
 						.put("unsettableAttributeWithNonNullDefault", "junit")
 						.put("kind", "two"))
 				.add(mapper.createObjectNode()
-						.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
+						.put("eClass", "http://www.emfjson.org/jackson/model#//PrimaryObject")
 						.put("unsettableAttributeWithNonNullDefault", "junit")
 						.put("kind", "Three-is-Three"));
 
@@ -123,13 +123,13 @@ public class EnumTest extends TestSupport {
 	public void testLoadEnumDifferentCases() throws IOException {
 		JsonNode data = mapper.createArrayNode()
 			.add(mapper.createObjectNode()
-					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
+					.put("eClass", "http://www.emfjson.org/jackson/model#//PrimaryObject")
 					.put("kind", "one"))
 			.add(mapper.createObjectNode()
-					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
+					.put("eClass", "http://www.emfjson.org/jackson/model#//PrimaryObject")
 					.put("kind", "two"))
 			.add(mapper.createObjectNode()
-					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
+					.put("eClass", "http://www.emfjson.org/jackson/model#//PrimaryObject")
 					.put("kind", "Three-is-Three"));
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));

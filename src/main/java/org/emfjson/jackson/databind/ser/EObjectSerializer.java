@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.*;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emfjson.jackson.common.Cache;
-import org.emfjson.jackson.common.EObjects;
+import org.emfjson.common.EObjects;
 import org.emfjson.jackson.JacksonOptions;
 
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-import static org.emfjson.jackson.common.EObjects.featureMaps;
+import static org.emfjson.common.EObjects.featureMaps;
 
 public class EObjectSerializer extends JsonSerializer<EObject> {
 

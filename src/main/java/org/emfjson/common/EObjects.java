@@ -9,18 +9,16 @@
  *     Guillaume Hillairet - initial API and implementation
  *
  */
-package org.emfjson.jackson.common;
+package org.emfjson.common;
 
 import org.eclipse.emf.ecore.*;
+import org.eclipse.emf.ecore.impl.DynamicEObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
 import org.emfjson.jackson.JacksonOptions;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Utility class to facilitate access or modification of eObjects.

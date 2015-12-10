@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "eClass": "http://www.eclipselabs.org/emfjson/junit#//SpecialTypeOne",
+      "eClass": "http://www.emfjson.org/jackson/model#//SpecialTypeOne",
       "value": "String"
     },
     {
-      "eClass": "http://www.eclipselabs.org/emfjson/junit#//SpecialTypeTwo",
+      "eClass": "http://www.emfjson.org/jackson/model#//SpecialTypeTwo",
       "value": true
     }
   ]

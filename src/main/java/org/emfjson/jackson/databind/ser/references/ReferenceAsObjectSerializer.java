@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.emfjson.jackson.common.Cache;
-import org.emfjson.jackson.handlers.URIHandler;
+import org.emfjson.handlers.URIHandler;
 import org.emfjson.jackson.JacksonOptions;
 
 import java.io.IOException;

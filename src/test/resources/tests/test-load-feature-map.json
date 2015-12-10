@@ -1,5 +1,5 @@
 {
-  "eClass": "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject",
+  "eClass": "http://www.emfjson.org/jackson/model#//PrimaryObject",
   "name": "junit",
   "featureMapAttributeType1": "Hello",
   "featureMapAttributeType2": "World"

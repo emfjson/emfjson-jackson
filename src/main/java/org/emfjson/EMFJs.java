@@ -57,7 +57,7 @@ public final class EMFJs {
 	/**
 	 * Specify the URIHandler object to use during serialization of external
 	 * references.
-	 * <p>By default org.emfjson.jackson.handlers.BaseURIHandler will be use</p>
+	 * <p>By default org.emfjson.handlers.BaseURIHandler will be use</p>
 	 */
 	public static final String OPTION_URI_HANDLER = "OPTION_URI_HANDLER";
 	/**

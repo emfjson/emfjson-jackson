@@ -20,7 +20,7 @@ import org.emfjson.jackson.common.DefaultReferenceEntry;
 
 import java.io.IOException;
 
-import static org.emfjson.jackson.common.ReferenceEntries.ReferenceEntry;
+import static org.emfjson.common.ReferenceEntries.ReferenceEntry;
 
 public class ReferenceAsValueDeserializer implements ReferenceDeserializer {
 

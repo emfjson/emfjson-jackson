@@ -65,10 +65,10 @@ public class ExternalReferencesTest extends TestSupport {
 	@Test
 	public void testLoadExternalReferenceOnSameBaseURI() throws JsonProcessingException {
 		JsonNode first = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Node");
+			.put("eClass", "http://www.emfjson.org/jackson/model#//Node");
 
 		JsonNode second = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Node")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//Node")
 			.set("target", mapper.createObjectNode()
 				.put("$ref", "../first.json#/"));
 

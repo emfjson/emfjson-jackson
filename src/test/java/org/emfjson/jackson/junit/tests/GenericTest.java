@@ -36,13 +36,13 @@ public class GenericTest extends TestSupport {
 	@Test
 	public void testSaveTwoObjectsWithTypeInformation() throws IOException {
 		JsonNode expected = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//GenericContainer")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//GenericContainer")
 			.set("values", mapper.createArrayNode()
 				.add(mapper.createObjectNode()
-					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//SpecialTypeOne")
+					.put("eClass", "http://www.emfjson.org/jackson/model#//SpecialTypeOne")
 					.put("value", "String"))
 				.add(mapper.createObjectNode()
-					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//SpecialTypeTwo")
+					.put("eClass", "http://www.emfjson.org/jackson/model#//SpecialTypeTwo")
 					.put("value", true)));
 
 		Resource resource = resourceSet.createResource(URI.createURI("types-generic.json"));

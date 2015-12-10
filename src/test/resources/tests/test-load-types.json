@@ -1,12 +1,12 @@
 {
   "elements": [
     {
-      "eClass": "http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeOne",
+      "eClass": "http://www.emfjson.org/jackson/model#//ConcreteTypeOne",
       "name": "First",
       "propTypeOne": "one"
     },
     {
-      "eClass": "http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeTwo",
+      "eClass": "http://www.emfjson.org/jackson/model#//ConcreteTypeTwo",
       "name": "Two",
       "propTypeTwo": "two"
     }

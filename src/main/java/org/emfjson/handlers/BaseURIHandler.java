@@ -9,11 +9,11 @@
  *     Guillaume Hillairet - initial API and implementation
  *
  */
-package org.emfjson.jackson.handlers;
+package org.emfjson.handlers;
 
 import org.eclipse.emf.common.util.URI;
 
-import org.emfjson.jackson.handlers.URIHandler;
+import org.emfjson.handlers.URIHandler;
 
 /**
  * This is the basic implementation of the {@link URIHandler} interface.

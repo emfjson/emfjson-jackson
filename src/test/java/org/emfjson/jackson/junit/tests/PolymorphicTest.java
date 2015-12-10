@@ -31,13 +31,13 @@ public class PolymorphicTest extends TestSupport {
 	@Test
 	public void testSaveTwoObjectsWithTypeInformation() throws IOException {
 		JsonNode expected = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Container")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//Container")
 			.set("elements", mapper.createArrayNode()
 				.add(mapper.createObjectNode()
-					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeOne")
+					.put("eClass", "http://www.emfjson.org/jackson/model#//ConcreteTypeOne")
 					.put("name", "First"))
 				.add(mapper.createObjectNode()
-					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//ConcreteTypeTwo")
+					.put("eClass", "http://www.emfjson.org/jackson/model#//ConcreteTypeTwo")
 					.put("name", "Two")));
 
 		Resource resource = resourceSet.createResource(URI.createURI("types.json"));

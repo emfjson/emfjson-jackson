@@ -15,7 +15,9 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.emfjson.jackson.handlers.URIHandler;
+import org.emfjson.common.EObjects;
+import org.emfjson.common.ReferenceEntries;
+import org.emfjson.handlers.URIHandler;
 
 public class DefaultReferenceEntry implements ReferenceEntries.ReferenceEntry {
 

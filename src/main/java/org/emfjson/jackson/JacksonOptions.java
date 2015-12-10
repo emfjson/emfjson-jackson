@@ -25,8 +25,8 @@ import org.emfjson.jackson.databind.ser.IdSerializer;
 import org.emfjson.jackson.databind.ser.TypeSerializer;
 import org.emfjson.jackson.databind.ser.references.ReferenceAsObjectSerializer;
 import org.emfjson.jackson.databind.ser.references.ReferenceSerializer;
-import org.emfjson.jackson.handlers.IdentityURIHandler;
-import org.emfjson.jackson.handlers.URIHandler;
+import org.emfjson.handlers.IdentityURIHandler;
+import org.emfjson.handlers.URIHandler;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

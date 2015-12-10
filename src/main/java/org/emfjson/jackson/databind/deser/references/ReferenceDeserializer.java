@@ -15,7 +15,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.emfjson.jackson.common.ReferenceEntries.ReferenceEntry;
+import org.emfjson.common.ReferenceEntries.ReferenceEntry;
 
 import java.io.IOException;
 

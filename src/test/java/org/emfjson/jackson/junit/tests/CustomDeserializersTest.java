@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emfjson.jackson.common.DefaultReferenceEntry;
-import org.emfjson.jackson.common.ReferenceEntries;
+import org.emfjson.common.ReferenceEntries;
 import org.emfjson.jackson.JacksonOptions;
 import org.emfjson.jackson.databind.deser.IdDeserializer;
 import org.emfjson.jackson.databind.deser.TypeDeserializer;

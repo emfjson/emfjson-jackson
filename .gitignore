@@ -3,7 +3,4 @@ target
 .settings
 .project
 .classpath
-www-test
-war
-gwt-unitCache
-_site
+java-gen

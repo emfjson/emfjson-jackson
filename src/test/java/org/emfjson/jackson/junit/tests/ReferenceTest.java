@@ -42,14 +42,14 @@ public class ReferenceTest extends TestSupport {
 	public void testSaveTwoObjectsWithAttributesOneReference() throws IOException {
 		JsonNode expected = mapper.createArrayNode()
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 				.put("userId", "1")
 				.put("name", "John")
 				.set("uniqueFriend", mapper.createObjectNode()
 						.put("$ref", "2")
 				))
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 				.put("userId", "2")
 				.put("name", "Mary")
 				.put("sex", "FEMALE"));
@@ -77,7 +77,7 @@ public class ReferenceTest extends TestSupport {
 	public void testLoadTwoObjectsWithAttributesOneReference() throws IOException {
 		JsonNode data = mapper.createArrayNode()
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 				.put("userId", "1")
 				.put("name", "John")
 				.put("sex", "MALE")
@@ -85,7 +85,7 @@ public class ReferenceTest extends TestSupport {
 						.put("$ref", "2")
 				))
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 				.put("userId", "2")
 				.put("name", "Mary")
 				.put("sex", "FEMALE"));
@@ -104,7 +104,7 @@ public class ReferenceTest extends TestSupport {
 	@Test
 	public void testLoadWithExternalReferenceFromFile() throws IOException {
 		JsonNode data = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 			.put("userId", "2")
 			.set("uniqueFriend", mapper.createObjectNode()
 				.put("$ref", "http://eclipselabs.org/emfjson/tests/test-load-1.json#1"));
@@ -123,14 +123,14 @@ public class ReferenceTest extends TestSupport {
 	@Test
 	public void testLoadWithExternalReference() throws IOException {
 		JsonNode firstResource = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 			.put("userId", "1");
 
 		JsonNode secondResource = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 			.put("userId", "2")
 			.set("uniqueFriend", mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 				.put("$ref", "http://resources/first#1"));
 
 		Resource first = resourceSet.createResource(URI.createURI("http://resources/first"));
@@ -198,12 +198,12 @@ public class ReferenceTest extends TestSupport {
 
 		JsonNode expected = mapper.createArrayNode()
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 				.put("userId", "1")
 				.put("name", "John")
 				.put("uniqueFriend", "2"))
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 				.put("userId", "2")
 				.put("name", "Mary")
 				.put("sex", "FEMALE"));
@@ -236,13 +236,13 @@ public class ReferenceTest extends TestSupport {
 
 		JsonNode data = mapper.createArrayNode()
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 				.put("userId", "1")
 				.put("name", "John")
 				.put("sex", "MALE")
 				.put("uniqueFriend", "2"))
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 				.put("userId", "2")
 				.put("name", "Mary")
 				.put("sex", "FEMALE"));

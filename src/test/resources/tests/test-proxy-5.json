@@ -1,4 +1,4 @@
 {
-  "eClass": "http://www.eclipselabs.org/emfjson/junit#//Node",
+  "eClass": "http://www.emfjson.org/jackson/model#//Node",
   "label": "1"
 }

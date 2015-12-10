@@ -19,7 +19,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.emfjson.jackson.common.ReferenceEntries;
+import org.emfjson.common.ReferenceEntries;
 import org.emfjson.jackson.JacksonOptions;
 import org.emfjson.jackson.resource.JsonResource;
 

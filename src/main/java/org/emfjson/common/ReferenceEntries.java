@@ -9,12 +9,12 @@
  *     Guillaume Hillairet - initial API and implementation
  *
  */
-package org.emfjson.jackson.common;
+package org.emfjson.common;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.emfjson.jackson.handlers.URIHandler;
+import org.emfjson.handlers.URIHandler;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;

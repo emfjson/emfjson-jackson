@@ -15,7 +15,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emfjson.jackson.common.resource.UuidResource;
+import org.emfjson.jackson.resource.JsonResource;
 
 import java.io.IOException;
 
@@ -27,8 +27,8 @@ public class FragmentIdDeserializer implements IdDeserializer {
 		String id = jp.nextTextValue();
 
 		if (current != null && resource != null) {
-			if (resource instanceof UuidResource) {
-				((UuidResource) resource).setID(current, id);
+			if (resource instanceof JsonResource) {
+				((JsonResource) resource).setID(current, id);
 			}
 		}
 	}

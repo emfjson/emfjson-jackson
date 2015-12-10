@@ -37,7 +37,7 @@ public class ReaderTest extends TestSupport {
 	public void shouldReadObjectWhenEClassFieldIsNotFirst() throws IOException {
 		JsonNode data = mapper.createObjectNode()
 			.put("eInt", 1)
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//ETypes")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//ETypes")
 			.set("eInts", mapper.createArrayNode().add(1).add(2));
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));

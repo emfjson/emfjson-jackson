@@ -15,9 +15,10 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emfjson.jackson.common.EObjects;
+import org.emfjson.common.EObjects;
 import org.junit.Test;
 
 import org.emfjson.jackson.junit.model.*;
@@ -35,7 +36,7 @@ public class ContainmentTest extends TestSupport {
 	@Test
 	public void testSaveOneRootObjectWithAttributes() throws IOException {
 		JsonNode expected = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 			.put("userId", "1")
 			.put("name", "John");
 
@@ -55,11 +56,11 @@ public class ContainmentTest extends TestSupport {
 	public void testSaveTwoRootObjectsWithAttributesNoReferences() throws IOException {
 		JsonNode expected = mapper.createArrayNode()
 			.add(mapper.createObjectNode()
-					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+					.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 					.put("userId", "1")
 					.put("name", "John"))
 			.add(mapper.createObjectNode()
-					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+					.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 					.put("userId", "2")
 					.put("name", "Mary")
 					.put("sex", "FEMALE"));
@@ -83,9 +84,9 @@ public class ContainmentTest extends TestSupport {
 	@Test
 	public void testSaveOneObjectWithOneChild() throws JsonProcessingException {
 		JsonNode expected = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 			.set("address", mapper.createObjectNode()
-					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Address"));
+					.put("eClass", "http://www.emfjson.org/jackson/model#//Address"));
 
 		Resource resource = resourceSet.createResource(URI.createURI("test"));
 
@@ -100,9 +101,9 @@ public class ContainmentTest extends TestSupport {
 	@Test
 	public void testLoadOneObjectWithOneChild() throws JsonProcessingException {
 		JsonNode data = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 			.set("address", mapper.createObjectNode()
-					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Address"));
+					.put("eClass", "http://www.emfjson.org/jackson/model#//Address"));
 
 		Resource resource = mapper.reader()
 			.withAttribute("resourceSet", resourceSet)
@@ -119,11 +120,11 @@ public class ContainmentTest extends TestSupport {
 	@Test
 	public void testSaveOneObjectWithManyChildren() throws JsonProcessingException {
 		JsonNode expected = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Node")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//Node")
 			.set("child", mapper.createArrayNode()
-				.add(mapper.createObjectNode().put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Node"))
-				.add(mapper.createObjectNode().put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Node"))
-				.add(mapper.createObjectNode().put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Node")));
+				.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node"))
+				.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node"))
+				.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node")));
 
 		Resource resource = resourceSet.createResource(URI.createURI("test"));
 		Node root = ModelFactory.eINSTANCE.createNode();
@@ -138,11 +139,11 @@ public class ContainmentTest extends TestSupport {
 	@Test
 	public void testLoadOneObjectWithManyChildren() throws JsonProcessingException {
 		JsonNode data = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Node")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//Node")
 			.set("child", mapper.createArrayNode()
-				.add(mapper.createObjectNode().put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Node"))
-				.add(mapper.createObjectNode().put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Node"))
-				.add(mapper.createObjectNode().put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Node")));
+				.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node"))
+				.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node"))
+				.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node")));
 
 		Resource resource = mapper.reader()
 			.withAttribute("resourceSet", resourceSet)
@@ -159,11 +160,11 @@ public class ContainmentTest extends TestSupport {
 	@Test
 	public void testSaveProxyContainment() throws IOException {
 		JsonNode expectedProxyResource = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Node")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//Node")
 			.put("label", "1");
 
 		JsonNode expectedProxyLinkResource = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//Node")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//Node")
 			.put("label", "2")
 			.set("child", mapper.createArrayNode()
 				.add(mapper.createObjectNode()
@@ -181,7 +182,7 @@ public class ContainmentTest extends TestSupport {
 		resourceProxyLink.getContents().add(container);
 
 		Node proxy = ModelFactory.eINSTANCE.createNode();
-		proxy.eSetProxyURI(EcoreUtil.getURI(linked));
+		((InternalEObject) proxy).eSetProxyURI(EcoreUtil.getURI(linked));
 
 		container.getChild().add(proxy);
 

@@ -44,7 +44,7 @@ public class ValueTest extends TestSupport {
 	public void testOptionSaveDefaultValues() throws IOException {
 		{
 			JsonNode expected = mapper.createObjectNode()
-					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+					.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 					.put("name", "u1");
 
 			User u = ModelFactory.eINSTANCE.createUser();
@@ -55,7 +55,7 @@ public class ValueTest extends TestSupport {
 
 		{
 			JsonNode expected = mapper.createObjectNode()
-					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+					.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 					.put("name", "u1")
 					.put("sex", "FEMALE");
 
@@ -69,7 +69,7 @@ public class ValueTest extends TestSupport {
 		options.put(EMFJs.OPTION_SERIALIZE_DEFAULT_VALUE, true);
 		{
 			JsonNode expected = mapper.createObjectNode()
-					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+					.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 					.put("name", "u1")
 					.put("sex", "MALE");
 
@@ -80,7 +80,7 @@ public class ValueTest extends TestSupport {
 		}
 		{
 			JsonNode expected = mapper.createObjectNode()
-					.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//User")
+					.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 					.put("name", "u1")
 					.put("sex", "FEMALE");
 
@@ -95,7 +95,7 @@ public class ValueTest extends TestSupport {
 	@Test
 	public void testStringValues() throws IOException {
 		JsonNode expected = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//ETypes")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//ETypes")
 			.put("eString", "Hello")
 			.set("eStrings", mapper.createArrayNode()
 				.add("Hello")
@@ -118,7 +118,7 @@ public class ValueTest extends TestSupport {
 	@Test
 	public void testIntValues() throws IOException {
 		JsonNode expected = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//ETypes")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//ETypes")
 			.put("eInt", 2)
 			.set("eInts", mapper.createArrayNode()
 				.add(2)
@@ -142,7 +142,7 @@ public class ValueTest extends TestSupport {
 	@Test
 	public void testLoadIntValues() throws IOException {
 		JsonNode data = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//ETypes")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//ETypes")
 			.put("eInt", 2)
 			.set("eInts", mapper.createArrayNode()
 				.add(2)
@@ -169,7 +169,7 @@ public class ValueTest extends TestSupport {
 	@Test
 	public void testBooleanValues() throws IOException {
 		JsonNode expected = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//ETypes")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//ETypes")
 			.put("eBoolean", true)
 			.set("eBooleans", mapper.createArrayNode()
 				.add(false)
@@ -196,7 +196,7 @@ public class ValueTest extends TestSupport {
 		assertNotNull(mapper.getDateFormat());
 
 		JsonNode expected = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//ETypes")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//ETypes")
 			.put("eDate", mapper.getDateFormat().format(calendar.getTime()));
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
@@ -213,7 +213,7 @@ public class ValueTest extends TestSupport {
 	@Test
 	public void testLoadDateValue() throws IOException {
 		JsonNode data = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//ETypes")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//ETypes")
 			.put("eDate", "2011-10-10T00:00:00");
 
 		Date value = (Date) EcoreUtil.createFromString(EcorePackage.eINSTANCE.getEDate(),
@@ -245,7 +245,7 @@ public class ValueTest extends TestSupport {
 	@Test
 	public void testLoadBigIntegerValue() throws IOException {
 		JsonNode data = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//ETypes")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//ETypes")
 			.put("eBigInteger", 15);
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
@@ -264,7 +264,7 @@ public class ValueTest extends TestSupport {
 	@Test
 	public void testByteValue() throws IOException {
 		JsonNode expected = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//ETypes")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//ETypes")
 			.put("eByte", 101);
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
@@ -293,7 +293,7 @@ public class ValueTest extends TestSupport {
 	@Test
 	public void testLoadBigDecimalValue() throws IOException {
 		JsonNode data = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//ETypes")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//ETypes")
 			.put("eBigDecimal", 1.5);
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));

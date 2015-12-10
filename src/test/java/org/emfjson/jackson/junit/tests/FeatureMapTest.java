@@ -32,7 +32,7 @@ public class FeatureMapTest extends TestSupport {
 	@Test
 	public void testSaveFeatureMap() throws IOException {
 		ObjectNode expected = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject")
+			.put("eClass", "http://www.emfjson.org/jackson/model#//PrimaryObject")
 			.put("name", "junit");
 
 		expected.set("featureMapAttributeType1", mapper.createArrayNode().add("Hello"));
@@ -112,7 +112,7 @@ public class FeatureMapTest extends TestSupport {
 	@Test
 	public void testSaveFeatureMapReferences() throws IOException {
 		ObjectNode expected = mapper.createObjectNode()
-			.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//PrimaryObject");
+			.put("eClass", "http://www.emfjson.org/jackson/model#//PrimaryObject");
 
 		expected.set("featureMapReferenceType1", mapper.createArrayNode()
 			.add(mapper.createObjectNode()
@@ -122,16 +122,16 @@ public class FeatureMapTest extends TestSupport {
 
 		expected.set("featureMapReferenceType2", mapper.createArrayNode()
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//TargetObject")
+				.put("eClass", "http://www.emfjson.org/jackson/model#//TargetObject")
 				.put("singleAttribute", "1"))
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//TargetObject")
+				.put("eClass", "http://www.emfjson.org/jackson/model#//TargetObject")
 				.put("singleAttribute", "2"))
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//TargetObject")
+				.put("eClass", "http://www.emfjson.org/jackson/model#//TargetObject")
 				.put("singleAttribute", "3"))
 			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.eclipselabs.org/emfjson/junit#//TargetObject")
+				.put("eClass", "http://www.emfjson.org/jackson/model#//TargetObject")
 				.put("singleAttribute", "4")));
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests.json"));
