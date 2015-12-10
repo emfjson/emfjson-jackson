@@ -27,8 +27,8 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emfjson.EMFJs;
 import org.emfjson.jackson.common.Cache;
-import org.emfjson.jackson.common.EObjects;
-import org.emfjson.jackson.common.ReferenceEntries;
+import org.emfjson.common.EObjects;
+import org.emfjson.common.ReferenceEntries;
 import org.emfjson.jackson.JacksonOptions;
 import org.emfjson.jackson.errors.JSONException;
 import org.emfjson.jackson.resource.JsonResource;
@@ -210,12 +210,36 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		final Class<?> type = reference.getEReferenceType().getInstanceClass();
 
 		if (type != null && Map.Entry.class.isAssignableFrom(type)) {
-			EMap<String, String> map = (EMap<String, String>) owner.eGet(reference);
+			EMap map = (EMap) owner.eGet(reference);
 
 			if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
+
 				while (jp.nextToken() != JsonToken.END_OBJECT) {
 					EObject entry = EObjects.createEntry(jp.getCurrentName(), jp.nextTextValue());
-					map.add((Map.Entry<String, String>) entry);
+					map.add(entry);
+				}
+
+			} else if (jp.getCurrentToken() == JsonToken.START_ARRAY) {
+
+				while (jp.nextToken() != JsonToken.END_ARRAY) {
+					EObject key = null;
+					EObject value = null;
+
+					if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
+						while (jp.nextToken() != JsonToken.END_OBJECT) {
+							if ("key".equals( jp.getCurrentName() )) {
+								jp.nextToken();
+								key = deserialize(jp, ctxt, reference);
+							} else if ("value".equals( jp.getCurrentName() )) {
+								jp.nextToken();
+								value = deserialize(jp, ctxt, reference);
+							}
+						}
+					}
+
+					if (key != null && value != null) {
+						map.put(key, value);
+					}
 				}
 			}
 

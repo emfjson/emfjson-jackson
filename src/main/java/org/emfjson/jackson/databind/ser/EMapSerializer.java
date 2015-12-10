@@ -11,11 +11,11 @@
  */
 package org.emfjson.jackson.databind.ser;
 
-import org.eclipse.emf.common.util.EMap;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import org.eclipse.emf.common.util.BasicEMap;
+import org.eclipse.emf.common.util.EMap;
 
 import java.io.IOException;
 
@@ -23,11 +23,28 @@ public class EMapSerializer extends JsonSerializer<EMap> {
 
 	@Override
 	public void serialize(EMap value, JsonGenerator jg, SerializerProvider provider) throws IOException {
-		jg.writeStartObject();
-		for (Object entry : value.entrySet()) {
-			jg.writeObject(entry);
+		if (value.isEmpty()) {
+			jg.writeStartArray();
+			jg.writeEndArray();
+		} else {
+			BasicEMap.Entry<?, ?> o = (BasicEMap.Entry<?, ?>) value.get(0);
+			if (o.getKey() instanceof String) {
+				jg.writeStartObject();
+				for (Object entry : value.entrySet()) {
+					jg.writeObject(entry);
+				}
+				jg.writeEndObject();
+			} else {
+				jg.writeStartArray();
+				for (Object key: value.keySet()) {
+					jg.writeStartObject();
+					jg.writeObjectField("key", key);
+					jg.writeObjectField("value", value.get(key));
+					jg.writeEndObject();
+				}
+				jg.writeEndArray();
+			}
 		}
-		jg.writeEndObject();
 	}
 
 	@Override

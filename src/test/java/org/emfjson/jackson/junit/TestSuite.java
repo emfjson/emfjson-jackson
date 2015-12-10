@@ -29,6 +29,7 @@ import org.emfjson.jackson.junit.tests.*;
         ExternalReferencesTest.class,
         FeatureMapTest.class,
         JacksonOptionTest.class,
+		MapTest.class,
         ModuleTest.class,
         NoTypeTest.class,
         PolymorphicTest.class,
