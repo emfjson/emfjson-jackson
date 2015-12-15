@@ -11,6 +11,7 @@
  */
 package org.emfjson.jackson.databind.ser;
 
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.*;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -24,6 +25,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static org.emfjson.common.EObjects.featureMaps;
@@ -126,7 +128,11 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 	
 	private void writeContainment(EObject object, final String field,
 			final Object value, JsonGenerator jg, SerializerProvider provider) throws IOException {
-		if (value instanceof Iterable<?>) {
+		
+			if (EMap.class.isAssignableFrom(value.getClass())) {
+				jg.writeFieldName(field);
+				jg.writeObject(value);
+			} else if (value instanceof Iterable<?>) {
 			jg.writeFieldName(field);
 			Iterable<?> values = (Iterable<?>) value;
 
