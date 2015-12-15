@@ -55,7 +55,12 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 			provider.setAttribute("cache", cache = new Cache());
 		}
 
-		if (object.eContainer() != null && EObjects.isContainmentProxy(object.eContainer(), object)) {
+		if (
+				// Just dump ref in case of container have not the same resource
+				object.eContainer() != null && EObjects.isContainmentProxy(object.eContainer(), object) 
+				// But don't do this if we are the root (manual splitting)
+				&& object.eResource().getContents().get(0) != object
+			) {
 			options.referenceSerializer.serialize(object.eContainer(), object, jg, provider);
 			return;
 		}
@@ -97,7 +102,7 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 				final String field = cache.getKey(containment);
 				final Object value = object.eGet(containment);
 
-				jg.writeObjectField(field, value);
+				writeContainment(object, field, value, jg, provider);
 			}
 		}
 		jg.writeEndObject();
@@ -117,6 +122,34 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 
 	protected void writeType(EClass eClass, JsonGenerator jg, SerializerProvider provider) throws IOException {
 		options.typeSerializer.serialize(eClass, jg, provider);
+	}
+	
+	private void writeContainment(EObject object, final String field,
+			final Object value, JsonGenerator jg, SerializerProvider provider) throws IOException {
+		if (value instanceof Iterable<?>) {
+			jg.writeFieldName(field);
+			Iterable<?> values = (Iterable<?>) value;
+
+			jg.writeStartArray();
+			for (Object current : values) {
+				EObject eValue = (EObject) current;
+				if (EObjects.isContainmentProxy(object, eValue)) {
+					options.referenceSerializer.serialize(object, eValue, jg, provider);
+				} else {
+					jg.writeObject(eValue);
+				}
+			}
+			jg.writeEndArray();
+		} else
+		{
+			EObject eValue = (EObject) value;
+			if (EObjects.isContainmentProxy(object, eValue)) {
+				jg.writeFieldName(field);
+				options.referenceSerializer.serialize(object, eValue, jg, provider);
+			} else {
+				jg.writeObjectField(field, eValue);
+			}
+		}
 	}
 
 	private void writeRef(EObject source, String field, Object value, JsonGenerator jg, SerializerProvider provider) throws IOException {
