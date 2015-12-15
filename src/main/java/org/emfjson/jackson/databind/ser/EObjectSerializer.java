@@ -15,6 +15,7 @@ import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.*;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.impl.XMLSaveImpl;
 import org.emfjson.jackson.common.Cache;
 import org.emfjson.common.EObjects;
 import org.emfjson.jackson.JacksonOptions;
@@ -61,7 +62,7 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 				// Just dump ref in case of container have not the same resource
 				object.eContainer() != null && EObjects.isContainmentProxy(object.eContainer(), object) 
 				// But don't do this if we are the root (manual splitting)
-				&& object.eResource().getContents().get(0) != object
+				&& ! isResourceRoot(object)
 			) {
 			options.referenceSerializer.serialize(object.eContainer(), object, jg, provider);
 			return;
@@ -98,6 +99,12 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 				writeRef(object, field, value, jg, provider);
 			}
 		}
+		
+		if(isResourceRoot(object))
+		{
+			writeTopElements(object, cache, jg, provider);
+		}
+		
 
 		for (EReference containment : containments) {
 			if (EObjects.isCandidate(object, containment)) {
@@ -108,6 +115,33 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 			}
 		}
 		jg.writeEndObject();
+	}
+
+	/**
+	 * @see org.eclipse.emf.ecore.xmi.impl.XMLSaveImpl#writeTopElement(EObject)
+	 * @param object
+	 * @throws IOException 
+	 */
+	 private boolean writeTopElements(EObject top, Cache cache, JsonGenerator jg, SerializerProvider provider) throws IOException
+	  {
+		InternalEObject container = ((InternalEObject) top).eInternalContainer();
+		if (container != null) {
+			EReference containmentReference = top.eContainmentFeature();
+			EReference containerReference = containmentReference.getEOpposite();
+			if (containerReference != null && !containerReference.isTransient()) {
+				final String field = cache.getKey(containerReference);
+				writeRef(top, field, container, jg, provider);
+				//saveHref(container, containerReference);
+				return true;
+			}
+		  }
+	    return false;
+	  }
+
+	private boolean isResourceRoot(EObject object) {
+		if(object == null || object.eResource() == null || object.eResource().getContents() == null || object.eResource().getContents().size() == 0)
+			return false;
+		return object.eResource().getContents().get(0) == object;
 	}
 
 	private void writeAttribute(JsonGenerator jg, EDataType type, String key, Object value) throws IOException {
