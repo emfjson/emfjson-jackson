@@ -114,7 +114,11 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 
 			} else if (options.idField.equalsIgnoreCase(fieldName)) {
 
-				options.idDeserializer.deserialize(jp, current, ctxt);
+				if (current != null) {
+					options.idDeserializer.deserialize(jp, current, ctxt);
+				} else {
+					buffer.copyCurrentStructure(jp);
+				}
 
 			} else {
 
@@ -145,7 +149,11 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 			final JsonParser bufferedParser = buffer.asParser();
 
 			while (bufferedParser.nextToken() != null) {
-				readFeature(bufferedParser, object, bufferedParser.getCurrentName(), ctxt, resource, entries);
+				if (options.idField.equals(bufferedParser.getCurrentName())) {
+					options.idDeserializer.deserialize(bufferedParser, object, ctxt);
+				} else {
+					readFeature(bufferedParser, object, bufferedParser.getCurrentName(), ctxt, resource, entries);
+				}
 			}
 
 			bufferedParser.close();
