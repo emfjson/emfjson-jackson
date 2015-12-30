@@ -11,24 +11,29 @@
  */
 package org.emfjson.jackson.databind.ser;
 
-import org.eclipse.emf.ecore.impl.EStringToStringMapEntryImpl;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 import java.io.IOException;
+import java.util.Map;
 
-public class EStringToStringMapEntrySerializer extends JsonSerializer<EStringToStringMapEntryImpl> {
+public class EMapEntrySerializer extends JsonSerializer<Map.Entry> {
 
 	@Override
-	public void serialize(EStringToStringMapEntryImpl value, JsonGenerator jg, SerializerProvider provider) throws IOException {
-		jg.writeStringField(value.getKey(), value.getValue());
+	public void serialize(Map.Entry entry, JsonGenerator jg, SerializerProvider serializers) throws IOException {
+		if (entry.getKey() instanceof String) {
+			jg.writeObjectField((String) entry.getKey(), entry.getValue());
+		} else {
+			jg.writeStartObject();
+			jg.writeObjectField("key", entry.getKey());
+			jg.writeObjectField("value", entry.getValue());
+			jg.writeEndObject();
+		}
 	}
 
 	@Override
-	public Class<EStringToStringMapEntryImpl> handledType() {
-		return EStringToStringMapEntryImpl.class;
+	public Class<Map.Entry> handledType() {
+		return Map.Entry.class;
 	}
-
 }

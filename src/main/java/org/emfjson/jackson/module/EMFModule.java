@@ -53,7 +53,7 @@ public class EMFModule extends SimpleModule {
 		addSerializer(Enumerator.class, new EnumeratorSerializer());
 		addSerializer(EEnumLiteral.class, new EnumeratorSerializer());
 		addSerializer(new EMapSerializer());
-		addSerializer(new EStringToStringMapEntrySerializer());
+		addSerializer(new EMapEntrySerializer());
 		addDeserializer(EObject.class, new EObjectDeserializer(resourceSet, options));
 		addDeserializer(Resource.class, new ResourceDeserializer(resourceSet, options));
 	}

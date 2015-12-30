@@ -1,0 +1,13 @@
+{
+  "eClass": "http://www.emfjson.org/jackson/model#//ETypes",
+  "stringMapValues": {
+    "Hello": {
+      "eClass": "http://www.emfjson.org/jackson/model#//Value",
+      "value": 1
+    },
+    "World": {
+      "eClass": "http://www.emfjson.org/jackson/model#//Value",
+      "value": 2
+    }
+  }
+}

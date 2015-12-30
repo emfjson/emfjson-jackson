@@ -12,13 +12,16 @@
 package org.emfjson.common;
 
 import org.eclipse.emf.ecore.*;
-import org.eclipse.emf.ecore.impl.DynamicEObjectImpl;
+import org.eclipse.emf.ecore.impl.DynamicEObjectImpl.BasicEMapEntry;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
 import org.emfjson.jackson.JacksonOptions;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * Utility class to facilitate access or modification of eObjects.
@@ -139,8 +142,8 @@ public class EObjects {
 	/**
 	 * Returns set of structural features being part of a feature map.
 	 *
-	 * @param owner
-	 * @param attribute
+	 * @param owner of feature
+	 * @param attribute feature map
 	 * @return set of features
 	 */
 	public static Set<EStructuralFeature> featureMaps(EObject owner, EAttribute attribute) {
@@ -158,15 +161,30 @@ public class EObjects {
 	/**
 	 * Creates a map entry of type string, string.
 	 *
-	 * @param key
-	 * @param value
+	 * @param key of entry
+	 * @param value of entry
 	 * @return entry
 	 */
-	public static EObject createEntry(String key, String value) {
-		EObject eObject = EcoreUtil.create(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY);
-		eObject.eSet(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY__KEY, key);
-		eObject.eSet(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY__VALUE, value);
-		return eObject;
+	@SuppressWarnings("unchecked")
+	public static EObject createEntry(String key, Object value, EClass type) {
+		if (type == EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY) {
+
+			final EObject entry = EcoreUtil.create(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY);
+			entry.eSet(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY__KEY, key);
+			entry.eSet(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY__VALUE, value);
+
+			return entry;
+
+		} else {
+
+			final BasicEMapEntry entry = new BasicEMapEntry<>();
+			entry.eSetClass(type);
+			entry.setKey(key);
+			entry.setValue(value);
+
+			return entry;
+
+		}
 	}
 
 }

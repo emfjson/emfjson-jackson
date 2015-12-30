@@ -2,6 +2,7 @@ package org.emfjson.jackson.junit.tests;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emfjson.jackson.junit.model.ETypes;
@@ -55,6 +56,45 @@ public class MapTest extends TestSupport {
 		ETypes types = (ETypes) resource.getContents().get(0);
 
 		assertThat(types.getValues()).hasSize(2);
+	}
+
+	@Test
+	public void testSaveMapWithStringKey() {
+		Resource resource = resourceSet.createResource(URI.createURI("test"));
+
+		ETypes types = ModelFactory.eINSTANCE.createETypes();
+		Value value = ModelFactory.eINSTANCE.createValue();
+		value.setValue(12);
+
+		types.getStringMapValues()
+				.put("Hello", value);
+		resource.getContents().add(types);
+
+		JsonNode actual = mapper.valueToTree(resource);
+
+		assertThat(actual.get("stringMapValues"))
+				.isEqualTo(
+						mapper.createObjectNode()
+								.set("Hello", mapper.createObjectNode()
+										.put("eClass", "http://www.emfjson.org/jackson/model#//Value")
+										.put("value", 12)));
+	}
+
+	@Test
+	public void testLoadMapWithStringKey() {
+		Resource resource = resourceSet.getResource(uri("test-map-2.json"), true);
+
+		assertThat(resource.getContents()).hasSize(1);
+		assertThat(resource.getContents().get(0)).isInstanceOf(ETypes.class);
+
+		ETypes types = (ETypes) resource.getContents().get(0);
+
+		assertThat(types.getStringMapValues()).hasSize(2);
+
+		EMap<String, Value> mapValues = types.getStringMapValues();
+
+		assertThat(mapValues.get("Hello").getValue()).isEqualTo(1);
+		assertThat(mapValues.get("World").getValue()).isEqualTo(2);
 	}
 
 }

@@ -14,36 +14,34 @@ package org.emfjson.jackson.databind.ser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EMap;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class EMapSerializer extends JsonSerializer<EMap> {
 
 	@Override
-	public void serialize(EMap value, JsonGenerator jg, SerializerProvider provider) throws IOException {
-		if (value.isEmpty()) {
-			jg.writeStartArray();
-			jg.writeEndArray();
-		} else {
-			BasicEMap.Entry<?, ?> o = (BasicEMap.Entry<?, ?>) value.get(0);
-			if (o.getKey() instanceof String) {
-				jg.writeStartObject();
-				for (Object entry : value.entrySet()) {
-					jg.writeObject(entry);
-				}
-				jg.writeEndObject();
-			} else {
-				jg.writeStartArray();
-				for (Object key: value.keySet()) {
-					jg.writeStartObject();
-					jg.writeObjectField("key", key);
-					jg.writeObjectField("value", value.get(key));
-					jg.writeEndObject();
-				}
-				jg.writeEndArray();
+	public void serialize(EMap value, JsonGenerator jg, SerializerProvider serializers) throws IOException {
+		if (value.keySet().isEmpty()) {
+			jg.writeNull();
+			return;
+		}
+
+		final Map.Entry firstEntry = (Map.Entry) value.get(0);
+
+		if (firstEntry.getKey() instanceof String) {
+			jg.writeStartObject();
+			for (Object entry: value) {
+				jg.writeObject(entry);
 			}
+			jg.writeEndObject();
+		} else {
+			jg.writeStartArray();
+			for (Object entry: value) {
+				jg.writeObject(entry);
+			}
+			jg.writeEndArray();
 		}
 	}
 
@@ -53,4 +51,3 @@ public class EMapSerializer extends JsonSerializer<EMap> {
 	}
 
 }
-

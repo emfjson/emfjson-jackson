@@ -26,14 +26,15 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emfjson.EMFJs;
-import org.emfjson.jackson.common.Cache;
 import org.emfjson.common.EObjects;
 import org.emfjson.common.ReferenceEntries;
 import org.emfjson.jackson.JacksonOptions;
+import org.emfjson.jackson.common.Cache;
 import org.emfjson.jackson.errors.JSONException;
 import org.emfjson.jackson.resource.JsonResource;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Map;
 
 public class EObjectDeserializer extends JsonDeserializer<EObject> implements ContextualDeserializer {
@@ -134,7 +135,11 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		return postDeserialize(buffer, current, defaultType, ctxt);
 	}
 
-	protected EObject postDeserialize(TokenBuffer buffer, EObject object, EClass defaultType, DeserializationContext ctxt) throws IOException {
+	protected EObject postDeserialize(TokenBuffer buffer,
+									  EObject object,
+									  EClass defaultType,
+									  DeserializationContext ctxt) throws IOException {
+
 		if (object == null && defaultType == null) {
 			return null;
 		}
@@ -172,9 +177,12 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		return options.rootElement;
 	}
 
-	private void readFeature(JsonParser jp, EObject current,
-							 String fieldName, DeserializationContext ctxt,
-							 Resource resource, ReferenceEntries entries) throws IOException {
+	private void readFeature(JsonParser jp,
+							 EObject current,
+							 String fieldName,
+							 DeserializationContext ctxt,
+							 Resource resource,
+							 ReferenceEntries entries) throws IOException {
 
 		final EClass eClass = current.eClass();
 		final EStructuralFeature feature = cache.getEStructuralFeature(eClass, fieldName);
@@ -211,71 +219,50 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 	}
 
 	@SuppressWarnings("unchecked")
-	private void readContainment(JsonParser jp, EObject owner,
-								 DeserializationContext ctxt, EReference reference,
-								 Resource resource, ReferenceEntries entries) throws IOException {
+	private void readContainment(JsonParser jp,
+								 EObject owner,
+								 DeserializationContext ctxt,
+								 EReference reference,
+								 Resource resource,
+								 ReferenceEntries entries) throws IOException {
 
-		final Class<?> type = reference.getEReferenceType().getInstanceClass();
+		final EClass eType = (EClass) owner.eClass().getFeatureType(reference).getEClassifier();
+		final Class<?> type = eType.getInstanceClass();
 
-		if (type != null && Map.Entry.class.isAssignableFrom(type)) {
-			EMap map = (EMap) owner.eGet(reference);
+		if (jp.getCurrentToken() == JsonToken.START_ARRAY) {
 
-			if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
+			while (jp.nextToken() != JsonToken.END_ARRAY) {
 
-				while (jp.nextToken() != JsonToken.END_OBJECT) {
-					EObject entry = EObjects.createEntry(jp.getCurrentName(), jp.nextTextValue());
-					map.add(entry);
-				}
-
-			} else if (jp.getCurrentToken() == JsonToken.START_ARRAY) {
-
-				while (jp.nextToken() != JsonToken.END_ARRAY) {
-					EObject key = null;
-					EObject value = null;
-
-					if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
-						while (jp.nextToken() != JsonToken.END_OBJECT) {
-							if ("key".equals( jp.getCurrentName() )) {
-								jp.nextToken();
-								key = deserialize(jp, ctxt, reference);
-							} else if ("value".equals( jp.getCurrentName() )) {
-								jp.nextToken();
-								value = deserialize(jp, ctxt, reference);
-							}
-						}
+				try {
+					EObject value = deserialize(jp, ctxt, reference);
+					if (value != null) {
+						EObjects.setOrAdd(owner, reference, value);
+						entries.store(resource, value);
 					}
-
-					if (key != null && value != null) {
-						map.put(key, value);
+				} catch (Exception e) {
+					if (resource != null) {
+						resource.getErrors().add(new JSONException(e, jp.getCurrentLocation()));
 					}
 				}
 			}
 
 		} else {
 
-			if (jp.getCurrentToken() == JsonToken.START_ARRAY) {
-				while (jp.nextToken() != JsonToken.END_ARRAY) {
+			// if the type is a Map.Entry but the current values are not serialized
+			// in an array, then it must be a map with string keys that was serialized
+			// as a JSON object.
+			if ((type != null && Map.Entry.class.isAssignableFrom(type)) || "java.util.Map.Entry".equals(eType.getInstanceClassName())) {
 
-					try {
-						EObject value = deserialize(jp, ctxt, reference);
-						if (value != null) {
-							EObjects.setOrAdd(owner, reference, value);
-							entries.store(resource, value);
-						}
-					} catch (Exception e) {
-						if (resource != null) {
-							resource.getErrors().add(new JSONException(e, jp.getCurrentLocation()));
-						}
-					}
-				}
+				readMap(jp, owner, ctxt, reference);
+
 			} else {
-
+				// otherwise it's a normal object.
 				try {
 					EObject value = deserialize(jp, ctxt, reference);
 					if (value != null) {
 						entries.store(resource, value);
+						EObjects.setOrAdd(owner, reference, value);
 					}
-					EObjects.setOrAdd(owner, reference, value);
 				} catch (Exception e) {
 					if (resource != null) {
 						resource.getErrors().add(new JSONException(e, jp.getCurrentLocation()));
@@ -285,8 +272,45 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		}
 	}
 
-	private void readReference(JsonParser jp, EObject owner,
-							   EReference reference, ReferenceEntries entries,
+	/*
+		Read the key-values pair of a JSON object and put it in a Map.
+	 */
+	@SuppressWarnings("unchecked")
+	private void readMap(JsonParser jp,
+						 EObject owner,
+						 DeserializationContext ctxt,
+						 EReference reference) throws IOException {
+
+		final Collection map = (Collection) owner.eGet(reference);
+
+		if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
+
+			while (jp.nextToken() != JsonToken.END_OBJECT) {
+				final String key = jp.getCurrentName();
+				jp.nextToken();
+
+				final Object value;
+				if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
+					value = deserialize(jp, ctxt, reference);
+				} else {
+					value = ctxt.readValue(jp, Object.class);
+				}
+
+				// Dynamic objects do not use the EMap interface
+				// but store entries in a DynamicEList instead.
+				if (map instanceof EMap) {
+					((EMap) map).put(key, value);
+				} else {
+					map.add(EObjects.createEntry(key, value, reference.getEReferenceType()));
+				}
+			}
+		}
+	}
+
+	private void readReference(JsonParser jp,
+							   EObject owner,
+							   EReference reference,
+							   ReferenceEntries entries,
 							   DeserializationContext context) throws IOException {
 
 		if (jp.getCurrentToken() == JsonToken.START_ARRAY) {
@@ -298,9 +322,12 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		}
 	}
 
-	private void readAttribute(JsonParser jp, EObject owner,
-							   EAttribute attribute, Resource resource,
+	private void readAttribute(JsonParser jp,
+							   EObject owner,
+							   EAttribute attribute,
+							   Resource resource,
 							   DeserializationContext ctxt) throws IOException {
+
 		final EDataType dataType = (EDataType) owner.eClass().getFeatureType(attribute).getEClassifier();
 		if (dataType == null) {
 			resource.getErrors().add(new JSONException("Missing feature type", jp.getCurrentLocation()));
@@ -317,8 +344,10 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		}
 	}
 
-	private void readSingleAttribute(JsonParser jp, EObject owner,
-									 EAttribute attribute, Resource resource,
+	private void readSingleAttribute(JsonParser jp,
+									 EObject owner,
+									 EAttribute attribute,
+									 Resource resource,
 									 EDataType dataType,
 									 DeserializationContext ctxt) throws IOException {
 

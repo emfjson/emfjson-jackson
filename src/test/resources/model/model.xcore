@@ -10,7 +10,6 @@ package org.emfjson.jackson.junit.model
 
 import org.eclipse.emf.ecore.EByteArray
 import org.eclipse.emf.ecore.EFeatureMapEntry
-import org.eclipse.emf.ecore.EStringToStringMapEntry
 import java.util.Map
 
 annotation "JSON" as JSON @JSON(root="true")
@@ -57,7 +56,13 @@ class ETypes {
 	long eLong
 	short eShort
 	contains TMap[*] values
+	contains StringMap[*] stringMapValues
 	unique URI[] uris
+}
+
+class StringMap wraps Map.Entry {
+	String key
+	contains Value value
 }
 
 class TMap wraps Map.Entry {
