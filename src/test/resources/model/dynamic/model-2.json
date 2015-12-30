@@ -1,0 +1,103 @@
+{
+  "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EPackage",
+  "name": "model",
+  "nsPrefix": "model",
+  "nsURI": "http://www.emfjson.org/jackson/model",
+  "eClassifiers": [
+    {
+      "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+      "name": "ETypes",
+      "eStructuralFeatures": [
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+          "name": "values",
+          "containment": true,
+          "upperBound": -1,
+          "eType": {
+            "$ref": "//TMap"
+          }
+        },
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+          "name": "stringMapValues",
+          "containment": true,
+          "upperBound": -1,
+          "eType": {
+            "$ref": "//StringMap"
+          }
+        }
+      ]
+    },
+    {
+      "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+      "instanceClassName": "java.util.Map.Entry",
+      "name": "TMap",
+      "eStructuralFeatures": [
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+          "name": "key",
+          "containment": true,
+          "eType": {
+            "$ref": "//Type"
+          }
+        },
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+          "name": "value",
+          "containment": true,
+          "eType": {
+            "$ref": "//Value"
+          }
+        }
+      ]
+    },
+    {
+      "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+      "instanceClassName": "java.util.Map.Entry",
+      "name": "StringMap",
+      "eStructuralFeatures": [
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+          "name": "key",
+          "eType": {
+            "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+          }
+        },
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+          "name": "value",
+          "containment": true,
+          "eType": {
+            "$ref": "//Value"
+          }
+        }
+      ]
+    },
+    {
+      "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+      "name": "Type",
+      "eStructuralFeatures": [
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+          "name": "name",
+          "eType": {
+            "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+          }
+        }
+      ]
+    },
+    {
+      "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+      "name": "Value",
+      "eStructuralFeatures": [
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+          "name": "value",
+          "eType": {
+            "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EInt"
+          }
+        }
+      ]
+    }
+  ]
+}

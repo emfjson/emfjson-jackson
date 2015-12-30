@@ -10,11 +10,9 @@
  */
 package org.emfjson.jackson.junit.tests;
 
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EcoreFactory;
+import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,7 +31,13 @@ public class DynamicPackageTest {
 
 	@Before
 	public void setUp() {
+		EPackage.Registry.INSTANCE.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
 		mapper.registerModule(new EMFModule(new ResourceSetImpl()));
+	}
+
+	@After
+	public void tearDown() {
+		EPackage.Registry.INSTANCE.clear();
 	}
 
 	@Test

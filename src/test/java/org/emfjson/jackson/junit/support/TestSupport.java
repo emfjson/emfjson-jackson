@@ -13,7 +13,8 @@ package org.emfjson.jackson.junit.support;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.*;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -22,9 +23,9 @@ import org.emfjson.jackson.JacksonOptions;
 import org.emfjson.jackson.junit.model.ModelPackage;
 import org.emfjson.jackson.module.EMFModule;
 import org.emfjson.jackson.resource.JsonResourceFactory;
+import org.junit.After;
 import org.junit.Before;
 
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Locale;
@@ -35,9 +36,8 @@ import static org.emfjson.jackson.JacksonOptions.from;
 
 public abstract class TestSupport {
 
-	protected final URL testURI = getClass().getResource("/tests");
 	protected final Map<String, Object> options = new HashMap<>();
-	protected URI baseTestFilesFileDirectory = URI.createFileURI(testURI.getFile()).appendSegment("");
+	protected URI baseTestFilesFileDirectory = URI.createFileURI("src/test/resources/tests/");
 	protected String baseURI = "http://eclipselabs.org/emfjson/tests/";
 	protected ResourceSet resourceSet;
 	protected ObjectMapper mapper = new ObjectMapper();
@@ -46,7 +46,9 @@ public abstract class TestSupport {
 	public void setUp() {
 		URI baseURI = URI.createURI("http://eclipselabs.org/emfjson/tests/");
 
+		EPackage.Registry.INSTANCE.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
 		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
+
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("*", new JsonResourceFactory());
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
 
@@ -63,6 +65,12 @@ public abstract class TestSupport {
 		createDynamicModel();
 	}
 
+	@After
+	public void tearDown() {
+		EPackage.Registry.INSTANCE.clear();
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().clear();
+	}
+
 	protected ObjectMapper mapper(JacksonOptions options) {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new EMFModule(resourceSet, options));
@@ -76,165 +84,15 @@ public abstract class TestSupport {
 	}
 
 	protected void createDynamicModel() {
-		EPackage p = EcoreFactory.eINSTANCE.createEPackage();
-		p.setName("model");
-		p.setNsPrefix("model");
-		p.setNsURI("http://emfjson/dynamic/model");
+		resourceSet.getURIConverter()
+				.getURIMap()
+				.put(
+						URI.createURI("http://emfjson/dynamic/model"),
+						URI.createURI("src/test/resources/model/dynamic/model.json"));
 
-		// classes a, b, c, d
-		// a
-		// b > a
-		// c > b > a
-
-		EClass a = EcoreFactory.eINSTANCE.createEClass();
-		a.setName("A");
-
-		EClass b = EcoreFactory.eINSTANCE.createEClass();
-		b.setName("B");
-
-		EClass c = EcoreFactory.eINSTANCE.createEClass();
-		c.setName("C");
-
-		EClass d = EcoreFactory.eINSTANCE.createEClass();
-		d.setName("D");
-
-		b.getESuperTypes().add(a);
-		c.getESuperTypes().add(b);
-		d.getESuperTypes().add(b);
-
-		// dataTypes
-		//
-		// Kind: Enum
-		// - e1
-		// - e2: E2
-
-		EEnum kind = EcoreFactory.eINSTANCE.createEEnum();
-		kind.setName("Kind");
-
-		EEnumLiteral e1 = EcoreFactory.eINSTANCE.createEEnumLiteral();
-		e1.setName("e1");
-
-		EEnumLiteral e2 = EcoreFactory.eINSTANCE.createEEnumLiteral();
-		e2.setName("e2");
-		e2.setLiteral("E2");
-
-		kind.getELiterals().add(e1);
-		kind.getELiterals().add(e2);
-
-		// CustomType
-		EDataType customDataType = EcoreFactory.eINSTANCE.createEDataType();
-		customDataType.setName("CustomType");
-		customDataType.setSerializable(true);
-
-		p.getEClassifiers().add(a);
-		p.getEClassifiers().add(b);
-		p.getEClassifiers().add(c);
-		p.getEClassifiers().add(d);
-		p.getEClassifiers().add(kind);
-		p.getEClassifiers().add(customDataType);
-
-		// attributes
-		//
-		// a:
-		// 	stringValue: string
-		// 	intValue: int
-		// 	stringValues: string[]
-		// 	intValues: int[]
-		// 	dateValue: date
-		// 	someKind: kind
-		//  custom: CustomType
-
-		EAttribute stringValue = EcoreFactory.eINSTANCE.createEAttribute();
-		stringValue.setName("stringValue");
-		stringValue.setUnsettable(true);
-		stringValue.setEType(EcorePackage.Literals.ESTRING);
-
-		EAttribute stringValues = EcoreFactory.eINSTANCE.createEAttribute();
-		stringValues.setName("stringValues");
-		stringValues.setUpperBound(-1);
-		stringValues.setEType(EcorePackage.Literals.ESTRING);
-
-		EAttribute intValue = EcoreFactory.eINSTANCE.createEAttribute();
-		intValue.setName("intValue");
-		intValue.setEType(EcorePackage.Literals.EINT);
-
-		EAttribute intValues = EcoreFactory.eINSTANCE.createEAttribute();
-		intValues.setName("intValues");
-		intValues.setUpperBound(-1);
-		intValues.setEType(EcorePackage.Literals.EINT);
-
-		EAttribute dateValue = EcoreFactory.eINSTANCE.createEAttribute();
-		dateValue.setName("dateValue");
-		dateValue.setEType(EcorePackage.Literals.EDATE);
-
-		EAttribute someKind = EcoreFactory.eINSTANCE.createEAttribute();
-		someKind.setName("someKind");
-		someKind.setEType(kind);
-
-		EAttribute customValue = EcoreFactory.eINSTANCE.createEAttribute();
-		customValue.setName("customValue");
-		customValue.setEType(customDataType);
-
-		EAttribute javaType = EcoreFactory.eINSTANCE.createEAttribute();
-		javaType.setName("javaType");
-		javaType.setEType(EcorePackage.Literals.EJAVA_OBJECT);
-
-		EAttribute javaClass = EcoreFactory.eINSTANCE.createEAttribute();
-		javaClass.setName("javaClass");
-		javaClass.setEType(EcorePackage.Literals.EJAVA_CLASS);
-
-		a.getEStructuralFeatures().add(stringValue);
-		a.getEStructuralFeatures().add(stringValues);
-		a.getEStructuralFeatures().add(intValue);
-		a.getEStructuralFeatures().add(intValues);
-		a.getEStructuralFeatures().add(dateValue);
-		a.getEStructuralFeatures().add(someKind);
-		a.getEStructuralFeatures().add(customValue);
-		a.getEStructuralFeatures().add(javaType);
-		a.getEStructuralFeatures().add(javaClass);
-
-		// references
-		// a:
-		//  containB: B
-		//  containBs: B[]
-		//  refTo: A
-		//  refToMany: A[]
-
-		EReference containB = EcoreFactory.eINSTANCE.createEReference();
-		containB.setName("containB");
-		containB.setContainment(true);
-		containB.setEType(b);
-
-		EReference containBs = EcoreFactory.eINSTANCE.createEReference();
-		containBs.setName("containBs");
-		containBs.setContainment(true);
-		containBs.setUpperBound(-1);
-		containBs.setEType(b);
-
-		EReference parent = EcoreFactory.eINSTANCE.createEReference();
-		parent.setName("parent");
-		parent.setEOpposite(containB);
-		parent.setLowerBound(1);
-		parent.setUpperBound(1);
-		parent.setEType(a);
-
-		EReference refTo = EcoreFactory.eINSTANCE.createEReference();
-		refTo.setName("refTo");
-		refTo.setEType(a);
-
-		EReference refToMany = EcoreFactory.eINSTANCE.createEReference();
-		refToMany.setName("refTo");
-		refToMany.setUpperBound(-1);
-		refToMany.setEType(a);
-
-		a.getEStructuralFeatures().add(containB);
-		a.getEStructuralFeatures().add(containBs);
-		a.getEStructuralFeatures().add(parent);
-		a.getEStructuralFeatures().add(refTo);
-		a.getEStructuralFeatures().add(refToMany);
-
-		Resource model = resourceSet.createResource(URI.createURI("http://emfjson/dynamic/model"));
-		model.getContents().add(p);
+		Resource model = resourceSet.getResource(URI.createURI("http://emfjson/dynamic/model"), true);
+		EPackage ePackage = (EPackage) model.getContents().get(0);
+		resourceSet.getPackageRegistry().put(ePackage.getNsURI(), ePackage);
 	}
 
 }

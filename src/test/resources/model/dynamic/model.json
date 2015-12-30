@@ -1,0 +1,170 @@
+{
+  "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EPackage",
+  "name": "model",
+  "nsPrefix": "model",
+  "nsURI": "http://emfjson/dynamic/model",
+  "eClassifiers": [
+    {
+      "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+      "name": "A",
+      "eStructuralFeatures": [
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+          "name": "stringValue",
+          "unsettable": true,
+          "eType": {
+            "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+          }
+        },
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+          "name": "stringValues",
+          "upperBound": -1,
+          "eType": {
+            "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+          }
+        },
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+          "name": "intValue",
+          "eType": {
+            "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EInt"
+          }
+        },
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+          "name": "intValues",
+          "upperBound": -1,
+          "eType": {
+            "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EInt"
+          }
+        },
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+          "name": "dateValue",
+          "eType": {
+            "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EDate"
+          }
+        },
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+          "name": "someKind",
+          "eType": {
+            "$ref": "//Kind"
+          }
+        },
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+          "name": "custom",
+          "eType": {
+            "$ref": "//CustomType"
+          }
+        },
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+          "name": "javaType",
+          "eType": {
+            "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"
+          }
+        },
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+          "name": "javaClass",
+          "eType": {
+            "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EJavaClass"
+          }
+        },
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+          "name": "containB",
+          "containment": true,
+          "eType": {
+            "$ref": "//B"
+          }
+        },
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+          "name": "containBs",
+          "containment": true,
+          "upperBound": -1,
+          "eType": {
+            "$ref": "//B"
+          }
+        },
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+          "name": "parent",
+          "lowerBound": 1,
+          "upperBound": 1,
+          "eOpposite": {
+            "$ref": "//A/containB"
+          },
+          "eType": {
+            "$ref": "//A"
+          }
+        },
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+          "name": "refTo",
+          "upperBound": 1,
+          "eType": {
+            "$ref": "//A"
+          }
+        },
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+          "name": "refToMany",
+          "upperBound": -1,
+          "eType": {
+            "$ref": "//A"
+          }
+        }
+      ]
+    },
+    {
+      "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+      "name": "B",
+      "eSuperTypes": [
+        {
+          "$ref": "//A"
+        }
+      ]
+    },
+    {
+      "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+      "name": "C",
+      "eSuperTypes": [
+        {
+          "$ref": "//B"
+        }
+      ]
+    },
+    {
+      "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+      "name": "D",
+      "eSuperTypes": [
+        {
+          "$ref": "//B"
+        }
+      ]
+    },
+    {
+      "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EEnum",
+      "name": "Kind",
+      "eLiterals": [
+        {
+          "name": "e1"
+        },
+        {
+          "name": "e2",
+          "literal": "E2"
+        }
+      ]
+    },
+    {
+      "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EDataType",
+      "name": "CustomType",
+      "serializable": true
+    }
+  ]
+}

@@ -33,49 +33,34 @@ import static org.junit.Assert.*;
 public class DynamicInstanceTest {
 
 	private ObjectMapper mapper = new ObjectMapper();
-	private ResourceSet resourceSet;
 
 	private EClass a;
 	private EClass b;
 
 	@Before
 	public void setUp() {
-		resourceSet = new ResourceSetImpl();
-
-		EPackage p = EcoreFactory.eINSTANCE.createEPackage();
-		p.setNsURI("http://foo.org/p");
-		p.setName("p");
-
-		a = EcoreFactory.eINSTANCE.createEClass();
-		a.setName("A");
-
-		b = EcoreFactory.eINSTANCE.createEClass();
-		b.setName("B");
-		b.getESuperTypes().add(a);
-
-		EAttribute label = EcoreFactory.eINSTANCE.createEAttribute();
-		label.setName("label");
-		label.setEType(EcorePackage.Literals.ESTRING);
-
-		EReference bs = EcoreFactory.eINSTANCE.createEReference();
-		bs.setName("bs");
-		bs.setContainment(true);
-		bs.setUpperBound(-1);
-		bs.setEType(b);
-
-		a.getEStructuralFeatures().add(label);
-		a.getEStructuralFeatures().add(bs);
-
-		p.getEClassifiers().add(a);
-		p.getEClassifiers().add(b);
+		final ResourceSet resourceSet = new ResourceSetImpl();
 
 		resourceSet.getResourceFactoryRegistry()
-			.getExtensionToFactoryMap().put("*", new JsonResourceFactory());
+			.getExtensionToFactoryMap()
+				.put("*", new JsonResourceFactory());
 
-		Resource r = resourceSet.createResource(URI.createURI("http://foo.org/p"));
-		r.getContents().add(p);
+		resourceSet.getPackageRegistry()
+				.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
 
-		resourceSet.getPackageRegistry().put(p.getNsURI(), p);
+		resourceSet.getURIConverter()
+				.getURIMap()
+				.put(
+						URI.createURI("http://foo.org/p"),
+						URI.createURI("src/test/resources/model/dynamic/model-1.json"));
+
+		final Resource resource = resourceSet.getResource(URI.createURI("http://foo.org/p"), true);
+		final EPackage ePackage = (EPackage) resource.getContents().get(0);
+
+		resourceSet.getPackageRegistry().put(ePackage.getNsURI(), ePackage);
+
+		a = (EClass) ePackage.getEClassifier("A");
+		b = (EClass) ePackage.getEClassifier("B");
 
 		mapper.registerModule(new EMFModule(resourceSet));
 	}
