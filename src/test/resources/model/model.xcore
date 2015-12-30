@@ -115,6 +115,7 @@ class Container {
 class TargetObject {
 	String singleAttribute
 	unique String[] arrayAttribute
+	refers PrimaryObject singleContainmentReferenceProxies
 }
 
 abstract class AbstractType {
