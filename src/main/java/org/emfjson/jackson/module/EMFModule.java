@@ -65,7 +65,7 @@ public class EMFModule extends SimpleModule {
 
 	@Override
 	public Version version() {
-		return new Version(0, 13, 0, null, "org.emfjson", "emfjson-jackson");
+		return new Version(0, 14, 0, null, "org.emfjson", "emfjson-jackson");
 	}
 
 }

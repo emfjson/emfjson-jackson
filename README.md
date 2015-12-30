@@ -35,7 +35,7 @@ Add the following dependency yo your POM file to use emfjson-jackson.
 <dependency>
 	<groupId>org.emfjson</groupId>
 	<artifactId>emfjson-jackson</artifactId>
-	<version>0.13.0</version>
+	<version>0.14.0</version>
 </dependency>
 ```
 
@@ -43,7 +43,7 @@ Add the following dependency yo your POM file to use emfjson-jackson.
 
 Use this update site [http://ghillairet.github.io/p2](http://ghillairet.github.io/p2)
 
-This update site contains the bundles emfjson-core and emfjson-jackson. 
+This update site contains the bundle and feature for emfjson-jackson. 
 
 > If you are using a version of eclipse inferior to Mars (< 4.5), please add the following orbit 
  repository, that contains jackson bundles, before trying to install emfjson.
@@ -60,4 +60,39 @@ You can download the jars from [Maven Central](http://search.maven.org/#search|g
 * Jackson 2.5.0 or later
 
 ## License
+
 This software is distributed under the terms of the Eclipse Public License 1.0 - http://www.eclipse.org/legal/epl-v10.
+
+# Development
+
+Development can be done with any Java IDE (Eclipse, IntelliJ, etc...), it does not require any special tooling except Maven. 
+
+> The tests require some code to be generated from a [Xcore](http://wiki.eclipse.org/Xcore) model. This generated code is not included in this repository, but 
+is generated when the sources are first build locally, see next section for details.
+
+## Building from sources
+
+If you want to build from sources, you will need the Java 7 runtime installed on your system as well as Maven 3.
+First start by cloning this repository.
+
+```
+git clone https://github.com/emfjson/emfjson-jackson.git
+```
+
+Inside the folder `emfjson-jackson`, run the following maven command to build and install the project locally.
+ 
+```
+mvn clean install
+``` 
+
+This command will call the `xtext:generate` action that will generate the code from the `Xcore` model for the tests. 
+
+## Running tests
+
+The tests can be run with the maven command:
+
+```
+mvn clean test
+```
+
+Or run the class `TestSuite` from your IDE.
