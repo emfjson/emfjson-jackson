@@ -205,6 +205,8 @@ public class ContainmentTest extends TestSupport {
 		Node child = root.getChild().get(0);
 		// Proxy is resolved because GenModel.ContainmentProxy is true
 		assertFalse(child.eIsProxy());
+        assertNotSame(root.eResource(), child.eResource());
+        assertEquals("1", child.getLabel());
 	}
 
 	@Test
