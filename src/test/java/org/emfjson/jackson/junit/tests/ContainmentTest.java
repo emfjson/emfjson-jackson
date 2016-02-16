@@ -191,7 +191,7 @@ public class ContainmentTest extends TestSupport {
 	}
 
 	@Test
-	public void testLoadProxyContainment() throws IOException {
+	public void testLoadResolvingProxyContainment() throws IOException {
 		Resource resource = resourceSet.createResource(uri("test-proxy-5b.json"));
 		resource.load(options);
 
@@ -205,8 +205,8 @@ public class ContainmentTest extends TestSupport {
 		Node child = root.getChild().get(0);
 		// Proxy is resolved because GenModel.ContainmentProxy is true
 		assertFalse(child.eIsProxy());
-        assertNotSame(root.eResource(), child.eResource());
-        assertEquals("1", child.getLabel());
+		assertNotSame(root.eResource(), child.eResource());
+		assertEquals("1", child.getLabel());
 	}
 
 	@Test

@@ -121,6 +121,14 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 					buffer.copyCurrentStructure(jp);
 				}
 
+			} else if (options.refField.equalsIgnoreCase(fieldName)) {
+
+				if (current != null) {
+					((InternalEObject) current).eSetProxyURI(URI.createURI(jp.nextTextValue()));
+				} else {
+					buffer.copyCurrentStructure(jp);
+				}
+
 			} else {
 
 				if (current != null) {
@@ -154,10 +162,19 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 			final JsonParser bufferedParser = buffer.asParser();
 
 			while (bufferedParser.nextToken() != null) {
+
 				if (options.idField.equals(bufferedParser.getCurrentName())) {
+
 					options.idDeserializer.deserialize(bufferedParser, object, ctxt);
+
+				} else if (options.refField.equals(bufferedParser.getCurrentName())) {
+
+					((InternalEObject) object).eSetProxyURI(URI.createURI(bufferedParser.nextTextValue()));
+
 				} else {
+
 					readFeature(bufferedParser, object, bufferedParser.getCurrentName(), ctxt, resource, entries);
+
 				}
 			}
 
@@ -237,7 +254,10 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 					EObject value = deserialize(jp, ctxt, reference);
 					if (value != null) {
 						EObjects.setOrAdd(owner, reference, value);
-						entries.store(resource, value);
+
+						if (!value.eIsProxy()) {
+							entries.store(resource, value);
+						}
 					}
 				} catch (Exception e) {
 					if (resource != null) {
