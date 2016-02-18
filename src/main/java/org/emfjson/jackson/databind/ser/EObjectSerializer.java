@@ -15,7 +15,6 @@ import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.*;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.xmi.impl.XMLSaveImpl;
 import org.emfjson.jackson.common.Cache;
 import org.emfjson.common.EObjects;
 import org.emfjson.jackson.JacksonOptions;
@@ -118,7 +117,7 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 	}
 
 	/**
-	 * @see org.eclipse.emf.ecore.xmi.impl.XMLSaveImpl#writeTopElement(EObject)
+	 * @see "org.eclipse.emf.ecore.xmi.impl.XMLSaveImpl#writeTopElement(EObject)"
 	 * @param object
 	 * @throws IOException 
 	 */
