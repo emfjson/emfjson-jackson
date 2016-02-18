@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -168,9 +169,15 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 			} else if (value instanceof Iterable<?>) {
 			jg.writeFieldName(field);
 			Iterable<?> values = (Iterable<?>) value;
-
-			jg.writeStartArray();
+			
+			//Avoid ConcurrentModificationException du to call to eContainer.
+			ArrayList<Object> valuesCopiedList = new ArrayList<Object>();
 			for (Object current : values) {
+				valuesCopiedList.add(current);	
+			}
+			
+			jg.writeStartArray();
+			for (Object current : valuesCopiedList) {
 				EObject eValue = (EObject) current;
 				if (EObjects.isContainmentProxy(object, eValue)) {
 					options.referenceSerializer.serialize(object, eValue, jg, provider);
