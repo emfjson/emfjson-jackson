@@ -36,6 +36,7 @@ public class ReferenceAsObjectSerializer extends AbstractReferenceSerializer {
 
 			jg.writeStartObject();
 			if (isExternal(source, target)) {
+				options.typeSerializer.serialize(target.eClass(), jg, provider);
 				targetURI = deresolve(handler, targetURI, cache, source);
 
 				if (targetURI == null) {

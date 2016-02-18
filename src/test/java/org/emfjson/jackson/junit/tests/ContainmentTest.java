@@ -168,6 +168,7 @@ public class ContainmentTest extends TestSupport {
 			.put("label", "2")
 			.set("child", mapper.createArrayNode()
 				.add(mapper.createObjectNode()
+					.put("eClass", "http://www.emfjson.org/jackson/model#//Node")
 					.put("$ref", "proxy.json#/")));
 
 		Resource resourceProxy = resourceSet.createResource(URI.createURI("proxy.json"));
@@ -195,6 +196,7 @@ public class ContainmentTest extends TestSupport {
 		JsonNode expectedTargetResource = mapper.createObjectNode()
 			.put("eClass", "http://www.emfjson.org/jackson/model#//TargetObject")
 			.set("singleContainmentReferenceProxies", mapper.createObjectNode()
+					.put("eClass", "http://www.emfjson.org/jackson/model#//PrimaryObject")
 					.put("$ref", "source.json#/"));
 
 		JsonNode expectedSourceResource = mapper.createObjectNode()
@@ -227,7 +229,7 @@ public class ContainmentTest extends TestSupport {
 	}
 
 	@Test
-	public void testLoadProxyContainment() throws IOException {
+	public void testLoadResolvingProxyContainment() throws IOException {
 		Resource resource = resourceSet.createResource(uri("test-proxy-5b.json"));
 		resource.load(options);
 
@@ -241,6 +243,8 @@ public class ContainmentTest extends TestSupport {
 		Node child = root.getChild().get(0);
 		// Proxy is resolved because GenModel.ContainmentProxy is true
 		assertFalse(child.eIsProxy());
+		assertNotSame(root.eResource(), child.eResource());
+		assertEquals("1", child.getLabel());
 	}
 
 	@Test
