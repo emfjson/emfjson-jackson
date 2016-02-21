@@ -14,16 +14,14 @@ package org.emfjson.jackson.junit.tests;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.emfjson.jackson.junit.model.*;
+import org.emfjson.jackson.junit.model.impl.PrimaryObjectImpl;
 import org.junit.Test;
 
 import org.emfjson.EMFJs;
 import org.emfjson.jackson.JacksonOptions;
 import org.emfjson.jackson.databind.deser.references.ReferenceAsValueDeserializer;
 import org.emfjson.jackson.databind.ser.references.ReferenceAsValueSerializer;
-import org.emfjson.jackson.junit.model.ModelFactory;
-import org.emfjson.jackson.junit.model.ModelPackage;
-import org.emfjson.jackson.junit.model.Sex;
-import org.emfjson.jackson.junit.model.User;
 import org.emfjson.jackson.junit.support.TestSupport;
 import org.emfjson.jackson.module.EMFModule;
 
@@ -153,8 +151,6 @@ public class ReferenceTest extends TestSupport {
 		options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.Literals.USER);
 
 		Resource resource = resourceSet.createResource(uri("test-load-5.json"));
-		assertNotNull(resource);
-
 		resource.load(options);
 
 		assertFalse(resource.getContents().isEmpty());
@@ -255,6 +251,25 @@ public class ReferenceTest extends TestSupport {
 		User second = (User) resource.getContents().get(1);
 
 		assertSame(second, first.getUniqueFriend());
+	}
+
+	@Test
+	public void testLoadShouldNotResolveProxiesIfIsNonResolve() throws IOException {
+		Resource resource = resourceSet.createResource(uri("test-non-resolve-1.json"));
+		resource.load(options);
+
+		assertEquals(1, resource.getContents().size());
+		assertTrue(resource.getContents().get(0) instanceof PrimaryObject);
+
+		PrimaryObjectImpl source = (PrimaryObjectImpl) resource.getContents().get(0);
+		assertTrue(source.eIsSet(ModelPackage.Literals.PRIMARY_OBJECT__SINGLE_REFERENCE));
+		assertTrue(source.basicGetSingleReference().eIsProxy());
+		assertFalse(source.getSingleReference().eIsProxy());
+
+		assertEquals("Foo", source.getSingleReference().getSingleAttribute());
+
+		assertTrue(source.eIsSet(ModelPackage.Literals.PRIMARY_OBJECT__MANY_REFERENCES));
+		assertEquals(1, source.getManyReferences().size());
 	}
 
 }

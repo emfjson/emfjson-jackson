@@ -28,16 +28,19 @@ public class ReferenceAsObjectDeserializer implements ReferenceDeserializer {
 	public ReferenceEntry deserialize(JsonParser jp, EObject owner, EReference reference, DeserializationContext ctxt) throws IOException {
 		final JacksonOptions options = (JacksonOptions) ctxt.getAttribute("options");
 		String id = null;
+		String type = null;
 
 		while (jp.nextToken() != JsonToken.END_OBJECT) {
 			String field = jp.getCurrentName();
 
 			if (field.equalsIgnoreCase(options.refField)) {
 				id = jp.nextTextValue();
+			} else if (field.equalsIgnoreCase(options.typeField)) {
+				type = jp.nextTextValue();
 			}
 		}
 
-		return new DefaultReferenceEntry(owner, reference, id);
+		return new DefaultReferenceEntry(owner, reference, id, type);
 	}
 
 }
