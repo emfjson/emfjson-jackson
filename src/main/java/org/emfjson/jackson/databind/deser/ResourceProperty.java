@@ -33,6 +33,7 @@ public class ResourceProperty extends BeanProperty.Std {
 
 	public ResourceProperty(ResourceSet resourceSet, Resource resource, ReferenceEntries entries) {
 		super(propertyName, type, propertyName, new AnnotationMap(), null, PropertyMetadata.STD_REQUIRED);
+
 		this.resourceSet = resourceSet;
 		this.resource = resource;
 		this.entries = entries;

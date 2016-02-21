@@ -71,10 +71,10 @@ class TMap wraps Map.Entry {
 }
 
 class Type {
-    String name
+	String name
 }
 class Value {
-    int value
+	int value
 }
 
 type URI wraps org.eclipse.emf.common.util.URI
@@ -82,17 +82,23 @@ type URI wraps org.eclipse.emf.common.util.URI
 class PrimaryObject {
 	String name
 	id String idAttribute
+	SomeKind kind
+
 	unsettable String unsettableAttribute
 	unsettable String unsettableAttributeWithNonNullDefault = "junit"
+
 	refers unsettable TargetObject unsettableReference
+	refers TargetObject singleReference
+	refers TargetObject[] manyReferences opposite singleReference
+	refers local TargetObject singleReferenceNotResolveProxies
+	refers local TargetObject[] manyReferenceNotResolveProxies
+
 	contains resolving PrimaryObject containmentReferenceSameCollection
-	refers TargetObject singleNonContainmentReference
-	refers TargetObject[] multipleNonContainmentReference
 	contains TargetObject singleContainmentReferenceNoProxies
 	contains TargetObject[] multipleContainmentReferenceNoProxies
-	contains resolving TargetObject singleContainmentReferenceProxies
+	contains resolving TargetObject singleContainmentReferenceProxies opposite singleReferenceNotResolveProxies
 	contains resolving TargetObject[] multipleContainmentReferenceProxies
-	refers local TargetObject singleNonContainmentReferenceNoProxies
+
 	@ExtendedMetaData(group="#featureMapReferenceCollection")
 	refers local transient volatile derived TargetObject[] featureMapReferenceType1
 	@ExtendedMetaData(group="#featureMapReferenceCollection")
@@ -105,7 +111,6 @@ class PrimaryObject {
 	unique transient volatile derived String[] featureMapAttributeType2
 	@ExtendedMetaData(kind="group")
 	unique EFeatureMapEntry[] featureMapAttributeCollection
-	SomeKind kind
 }
 
 class Container {
@@ -115,6 +120,11 @@ class Container {
 class TargetObject {
 	String singleAttribute
 	unique String[] arrayAttribute
+
+	refers PrimaryObject singleReference opposite manyReferences
+	refers PrimaryObject[] manyReferences
+	refers local PrimaryObject singleReferenceNotResolveProxies opposite singleContainmentReferenceProxies
+	refers local PrimaryObject[] manyReferencesNotResolveProxies
 }
 
 abstract class AbstractType {

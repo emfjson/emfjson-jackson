@@ -1,0 +1,7 @@
+{
+  "eClass": "http://www.emfjson.org/jackson/model#//PrimaryObject",
+  "name": "TheSource",
+  "singleContainmentReferenceProxies": {
+    "$ref":"http://eclipselabs.org/emfjson/tests/test-proxy-6-target.json#/"
+  }
+}

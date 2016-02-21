@@ -280,8 +280,11 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 				try {
 					EObject value = deserialize(jp, ctxt, reference);
 					if (value != null) {
-						entries.store(resource, value);
 						EObjects.setOrAdd(owner, reference, value);
+
+						if (!value.eIsProxy()) {
+							entries.store(resource, value);
+						}
 					}
 				} catch (Exception e) {
 					if (resource != null) {

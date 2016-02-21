@@ -11,16 +11,16 @@
  */
 package org.emfjson.jackson.databind.ser;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.ser.ContextualSerializer;
 import org.eclipse.emf.ecore.*;
-
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emfjson.jackson.common.Cache;
 import org.emfjson.common.EObjects;
 import org.emfjson.jackson.JacksonOptions;
-
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
+import org.emfjson.jackson.common.Cache;
+import org.emfjson.jackson.databind.properties.ContainmentBeanProperty;
+import org.emfjson.jackson.databind.type.EcoreType;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,11 +28,21 @@ import java.util.Set;
 
 import static org.emfjson.common.EObjects.featureMaps;
 
-public class EObjectSerializer extends JsonSerializer<EObject> {
+public class EObjectSerializer extends JsonSerializer<EObject> implements ContextualSerializer {
 
 	private final JacksonOptions options;
+	private final EObject parent;
+	private final EReference containment;
 
 	public EObjectSerializer(JacksonOptions options) {
+		this.parent = null;
+		this.containment = null;
+		this.options = options;
+	}
+
+	public EObjectSerializer(EObject parent, EReference containment, JacksonOptions options) {
+		this.parent = parent;
+		this.containment = containment;
 		this.options = options;
 	}
 
@@ -55,7 +65,7 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 			provider.setAttribute("cache", cache = new Cache());
 		}
 
-		if (object.eContainer() != null && EObjects.isContainmentProxy(object.eContainer(), object)) {
+		if (parent != null && object.eContainer() != null && EObjects.isContainmentProxy(object.eContainer(), object)) {
 			options.referenceSerializer.serialize(object.eContainer(), object, jg, provider);
 			return;
 		}
@@ -86,7 +96,7 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 		for (EReference reference : references) {
 			if (EObjects.isCandidate(object, reference)) {
 				final String field = cache.getKey(reference);
-				final Object value = object.eGet(reference);
+				final Object value = object.eGet(reference, false);
 
 				writeRef(object, field, value, jg, provider);
 			}
@@ -95,9 +105,15 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 		for (EReference containment : containments) {
 			if (EObjects.isCandidate(object, containment)) {
 				final String field = cache.getKey(containment);
-				final Object value = object.eGet(containment);
+				final Object value = object.eGet(containment, false);
+				final JavaType type = EcoreType.construct(value.getClass(), containment);
+				final JsonSerializer<Object> serializer = provider.findValueSerializer(type,
+						new ContainmentBeanProperty(object, containment));
 
-				jg.writeObjectField(field, value);
+				if (serializer != null) {
+					jg.writeFieldName(field);
+					serializer.serialize(value, jg, provider);
+				}
 			}
 		}
 		jg.writeEndObject();
@@ -158,6 +174,18 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 				}
 			}
 		}
+	}
+
+	@Override
+	public JsonSerializer<?> createContextual(SerializerProvider prov, BeanProperty property) throws JsonMappingException {
+		if (property instanceof ContainmentBeanProperty) {
+			EObject parent = ((ContainmentBeanProperty) property).getParent();
+			EReference containment = ((ContainmentBeanProperty) property).getContainment();
+
+			return new EObjectSerializer(parent, containment, options);
+		}
+
+		return new EObjectSerializer(options);
 	}
 
 }

@@ -11,21 +11,18 @@
  */
 package org.emfjson.jackson.junit.tests;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emfjson.common.EObjects;
-import org.junit.Test;
-
 import org.emfjson.jackson.junit.model.*;
 import org.emfjson.jackson.junit.support.TestSupport;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
+import org.junit.Test;
 
 import java.io.IOException;
 
@@ -36,9 +33,9 @@ public class ContainmentTest extends TestSupport {
 	@Test
 	public void testSaveOneRootObjectWithAttributes() throws IOException {
 		JsonNode expected = mapper.createObjectNode()
-			.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-			.put("userId", "1")
-			.put("name", "John");
+				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
+				.put("userId", "1")
+				.put("name", "John");
 
 		User user = ModelFactory.eINSTANCE.createUser();
 		user.setUserId("1");
@@ -55,15 +52,15 @@ public class ContainmentTest extends TestSupport {
 	@Test
 	public void testSaveTwoRootObjectsWithAttributesNoReferences() throws IOException {
 		JsonNode expected = mapper.createArrayNode()
-			.add(mapper.createObjectNode()
-					.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-					.put("userId", "1")
-					.put("name", "John"))
-			.add(mapper.createObjectNode()
-					.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-					.put("userId", "2")
-					.put("name", "Mary")
-					.put("sex", "FEMALE"));
+				.add(mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//User")
+						.put("userId", "1")
+						.put("name", "John"))
+				.add(mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//User")
+						.put("userId", "2")
+						.put("name", "Mary")
+						.put("sex", "FEMALE"));
 
 		User user1 = ModelFactory.eINSTANCE.createUser();
 		user1.setUserId("1");
@@ -84,9 +81,9 @@ public class ContainmentTest extends TestSupport {
 	@Test
 	public void testSaveOneObjectWithOneChild() throws JsonProcessingException {
 		JsonNode expected = mapper.createObjectNode()
-			.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-			.set("address", mapper.createObjectNode()
-					.put("eClass", "http://www.emfjson.org/jackson/model#//Address"));
+				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
+				.set("address", mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//Address"));
 
 		Resource resource = resourceSet.createResource(URI.createURI("test"));
 
@@ -101,13 +98,13 @@ public class ContainmentTest extends TestSupport {
 	@Test
 	public void testLoadOneObjectWithOneChild() throws JsonProcessingException {
 		JsonNode data = mapper.createObjectNode()
-			.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-			.set("address", mapper.createObjectNode()
-					.put("eClass", "http://www.emfjson.org/jackson/model#//Address"));
+				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
+				.set("address", mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//Address"));
 
 		Resource resource = mapper.reader()
-			.withAttribute("resourceSet", resourceSet)
-			.treeToValue(data, Resource.class);
+				.withAttribute("resourceSet", resourceSet)
+				.treeToValue(data, Resource.class);
 
 		assertNotNull(resource);
 		assertEquals(1, resource.getContents().size());
@@ -120,11 +117,11 @@ public class ContainmentTest extends TestSupport {
 	@Test
 	public void testSaveOneObjectWithManyChildren() throws JsonProcessingException {
 		JsonNode expected = mapper.createObjectNode()
-			.put("eClass", "http://www.emfjson.org/jackson/model#//Node")
-			.set("child", mapper.createArrayNode()
-				.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node"))
-				.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node"))
-				.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node")));
+				.put("eClass", "http://www.emfjson.org/jackson/model#//Node")
+				.set("child", mapper.createArrayNode()
+						.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node"))
+						.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node"))
+						.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node")));
 
 		Resource resource = resourceSet.createResource(URI.createURI("test"));
 		Node root = ModelFactory.eINSTANCE.createNode();
@@ -139,15 +136,15 @@ public class ContainmentTest extends TestSupport {
 	@Test
 	public void testLoadOneObjectWithManyChildren() throws JsonProcessingException {
 		JsonNode data = mapper.createObjectNode()
-			.put("eClass", "http://www.emfjson.org/jackson/model#//Node")
-			.set("child", mapper.createArrayNode()
-				.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node"))
-				.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node"))
-				.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node")));
+				.put("eClass", "http://www.emfjson.org/jackson/model#//Node")
+				.set("child", mapper.createArrayNode()
+						.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node"))
+						.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node"))
+						.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node")));
 
 		Resource resource = mapper.reader()
-			.withAttribute("resourceSet", resourceSet)
-			.treeToValue(data, Resource.class);
+				.withAttribute("resourceSet", resourceSet)
+				.treeToValue(data, Resource.class);
 
 		assertNotNull(resource);
 		assertEquals(1, resource.getContents().size());
@@ -159,16 +156,18 @@ public class ContainmentTest extends TestSupport {
 
 	@Test
 	public void testSaveProxyContainment() throws IOException {
+		// proxy.json
 		JsonNode expectedProxyResource = mapper.createObjectNode()
-			.put("eClass", "http://www.emfjson.org/jackson/model#//Node")
-			.put("label", "1");
+				.put("eClass", "http://www.emfjson.org/jackson/model#//Node")
+				.put("label", "1");
 
+		// proxyLink.json
 		JsonNode expectedProxyLinkResource = mapper.createObjectNode()
-			.put("eClass", "http://www.emfjson.org/jackson/model#//Node")
-			.put("label", "2")
-			.set("child", mapper.createArrayNode()
-				.add(mapper.createObjectNode()
-					.put("$ref", "proxy.json#/")));
+				.put("eClass", "http://www.emfjson.org/jackson/model#//Node")
+				.put("label", "2")
+				.set("child", mapper.createArrayNode()
+						.add(mapper.createObjectNode()
+								.put("$ref", "proxy.json#/")));
 
 		Resource resourceProxy = resourceSet.createResource(URI.createURI("proxy.json"));
 		Resource resourceProxyLink = resourceSet.createResource(URI.createURI("proxyLink.json"));
@@ -179,15 +178,73 @@ public class ContainmentTest extends TestSupport {
 
 		Node container = ModelFactory.eINSTANCE.createNode();
 		container.setLabel("2");
+		container.getChild().add(linked);
 		resourceProxyLink.getContents().add(container);
 
-		Node proxy = ModelFactory.eINSTANCE.createNode();
-		((InternalEObject) proxy).eSetProxyURI(EcoreUtil.getURI(linked));
-
-		container.getChild().add(proxy);
+		assertSame(resourceProxy, linked.eResource());
+		assertSame(container, linked.eContainer());
+		assertSame(ModelPackage.Literals.NODE__CHILD, linked.eContainmentFeature());
+		assertTrue(ModelPackage.Literals.NODE__CHILD.isContainment());
+		assertTrue(ModelPackage.Literals.NODE__CHILD.isResolveProxies());
+		assertSame(resourceProxyLink, container.eResource());
 
 		assertEquals(expectedProxyResource, mapper.valueToTree(resourceProxy));
 		assertEquals(expectedProxyLinkResource, mapper.valueToTree(resourceProxyLink));
+	}
+
+	@Test
+	public void testSaveProxyRootContainmentWithOppositeReference() throws IOException {
+		JsonNode expectedTargetResource = mapper.createObjectNode()
+				.put("eClass", "http://www.emfjson.org/jackson/model#//TargetObject")
+				.put("singleAttribute", "Foo");
+
+		JsonNode expectedSourceResource = mapper.createObjectNode()
+				.put("eClass", "http://www.emfjson.org/jackson/model#//PrimaryObject")
+				.put("name", "TheSource")
+				.set("singleContainmentReferenceProxies", mapper.createObjectNode()
+						.put("$ref", "target.json#/"));
+
+		Resource resourceTarget = resourceSet.createResource(URI.createURI("target.json"));
+		TargetObject target = ModelFactory.eINSTANCE.createTargetObject();
+		target.setSingleAttribute("Foo");
+		resourceTarget.getContents().add(target);
+
+		Resource resourceSource = resourceSet.createResource(URI.createURI("source.json"));
+		PrimaryObject source = ModelFactory.eINSTANCE.createPrimaryObject();
+		source.setName("TheSource");
+		resourceSource.getContents().add(source);
+
+		// setting the opposite reference will set the containment
+		target.setSingleReferenceNotResolveProxies(source);
+
+		assertSame(source, target.eContainer());
+		assertSame(ModelPackage.Literals.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_PROXIES, target.eContainingFeature());
+		assertSame(resourceTarget, target.eResource());
+
+		assertEquals(expectedTargetResource, mapper.valueToTree(resourceTarget));
+		assertEquals(expectedSourceResource, mapper.valueToTree(resourceSource));
+	}
+
+	@Test
+	public void testLoadProxyRootContainmentWithOppositeReference() throws IOException {
+		Resource resource = resourceSet.createResource(uri("test-proxy-6.json"));
+		resource.load(options);
+
+		assertEquals(1, resource.getContents().size());
+		assertTrue(resource.getContents().get(0) instanceof PrimaryObject);
+
+		PrimaryObject source = (PrimaryObject) resource.getContents().get(0);
+
+		assertEquals("TheSource", source.getName());
+		assertTrue(source.eIsSet(ModelPackage.Literals.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_PROXIES));
+
+		TargetObject target = source.getSingleContainmentReferenceProxies();
+		assertFalse(target.eIsProxy());
+
+		assertSame(source, target.getSingleReferenceNotResolveProxies());
+		assertSame(source, target.eContainer());
+		assertSame(ModelPackage.Literals.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_PROXIES, target.eContainingFeature());
+		assertNotSame(source.eResource(), target.eResource());
 	}
 
 	@Test
