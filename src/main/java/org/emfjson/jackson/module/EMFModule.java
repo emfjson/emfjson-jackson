@@ -11,20 +11,11 @@
  */
 package org.emfjson.jackson.module;
 
-import org.eclipse.emf.common.util.Enumerator;
-import org.eclipse.emf.ecore.EEnumLiteral;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-
-import org.emfjson.jackson.JacksonOptions;
-import org.emfjson.jackson.databind.deser.EObjectDeserializer;
-import org.emfjson.jackson.databind.deser.ResourceDeserializer;
-import org.emfjson.jackson.databind.ser.*;
-
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.emfjson.jackson.JacksonOptions;
 
 /**
  * Module implementation that allows serialization and deserialization of
@@ -41,21 +32,16 @@ public class EMFModule extends SimpleModule {
 	}
 
 	public EMFModule(ResourceSet resourceSet, JacksonOptions options) {
-		this.resourceSet = resourceSet == null ? new ResourceSetImpl() : resourceSet;
-		this.options = options == null ? new JacksonOptions.Builder().build() : options;
-
-		configure();
+		this.resourceSet = resourceSet == null ? new ResourceSetImpl(): resourceSet;
+		this.options = options == null ? new JacksonOptions.Builder().build(): options;
 	}
 
-	protected void configure() {
-		addSerializer(new EObjectSerializer(options));
-		addSerializer(new ResourceSerializer());
-		addSerializer(Enumerator.class, new EnumeratorSerializer());
-		addSerializer(EEnumLiteral.class, new EnumeratorSerializer());
-		addSerializer(new EMapSerializer());
-		addSerializer(new EMapEntrySerializer());
-		addDeserializer(EObject.class, new EObjectDeserializer(resourceSet, options));
-		addDeserializer(Resource.class, new ResourceDeserializer(resourceSet, options));
+	@Override
+	public void setupModule(SetupContext context) {
+		context.addDeserializers(new EMFDeserializers(resourceSet, options));
+		context.addSerializers(new EMFSerializers(options));
+
+		super.setupModule(context);
 	}
 
 	@Override
@@ -65,7 +51,7 @@ public class EMFModule extends SimpleModule {
 
 	@Override
 	public Version version() {
-		return new Version(0, 14, 0, null, "org.emfjson", "emfjson-jackson");
+		return new Version(0, 15, 0, null, "org.emfjson", "emfjson-jackson");
 	}
 
 }
