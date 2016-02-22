@@ -167,6 +167,7 @@ public class ContainmentTest extends TestSupport {
 				.put("label", "2")
 				.set("child", mapper.createArrayNode()
 						.add(mapper.createObjectNode()
+								.put("eClass", "http://www.emfjson.org/jackson/model#//Node")
 								.put("$ref", "proxy.json#/")));
 
 		Resource resourceProxy = resourceSet.createResource(URI.createURI("proxy.json"));
@@ -202,6 +203,7 @@ public class ContainmentTest extends TestSupport {
 				.put("eClass", "http://www.emfjson.org/jackson/model#//PrimaryObject")
 				.put("name", "TheSource")
 				.set("singleContainmentReferenceProxies", mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//TargetObject")
 						.put("$ref", "target.json#/"));
 
 		Resource resourceTarget = resourceSet.createResource(URI.createURI("target.json"));

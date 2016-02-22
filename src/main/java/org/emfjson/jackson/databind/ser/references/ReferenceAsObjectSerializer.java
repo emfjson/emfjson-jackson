@@ -41,6 +41,7 @@ public class ReferenceAsObjectSerializer extends AbstractReferenceSerializer {
 				if (targetURI == null) {
 					jg.writeNullField(options.refField);
 				} else {
+					jg.writeStringField(options.typeField, cache.getURI(target.eClass()).toString());
 					jg.writeStringField(options.refField, targetURI.toString());
 				}
 			} else {
