@@ -44,24 +44,9 @@ public class DefaultReferenceEntry implements ReferenceEntries.ReferenceEntry {
 			// look for it in local resource first
 			target = owner.eResource().getEObject(id);
 			
-			// then look for in the other resource
+			// then look for in the other resource in case of manual external proxy
 			if (target == null) {
-				for (Iterator<Resource> iterator = resourceSet.getResources().iterator(); iterator.hasNext() && target == null;) {
-					Resource res = (Resource) iterator.next();
-					// skip current resource because we already treat it
-					
-					//TODO
-					/*
-					
-					 URI Hierarchical vs URI$Fragment
-
-					 archive:file://C:\Users\gdufour\AppData\Local\Temp\.metaxserver_test\database\filesystem\root\resource_datas\roots\documents\0\30\1\0--130_1.metax!/root.metax#/
-
-					 archive:file://C:\Users\gdufour\AppData\Local\Temp\.metaxserver_test\database\filesystem\root\resource_datas\roots\documents\0\30\1\0--130_1.metax!/root.metax
-					*/
-					if(res !=  owner.eResource() && uri.equals(res.getURI()))
-						target = res.getContents().get(0);
-				}
+				target = resourceSet.getEObject(uri, true);
 			}
 
 			if (target == null) {

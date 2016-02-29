@@ -110,8 +110,7 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 			if (EObjects.isCandidate(object, containment)) {
 				final String field = cache.getKey(containment);
 				final Object value = object.eGet(containment);
-
-				writeContainment(object, field, value, jg, provider);
+				jg.writeObjectField(field, value);
 			}
 		}
 		jg.writeEndObject();
@@ -158,44 +157,6 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 
 	protected void writeType(EClass eClass, JsonGenerator jg, SerializerProvider provider) throws IOException {
 		options.typeSerializer.serialize(eClass, jg, provider);
-	}
-	
-	private void writeContainment(EObject object, final String field,
-			final Object value, JsonGenerator jg, SerializerProvider provider) throws IOException {
-		
-			if (EMap.class.isAssignableFrom(value.getClass())) {
-				jg.writeFieldName(field);
-				jg.writeObject(value);
-			} else if (value instanceof Iterable<?>) {
-			jg.writeFieldName(field);
-			Iterable<?> values = (Iterable<?>) value;
-			
-			//Avoid ConcurrentModificationException du to call to eContainer.
-			ArrayList<Object> valuesCopiedList = new ArrayList<Object>();
-			for (Object current : values) {
-				valuesCopiedList.add(current);	
-			}
-			
-			jg.writeStartArray();
-			for (Object current : valuesCopiedList) {
-				EObject eValue = (EObject) current;
-				if (EObjects.isContainmentProxy(object, eValue)) {
-					options.referenceSerializer.serialize(object, eValue, jg, provider);
-				} else {
-					jg.writeObject(eValue);
-				}
-			}
-			jg.writeEndArray();
-		} else
-		{
-			EObject eValue = (EObject) value;
-			if (EObjects.isContainmentProxy(object, eValue)) {
-				jg.writeFieldName(field);
-				options.referenceSerializer.serialize(object, eValue, jg, provider);
-			} else {
-				jg.writeObjectField(field, eValue);
-			}
-		}
 	}
 
 	private void writeRef(EObject source, String field, Object value, JsonGenerator jg, SerializerProvider provider) throws IOException {
