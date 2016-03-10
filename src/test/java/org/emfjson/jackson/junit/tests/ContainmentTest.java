@@ -17,6 +17,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emfjson.common.EObjects;
@@ -221,6 +222,48 @@ public class ContainmentTest extends TestSupport {
 
 		assertSame(source, target.eContainer());
 		assertSame(ModelPackage.Literals.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_PROXIES, target.eContainingFeature());
+		assertSame(resourceTarget, target.eResource());
+
+		assertEquals(expectedTargetResource, mapper.valueToTree(resourceTarget));
+		assertEquals(expectedSourceResource, mapper.valueToTree(resourceSource));
+	}
+
+	@Test
+	public void testSaveProxies() throws IOException {
+		JsonNode expectedTargetResource = mapper.createObjectNode()
+				.put("eClass", "http://www.emfjson.org/jackson/model#//TargetObject")
+				.set("manyReferences", mapper.createArrayNode()
+						.add(
+								mapper.createObjectNode()
+										.put("eClass", "http://www.emfjson.org/jackson/model#//PrimaryObject")
+										.put("$ref", "source.json#/")));
+
+		JsonNode expectedSourceResource = mapper.createObjectNode()
+				.put("eClass", "http://www.emfjson.org/jackson/model#//PrimaryObject")
+				.put("name", "TheSource")
+				.set("singleContainmentReferenceNoProxies", mapper.createObjectNode()
+						.put("$ref", "/"));
+
+		Resource resourceTarget = resourceSet.createResource(URI.createURI("target.json"));
+		Resource resourceSource = resourceSet.createResource(URI.createURI("source.json"));
+
+		TargetObject target = ModelFactory.eINSTANCE.createTargetObject();
+		resourceTarget.getContents().add(target);
+
+		PrimaryObject source = ModelFactory.eINSTANCE.createPrimaryObject();
+		source.setName("TheSource");
+		resourceSource.getContents().add(source);
+
+		PrimaryObject sourceProxy = ModelFactory.eINSTANCE.createPrimaryObject();
+		((InternalEObject) sourceProxy).eSetProxyURI(EcoreUtil.getURI(source));
+		target.getManyReferences().add(sourceProxy);
+
+		TargetObject targetProxy = ModelFactory.eINSTANCE.createTargetObject();
+		((InternalEObject) targetProxy).eSetProxyURI(EcoreUtil.getURI(target));
+		source.setSingleContainmentReferenceNoProxies(targetProxy);
+
+		assertSame(source, targetProxy.eContainer());
+		assertSame(ModelPackage.Literals.PRIMARY_OBJECT__SINGLE_CONTAINMENT_REFERENCE_NO_PROXIES, targetProxy.eContainingFeature());
 		assertSame(resourceTarget, target.eResource());
 
 		assertEquals(expectedTargetResource, mapper.valueToTree(resourceTarget));
