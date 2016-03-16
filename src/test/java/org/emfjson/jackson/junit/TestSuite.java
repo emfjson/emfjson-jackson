@@ -41,6 +41,7 @@ import org.emfjson.jackson.junit.tests.*;
 		ReferenceTest.class,
 		UuidLoadTest.class,
 		UuidSaveTest.class,
-		ValueTest.class
+		ValueTest.class,
+		NullValueInBetweenTest.class
 })
 public class TestSuite {}
