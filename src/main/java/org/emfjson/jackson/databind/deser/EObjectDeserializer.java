@@ -209,6 +209,10 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 			if (jp.getCurrentToken() == JsonToken.FIELD_NAME) {
 				jp.nextToken();
 			}
+			
+			if (jp.getCurrentToken() == JsonToken.VALUE_NULL) {
+				return;
+			}
 
 			if (feature instanceof EAttribute) {
 				readAttribute(jp, current, (EAttribute) feature, resource, ctxt);
