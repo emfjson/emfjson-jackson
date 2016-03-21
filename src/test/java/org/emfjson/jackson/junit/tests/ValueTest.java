@@ -39,6 +39,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import static org.junit.Assert.*;
+
 public class ValueTest extends TestSupport {
 
 	@Test
@@ -151,6 +153,8 @@ public class ValueTest extends TestSupport {
 		assertEquals(ModelPackage.Literals.ETYPES, root.eClass());
 
 		assertThat(((ETypes) root).getEString()).isNull();
+		assertEquals(1, resource.getContents().size());
+		assertNull(((ETypes) root).getEString());
 	}
 
 	@Test

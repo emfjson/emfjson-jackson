@@ -34,10 +34,12 @@ public class ReferenceEntries {
 	}
 
 	public void add(ReferenceEntries.ReferenceEntry entry) {
-		entries.add(entry);
+		if (entry != null) {
+			entries.add(entry);
+		}
 	}
 
-	public Iterable<ReferenceEntries.ReferenceEntry> all() {
+	public Set<ReferenceEntries.ReferenceEntry> all() {
 		return entries;
 	}
 

@@ -70,15 +70,6 @@ public class FeatureMapTest extends TestSupport {
 	}
 
 	@Test
-	public void testLoadFeatureMapWithRefs() throws IOException {
-		Resource resource = resourceSet.createResource(uri("test-load-feature-map-refs.json"));
-		resource.load(null);
-
-		assertEquals(1, resource.getContents().size());
-		assertTrue(resource.getContents().get(0) instanceof PrimaryObject);
-	}
-
-	@Test
 	public void testLoadFeatureMapReferences() throws IOException {
 		Resource resource = resourceSet.createResource(uri("test-load-feature-map-refs.json"));
 		assertNotNull(resource);

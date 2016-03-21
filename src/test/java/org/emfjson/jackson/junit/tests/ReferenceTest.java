@@ -11,27 +11,26 @@
  */
 package org.emfjson.jackson.junit.tests;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emfjson.jackson.junit.model.*;
-import org.emfjson.jackson.junit.model.impl.PrimaryObjectImpl;
-import org.junit.Test;
-
 import org.emfjson.EMFJs;
 import org.emfjson.jackson.JacksonOptions;
 import org.emfjson.jackson.databind.deser.references.ReferenceAsValueDeserializer;
 import org.emfjson.jackson.databind.ser.references.ReferenceAsValueSerializer;
+import org.emfjson.jackson.junit.model.*;
+import org.emfjson.jackson.junit.model.impl.PrimaryObjectImpl;
 import org.emfjson.jackson.junit.support.TestSupport;
 import org.emfjson.jackson.module.EMFModule;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
 
 public class ReferenceTest extends TestSupport {
@@ -39,18 +38,18 @@ public class ReferenceTest extends TestSupport {
 	@Test
 	public void testSaveTwoObjectsWithAttributesOneReference() throws IOException {
 		JsonNode expected = mapper.createArrayNode()
-			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-				.put("userId", "1")
-				.put("name", "John")
-				.set("uniqueFriend", mapper.createObjectNode()
-						.put("$ref", "2")
-				))
-			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-				.put("userId", "2")
-				.put("name", "Mary")
-				.put("sex", "FEMALE"));
+				.add(mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//User")
+						.put("userId", "1")
+						.put("name", "John")
+						.set("uniqueFriend", mapper.createObjectNode()
+								.put("$ref", "2")
+						))
+				.add(mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//User")
+						.put("userId", "2")
+						.put("name", "Mary")
+						.put("sex", "FEMALE"));
 
 		User user1 = ModelFactory.eINSTANCE.createUser();
 		user1.setUserId("1");
@@ -74,19 +73,19 @@ public class ReferenceTest extends TestSupport {
 	@Test
 	public void testLoadTwoObjectsWithAttributesOneReference() throws IOException {
 		JsonNode data = mapper.createArrayNode()
-			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-				.put("userId", "1")
-				.put("name", "John")
-				.put("sex", "MALE")
-				.set("uniqueFriend", mapper.createObjectNode()
-						.put("$ref", "2")
-				))
-			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-				.put("userId", "2")
-				.put("name", "Mary")
-				.put("sex", "FEMALE"));
+				.add(mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//User")
+						.put("userId", "1")
+						.put("name", "John")
+						.put("sex", "MALE")
+						.set("uniqueFriend", mapper.createObjectNode()
+								.put("$ref", "2")
+						))
+				.add(mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//User")
+						.put("userId", "2")
+						.put("name", "Mary")
+						.put("sex", "FEMALE"));
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test-save-3.json"));
 		resource.load(new ByteArrayInputStream(mapper.writeValueAsBytes(data)), null);
@@ -102,10 +101,10 @@ public class ReferenceTest extends TestSupport {
 	@Test
 	public void testLoadWithExternalReferenceFromFile() throws IOException {
 		JsonNode data = mapper.createObjectNode()
-			.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-			.put("userId", "2")
-			.set("uniqueFriend", mapper.createObjectNode()
-				.put("$ref", "http://eclipselabs.org/emfjson/tests/test-load-1.json#1"));
+				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
+				.put("userId", "2")
+				.set("uniqueFriend", mapper.createObjectNode()
+						.put("$ref", "http://eclipselabs.org/emfjson/tests/test-load-1.json#1"));
 
 		Resource resource = resourceSet.createResource(URI.createURI("http://resources/second"));
 		resource.load(new ByteArrayInputStream(mapper.writeValueAsBytes(data)), options);
@@ -121,15 +120,15 @@ public class ReferenceTest extends TestSupport {
 	@Test
 	public void testLoadWithExternalReference() throws IOException {
 		JsonNode firstResource = mapper.createObjectNode()
-			.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-			.put("userId", "1");
+				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
+				.put("userId", "1");
 
 		JsonNode secondResource = mapper.createObjectNode()
-			.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-			.put("userId", "2")
-			.set("uniqueFriend", mapper.createObjectNode()
 				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-				.put("$ref", "http://resources/first#1"));
+				.put("userId", "2")
+				.set("uniqueFriend", mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//User")
+						.put("$ref", "http://resources/first#1"));
 
 		Resource first = resourceSet.createResource(URI.createURI("http://resources/first"));
 		Resource second = resourceSet.createResource(URI.createURI("http://resources/second"));
@@ -150,7 +149,7 @@ public class ReferenceTest extends TestSupport {
 	public void testLoadThreeObjectsTwoReferences() throws IOException {
 		options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.Literals.USER);
 
-		Resource resource = resourceSet.createResource(uri("test-load-5.json"));
+		Resource resource = resourceSet.createResource(uri("test-load-2.json"));
 		resource.load(options);
 
 		assertFalse(resource.getContents().isEmpty());
@@ -188,21 +187,21 @@ public class ReferenceTest extends TestSupport {
 	public void testSaveReferenceAsValue() {
 		ObjectMapper mapper = new ObjectMapper();
 		JacksonOptions opts = new JacksonOptions.Builder()
-			.withReferenceSerializer(new ReferenceAsValueSerializer())
-			.build();
+				.withReferenceSerializer(new ReferenceAsValueSerializer())
+				.build();
 		mapper.registerModule(new EMFModule(resourceSet, opts));
 
 		JsonNode expected = mapper.createArrayNode()
-			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-				.put("userId", "1")
-				.put("name", "John")
-				.put("uniqueFriend", "2"))
-			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-				.put("userId", "2")
-				.put("name", "Mary")
-				.put("sex", "FEMALE"));
+				.add(mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//User")
+						.put("userId", "1")
+						.put("name", "John")
+						.put("uniqueFriend", "2"))
+				.add(mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//User")
+						.put("userId", "2")
+						.put("name", "Mary")
+						.put("sex", "FEMALE"));
 
 		User user1 = ModelFactory.eINSTANCE.createUser();
 		user1.setUserId("1");
@@ -226,22 +225,22 @@ public class ReferenceTest extends TestSupport {
 	public void testLoadReferenceAsValue() throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
 		JacksonOptions opts = new JacksonOptions.Builder()
-			.withReferenceDeserializer(new ReferenceAsValueDeserializer())
-			.build();
+				.withReferenceDeserializer(new ReferenceAsValueDeserializer())
+				.build();
 		mapper.registerModule(new EMFModule(resourceSet, opts));
 
 		JsonNode data = mapper.createArrayNode()
-			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-				.put("userId", "1")
-				.put("name", "John")
-				.put("sex", "MALE")
-				.put("uniqueFriend", "2"))
-			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-				.put("userId", "2")
-				.put("name", "Mary")
-				.put("sex", "FEMALE"));
+				.add(mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//User")
+						.put("userId", "1")
+						.put("name", "John")
+						.put("sex", "MALE")
+						.put("uniqueFriend", "2"))
+				.add(mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//User")
+						.put("userId", "2")
+						.put("name", "Mary")
+						.put("sex", "FEMALE"));
 
 		Resource resource = mapper.treeToValue(data, Resource.class);
 
@@ -270,6 +269,50 @@ public class ReferenceTest extends TestSupport {
 
 		assertTrue(source.eIsSet(ModelPackage.Literals.PRIMARY_OBJECT__MANY_REFERENCES));
 		assertEquals(1, source.getManyReferences().size());
+	}
+
+	@Test
+	public void testLoadObjectWithDeepHierarchy() throws IOException {
+		Resource resource = resourceSet.createResource(uri("test-load-3.json"));
+		resource.load(options);
+
+		assertThat(resource.getContents())
+				.hasSize(1)
+				.hasOnlyElementsOfType(PrimaryObject.class);
+
+		PrimaryObject p1 = (PrimaryObject) resource.getContents().get(0);
+		assertThat(p1.getName())
+				.isEqualTo("p1");
+
+		// p1
+		assertThat(p1.getMultipleContainmentReferenceNoProxies())
+				.hasSize(2);
+		assertThat(p1.getMultipleContainmentReferenceNoProxies().get(0).getSingleAttribute())
+				.isEqualTo("t1");
+		assertThat(p1.getMultipleContainmentReferenceNoProxies().get(1).getSingleAttribute())
+				.isEqualTo("t2");
+		assertThat(p1.getContainmentReferenceSameCollection())
+				.isNotNull();
+
+		// p2
+		PrimaryObject p2 = p1.getContainmentReferenceSameCollection();
+
+		assertThat(p2.getMultipleContainmentReferenceNoProxies())
+				.hasSize(2);
+		assertThat(p2.getMultipleContainmentReferenceNoProxies().get(0).getSingleAttribute())
+				.isEqualTo("t3");
+		assertThat(p2.getMultipleContainmentReferenceNoProxies().get(1).getSingleAttribute())
+				.isEqualTo("t4");
+
+		// p3
+		PrimaryObject p3 = p2.getContainmentReferenceSameCollection();
+
+		assertThat(p3.getMultipleContainmentReferenceNoProxies())
+				.hasSize(2);
+		assertThat(p3.getMultipleContainmentReferenceNoProxies().get(0).getSingleAttribute())
+				.isEqualTo("t5");
+		assertThat(p3.getMultipleContainmentReferenceNoProxies().get(1).getSingleAttribute())
+				.isEqualTo("t6");
 	}
 
 }

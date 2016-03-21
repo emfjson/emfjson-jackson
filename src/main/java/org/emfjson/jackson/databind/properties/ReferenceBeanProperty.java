@@ -8,29 +8,28 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.emfjson.jackson.databind.type.EcoreType;
 
-public class ContainmentBeanProperty extends BeanProperty.Std {
+public class ReferenceBeanProperty extends BeanProperty.Std {
 
 	private final EObject parent;
-	private final EReference containment;
+	private final EReference reference;
 
-	public ContainmentBeanProperty(EObject parent, EReference containment) {
-		super(new PropertyName(containment.getName()),
-				EcoreType.construct(parent, containment),
+	public ReferenceBeanProperty(EObject parent, EReference reference) {
+		super(new PropertyName(reference.getName()),
+				EcoreType.construct(parent, reference),
 				null,
 				new AnnotationMap(),
 				null,
 				PropertyMetadata.STD_REQUIRED);
 
 		this.parent = parent;
-		this.containment = containment;
+		this.reference = reference;
 	}
 
 	public EObject getParent() {
 		return parent;
 	}
 
-	public EReference getContainment() {
-		return containment;
+	public EReference getReference() {
+		return reference;
 	}
-
 }

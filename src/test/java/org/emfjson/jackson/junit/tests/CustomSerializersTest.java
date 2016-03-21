@@ -12,7 +12,9 @@
 package org.emfjson.jackson.junit.tests;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.eclipse.emf.common.util.URI;
@@ -26,6 +28,7 @@ import org.emfjson.jackson.JacksonOptions;
 import org.emfjson.jackson.databind.ser.IdSerializer;
 import org.emfjson.jackson.databind.ser.TypeSerializer;
 import org.emfjson.jackson.databind.ser.references.ReferenceSerializer;
+import org.emfjson.jackson.junit.model.ETypes;
 import org.emfjson.jackson.junit.model.ModelFactory;
 import org.emfjson.jackson.junit.model.ModelPackage;
 import org.emfjson.jackson.junit.model.User;
@@ -42,7 +45,8 @@ public class CustomSerializersTest {
 
 	private IdSerializer serializer = new IdSerializer() {
 		@Override
-		public void serialize(EObject object, JsonGenerator jg, SerializerProvider provider) throws IOException {}
+		public void serialize(EObject object, JsonGenerator jg, SerializerProvider provider) throws IOException {
+		}
 	};
 
 	private ReferenceSerializer referenceSerializer = new ReferenceSerializer() {
@@ -76,8 +80,13 @@ public class CustomSerializersTest {
 				.withReferenceSerializer(referenceSerializer)
 				.withTypeSerializer(typeSerializer)
 				.build());
-
+		module.addSerializer(ETypes.class, new JsonSerializer<ETypes>() {
+			@Override
+			public void serialize(ETypes value, JsonGenerator gen, SerializerProvider serializers) throws IOException, JsonProcessingException {
+			}
+		});
 		mapper.registerModule(module);
+
 	}
 
 	@Test

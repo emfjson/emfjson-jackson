@@ -31,7 +31,7 @@ public class ReferenceAsObjectDeserializer implements ReferenceDeserializer {
 		String type = null;
 
 		while (jp.nextToken() != JsonToken.END_OBJECT) {
-			String field = jp.getCurrentName();
+			final String field = jp.getCurrentName();
 
 			if (field.equalsIgnoreCase(options.refField)) {
 				id = jp.nextTextValue();
@@ -40,7 +40,11 @@ public class ReferenceAsObjectDeserializer implements ReferenceDeserializer {
 			}
 		}
 
-		return new DefaultReferenceEntry(owner, reference, id, type);
+		if (id != null) {
+			return new DefaultReferenceEntry(owner, reference, id, type);
+		} else {
+			return null;
+		}
 	}
 
 }

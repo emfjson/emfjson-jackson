@@ -15,12 +15,15 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.type.SimpleType;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.emfjson.common.ReferenceEntries;
 import org.emfjson.jackson.JacksonOptions;
+import org.emfjson.jackson.common.Cache;
+import org.emfjson.jackson.databind.type.EcoreType;
 import org.emfjson.jackson.resource.JsonResource;
 
 import java.io.IOException;
@@ -57,6 +60,9 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 		final ReferenceEntries entries = new ReferenceEntries();
 		ctxt.setAttribute("resource", resource);
 		ctxt.setAttribute("entries", entries);
+		ctxt.setAttribute("cache", new Cache());
+		ctxt.setAttribute("resourceSet", resource.getResourceSet());
+		ctxt.setAttribute("options", options);
 
 		if (!jp.hasCurrentToken()) {
 			jp.nextToken();
@@ -66,26 +72,33 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 
 			while (jp.nextToken() != JsonToken.END_ARRAY) {
 
-				EObject result = ctxt.readPropertyValue(jp,
-						new ResourceProperty(resourceSet, resource, entries),
-						EObject.class);
+				JsonDeserializer<Object> deserializer = ctxt.findContextualValueDeserializer(
+						SimpleType.construct(EObject.class),
+						new ResourceProperty(resourceSet, resource, entries));
 
-				if (result != null) {
-					resource.getContents().add(result);
-					entries.store(resource, result);
+				EObject value = (EObject) deserializer.deserialize(jp, ctxt);
+
+				if (value != null) {
+					resource.getContents().add(value);
+//					entries.store(resource, result);
 				}
 			}
 
 		} else if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
 
-			EObject result = ctxt.readPropertyValue(jp,
-					new ResourceProperty(resourceSet, resource, entries),
-					EObject.class);
+			JsonDeserializer<Object> deserializer = ctxt.findContextualValueDeserializer(
+					SimpleType.construct(EObject.class),
+					new ResourceProperty(resourceSet, resource, entries));
 
-			if (result != null) {
-				resource.getContents().add(result);
-				entries.store(resource, result);
+			EObject value = (EObject) deserializer.deserialize(jp, ctxt);
+
+			if (value != null) {
+				resource.getContents().add(value);
 			}
+//			if (result != null) {
+//				resource.getContents().add(result);
+//				entries.store(resource, result);
+//			}
 
 		}
 

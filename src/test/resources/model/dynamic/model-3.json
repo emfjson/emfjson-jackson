@@ -1,0 +1,34 @@
+{
+  "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EPackage",
+  "name": "p",
+  "nsPrefix": "p",
+  "nsURI": "http://foo.org/p2",
+  "eClassifiers": [
+    {
+      "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+      "name": "A",
+      "eStructuralFeatures": [
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EAttribute",
+          "name": "label",
+          "eType": {
+            "$ref": "http://www.eclipse.org/emf/2002/Ecore#//EString"
+          }
+        },
+        {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EReference",
+          "name": "bs",
+          "containment": true,
+          "upperBound": -1,
+          "eType": {
+            "$ref": "//B"
+          }
+        }
+      ]
+    },
+    {
+      "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
+      "name": "B"
+    }
+  ]
+}

@@ -45,7 +45,6 @@ public class DefaultReferenceEntry implements ReferenceEntries.ReferenceEntry {
 		EObject target = entries.get(id);
 
 		if (target == null) {
-			URI uri = URI.createURI(id);
 
 			if (reference.isResolveProxies() && type != null) {
 
@@ -56,6 +55,7 @@ public class DefaultReferenceEntry implements ReferenceEntries.ReferenceEntry {
 				target = owner.eResource().getEObject(id);
 
 				if (target == null) {
+					URI uri = URI.createURI(id);
 					URI baseURI = owner.eResource().getURI().trimFragment();
 
 					if (handler != null) {
@@ -97,4 +97,26 @@ public class DefaultReferenceEntry implements ReferenceEntries.ReferenceEntry {
 		return object;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		DefaultReferenceEntry that = (DefaultReferenceEntry) o;
+
+		if (!owner.equals(that.owner)) return false;
+		if (!reference.equals(that.reference)) return false;
+		if (!id.equals(that.id)) return false;
+		return type != null ? type.equals(that.type): that.type == null;
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = owner.hashCode();
+		result = 31 * result + reference.hashCode();
+		result = 31 * result + id.hashCode();
+		result = 31 * result + (type != null ? type.hashCode(): 0);
+		return result;
+	}
 }

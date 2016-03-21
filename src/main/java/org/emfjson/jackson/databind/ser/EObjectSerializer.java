@@ -106,7 +106,7 @@ public class EObjectSerializer extends JsonSerializer<EObject> implements Contex
 			if (EObjects.isCandidate(object, containment)) {
 				final String field = cache.getKey(containment);
 				final Object value = object.eGet(containment, false);
-				final JavaType type = EcoreType.construct(value.getClass(), containment);
+				final JavaType type = EcoreType.construct(object, containment);
 				final JsonSerializer<Object> serializer = provider.findValueSerializer(type,
 						new ContainmentBeanProperty(object, containment));
 

@@ -1,0 +1,42 @@
+{
+  "eClass": "http://www.emfjson.org/jackson/model#//PrimaryObject",
+  "name": "p1",
+  "multipleContainmentReferenceNoProxies": [
+    {
+      "eClass": "http://www.emfjson.org/jackson/model#//TargetObject",
+      "singleAttribute": "t1"
+    },
+    {
+      "eClass": "http://www.emfjson.org/jackson/model#//TargetObject",
+      "singleAttribute": "t2"
+    }
+  ],
+  "containmentReferenceSameCollection": {
+    "eClass": "http://www.emfjson.org/jackson/model#//PrimaryObject",
+    "name": "p2",
+    "multipleContainmentReferenceNoProxies": [
+      {
+        "eClass": "http://www.emfjson.org/jackson/model#//TargetObject",
+        "singleAttribute": "t3"
+      },
+      {
+        "eClass": "http://www.emfjson.org/jackson/model#//TargetObject",
+        "singleAttribute": "t4"
+      }
+    ],
+    "containmentReferenceSameCollection": {
+      "eClass": "http://www.emfjson.org/jackson/model#//PrimaryObject",
+      "name": "p3",
+      "multipleContainmentReferenceNoProxies": [
+        {
+          "eClass": "http://www.emfjson.org/jackson/model#//TargetObject",
+          "singleAttribute": "t5"
+        },
+        {
+          "eClass": "http://www.emfjson.org/jackson/model#//TargetObject",
+          "singleAttribute": "t6"
+        }
+      ]
+    }
+  }
+}
