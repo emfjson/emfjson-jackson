@@ -40,8 +40,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		ReferenceTest.class,
 		UuidLoadTest.class,
 		UuidSaveTest.class,
-		ValueTest.class,
-		NullValueInBetweenTest.class
+		ValueTest.class
 })
 public class TestSuite {
 }
