@@ -35,7 +35,7 @@ Add the following dependency yo your POM file to use emfjson-jackson.
 <dependency>
 	<groupId>org.emfjson</groupId>
 	<artifactId>emfjson-jackson</artifactId>
-	<version>0.14.0</version>
+	<version>0.15.0</version>
 </dependency>
 ```
 
@@ -43,11 +43,7 @@ Add the following dependency yo your POM file to use emfjson-jackson.
 
 Use this update site [http://ghillairet.github.io/p2](http://ghillairet.github.io/p2)
 
-This update site contains the bundle and feature for emfjson-jackson. 
-
-> If you are using a version of eclipse inferior to Mars (< 4.5), please add the following orbit 
- repository, that contains jackson bundles, before trying to install emfjson.
- http://download.eclipse.org/tools/orbit/downloads/drops/R20150519210750/repository/
+This update site contains the bundle and feature for emfjson-jackson and Jackson. 
 
 ### Jars
 
