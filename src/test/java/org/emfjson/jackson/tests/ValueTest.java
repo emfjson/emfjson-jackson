@@ -34,6 +34,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.emfjson.jackson.module.EMFModule.ModuleFeature.OPTION_SERIALIZE_DEFAULT_VALUE;
+
 import static org.junit.Assert.*;
 
 public class ValueTest {
@@ -154,11 +155,9 @@ public class ValueTest {
 		resource.load(new ByteArrayInputStream(mapper.writeValueAsBytes(data)), null);
 
 		EObject root = resource.getContents().get(0);
-		assertEquals(ModelPackage.Literals.ETYPES, root.eClass());
 
+		assertEquals(ModelPackage.Literals.ETYPES, root.eClass());
 		assertThat(((ETypes) root).getEString()).isNull();
-		assertEquals(1, resource.getContents().size());
-		assertNull(((ETypes) root).getEString());
 	}
 
 	@Test
