@@ -11,11 +11,10 @@
  */
 package org.emfjson.jackson.junit;
 
+import org.emfjson.jackson.junit.tests.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
-
-import org.emfjson.jackson.junit.tests.*;
 
 @RunWith(Suite.class)
 @SuiteClasses({
@@ -44,4 +43,5 @@ import org.emfjson.jackson.junit.tests.*;
 		ValueTest.class,
 		NullValueInBetweenTest.class
 })
-public class TestSuite {}
+public class TestSuite {
+}

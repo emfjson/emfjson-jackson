@@ -34,6 +34,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -113,6 +114,43 @@ public class ValueTest extends TestSupport {
 		resource.getContents().add(valueObject);
 
 		assertEquals(expected, mapper.valueToTree(resource));
+	}
+
+	@Test
+	public void testLoadStringValues() throws IOException {
+		JsonNode data = mapper.createObjectNode()
+				.put("eClass", "http://www.emfjson.org/jackson/model#//ETypes")
+				.put("eString", "Hello")
+				.set("eStrings", mapper.createArrayNode()
+						.add("Hello")
+						.add("The")
+						.add("World"));
+
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+		resource.load(new ByteArrayInputStream(mapper.writeValueAsBytes(data)), null);
+
+		EObject root = resource.getContents().get(0);
+		assertEquals(ModelPackage.Literals.ETYPES, root.eClass());
+
+		assertEquals("Hello", ((ETypes) root).getEString());
+
+		assertThat(((ETypes) root).getEStrings())
+				.containsExactly("Hello", "The", "World");
+	}
+
+	@Test
+	public void testLoadNullValue() throws IOException {
+		JsonNode data = mapper.createObjectNode()
+				.put("eClass", "http://www.emfjson.org/jackson/model#//ETypes")
+				.putNull("eString");
+
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+		resource.load(new ByteArrayInputStream(mapper.writeValueAsBytes(data)), null);
+
+		EObject root = resource.getContents().get(0);
+		assertEquals(ModelPackage.Literals.ETYPES, root.eClass());
+
+		assertThat(((ETypes) root).getEString()).isNull();
 	}
 
 	@Test
