@@ -9,10 +9,10 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emfjson.jackson.internal.ContextUtils;
-import org.emfjson.jackson.internal.ELists;
+import org.emfjson.jackson.common.ContextUtils;
 import org.emfjson.jackson.databind.deser.references.ReferenceEntries;
 import org.emfjson.jackson.databind.type.EcoreType;
+import org.emfjson.jackson.internal.ELists;
 
 import java.io.IOException;
 
@@ -51,12 +51,12 @@ public class EListDeserializer extends JsonDeserializer<EList<EObject>> {
 		JsonDeserializer<Object> deserializer = ctxt.findRootValueDeserializer(type);
 
 		while (jp.nextToken() != JsonToken.END_ARRAY) {
-
 			switch (kind) {
 				case MAP:
 				case FEATURE_MAP:
 				case MANY_ATTRIBUTE:
 				case MANY_CONTAINMENT:
+
 					ctxt.setAttribute("reference", feature);
 
 					EObject value = (EObject) deserializer.deserialize(jp, ctxt);
@@ -72,5 +72,4 @@ public class EListDeserializer extends JsonDeserializer<EList<EObject>> {
 
 		return intoValue;
 	}
-
 }

@@ -8,7 +8,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import java.io.IOException;
 
-import static org.emfjson.jackson.internal.ContextUtils.get;
+import static org.emfjson.jackson.common.ContextUtils.get;
+
 
 public class EDataTypeDeserializer extends JsonDeserializer<Object> {
 

@@ -58,7 +58,6 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 		ctxt.setAttribute("resource", resource);
 		ctxt.setAttribute("entries", entries);
 		ctxt.setAttribute("cache", new Cache());
-
 		ctxt.setAttribute("typeFactory", ecoreType);
 		ctxt.setAttribute("resourceSet", resourceSet);
 
@@ -82,7 +81,6 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 			}
 
 		} else if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
-
 			EObject value = (EObject) deserializer.deserialize(jp, ctxt);
 			if (value != null) {
 				resource.getContents().add(value);

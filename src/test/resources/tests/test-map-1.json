@@ -2,7 +2,10 @@
   "eClass": "http://www.emfjson.org/jackson/model#//ETypes",
   "values": [
     {
+<<<<<<< 292dd0dca1fdd868a8adf8c0deb7be39c39071a9
       "eClass": "http://www.emfjson.org/jackson/model#//TMap",
+=======
+>>>>>>> Splitting deserialization to use default jackson deseerializers when possible and specific emf deserializers when necessary.
       "key": {
         "eClass": "http://www.emfjson.org/jackson/model#//Type",
         "name": "t1"
@@ -13,7 +16,10 @@
       }
     },
     {
+<<<<<<< 292dd0dca1fdd868a8adf8c0deb7be39c39071a9
       "eClass": "http://www.emfjson.org/jackson/model#//TMap",
+=======
+>>>>>>> Splitting deserialization to use default jackson deseerializers when possible and specific emf deserializers when necessary.
       "key": {
         "eClass": "http://www.emfjson.org/jackson/model#//Type",
         "name": "t2"
