@@ -117,11 +117,6 @@ public class EcoreType {
 				constructTypeParameters(rawType));
 	}
 
-	private static boolean isMap(EClassifier type) {
-		return "java.util.Map$Entry".equals(type.getInstanceClassName()) ||
-				"java.util.Map.Entry".equals(type.getInstanceClassName());
-	}
-
 	private JavaType constructMapType(EClass type) {
 		final EStructuralFeature key = type.getEStructuralFeature("key");
 		final EStructuralFeature value = type.getEStructuralFeature("value");
@@ -174,6 +169,11 @@ public class EcoreType {
 		}
 
 		return rawType;
+	}
+
+	private static boolean isMap(EClassifier type) {
+		return "java.util.Map$Entry".equals(type.getInstanceClassName()) ||
+				"java.util.Map.Entry".equals(type.getInstanceClassName());
 	}
 
 	public enum FeatureKind {

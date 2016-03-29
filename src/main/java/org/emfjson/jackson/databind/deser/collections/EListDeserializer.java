@@ -72,4 +72,5 @@ public class EListDeserializer extends JsonDeserializer<EList<EObject>> {
 
 		return intoValue;
 	}
+
 }

@@ -8,11 +8,10 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emfjson.jackson.databind.type.EcoreType;
 import org.emfjson.jackson.internal.ContextUtils;
 import org.emfjson.jackson.internal.ELists;
 import org.emfjson.jackson.internal.EObjects;
-import org.emfjson.jackson.databind.ser.references.EReferenceSerializer;
-import org.emfjson.jackson.databind.type.EcoreType;
 
 import java.io.IOException;
 

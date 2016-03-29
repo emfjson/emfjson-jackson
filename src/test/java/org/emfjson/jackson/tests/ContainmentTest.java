@@ -343,36 +343,36 @@ public class ContainmentTest {
 		assertNotSame(resolve.eResource(), root.eResource());
 	}
 
-	//	@Test
-	public void testXmi() throws IOException {
-		ResourceSet resourceSet = new ResourceSetImpl();
-		resourceSet.getPackageRegistry().put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
-		resourceSet.getResourceFactoryRegistry()
-				.getExtensionToFactoryMap()
-				.put("xmi", new XMIResourceFactoryImpl());
+//	@Test
+//	public void testXmi() throws IOException {
+//		ResourceSet resourceSet = new ResourceSetImpl();
+//		resourceSet.getPackageRegistry().put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
+//		resourceSet.getResourceFactoryRegistry()
+//				.getExtensionToFactoryMap()
+//				.put("xmi", new XMIResourceFactoryImpl());
+//
+//		Resource x1 = resourceSet.createResource(URI.createURI("src/test/resources/xmi/test1.xmi"));
+//		Resource x2 = resourceSet.createResource(URI.createURI("src/test/resources/xmi/test2.xmi"));
+//
+//		PhysicalNode p1 = ModelFactory.eINSTANCE.createPhysicalNode();
+//		p1.setLabel("p1");
+//
+//		x1.getContents().add(p1);
+//
+//		PhysicalNode p2 = ModelFactory.eINSTANCE.createPhysicalNode();
+//		p2.setLabel("p2");
+//
+//		x2.getContents().add(p2);
+//
+//		InternalEObject proxy = (InternalEObject) ModelFactory.eINSTANCE.createPhysicalNode();
+//		proxy.eSetProxyURI(EcoreUtil.getURI(p2));
+//		p1.getChild().add((AbstractNode) proxy);
+//
+//		x2.save(null);
+//		x1.save(null);
+//	}
 
-		Resource x1 = resourceSet.createResource(URI.createURI("src/test/resources/xmi/test1.xmi"));
-		Resource x2 = resourceSet.createResource(URI.createURI("src/test/resources/xmi/test2.xmi"));
-
-		PhysicalNode p1 = ModelFactory.eINSTANCE.createPhysicalNode();
-		p1.setLabel("p1");
-
-		x1.getContents().add(p1);
-
-		PhysicalNode p2 = ModelFactory.eINSTANCE.createPhysicalNode();
-		p2.setLabel("p2");
-
-		x2.getContents().add(p2);
-
-		InternalEObject proxy = (InternalEObject) ModelFactory.eINSTANCE.createPhysicalNode();
-		proxy.eSetProxyURI(EcoreUtil.getURI(p2));
-		p1.getChild().add((AbstractNode) proxy);
-
-		x2.save(null);
-		x1.save(null);
-	}
-
-	//	@Test
+	@Test
 	public void testLoadXmi() throws IOException {
 		ResourceSet resourceSet = new ResourceSetImpl();
 		resourceSet.getPackageRegistry().put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);

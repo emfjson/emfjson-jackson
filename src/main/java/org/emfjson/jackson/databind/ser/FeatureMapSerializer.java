@@ -7,9 +7,9 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emfjson.jackson.databind.type.EcoreType;
 import org.emfjson.jackson.internal.Cache;
 import org.emfjson.jackson.internal.ContextUtils;
-import org.emfjson.jackson.databind.type.EcoreType;
 
 import java.io.IOException;
 import java.util.Set;
