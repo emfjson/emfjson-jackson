@@ -11,13 +11,26 @@
 package org.emfjson.jackson.databind.deser;
 
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.emfjson.jackson.common.Cache;
+import org.emfjson.jackson.common.ContextUtils;
 
 import java.io.IOException;
 
-public interface TypeDeserializer {
+public class TypeDeserializer extends JsonDeserializer<EClass> {
 
-	EClass deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException;
+	@Override
+	public EClass deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
+		final ResourceSet resourceSet = ContextUtils.get(ResourceSet.class, "resourceSet", ctxt);
+		final Cache cache = ContextUtils.get(Cache.class, "cache", ctxt);
+
+		return cache != null ?
+				cache.getEClass(resourceSet, jp.nextTextValue()) :
+				null;
+	}
 
 }

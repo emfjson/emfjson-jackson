@@ -10,21 +10,21 @@
  */
 package org.emfjson.jackson.junit.tests;
 
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.*;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.junit.Before;
-import org.junit.Test;
-
-import org.emfjson.jackson.module.EMFModule;
-import org.emfjson.jackson.resource.JsonResourceFactory;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.emfjson.jackson.module.EMFModule;
+import org.emfjson.jackson.resource.JsonResourceFactory;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -32,18 +32,19 @@ import static org.junit.Assert.*;
 
 public class DynamicInstanceTest {
 
-	private ObjectMapper mapper = new ObjectMapper();
-
 	private EClass a;
 	private EClass b;
+	private ResourceSetImpl resourceSet;
+	private ObjectMapper mapper = new ObjectMapper();
 
 	@Before
 	public void setUp() {
-		final ResourceSet resourceSet = new ResourceSetImpl();
+		resourceSet = new ResourceSetImpl();
+		mapper.registerModule(new EMFModule());
 
 		resourceSet.getResourceFactoryRegistry()
-			.getExtensionToFactoryMap()
-				.put("*", new JsonResourceFactory());
+				.getExtensionToFactoryMap()
+				.put("*", new JsonResourceFactory(mapper));
 
 		resourceSet.getPackageRegistry()
 				.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
@@ -61,15 +62,13 @@ public class DynamicInstanceTest {
 
 		a = (EClass) ePackage.getEClassifier("A");
 		b = (EClass) ePackage.getEClassifier("B");
-
-		mapper.registerModule(new EMFModule(resourceSet));
 	}
 
 	@Test
 	public void testSaveOneObject() {
 		JsonNode expected = mapper.createObjectNode()
-			.put("eClass", "http://foo.org/p#//A")
-			.put("label", "1");
+				.put("eClass", "http://foo.org/p#//A")
+				.put("label", "1");
 
 		EObject o = EcoreUtil.create(a);
 		o.eSet(a.getEStructuralFeature("label"), "1");
@@ -81,11 +80,11 @@ public class DynamicInstanceTest {
 	@SuppressWarnings("unchecked")
 	public void testSaveOneRootWithChildren() {
 		JsonNode expected = mapper.createObjectNode()
-			.put("eClass", "http://foo.org/p#//A")
-			.put("label", "1")
-			.set("bs", mapper.createArrayNode()
-				.add(mapper.createObjectNode().put("eClass", "http://foo.org/p#//B"))
-				.add(mapper.createObjectNode().put("eClass", "http://foo.org/p#//B")));
+				.put("eClass", "http://foo.org/p#//A")
+				.put("label", "1")
+				.set("bs", mapper.createArrayNode()
+						.add(mapper.createObjectNode().put("eClass", "http://foo.org/p#//B"))
+						.add(mapper.createObjectNode().put("eClass", "http://foo.org/p#//B")));
 
 		EObject o = EcoreUtil.create(a);
 		o.eSet(a.getEStructuralFeature("label"), "1");
@@ -102,13 +101,16 @@ public class DynamicInstanceTest {
 	@Test
 	public void testLoadOneRootWithChildren() throws JsonProcessingException {
 		JsonNode data = mapper.createObjectNode()
-			.put("eClass", "http://foo.org/p#//A")
-			.put("label", "1")
-			.set("bs", mapper.createArrayNode()
-				.add(mapper.createObjectNode().put("eClass", "http://foo.org/p#//B"))
-				.add(mapper.createObjectNode().put("eClass", "http://foo.org/p#//B")));
+				.put("eClass", "http://foo.org/p#//A")
+				.put("label", "1")
+				.set("bs", mapper.createArrayNode()
+						.add(mapper.createObjectNode().put("eClass", "http://foo.org/p#//B"))
+						.add(mapper.createObjectNode().put("eClass", "http://foo.org/p#//B")));
 
-		Resource resource = mapper.treeToValue(data, Resource.class);
+		Resource resource = mapper
+				.reader()
+				.withAttribute("resourceSet", resourceSet)
+				.treeToValue(data, Resource.class);
 
 		assertNotNull(resource);
 

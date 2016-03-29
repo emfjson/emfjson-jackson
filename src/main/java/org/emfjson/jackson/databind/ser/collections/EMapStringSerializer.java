@@ -9,31 +9,30 @@
  *     Guillaume Hillairet - initial API and implementation
  *
  */
-package org.emfjson.jackson.databind.ser;
+package org.emfjson.jackson.databind.ser.collections;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import org.eclipse.emf.common.util.EList;
 
 import java.io.IOException;
 import java.util.Map;
 
-public class EMapEntrySerializer extends JsonSerializer<Map.Entry> {
+public class EMapStringSerializer extends JsonSerializer<EList<Map.Entry<String, ?>>> {
 
 	@Override
-	public void serialize(Map.Entry entry, JsonGenerator jg, SerializerProvider serializers) throws IOException {
-		if (entry.getKey() instanceof String) {
-			jg.writeObjectField((String) entry.getKey(), entry.getValue());
-		} else {
-			jg.writeStartObject();
-			jg.writeObjectField("key", entry.getKey());
-			jg.writeObjectField("value", entry.getValue());
-			jg.writeEndObject();
+	public void serialize(EList<Map.Entry<String, ?>> value, JsonGenerator jg, SerializerProvider serializers) throws IOException {
+		if (value == null || value.isEmpty()) {
+			jg.writeNull();
+			return;
 		}
+
+		jg.writeStartObject();
+		for (Map.Entry<String, ?> entry : value) {
+			jg.writeObjectField(entry.getKey(), entry.getValue());
+		}
+		jg.writeEndObject();
 	}
 
-	@Override
-	public Class<Map.Entry> handledType() {
-		return Map.Entry.class;
-	}
 }

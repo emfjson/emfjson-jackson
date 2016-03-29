@@ -2,6 +2,7 @@
   "eClass": "http://www.emfjson.org/jackson/model#//ETypes",
   "values": [
     {
+      "eClass": "http://www.emfjson.org/jackson/model#//TMap",
       "key": {
         "eClass": "http://www.emfjson.org/jackson/model#//Type",
         "name": "t1"
@@ -12,6 +13,7 @@
       }
     },
     {
+      "eClass": "http://www.emfjson.org/jackson/model#//TMap",
       "key": {
         "eClass": "http://www.emfjson.org/jackson/model#//Type",
         "name": "t2"

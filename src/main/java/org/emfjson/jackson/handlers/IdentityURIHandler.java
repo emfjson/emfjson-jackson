@@ -7,14 +7,26 @@
  *
  * Contributors:
  *     Guillaume Hillairet - initial API and implementation
- *
  */
-package org.emfjson.jackson.common;
+package org.emfjson.jackson.handlers;
+
+import org.eclipse.emf.common.util.URI;
 
 /**
- * Constants used in EMF-JSON format.
+ * URIHandler that does not modify uris during resolve and
+ * deresolve operations.
+ *
  */
-public final class Constants {
-	public static final String EJS_JSON_ANNOTATION = "JSON";
-	public static final String EJS_ELEMENT_ANNOTATION = "element";
+public class IdentityURIHandler implements URIHandler {
+
+	@Override
+	public URI resolve(URI baseURI, URI uri) {
+		return uri;
+	}
+
+	@Override
+	public URI deresolve(URI baseURI, URI uri) {
+		return uri;
+	}
+
 }

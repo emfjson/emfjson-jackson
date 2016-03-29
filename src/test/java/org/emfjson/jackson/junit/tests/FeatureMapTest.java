@@ -13,6 +13,7 @@ package org.emfjson.jackson.junit.tests;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.junit.Test;
 
 import org.emfjson.jackson.junit.model.ModelFactory;
@@ -51,6 +52,9 @@ public class FeatureMapTest extends TestSupport {
 		Resource resource = resourceSet.createResource(URI.createURI("test.json"));
 		resource.getContents().add(primaryObject);
 
+//		XMIResourceImpl xmiResource = new XMIResourceImpl();
+//		xmiResource.getContents().addAll(resource.getContents());
+//		xmiResource.save(System.out, null);
 		assertEquals(expected, mapper.valueToTree(resource));
 	}
 

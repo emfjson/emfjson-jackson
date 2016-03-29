@@ -12,38 +12,38 @@
 package org.emfjson.jackson.databind.ser;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.ser.ContextualSerializer;
-import org.eclipse.emf.ecore.*;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emfjson.common.EObjects;
-import org.emfjson.jackson.JacksonOptions;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.util.FeatureMapUtil;
 import org.emfjson.jackson.common.Cache;
-import org.emfjson.jackson.databind.properties.ContainmentBeanProperty;
+import org.emfjson.jackson.common.ContextUtils;
+import org.emfjson.jackson.common.EObjects;
+import org.emfjson.jackson.databind.ser.references.ReferenceSerializer;
 import org.emfjson.jackson.databind.type.EcoreType;
+import org.emfjson.jackson.module.EMFModule;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
-import static org.emfjson.common.EObjects.featureMaps;
+import static org.emfjson.jackson.module.EMFModule.FeatureKind.*;
 
-public class EObjectSerializer extends JsonSerializer<EObject> implements ContextualSerializer {
+public class EObjectSerializer extends JsonSerializer<EObject> {
 
-	private final JacksonOptions options;
-	private final EObject parent;
-	private final EReference containment;
+	private final IdSerializer idSerializer;
+	private final TypeSerializer typeSerializer;
+	private final ReferenceSerializer refSerializer;
+	private final Map<EMFModule.FeatureKind, Boolean> features;
 
-	public EObjectSerializer(JacksonOptions options) {
-		this.parent = null;
-		this.containment = null;
-		this.options = options;
-	}
-
-	public EObjectSerializer(EObject parent, EReference containment, JacksonOptions options) {
-		this.parent = parent;
-		this.containment = containment;
-		this.options = options;
+	public EObjectSerializer(IdSerializer idSerializer, TypeSerializer typeSerializer, ReferenceSerializer refSerializer, Map<EMFModule.FeatureKind, Boolean> features) {
+		this.idSerializer = idSerializer;
+		this.typeSerializer = typeSerializer;
+		this.refSerializer = refSerializer;
+		this.features = features;
 	}
 
 	@Override
@@ -58,134 +58,78 @@ public class EObjectSerializer extends JsonSerializer<EObject> implements Contex
 			return;
 		}
 
-		provider.setAttribute("options", options);
-
-		Cache cache = (Cache) provider.getAttribute("cache");
+		Cache cache = ContextUtils.get(Cache.class, "cache", provider);
 		if (cache == null) {
 			provider.setAttribute("cache", cache = new Cache());
 		}
 
-		if (parent != null && object.eContainer() != null && EObjects.isContainmentProxy(object.eContainer(), object)) {
-			options.referenceSerializer.serialize(object.eContainer(), object, jg, provider);
-			return;
+		{
+			final EObject parent = ContextUtils.get(EObject.class, "parent", provider);
+			if (parent != null && (object.eIsProxy() || EObjects.isContainmentProxy(parent, object))) {
+				refSerializer.serialize(object, jg, provider);
+				return;
+			}
 		}
-
-		final EClass eClass = object.eClass();
-		final List<EAttribute> attributes = cache.getAttributes(eClass);
-		final List<EReference> references = cache.getReferences(eClass);
-		final List<EReference> containments = cache.getContainments(eClass);
 
 		jg.writeStartObject();
 
-		writeType(eClass, jg, provider);
+		writeType(object, jg, provider);
 		writeId(object, jg, provider);
 
-		for (EAttribute attribute : attributes) {
-			if (EObjects.isCandidate(object, attribute, options)) {
-				final String field = cache.getKey(attribute);
-				final Object value = object.eGet(attribute);
+		for (EStructuralFeature feature : object.eClass().getEAllStructuralFeatures()) {
+			if (EObjects.isCandidate(object, feature, features.get(OPTION_SERIALIZE_DEFAULT_VALUE))) {
+				final String field = cache.getKey(feature);
+				final JavaType type = EcoreType.construct(object, feature);
 
-				if (EObjects.isFeatureMap(attribute)) {
-					writeFeatureMap(object, attribute, jg, provider);
-				} else {
-					writeAttribute(jg, (EDataType) object.eClass().getFeatureType(attribute).getEClassifier(), field, value);
-				}
-			}
-		}
+				if (type != null) {
+					JsonSerializer<Object> serializer = provider.findValueSerializer(type);
 
-		for (EReference reference : references) {
-			if (EObjects.isCandidate(object, reference)) {
-				final String field = cache.getKey(reference);
-				final Object value = object.eGet(reference, false);
+					if (serializer != null) {
 
-				writeRef(object, field, value, jg, provider);
-			}
-		}
+						if (!FeatureMapUtil.isFeatureMap(feature)) {
+							jg.writeFieldName(field);
+						}
 
-		for (EReference containment : containments) {
-			if (EObjects.isCandidate(object, containment)) {
-				final String field = cache.getKey(containment);
-				final Object value = object.eGet(containment, false);
-				final JavaType type = EcoreType.construct(object, containment);
-				final JsonSerializer<Object> serializer = provider.findValueSerializer(type,
-						new ContainmentBeanProperty(object, containment));
+						provider.setAttribute("parent", object);
+						provider.setAttribute("feature", feature);
 
-				if (serializer != null) {
-					jg.writeFieldName(field);
-					serializer.serialize(value, jg, provider);
+						serializer.serialize(object.eGet(feature, false), jg, provider);
+					}
 				}
 			}
 		}
 		jg.writeEndObject();
 	}
 
-	private void writeAttribute(JsonGenerator jg, EDataType type, String key, Object value) throws IOException {
-		if (EcorePackage.Literals.EJAVA_OBJECT.equals(type) || EcorePackage.Literals.EJAVA_CLASS.equals(type)) {
-			jg.writeStringField(key, EcoreUtil.convertToString(type, value));
-		} else {
-			jg.writeObjectField(key, value);
-		}
-	}
-
 	protected void writeId(EObject object, JsonGenerator jg, SerializerProvider provider) throws IOException {
-		options.idSerializer.serialize(object, jg, provider);
-	}
-
-	protected void writeType(EClass eClass, JsonGenerator jg, SerializerProvider provider) throws IOException {
-		options.typeSerializer.serialize(eClass, jg, provider);
-	}
-
-	private void writeRef(EObject source, String field, Object value, JsonGenerator jg, SerializerProvider provider) throws IOException {
-		jg.writeFieldName(field);
-
-		if (value instanceof Iterable<?>) {
-			Iterable<?> values = (Iterable<?>) value;
-
-			jg.writeStartArray();
-			for (Object current : values) {
-				options.referenceSerializer.serialize(source, (EObject) current, jg, provider);
-			}
-			jg.writeEndArray();
-
-		} else {
-			options.referenceSerializer.serialize(source, (EObject) value, jg, provider);
+		if (features.get(OPTION_SERIALIZE_ID)) {
+			idSerializer.serialize(object, jg, provider);
 		}
 	}
 
-	private void writeFeatureMap(EObject owner, EAttribute attribute, JsonGenerator jg, SerializerProvider provider) throws IOException {
-		final Set<EStructuralFeature> features = featureMaps(owner, attribute);
-		final Cache cache = (Cache) provider.getAttribute("cache");
-
-		for (EStructuralFeature feature : features) {
-			final Object value = owner.eGet(feature);
-			final String key = cache.getKey(feature);
-
-			if (feature instanceof EAttribute) {
-
-				writeAttribute(jg, ((EAttribute) feature).getEAttributeType(), key, value);
-
-			} else {
-				final EReference reference = (EReference) feature;
-
-				if (reference.isContainment()) {
-					jg.writeObjectField(key, value);
-				} else {
-					writeRef(owner, key, value, jg, provider);
-				}
-			}
+	protected void writeType(EObject object, JsonGenerator jg, SerializerProvider provider) throws IOException {
+		if (shouldSaveType(object)) {
+			typeSerializer.serialize(object.eClass(), jg, provider);
 		}
 	}
 
-	@Override
-	public JsonSerializer<?> createContextual(SerializerProvider prov, BeanProperty property) throws JsonMappingException {
-		if (property instanceof ContainmentBeanProperty) {
-			EObject parent = ((ContainmentBeanProperty) property).getParent();
-			EReference containment = ((ContainmentBeanProperty) property).getContainment();
-
-			return new EObjectSerializer(parent, containment, options);
+	protected boolean shouldSaveType(EObject object) {
+		if (features.get(OPTION_SERIALIZE_TYPE)) {
+			return true;
 		}
 
-		return new EObjectSerializer(options);
+		final EReference feature = object.eContainmentFeature();
+		if (feature == null) {
+			return true;
+		}
+
+		final EClass type = object.eClass();
+		final EClass featureType = feature.getEReferenceType();
+
+		return type != featureType &&
+				(type.getEAllAttributes().size() > featureType.getEAllAttributes().size() ||
+						featureType.isAbstract() ||
+						feature.getEGenericType().getETypeParameter() != null);
 	}
 
 }

@@ -13,20 +13,14 @@ package org.emfjson.jackson;
 
 import org.eclipse.emf.ecore.EClass;
 import org.emfjson.EMFJs;
-import org.emfjson.jackson.databind.deser.DefaultTypeDeserializer;
-import org.emfjson.jackson.databind.deser.FragmentIdDeserializer;
 import org.emfjson.jackson.databind.deser.IdDeserializer;
 import org.emfjson.jackson.databind.deser.TypeDeserializer;
-import org.emfjson.jackson.databind.deser.references.ReferenceAsObjectDeserializer;
 import org.emfjson.jackson.databind.deser.references.ReferenceDeserializer;
-import org.emfjson.jackson.databind.ser.DefaultTypeSerializer;
-import org.emfjson.jackson.databind.ser.FragmentIdSerializer;
 import org.emfjson.jackson.databind.ser.IdSerializer;
 import org.emfjson.jackson.databind.ser.TypeSerializer;
-import org.emfjson.jackson.databind.ser.references.ReferenceAsObjectSerializer;
 import org.emfjson.jackson.databind.ser.references.ReferenceSerializer;
-import org.emfjson.handlers.IdentityURIHandler;
-import org.emfjson.handlers.URIHandler;
+import org.emfjson.jackson.handlers.IdentityURIHandler;
+import org.emfjson.jackson.handlers.URIHandler;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -48,12 +42,12 @@ public class JacksonOptions {
 	public final String refField;
 	public final EClass rootElement;
 	public final URIHandler uriHandler;
-	public final ReferenceSerializer referenceSerializer;
-	public final ReferenceDeserializer referenceDeserializer;
-	public final IdSerializer idSerializer;
-	public final IdDeserializer idDeserializer;
-	public final TypeSerializer typeSerializer;
-	public final TypeDeserializer typeDeserializer;
+	//	public final ReferenceSerializer referenceSerializer;
+	//	public final ReferenceDeserializer referenceDeserializer;
+	public IdSerializer idSerializer;
+	public IdDeserializer idDeserializer;
+	public TypeSerializer typeSerializer;
+	public TypeDeserializer typeDeserializer;
 	public final DateFormat dateFormat;
 
 	protected JacksonOptions(JacksonOptions.Builder builder) {
@@ -68,12 +62,12 @@ public class JacksonOptions {
 		this.refField = builder.refField;
 		this.rootElement = builder.rootElement;
 		this.uriHandler = builder.uriHandler;
-		this.referenceSerializer = builder.referenceSerializer;
-		this.referenceDeserializer = builder.referenceDeserializer;
-		this.idSerializer = builder.idSerializer;
-		this.idDeserializer = builder.idDeserializer;
-		this.typeSerializer = builder.typeSerializer;
-		this.typeDeserializer = builder.typeDeserializer;
+//		this.referenceSerializer = builder.referenceSerializer;
+//		this.referenceDeserializer = builder.referenceDeserializer;
+//		this.idSerializer = builder.idSerializer;
+//		this.idDeserializer = builder.idDeserializer;
+//		this.typeSerializer = builder.typeSerializer;
+//		this.typeDeserializer = builder.typeDeserializer;
 		this.dateFormat = builder.dateFormat;
 	}
 
@@ -94,12 +88,12 @@ public class JacksonOptions {
 		protected String refField = "$ref";
 		protected EClass rootElement = null;
 		protected URIHandler uriHandler = new IdentityURIHandler();
-		protected ReferenceSerializer referenceSerializer = new ReferenceAsObjectSerializer();
-		protected ReferenceDeserializer referenceDeserializer = new ReferenceAsObjectDeserializer();
-		protected IdSerializer idSerializer = new FragmentIdSerializer();
-		protected IdDeserializer idDeserializer = new FragmentIdDeserializer();
-		protected TypeSerializer typeSerializer = new DefaultTypeSerializer();
-		protected TypeDeserializer typeDeserializer = new DefaultTypeDeserializer();
+		//		protected ReferenceSerializer referenceSerializer = new ReferenceAsObjectSerializer();
+		//		protected ReferenceDeserializer referenceDeserializer = new ReferenceAsObjectDeserializer();
+//		protected IdSerializer idSerializer = new FragmentIdSerializer();
+//		protected IdDeserializer idDeserializer = new FragmentIdDeserializer();
+//		protected TypeSerializer typeSerializer = new DefaultTypeSerializer();
+//		protected TypeDeserializer typeDeserializer = new DefaultTypeDeserializer();
 		protected DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
 		public JacksonOptions build(Map<?, ?> options) {
@@ -129,10 +123,10 @@ public class JacksonOptions {
 			uriHandler = objectValue(options, OPTION_URI_HANDLER, uriHandler);
 
 			uriHandler = objectValue(options, OPTION_URI_HANDLER, null);
-			referenceSerializer = objectValue(options, OPTION_REF_SERIALIZER, referenceSerializer);
-			referenceDeserializer = objectValue(options, OPTION_REF_DESERIALIZER, referenceDeserializer);
-			idSerializer = objectValue(options, OPTION_ID_SERIALIZER, idSerializer);
-			idDeserializer = objectValue(options, OPTION_ID_DESERIALIZER, idDeserializer);
+//			referenceSerializer = objectValue(options, OPTION_REF_SERIALIZER, referenceSerializer);
+//			referenceDeserializer = objectValue(options, OPTION_REF_DESERIALIZER, referenceDeserializer);
+//			idSerializer = objectValue(options, OPTION_ID_SERIALIZER, idSerializer);
+//			idDeserializer = objectValue(options, OPTION_ID_DESERIALIZER, idDeserializer);
 			dateFormat = objectValue(options, EMFJs.OPTION_DATE_FORMAT, dateFormat);
 		}
 
@@ -172,32 +166,32 @@ public class JacksonOptions {
 		}
 
 		public Builder withReferenceSerializer(ReferenceSerializer serializer) {
-			this.referenceSerializer = serializer;
+//			this.referenceSerializer = serializer;
 			return this;
 		}
 
 		public Builder withReferenceDeserializer(ReferenceDeserializer deserializer) {
-			this.referenceDeserializer = deserializer;
+//			this.referenceDeserializer = deserializer;
 			return this;
 		}
 
 		public Builder withIdSerializer(IdSerializer serializer) {
-			this.idSerializer = serializer;
+//			this.idSerializer = serializer;
 			return this;
 		}
 
 		public Builder withIdDeserializer(IdDeserializer deserializer) {
-			this.idDeserializer = deserializer;
+//			this.idDeserializer = deserializer;
 			return this;
 		}
 
 		public Builder withTypeSerializer(TypeSerializer typeSerializer) {
-			this.typeSerializer = typeSerializer;
+//			this.typeSerializer = typeSerializer;
 			return this;
 		}
 
 		public Builder withTypeDeserializer(TypeDeserializer typeDeserializer) {
-			this.typeDeserializer = typeDeserializer;
+//			this.typeDeserializer = typeDeserializer;
 			return this;
 		}
 
@@ -246,7 +240,7 @@ public class JacksonOptions {
 				return _default;
 			}
 
-			return value != null ? value : _default;
+			return value != null ? value: _default;
 		}
 	}
 

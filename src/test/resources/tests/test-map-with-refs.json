@@ -3,6 +3,7 @@
     "eClass": "http://www.emfjson.org/jackson/model#//ETypes",
     "valuesWithRef": [
       {
+        "eClass": "http://www.emfjson.org/jackson/model#//TMapRef",
         "key": {
           "$ref": "/1"
         },

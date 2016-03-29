@@ -32,7 +32,7 @@ public class DynamicPackageTest {
 	@Before
 	public void setUp() {
 		EPackage.Registry.INSTANCE.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
-		mapper.registerModule(new EMFModule(new ResourceSetImpl()));
+		mapper.registerModule(new EMFModule());
 	}
 
 	@After

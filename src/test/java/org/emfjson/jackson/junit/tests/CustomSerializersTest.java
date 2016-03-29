@@ -43,25 +43,25 @@ import static org.junit.Assert.assertEquals;
 
 public class CustomSerializersTest {
 
-	private IdSerializer serializer = new IdSerializer() {
-		@Override
-		public void serialize(EObject object, JsonGenerator jg, SerializerProvider provider) throws IOException {
-		}
-	};
-
-	private ReferenceSerializer referenceSerializer = new ReferenceSerializer() {
-		@Override
-		public void serialize(EObject source, EObject value, JsonGenerator jg, SerializerProvider provider) throws IOException {
-			jg.writeString(EcoreUtil.getID(value));
-		}
-	};
-
-	private TypeSerializer typeSerializer = new TypeSerializer() {
-		@Override
-		public void serialize(EClass eClass, JsonGenerator jg, SerializerProvider provider) throws IOException {
-			jg.writeStringField("type", eClass.getName());
-		}
-	};
+//	private IdSerializer serializer = new IdSerializer() {
+//		@Override
+//		public void serialize(EObject object, JsonGenerator jg, SerializerProvider provider) throws IOException {
+//		}
+//	};
+//
+//	private ReferenceSerializer referenceSerializer = new ReferenceSerializer() {
+//		@Override
+//		public void serialize(EObject source, EObject value, JsonGenerator jg, SerializerProvider provider) throws IOException {
+//			jg.writeString(EcoreUtil.getID(value));
+//		}
+//	};
+//
+//	private TypeSerializer typeSerializer = new TypeSerializer() {
+//		@Override
+//		public void serialize(EClass eClass, JsonGenerator jg, SerializerProvider provider) throws IOException {
+//			jg.writeStringField("type", eClass.getName());
+//		}
+//	};
 
 	private ResourceSet resourceSet;
 	private ObjectMapper mapper;
@@ -72,14 +72,15 @@ public class CustomSerializersTest {
 		resourceSet = new ResourceSetImpl();
 		resourceSet.getPackageRegistry().put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
-				.put("*", new JsonResourceFactory());
+				.put("*", new JsonResourceFactory(mapper));
 
-		EMFModule module = new EMFModule(resourceSet, new JacksonOptions
-				.Builder()
-				.withIdSerializer(serializer)
-				.withReferenceSerializer(referenceSerializer)
-				.withTypeSerializer(typeSerializer)
-				.build());
+//		resourceSet, new JacksonOptions
+//				.Builder()
+//				.withIdSerializer(serializer)
+//				.withReferenceSerializer(referenceSerializer)
+//				.withTypeSerializer(typeSerializer)
+//				.build()
+		EMFModule module = new EMFModule();
 		module.addSerializer(ETypes.class, new JsonSerializer<ETypes>() {
 			@Override
 			public void serialize(ETypes value, JsonGenerator gen, SerializerProvider serializers) throws IOException, JsonProcessingException {

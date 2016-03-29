@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.type.SimpleType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.emfjson.common.ReferenceEntries;
+import org.emfjson.jackson.common.ReferenceEntries;
 
 public class ResourceProperty extends BeanProperty.Std {
 

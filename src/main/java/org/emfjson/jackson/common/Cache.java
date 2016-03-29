@@ -12,11 +12,13 @@
 package org.emfjson.jackson.common;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.*;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,9 +28,8 @@ import static org.emfjson.jackson.common.ModelUtil.getElementName;
 /**
  * Basic cache implemented with maps to store objects that are frequently used during
  * serialization and deserialization operations.
- *
+ * <p>
  * Objects that are cached include URIs, IDs, EClasses and EStructuralFeatures.
- *
  */
 public class Cache {
 
@@ -36,17 +37,13 @@ public class Cache {
 	protected final Map<String, EClass> mapOfClasses = new HashMap<>();
 	protected final Map<String, URI> mapOfURIs = new HashMap<>();
 
-	private final Map<EClass, List<EReference>> mapOfReferences = new HashMap<>();
-	private final Map<EClass, List<EReference>> mapOfContainments = new HashMap<>();
-	private final Map<EClass, List<EAttribute>> mapOfAttributes = new HashMap<>();
-
 	private final Map<EStructuralFeature, String> mapOfNames = new HashMap<>();
 	private final Map<EClass, Map<String, EStructuralFeature>> mapOfFeatures = new HashMap<>();
 	private final Map<EClass, String> mapOfTypes = new HashMap<>();
 
 	/**
 	 * Returns the field name to be used by a structural feature.
-	 *
+	 * <p>
 	 * Custom names can be defined by using an eAnnotation on a eStructuralFeature with
 	 * a source named JSON and a value being the field name.
 	 *
@@ -63,64 +60,8 @@ public class Cache {
 	}
 
 	/**
-	 * Returns all references (non containments) of a eClass.
-	 * First checks that the references are present in the cache, if
-	 * not first cache it, then return the list of references.
-	 *
-	 * @param eClass
-	 * @return list of references
-	 */
-	public List<EReference> getReferences(EClass eClass) {
-		List<EReference> references = mapOfReferences.get(eClass);
-		if (references == null) {
-			references = new ArrayList<>();
-			for (EReference reference : eClass.getEAllReferences()) {
-				if (!reference.isContainment()) {
-					references.add(reference);
-				}
-			}
-
-			mapOfReferences.put(eClass, references);
-		}
-		return references;
-	}
-
-	/**
-	 * Returns all containments of a eClass.
-	 * First checks that the containments are present in the cache, if
-	 * not first cache it, then return the list of containments.
-	 *
-	 * @param eClass
-	 * @return list of containments
-	 */
-	public List<EReference> getContainments(EClass eClass) {
-		List<EReference> references = mapOfContainments.get(eClass);
-		if (references == null) {
-			references = eClass.getEAllContainments();
-			mapOfContainments.put(eClass, references);
-		}
-		return references;
-	}
-
-	/**
-	 * Returns all attributes of a eClass.
-	 * First checks that the attributes are present in the cache, if
-	 * not first cache it, then return the list of attributes.
-	 * @param eClass
-	 * @return list of attributes
-	 */
-	public List<EAttribute> getAttributes(EClass eClass) {
-		List<EAttribute> attributes = mapOfAttributes.get(eClass);
-		if (attributes == null) {
-			attributes = eClass.getEAllAttributes();
-			mapOfAttributes.put(eClass, attributes);
-		}
-		return attributes;
-	}
-
-	/**
 	 * Returns a eClass by it's full URI.
-	 *
+	 * <p>
 	 * If the eClass has not yet been cached, the method will cache it's
 	 * URI object created from the string parameter, retrieve the eClass
 	 * and cache it.

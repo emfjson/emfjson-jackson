@@ -13,9 +13,12 @@ package org.emfjson.jackson.module;
 
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.emfjson.jackson.JacksonOptions;
+import org.emfjson.jackson.Keywords;
+import org.emfjson.jackson.handlers.BaseURIHandler;
+import org.emfjson.jackson.handlers.URIHandler;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Module implementation that allows serialization and deserialization of
@@ -24,22 +27,32 @@ import org.emfjson.jackson.JacksonOptions;
 public class EMFModule extends SimpleModule {
 
 	private static final long serialVersionUID = 1L;
-	private final ResourceSet resourceSet;
-	private final JacksonOptions options;
 
-	public EMFModule(ResourceSet resourceSet) {
-		this(resourceSet, new JacksonOptions.Builder().build());
+	private URIHandler handler = null;
+	private Keywords keywords = null;
+
+	private final Map<FeatureKind, Boolean> features = new HashMap<>();
+
+	public EMFModule() {
+		initFeatures();
 	}
 
-	public EMFModule(ResourceSet resourceSet, JacksonOptions options) {
-		this.resourceSet = resourceSet == null ? new ResourceSetImpl(): resourceSet;
-		this.options = options == null ? new JacksonOptions.Builder().build(): options;
+	private void initFeatures() {
+		for (FeatureKind feature : FeatureKind.values()) {
+			features.put(feature, feature.getDefault());
+		}
 	}
 
 	@Override
 	public void setupModule(SetupContext context) {
-		context.addDeserializers(new EMFDeserializers(resourceSet, options));
-		context.addSerializers(new EMFSerializers(options));
+		if (handler == null)
+			handler = new BaseURIHandler();
+
+		if (keywords == null)
+			keywords = new Keywords.Builder().build();
+
+		context.addDeserializers(new EMFDeserializers(keywords, features));
+		context.addSerializers(new EMFSerializers(keywords, features));
 
 		super.setupModule(context);
 	}
@@ -51,7 +64,38 @@ public class EMFModule extends SimpleModule {
 
 	@Override
 	public Version version() {
-		return new Version(0, 15, 0, null, "org.emfjson", "emfjson-jackson");
+		return new Version(1, 0, 0, "rc1", "org.emfjson", "emfjson-jackson");
+	}
+
+	public void setUriHandler(URIHandler handler) {
+		this.handler = handler;
+	}
+
+	public void setKeywords(Keywords keywords) {
+		this.keywords = keywords;
+	}
+
+	public void configure(FeatureKind feature, Boolean value) {
+		this.features.put(feature, value);
+	}
+
+	public enum FeatureKind {
+		OPTION_SERIALIZE_ID(false),
+		OPTION_SERIALIZE_TYPE(true),
+		OPTION_SERIALIZE_REF_TYPE(true),
+		OPTION_SERIALIZE_DEFAULT_VALUE(false),
+		OPTION_SERIALIZE_REF_AS_VALUE(false),
+		OPTION_SERIALIZE_CONTAINMENT_AS_HREF(false);
+
+		private final boolean defaultValue;
+
+		FeatureKind(boolean defaultValue) {
+			this.defaultValue = defaultValue;
+		}
+
+		public boolean getDefault() {
+			return defaultValue;
+		}
 	}
 
 }

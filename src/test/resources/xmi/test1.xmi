@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="ASCII"?>
+<model:PhysicalNode xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://www.emfjson.org/jackson/model" label="p1">
+  <child xsi:type="model:PhysicalNode" href="src/test/resources/xmi/test2.xmi#/"/>
+</model:PhysicalNode>

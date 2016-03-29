@@ -13,11 +13,11 @@ package org.emfjson.jackson.junit.tests;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.*;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnumLiteral;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emfjson.EMFJs;
-import org.emfjson.jackson.JacksonOptions;
 import org.emfjson.jackson.junit.model.*;
 import org.emfjson.jackson.junit.support.TestSupport;
 import org.junit.Test;
@@ -25,6 +25,7 @@ import org.junit.Test;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
+import static org.emfjson.jackson.module.EMFModule.FeatureKind.OPTION_SERIALIZE_DEFAULT_VALUE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -33,11 +34,11 @@ public class EnumTest extends TestSupport {
 	@Test
 	public void testEnums() throws IOException {
 		JsonNode expected = mapper.createArrayNode()
-			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.emfjson.org/jackson/model#//User"))
-			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-				.put("sex", "FEMALE"));
+				.add(mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//User"))
+				.add(mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//User")
+						.put("sex", "FEMALE"));
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 
@@ -56,14 +57,14 @@ public class EnumTest extends TestSupport {
 	@Test
 	public void testLoadEnums() throws IOException {
 		JsonNode data = mapper.createArrayNode()
-			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-				.put("name", "A")
-				.put("sex", "MALE"))
-			.add(mapper.createObjectNode()
-				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-				.put("name", "B")
-				.put("sex", "FEMALE"));
+				.add(mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//User")
+						.put("name", "A")
+						.put("sex", "MALE"))
+				.add(mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//User")
+						.put("name", "B")
+						.put("sex", "FEMALE"));
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 		resource.load(new ByteArrayInputStream(mapper.writeValueAsBytes(data)), options);
@@ -85,10 +86,10 @@ public class EnumTest extends TestSupport {
 	@Test
 	public void testSaveEnumDifferentCases() throws IOException {
 		JsonNode expected = mapper.createArrayNode()
-			.add(mapper.createObjectNode()
-					.put("eClass", "http://www.emfjson.org/jackson/model#//PrimaryObject")
-					.put("unsettableAttributeWithNonNullDefault", "junit")
-					.put("kind", "one"))
+				.add(mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//PrimaryObject")
+						.put("unsettableAttributeWithNonNullDefault", "junit")
+						.put("kind", "one"))
 				.add(mapper.createObjectNode()
 						.put("eClass", "http://www.emfjson.org/jackson/model#//PrimaryObject")
 						.put("unsettableAttributeWithNonNullDefault", "junit")
@@ -115,22 +116,22 @@ public class EnumTest extends TestSupport {
 			resource.getContents().add(p);
 		}
 
-		options.put(EMFJs.OPTION_SERIALIZE_DEFAULT_VALUE, true);
-		assertEquals(expected, mapper(JacksonOptions.from(options)).valueToTree(resource));
+		assertEquals(expected, mapper(OPTION_SERIALIZE_DEFAULT_VALUE, true)
+				.valueToTree(resource));
 	}
 
 	@Test
 	public void testLoadEnumDifferentCases() throws IOException {
 		JsonNode data = mapper.createArrayNode()
-			.add(mapper.createObjectNode()
-					.put("eClass", "http://www.emfjson.org/jackson/model#//PrimaryObject")
-					.put("kind", "one"))
-			.add(mapper.createObjectNode()
-					.put("eClass", "http://www.emfjson.org/jackson/model#//PrimaryObject")
-					.put("kind", "two"))
-			.add(mapper.createObjectNode()
-					.put("eClass", "http://www.emfjson.org/jackson/model#//PrimaryObject")
-					.put("kind", "Three-is-Three"));
+				.add(mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//PrimaryObject")
+						.put("kind", "one"))
+				.add(mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//PrimaryObject")
+						.put("kind", "two"))
+				.add(mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//PrimaryObject")
+						.put("kind", "Three-is-Three"));
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 		resource.load(new ByteArrayInputStream(mapper.writeValueAsBytes(data)), options);
@@ -160,8 +161,8 @@ public class EnumTest extends TestSupport {
 		EClass a = (EClass) resourceSet.getEObject(URI.createURI("http://emfjson/dynamic/model#//A"), true);
 		EObject a1 = EcoreUtil.create(a);
 
-		options.put(EMFJs.OPTION_SERIALIZE_DEFAULT_VALUE, true);
-		JsonNode result = mapper(JacksonOptions.from(options)).valueToTree(a1);
+		JsonNode result = mapper(OPTION_SERIALIZE_DEFAULT_VALUE, true)
+				.valueToTree(a1);
 
 		assertEquals(expected, result);
 	}

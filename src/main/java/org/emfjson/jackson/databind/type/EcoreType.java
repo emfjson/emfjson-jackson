@@ -3,15 +3,76 @@ package org.emfjson.jackson.databind.type;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.*;
-import org.emfjson.common.ReferenceEntries.ReferenceEntry;
+import org.eclipse.emf.ecore.util.FeatureMapUtil;
+import org.emfjson.jackson.common.ReferenceEntries.ReferenceEntry;
 
+import java.lang.reflect.TypeVariable;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
+import java.util.List;
 
 public class EcoreType {
 
+	private static final TypeFactory factory = TypeFactory.defaultInstance();
+
+	public static JavaType constructSimple(EObject owner, Object value, EStructuralFeature feature) {
+		if (owner == null) {
+			return value == null ?
+					factory.constructSimpleType(EObject.class, null):
+					factory.constructSimpleType(value.getClass(), null);
+		}
+
+		final FeatureKind kind = FeatureKind.get(feature);
+		final EClassifier type = owner.eClass().getFeatureType(feature).getEClassifier();
+		final Class<?> rawType = type != null ? type.getInstanceClass(): null;
+
+		if (FeatureMapUtil.isFeatureMap(feature)) {
+			return factory.constructSimpleType(FeatureMapType.class, null);
+		}
+
+		switch (kind) {
+			case ATTRIBUTE: {
+				if (rawType == null || type == EcorePackage.Literals.EJAVA_CLASS || type == EcorePackage.Literals.EJAVA_OBJECT) {
+					return factory.constructSimpleType(DataType.class, null);
+				} else {
+					return factory.constructSimpleType(rawType, null);
+				}
+			}
+			case REFERENCE:
+				return rawType == null ?
+						factory.constructReferenceType(EObject.class,
+								factory.constructSimpleType(EObject.class, null)):
+						factory.constructReferenceType(EObject.class,
+								factory.constructSimpleType(rawType, constructTypeParameters(rawType.getTypeParameters())));
+			default:
+				if (isMap((EClass) type)) {
+					return constructEntryType((EClass) type);
+				}
+
+				return rawType == null ?
+						factory.constructSimpleType(EObject.class, null):
+						factory.constructSimpleType(rawType, constructTypeParameters(rawType.getTypeParameters()));
+		}
+	}
+
+	private static JavaType[] constructTypeParameters(TypeVariable<? extends Class<?>>[] parameters) {
+		final List<JavaType> types = new ArrayList<>();
+		for (TypeVariable<? extends Class<?>> parameter : parameters) {
+			types.add(factory.constructSimpleType(Object.class, null));
+		}
+
+		return types.toArray(new JavaType[types.size()]);
+	}
+
+	public interface EntryType<K, V> {
+	}
+
 	public interface DataType {
+	}
+
+	public interface FeatureMapType {
 	}
 
 	public static JavaType construct(EObject owner, EStructuralFeature feature) {
@@ -28,11 +89,16 @@ public class EcoreType {
 	}
 
 	private static JavaType construct(EObject owner, EAttribute attribute) {
-		final TypeFactory factory = TypeFactory.defaultInstance();
 		final EDataType dataType = (EDataType) owner.eClass().getFeatureType(attribute).getEClassifier();
 		Class<?> rawType = dataType.getInstanceClass();
 
-		if (rawType == null || dataType == EcorePackage.Literals.EJAVA_CLASS || dataType == EcorePackage.Literals.EJAVA_OBJECT) {
+		if (FeatureMapUtil.isFeatureMap(attribute)) {
+			return factory.constructSimpleType(FeatureMapType.class, null);
+		}
+
+		if (rawType == null || dataType == EcorePackage.Literals.EJAVA_CLASS ||
+				dataType == EcorePackage.Literals.EJAVA_OBJECT) {
+
 			rawType = DataType.class;
 		}
 
@@ -42,8 +108,6 @@ public class EcoreType {
 	}
 
 	private static JavaType constructReference(EReference reference) {
-		final TypeFactory factory = TypeFactory.defaultInstance();
-
 		return reference.isMany() ?
 				factory.constructCollectionLikeType(EList.class, ReferenceEntry.class):
 				factory.constructSimpleType(ReferenceEntry.class, null);
@@ -53,22 +117,51 @@ public class EcoreType {
 		final EClass eType = (EClass) owner.eClass().getFeatureType(reference).getEClassifier();
 		Class<?> rawType = eType.getInstanceClass() == null ? EObject.class: eType.getInstanceClass();
 
-		if ("java.util.Map$Entry".equals(eType.getInstanceClassName()) ||
-				"java.util.Map.Entry".equals(eType.getInstanceClassName())) {
-
-			final EStructuralFeature key = eType.getEStructuralFeature("key");
-			if (!"java.lang.String".equals(key.getEType().getInstanceClassName())) {
-				rawType = EObject.class;
-			} else {
-				rawType = Map.Entry.class;
-			}
+		if (isMap(eType)) {
+			return constructMapType(eType);
 		}
-
-		final TypeFactory factory = TypeFactory.defaultInstance();
 
 		return reference.isMany() ?
 				factory.constructCollectionLikeType(EList.class, rawType):
 				factory.constructSimpleType(rawType, null);
+	}
+
+	private static boolean isMap(EClass type) {
+		return "java.util.Map$Entry".equals(type.getInstanceClassName()) ||
+				"java.util.Map.Entry".equals(type.getInstanceClassName());
+	}
+
+	private static JavaType constructMapType(EClass type) {
+		EStructuralFeature key = type.getEStructuralFeature("key");
+		EStructuralFeature value = type.getEStructuralFeature("value");
+
+		EClassifier keyType = key.getEType();
+		EClassifier valueType = value.getEType();
+
+		Class mapClass = EMap.class;
+		Class<?> keyClass = keyType.getInstanceClass() == null ?
+				EObject.class: keyType.getInstanceClass();
+		Class<?> valueClass = valueType.getInstanceClass() == null ?
+				EObject.class: valueType.getInstanceClass();
+
+		return factory.constructMapLikeType(mapClass, keyClass, valueClass);
+	}
+
+	private static JavaType constructEntryType(EClass type) {
+		EStructuralFeature key = type.getEStructuralFeature("key");
+		EStructuralFeature value = type.getEStructuralFeature("value");
+
+		EClassifier keyType = key.getEType();
+		EClassifier valueType = value.getEType();
+
+		Class<?> keyClass = keyType.getInstanceClass() == null ?
+				EObject.class: keyType.getInstanceClass();
+		Class<?> valueClass = valueType.getInstanceClass() == null ?
+				EObject.class: valueType.getInstanceClass();
+
+		return factory.constructSimpleType(EntryType.class, new JavaType[]{
+				factory.constructSimpleType(keyClass, null),
+				factory.constructSimpleType(valueClass, null)});
 	}
 
 	public enum FeatureKind {

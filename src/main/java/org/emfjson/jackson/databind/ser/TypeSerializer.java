@@ -11,13 +11,28 @@
 package org.emfjson.jackson.databind.ser;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.eclipse.emf.ecore.EClass;
+import org.emfjson.jackson.Keywords;
+import org.emfjson.jackson.common.Cache;
+import org.emfjson.jackson.common.ContextUtils;
 
 import java.io.IOException;
 
-public interface TypeSerializer {
+public class TypeSerializer extends JsonSerializer<EClass> {
 
-	void serialize(EClass eClass, JsonGenerator jg, SerializerProvider provider) throws IOException;
+	protected final Keywords keywords;
 
+	public TypeSerializer(Keywords keywords) {
+		this.keywords = keywords;
+	}
+
+	@Override
+	public void serialize(EClass value, JsonGenerator jg, SerializerProvider serializers) throws IOException {
+		final Cache cache = ContextUtils.get(Cache.class, "cache", serializers);
+		if (cache != null) {
+			jg.writeStringField(keywords._type, cache.getType(value));
+		}
+	}
 }

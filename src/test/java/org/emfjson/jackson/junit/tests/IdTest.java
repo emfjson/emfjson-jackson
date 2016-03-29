@@ -2,21 +2,17 @@ package org.emfjson.jackson.junit.tests;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.emfjson.jackson.JacksonOptions;
+import org.eclipse.emf.common.util.URI;
 import org.emfjson.jackson.junit.model.ModelFactory;
 import org.emfjson.jackson.junit.model.User;
 import org.emfjson.jackson.junit.support.TestSupport;
 import org.emfjson.jackson.resource.JsonResource;
 import org.junit.Test;
 
+import static org.emfjson.jackson.module.EMFModule.FeatureKind.OPTION_SERIALIZE_ID;
 import static org.junit.Assert.assertEquals;
 
 public class IdTest extends TestSupport {
-
-	final JacksonOptions options = new JacksonOptions.Builder()
-			.withID(true)
-			.build();
 
 	@Test
 	public void testWriteId() {
@@ -25,13 +21,15 @@ public class IdTest extends TestSupport {
 				.put("_id", "1")
 				.put("name", "Joe");
 
-		JsonResource resource = new JsonResource();
+		JsonResource resource = new JsonResource(URI.createURI("test"), mapper);
 		User user = ModelFactory.eINSTANCE.createUser();
 		user.setName("Joe");
 		resource.setID(user, "1");
 		resource.getContents().add(user);
 
-		assertEquals(expected, mapper(options).valueToTree(resource));
+		assertEquals(expected,
+				mapper(OPTION_SERIALIZE_ID, true)
+						.valueToTree(resource));
 	}
 
 	@Test
@@ -41,7 +39,11 @@ public class IdTest extends TestSupport {
 				.put("_id", "1")
 				.put("name", "Joe");
 
-		JsonResource resource = (JsonResource) mapper(options).treeToValue(data, Resource.class);
+		JsonResource resource = mapper(OPTION_SERIALIZE_ID, true)
+				.reader()
+				.withAttribute("resourceSet", resourceSet)
+				.treeToValue(data, JsonResource.class);
+
 		User user = (User) resource.getContents().get(0);
 
 		assertEquals("1", resource.getID(user));
@@ -54,7 +56,11 @@ public class IdTest extends TestSupport {
 				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 				.put("name", "Joe");
 
-		JsonResource resource = (JsonResource) mapper(options).treeToValue(data, Resource.class);
+		JsonResource resource = mapper(OPTION_SERIALIZE_ID, true)
+				.reader()
+				.withAttribute("resourceSet", resourceSet)
+				.treeToValue(data, JsonResource.class);
+
 		User user = (User) resource.getContents().get(0);
 
 		assertEquals("1", resource.getID(user));

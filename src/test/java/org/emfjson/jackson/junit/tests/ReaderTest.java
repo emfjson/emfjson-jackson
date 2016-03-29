@@ -66,7 +66,10 @@ public class ReaderTest extends TestSupport {
 								.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EAttribute"))))
 				.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EClass");
 
-		Resource resource = mapper.treeToValue(data, Resource.class);
+		Resource resource = mapper
+				.reader()
+				.withAttribute("resourceSet", resourceSet)
+				.treeToValue(data, Resource.class);
 
 		assertEquals(1, resource.getContents().size());
 
@@ -96,7 +99,10 @@ public class ReaderTest extends TestSupport {
 								.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EOperation"))))
 				.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EClass");
 
-		Resource resource = mapper.treeToValue(data, Resource.class);
+		Resource resource = mapper
+				.reader()
+				.withAttribute("resourceSet", resourceSet)
+				.treeToValue(data, Resource.class);
 
 		assertEquals(1, resource.getContents().size());
 
@@ -126,7 +132,10 @@ public class ReaderTest extends TestSupport {
 								.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EAttribute")
 								.put("name", "bar")));
 
-		Resource resource = mapper.treeToValue(data, Resource.class);
+		Resource resource = mapper
+				.reader()
+				.withAttribute("resourceSet", resourceSet)
+				.treeToValue(data, Resource.class);
 
 		assertEquals(1, resource.getContents().size());
 

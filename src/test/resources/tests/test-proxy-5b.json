@@ -3,6 +3,7 @@
   "label": "2",
   "child": [
     {
+      "eClass": "http://www.emfjson.org/jackson/model#//Node",
       "$ref": "http://eclipselabs.org/emfjson/tests/test-proxy-5.json#/"
     }
   ]

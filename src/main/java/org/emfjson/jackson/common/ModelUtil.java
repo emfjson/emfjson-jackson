@@ -14,14 +14,12 @@ package org.emfjson.jackson.common;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import static org.emfjson.jackson.common.Constants.*;
-
 public class ModelUtil {
 
 	public static String getElementName(EStructuralFeature feature) {
-		final EAnnotation annotation = feature.getEAnnotation(EJS_JSON_ANNOTATION);
-		if (annotation != null && annotation.getDetails().containsKey(EJS_ELEMENT_ANNOTATION)) {
-			return annotation.getDetails().get(EJS_ELEMENT_ANNOTATION);
+		final EAnnotation annotation = feature.getEAnnotation("JsonProperty");
+		if (annotation != null && annotation.getDetails().containsKey("value")) {
+			return annotation.getDetails().get("value");
 		}
 		return feature.getName();
 	}

@@ -35,20 +35,20 @@ public class DynamicMapTest {
 	public void setUp() {
 		URI modelURI = URI.createURI("http://www.emfjson.org/jackson/model");
 
+		mapper.registerModule(new EMFModule());
+
 		resourceSet = new ResourceSetImpl();
 
 		resourceSet.getResourceFactoryRegistry()
 				.getExtensionToFactoryMap()
-				.put("*", new JsonResourceFactory());
+				.put("*", new JsonResourceFactory(mapper));
 
 		resourceSet.getPackageRegistry()
 				.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
 
 		resourceSet.getURIConverter()
 				.getURIMap()
-				.put(
-						modelURI,
-						URI.createURI("src/test/resources/model/dynamic/model-2.json"));
+				.put(modelURI, URI.createURI("src/test/resources/model/dynamic/model-2.json"));
 
 		final Resource resource = resourceSet.getResource(modelURI, true);
 		final EPackage ePackage = (EPackage) resource.getContents().get(0);
@@ -60,8 +60,6 @@ public class DynamicMapTest {
 		stringMapClass = (EClass) ePackage.getEClassifier("StringMap");
 		typeClass = (EClass) ePackage.getEClassifier("Type");
 		valueClass = (EClass) ePackage.getEClassifier("Value");
-
-		mapper.registerModule(new EMFModule(resourceSet));
 	}
 
 	@Test
@@ -136,7 +134,7 @@ public class DynamicMapTest {
 
 		EObject a1 = EcoreUtil.create(eTypesClass);
 		Collection values = (Collection) a1.eGet(eTypesClass.getEStructuralFeature("stringMapValues"));
-		System.out.println(values.getClass());
+
 		EObject v1 = EcoreUtil.create(valueClass);
 		v1.eSet(valueClass.getEStructuralFeature("value"), 1);
 

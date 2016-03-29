@@ -11,6 +11,7 @@
  */
 package org.emfjson.jackson.junit.support;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -35,8 +36,8 @@ public abstract class UuidSupport {
 		return node.get("_id").asText();
 	}
 
-	protected Resource createUuidResource(String name) {
-		Resource resource = new JsonResource(URI.createURI(name)) {
+	protected Resource createUuidResource(String name, ObjectMapper mapper) {
+		Resource resource = new JsonResource(URI.createURI(name), mapper) {
 			@Override
 			protected boolean useUUIDs() {
 				return true;

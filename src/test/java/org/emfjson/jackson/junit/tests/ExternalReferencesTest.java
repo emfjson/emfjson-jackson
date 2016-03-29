@@ -11,16 +11,14 @@
  */
 package org.emfjson.jackson.junit.tests;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.junit.Test;
-
 import org.emfjson.jackson.junit.model.ModelFactory;
 import org.emfjson.jackson.junit.model.Node;
 import org.emfjson.jackson.junit.support.TestSupport;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
+import org.junit.Test;
 
 import java.io.IOException;
 
@@ -65,21 +63,22 @@ public class ExternalReferencesTest extends TestSupport {
 	@Test
 	public void testLoadExternalReferenceOnSameBaseURI() throws JsonProcessingException {
 		JsonNode first = mapper.createObjectNode()
-			.put("eClass", "http://www.emfjson.org/jackson/model#//Node");
+				.put("eClass", "http://www.emfjson.org/jackson/model#//Node");
 
 		JsonNode second = mapper.createObjectNode()
-			.put("eClass", "http://www.emfjson.org/jackson/model#//Node")
-			.set("target", mapper.createObjectNode()
-				.put("$ref", "../first.json#/"));
-
+				.put("eClass", "http://www.emfjson.org/jackson/model#//Node")
+				.set("target", mapper.createObjectNode()
+						.put("$ref", "../first.json#/"));
 
 		Resource r1 = mapper.reader()
-			.withAttribute("uri", "file://folder/first.json")
-			.treeToValue(first, Resource.class);
+				.withAttribute("uri", "file://folder/first.json")
+				.withAttribute("resourceSet", resourceSet)
+				.treeToValue(first, Resource.class);
 
 		Resource r2 = mapper.reader()
-			.withAttribute("uri", "file://folder/second.json")
-			.treeToValue(second, Resource.class);
+				.withAttribute("uri", "file://folder/second.json")
+				.withAttribute("resourceSet", resourceSet)
+				.treeToValue(second, Resource.class);
 
 		assertNotNull(r1);
 		assertNotNull(r2);

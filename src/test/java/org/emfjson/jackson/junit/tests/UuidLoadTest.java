@@ -46,16 +46,17 @@ public class UuidLoadTest extends UuidSupport {
 	@Before
 	public void setUp() {
 		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
-		mapper.registerModule(new EMFModule(new ResourceSetImpl(), JacksonOptions.from(options)));
+//		new ResourceSetImpl(), JacksonOptions.from(options))
+		mapper.registerModule(new EMFModule());
 	}
 
 	@Test
 	public void testUuidBehavior() throws IOException {
-		Resource in = createUuidResource("in");
+		Resource in = createUuidResource("in", mapper);
 		Container root = ModelFactory.eINSTANCE.createContainer();
 		in.getContents().add(root);
 
-		Resource out = createUuidResource("out");
+		Resource out = createUuidResource("out", mapper);
 		out.load(new ByteArrayInputStream(mapper.writeValueAsBytes(in)), options);
 
 		assertEquals(1, out.getContents().size());
@@ -67,7 +68,7 @@ public class UuidLoadTest extends UuidSupport {
 
 	@Test
 	public void testDeserializeOneObject() throws IOException {
-		Resource resource = createUuidResource("test.xmi");
+		Resource resource = createUuidResource("test.xmi", mapper);
 		Container root = ModelFactory.eINSTANCE.createContainer();
 		resource.getContents().add(root);
 
@@ -80,7 +81,7 @@ public class UuidLoadTest extends UuidSupport {
 
 	@Test
 	public void testDeserializeOneObjectWithTwoChildHavingOneReference() throws IOException {
-		Resource resource = createUuidResource("test.xmi");
+		Resource resource = createUuidResource("test.xmi", mapper);
 		Container root = ModelFactory.eINSTANCE.createContainer();
 		ConcreteTypeOne one = ModelFactory.eINSTANCE.createConcreteTypeOne();
 		one.setName("one");

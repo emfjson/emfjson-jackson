@@ -9,7 +9,7 @@
  *     Guillaume Hillairet - initial API and implementation
  *
  */
-package org.emfjson.handlers;
+package org.emfjson.jackson.handlers;
 
 import org.eclipse.emf.common.util.URI;
 

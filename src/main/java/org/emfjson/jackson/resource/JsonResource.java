@@ -39,16 +39,22 @@ import static java.util.Collections.synchronizedMap;
 public class JsonResource extends ResourceImpl {
 
 	protected static final Map<EObject, String> DETACHED_EOBJECT_TO_ID_MAP = synchronizedMap(new WeakHashMap<EObject, String>());
+
+	private final ObjectMapper mapper;
+
 	private Map<String, EObject> idToEObjectMap;
 	private Map<EObject, String> eObjectToIDMap;
 
-	public JsonResource() {
-		super();
+	public JsonResource(URI uri, ObjectMapper mapper) {
+		super(uri);
+
+		this.mapper = mapper;
 	}
 
-	public JsonResource(URI uri) {
-		super(uri);
-	}
+//	@Deprecated
+//	public JsonResource(URI uri) {
+//		super(uri);
+//	}
 
 	@Override
 	protected boolean isAttachedDetachedHelperRequired() {
@@ -156,14 +162,10 @@ public class JsonResource extends ResourceImpl {
 
 		} else {
 
-			final ObjectMapper mapper = new ObjectMapper();
-			final JacksonOptions jacksonOptions = getOptions(options);
-			mapper.setDateFormat(jacksonOptions.dateFormat);
-			mapper.registerModule(new EMFModule(this.getResourceSet(), jacksonOptions));
-
 			ContextAttributes attributes = ContextAttributes
 				.getEmpty()
-				.withSharedAttribute("resource", this);
+					.withPerCallAttribute("resourceSet", getResourceSet())
+					.withPerCallAttribute("resource", this);
 
 			mapper.reader()
 				.with(attributes)
@@ -185,13 +187,14 @@ public class JsonResource extends ResourceImpl {
 
 		} else {
 
-			final ObjectMapper mapper = new ObjectMapper();
-			final JacksonOptions jacksonOptions = getOptions(options);
-			mapper.setDateFormat(jacksonOptions.dateFormat);
-			mapper.configure(SerializationFeature.INDENT_OUTPUT, jacksonOptions.indentOutput);
-			mapper.registerModule(new EMFModule(this.getResourceSet(), jacksonOptions));
+//			final ObjectMapper mapper = new ObjectMapper();
+//			final JacksonOptions jacksonOptions = getOptions(options);
+//			mapper.setDateFormat(jacksonOptions.dateFormat);
+//			mapper.configure(SerializationFeature.INDENT_OUTPUT, jacksonOptions.indentOutput);
+//			mapper.registerModule(new EMFModule(this.getResourceSet(), jacksonOptions));
 
-			outputStream.write(mapper.writeValueAsBytes(this));
+			outputStream.write(mapper
+					.writeValueAsBytes(this));
 		}
 	}
 

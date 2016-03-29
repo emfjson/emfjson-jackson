@@ -7,26 +7,23 @@
  *
  * Contributors:
  *     Guillaume Hillairet - initial API and implementation
+ *
  */
-package org.emfjson.handlers;
+package org.emfjson.jackson.handlers;
 
 import org.eclipse.emf.common.util.URI;
 
 /**
- * URIHandler that does not modify uris during resolve and
- * deresolve operations.
- *
+ * A URI handler that will avoid creating relative references between platform:/resource and platform:/plugin.
  */
-public class IdentityURIHandler implements URIHandler {
-
-	@Override
-	public URI resolve(URI baseURI, URI uri) {
-		return uri;
-	}
+public class PlatformSchemeAware extends BaseURIHandler {
 
 	@Override
 	public URI deresolve(URI baseURI, URI uri) {
-		return uri;
+		return !uri.isPlatform() ||
+			(uri.segmentCount() > 0 &&
+				baseURI.segmentCount() > 0 && uri.segment(0).equals(baseURI.segment(0))) ?
+			super.deresolve(baseURI, uri) : uri;
 	}
 
 }

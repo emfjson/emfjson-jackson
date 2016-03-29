@@ -10,44 +10,48 @@
  */
 package org.emfjson.jackson.junit.tests;
 
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.junit.Before;
-import org.junit.Test;
-
-import org.emfjson.jackson.JacksonOptions;
-import org.emfjson.jackson.junit.model.*;
-import org.emfjson.jackson.module.EMFModule;
-import org.emfjson.jackson.resource.JsonResource;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.emfjson.jackson.Options;
+import org.emfjson.jackson.junit.model.*;
+import org.emfjson.jackson.module.EMFModule;
+import org.emfjson.jackson.resource.JsonResource;
+import org.emfjson.jackson.resource.JsonResourceFactory;
+import org.junit.Before;
+import org.junit.Test;
 
+import static org.emfjson.jackson.module.EMFModule.FeatureKind.OPTION_SERIALIZE_TYPE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class NoTypeTest {
 
-	private ObjectMapper mapper = new ObjectMapper();
+	private ObjectMapper mapper;
+	private ResourceSetImpl resourceSet;
 
 	@Before
 	public void setUp() {
-		JacksonOptions options = new JacksonOptions.Builder()
-			.withTypes(false)
-			.withRoot(ModelPackage.Literals.USER)
-			.build();
+		mapper = new ObjectMapper();
+		resourceSet = new ResourceSetImpl();
 
-		EMFModule module = new EMFModule(new ResourceSetImpl(), options);
+		EMFModule module = new EMFModule();
+		module.configure(OPTION_SERIALIZE_TYPE, false);
 		mapper.registerModule(module);
+
+		resourceSet.getResourceFactoryRegistry()
+				.getExtensionToFactoryMap()
+				.put("*", new JsonResourceFactory(mapper));
 	}
 
 	@Test
 	public void testSaveSingleObjectWithNoType() {
 		JsonNode expected = mapper.createObjectNode()
-			.put("userId", "1")
-			.put("name", "Paul");
+				.put("userId", "1")
+				.put("name", "Paul");
 
 		User u1 = ModelFactory.eINSTANCE.createUser();
 		u1.setUserId("1");
@@ -61,13 +65,13 @@ public class NoTypeTest {
 	@Test
 	public void testSaveTwoRootObjectsWithNoType() {
 		JsonNode expected = mapper.createArrayNode()
-			.add(mapper.createObjectNode()
-				.put("userId", "1")
-				.put("name", "Paul"))
-			.add(mapper.createObjectNode()
-				.put("userId", "2")
-				.put("name", "Anna")
-				.put("sex", "FEMALE"));
+				.add(mapper.createObjectNode()
+						.put("userId", "1")
+						.put("name", "Paul"))
+				.add(mapper.createObjectNode()
+						.put("userId", "2")
+						.put("name", "Anna")
+						.put("sex", "FEMALE"));
 
 		User u1 = ModelFactory.eINSTANCE.createUser();
 		u1.setUserId("1");
@@ -78,7 +82,7 @@ public class NoTypeTest {
 		u2.setName("Anna");
 		u2.setSex(Sex.FEMALE);
 
-		Resource resource = new JsonResource();
+		Resource resource = new JsonResource(URI.createURI("test"), mapper);
 		resource.getContents().add(u1);
 		resource.getContents().add(u2);
 
@@ -90,10 +94,13 @@ public class NoTypeTest {
 	@Test
 	public void testLoadSingleObjectWithNoType() throws JsonProcessingException {
 		JsonNode data = mapper.createObjectNode()
-			.put("userId", "1")
-			.put("name", "Paul");
+				.put("userId", "1")
+				.put("name", "Paul");
 
-		User result = (User) mapper.treeToValue(data, EObject.class);
+		User result = mapper
+				.reader()
+				.withAttribute(Options.OPTION_ROOT_ELEMENT, ModelPackage.Literals.USER)
+				.treeToValue(data, User.class);
 
 		assertNotNull(result);
 
@@ -105,16 +112,20 @@ public class NoTypeTest {
 	@Test
 	public void testLoadTwoRootObjectsWithNoType() throws JsonProcessingException {
 		JsonNode data = mapper.createArrayNode()
-			.add(mapper.createObjectNode()
-				.put("userId", "1")
-				.put("name", "Paul")
-				.put("sex", "MALE"))
-			.add(mapper.createObjectNode()
-				.put("userId", "2")
-				.put("name", "Anna")
-				.put("sex", "FEMALE"));
+				.add(mapper.createObjectNode()
+						.put("userId", "1")
+						.put("name", "Paul")
+						.put("sex", "MALE"))
+				.add(mapper.createObjectNode()
+						.put("userId", "2")
+						.put("name", "Anna")
+						.put("sex", "FEMALE"));
 
-		Resource result = mapper.treeToValue(data, Resource.class);
+		Resource result = mapper
+				.reader()
+				.withAttribute("resourceSet", resourceSet)
+				.withAttribute(Options.OPTION_ROOT_ELEMENT, ModelPackage.Literals.USER)
+				.treeToValue(data, Resource.class);
 
 		assertNotNull(result);
 		assertEquals(2, result.getContents().size());
@@ -134,11 +145,11 @@ public class NoTypeTest {
 	@Test
 	public void testSaveSingleObjectWithNoTypeAndOneContainment() {
 		JsonNode expected = mapper.createObjectNode()
-			.put("userId", "1")
-			.put("name", "Paul")
-			.set("address", mapper.createObjectNode()
-				.put("addId", "a1")
-				.put("city", "Prague"));
+				.put("userId", "1")
+				.put("name", "Paul")
+				.set("address", mapper.createObjectNode()
+						.put("addId", "a1")
+						.put("city", "Prague"));
 
 		User u1 = ModelFactory.eINSTANCE.createUser();
 		u1.setUserId("1");
@@ -158,13 +169,17 @@ public class NoTypeTest {
 	@Test
 	public void testLoadSingleObjectWithNoTypeAndOneContainment() throws JsonProcessingException {
 		JsonNode data = mapper.createObjectNode()
-			.put("userId", "1")
-			.put("name", "Paul")
-			.set("address", mapper.createObjectNode()
-				.put("addId", "a1")
-				.put("city", "Prague"));
+				.put("userId", "1")
+				.put("name", "Paul")
+				.set("address", mapper.createObjectNode()
+						.put("addId", "a1")
+						.put("city", "Prague"));
 
-		User result = (User) mapper.treeToValue(data, EObject.class);
+		User result = mapper
+				.reader()
+				.withAttribute("resourceSet", resourceSet)
+				.withAttribute(Options.OPTION_ROOT_ELEMENT, ModelPackage.Literals.USER)
+				.treeToValue(data, User.class);
 
 		assertNotNull(result);
 

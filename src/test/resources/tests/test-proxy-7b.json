@@ -1,0 +1,10 @@
+{
+  "eClass": "http://www.emfjson.org/jackson/model#//PhysicalNode",
+  "label": "2",
+  "child": [
+    {
+      "eClass": "http://www.emfjson.org/jackson/model#//PhysicalNode",
+      "$ref": "http://eclipselabs.org/emfjson/tests/test-proxy-7.json#/"
+    }
+  ]
+}

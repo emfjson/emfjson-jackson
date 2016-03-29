@@ -9,14 +9,13 @@
  *     Guillaume Hillairet - initial API and implementation
  *
  */
-package org.emfjson.common;
+package org.emfjson.jackson.common;
 
 import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.impl.DynamicEObjectImpl.BasicEMapEntry;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
-import org.emfjson.jackson.JacksonOptions;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -25,7 +24,6 @@ import java.util.Set;
 
 /**
  * Utility class to facilitate access or modification of eObjects.
- *
  */
 public class EObjects {
 
@@ -70,6 +68,12 @@ public class EObjects {
 		}
 	}
 
+	public static boolean isCandidate(EObject object, EStructuralFeature feature, boolean serializeDefaultValues) {
+		return feature != null && (feature instanceof EAttribute ?
+				isCandidate(object, (EAttribute) feature, serializeDefaultValues):
+				isCandidate(object, (EReference) feature));
+	}
+
 	/**
 	 * Checks that the attribute should be serialize.
 	 *
@@ -77,7 +81,7 @@ public class EObjects {
 	 * @param attribute
 	 * @return true if serializable
 	 */
-	public static boolean isCandidate(EObject object, EAttribute attribute, JacksonOptions options) {
+	public static boolean isCandidate(EObject object, EAttribute attribute, boolean serializeDefaultValues) {
 		if (attribute.isDerived() || attribute.isTransient())
 			return false;
 
@@ -88,7 +92,7 @@ public class EObjects {
 		final Object value = object.eGet(attribute);
 		final boolean isDefault = value != null && value.equals(attribute.getDefaultValue());
 
-		return options.serializeDefaultValues && isDefault;
+		return serializeDefaultValues && isDefault;
 	}
 
 	/**
@@ -136,13 +140,13 @@ public class EObjects {
 	 * @return true if proxy
 	 */
 	public static boolean isContainmentProxy(EObject owner, EObject contained) {
-		return contained.eIsProxy() || (owner.eResource() != null && !owner.eResource().equals(contained.eResource()));
+		return contained.eIsProxy() || owner == null || (owner.eResource() != null && !owner.eResource().equals(contained.eResource()));
 	}
 
 	/**
 	 * Returns set of structural features being part of a feature map.
 	 *
-	 * @param owner of feature
+	 * @param owner     of feature
 	 * @param attribute feature map
 	 * @return set of features
 	 */
@@ -161,7 +165,7 @@ public class EObjects {
 	/**
 	 * Creates a map entry of type string, string.
 	 *
-	 * @param key of entry
+	 * @param key   of entry
 	 * @param value of entry
 	 * @return entry
 	 */
@@ -187,4 +191,7 @@ public class EObjects {
 		}
 	}
 
+	public static boolean shouldSaveType(EClass objectType, EClass featureType, EStructuralFeature feature) {
+		return objectType != featureType && (featureType.isAbstract() || feature.getEGenericType().getETypeParameter() != null);
+	}
 }

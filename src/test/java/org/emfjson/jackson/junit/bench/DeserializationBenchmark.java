@@ -116,7 +116,7 @@ public class DeserializationBenchmark {
 
 		for (int i = 0; i < times; i++) {
 			ResourceSet resourceSet = new ResourceSetImpl();
-			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new JsonResourceFactory());
+			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new JsonResourceFactory(null));
 			resourceSet.getPackageRegistry().put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
 			Resource resource = resourceSet.createResource(URI.createURI("test"));
 

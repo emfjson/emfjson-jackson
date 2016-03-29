@@ -48,12 +48,13 @@ public class UuidSaveTest extends UuidSupport {
 	@Before
 	public void setUp() {
 		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
-		mapper.registerModule(new EMFModule(new ResourceSetImpl(), JacksonOptions.from(options)));
+//		new ResourceSetImpl(), JacksonOptions.from(options))
+		mapper.registerModule(new EMFModule());
 	}
 
 	@Test
 	public void testSerializeOneObjectWithUuid() {
-		Resource resource = createUuidResource("test.xmi");
+		Resource resource = createUuidResource("test.xmi", mapper);
 		Container root = ModelFactory.eINSTANCE.createContainer();
 		resource.getContents().add(root);
 
@@ -69,7 +70,7 @@ public class UuidSaveTest extends UuidSupport {
 
 	@Test
 	public void testSerializeOneRootWithTwoChildHavingOneReference() throws IOException {
-		Resource resource = createUuidResource("test.xmi");
+		Resource resource = createUuidResource("test.xmi", mapper);
 
 		Container root = ModelFactory.eINSTANCE.createContainer();
 		ConcreteTypeOne one = ModelFactory.eINSTANCE.createConcreteTypeOne();

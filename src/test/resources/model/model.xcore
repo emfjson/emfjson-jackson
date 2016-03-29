@@ -106,18 +106,23 @@ class PrimaryObject {
 	contains resolving TargetObject singleContainmentReferenceProxies opposite singleReferenceNotResolveProxies
 	contains resolving TargetObject[] multipleContainmentReferenceProxies
 
-	@ExtendedMetaData(group="#featureMapReferenceCollection")
-	refers local transient volatile derived TargetObject[] featureMapReferenceType1
-	@ExtendedMetaData(group="#featureMapReferenceCollection")
-	contains transient volatile derived TargetObject[] featureMapReferenceType2
 	@ExtendedMetaData(kind="group")
 	unique EFeatureMapEntry featureMapReferenceCollection
-	@ExtendedMetaData(group="#featureMapAttributeCollection")
-	unique transient volatile derived String[] featureMapAttributeType1
-	@ExtendedMetaData(group="#featureMapAttributeCollection")
-	unique transient volatile derived String[] featureMapAttributeType2
+
+	@ExtendedMetaData(group="#featureMapReferenceCollection")
+	refers local transient volatile derived TargetObject[] featureMapReferenceType1
+
+	@ExtendedMetaData(group="#featureMapReferenceCollection")
+	contains transient volatile derived TargetObject[] featureMapReferenceType2
+
 	@ExtendedMetaData(kind="group")
 	unique EFeatureMapEntry[] featureMapAttributeCollection
+
+	@ExtendedMetaData(group="#featureMapAttributeCollection")
+	unique transient volatile derived String[] featureMapAttributeType1
+
+	@ExtendedMetaData(group="#featureMapAttributeCollection")
+	unique transient volatile derived String[] featureMapAttributeType2
 }
 
 class Container {
@@ -173,3 +178,17 @@ abstract class GenericType<T> {
 class SpecialTypeOne extends GenericType<String> {}
 
 class SpecialTypeTwo extends GenericType<Boolean> {}
+
+abstract class AbstractNode {
+	String label
+
+	contains AbstractNode[] child opposite parent
+	contains resolving AbstractNode[] childResolving opposite parentResolving
+
+	refers AbstractNode parent opposite child
+	refers AbstractNode parentResolving opposite childResolving
+}
+
+class PhysicalNode extends AbstractNode {}
+
+class VirtualNode extends AbstractNode {}

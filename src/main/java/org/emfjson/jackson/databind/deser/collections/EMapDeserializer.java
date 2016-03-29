@@ -1,4 +1,4 @@
-package org.emfjson.jackson.databind.deser;
+package org.emfjson.jackson.databind.deser.collections;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -8,22 +8,23 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.emfjson.common.EObjects;
+import org.emfjson.jackson.common.EObjects;
 
 import java.io.IOException;
+import java.util.Map;
 
 import static org.emfjson.jackson.common.ContextUtils.get;
 
-public class EMapDeserializer extends JsonDeserializer<EList<Object>> {
+public class EMapDeserializer extends JsonDeserializer<EList<Map.Entry<?, ?>>> {
 
 	@Override
-	public EList<Object> deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
+	public EList<Map.Entry<?, ?>> deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
 		return null;
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public EList<Object> deserialize(JsonParser jp, DeserializationContext ctxt, EList<Object> intoValue) throws IOException {
+	public EList<Map.Entry<?, ?>> deserialize(JsonParser jp, DeserializationContext ctxt, EList<Map.Entry<?, ?>> intoValue) throws IOException {
 		final EReference reference = get(EReference.class, "reference", ctxt);
 
 		if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
@@ -44,7 +45,7 @@ public class EMapDeserializer extends JsonDeserializer<EList<Object>> {
 				if (intoValue instanceof EMap) {
 					((EMap) intoValue).put(key, value);
 				} else if (reference != null) {
-					intoValue.add(EObjects.createEntry(key, value, reference.getEReferenceType()));
+					intoValue.add((Map.Entry<?, ?>) EObjects.createEntry(key, value, reference.getEReferenceType()));
 				}
 			}
 		}

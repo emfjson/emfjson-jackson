@@ -9,28 +9,38 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.util.EcoreEList;
-import org.eclipse.emf.ecore.util.EcoreEMap;
-import org.eclipse.emf.ecore.util.FeatureMapUtil;
-import org.emfjson.common.ReferenceEntries;
 import org.emfjson.jackson.common.ContextUtils;
-import org.emfjson.jackson.databind.deser.references.ReferenceAsObjectDeserializer;
+import org.emfjson.jackson.common.ELists;
+import org.emfjson.jackson.common.ReferenceEntries;
 import org.emfjson.jackson.databind.type.EcoreType;
 
 import java.io.IOException;
 
 public class EListDeserializer extends JsonDeserializer<EList<EObject>> {
 
-	ReferenceAsObjectDeserializer dd = new ReferenceAsObjectDeserializer();
+	private final JsonDeserializer<ReferenceEntries.ReferenceEntry> refDeserializer;
+
+	public EListDeserializer(JsonDeserializer<ReferenceEntries.ReferenceEntry> refDeserializer) {
+		this.refDeserializer = refDeserializer;
+	}
 
 	@Override
 	public EList<EObject> deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
-		EStructuralFeature feature = ContextUtils.get(EReference.class, "reference", ctxt);
-		EObject container = ContextUtils.get(EObject.class, "parent", ctxt);
-		ReferenceEntries entries = ContextUtils.get(ReferenceEntries.class, "entries", ctxt);
+		final ReferenceEntries entries = ContextUtils.get(ReferenceEntries.class, "entries", ctxt);
+		final EObject parent = ContextUtils.get(EObject.class, "parent", ctxt);
+		final EReference reference = ContextUtils.get(EReference.class, "reference", ctxt);
+
+		// clear context
+//		ctxt.setAttribute("parent", new Object());
+//		ctxt.setAttribute("reference", new Object());
 
 		while (jp.nextToken() != JsonToken.END_ARRAY) {
-			entries.add(dd.deserialize(jp, container, (EReference) feature, ctxt));
+			if (entries != null) {
+//				ctxt.setAttribute("parent", parent);
+//				ctxt.setAttribute("reference", reference);
+
+				entries.add(refDeserializer.deserialize(jp, ctxt));
+			}
 		}
 
 		return null;
@@ -38,13 +48,16 @@ public class EListDeserializer extends JsonDeserializer<EList<EObject>> {
 
 	@Override
 	public EList<EObject> deserialize(JsonParser jp, DeserializationContext ctxt, EList<EObject> intoValue) throws IOException {
-		EStructuralFeature feature = getFeature(intoValue);
-		EObject container = getObject(intoValue);
-
-		EcoreType.FeatureKind kind = EcoreType.FeatureKind.get(feature);
-		ReferenceEntries entries = (ReferenceEntries) ctxt.getAttribute("entries");
+		final EStructuralFeature feature = ELists.getFeature(intoValue);
+		final EcoreType.FeatureKind kind = EcoreType.FeatureKind.get(feature);
+		final ReferenceEntries entries = (ReferenceEntries) ctxt.getAttribute("entries");
+		final EObject parent = ContextUtils.get(EObject.class, "parent", ctxt);
 
 		while (jp.nextToken() != JsonToken.END_ARRAY) {
+			// reference deserializer will clear context
+//			ctxt.setAttribute("parent", parent);
+//			ctxt.setAttribute("reference", feature);
+
 			switch (kind) {
 				case CONTAINMENT:
 					JsonDeserializer<Object> deserializer =
@@ -58,36 +71,12 @@ public class EListDeserializer extends JsonDeserializer<EList<EObject>> {
 					}
 					break;
 				case REFERENCE:
-					entries.add(dd.deserialize(jp, container, (EReference) feature, ctxt));
+					entries.add(refDeserializer.deserialize(jp, ctxt));
 					break;
 			}
 		}
 
 		return intoValue;
-	}
-
-	private EObject getObject(EList<EObject> list) {
-		if (list instanceof EcoreEList) {
-			return ((EcoreEList) list).getEObject();
-		} else if (list instanceof EcoreEMap) {
-			return ((EcoreEMap) list).getEObject();
-		} else if (list instanceof FeatureMapUtil.FeatureEList) {
-			return ((FeatureMapUtil.FeatureEList) list).getEObject();
-		}
-
-		return null;
-	}
-
-	protected EStructuralFeature getFeature(EList<EObject> list) {
-		if (list instanceof EcoreEList) {
-			return ((EcoreEList) list).getEStructuralFeature();
-		} else if (list instanceof EcoreEMap) {
-			return ((EcoreEMap) list).getEStructuralFeature();
-		} else if (list instanceof FeatureMapUtil.FeatureEList) {
-			return ((FeatureMapUtil.FeatureEList) list).getEStructuralFeature();
-		}
-
-		return null;
 	}
 
 }

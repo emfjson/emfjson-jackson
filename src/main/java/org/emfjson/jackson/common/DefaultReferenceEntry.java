@@ -18,9 +18,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emfjson.common.EObjects;
-import org.emfjson.common.ReferenceEntries;
-import org.emfjson.handlers.URIHandler;
+import org.emfjson.jackson.handlers.URIHandler;
 
 public class DefaultReferenceEntry implements ReferenceEntries.ReferenceEntry {
 
@@ -45,13 +43,9 @@ public class DefaultReferenceEntry implements ReferenceEntries.ReferenceEntry {
 		EObject target = entries.get(id);
 
 		if (target == null) {
-
 			if (reference.isResolveProxies() && type != null) {
-
 				target = createProxy(resourceSet);
-
 			} else {
-
 				target = owner.eResource().getEObject(id);
 
 				if (target == null) {

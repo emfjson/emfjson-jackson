@@ -1,0 +1,25 @@
+@Ecore(nsURI="http://www.emfjson.org/jackson/annotations")
+@GenModel(
+    modelDirectory="emfjson-jackson/src/test/java-gen",
+    updateClasspath="false",
+    bundleManifest="false",
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl",
+    complianceLevel="7.0"
+)
+package org.emfjson.jackson.junit.annotations
+
+annotation "JsonIgnore" as JsonIgnore
+annotation "JsonProperty" as JsonProperty
+annotation "JsonIgnoreProperties" as JsonIgnoreProperties
+
+class TestA {
+	@JsonProperty(value = "my_value")
+	String value
+
+	@JsonProperty
+	op String hello() {
+		"Hello"
+	}
+}
+
+class TestB {}

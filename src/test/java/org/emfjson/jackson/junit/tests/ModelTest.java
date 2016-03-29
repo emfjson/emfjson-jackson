@@ -20,7 +20,6 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.emfjson.jackson.JacksonOptions.from;
 
 public class ModelTest {
 
@@ -34,11 +33,13 @@ public class ModelTest {
 		URI baseURI = URI.createURI("http://eclipselabs.org/emfjson/tests/");
 		EPackage.Registry.INSTANCE.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
 
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("*", new JsonResourceFactory());
+		Resource.Factory.Registry.INSTANCE
+				.getExtensionToFactoryMap().put("*", new JsonResourceFactory(mapper));
+
 		resourceSet = new ResourceSetImpl();
 		resourceSet.getURIConverter().getURIMap().put(baseURI, baseTestFilesFileDirectory);
 
-		mapper.registerModule(new EMFModule(resourceSet, from(options)));
+		mapper.registerModule(new EMFModule());
 		final TimeZone timeZone = TimeZone.getTimeZone("GMT");
 		final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 		dateFormat.setTimeZone(timeZone);

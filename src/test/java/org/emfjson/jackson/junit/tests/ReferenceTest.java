@@ -18,19 +18,18 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emfjson.EMFJs;
-import org.emfjson.jackson.JacksonOptions;
-import org.emfjson.jackson.databind.deser.references.ReferenceAsValueDeserializer;
-import org.emfjson.jackson.databind.ser.references.ReferenceAsValueSerializer;
+import org.emfjson.jackson.Options;
 import org.emfjson.jackson.junit.model.*;
 import org.emfjson.jackson.junit.model.impl.PrimaryObjectImpl;
 import org.emfjson.jackson.junit.support.TestSupport;
-import org.emfjson.jackson.module.EMFModule;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.emfjson.jackson.module.EMFModule.FeatureKind.OPTION_SERIALIZE_REF_AS_VALUE;
 import static org.junit.Assert.*;
 
 public class ReferenceTest extends TestSupport {
@@ -147,10 +146,12 @@ public class ReferenceTest extends TestSupport {
 
 	@Test
 	public void testLoadThreeObjectsTwoReferences() throws IOException {
-		options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.Literals.USER);
-
-		Resource resource = resourceSet.createResource(uri("test-load-2.json"));
-		resource.load(options);
+		Resource resource = mapper
+				.reader()
+				.withAttribute("resourceSet", this.resourceSet)
+				.withAttribute(Options.OPTION_ROOT_ELEMENT, ModelPackage.Literals.USER)
+				.forType(Resource.class)
+				.readValue(Paths.get("src/test/resources/tests/test-load-2.json").toFile());
 
 		assertFalse(resource.getContents().isEmpty());
 		assertEquals(3, resource.getContents().size());
@@ -185,11 +186,7 @@ public class ReferenceTest extends TestSupport {
 
 	@Test
 	public void testSaveReferenceAsValue() {
-		ObjectMapper mapper = new ObjectMapper();
-		JacksonOptions opts = new JacksonOptions.Builder()
-				.withReferenceSerializer(new ReferenceAsValueSerializer())
-				.build();
-		mapper.registerModule(new EMFModule(resourceSet, opts));
+		ObjectMapper mapper = mapper(OPTION_SERIALIZE_REF_AS_VALUE, true);
 
 		JsonNode expected = mapper.createArrayNode()
 				.add(mapper.createObjectNode()
@@ -223,11 +220,7 @@ public class ReferenceTest extends TestSupport {
 
 	@Test
 	public void testLoadReferenceAsValue() throws JsonProcessingException {
-		ObjectMapper mapper = new ObjectMapper();
-		JacksonOptions opts = new JacksonOptions.Builder()
-				.withReferenceDeserializer(new ReferenceAsValueDeserializer())
-				.build();
-		mapper.registerModule(new EMFModule(resourceSet, opts));
+		ObjectMapper mapper = mapper(OPTION_SERIALIZE_REF_AS_VALUE, true);
 
 		JsonNode data = mapper.createArrayNode()
 				.add(mapper.createObjectNode()
@@ -242,7 +235,10 @@ public class ReferenceTest extends TestSupport {
 						.put("name", "Mary")
 						.put("sex", "FEMALE"));
 
-		Resource resource = mapper.treeToValue(data, Resource.class);
+		Resource resource = mapper
+				.reader()
+				.withAttribute("resourceSet", resourceSet)
+				.treeToValue(data, Resource.class);
 
 		assertEquals(2, resource.getContents().size());
 

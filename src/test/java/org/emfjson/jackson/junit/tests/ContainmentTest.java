@@ -19,9 +19,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emfjson.common.EObjects;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.emfjson.jackson.common.EObjects;
 import org.emfjson.jackson.junit.model.*;
+import org.emfjson.jackson.junit.model.impl.PhysicalNodeImpl;
 import org.emfjson.jackson.junit.support.TestSupport;
 import org.junit.Test;
 
@@ -337,11 +341,86 @@ public class ContainmentTest extends TestSupport {
 						.put("eClass", "http://emfjson/dynamic/model#//B")
 						.put("someKind", "e1"));
 
-		EObject a1 = mapper.treeToValue(data, EObject.class);
+		EObject a1 = mapper
+				.reader()
+				.withAttribute("resourceSet", resourceSet)
+				.treeToValue(data, EObject.class);
+
 		EObject b1 = (EObject) a1.eGet(a1.eClass().getEStructuralFeature("containB"));
 
 		assertNotNull(b1);
 		assertSame(a1, b1.eGet(b1.eClass().getEStructuralFeature("parent")));
+	}
+
+	@Test
+	public void testLoadResolvingProxyContainmentWithAbstract() throws IOException {
+		Resource resource = resourceSet.getResource(uri("test-proxy-7b.json"), true);
+
+		assertFalse(resource.getContents().isEmpty());
+		assertEquals(1, resource.getContents().size());
+
+		PhysicalNodeImpl root = (PhysicalNodeImpl) resource.getContents().get(0);
+		assertEquals("2", root.getLabel());
+		assertEquals(1, root.getChild().size());
+
+		AbstractNode child = root.getChild().get(0);
+
+		assertTrue(child.eIsProxy());
+		assertSame(root.eResource(), child.eResource());
+
+		EObject resolve = EcoreUtil.resolve(child, resourceSet);
+		assertNotSame(resolve.eResource(), root.eResource());
+	}
+
+//	@Test
+//	public void testXmi() throws IOException {
+//		ResourceSet resourceSet = new ResourceSetImpl();
+//		resourceSet.getPackageRegistry().put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
+//		resourceSet.getResourceFactoryRegistry()
+//				.getExtensionToFactoryMap()
+//				.put("xmi", new XMIResourceFactoryImpl());
+//
+//		Resource x1 = resourceSet.createResource(URI.createURI("src/test/resources/xmi/test1.xmi"));
+//		Resource x2 = resourceSet.createResource(URI.createURI("src/test/resources/xmi/test2.xmi"));
+//
+//		PhysicalNode p1 = ModelFactory.eINSTANCE.createPhysicalNode();
+//		p1.setLabel("p1");
+//
+//		x1.getContents().add(p1);
+//
+//		PhysicalNode p2 = ModelFactory.eINSTANCE.createPhysicalNode();
+//		p2.setLabel("p2");
+//
+//		x2.getContents().add(p2);
+//
+//		InternalEObject proxy = (InternalEObject) ModelFactory.eINSTANCE.createPhysicalNode();
+//		proxy.eSetProxyURI(EcoreUtil.getURI(p2));
+//		p1.getChild().add((AbstractNode) proxy);
+//
+//		x2.save(null);
+//		x1.save(null);
+//	}
+
+	@Test
+	public void testLoadXmi() throws IOException {
+		ResourceSet resourceSet = new ResourceSetImpl();
+		resourceSet.getPackageRegistry().put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
+		resourceSet.getResourceFactoryRegistry()
+				.getExtensionToFactoryMap()
+				.put("xmi", new XMIResourceFactoryImpl());
+
+		Resource x1 = resourceSet.getResource(URI.createURI("src/test/resources/xmi/test1.xmi"), true);
+
+		assertEquals(1, x1.getContents().size());
+
+		PhysicalNode p1 = (PhysicalNode) x1.getContents().get(0);
+
+		AbstractNode p2 = p1.getChild().get(0);
+		assertTrue(p2.eIsProxy());
+		assertSame(p2.eResource(), p1.eResource());
+
+		EObject resolve = EcoreUtil.resolve(p2, resourceSet);
+		assertNotSame(resolve.eResource(), p1.eResource());
 	}
 
 }
