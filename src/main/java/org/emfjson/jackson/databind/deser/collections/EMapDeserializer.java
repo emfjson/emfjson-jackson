@@ -8,12 +8,11 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.emfjson.jackson.internal.ContextUtils;
 import org.emfjson.jackson.internal.EObjects;
 
 import java.io.IOException;
 import java.util.Map;
-
-import static org.emfjson.jackson.common.ContextUtils.get;
 
 public class EMapDeserializer extends JsonDeserializer<EList<Map.Entry<?, ?>>> {
 
@@ -25,7 +24,7 @@ public class EMapDeserializer extends JsonDeserializer<EList<Map.Entry<?, ?>>> {
 	@Override
 	@SuppressWarnings("unchecked")
 	public EList<Map.Entry<?, ?>> deserialize(JsonParser jp, DeserializationContext ctxt, EList<Map.Entry<?, ?>> intoValue) throws IOException {
-		final EReference reference = get(EReference.class, "reference", ctxt);
+		final EReference reference = ContextUtils.get(EReference.class, "reference", ctxt);
 
 		if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
 

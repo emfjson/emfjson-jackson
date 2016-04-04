@@ -4,8 +4,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.eclipse.emf.common.util.EList;
-import org.emfjson.jackson.common.ELists;
-import org.emfjson.jackson.databind.type.EcoreType;
+import org.emfjson.jackson.internal.ELists;
 
 import java.io.IOException;
 import java.util.Map;

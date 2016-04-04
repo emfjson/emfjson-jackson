@@ -9,9 +9,9 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emfjson.jackson.common.ContextUtils;
 import org.emfjson.jackson.databind.deser.references.ReferenceEntries;
 import org.emfjson.jackson.databind.type.EcoreType;
+import org.emfjson.jackson.internal.ContextUtils;
 import org.emfjson.jackson.internal.ELists;
 
 import java.io.IOException;

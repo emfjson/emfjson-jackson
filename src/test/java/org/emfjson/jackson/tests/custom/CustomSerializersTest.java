@@ -78,7 +78,6 @@ public class CustomSerializersTest {
 		resourceSet.getPackageRegistry()
 				.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
-
 				.put("*", new JsonResourceFactory(mapper));
 
 		EMFModule module = new EMFModule();

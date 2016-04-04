@@ -285,6 +285,7 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 		if (get(ReferenceEntries.class, "entries", context) == null)
 			context.setAttribute("entries", new ReferenceEntries());
 
+		System.out.println("resourceSet " + get(ResourceSet.class, "resourceSet", context));
 		if (get(ResourceSet.class, "resourceSet", context) == null)
 			context.setAttribute("resourceSet", new ResourceSetImpl());
 	}

@@ -100,6 +100,7 @@ public class SerializationBenchmark {
 	}
 
 	ObjectMapper mapper = new ObjectMapper();
+
 	{
 		EMFModule module = new EMFModule();
 		module.configure(EMFModule.ModuleFeature.OPTION_SERIALIZE_TYPE, false);
@@ -111,6 +112,7 @@ public class SerializationBenchmark {
 
 		for (int i = 0; i < times; i++) {
 			ResourceSet resourceSet = new ResourceSetImpl();
+
 			resourceSet.getResourceFactoryRegistry()
 					.getExtensionToFactoryMap()
 					.put("*", new JsonResourceFactory(mapper));

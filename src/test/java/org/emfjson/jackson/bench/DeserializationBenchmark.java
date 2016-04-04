@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.resource.impl.BinaryResourceImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-
 import org.emfjson.jackson.junit.model.ModelPackage;
 import org.emfjson.jackson.module.EMFModule;
 import org.emfjson.jackson.resource.JsonResourceFactory;
@@ -114,6 +113,7 @@ public class DeserializationBenchmark {
 	}
 
 	ObjectMapper mapper = new ObjectMapper();
+
 	{
 		mapper.registerModule(new EMFModule());
 	}

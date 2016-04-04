@@ -35,10 +35,12 @@ import static java.util.Collections.synchronizedMap;
  */
 public class JsonResource extends ResourceImpl {
 
+
 	protected static final Map<EObject, String> DETACHED_EOBJECT_TO_ID_MAP
 			= synchronizedMap(new WeakHashMap<EObject, String>());
 
 	private ObjectMapper mapper;
+
 	private Map<String, EObject> idToEObjectMap;
 	private Map<EObject, String> eObjectToIDMap;
 
@@ -49,6 +51,8 @@ public class JsonResource extends ResourceImpl {
 
 	public JsonResource(URI uri) {
 		super(uri);
+
+		this.mapper = mapper;
 	}
 
 	public void setObjectMapper(ObjectMapper mapper) {

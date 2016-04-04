@@ -104,13 +104,16 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 				if (resource == null) {
 					throw new RuntimeException("Cannot create resource for uri " + uri);
 				}
-			}
-		}
 
-		ResourceSet resourceSet = resource.getResourceSet();
-		if (resourceSet == null) {
-			resourceSet = getResourceSet(context);
-			resourceSet.getResources().add(resource);
+			}
+		} else {
+			ResourceSet resourceSet = resource.getResourceSet();
+			if (resourceSet == null) {
+				resourceSet = getResourceSet(context);
+				resourceSet.getResources().add(resource);
+			}
+
+			return resource;
 		}
 
 		return resource;
