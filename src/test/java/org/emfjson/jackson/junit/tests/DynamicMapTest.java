@@ -2,7 +2,6 @@ package org.emfjson.jackson.junit.tests;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
@@ -19,6 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class DynamicMapTest {
 
 	private ObjectMapper mapper = new ObjectMapper();
 
-	private EClass eTypesClass, typeClass, valueClass, tmapClass;
+	private EClass eTypesClass, typeClass, valueClass, tmapClass, stringMapClass;
 	private ResourceSetImpl resourceSet;
 
 	@Before
@@ -57,6 +57,7 @@ public class DynamicMapTest {
 
 		eTypesClass = (EClass) ePackage.getEClassifier("ETypes");
 		tmapClass = (EClass) ePackage.getEClassifier("TMap");
+		stringMapClass = (EClass) ePackage.getEClassifier("StringMap");
 		typeClass = (EClass) ePackage.getEClassifier("Type");
 		valueClass = (EClass) ePackage.getEClassifier("Value");
 
@@ -66,43 +67,54 @@ public class DynamicMapTest {
 	@Test
 	@SuppressWarnings("unchecked")
 	public void testSaveMap() throws IOException {
+		JsonNode expected = mapper.readTree(
+				Paths.get("src/test/resources/tests/test-map-1.json").toFile());
+
 		Resource resource = resourceSet.createResource(URI.createURI("test"));
 
 		EObject a1 = EcoreUtil.create(eTypesClass);
-
-		EObject key = EcoreUtil.create(typeClass);
-		key.eSet(typeClass.getEStructuralFeature("name"), "t1");
-
-		EObject value = EcoreUtil.create(valueClass);
-		value.eSet(valueClass.getEStructuralFeature("value"), 1);
-
-		BasicEMapEntry<EObject, EObject> entry = new BasicEMapEntry<>();
-		entry.eSetClass(tmapClass);
-		entry.setKey(key);
-		entry.setValue(value);
-
 		Collection values = (Collection) a1.eGet(eTypesClass.getEStructuralFeature("values"));
-		values.add(entry);
+
+		{
+			EObject key = EcoreUtil.create(typeClass);
+			key.eSet(typeClass.getEStructuralFeature("name"), "t1");
+
+			EObject value = EcoreUtil.create(valueClass);
+			value.eSet(valueClass.getEStructuralFeature("value"), 1);
+
+			BasicEMapEntry<EObject, EObject> entry = new BasicEMapEntry<>();
+			entry.eSetClass(tmapClass);
+			entry.setKey(key);
+			entry.setValue(value);
+
+			values.add(entry);
+		}
+
+		{
+			EObject key = EcoreUtil.create(typeClass);
+			key.eSet(typeClass.getEStructuralFeature("name"), "t2");
+
+			EObject value = EcoreUtil.create(valueClass);
+			value.eSet(valueClass.getEStructuralFeature("value"), 2);
+
+			BasicEMapEntry<EObject, EObject> entry = new BasicEMapEntry<>();
+			entry.eSetClass(tmapClass);
+			entry.setKey(key);
+			entry.setValue(value);
+
+			values.add(entry);
+		}
 
 		resource.getContents().add(a1);
 
-		JsonNode actual = mapper.valueToTree(resource);
-
-		assertThat(actual.get("values"))
-				.hasSize(1)
-				.contains(
-						((ObjectNode) mapper.createObjectNode()
-								.set("key", mapper.createObjectNode()
-										.put("eClass", "http://www.emfjson.org/jackson/model#//Type")
-										.put("name", "t1")))
-								.set("value", mapper.createObjectNode()
-										.put("eClass", "http://www.emfjson.org/jackson/model#//Value")
-										.put("value", 1)));
+		assertThat(mapper.valueToTree(resource)).
+				isEqualTo(expected);
 	}
 
 	@Test
 	public void testLoadMap() {
-		Resource resource = resourceSet.getResource(URI.createURI("src/test/resources/tests/test-map-1.json"), true);
+		Resource resource = resourceSet.getResource(
+				URI.createURI("src/test/resources/tests/test-map-1.json"), true);
 
 		assertThat(resource.getContents()).hasSize(1);
 		assertThat(resource.getContents().get(0).eClass())
@@ -112,6 +124,42 @@ public class DynamicMapTest {
 
 		assertThat((Collection) types.eGet(eTypesClass.getEStructuralFeature("values")))
 				.hasSize(2);
+	}
+
+	@Test
+	@SuppressWarnings("unchecked")
+	public void testSaveMapWithStringKey() throws IOException {
+		JsonNode expected = mapper.readTree(
+				Paths.get("src/test/resources/tests/test-map-2.json").toFile());
+
+		Resource resource = resourceSet.createResource(URI.createURI("test"));
+
+		EObject a1 = EcoreUtil.create(eTypesClass);
+		Collection values = (Collection) a1.eGet(eTypesClass.getEStructuralFeature("stringMapValues"));
+		System.out.println(values.getClass());
+		EObject v1 = EcoreUtil.create(valueClass);
+		v1.eSet(valueClass.getEStructuralFeature("value"), 1);
+
+		EObject v2 = EcoreUtil.create(valueClass);
+		v2.eSet(valueClass.getEStructuralFeature("value"), 2);
+
+		BasicEMapEntry<EObject, EObject> e1 = new BasicEMapEntry<>();
+		e1.eSetClass(stringMapClass);
+		e1.setKey("Hello");
+		e1.setValue(v1);
+
+		BasicEMapEntry<EObject, EObject> e2 = new BasicEMapEntry<>();
+		e2.eSetClass(stringMapClass);
+		e2.setKey("World");
+		e2.setValue(v2);
+
+		values.add(e1);
+		values.add(e2);
+
+		resource.getContents().add(a1);
+
+		assertThat(mapper.valueToTree(resource)).
+				isEqualTo(expected);
 	}
 
 	@Test

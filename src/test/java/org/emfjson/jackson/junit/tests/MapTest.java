@@ -1,7 +1,6 @@
 package org.emfjson.jackson.junit.tests;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -11,6 +10,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
@@ -19,6 +19,9 @@ public class MapTest extends TestSupport {
 
 	@Test
 	public void testSaveMap() throws IOException {
+		JsonNode expected = mapper.readTree(
+				Paths.get("src/test/resources/tests/test-map-1.json").toFile());
+
 		Resource resource = resourceSet.createResource(URI.createURI("test"));
 
 		ETypes types = ModelFactory.eINSTANCE.createETypes();
@@ -29,20 +32,17 @@ public class MapTest extends TestSupport {
 			v.setValue(1);
 			types.getValues().put(t, v);
 		}
+		{
+			Type t = ModelFactory.eINSTANCE.createType();
+			t.setName("t2");
+			Value v = ModelFactory.eINSTANCE.createValue();
+			v.setValue(2);
+			types.getValues().put(t, v);
+		}
 		resource.getContents().add(types);
 
-		JsonNode actual = mapper.valueToTree(resource);
-
-		assertThat(actual.get("values"))
-				.hasSize(1)
-				.contains(
-						((ObjectNode) mapper.createObjectNode()
-								.set("key", mapper.createObjectNode()
-										.put("eClass", "http://www.emfjson.org/jackson/model#//Type")
-										.put("name", "t1"))
-						).set("value", mapper.createObjectNode()
-								.put("eClass", "http://www.emfjson.org/jackson/model#//Value")
-								.put("value", 1)));
+		assertThat(mapper.valueToTree(resource)).
+				isEqualTo(expected);
 	}
 
 	@Test
@@ -54,29 +54,50 @@ public class MapTest extends TestSupport {
 
 		ETypes types = (ETypes) resource.getContents().get(0);
 
-		assertThat(types.getValues()).hasSize(2);
+		EMap<Type, Value> values = types.getValues();
+
+		assertThat(values).hasSize(2);
+
+		Map.Entry<Type, Value> e = values.get(0);
+
+		assertThat(e.getKey().getName())
+				.isEqualTo("t1");
+		assertThat(e.getValue().getValue())
+				.isEqualTo(1);
+
+		e = values.get(1);
+
+		assertThat(e.getKey().getName())
+				.isEqualTo("t2");
+		assertThat(e.getValue().getValue())
+				.isEqualTo(2);
 	}
 
 	@Test
-	public void testSaveMapWithStringKey() {
+	public void testSaveMapWithStringKey() throws IOException {
+		JsonNode expected = mapper.readTree(
+				Paths.get("src/test/resources/tests/test-map-2.json").toFile());
+
 		Resource resource = resourceSet.createResource(URI.createURI("test"));
 
 		ETypes types = ModelFactory.eINSTANCE.createETypes();
-		Value value = ModelFactory.eINSTANCE.createValue();
-		value.setValue(12);
+
+		Value v1 = ModelFactory.eINSTANCE.createValue();
+		v1.setValue(1);
+
+		Value v2 = ModelFactory.eINSTANCE.createValue();
+		v2.setValue(2);
 
 		types.getStringMapValues()
-				.put("Hello", value);
+				.put("Hello", v1);
+
+		types.getStringMapValues()
+				.put("World", v2);
+
 		resource.getContents().add(types);
 
-		JsonNode actual = mapper.valueToTree(resource);
-
-		assertThat(actual.get("stringMapValues"))
-				.isEqualTo(
-						mapper.createObjectNode()
-								.set("Hello", mapper.createObjectNode()
-										.put("eClass", "http://www.emfjson.org/jackson/model#//Value")
-										.put("value", 12)));
+		assertThat(mapper.valueToTree(resource)).
+				isEqualTo(expected);
 	}
 
 	@Test
