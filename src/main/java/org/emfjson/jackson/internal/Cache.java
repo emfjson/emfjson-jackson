@@ -27,7 +27,7 @@ import static org.emfjson.jackson.annotations.JsonAnnotations.getElementName;
 /**
  * Basic cache implemented with maps to store objects that are frequently used during
  * serialization and deserialization operations.
- * <p>
+ * <p/>
  * Objects that are cached include URIs, IDs, EClasses and EStructuralFeatures.
  */
 public class Cache {
@@ -42,7 +42,7 @@ public class Cache {
 
 	/**
 	 * Returns the field name to be used by a structural feature.
-	 * <p>
+	 * <p/>
 	 * Custom names can be defined by using an eAnnotation on a eStructuralFeature with
 	 * a source named JSON and a value being the field name.
 	 *
@@ -60,7 +60,7 @@ public class Cache {
 
 	/**
 	 * Returns a eClass by it's full URI.
-	 * <p>
+	 * <p/>
 	 * If the eClass has not yet been cached, the method will cache it's
 	 * URI object created from the string parameter, retrieve the eClass
 	 * and cache it.

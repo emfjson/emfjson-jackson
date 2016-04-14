@@ -25,6 +25,8 @@ import java.util.Map;
 
 import static org.emfjson.jackson.module.EMFModule.ModuleFeature.*;
 
+import java.util.Map;
+
 public class EMFSerializers extends Serializers.Base {
 
 	private EObjectSerializer _objectSerializer;

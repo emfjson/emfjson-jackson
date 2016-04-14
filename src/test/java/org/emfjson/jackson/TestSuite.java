@@ -37,6 +37,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		ModuleTest.class,
 		NoTypeTest.class,
 		PolymorphicTest.class,
+
 		ReaderTest.class,
 		ReferenceTest.class,
 		ValueTest.class,
@@ -66,6 +67,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		// custom
 		CustomDeserializersTest.class,
 		CustomSerializersTest.class
+
 })
 public class TestSuite {
 }

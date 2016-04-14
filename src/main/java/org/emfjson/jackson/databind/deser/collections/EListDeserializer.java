@@ -51,6 +51,10 @@ public class EListDeserializer extends JsonDeserializer<EList<EObject>> {
 		JsonDeserializer<Object> deserializer = ctxt.findRootValueDeserializer(type);
 
 		while (jp.nextToken() != JsonToken.END_ARRAY) {
+			// reference deserializer will clear context
+//			ctxt.setAttribute("parent", parent);
+//			ctxt.setAttribute("reference", feature);
+
 			switch (kind) {
 				case MAP:
 				case FEATURE_MAP:

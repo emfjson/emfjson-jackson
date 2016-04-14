@@ -17,6 +17,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+
 import org.emfjson.jackson.junit.model.*;
 import org.emfjson.jackson.support.StandardFixture;
 import org.junit.Assert;
@@ -27,6 +28,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import static org.emfjson.jackson.module.EMFModule.ModuleFeature.OPTION_SERIALIZE_DEFAULT_VALUE;
+
 import static org.junit.Assert.assertEquals;
 
 public class EnumTest {

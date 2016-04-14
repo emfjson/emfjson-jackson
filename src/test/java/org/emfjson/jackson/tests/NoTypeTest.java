@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+
 import org.emfjson.jackson.junit.model.*;
 import org.emfjson.jackson.module.EMFModule;
 import org.emfjson.jackson.resource.JsonResource;

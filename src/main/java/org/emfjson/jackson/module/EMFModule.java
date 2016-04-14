@@ -179,11 +179,17 @@ public class EMFModule extends SimpleModule {
 	}
 
 	public enum ModuleFeature {
+
 		OPTION_SERIALIZE_ID(false),
+
 		OPTION_SERIALIZE_TYPE(true),
+
 		OPTION_SERIALIZE_REF_TYPE(true),
+
 		OPTION_SERIALIZE_DEFAULT_VALUE(false),
+
 		OPTION_SERIALIZE_REF_AS_VALUE(false),
+
 		OPTION_SERIALIZE_CONTAINMENT_AS_HREF(false);
 
 		private final Boolean defaultValue;

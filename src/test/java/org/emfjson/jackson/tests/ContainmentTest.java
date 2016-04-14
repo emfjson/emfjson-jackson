@@ -155,8 +155,6 @@ public class ContainmentTest {
 						.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node"))
 						.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node")));
 
-		System.out.println(resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap());
-
 		Resource resource = mapper.reader()
 				.withAttribute("resourceSet", resourceSet)
 				.treeToValue(data, Resource.class);

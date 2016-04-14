@@ -28,6 +28,7 @@ import org.emfjson.jackson.databind.type.EcoreType;
 import org.emfjson.jackson.errors.JSONException;
 import org.emfjson.jackson.internal.Cache;
 import org.emfjson.jackson.internal.ContextUtils;
+
 import org.emfjson.jackson.resource.JsonResource;
 
 import java.io.IOException;
@@ -285,7 +286,6 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 		if (get(ReferenceEntries.class, "entries", context) == null)
 			context.setAttribute("entries", new ReferenceEntries());
 
-		System.out.println("resourceSet " + get(ResourceSet.class, "resourceSet", context));
 		if (get(ResourceSet.class, "resourceSet", context) == null)
 			context.setAttribute("resourceSet", new ResourceSetImpl());
 	}

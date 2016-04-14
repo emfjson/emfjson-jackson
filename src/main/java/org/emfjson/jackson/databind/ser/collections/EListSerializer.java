@@ -33,7 +33,6 @@ public class EListSerializer extends JsonSerializer<EList<?>> {
 				for (Object value : values) {
 					serializers.setAttribute("parent", container);
 					serializers.setAttribute("feature", feature);
-
 					serializer.serialize(value, jg, serializers);
 				}
 			}

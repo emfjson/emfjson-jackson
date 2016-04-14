@@ -11,11 +11,10 @@
  */
 package org.emfjson.jackson.databind.ser;
 
-import org.eclipse.emf.common.util.Enumerator;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import org.eclipse.emf.common.util.Enumerator;
 
 import java.io.IOException;
 
