@@ -8,42 +8,34 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emfjson.jackson.common.ELists;
-import org.emfjson.jackson.common.EObjects;
-import org.emfjson.jackson.databind.ser.references.ReferenceSerializer;
+import org.emfjson.jackson.internal.ContextUtils;
+import org.emfjson.jackson.internal.ELists;
+import org.emfjson.jackson.internal.EObjects;
+import org.emfjson.jackson.databind.ser.references.EReferenceSerializer;
 import org.emfjson.jackson.databind.type.EcoreType;
 
 import java.io.IOException;
 
 public class EListSerializer extends JsonSerializer<EList<?>> {
 
-	private final ReferenceSerializer refSerializer;
-
-	public EListSerializer(ReferenceSerializer refSerializer) {
-		this.refSerializer = refSerializer;
-	}
-
 	@Override
 	public void serialize(EList<?> values, JsonGenerator jg, SerializerProvider serializers) throws IOException {
+		final EcoreType typeFactory = ContextUtils.getEcoreType(serializers);
+
 		jg.writeStartArray();
 
 		if (values != null) {
 			EObject container = ELists.getEObject(values);
 			EStructuralFeature feature = ELists.getFeature(values);
+			JavaType type = typeFactory.constructSimple(container, feature);
+			JsonSerializer<Object> serializer = serializers.findValueSerializer(type);
 
-			for (Object value : values) {
-				if (isReference(container, feature, value)) {
-					refSerializer.serialize((EObject) value, jg, serializers);
-				} else {
-					JavaType type = EcoreType.constructSimple(container, value, feature);
-					JsonSerializer<Object> serializer = serializers.findValueSerializer(type);
+			if (serializer != null) {
+				for (Object value : values) {
+					serializers.setAttribute("parent", container);
+					serializers.setAttribute("feature", feature);
 
-					if (serializer != null) {
-						serializers.setAttribute("parent", container);
-						serializers.setAttribute("feature", feature);
-
-						serializer.serialize(value, jg, serializers);
-					}
+					serializer.serialize(value, jg, serializers);
 				}
 			}
 		}

@@ -13,13 +13,17 @@ annotation "JsonProperty" as JsonProperty
 annotation "JsonIgnoreProperties" as JsonIgnoreProperties
 
 class TestA {
+
 	@JsonProperty(value = "my_value")
 	String value
+
+}
+
+class TestB {
 
 	@JsonProperty
 	op String hello() {
 		"Hello"
 	}
-}
 
-class TestB {}
+}

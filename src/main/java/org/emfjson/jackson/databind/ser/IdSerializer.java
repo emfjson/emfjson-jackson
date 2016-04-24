@@ -14,34 +14,35 @@ package org.emfjson.jackson.databind.ser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emfjson.jackson.Keywords;
-import org.emfjson.jackson.common.Cache;
-import org.emfjson.jackson.common.ContextUtils;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.emfjson.jackson.internal.Cache;
+import org.emfjson.jackson.internal.ContextUtils;
+import org.emfjson.jackson.resource.JsonResource;
 
 import java.io.IOException;
 
 public class IdSerializer extends JsonSerializer<EObject> {
 
-	protected final Keywords keywords;
-
-	public IdSerializer(Keywords keywords) {
-		this.keywords = keywords;
-	}
+	public static String PROPERTY = "_id";
 
 	@Override
 	public void serialize(EObject value, JsonGenerator jg, SerializerProvider serializers) throws IOException {
-		final Cache cache = ContextUtils.get(Cache.class, "cache", serializers);
-		URI uri;
-		if (cache != null) {
-			uri = cache.getURI(value);
-		} else {
-			uri = EcoreUtil.getURI(value);
-		}
+		final Cache cache = ContextUtils.getCache(serializers);
 
-		jg.writeStringField(keywords._id, uri.fragment());
+		Resource resource = value.eResource();
+		if (resource instanceof JsonResource) {
+			String id = ((JsonResource) resource).getID(value);
+			if (id != null) {
+				jg.writeStringField(getProperty(), id);
+			}
+		} else {
+			jg.writeStringField(getProperty(), cache.getURI(value).fragment());
+		}
+	}
+
+	public String getProperty() {
+		return PROPERTY;
 	}
 
 }

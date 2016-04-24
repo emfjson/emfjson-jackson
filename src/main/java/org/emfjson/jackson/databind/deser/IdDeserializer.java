@@ -19,9 +19,15 @@ import java.io.IOException;
 
 public class IdDeserializer extends JsonDeserializer<String> {
 
+	public static final String PROPERTY = "_id";
+
 	@Override
 	public String deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
 		return jp.nextTextValue();
+	}
+
+	public String getProperty() {
+		return PROPERTY;
 	}
 
 }

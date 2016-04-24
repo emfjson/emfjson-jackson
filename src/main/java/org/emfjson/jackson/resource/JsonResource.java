@@ -11,7 +11,6 @@
 package org.emfjson.jackson.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.cfg.ContextAttributes;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -19,9 +18,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emfjson.EMFJs;
-import org.emfjson.jackson.JacksonOptions;
-import org.emfjson.jackson.module.EMFModule;
+import org.emfjson.jackson.internal.ContextUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,23 +35,25 @@ import static java.util.Collections.synchronizedMap;
  */
 public class JsonResource extends ResourceImpl {
 
-	protected static final Map<EObject, String> DETACHED_EOBJECT_TO_ID_MAP = synchronizedMap(new WeakHashMap<EObject, String>());
+	protected static final Map<EObject, String> DETACHED_EOBJECT_TO_ID_MAP
+			= synchronizedMap(new WeakHashMap<EObject, String>());
 
-	private final ObjectMapper mapper;
-
+	private ObjectMapper mapper;
 	private Map<String, EObject> idToEObjectMap;
 	private Map<EObject, String> eObjectToIDMap;
 
 	public JsonResource(URI uri, ObjectMapper mapper) {
 		super(uri);
-
 		this.mapper = mapper;
 	}
 
-//	@Deprecated
-//	public JsonResource(URI uri) {
-//		super(uri);
-//	}
+	public JsonResource(URI uri) {
+		super(uri);
+	}
+
+	public void setObjectMapper(ObjectMapper mapper) {
+		this.mapper = mapper;
+	}
 
 	@Override
 	protected boolean isAttachedDetachedHelperRequired() {
@@ -105,7 +104,8 @@ public class JsonResource extends ResourceImpl {
 	}
 
 	public void setID(EObject eObject, String id) {
-		String oldID = id != null ? getEObjectToIDMap().put(eObject, id) :
+		String oldID = id != null ?
+				getEObjectToIDMap().put(eObject, id):
 				getEObjectToIDMap().remove(eObject);
 
 		if (oldID != null) {
@@ -136,6 +136,21 @@ public class JsonResource extends ResourceImpl {
 		}
 	}
 
+	@Override
+	protected void detachedHelper(EObject eObject) {
+		if (useIDs() && unloadingContents == null) {
+			if (useUUIDs()) {
+				DETACHED_EOBJECT_TO_ID_MAP.put(eObject, getID(eObject));
+			}
+
+			if (idToEObjectMap != null && eObjectToIDMap != null) {
+				setID(eObject, null);
+			}
+		}
+
+		super.detachedHelper(eObject);
+	}
+
 	public Map<String, EObject> getIDToEObjectMap() {
 		if (idToEObjectMap == null) {
 			idToEObjectMap = new HashMap<>();
@@ -153,7 +168,7 @@ public class JsonResource extends ResourceImpl {
 	@Override
 	protected void doLoad(InputStream inputStream, Map<?, ?> options) throws IOException {
 		if (options == null) {
-			options = Collections.<String, Object> emptyMap();
+			options = Collections.<String, Object>emptyMap();
 		}
 
 		if (inputStream instanceof URIConverter.Loadable) {
@@ -162,15 +177,16 @@ public class JsonResource extends ResourceImpl {
 
 		} else {
 
-			ContextAttributes attributes = ContextAttributes
-				.getEmpty()
+			ContextAttributes attributes = ContextUtils
+					.from(options)
 					.withPerCallAttribute("resourceSet", getResourceSet())
 					.withPerCallAttribute("resource", this);
 
 			mapper.reader()
-				.with(attributes)
-				.forType(Resource.class)
-				.readValue(inputStream);
+					.with(attributes)
+					.forType(Resource.class)
+					.withValueToUpdate(this)
+					.readValue(inputStream);
 
 		}
 	}
@@ -178,7 +194,7 @@ public class JsonResource extends ResourceImpl {
 	@Override
 	protected void doSave(OutputStream outputStream, Map<?, ?> options) throws IOException {
 		if (options == null) {
-			options = Collections.<String, Object> emptyMap();
+			options = Collections.<String, Object>emptyMap();
 		}
 
 		if (outputStream instanceof URIConverter.Saveable) {
@@ -187,27 +203,11 @@ public class JsonResource extends ResourceImpl {
 
 		} else {
 
-//			final ObjectMapper mapper = new ObjectMapper();
-//			final JacksonOptions jacksonOptions = getOptions(options);
-//			mapper.setDateFormat(jacksonOptions.dateFormat);
-//			mapper.configure(SerializationFeature.INDENT_OUTPUT, jacksonOptions.indentOutput);
-//			mapper.registerModule(new EMFModule(this.getResourceSet(), jacksonOptions));
+			mapper.writer()
+					.with(ContextUtils.from(options))
+					.writeValue(outputStream, this);
 
-			outputStream.write(mapper
-					.writeValueAsBytes(this));
 		}
-	}
-
-	private JacksonOptions getOptions(Map<?, ?> options) {
-		if (options.containsKey(EMFJs.OPTIONS_OBJECT)) {
-			Object value = options.get(EMFJs.OPTIONS_OBJECT);
-
-			if (value instanceof JacksonOptions) {
-				return (JacksonOptions) value;
-			}
-		}
-
-		return JacksonOptions.from(options);
 	}
 
 }

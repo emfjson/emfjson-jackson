@@ -15,20 +15,21 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.type.SimpleType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.emfjson.jackson.Options;
-import org.emfjson.jackson.common.Cache;
-import org.emfjson.jackson.common.ReferenceEntries;
+import org.emfjson.jackson.databind.deser.references.ReferenceEntries;
+import org.emfjson.jackson.databind.type.EcoreType;
 import org.emfjson.jackson.handlers.URIHandler;
+import org.emfjson.jackson.internal.Cache;
 
 import java.io.IOException;
 
-import static org.emfjson.jackson.common.ContextUtils.get;
+import static org.emfjson.jackson.internal.ContextUtils.get;
+import static org.emfjson.jackson.module.EMFModule.ContextFeature.OPTION_URI_HANDLER;
 
 public class ResourceDeserializer extends JsonDeserializer<Resource> {
 
@@ -52,25 +53,29 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 		final ReferenceEntries entries = new ReferenceEntries();
 		final ResourceSet resourceSet = resource.getResourceSet();
 
+		final EcoreType ecoreType = new EcoreType();
+
 		ctxt.setAttribute("resource", resource);
 		ctxt.setAttribute("entries", entries);
 		ctxt.setAttribute("cache", new Cache());
+
+		ctxt.setAttribute("typeFactory", ecoreType);
 		ctxt.setAttribute("resourceSet", resourceSet);
 
 		if (!jp.hasCurrentToken()) {
 			jp.nextToken();
 		}
 
+		final TypeFactory factory = TypeFactory.defaultInstance();
+		final JsonDeserializer<Object> deserializer = ctxt.findRootValueDeserializer(
+				factory.constructType(EObject.class)
+		);
+
 		if (jp.getCurrentToken() == JsonToken.START_ARRAY) {
 
 			while (jp.nextToken() != JsonToken.END_ARRAY) {
 
-				JsonDeserializer<Object> deserializer = ctxt.findContextualValueDeserializer(
-						SimpleType.construct(EObject.class),
-						new ResourceProperty(resourceSet, resource, entries));
-
 				EObject value = (EObject) deserializer.deserialize(jp, ctxt);
-
 				if (value != null) {
 					resource.getContents().add(value);
 				}
@@ -78,18 +83,13 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 
 		} else if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
 
-			JsonDeserializer<Object> deserializer = ctxt.findContextualValueDeserializer(
-					SimpleType.construct(EObject.class),
-					new ResourceProperty(resourceSet, resource, entries));
-
 			EObject value = (EObject) deserializer.deserialize(jp, ctxt);
-
 			if (value != null) {
 				resource.getContents().add(value);
 			}
 		}
 
-		entries.resolve(resourceSet, get(URIHandler.class, Options.OPTION_URI_HANDLER, ctxt));
+		entries.resolve(resourceSet, get(URIHandler.class, OPTION_URI_HANDLER, ctxt));
 
 		return resource;
 	}

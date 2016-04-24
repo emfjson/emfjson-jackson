@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emfjson.jackson.common.ContextUtils;
+import org.emfjson.jackson.internal.ContextUtils;
 
 import java.io.IOException;
 

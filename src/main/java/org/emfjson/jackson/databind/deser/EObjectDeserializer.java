@@ -23,30 +23,32 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emfjson.jackson.Keywords;
-import org.emfjson.jackson.Options;
-import org.emfjson.jackson.common.Cache;
-import org.emfjson.jackson.common.ReferenceEntries;
-import org.emfjson.jackson.databind.properties.EcoreProperties;
+import org.emfjson.jackson.databind.deser.references.ReferenceEntries;
 import org.emfjson.jackson.databind.type.EcoreType;
 import org.emfjson.jackson.errors.JSONException;
+import org.emfjson.jackson.internal.Cache;
+import org.emfjson.jackson.internal.ContextUtils;
 import org.emfjson.jackson.resource.JsonResource;
 
 import java.io.IOException;
 
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
-import static org.emfjson.jackson.common.ContextUtils.get;
+import static org.emfjson.jackson.internal.ContextUtils.get;
+import static org.emfjson.jackson.module.EMFModule.ContextFeature.OPTION_ROOT_ELEMENT;
 
 public class EObjectDeserializer extends JsonDeserializer<EObject> {
 
-	private final Keywords keywords;
-
 	private IdDeserializer idDeserializer;
-	private TypeDeserializer typeDeserializer;
+	private ETypeDeserializer typeDeserializer;
 
-	public EObjectDeserializer(Keywords keywords, IdDeserializer idDeserializer, TypeDeserializer typeDeserializer) {
-		this.keywords = keywords;
+	public EObjectDeserializer() {
+	}
+
+	public void setIdDeserializer(IdDeserializer idDeserializer) {
 		this.idDeserializer = idDeserializer;
+	}
+
+	public void setTypeDeserializer(ETypeDeserializer typeDeserializer) {
 		this.typeDeserializer = typeDeserializer;
 	}
 
@@ -64,17 +66,14 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 		final Resource resource = get(Resource.class, "resource", ctxt);
 		TokenBuffer buffer = null;
 
-		ctxt.setAttribute("parent", new Object());
-		ctxt.setAttribute("reference", new Object());
-
 		while (jp.nextToken() != JsonToken.END_OBJECT) {
 			final String fieldName = jp.getCurrentName();
 
-			if (keywords._type.equalsIgnoreCase(fieldName)) {
+			if (typeDeserializer.getProperty().equalsIgnoreCase(fieldName)) {
 				if (current == null) {
 					current = create(jp, ctxt);
 				}
-			} else if (keywords._id.equalsIgnoreCase(fieldName)) {
+			} else if (idDeserializer.getProperty().equalsIgnoreCase(fieldName)) {
 				if (current != null) {
 					final String id = idDeserializer.deserialize(jp, ctxt);
 					if (resource instanceof JsonResource && id != null) {
@@ -86,7 +85,7 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 					}
 					buffer.copyCurrentStructure(jp);
 				}
-			} else if (keywords._ref.equalsIgnoreCase(fieldName)) {
+			} else if ("$ref".equalsIgnoreCase(fieldName)) {
 				if (current != null) {
 					((InternalEObject) current).eSetProxyURI(URI.createURI(jp.nextTextValue()));
 				} else {
@@ -123,7 +122,7 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 		while (jp.nextToken() != JsonToken.END_OBJECT) {
 			final String fieldName = jp.getCurrentName();
 
-			if (keywords._id.equalsIgnoreCase(fieldName)) {
+			if (idDeserializer.getProperty().equalsIgnoreCase(fieldName)) {
 				final String id = idDeserializer.deserialize(jp, ctxt);
 				if (resource instanceof JsonResource && id != null) {
 					((JsonResource) resource).setID(intoValue, id);
@@ -150,12 +149,12 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 			final JsonParser bufferedParser = buffer.asParser();
 
 			while (bufferedParser.nextToken() != null) {
-				if (keywords._id.equals(bufferedParser.getCurrentName())) {
+				if (idDeserializer.getProperty().equals(bufferedParser.getCurrentName())) {
 					final String id = idDeserializer.deserialize(bufferedParser, ctxt);
 					if (resource instanceof JsonResource && id != null) {
 						((JsonResource) resource).setID(object, id);
 					}
-				} else if (keywords._ref.equals(bufferedParser.getCurrentName())) {
+				} else if ("$ref".equals(bufferedParser.getCurrentName())) {
 					((InternalEObject) object).eSetProxyURI(URI.createURI(bufferedParser.nextTextValue()));
 				} else {
 					readFeature(bufferedParser, object, bufferedParser.getCurrentName(), ctxt, resource);
@@ -171,9 +170,8 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 
 	private EClass findRoot(DeserializationContext ctxt) {
 		final EObject parent = get(EObject.class, "parent", ctxt);
-
 		if (parent == null) {
-			EClass root = get(EClass.class, Options.OPTION_ROOT_ELEMENT, ctxt);
+			EClass root = get(EClass.class, OPTION_ROOT_ELEMENT, ctxt);
 			if (root != null) {
 				return root;
 			}
@@ -188,7 +186,8 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 	}
 
 	private void readFeature(JsonParser jp, EObject current, String fieldName, DeserializationContext ctxt, Resource resource) throws IOException {
-		final Cache cache = get(Cache.class, "cache", ctxt);
+		final Cache cache = ContextUtils.getCache(ctxt);
+		final EcoreType typeFactory = ContextUtils.getEcoreType(ctxt);
 
 		final EClass eClass = current.eClass();
 		final EStructuralFeature feature = cache.getEStructuralFeature(eClass, fieldName);
@@ -203,20 +202,19 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 				return;
 			}
 
-			final JavaType type = EcoreType.construct(current, feature);
-			if (type == null)
-				throw new RuntimeException();
-
-			final JsonDeserializer<Object> deserializer = ctxt.findContextualValueDeserializer(
-					type,
-					EcoreProperties.create(current, feature));
+			final JavaType type = typeFactory.construct(current, feature);
+			final JsonDeserializer<Object> deserializer = ctxt.findRootValueDeserializer(type);
 
 			switch (EcoreType.FeatureKind.get(feature)) {
-				case CONTAINMENT: {
+				case MAP:
+				case FEATURE_MAP:
+				case MANY_CONTAINMENT:
+				case SINGLE_CONTAINMENT: {
 					ctxt.setAttribute("reference", feature);
 					ctxt.setAttribute("parent", current);
 				}
-				case ATTRIBUTE: {
+				case SINGLE_ATTRIBUTE:
+				case MANY_ATTRIBUTE: {
 					if (feature.getEType() instanceof EDataType) {
 						ctxt.setAttribute("datatype", feature.getEType());
 					}
@@ -232,7 +230,8 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 					}
 				}
 				break;
-				case REFERENCE: {
+				case MANY_REFERENCE:
+				case SINGLE_REFERENCE: {
 					ctxt.setAttribute("reference", feature);
 					ctxt.setAttribute("parent", current);
 
@@ -280,14 +279,21 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 	}
 
 	protected void initializeContext(DeserializationContext context) {
-		if (get(Cache.class, "cache", context) == null)
+		if (get(Cache.class, "cache", context) == null) {
 			context.setAttribute("cache", new Cache());
+		}
 
-		if (get(ReferenceEntries.class, "entries", context) == null)
+		if (get(EcoreType.class, "typeFactory", context) == null) {
+			context.setAttribute("typeFactory", new EcoreType());
+		}
+
+		if (get(ReferenceEntries.class, "entries", context) == null) {
 			context.setAttribute("entries", new ReferenceEntries());
+		}
 
-		if (get(ResourceSet.class, "resourceSet", context) == null)
+		if (get(ResourceSet.class, "resourceSet", context) == null) {
 			context.setAttribute("resourceSet", new ResourceSetImpl());
+		}
 	}
 
 }
