@@ -22,13 +22,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-
 import org.emfjson.jackson.databind.deser.ETypeDeserializer;
 import org.emfjson.jackson.databind.deser.IdDeserializer;
 import org.emfjson.jackson.databind.deser.references.DefaultReferenceEntry;
 import org.emfjson.jackson.databind.deser.references.EReferenceDeserializer;
 import org.emfjson.jackson.databind.deser.references.ReferenceEntries;
-
 import org.emfjson.jackson.junit.model.ModelPackage;
 import org.emfjson.jackson.junit.model.Sex;
 import org.emfjson.jackson.junit.model.User;
@@ -40,7 +38,6 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static org.emfjson.jackson.module.EMFModule.ModuleFeature.OPTION_SERIALIZE_TYPE;
-
 import static org.junit.Assert.*;
 
 public class CustomDeserializersTest {

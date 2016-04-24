@@ -13,7 +13,10 @@ annotation "JsonProperty" as JsonProperty
 annotation "JsonIgnoreProperties" as JsonIgnoreProperties
 
 class TestA {
+<<<<<<< 89ea12084232b472439abdd1b43b48e3b456e76e
 <<<<<<< be6132e515af102fd28446e2fae0ab6c26b36b1d
+=======
+>>>>>>> Prepare release 1.0.0-rc.1
 
 	@JsonProperty(value = "my_value")
 	String value
@@ -22,15 +25,19 @@ class TestA {
 
 class TestB {
 
+<<<<<<< 89ea12084232b472439abdd1b43b48e3b456e76e
 =======
 	@JsonProperty(value = "my_value")
 	String value
 
 >>>>>>> Splitting deserialization to use default jackson deseerializers when possible and specific emf deserializers when necessary.
+=======
+>>>>>>> Prepare release 1.0.0-rc.1
 	@JsonProperty
 	op String hello() {
 		"Hello"
 	}
+<<<<<<< 89ea12084232b472439abdd1b43b48e3b456e76e
 <<<<<<< be6132e515af102fd28446e2fae0ab6c26b36b1d
 
 }
@@ -39,3 +46,7 @@ class TestB {
 
 class TestB {}
 >>>>>>> Splitting deserialization to use default jackson deseerializers when possible and specific emf deserializers when necessary.
+=======
+
+}
+>>>>>>> Prepare release 1.0.0-rc.1

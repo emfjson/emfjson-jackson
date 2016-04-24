@@ -28,7 +28,6 @@ import org.emfjson.jackson.databind.type.EcoreType;
 import org.emfjson.jackson.errors.JSONException;
 import org.emfjson.jackson.internal.Cache;
 import org.emfjson.jackson.internal.ContextUtils;
-
 import org.emfjson.jackson.resource.JsonResource;
 
 import java.io.IOException;
@@ -280,14 +279,21 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 	}
 
 	protected void initializeContext(DeserializationContext context) {
-		if (get(Cache.class, "cache", context) == null)
+		if (get(Cache.class, "cache", context) == null) {
 			context.setAttribute("cache", new Cache());
+		}
 
-		if (get(ReferenceEntries.class, "entries", context) == null)
+		if (get(EcoreType.class, "typeFactory", context) == null) {
+			context.setAttribute("typeFactory", new EcoreType());
+		}
+
+		if (get(ReferenceEntries.class, "entries", context) == null) {
 			context.setAttribute("entries", new ReferenceEntries());
+		}
 
-		if (get(ResourceSet.class, "resourceSet", context) == null)
+		if (get(ResourceSet.class, "resourceSet", context) == null) {
 			context.setAttribute("resourceSet", new ResourceSetImpl());
+		}
 	}
 
 }

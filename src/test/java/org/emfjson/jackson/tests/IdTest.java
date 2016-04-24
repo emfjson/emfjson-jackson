@@ -4,9 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.emf.common.util.URI;
-
 import org.eclipse.emf.ecore.resource.ResourceSet;
-
 import org.emfjson.jackson.junit.model.ModelFactory;
 import org.emfjson.jackson.junit.model.User;
 import org.emfjson.jackson.resource.JsonResource;
@@ -16,7 +14,6 @@ import org.junit.ClassRule;
 import org.junit.Test;
 
 import static org.emfjson.jackson.module.EMFModule.ModuleFeature.OPTION_SERIALIZE_ID;
-
 import static org.junit.Assert.assertEquals;
 
 public class IdTest {

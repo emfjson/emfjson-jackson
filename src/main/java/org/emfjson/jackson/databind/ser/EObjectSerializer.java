@@ -43,7 +43,6 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 	private boolean includeOptional;
 
 	public EObjectSerializer() {
-
 	}
 
 	public void setIdSerializer(IdSerializer idSerializer) {
