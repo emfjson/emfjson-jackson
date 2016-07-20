@@ -11,12 +11,13 @@
  */
 package org.emfjson.jackson;
 
-import org.emfjson.jackson.databind.type.EcoreTypeTest;
+import org.emfjson.jackson.databind.type.EcoreTypeFactoryTest;
 import org.emfjson.jackson.tests.*;
 import org.emfjson.jackson.tests.annotations.JsonPropertyTest;
 import org.emfjson.jackson.tests.custom.CustomDeserializersTest;
 import org.emfjson.jackson.tests.custom.CustomSerializersTest;
 import org.emfjson.jackson.tests.dynamic.*;
+import org.emfjson.jackson.tests.generics.GenericTest;
 import org.emfjson.jackson.tests.uuids.UuidLoadTest;
 import org.emfjson.jackson.tests.uuids.UuidSaveTest;
 import org.junit.runner.RunWith;
@@ -42,7 +43,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		ValueTest.class,
 
 		// type factory
-		EcoreTypeTest.class,
+		EcoreTypeFactoryTest.class,
 
 		// meta
 		ModelTest.class,

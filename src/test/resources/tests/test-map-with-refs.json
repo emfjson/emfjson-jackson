@@ -5,9 +5,11 @@
       {
         "eClass": "http://www.emfjson.org/jackson/model#//TMapRef",
         "key": {
+          "eClass":"http://www.emfjson.org/jackson/model#//PrimaryObject",
           "$ref": "/1"
         },
         "value": {
+          "eClass":"http://www.emfjson.org/jackson/model#//TargetObject",
           "$ref": "/2"
         }
       }

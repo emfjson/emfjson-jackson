@@ -1,0 +1,10 @@
+{
+  "eClass": "http://www.emfjson.org/jackson/model#//User",
+  "userId": "2",
+  "name": "Bob",
+  "friends": [
+    {
+      "$ref": "../test-load-1.json#1|http://www.emfjson.org/jackson/model#//User"
+    }
+  ]
+}

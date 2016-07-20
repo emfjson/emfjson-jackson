@@ -36,7 +36,7 @@ public class UuidLoadTest extends UuidSupport {
 		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
 
 		EMFModule module = new EMFModule();
-		module.configure(EMFModule.ModuleFeature.OPTION_SERIALIZE_ID, true);
+		module.configure(EMFModule.Feature.OPTION_SERIALIZE_ID, true);
 
 		mapper.registerModule(module);
 	}

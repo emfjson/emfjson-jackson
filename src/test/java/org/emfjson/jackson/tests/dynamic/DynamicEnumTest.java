@@ -17,7 +17,7 @@ import org.junit.Test;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-import static org.emfjson.jackson.module.EMFModule.ModuleFeature.OPTION_SERIALIZE_DEFAULT_VALUE;
+import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_SERIALIZE_DEFAULT_VALUE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 

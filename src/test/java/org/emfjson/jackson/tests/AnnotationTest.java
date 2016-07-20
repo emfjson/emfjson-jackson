@@ -71,6 +71,7 @@ public class AnnotationTest {
 				.put("name", "Foo")
 				.set("eAnnotations", mapper.createArrayNode()
 						.add(mapper.createObjectNode()
+								.put("eClass", "http://www.eclipse.org/emf/2002/Ecore#//EAnnotation")
 								.put("source", "source")
 								.set("details", mapper.createObjectNode()
 										.put("displayName", "value"))));

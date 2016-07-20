@@ -11,39 +11,43 @@
  */
 package org.emfjson.jackson.databind.ser;
 
-import com.fasterxml.jackson.databind.type.TypeFactory;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.emfjson.jackson.internal.Cache;
-import org.emfjson.jackson.databind.type.EcoreType;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.emfjson.jackson.databind.type.EcoreTypeFactory;
+import org.emfjson.jackson.utils.Cache;
 
 import java.io.IOException;
 
 public class ResourceSerializer extends JsonSerializer<Resource> {
 
+	EcoreTypeFactory factory2 = new EcoreTypeFactory();
+
 	@Override
 	public void serialize(Resource value, JsonGenerator jg, SerializerProvider provider) throws IOException {
-		final TypeFactory factory = TypeFactory.defaultInstance();
-
 		provider.setAttribute("cache", new Cache());
-		provider.setAttribute("typeFactory", new EcoreType());
+		provider.setAttribute("typeFactory", factory2);
 
-		JsonSerializer<Object> serializer;
 		if (value.getContents().size() == 1) {
-			serializer = provider.findValueSerializer(
-					EObject.class
-			);
-			serializer.serialize(value.getContents().get(0), jg, provider);
+			serializeOne(value.getContents().get(0), jg, provider);
 		} else {
-			serializer = provider.findValueSerializer(
-					factory.constructCollectionType(EList.class, factory.constructType(EObject.class))
-			);
-			serializer.serialize(value.getContents(), jg, provider);
+			jg.writeStartArray();
+			for (EObject o : value.getContents()) {
+				serializeOne(o, jg, provider);
+			}
+			jg.writeEndArray();
+		}
+	}
+
+	private void serializeOne(EObject object, JsonGenerator jg, SerializerProvider provider) throws IOException {
+		final JavaType type = factory2.constructSimpleType(object.eClass());
+		final JsonSerializer<Object> serializer = provider.findValueSerializer(type);
+
+		if (serializer != null) {
+			serializer.serialize(object, jg, provider);
 		}
 	}
 

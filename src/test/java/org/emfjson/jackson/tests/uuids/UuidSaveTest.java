@@ -38,7 +38,7 @@ public class UuidSaveTest extends UuidSupport {
 		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
 
 		EMFModule module = new EMFModule();
-		module.configure(EMFModule.ModuleFeature.OPTION_SERIALIZE_ID, true);
+		module.configure(EMFModule.Feature.OPTION_SERIALIZE_ID, true);
 		mapper.registerModule(module);
 	}
 
@@ -54,7 +54,7 @@ public class UuidSaveTest extends UuidSupport {
 		JsonNode node = mapper.valueToTree(root);
 
 		assertNotNull(node);
-		assertNotNull(node.get("_id"));
+		assertNotNull(node.get("@id"));
 		assertEquals(uuid(root), uuid(node));
 	}
 
@@ -79,7 +79,7 @@ public class UuidSaveTest extends UuidSupport {
 		JsonNode node = mapper.valueToTree(root);
 
 		assertNotNull(node);
-		assertNotNull(node.get("_id"));
+		assertNotNull(node.get("@id"));
 		assertEquals(uuid(root), uuid(node));
 
 		assertTrue(node.get("elements").isArray());
@@ -90,10 +90,10 @@ public class UuidSaveTest extends UuidSupport {
 		JsonNode node1 = elements.get(0);
 		JsonNode node2 = elements.get(1);
 
-		assertNotNull(node1.get("_id"));
+		assertNotNull(node1.get("@id"));
 		assertEquals(uuid(one), uuid(node1));
 
-		assertNotNull(node2.get("_id"));
+		assertNotNull(node2.get("@id"));
 		assertEquals(uuid(two), uuid(node2));
 
 		assertNotNull(node1.get("refProperty"));

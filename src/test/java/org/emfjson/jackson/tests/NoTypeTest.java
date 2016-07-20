@@ -23,8 +23,9 @@ import org.emfjson.jackson.resource.JsonResourceFactory;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.emfjson.jackson.module.EMFModule.ContextFeature.OPTION_ROOT_ELEMENT;
-import static org.emfjson.jackson.module.EMFModule.ModuleFeature.OPTION_SERIALIZE_TYPE;
+import static org.emfjson.jackson.databind.EMFContext.Attributes.RESOURCE_SET;
+import static org.emfjson.jackson.databind.EMFContext.Attributes.ROOT_ELEMENT;
+import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_SERIALIZE_TYPE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -99,7 +100,7 @@ public class NoTypeTest {
 
 		User result = mapper
 				.reader()
-				.withAttribute(OPTION_ROOT_ELEMENT, ModelPackage.Literals.USER)
+				.withAttribute(ROOT_ELEMENT, ModelPackage.Literals.USER)
 				.treeToValue(data, User.class);
 
 		assertNotNull(result);
@@ -123,8 +124,8 @@ public class NoTypeTest {
 
 		Resource result = mapper
 				.reader()
-				.withAttribute("resourceSet", resourceSet)
-				.withAttribute(OPTION_ROOT_ELEMENT, ModelPackage.Literals.USER)
+				.withAttribute(RESOURCE_SET, resourceSet)
+				.withAttribute(ROOT_ELEMENT, ModelPackage.Literals.USER)
 				.treeToValue(data, Resource.class);
 
 		assertNotNull(result);
@@ -177,8 +178,8 @@ public class NoTypeTest {
 
 		User result = mapper
 				.reader()
-				.withAttribute("resourceSet", resourceSet)
-				.withAttribute(OPTION_ROOT_ELEMENT, ModelPackage.Literals.USER)
+				.withAttribute(RESOURCE_SET, resourceSet)
+				.withAttribute(ROOT_ELEMENT, ModelPackage.Literals.USER)
 				.treeToValue(data, User.class);
 
 		assertNotNull(result);

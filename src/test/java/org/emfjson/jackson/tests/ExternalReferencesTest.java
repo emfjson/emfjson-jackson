@@ -25,6 +25,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static org.emfjson.jackson.databind.EMFContext.Attributes.RESOURCE_SET;
+import static org.emfjson.jackson.databind.EMFContext.Attributes.RESOURCE_URI;
 import static org.junit.Assert.*;
 
 public class ExternalReferencesTest {
@@ -80,13 +82,13 @@ public class ExternalReferencesTest {
 						.put("$ref", "../first.json#/"));
 
 		Resource r1 = mapper.reader()
-				.withAttribute("uri", "file://folder/first.json")
-				.withAttribute("resourceSet", resourceSet)
+				.withAttribute(RESOURCE_URI, URI.createURI("file://folder/first.json"))
+				.withAttribute(RESOURCE_SET, resourceSet)
 				.treeToValue(first, Resource.class);
 
 		Resource r2 = mapper.reader()
-				.withAttribute("uri", "file://folder/second.json")
-				.withAttribute("resourceSet", resourceSet)
+				.withAttribute(RESOURCE_URI, URI.createURI("file://folder/second.json"))
+				.withAttribute(RESOURCE_SET, resourceSet)
 				.treeToValue(second, Resource.class);
 
 		assertNotNull(r1);

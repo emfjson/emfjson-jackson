@@ -1,3 +1,14 @@
+/*
+ * Copyright (c) 2015 Guillaume Hillairet.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Guillaume Hillairet - initial API and implementation
+ *
+ */
 package org.emfjson.jackson.databind.ser;
 
 import com.fasterxml.jackson.databind.BeanDescription;
@@ -6,54 +17,42 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import com.fasterxml.jackson.databind.ser.Serializers;
+import com.fasterxml.jackson.databind.ser.std.CollectionSerializer;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapLikeType;
 import com.fasterxml.jackson.databind.type.ReferenceType;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emfjson.jackson.databind.deser.references.ReferenceEntries;
-import org.emfjson.jackson.databind.ser.collections.EListSerializer;
-import org.emfjson.jackson.databind.ser.collections.EMapStringSerializer;
-import org.emfjson.jackson.databind.ser.references.EReferenceSerializer;
+import org.emfjson.jackson.databind.deser.references.ReferenceEntry;
+import org.emfjson.jackson.databind.property.EObjectPropertyMap;
 import org.emfjson.jackson.databind.type.EcoreType;
 import org.emfjson.jackson.module.EMFModule;
 
-import java.util.Map;
-
-import static org.emfjson.jackson.module.EMFModule.ModuleFeature.*;
-
 public class EMFSerializers extends Serializers.Base {
 
-	private EObjectSerializer _objectSerializer;
-	private EReferenceSerializer _referenceSerializer;
-	private JsonSerializer<?> _listSerializer;
+	private final EObjectPropertyMap.Builder propertiesBuilder;
+	private final JsonSerializer<Object> _referenceSerializer;
+	private final JsonSerializer<Resource> _resourceSerializer = new ResourceSerializer();
+	private final JsonSerializer<?> _dataTypeSerializer = new EDataTypeSerializer();
+	private final JsonSerializer<?> _mapSerializer = new EMapStringSerializer();
+	private final JsonSerializer<?> _enumeratorSerializer = new EnumeratorSerializer();
 
-	private ResourceSerializer _resourceSerializer = new ResourceSerializer();
-	private JsonSerializer<?> _dataTypeSerializer = new EDataTypeSerializer();
-	private JsonSerializer<?> _mapSerializer = new EMapStringSerializer();
-	private JsonSerializer<?> _featureMapSerializer = new FeatureMapSerializer();
-	private JsonSerializer<?> _enumeratorSerializer = new EnumeratorSerializer();
-
-	public EMFSerializers() {
-
+	public EMFSerializers(EMFModule module) {
+		this.propertiesBuilder = EObjectPropertyMap.Builder.from(module, module.getFeatures());
+		this._referenceSerializer = module.getReferenceInfo().getSerializer();
 	}
 
-	public void configure(EMFModule module, Map<EMFModule.ModuleFeature, Boolean> features) {
-		_referenceSerializer = module.getReferenceSerializer();
+	@Override
+	public JsonSerializer<?> findMapLikeSerializer(SerializationConfig config, MapLikeType type, BeanDescription beanDesc, JsonSerializer<Object> keySerializer, TypeSerializer elementTypeSerializer, JsonSerializer<Object> elementValueSerializer) {
+		if (EMap.class.isAssignableFrom(type.getRawClass())) {
+			if (type.getKeyType().isTypeOrSubTypeOf(String.class)) {
+				return _mapSerializer;
+			}
+		}
 
-		_listSerializer = new EListSerializer();
-		_objectSerializer = new EObjectSerializer();
-
-		_objectSerializer.setIdSerializer(module.getIdSerializer());
-		_objectSerializer.setTypeSerializer(module.getTypeSerializer());
-		_objectSerializer.setReferenceSerializer(_referenceSerializer);
-
-		_objectSerializer.setShouldWriteId(features.get(OPTION_SERIALIZE_ID));
-		_objectSerializer.setShouldWriteType(features.get(OPTION_SERIALIZE_TYPE));
-		_objectSerializer.setShouldIncludeDefaults(features.get(OPTION_SERIALIZE_DEFAULT_VALUE));
+		return super.findMapLikeSerializer(config, type, beanDesc, keySerializer, elementTypeSerializer, elementValueSerializer);
 	}
 
 	@Override
@@ -63,24 +62,10 @@ public class EMFSerializers extends Serializers.Base {
 
 	@Override
 	public JsonSerializer<?> findCollectionSerializer(SerializationConfig config, CollectionType type, BeanDescription beanDesc, TypeSerializer elementTypeSerializer, JsonSerializer<Object> elementValueSerializer) {
-		if (EList.class.isAssignableFrom(type.getRawClass())) {
-			return _listSerializer;
+		if (type.getContentType().isReferenceType()) {
+			return new CollectionSerializer(type.getContentType(), false, null, _referenceSerializer);
 		}
-
 		return super.findCollectionSerializer(config, type, beanDesc, elementTypeSerializer, elementValueSerializer);
-	}
-
-	@Override
-	public JsonSerializer<?> findMapLikeSerializer(SerializationConfig config, MapLikeType type, BeanDescription beanDesc, JsonSerializer<Object> keySerializer, TypeSerializer elementTypeSerializer, JsonSerializer<Object> elementValueSerializer) {
-		if (EMap.class.isAssignableFrom(type.getRawClass())) {
-			if (type.getKeyType().isTypeOrSubTypeOf(String.class)) {
-				return _mapSerializer;
-			} else {
-				return _listSerializer;
-			}
-		}
-
-		return super.findMapLikeSerializer(config, type, beanDesc, keySerializer, elementTypeSerializer, elementValueSerializer);
 	}
 
 	@Override
@@ -93,24 +78,28 @@ public class EMFSerializers extends Serializers.Base {
 			return _enumeratorSerializer;
 		}
 
+		if (type.isReferenceType()) {
+			return _referenceSerializer;
+		}
+
 		if (EcoreType.EntryType.class.isAssignableFrom(type.getRawClass())) {
-			return _objectSerializer;
+			return null;
 		}
 
 		if (EcoreType.DataType.class.isAssignableFrom(type.getRawClass())) {
 			return _dataTypeSerializer;
 		}
 
-		if (EcoreType.FeatureMapType.class.isAssignableFrom(type.getRawClass())) {
-			return _featureMapSerializer;
-		}
-
-		if (ReferenceEntries.ReferenceEntry.class.isAssignableFrom(type.getRawClass())) {
+		if (ReferenceEntry.class.isAssignableFrom(type.getRawClass())) {
 			return _referenceSerializer;
 		}
 
 		if (EObject.class.isAssignableFrom(type.getRawClass())) {
-			return _objectSerializer;
+			if (type instanceof EcoreType) {
+				return new EObjectSerializer(propertiesBuilder, propertiesBuilder.construct((EcoreType) type), _referenceSerializer);
+			} else {
+				return new EObjectSerializer(propertiesBuilder, null, _referenceSerializer);
+			}
 		}
 
 		return super.findSerializer(config, type, beanDesc);

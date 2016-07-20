@@ -12,9 +12,9 @@
 package org.emfjson.jackson.tests.custom;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.*;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -22,11 +22,10 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emfjson.jackson.databind.ser.ETypeSerializer;
-import org.emfjson.jackson.databind.ser.IdSerializer;
-import org.emfjson.jackson.databind.ser.references.EReferenceSerializer;
+import org.emfjson.jackson.databind.deser.references.ReferenceEntry;
+import org.emfjson.jackson.annotations.EcoreReferenceInfo;
+import org.emfjson.jackson.annotations.EcoreTypeInfo;
 import org.emfjson.jackson.handlers.URIHandler;
-import org.emfjson.jackson.internal.Cache;
 import org.emfjson.jackson.junit.model.ModelFactory;
 import org.emfjson.jackson.junit.model.ModelPackage;
 import org.emfjson.jackson.junit.model.User;
@@ -41,33 +40,6 @@ import static org.junit.Assert.assertEquals;
 
 public class CustomSerializersTest {
 
-	private IdSerializer idSerializer = new IdSerializer() {
-		@Override
-		public void serialize(EObject value, JsonGenerator jg, SerializerProvider serializers) throws IOException {
-//			super.serialize(value, jg, serializers);
-		}
-	};
-
-	private EReferenceSerializer referenceSerializer = new EReferenceSerializer() {
-		@Override
-		public void serialize(EObject value, JsonGenerator jg, EObject parent, Cache cache, URIHandler handler) throws IOException {
-			jg.writeString(EcoreUtil.getID(value));
-		}
-	};
-
-	private ETypeSerializer typeSerializer = new ETypeSerializer() {
-
-		@Override
-		public void serialize(EClass value, JsonGenerator jg, SerializerProvider serializers) throws IOException {
-			jg.writeStringField(getProperty(), value.getName());
-		}
-
-		@Override
-		public String getProperty() {
-			return "type";
-		}
-	};
-
 	private ResourceSet resourceSet;
 	private ObjectMapper mapper;
 
@@ -80,10 +52,64 @@ public class CustomSerializersTest {
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
 				.put("*", new JsonResourceFactory(mapper));
 
-		EMFModule module = new EMFModule();
-		module.setIdSerializer(idSerializer);
-		module.setTypeSerializer(typeSerializer);
-		module.setReferenceSerializer(referenceSerializer);
+		EMFModule module = new EMFModule()
+				.withTypeInfo(new EcoreTypeInfo() {
+					@Override
+					public String getProperty() {
+						return "type";
+					}
+
+					@Override
+					public JsonSerializer<EClass> getSerializer() {
+						return new JsonSerializer<EClass>() {
+							@Override
+							public void serialize(EClass value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+								gen.writeStringField(getProperty(), value.getName());
+							}
+						};
+					}
+
+					@Override
+					public JsonDeserializer<EClass> getDeserializer() {
+						return new JsonDeserializer<EClass>() {
+							@Override
+							public EClass deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+								return null;
+							}
+						};
+					}
+				})
+				.withReferenceInfo(new EcoreReferenceInfo() {
+					@Override
+					public String getProperty() {
+						return null;
+					}
+
+					@Override
+					public String getTypeProperty() {
+						return null;
+					}
+
+					@Override
+					public JsonSerializer<Object> getSerializer() {
+						return new JsonSerializer<Object>() {
+							@Override
+							public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException, JsonProcessingException {
+								gen.writeString(EcoreUtil.getID((EObject) value));
+							}
+						};
+					}
+
+					@Override
+					public JsonDeserializer<ReferenceEntry> getDeserializer() {
+						return null;
+					}
+
+					@Override
+					public URIHandler getUriHandler() {
+						return null;
+					}
+				});
 
 		mapper.registerModule(module);
 	}

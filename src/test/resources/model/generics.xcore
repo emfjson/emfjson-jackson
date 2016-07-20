@@ -1,0 +1,34 @@
+@Ecore(nsURI="http://www.emfjson.org/jackson/generics")
+@GenModel(
+    modelDirectory="emfjson-jackson/src/test/java-gen",
+    updateClasspath="false",
+    bundleManifest="false",
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl",
+    complianceLevel="7.0"
+)
+package org.emfjson.jackson.junit.generics
+
+class GenericContainer {
+	contains resolving GenericType<?>[] values
+}
+
+abstract class GenericType<T> {
+	T value
+	T[] values
+}
+
+class SpecialTypeOne extends GenericType<String> {}
+
+class SpecialTypeTwo extends GenericType<Boolean> {}
+
+abstract class Base<U, T> {
+	refers U linkTo
+	refers U[] linkToMany
+	contains T containsOne
+	contains T[] containsMany
+}
+
+class Some {}
+class Any {}
+
+class BaseOne extends Base<Some, Any> {}

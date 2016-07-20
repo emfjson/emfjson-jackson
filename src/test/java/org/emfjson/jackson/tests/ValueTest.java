@@ -33,7 +33,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.emfjson.jackson.module.EMFModule.ModuleFeature.OPTION_SERIALIZE_DEFAULT_VALUE;
+import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_SERIALIZE_DEFAULT_VALUE;
 import static org.junit.Assert.*;
 
 public class ValueTest {

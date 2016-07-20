@@ -58,9 +58,6 @@ public class FeatureMapTest {
 		Resource resource = resourceSet.createResource(URI.createURI("test.json"));
 		resource.getContents().add(primaryObject);
 
-//		XMIResourceImpl xmiResource = new XMIResourceImpl();
-//		xmiResource.getContents().addAll(resource.getContents());
-//		xmiResource.save(System.out, null);
 		assertEquals(expected, mapper.valueToTree(resource));
 	}
 
@@ -114,8 +111,10 @@ public class FeatureMapTest {
 
 		expected.set("featureMapReferenceType1", mapper.createArrayNode()
 				.add(mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//TargetObject")
 						.put("$ref", "//@featureMapReferenceType2.0"))
 				.add(mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/model#//TargetObject")
 						.put("$ref", "//@featureMapReferenceType2.1")));
 
 		expected.set("featureMapReferenceType2", mapper.createArrayNode()

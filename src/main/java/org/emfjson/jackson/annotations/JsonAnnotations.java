@@ -12,16 +12,17 @@
 package org.emfjson.jackson.annotations;
 
 import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 public class JsonAnnotations {
 
-	public static String getElementName(EStructuralFeature feature) {
-		final EAnnotation annotation = feature.getEAnnotation("JsonProperty");
+	public static String getElementName(ENamedElement element) {
+		final EAnnotation annotation = element.getEAnnotation("JsonProperty");
 		if (annotation != null && annotation.getDetails().containsKey("value")) {
 			return annotation.getDetails().get("value");
 		}
-		return feature.getName();
+		return element.getName();
 	}
 
 	public static boolean shouldIgnore(EStructuralFeature feature) {

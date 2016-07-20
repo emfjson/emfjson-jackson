@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.emfjson.jackson.junit.generics.GenericsPackage;
 import org.emfjson.jackson.junit.model.ModelPackage;
 import org.emfjson.jackson.module.EMFModule;
 import org.emfjson.jackson.resource.JsonResourceFactory;
@@ -22,7 +23,6 @@ public class StandardFixture extends ExternalResource {
 	private ResourceSetImpl resourceSet;
 
 	protected URI baseTestFilesFileDirectory = URI.createFileURI("src/test/resources/tests/");
-//	protected String baseURI = "http://eclipselabs.org/emfjson/tests/";
 
 	@Override
 	protected void before() throws Throwable {
@@ -42,6 +42,9 @@ public class StandardFixture extends ExternalResource {
 		EPackage.Registry.INSTANCE
 				.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
 
+		EPackage.Registry.INSTANCE
+				.put(GenericsPackage.eNS_URI, GenericsPackage.eINSTANCE);
+
 		resourceSet.getResourceFactoryRegistry()
 				.getExtensionToFactoryMap()
 				.put("*", new JsonResourceFactory(mapper));
@@ -58,8 +61,7 @@ public class StandardFixture extends ExternalResource {
 	}
 
 	private ObjectMapper createMapper() {
-		ObjectMapper mapper = new ObjectMapper();
-
+		final ObjectMapper mapper = new ObjectMapper();
 		final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH);
 		dateFormat.setTimeZone(TimeZone.getDefault());
 
@@ -77,7 +79,7 @@ public class StandardFixture extends ExternalResource {
 		return mapper;
 	}
 
-	public ObjectMapper mapper(EMFModule.ModuleFeature feature, Boolean value) {
+	public ObjectMapper mapper(EMFModule.Feature feature, Boolean value) {
 		final ObjectMapper mapper = createMapper();
 		final EMFModule module = new EMFModule();
 		module.configure(feature, value);

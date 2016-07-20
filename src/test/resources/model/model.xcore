@@ -12,8 +12,6 @@ import org.eclipse.emf.ecore.EByteArray
 import org.eclipse.emf.ecore.EFeatureMapEntry
 import java.util.Map
 
-annotation "JSON" as JSON @JSON(root="true")
-
 class User {
 	id String userId
 	String name
@@ -166,18 +164,6 @@ enum SomeKind {
 	Two as "two" = 1
 	Three as "Three-is-Three" = 3
 }
-
-class GenericContainer {
-	contains resolving GenericType<?>[] values
-}
-
-abstract class GenericType<T> {
-	T value
-}
-
-class SpecialTypeOne extends GenericType<String> {}
-
-class SpecialTypeTwo extends GenericType<Boolean> {}
 
 abstract class AbstractNode {
 	String label

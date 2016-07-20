@@ -21,17 +21,23 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.emfjson.jackson.databind.EMFContext;
 import org.emfjson.jackson.databind.deser.references.ReferenceEntries;
-import org.emfjson.jackson.databind.type.EcoreType;
+import org.emfjson.jackson.databind.type.EcoreTypeFactory;
 import org.emfjson.jackson.handlers.URIHandler;
-import org.emfjson.jackson.internal.Cache;
+import org.emfjson.jackson.utils.Cache;
 
 import java.io.IOException;
 
-import static org.emfjson.jackson.internal.ContextUtils.get;
-import static org.emfjson.jackson.module.EMFModule.ContextFeature.OPTION_URI_HANDLER;
+import static org.emfjson.jackson.databind.EMFContext.Attributes.*;
 
 public class ResourceDeserializer extends JsonDeserializer<Resource> {
+
+	private final URIHandler uriHandler;
+
+	public ResourceDeserializer(URIHandler uriHandler) {
+		this.uriHandler = uriHandler;
+	}
 
 	@Override
 	public boolean isCachable() {
@@ -51,15 +57,14 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 		}
 
 		final ReferenceEntries entries = new ReferenceEntries();
+		final EcoreTypeFactory ecoreType = new EcoreTypeFactory();
 		final ResourceSet resourceSet = resource.getResourceSet();
 
-		final EcoreType ecoreType = new EcoreType();
-
-		ctxt.setAttribute("resource", resource);
-		ctxt.setAttribute("entries", entries);
-		ctxt.setAttribute("cache", new Cache());
-		ctxt.setAttribute("typeFactory", ecoreType);
-		ctxt.setAttribute("resourceSet", resourceSet);
+		ctxt.setAttribute(RESOURCE, resource);
+		ctxt.setAttribute(REFERENCE_ENTRIES, entries);
+		ctxt.setAttribute(CACHE, new Cache());
+		ctxt.setAttribute(TYPE_FACTORY, ecoreType);
+		ctxt.setAttribute(RESOURCE_SET, resourceSet);
 
 		if (!jp.hasCurrentToken()) {
 			jp.nextToken();
@@ -87,14 +92,14 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 			}
 		}
 
-		entries.resolve(resourceSet, get(URIHandler.class, OPTION_URI_HANDLER, ctxt));
+		entries.resolve(resourceSet, uriHandler);
 
 		return resource;
 	}
 
 	private Resource getResource(DeserializationContext context, Resource resource) {
 		if (resource == null) {
-			resource = get(Resource.class, "resource", context);
+			resource = EMFContext.getResource(context);
 
 			if (resource == null) {
 				ResourceSet resourceSet = getResourceSet(context);
@@ -119,26 +124,21 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 	}
 
 	protected ResourceSet getResourceSet(DeserializationContext context) {
-		if (get(ResourceSet.class, "resourceSet", context) == null) {
-			context.setAttribute("resourceSet", new ResourceSetImpl());
+		ResourceSet resourceSet = EMFContext.getResourceSet(context);
+		if (resourceSet == null) {
+			context.setAttribute(RESOURCE_SET, resourceSet = new ResourceSetImpl());
 		}
 
-		return get(ResourceSet.class, "resourceSet", context);
+		return resourceSet;
 	}
 
 	private URI getURI(DeserializationContext ctxt) {
-		Object uri = ctxt.getAttribute("uri");
-
-		URI realURI;
-		if (uri instanceof URI) {
-			realURI = (URI) uri;
-		} else if (uri instanceof String) {
-			realURI = URI.createURI((String) uri);
-		} else {
-			realURI = URI.createURI("default");
+		URI uri = EMFContext.getURI(ctxt);
+		if (uri == null) {
+			uri = URI.createURI("default");
 		}
 
-		return realURI;
+		return uri;
 	}
 
 	@Override

@@ -13,7 +13,8 @@ import org.junit.Assert;
 import org.junit.ClassRule;
 import org.junit.Test;
 
-import static org.emfjson.jackson.module.EMFModule.ModuleFeature.OPTION_SERIALIZE_ID;
+import static org.emfjson.jackson.databind.EMFContext.Attributes.RESOURCE_SET;
+import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_SERIALIZE_ID;
 import static org.junit.Assert.assertEquals;
 
 public class IdTest {
@@ -28,7 +29,7 @@ public class IdTest {
 	public void testWriteId() {
 		JsonNode expected = mapper.createObjectNode()
 				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-				.put("_id", "1")
+				.put("@id", "1")
 				.put("name", "Joe");
 
 		JsonResource resource = new JsonResource(URI.createURI("test"), mapper);
@@ -46,12 +47,12 @@ public class IdTest {
 	public void testReadId() throws JsonProcessingException {
 		JsonNode data = mapper.createObjectNode()
 				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-				.put("_id", "1")
+				.put("@id", "1")
 				.put("name", "Joe");
 
 		JsonResource resource = fixture.mapper(OPTION_SERIALIZE_ID, true)
 				.reader()
-				.withAttribute("resourceSet", resourceSet)
+				.withAttribute(RESOURCE_SET, resourceSet)
 				.treeToValue(data, JsonResource.class);
 
 		User user = (User) resource.getContents().get(0);
@@ -62,13 +63,13 @@ public class IdTest {
 	@Test
 	public void testReadId_WhenIdBeforeTypeField() throws JsonProcessingException {
 		JsonNode data = mapper.createObjectNode()
-				.put("_id", "1")
+				.put("@id", "1")
 				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 				.put("name", "Joe");
 
 		JsonResource resource = fixture.mapper(OPTION_SERIALIZE_ID, true)
 				.reader()
-				.withAttribute("resourceSet", resourceSet)
+				.withAttribute(RESOURCE_SET, resourceSet)
 				.treeToValue(data, JsonResource.class);
 
 		User user = (User) resource.getContents().get(0);

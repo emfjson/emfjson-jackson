@@ -30,25 +30,25 @@ import java.io.IOException;
 
 public class DeserializationBenchmark {
 
-	int times = 20;
+	int times = 10;
 
 	public static void main(String[] args) throws IOException {
 		DeserializationBenchmark b = new DeserializationBenchmark();
 		// first
 		System.out.println("--- 1st benchmarck ---");
 		b.benchmarkXmi(Benchmarks.first());
-//		b.benchmarkBinary(Benchmarks.first());
 		b.benchmarkJson(Benchmarks.first());
+//		b.benchmarkBinary(Benchmarks.first());
 		// second
 		System.out.println("--- 2nd benchmarck ---");
 		b.benchmarkXmi(Benchmarks.second());
-//		b.benchmarkBinary(Benchmarks.second());
 		b.benchmarkJson(Benchmarks.second());
+//		b.benchmarkBinary(Benchmarks.second());
 		// third
 		System.out.println("--- 3rd benchmarck ---");
 		b.benchmarkXmi(Benchmarks.third());
-//		b.benchmarkBinary(Benchmarks.third());
 		b.benchmarkJson(Benchmarks.third());
+//		b.benchmarkBinary(Benchmarks.third());
 	}
 
 	private String content(EObject content, ResourceSet rs) {
@@ -75,16 +75,38 @@ public class DeserializationBenchmark {
 		return System.currentTimeMillis() - start;
 	}
 
+	private ResourceSet xmi() {
+		ResourceSet resourceSet = new ResourceSetImpl();
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
+		resourceSet.getPackageRegistry().put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
+
+		return resourceSet;
+	}
+
+	private ResourceSet json() {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new EMFModule());
+
+		ResourceSet resourceSet = new ResourceSetImpl();
+		resourceSet.getResourceFactoryRegistry()
+				.getExtensionToFactoryMap()
+				.put("*", new JsonResourceFactory(mapper));
+
+		resourceSet.getPackageRegistry()
+				.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
+
+		return resourceSet;
+	}
+
 	public void benchmarkXmi(EObject content) throws IOException {
 		long sum = 0;
 
-		for (int i = 0; i < times; i++) {
-			ResourceSet resourceSet = new ResourceSetImpl();
-			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
-			resourceSet.getPackageRegistry().put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
-			Resource resource = resourceSet.createResource(URI.createURI("test"));
+		String payload = content(content, xmi());
 
-			sum += load(resource, content(content, resourceSet));
+		for (int i = 0; i < times; i++) {
+			ResourceSet resourceSet = xmi();
+			Resource resource = resourceSet.createResource(URI.createURI("test"));
+			sum += load(resource, payload);
 		}
 
 		long average = sum / times;
@@ -112,27 +134,15 @@ public class DeserializationBenchmark {
 		System.out.println("Binary: " + average / 1000.);
 	}
 
-	ObjectMapper mapper = new ObjectMapper();
-
-	{
-		mapper.registerModule(new EMFModule());
-	}
-
 	public void benchmarkJson(EObject content) throws IOException {
 		long sum = 0;
 
+		String payload = content(content, json());
+
 		for (int i = 0; i < times; i++) {
-			ResourceSet resourceSet = new ResourceSetImpl();
-			resourceSet.getResourceFactoryRegistry()
-					.getExtensionToFactoryMap()
-					.put("*", new JsonResourceFactory(mapper));
-
-			resourceSet.getPackageRegistry()
-					.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
-
+			ResourceSet resourceSet = json();
 			Resource resource = resourceSet.createResource(URI.createURI("test"));
-
-			sum += load(resource, content(content, resourceSet));
+			sum += load(resource, payload);
 		}
 
 		long average = sum / times;

@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.emfjson.jackson.module.EMFModule.ContextFeature.OPTION_ROOT_ELEMENT;
+import static org.emfjson.jackson.databind.EMFContext.Attributes.ROOT_ELEMENT;
 import static org.junit.Assert.*;
 
 public class PolymorphicTest {
@@ -68,7 +68,7 @@ public class PolymorphicTest {
 		Resource resource = resourceSet.createResource(URI.createURI("src/test/resources/tests/test-load-types.json"));
 		Map<Object, Object> options = new HashMap<>();
 		// TODO
-		options.put(OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getContainer());
+		options.put(ROOT_ELEMENT, ModelPackage.eINSTANCE.getContainer());
 		resource.load(options);
 
 		assertEquals(1, resource.getContents().size());
@@ -96,7 +96,7 @@ public class PolymorphicTest {
 		Resource resource = resourceSet.createResource(URI.createURI("src/test/resources/tests/test-load-types-2.json"));
 		Map<Object, Object> options = new HashMap<>();
 		// TODO
-		options.put(OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getContainer());
+		options.put(ROOT_ELEMENT, ModelPackage.eINSTANCE.getContainer());
 
 		resource.load(options);
 

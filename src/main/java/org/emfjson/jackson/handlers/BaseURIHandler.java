@@ -25,7 +25,9 @@ public class BaseURIHandler implements URIHandler {
 
 	@Override
 	public URI resolve(URI baseURI, URI uri) {
-		return resolve(baseURI) && uri.isRelative() && uri.hasRelativePath() ? uri.resolve(baseURI) : uri;
+		return resolve(baseURI) && uri.isRelative() && uri.hasRelativePath() ?
+				uri.resolve(baseURI, false) :
+				uri;
 	}
 
 	@Override

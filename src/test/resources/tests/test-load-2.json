@@ -1,21 +1,26 @@
 [
   {
+    "eClass": "http://www.emfjson.org/jackson/model#//User",
     "userId": "1",
     "name": "Paul",
     "friends": [
       {
+        "eClass": "http://www.emfjson.org/jackson/model#//User",
         "$ref": "2"
       },
       {
+        "eClass": "http://www.emfjson.org/jackson/model#//User",
         "$ref": "3"
       }
     ]
   },
   {
+    "eClass": "http://www.emfjson.org/jackson/model#//User",
     "userId": "2",
     "name": "Pierre"
   },
   {
+    "eClass": "http://www.emfjson.org/jackson/model#//User",
     "userId": "3",
     "name": "Victor"
   }

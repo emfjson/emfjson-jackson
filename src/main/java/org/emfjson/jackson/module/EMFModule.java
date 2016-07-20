@@ -12,24 +12,23 @@
 package org.emfjson.jackson.module;
 
 import com.fasterxml.jackson.core.Version;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import org.emfjson.jackson.annotations.EcoreIdentityInfo;
+import org.emfjson.jackson.annotations.EcoreReferenceInfo;
+import org.emfjson.jackson.annotations.EcoreTypeInfo;
+import org.emfjson.jackson.annotations.impl.EcoreIdentityInfoImpl;
+import org.emfjson.jackson.annotations.impl.EcoreReferenceInfoImpl;
+import org.emfjson.jackson.annotations.impl.EcoreTypeInfoImpl;
 import org.emfjson.jackson.databind.deser.EMFDeserializers;
-import org.emfjson.jackson.databind.deser.ETypeDeserializer;
-import org.emfjson.jackson.databind.deser.IdDeserializer;
-import org.emfjson.jackson.databind.deser.references.AsObjectDeserializer;
-import org.emfjson.jackson.databind.deser.references.AsValueDeserializer;
-import org.emfjson.jackson.databind.deser.references.EReferenceDeserializer;
 import org.emfjson.jackson.databind.ser.EMFSerializers;
-import org.emfjson.jackson.databind.ser.ETypeSerializer;
-import org.emfjson.jackson.databind.ser.IdSerializer;
-import org.emfjson.jackson.databind.ser.references.AsObjectSerializer;
-import org.emfjson.jackson.databind.ser.references.AsValueSerializer;
-import org.emfjson.jackson.databind.ser.references.EReferenceSerializer;
 import org.emfjson.jackson.handlers.BaseURIHandler;
 import org.emfjson.jackson.handlers.URIHandler;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Module implementation that allows serialization and deserialization of
@@ -39,56 +38,106 @@ public class EMFModule extends SimpleModule {
 
 	private static final long serialVersionUID = 1L;
 
-	private URIHandler handler = null;
+	private EcoreIdentityInfo identityInfo = new EcoreIdentityInfoImpl();
+	private EcoreTypeInfo typeInfo = new EcoreTypeInfoImpl();
+	private EcoreReferenceInfo referenceInfo = new EcoreReferenceInfoImpl();
 
-	private final Map<ModuleFeature, Boolean> features = new HashMap<>();
+	/**
+	 * Enumeration that defines all possible options that can be used
+	 * to customize the behaviour of the EMF Module.
+	 */
+	public enum Feature {
 
-	private IdSerializer idSerializer;
-	private IdDeserializer idDeserializer;
+		/**
+		 * Option used to indicate the module to use the default ID serializer if
+		 * none are provided. The ID serializer used by default is IdSerializer.
+		 */
+		OPTION_SERIALIZE_ID(false),
 
-	private ETypeSerializer typeSerializer;
-	private ETypeDeserializer typeDeserializer;
+		/**
+		 * Option used to indicate the module to use the default type serializer if
+		 * none are provided. The type serializer used by default is ETypeSerializer.
+		 */
+		OPTION_SERIALIZE_TYPE(true),
 
-	private EReferenceSerializer referenceSerializer;
-	private EReferenceDeserializer referenceDeserializer;
+		/**
+		 * Option used to indicate the module to serialize default attributes values.
+		 * Default values are not serialized by default.
+		 */
+		OPTION_SERIALIZE_DEFAULT_VALUE(false),
+
+		/**
+		 * Option used to indicate the module to serialize containments as references.
+		 */
+		OPTION_SERIALIZE_CONTAINMENT_AS_HREF(false);
+
+		final boolean _defaultState;
+		final int _mask;
+
+		public static int collectDefaults() {
+			int flags = 0;
+			for (Feature f : values()) {
+				if (f.enabledByDefault()) {
+					flags |= f.getMask();
+				}
+			}
+			return flags;
+		}
+
+		Feature(Boolean defaultState) {
+			_defaultState = defaultState;
+			_mask = (1 << ordinal());
+		}
+
+		public boolean enabledIn(int flags) {
+			return (flags & _mask) != 0;
+		}
+
+		public boolean enabledByDefault() {
+			return _defaultState;
+		}
+
+		public int getMask() {
+			return _mask;
+		}
+	}
+
+	protected final static int DEFAULT_FEATURES = Feature.collectDefaults();
+
+	/**
+	 * Returns a pre configured mapper with the EMF module.
+	 *
+	 * @return mapper
+	 */
+	public static ObjectMapper setupDefaultMapper() {
+		final ObjectMapper mapper = new ObjectMapper();
+		// same as emf
+		final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH);
+		dateFormat.setTimeZone(TimeZone.getDefault());
+
+		mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+		mapper.setDateFormat(dateFormat);
+		mapper.setTimeZone(TimeZone.getDefault());
+		mapper.registerModule(new EMFModule());
+
+		return mapper;
+	}
+
+	protected int _moduleFeatures = DEFAULT_FEATURES;
+
+	private URIHandler handler;
 
 	public EMFModule() {
-		initFeatures();
 	}
 
 	@Override
 	public void setupModule(SetupContext context) {
-		if (handler == null)
+		if (handler == null) {
 			handler = new BaseURIHandler();
-
-		if (idSerializer == null)
-			idSerializer = new IdSerializer();
-
-		if (idDeserializer == null)
-			idDeserializer = new IdDeserializer();
-
-		if (typeSerializer == null)
-			typeSerializer = new ETypeSerializer();
-
-		if (typeDeserializer == null)
-			typeDeserializer = new ETypeDeserializer();
-
-		if (referenceSerializer == null) {
-			referenceSerializer = features.get(ModuleFeature.OPTION_SERIALIZE_REF_AS_VALUE) ?
-					new AsValueSerializer():
-					new AsObjectSerializer();
 		}
 
-		if (referenceDeserializer == null)
-			referenceDeserializer = features.get(ModuleFeature.OPTION_SERIALIZE_REF_AS_VALUE) ?
-					new AsValueDeserializer():
-					new AsObjectDeserializer();
-
-		EMFDeserializers deserializers = new EMFDeserializers();
-		deserializers.configure(this, features);
-
-		EMFSerializers serializers = new EMFSerializers();
-		serializers.configure(this, features);
+		EMFDeserializers deserializers = new EMFDeserializers(this);
+		EMFSerializers serializers = new EMFSerializers(this);
 
 		context.addDeserializers(deserializers);
 		context.addSerializers(serializers);
@@ -106,106 +155,93 @@ public class EMFModule extends SimpleModule {
 		return new Version(1, 0, 0, "rc1", "org.emfjson", "emfjson-jackson");
 	}
 
-	public void configure(ModuleFeature feature, Boolean value) {
-		this.features.put(feature, value);
+	private EMFModule enable(Feature f) {
+		_moduleFeatures |= f.getMask();
+		return this;
+	}
+
+	private EMFModule disable(Feature f) {
+		_moduleFeatures &= ~f.getMask();
+		return this;
+	}
+
+	/**
+	 * Returns true if the current feature is used by the module.
+	 *
+	 * @param f feature
+	 * @return true if used
+	 */
+	public final boolean isEnabled(Feature f) {
+		return (_moduleFeatures & f.getMask()) != 0;
+	}
+
+	public int getFeatures() {
+		return _moduleFeatures;
+	}
+
+	/**
+	 * Configures the module with one of possible Feature.
+	 *
+	 * @param feature feature
+	 * @param state   of feature
+	 * @return EMFModule
+	 */
+	public EMFModule configure(Feature feature, boolean state) {
+		if (state) {
+			enable(feature);
+		} else {
+			disable(feature);
+		}
+		return this;
 	}
 
 	// options
 
+	/**
+	 * Tells the module which URIHandler to use to de/resolve URIs during
+	 * de/serialization.
+	 *
+	 * @param handler use for de/serialization
+	 */
 	public void setUriHandler(URIHandler handler) {
 		this.handler = handler;
 	}
 
-	public URIHandler getHandler() {
+	/**
+	 * Returns the URIHandler that will be used to de/resolve URIs during
+	 * de/serialization.
+	 *
+	 * @return handler
+	 */
+	public URIHandler getUriHandler() {
 		return handler;
 	}
 
-	// serializers
-
-	public void setIdSerializer(IdSerializer idSerializer) {
-		this.idSerializer = idSerializer;
+	public EcoreIdentityInfo getIdentityInfo() {
+		return identityInfo;
 	}
 
-	public IdSerializer getIdSerializer() {
-		return idSerializer;
+	public EcoreTypeInfo getTypeInfo() {
+		return typeInfo;
 	}
 
-	public void setTypeSerializer(ETypeSerializer typeSerializer) {
-		this.typeSerializer = typeSerializer;
+	public EcoreReferenceInfo getReferenceInfo() {
+		return referenceInfo;
 	}
 
-	public ETypeSerializer getTypeSerializer() {
-		return typeSerializer;
+	public EMFModule withIdentityInfo(EcoreIdentityInfo info) {
+		this.identityInfo = info;
+		return this;
 	}
 
-	public void setReferenceSerializer(EReferenceSerializer referenceSerializer) {
-		this.referenceSerializer = referenceSerializer;
+	public EMFModule withTypeInfo(EcoreTypeInfo info) {
+		this.typeInfo = info;
+		return this;
 	}
 
-	public EReferenceSerializer getReferenceSerializer() {
-		return referenceSerializer;
-	}
-
-	// deserializers
-
-	public void setIdDeserializer(IdDeserializer idDeserializer) {
-		this.idDeserializer = idDeserializer;
-	}
-
-	public IdDeserializer getIdDeserializer() {
-		return idDeserializer;
-	}
-
-	public void setTypeDeserializer(ETypeDeserializer typeDeserializer) {
-		this.typeDeserializer = typeDeserializer;
-	}
-
-	public ETypeDeserializer getTypeDeserializer() {
-		return typeDeserializer;
-	}
-
-	public void setReferenceDeserializer(EReferenceDeserializer referenceDeserializer) {
-		this.referenceDeserializer = referenceDeserializer;
-	}
-
-	public EReferenceDeserializer getReferenceDeserializer() {
-		return referenceDeserializer;
-	}
-
-	private void initFeatures() {
-		for (ModuleFeature feature : ModuleFeature.values()) {
-			features.put(feature, feature.getDefaultValue());
-		}
-	}
-
-	public enum ModuleFeature {
-
-		OPTION_SERIALIZE_ID(false),
-
-		OPTION_SERIALIZE_TYPE(true),
-
-		OPTION_SERIALIZE_REF_TYPE(true),
-
-		OPTION_SERIALIZE_DEFAULT_VALUE(false),
-
-		OPTION_SERIALIZE_REF_AS_VALUE(false),
-
-		OPTION_SERIALIZE_CONTAINMENT_AS_HREF(false);
-
-		private final Boolean defaultValue;
-
-		ModuleFeature(Boolean defaultValue) {
-			this.defaultValue = defaultValue;
-		}
-
-		public Boolean getDefaultValue() {
-			return defaultValue;
-		}
-	}
-
-	public enum ContextFeature {
-		OPTION_URI_HANDLER,
-		OPTION_ROOT_ELEMENT
+	public EMFModule withReferenceInfo(EcoreReferenceInfo info) {
+		this.referenceInfo = info;
+		return this;
 	}
 
 }

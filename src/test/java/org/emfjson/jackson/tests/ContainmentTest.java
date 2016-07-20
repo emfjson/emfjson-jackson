@@ -30,6 +30,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static org.emfjson.jackson.databind.EMFContext.Attributes.RESOURCE_SET;
 import static org.junit.Assert.*;
 
 public class ContainmentTest {
@@ -113,7 +114,7 @@ public class ContainmentTest {
 						.put("eClass", "http://www.emfjson.org/jackson/model#//Address"));
 
 		Resource resource = mapper.reader()
-				.withAttribute("resourceSet", resourceSet)
+				.withAttribute(RESOURCE_SET, resourceSet)
 				.treeToValue(data, Resource.class);
 
 		assertNotNull(resource);
@@ -153,7 +154,7 @@ public class ContainmentTest {
 						.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node")));
 
 		Resource resource = mapper.reader()
-				.withAttribute("resourceSet", resourceSet)
+				.withAttribute(RESOURCE_SET, resourceSet)
 				.treeToValue(data, Resource.class);
 
 		assertNotNull(resource);
@@ -341,6 +342,57 @@ public class ContainmentTest {
 
 		EObject resolve = EcoreUtil.resolve(child, resourceSet);
 		assertNotSame(resolve.eResource(), root.eResource());
+	}
+
+	@Test
+	public void testXmi1() throws IOException {
+		ResourceSet resourceSet = new ResourceSetImpl();
+		resourceSet.getPackageRegistry().put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
+		resourceSet.getResourceFactoryRegistry()
+				.getExtensionToFactoryMap()
+				.put("xmi", new XMIResourceFactoryImpl());
+
+		{
+			Resource x1 = resourceSet.createResource(URI.createURI("src/test/resources/xmi/test3.xmi"));
+			Node n1 = ModelFactory.eINSTANCE.createNode();
+			Node n2 = ModelFactory.eINSTANCE.createNode();
+			Node n3 = ModelFactory.eINSTANCE.createNode();
+
+			n1.getChild().add(n2);
+			n1.getChild().add(n3);
+
+			n2.setTarget(n3);
+			n2.getManyRef().add(n3);
+
+			x1.getContents().add(n1);
+			x1.save(null);
+		}
+		{
+			Resource x1 = resourceSet.createResource(URI.createFileURI("src/test/resources/xmi/test4.xmi"));
+			Resource x2 = resourceSet.createResource(URI.createFileURI("src/test/resources/xmi/test5.xmi"));
+			Resource x3 = resourceSet.createResource(URI.createFileURI("src/test/resources/xmi/test6.xmi"));
+
+			User n1 = ModelFactory.eINSTANCE.createUser();
+			n1.setUserId("1");
+
+			User n2 = ModelFactory.eINSTANCE.createUser();
+			n2.setUserId("2");
+
+			User n3 = ModelFactory.eINSTANCE.createUser();
+			n3.setUserId("3");
+
+			n1.setUniqueFriend(n2);
+			n1.getFriends().add(n2);
+			n1.getFriends().add(n3);
+
+			x1.getContents().add(n1);
+			x2.getContents().add(n2);
+			x3.getContents().add(n3);
+
+			x1.save(null);
+			x2.save(null);
+			x3.save(null);
+		}
 	}
 
 	//	@Test

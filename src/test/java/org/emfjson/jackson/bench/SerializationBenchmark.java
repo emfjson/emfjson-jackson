@@ -103,7 +103,7 @@ public class SerializationBenchmark {
 
 	{
 		EMFModule module = new EMFModule();
-		module.configure(EMFModule.ModuleFeature.OPTION_SERIALIZE_TYPE, false);
+		module.configure(EMFModule.Feature.OPTION_SERIALIZE_TYPE, false);
 		mapper.registerModule(module);
 	}
 

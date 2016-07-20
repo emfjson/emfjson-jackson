@@ -32,7 +32,7 @@ public abstract class UuidSupport {
 	}
 
 	protected String uuid(JsonNode node) {
-		return node.get("_id").asText();
+		return node.get("@id").asText();
 	}
 
 	protected Resource createUuidResource(String name, ObjectMapper mapper) {

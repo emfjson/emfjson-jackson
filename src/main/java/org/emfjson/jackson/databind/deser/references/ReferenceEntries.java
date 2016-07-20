@@ -15,30 +15,21 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.emfjson.jackson.handlers.URIHandler;
 
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class ReferenceEntries {
 
-	private final Set<ReferenceEntry> entries = new LinkedHashSet<>();
+	private final Collection<ReferenceEntry> entries = new ArrayList<>();
 	private final Map<String, EObject> mapOfObjects = new HashMap<>();
 
 	public void resolve(ResourceSet resourceSet, URIHandler handler) {
-		for (ReferenceEntry entry : all()) {
+		for (ReferenceEntry entry : entries()) {
 			entry.resolve(resourceSet, handler, this);
 		}
 		mapOfObjects.clear();
 	}
 
-	public void add(ReferenceEntries.ReferenceEntry entry) {
-		if (entry != null) {
-			entries.add(entry);
-		}
-	}
-
-	public Set<ReferenceEntries.ReferenceEntry> all() {
+	public Collection<ReferenceEntry> entries() {
 		return entries;
 	}
 
@@ -48,12 +39,6 @@ public class ReferenceEntries {
 
 	public EObject get(String id) {
 		return mapOfObjects.get(id);
-	}
-
-	public interface ReferenceEntry {
-
-		void resolve(ResourceSet resourceSet, URIHandler handler, ReferenceEntries entries);
-
 	}
 
 }

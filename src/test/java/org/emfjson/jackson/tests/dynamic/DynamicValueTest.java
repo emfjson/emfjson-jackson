@@ -15,6 +15,7 @@ import org.emfjson.jackson.support.StandardFixture;
 import org.junit.ClassRule;
 import org.junit.Test;
 
+import static org.emfjson.jackson.databind.EMFContext.Attributes.RESOURCE_SET;
 import static org.junit.Assert.assertEquals;
 
 public class DynamicValueTest {
@@ -54,7 +55,7 @@ public class DynamicValueTest {
 
 		EObject obj = mapper
 				.reader()
-				.withAttribute("resourceSet", resourceSet)
+				.withAttribute(RESOURCE_SET, resourceSet)
 				.treeToValue(node, EObject.class);
 
 		assertEquals(value, obj.eGet(classA.getEStructuralFeature("javaType")));
@@ -89,7 +90,7 @@ public class DynamicValueTest {
 
 		EObject obj = mapper
 				.reader()
-				.withAttribute("resourceSet", resourceSet)
+				.withAttribute(RESOURCE_SET, resourceSet)
 				.treeToValue(node, EObject.class);
 
 		assertEquals(value, obj.eGet(classA.getEStructuralFeature("javaClass")));

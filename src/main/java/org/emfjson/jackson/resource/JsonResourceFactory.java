@@ -23,20 +23,21 @@ public class JsonResourceFactory extends ResourceFactoryImpl {
 
 	private final ObjectMapper mapper;
 
-	public JsonResourceFactory(ObjectMapper mapper) {
-		this.mapper = mapper;
+	public JsonResourceFactory() {
+		this.mapper = EMFModule.setupDefaultMapper();
 	}
 
-	public JsonResourceFactory() {
-		this.mapper = new ObjectMapper();
-		this.mapper.registerModule(new EMFModule());
+	public JsonResourceFactory(ObjectMapper mapper) {
+		if (mapper == null) throw new IllegalArgumentException();
+		this.mapper = mapper;
 	}
 
 	@Override
 	public Resource createResource(URI uri) {
-		final JsonResource resource = new JsonResource(uri);
-		resource.setObjectMapper(mapper);
-		return resource;
+		return new JsonResource(uri, mapper);
 	}
 
+	public ObjectMapper getMapper() {
+		return mapper;
+	}
 }

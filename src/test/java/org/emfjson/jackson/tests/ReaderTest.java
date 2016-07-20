@@ -28,6 +28,7 @@ import org.junit.Test;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
+import static org.emfjson.jackson.databind.EMFContext.Attributes.RESOURCE_SET;
 import static org.junit.Assert.*;
 
 public class ReaderTest {
@@ -77,7 +78,7 @@ public class ReaderTest {
 
 		Resource resource = mapper
 				.reader()
-				.withAttribute("resourceSet", resourceSet)
+				.withAttribute(RESOURCE_SET, resourceSet)
 				.treeToValue(data, Resource.class);
 
 		assertEquals(1, resource.getContents().size());
@@ -110,7 +111,7 @@ public class ReaderTest {
 
 		Resource resource = mapper
 				.reader()
-				.withAttribute("resourceSet", resourceSet)
+				.withAttribute(RESOURCE_SET, resourceSet)
 				.treeToValue(data, Resource.class);
 
 		assertEquals(1, resource.getContents().size());
@@ -143,7 +144,7 @@ public class ReaderTest {
 
 		Resource resource = mapper
 				.reader()
-				.withAttribute("resourceSet", resourceSet)
+				.withAttribute(RESOURCE_SET, resourceSet)
 				.treeToValue(data, Resource.class);
 
 		assertEquals(1, resource.getContents().size());

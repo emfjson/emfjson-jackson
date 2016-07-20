@@ -9,13 +9,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emfjson.jackson.internal.EObjects;
+import org.emfjson.jackson.utils.EObjects;
 import org.emfjson.jackson.support.DynamicFixture;
 import org.emfjson.jackson.support.StandardFixture;
 import org.junit.Assert;
 import org.junit.ClassRule;
 import org.junit.Test;
 
+import static org.emfjson.jackson.databind.EMFContext.Attributes.RESOURCE_SET;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
@@ -55,7 +56,7 @@ public class DynamicContainmentTest {
 
 		EObject a1 = mapper
 				.reader()
-				.withAttribute("resourceSet", resourceSet)
+				.withAttribute(RESOURCE_SET, resourceSet)
 				.treeToValue(data, EObject.class);
 
 		EObject b1 = (EObject) a1.eGet(a1.eClass().getEStructuralFeature("containB"));

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ASCII"?>
+<model:User xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:model="http://www.emfjson.org/jackson/model" userId="1">
+  <friends href="src/test/resources/xmi/test5.xmi#2"/>
+  <friends href="src/test/resources/xmi/test6.xmi#3"/>
+  <uniqueFriend href="src/test/resources/xmi/test5.xmi#2"/>
+</model:User>

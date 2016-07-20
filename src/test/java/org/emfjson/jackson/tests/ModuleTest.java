@@ -29,6 +29,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static org.emfjson.jackson.databind.EMFContext.Attributes.RESOURCE_SET;
 import static org.junit.Assert.assertEquals;
 
 public class ModuleTest {
@@ -81,7 +82,7 @@ public class ModuleTest {
 
 		EClass result = (EClass) mapper
 				.reader()
-				.withAttribute("resourceSet", resourceSet)
+				.withAttribute(RESOURCE_SET, resourceSet)
 				.treeToValue(data, EObject.class);
 
 		assertEquals("A", result.getName());
@@ -109,7 +110,7 @@ public class ModuleTest {
 
 		Resource result = mapper
 				.reader()
-				.withAttribute("resourceSet", resourceSet)
+				.withAttribute(RESOURCE_SET, resourceSet)
 				.treeToValue(data, Resource.class);
 
 		assertEquals(1, result.getContents().size());
@@ -124,7 +125,7 @@ public class ModuleTest {
 
 		User user = ModelFactory.eINSTANCE.createUser();
 		mapper.readerForUpdating(user)
-				.withAttribute("resourceSet", resourceSet)
+				.withAttribute(RESOURCE_SET, resourceSet)
 				.treeToValue(data, EObject.class);
 
 		assertEquals("A", user.getName());
@@ -139,7 +140,7 @@ public class ModuleTest {
 		Resource resource = new JsonResource(URI.createURI("test"), mapper);
 
 		mapper.readerForUpdating(resource)
-				.withAttribute("resourceSet", resourceSet)
+				.withAttribute(RESOURCE_SET, resourceSet)
 				.treeToValue(data, Resource.class);
 
 		assertEquals(1, resource.getContents().size());

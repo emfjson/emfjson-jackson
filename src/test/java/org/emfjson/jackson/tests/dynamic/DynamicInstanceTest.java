@@ -28,6 +28,7 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static org.emfjson.jackson.databind.EMFContext.Attributes.RESOURCE_SET;
 import static org.junit.Assert.*;
 
 public class DynamicInstanceTest {
@@ -109,7 +110,7 @@ public class DynamicInstanceTest {
 
 		Resource resource = mapper
 				.reader()
-				.withAttribute("resourceSet", resourceSet)
+				.withAttribute(RESOURCE_SET, resourceSet)
 				.treeToValue(data, Resource.class);
 
 		assertNotNull(resource);

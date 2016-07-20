@@ -1,3 +1,14 @@
+/*
+ * Copyright (c) 2015 Guillaume Hillairet.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Guillaume Hillairet - initial API and implementation
+ *
+ */
 package org.emfjson.jackson.databind.deser;
 
 import com.fasterxml.jackson.databind.*;
@@ -5,15 +16,13 @@ import com.fasterxml.jackson.databind.deser.Deserializers;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapLikeType;
-import com.fasterxml.jackson.databind.type.ReferenceType;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emfjson.jackson.databind.deser.collections.EListDeserializer;
-import org.emfjson.jackson.databind.deser.collections.EMapDeserializer;
-import org.emfjson.jackson.databind.deser.references.ReferenceEntries;
+import org.emfjson.jackson.databind.deser.references.ReferenceEntry;
+import org.emfjson.jackson.databind.property.EObjectPropertyMap;
 import org.emfjson.jackson.databind.type.EcoreType;
 import org.emfjson.jackson.module.EMFModule;
 
@@ -21,41 +30,29 @@ import java.util.Map;
 
 public class EMFDeserializers extends Deserializers.Base {
 
-	private EObjectDeserializer _objectDeserializer;
-	private ResourceDeserializer _resourceDeserializer = new ResourceDeserializer();
+	private final EObjectPropertyMap.Builder builder;
+	private final ResourceDeserializer _resourceDeserializer;
+	private final JsonDeserializer<EList<Map.Entry<?, ?>>> _mapDeserializer;
+	private final JsonDeserializer<Object> _dataTypeDeserializer;
+	private final JsonDeserializer<ReferenceEntry> _referenceDeserializer;
 
-	private JsonDeserializer<EList<Map.Entry<?, ?>>> _mapDeserializer;
-	private JsonDeserializer<EList<EObject>> _listDeserializer;
-	private JsonDeserializer<Object> _dataTypeDeserializer;
-	private JsonDeserializer<ReferenceEntries.ReferenceEntry> _referenceDeserializer;
-
-	public EMFDeserializers() {
-	}
-
-	public void configure(EMFModule module, Map<EMFModule.ModuleFeature, Boolean> features) {
-		_objectDeserializer = new EObjectDeserializer();
-		_objectDeserializer.setIdDeserializer(module.getIdDeserializer());
-		_objectDeserializer.setTypeDeserializer(module.getTypeDeserializer());
-
-		_referenceDeserializer = module.getReferenceDeserializer();
-		_mapDeserializer = new EMapDeserializer();
-		_listDeserializer = new EListDeserializer(_referenceDeserializer);
-		_dataTypeDeserializer = new EDataTypeDeserializer();
-	}
-
-	@Override
-	public JsonDeserializer<?> findReferenceDeserializer(ReferenceType refType, DeserializationConfig config, BeanDescription beanDesc, TypeDeserializer contentTypeDeserializer, JsonDeserializer<?> contentDeserializer) throws JsonMappingException {
-		return _referenceDeserializer;
+	public EMFDeserializers(EMFModule module) {
+		this.builder = new EObjectPropertyMap.Builder(
+				module.getIdentityInfo(),
+				module.getTypeInfo(),
+				module.getReferenceInfo(),
+				module.getFeatures()
+		);
+		this._resourceDeserializer = new ResourceDeserializer(module.getUriHandler());
+		this._referenceDeserializer = module.getReferenceInfo().getDeserializer();
+		this._mapDeserializer = new EMapDeserializer();
+		this._dataTypeDeserializer = new EDataTypeDeserializer();
 	}
 
 	@Override
 	public JsonDeserializer<?> findMapLikeDeserializer(MapLikeType type, DeserializationConfig config, BeanDescription beanDesc, KeyDeserializer keyDeserializer, TypeDeserializer elementTypeDeserializer, JsonDeserializer<?> elementDeserializer) throws JsonMappingException {
 		if (type.isTypeOrSubTypeOf(EMap.class)) {
-			if (type.getKeyType().isTypeOrSubTypeOf(String.class)) {
-				return _mapDeserializer;
-			} else {
-				return _listDeserializer;
-			}
+			return _mapDeserializer;
 		}
 
 		return super.findMapLikeDeserializer(type, config, beanDesc, keyDeserializer, elementTypeDeserializer, elementDeserializer);
@@ -72,33 +69,29 @@ public class EMFDeserializers extends Deserializers.Base {
 
 	@Override
 	public JsonDeserializer<?> findCollectionDeserializer(CollectionType type, DeserializationConfig config, BeanDescription beanDesc, TypeDeserializer elementTypeDeserializer, JsonDeserializer<?> elementDeserializer) throws JsonMappingException {
-		if (EList.class.isAssignableFrom(type.getRawClass())) {
-			return _listDeserializer;
-		}
-
 		return super.findCollectionDeserializer(type, config, beanDesc, elementTypeDeserializer, elementDeserializer);
 	}
 
 	@Override
 	public JsonDeserializer<?> findBeanDeserializer(JavaType type, DeserializationConfig config, BeanDescription beanDesc) throws JsonMappingException {
-		if (Resource.class.isAssignableFrom(type.getRawClass())) {
+		if (type.isTypeOrSubTypeOf(Resource.class)) {
 			return _resourceDeserializer;
 		}
 
-		if (ReferenceEntries.ReferenceEntry.class.isAssignableFrom(type.getRawClass())) {
+		if (type.isReferenceType()) {
 			return _referenceDeserializer;
 		}
 
-		if (EcoreType.EntryType.class.isAssignableFrom(type.getRawClass())) {
-			return _objectDeserializer;
-		}
-
-		if (EcoreType.DataType.class.isAssignableFrom(type.getRawClass())) {
+		if (type.isTypeOrSubTypeOf(EcoreType.DataType.class)) {
 			return _dataTypeDeserializer;
 		}
 
-		if (EObject.class.isAssignableFrom(type.getRawClass())) {
-			return _objectDeserializer;
+		if (type.isTypeOrSubTypeOf(EObject.class)) {
+			if (type instanceof EcoreType) {
+				return new EObjectDeserializer(builder, builder.construct((EcoreType) type));
+			} else {
+				return new EObjectDeserializer(builder, builder.constructDefault());
+			}
 		}
 
 		return super.findBeanDeserializer(type, config, beanDesc);

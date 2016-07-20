@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emfjson.jackson.internal.ContextUtils;
+import org.emfjson.jackson.databind.EMFContext;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -177,7 +177,7 @@ public class JsonResource extends ResourceImpl {
 
 		} else {
 
-			ContextAttributes attributes = ContextUtils
+			ContextAttributes attributes = EMFContext
 					.from(options)
 					.withPerCallAttribute("resourceSet", getResourceSet())
 					.withPerCallAttribute("resource", this);
@@ -204,7 +204,7 @@ public class JsonResource extends ResourceImpl {
 		} else {
 
 			mapper.writer()
-					.with(ContextUtils.from(options))
+					.with(EMFContext.from(options))
 					.writeValue(outputStream, this);
 
 		}
