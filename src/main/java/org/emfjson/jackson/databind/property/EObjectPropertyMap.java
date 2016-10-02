@@ -4,16 +4,17 @@ import com.fasterxml.jackson.databind.JavaType;
 import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.util.ExtendedMetaData;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
-import org.emfjson.jackson.annotations.JsonAnnotations;
 import org.emfjson.jackson.annotations.EcoreIdentityInfo;
 import org.emfjson.jackson.annotations.EcoreReferenceInfo;
 import org.emfjson.jackson.annotations.EcoreTypeInfo;
-import org.emfjson.jackson.databind.type.EcoreType;
+import org.emfjson.jackson.annotations.JsonAnnotations;
 import org.emfjson.jackson.databind.type.EcoreTypeFactory;
 import org.emfjson.jackson.module.EMFModule;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.WeakHashMap;
 
 import static org.emfjson.jackson.annotations.JsonAnnotations.getElementName;
 import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_SERIALIZE_ID;
@@ -24,11 +25,12 @@ public class EObjectPropertyMap {
 	public static class Builder {
 
 		private final EcoreTypeFactory factory = new EcoreTypeFactory();
+		private final Map<EClass, EObjectPropertyMap> cache = new WeakHashMap<>();
 
-		EcoreIdentityInfo identityInfo;
-		EcoreTypeInfo typeInfo;
-		EcoreReferenceInfo referenceInfo;
-		int features;
+		private final EcoreIdentityInfo identityInfo;
+		private final EcoreTypeInfo typeInfo;
+		private final EcoreReferenceInfo referenceInfo;
+		private final int features;
 
 		public Builder(EcoreIdentityInfo identityInfo, EcoreTypeInfo typeInfo, EcoreReferenceInfo referenceInfo, int features) {
 			this.identityInfo = identityInfo;
@@ -41,12 +43,16 @@ public class EObjectPropertyMap {
 			return new Builder(module.getIdentityInfo(), module.getTypeInfo(), module.getReferenceInfo(), features);
 		}
 
-		public EObjectPropertyMap construct(EcoreType type) {
-			return new EObjectPropertyMap(this, (EClass) type.eClassifier(), collectProperties((EClass) type.eClassifier()));
-		}
-
 		public EObjectPropertyMap construct(EClass type) {
-			return new EObjectPropertyMap(this, type, collectProperties(type));
+			if (type == null) {
+				return new EObjectPropertyMap(null, collectProperties(null));
+			}
+
+			EObjectPropertyMap propertyMap = cache.get(type);
+			if (propertyMap == null) {
+				cache.put(type, propertyMap = new EObjectPropertyMap(type, collectProperties(type)));
+			}
+			return propertyMap;
 		}
 
 		protected boolean isFeatureMapEntry(EStructuralFeature feature) {
@@ -58,8 +64,8 @@ public class EObjectPropertyMap {
 		protected boolean isCandidate(EAttribute attribute) {
 			return isFeatureMapEntry(attribute) || (
 					!FeatureMapUtil.isFeatureMap(attribute) &&
-					!(attribute.isDerived() || attribute.isTransient()) &&
-					!JsonAnnotations.shouldIgnore(attribute));
+							!(attribute.isDerived() || attribute.isTransient()) &&
+							!JsonAnnotations.shouldIgnore(attribute));
 		}
 
 		protected boolean isCandidate(EReference eReference) {
@@ -81,30 +87,21 @@ public class EObjectPropertyMap {
 			final Map<String, EObjectProperty> properties = new LinkedHashMap<>();
 
 			if (OPTION_SERIALIZE_ID.enabledIn(features)) {
-				properties.put(
-						identityInfo.getProperty(),
-						new EObjectIdentityProperty(
-								identityInfo.getProperty(),
-								identityInfo.getSerializer(),
-								identityInfo.getDeserializer()));
+				properties.put(identityInfo.getProperty(), new EObjectIdentityProperty(identityInfo));
 			}
 
 			if (OPTION_SERIALIZE_TYPE.enabledIn(features)) {
-				properties.put(
-						typeInfo.getProperty(),
-						new EObjectTypeProperty(
-								typeInfo.getProperty(),
-								typeInfo.getSerializer(),
-								typeInfo.getDeserializer()));
+				properties.put(typeInfo.getProperty(), new EObjectTypeProperty(typeInfo));
 			}
 
-			properties.put(referenceInfo.getProperty(), new EObjectReferenceProperty(referenceInfo));
+			if (referenceInfo instanceof EcoreReferenceInfo.Base) {
+				properties.put(((EcoreReferenceInfo.Base) referenceInfo).getProperty(), new EObjectReferenceProperty((EcoreReferenceInfo.Base) referenceInfo));
+			}
 
 			if (type != null) {
 				for (EAttribute attribute : type.getEAllAttributes()) {
 					if (isCandidate(attribute)) {
 						JavaType javaType = factory.typeOf(type, attribute);
-
 						if (javaType != null) {
 							properties.put(getElementName(attribute), new EObjectFeatureProperty(attribute, javaType, features));
 						}
@@ -114,7 +111,6 @@ public class EObjectPropertyMap {
 				for (EReference reference : type.getEAllReferences()) {
 					if (isCandidate(reference)) {
 						JavaType javaType = factory.typeOf(type, reference);
-//						System.out.println(reference.getName() + " " + javaType);
 						if (javaType != null) {
 							properties.put(getElementName(reference), new EObjectFeatureProperty(reference, javaType, features));
 						}
@@ -133,16 +129,15 @@ public class EObjectPropertyMap {
 		}
 
 		public EObjectPropertyMap constructDefault() {
-			return construct((EClass) null);
+			return construct(null);
 		}
+
 	}
 
-	private final Builder builder;
 	private final Map<String, EObjectProperty> properties;
-	private EClass type;
+	private final EClass type;
 
-	EObjectPropertyMap(Builder builder, EClass type, Map<String, EObjectProperty> properties) {
-		this.builder = builder;
+	EObjectPropertyMap(EClass type, Map<String, EObjectProperty> properties) {
 		this.type = type;
 		this.properties = properties;
 	}
@@ -151,15 +146,21 @@ public class EObjectPropertyMap {
 		return properties.get(field);
 	}
 
-	public void update(EClass eClass) {
-		if (eClass != type) {
-			type = eClass;
-			properties.putAll(builder.collectProperties(eClass));
-		}
-	}
-
 	public Iterable<EObjectProperty> getProperties() {
 		return properties.values();
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		EObjectPropertyMap that = (EObjectPropertyMap) o;
+		return Objects.equals(properties, that.properties) &&
+				Objects.equals(type, that.type);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(properties, type);
+	}
 }

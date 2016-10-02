@@ -8,10 +8,9 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.FeatureMapUtil;
 import org.emfjson.jackson.databind.EMFContext;
-import org.emfjson.jackson.databind.deser.references.ReferenceEntries;
-import org.emfjson.jackson.databind.deser.references.ReferenceEntry;
+import org.emfjson.jackson.databind.deser.ReferenceEntries;
+import org.emfjson.jackson.databind.deser.ReferenceEntry;
 import org.emfjson.jackson.databind.type.FeatureKind;
 
 import java.io.IOException;
@@ -24,8 +23,6 @@ public class EObjectFeatureProperty extends EObjectProperty {
 
 	private final EStructuralFeature feature;
 	private final JavaType javaType;
-	private final boolean isFeatureMap;
-	private final int features;
 	private final boolean defaultValues;
 
 	private JsonSerializer<Object> serializer;
@@ -35,8 +32,6 @@ public class EObjectFeatureProperty extends EObjectProperty {
 
 		this.feature = feature;
 		this.javaType = type;
-		this.isFeatureMap = FeatureMapUtil.isFeatureMap(feature);
-		this.features = features;
 		this.defaultValues = OPTION_SERIALIZE_DEFAULT_VALUE.enabledIn(features);
 	}
 
@@ -54,7 +49,6 @@ public class EObjectFeatureProperty extends EObjectProperty {
 
 		switch (FeatureKind.get(feature)) {
 			case MAP:
-//			case FEATURE_MAP:
 			case MANY_CONTAINMENT:
 			case SINGLE_CONTAINMENT: {
 				ctxt.setAttribute(CURRENT_REFERENCE, feature);
@@ -108,10 +102,8 @@ public class EObjectFeatureProperty extends EObjectProperty {
 		if (bean.eIsSet(feature)) {
 			Object value = bean.eGet(feature, false);
 
-
 			jg.writeFieldName(getFieldName());
 			serializer.serialize(value, jg, provider);
-
 		} else if (defaultValues) {
 			Object value = feature.getDefaultValue();
 

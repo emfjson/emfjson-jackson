@@ -1,4 +1,4 @@
-package org.emfjson.jackson.databind.deser.references;
+package org.emfjson.jackson.databind.deser;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;

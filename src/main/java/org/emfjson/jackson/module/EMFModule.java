@@ -12,16 +12,17 @@
 package org.emfjson.jackson.module;
 
 import com.fasterxml.jackson.core.Version;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import org.eclipse.emf.ecore.EObject;
 import org.emfjson.jackson.annotations.EcoreIdentityInfo;
 import org.emfjson.jackson.annotations.EcoreReferenceInfo;
 import org.emfjson.jackson.annotations.EcoreTypeInfo;
-import org.emfjson.jackson.annotations.impl.EcoreIdentityInfoImpl;
-import org.emfjson.jackson.annotations.impl.EcoreReferenceInfoImpl;
-import org.emfjson.jackson.annotations.impl.EcoreTypeInfoImpl;
 import org.emfjson.jackson.databind.deser.EMFDeserializers;
+import org.emfjson.jackson.databind.deser.ReferenceEntry;
 import org.emfjson.jackson.databind.ser.EMFSerializers;
 import org.emfjson.jackson.handlers.BaseURIHandler;
 import org.emfjson.jackson.handlers.URIHandler;
@@ -38,9 +39,32 @@ public class EMFModule extends SimpleModule {
 
 	private static final long serialVersionUID = 1L;
 
-	private EcoreIdentityInfo identityInfo = new EcoreIdentityInfoImpl();
-	private EcoreTypeInfo typeInfo = new EcoreTypeInfoImpl();
-	private EcoreReferenceInfo referenceInfo = new EcoreReferenceInfoImpl();
+	private EcoreReferenceInfo referenceInfo;
+	private EcoreTypeInfo typeInfo;
+	private EcoreIdentityInfo identityInfo;
+
+	private JsonSerializer<EObject> referenceSerializer;
+	private JsonDeserializer<ReferenceEntry> referenceDeserializer;
+
+	public void setTypeInfo(EcoreTypeInfo info) {
+		this.typeInfo = info;
+	}
+
+	public void setIdentityInfo(EcoreIdentityInfo identityInfo) {
+		this.identityInfo = identityInfo;
+	}
+
+	public void setReferenceInfo(EcoreReferenceInfo referenceInfo) {
+		this.referenceInfo = referenceInfo;
+	}
+
+	public void setReferenceSerializer(JsonSerializer<EObject> serializer) {
+		this.referenceSerializer = serializer;
+	}
+
+	public void setReferenceDeserializer(JsonDeserializer<ReferenceEntry> deserializer) {
+		this.referenceDeserializer = deserializer;
+	}
 
 	/**
 	 * Enumeration that defines all possible options that can be used
@@ -136,6 +160,22 @@ public class EMFModule extends SimpleModule {
 			handler = new BaseURIHandler();
 		}
 
+		if (typeInfo == null) {
+			typeInfo = new EcoreTypeInfo();
+		}
+
+		if (identityInfo == null) {
+			identityInfo = new EcoreIdentityInfo();
+		}
+
+		if (referenceInfo == null) {
+			if (referenceSerializer != null || referenceDeserializer != null) {
+				referenceInfo = new EcoreReferenceInfo(referenceSerializer, referenceDeserializer, handler);
+			} else {
+				referenceInfo = new EcoreReferenceInfo.Base(handler);
+			}
+		}
+
 		EMFDeserializers deserializers = new EMFDeserializers(this);
 		EMFSerializers serializers = new EMFSerializers(this);
 
@@ -227,21 +267,6 @@ public class EMFModule extends SimpleModule {
 
 	public EcoreReferenceInfo getReferenceInfo() {
 		return referenceInfo;
-	}
-
-	public EMFModule withIdentityInfo(EcoreIdentityInfo info) {
-		this.identityInfo = info;
-		return this;
-	}
-
-	public EMFModule withTypeInfo(EcoreTypeInfo info) {
-		this.typeInfo = info;
-		return this;
-	}
-
-	public EMFModule withReferenceInfo(EcoreReferenceInfo info) {
-		this.referenceInfo = info;
-		return this;
 	}
 
 }

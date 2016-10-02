@@ -56,7 +56,8 @@ public class MapTest {
 
 	@Test
 	public void testLoadMap() {
-		Resource resource = resourceSet.getResource(URI.createURI("src/test/resources/tests/test-map-1.json"), true);
+		Resource resource = resourceSet.getResource(
+				URI.createURI("src/test/resources/tests/test-map-1.json"), true);
 
 		assertThat(resource.getContents()).hasSize(1);
 		assertThat(resource.getContents().get(0)).isInstanceOf(ETypes.class);

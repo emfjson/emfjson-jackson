@@ -22,7 +22,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emfjson.jackson.databind.EMFContext;
-import org.emfjson.jackson.databind.deser.references.ReferenceEntries;
 import org.emfjson.jackson.databind.type.EcoreTypeFactory;
 import org.emfjson.jackson.handlers.URIHandler;
 import org.emfjson.jackson.utils.Cache;

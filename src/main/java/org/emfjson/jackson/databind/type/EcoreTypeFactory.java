@@ -1,6 +1,7 @@
 package org.emfjson.jackson.databind.type;
 
 import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.type.SimpleType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.*;
@@ -90,13 +91,15 @@ public class EcoreTypeFactory {
 	}
 
 	public JavaType constructSimpleType(EClassifier type) {
-		return new EcoreSimpleType(type, rawType(type));
+//		return new EcoreSimpleType(type, rawType(type));
+		return SimpleType.construct(rawType(type));
 	}
 
 	public JavaType constructReferenceType(EClassifier type) {
 		Class<?> rawType = rawType(type);
 
-		return new EcoreReferenceType(type, rawType, typeFactory.constructType(EcoreType.ReferenceType.class));
+//		return new EcoreReferenceType(type, rawType, typeFactory.constructType(EcoreType.ReferenceType.class));
+		return typeFactory.constructReferenceType(rawType, typeFactory.constructType(EcoreType.ReferenceType.class));
 	}
 
 	public JavaType constructCollectionType(JavaType type) {
@@ -129,6 +132,11 @@ public class EcoreTypeFactory {
 		if (classifier instanceof EDataType) {
 			if (rawType == null || classifier == EJAVA_CLASS || classifier == EJAVA_OBJECT) {
 				rawType = EcoreType.DataType.class;
+			} else {
+				// handle e.g. EByteArray byte[]
+				if (rawType.isArray()) {
+					rawType = EcoreType.DataType.class;
+				}
 			}
 		} else if (rawType == null) {
 			rawType = EObject.class;

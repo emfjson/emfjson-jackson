@@ -11,37 +11,27 @@ package org.emfjson.jackson.junit.annotations
 annotation "JsonIgnore" as JsonIgnore
 annotation "JsonProperty" as JsonProperty
 annotation "JsonIgnoreProperties" as JsonIgnoreProperties
-annotation "JsonTypeInfo" as JsonTypeInfo
-annotation "JsonIdentityInfo" as JsonIdentityInfo
+annotation "JsonType" as JsonType
+annotation "JsonIdentity" as JsonIdentity
 
 class TestA {
 
-	@JsonProperty(value = "my_value")
+	@JsonProperty( value = "my_value" )
 	String value
 
 }
 
+@JsonIdentity(
+  property = "id"
+)
 class TestB {
 
-	@JsonProperty(value = "my_value")
+	@JsonProperty( value = "my_value" )
 	String value
 
 	@JsonProperty
 	op String hello() {
 		"Hello"
 	}
-
-}
-
-@JsonTypeInfo(
-	value = "my.Foo",
-	property = "@type"
-)
-@JsonIdentityInfo(
-	generator = "uuid",
-	property = "@id"
-)
-class Foo {
-	String name
 }
 

@@ -32,31 +32,10 @@ import static org.emfjson.jackson.annotations.JsonAnnotations.getElementName;
  */
 public class Cache {
 
-	protected final Map<EObject, URI> mapOfID = new HashMap<>();
-	protected final Map<String, EClass> mapOfClasses = new HashMap<>();
-	protected final Map<String, URI> mapOfURIs = new HashMap<>();
-
-	private final Map<EStructuralFeature, String> mapOfNames = new HashMap<>();
-	private final Map<EClass, Map<String, EStructuralFeature>> mapOfFeatures = new HashMap<>();
+	private final Map<EObject, URI> mapOfID = new HashMap<>();
+	private final Map<String, EClass> mapOfClasses = new HashMap<>();
+	private final Map<String, URI> mapOfURIs = new HashMap<>();
 	private final Map<EClass, String> mapOfTypes = new HashMap<>();
-
-	/**
-	 * Returns the field name to be used by a structural feature.
-	 * <p/>
-	 * Custom names can be defined by using an eAnnotation on a eStructuralFeature with
-	 * a source named JSON and a value being the field name.
-	 *
-	 * @param feature
-	 * @return field name
-	 */
-	public String getKey(EStructuralFeature feature) {
-		String key = mapOfNames.get(feature);
-		if (key == null) {
-			key = getElementName(feature);
-			mapOfNames.put(feature, key);
-		}
-		return key;
-	}
 
 	/**
 	 * Returns a eClass by it's full URI.
@@ -86,60 +65,12 @@ public class Cache {
 	}
 
 	/**
-	 * Returns the eStructuralFeature of a given eClass from a key. The key
-	 * corresponds to a field name.
-	 *
-	 * @param eClass
-	 * @param key
-	 * @return eStructuralFeature
-	 */
-	public EStructuralFeature getEStructuralFeature(EClass eClass, String key) {
-		Map<String, EStructuralFeature> featureByKey = mapOfFeatures.get(eClass);
-
-		if (featureByKey == null) {
-			featureByKey = new HashMap<>();
-			mapOfFeatures.put(eClass, featureByKey);
-		}
-
-		EStructuralFeature feature = featureByKey.get(key);
-		if (feature == null) {
-			feature = findEStructuralFeature(eClass, key);
-			if (feature != null) {
-				featureByKey.put(key, feature);
-			}
-		}
-
-		return feature;
-	}
-
-	private EStructuralFeature findEStructuralFeature(EClass eClass, String key) {
-		if (eClass == null || key == null)
-			return null;
-
-		EStructuralFeature eStructuralFeature = eClass.getEStructuralFeature(key);
-
-		if (eStructuralFeature == null) {
-			int i = 0;
-			List<EStructuralFeature> features = eClass.getEAllStructuralFeatures();
-			while (i < features.size() && eStructuralFeature == null) {
-				EStructuralFeature current = features.get(i);
-				if (key.equals(getKey(current))) {
-					eStructuralFeature = current;
-				}
-				i++;
-			}
-		}
-
-		return eStructuralFeature;
-	}
-
-	/**
 	 * Returns the uri of a eClass.
 	 *
 	 * @param eClass
 	 * @return uri
 	 */
-	public String getType(EClass eClass) {
+	public String getURI(EClass eClass) {
 		if (eClass == null) {
 			return null;
 		}

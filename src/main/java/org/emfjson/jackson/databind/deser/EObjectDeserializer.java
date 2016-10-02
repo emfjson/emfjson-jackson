@@ -13,15 +13,13 @@ package org.emfjson.jackson.databind.deser;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.databind.BeanProperty;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
 import com.fasterxml.jackson.databind.util.TokenBuffer;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emfjson.jackson.databind.EMFContext;
@@ -35,35 +33,52 @@ import java.io.IOException;
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 import static org.emfjson.jackson.databind.EMFContext.getResource;
 
-public class EObjectDeserializer extends JsonDeserializer<EObject> implements ContextualDeserializer {
+public class EObjectDeserializer extends JsonDeserializer<EObject> {
 
-	private final EObjectPropertyMap propertyMap;
 	private final EObjectPropertyMap.Builder builder;
 
-	public EObjectDeserializer(EObjectPropertyMap.Builder builder, EObjectPropertyMap propertyMap) {
+	public EObjectDeserializer(EObjectPropertyMap.Builder builder) {
 		this.builder = builder;
-		this.propertyMap = propertyMap;
 	}
 
-	@Override
-	public JsonDeserializer<?> createContextual(DeserializationContext ctxt, BeanProperty property) throws JsonMappingException {
-		if (property == null) {
-			EClass rootType = EMFContext.getRoot(ctxt);
-			if (rootType != null) {
-				return new EObjectDeserializer(builder, builder.construct(rootType));
-			}
-		}
-		return this;
-	}
+//	@Override
+//	public JsonDeserializer<?> createContextual(DeserializationContext ctxt, BeanProperty property) throws JsonMappingException {
+////		if (property == null) {
+////			EClass rootType = EMFContext.getRoot(ctxt);
+////			if (rootType != null) {
+////				return new EObjectDeserializer(builder, builder.construct(rootType));
+////			}
+////		}
+//		return this;
+//	}
 
 	@Override
 	public EObject deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
 		EMFContext.prepare(ctxt);
+
 		final EClass defaultType = findRoot(ctxt);
 		final Resource resource = getResource(ctxt);
-		EObject current = null;
+		final EStructuralFeature feature = EMFContext.getFeature(ctxt);
 
-		final TokenBuffer buffer = new TokenBuffer(jp);
+		EObject current = null;
+		EObjectPropertyMap propertyMap;
+
+		if (feature == null && defaultType != null) {
+			propertyMap = builder.construct(defaultType);
+		} else if (feature instanceof EReference) {
+			propertyMap = builder.construct(((EReference) feature).getEReferenceType());
+		} else {
+			propertyMap = builder.constructDefault();
+		}
+
+		TokenBuffer buffer = null;
+//
+//		System.out.println("context name " + jp.getParsingContext().getCurrentName());
+//		System.out.println("current " + jp.getCurrentValue());
+//		if (jp.getParsingContext().getParent() != null) {
+//			System.out.println("context parent name " + jp.getParsingContext().getParent().getCurrentName());
+//		}
+
 		while (jp.nextToken() != JsonToken.END_OBJECT) {
 			final String field = jp.getCurrentName();
 			final EObjectProperty property = propertyMap.findProperty(field);
@@ -71,18 +86,21 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 			if (property instanceof EObjectTypeProperty) {
 				current = property.deserialize(jp, ctxt);
 				if (current != null) {
-					propertyMap.update(current.eClass());
+					propertyMap = builder.construct(current.eClass());
 				}
 			} else if (property != null && current != null) {
 				property.deserializeAndSet(jp, current, ctxt, resource);
 			} else if (property == null && current != null) {
 				handleUnknownProperty(jp, resource, ctxt);
 			} else {
+				if (buffer == null) {
+					buffer = new TokenBuffer(jp);
+				}
 				buffer.copyCurrentStructure(jp);
 			}
 		}
 
-		return postDeserialize(buffer, current, defaultType, ctxt);
+		return buffer == null ? current: postDeserialize(buffer, current, defaultType, ctxt);
 	}
 
 	@Override
@@ -92,7 +110,7 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 		}
 
 		EMFContext.prepare(ctxt);
-		propertyMap.update(intoValue.eClass());
+		EObjectPropertyMap propertyMap = builder.construct(intoValue.eClass());
 
 		final Resource resource = getResource(ctxt);
 
@@ -107,7 +125,7 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 			}
 		}
 
-		return postDeserialize(null, intoValue, null, ctxt);
+		return intoValue;
 	}
 
 	protected EObject postDeserialize(TokenBuffer buffer, EObject object, EClass defaultType, DeserializationContext ctxt) throws IOException {
@@ -119,23 +137,22 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> implements Co
 			object = EcoreUtil.create(defaultType);
 		}
 
-		if (buffer != null) {
-			final Resource resource = getResource(ctxt);
-			final JsonParser jp = buffer.asParser();
+		final Resource resource = getResource(ctxt);
+		final JsonParser jp = buffer.asParser();
+		final EObjectPropertyMap propertyMap = builder.construct(object.eClass());
 
-			while (jp.nextToken() != null) {
-				final String field = jp.getCurrentName();
-				final EObjectProperty property = propertyMap.findProperty(field);
+		while (jp.nextToken() != null) {
+			final String field = jp.getCurrentName();
+			final EObjectProperty property = propertyMap.findProperty(field);
 
-				if (property != null) {
-					property.deserializeAndSet(jp, object, ctxt, resource);
-				} else {
-					handleUnknownProperty(jp, resource, ctxt);
-				}
+			if (property != null) {
+				property.deserializeAndSet(jp, object, ctxt, resource);
+			} else {
+				handleUnknownProperty(jp, resource, ctxt);
 			}
-			jp.close();
-			buffer.close();
 		}
+		jp.close();
+		buffer.close();
 		return object;
 	}
 

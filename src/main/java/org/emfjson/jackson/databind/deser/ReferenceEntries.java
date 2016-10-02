@@ -9,7 +9,7 @@
  *     Guillaume Hillairet - initial API and implementation
  *
  */
-package org.emfjson.jackson.databind.deser.references;
+package org.emfjson.jackson.databind.deser;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;

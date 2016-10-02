@@ -9,7 +9,7 @@
  *     Guillaume Hillairet - initial API and implementation
  *
  */
-package org.emfjson.jackson.databind.ser.references;
+package org.emfjson.jackson.databind.ser;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -20,37 +20,35 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emfjson.jackson.annotations.EcoreReferenceInfo;
 import org.emfjson.jackson.databind.EMFContext;
+import org.emfjson.jackson.handlers.URIHandler;
 import org.emfjson.jackson.utils.Cache;
 
 import java.io.IOException;
 
-public class EcoreReferenceSerializer extends JsonSerializer<Object> {
+public class EcoreReferenceSerializer extends JsonSerializer<EObject> {
 
-	private final EcoreReferenceInfo info;
+	private final EcoreReferenceInfo.Base info;
+	private final URIHandler handler;
 
-	public EcoreReferenceSerializer(EcoreReferenceInfo info) {
+	public EcoreReferenceSerializer(EcoreReferenceInfo.Base info, URIHandler handler) {
 		this.info = info;
+		this.handler = handler;
 	}
 
 	@Override
-	public void serialize(Object value, JsonGenerator jg, SerializerProvider serializers) throws IOException {
+	public void serialize(EObject value, JsonGenerator jg, SerializerProvider serializers) throws IOException {
 		final EObject parent = EMFContext.getParent(serializers);
 		final Cache cache = EMFContext.getCache(serializers);
+		final String href = getHRef(cache, parent, value);
 
-		if (value == null) {
-			jg.writeNull();
+		jg.writeStartObject();
+		jg.writeStringField(info.getTypeProperty(), cache.getURI(value.eClass()));
+		if (href == null) {
+			jg.writeNullField(info.getProperty());
 		} else {
-			String href = getHRef(cache, parent, (EObject) value);
-
-			jg.writeStartObject();
-			jg.writeStringField(info.getTypeProperty(), cache.getURI(((EObject) value).eClass()).toString());
-			if (href == null) {
-				jg.writeNullField(info.getProperty());
-			} else {
-				jg.writeStringField(info.getProperty(), href);
-			}
-			jg.writeEndObject();
+			jg.writeStringField(info.getProperty(), href);
 		}
+		jg.writeEndObject();
 	}
 
 	protected boolean isExternal(EObject source, EObject target) {
@@ -70,7 +68,7 @@ public class EcoreReferenceSerializer extends JsonSerializer<Object> {
 		if (isExternal(parent, value)) {
 			final URI targetURI = cache.getURI(value);
 			final URI sourceURI = cache.getURI(parent);
-			final URI deresolved = info.getUriHandler().deresolve(sourceURI, targetURI);
+			final URI deresolved = handler != null ? handler.deresolve(sourceURI, targetURI): targetURI;
 
 			return deresolved == null ? null: deresolved.toString();
 		} else {

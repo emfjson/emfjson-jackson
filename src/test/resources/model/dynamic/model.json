@@ -79,6 +79,7 @@
           "name": "containB",
           "containment": true,
           "eType": {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
             "$ref": "//B"
           }
         },
@@ -88,6 +89,7 @@
           "containment": true,
           "upperBound": -1,
           "eType": {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
             "$ref": "//B"
           }
         },
@@ -97,9 +99,11 @@
           "lowerBound": 1,
           "upperBound": 1,
           "eOpposite": {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
             "$ref": "//A/containB"
           },
           "eType": {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
             "$ref": "//A"
           }
         },
@@ -108,6 +112,7 @@
           "name": "refTo",
           "upperBound": 1,
           "eType": {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
             "$ref": "//A"
           }
         },
@@ -116,6 +121,7 @@
           "name": "refToMany",
           "upperBound": -1,
           "eType": {
+            "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
             "$ref": "//A"
           }
         }
@@ -126,6 +132,7 @@
       "name": "B",
       "eSuperTypes": [
         {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
           "$ref": "//A"
         }
       ]
@@ -135,6 +142,7 @@
       "name": "C",
       "eSuperTypes": [
         {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
           "$ref": "//B"
         }
       ]
@@ -144,6 +152,7 @@
       "name": "D",
       "eSuperTypes": [
         {
+          "eClass": "http://www.eclipse.org/emf/2002/Ecore#//EClass",
           "$ref": "//B"
         }
       ]

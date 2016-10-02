@@ -77,15 +77,18 @@ public class ReferenceTest {
 	}
 
 	@Test
-	public void testSaveObjectWithManyReferences() {
+	public void testSaveObjectWithManyReferences() throws IOException {
 		Resource resource = resourceSet.createResource(URI.createURI("test"));
 
 		User u1 = ModelFactory.eINSTANCE.createUser();
 		u1.setUserId("1");
+		u1.setName("Paul");
 		User u2 = ModelFactory.eINSTANCE.createUser();
 		u2.setUserId("2");
+		u2.setName("Pierre");
 		User u3 = ModelFactory.eINSTANCE.createUser();
 		u3.setUserId("3");
+		u3.setName("Victor");
 
 		u1.getFriends().add(u2);
 		u1.getFriends().add(u3);
@@ -94,7 +97,8 @@ public class ReferenceTest {
 		resource.getContents().add(u2);
 		resource.getContents().add(u3);
 
-		System.out.println(mapper.valueToTree(resource));
+		assertThat(mapper.valueToTree(resource))
+				.isEqualTo(mapper.readTree(Paths.get("src/test/resources/tests/test-load-2.json").toFile()));
 	}
 
 	@Test

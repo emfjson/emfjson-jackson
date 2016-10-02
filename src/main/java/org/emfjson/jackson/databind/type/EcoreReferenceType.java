@@ -12,7 +12,7 @@ public class EcoreReferenceType extends ReferenceType implements EcoreType {
 	private final EClassifier classifier;
 
 	EcoreReferenceType(EClassifier classifier, Class<?> rawType, JavaType refType) {
-		super(rawType, TypeBindings.emptyBindings(), null, null, refType, null, null, null, false);
+		super(rawType, refType, null, null, false);
 
 		this.classifier = classifier;
 	}

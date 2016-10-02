@@ -29,6 +29,8 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 import static java.util.Collections.synchronizedMap;
+import static org.emfjson.jackson.databind.EMFContext.Attributes.RESOURCE;
+import static org.emfjson.jackson.databind.EMFContext.Attributes.RESOURCE_SET;
 
 /**
  * A Resource implementation that read and write it's content in JSON.
@@ -179,8 +181,8 @@ public class JsonResource extends ResourceImpl {
 
 			ContextAttributes attributes = EMFContext
 					.from(options)
-					.withPerCallAttribute("resourceSet", getResourceSet())
-					.withPerCallAttribute("resource", this);
+					.withPerCallAttribute(RESOURCE_SET, getResourceSet())
+					.withPerCallAttribute(RESOURCE, this);
 
 			mapper.reader()
 					.with(attributes)

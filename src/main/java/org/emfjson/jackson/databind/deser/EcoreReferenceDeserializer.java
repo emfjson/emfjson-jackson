@@ -9,7 +9,7 @@
  *     Guillaume Hillairet - initial API and implementation
  *
  */
-package org.emfjson.jackson.databind.deser.references;
+package org.emfjson.jackson.databind.deser;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -24,9 +24,9 @@ import java.io.IOException;
 
 public class EcoreReferenceDeserializer extends JsonDeserializer<ReferenceEntry> {
 
-	private final EcoreReferenceInfo info;
+	private final EcoreReferenceInfo.Base info;
 
-	public EcoreReferenceDeserializer(EcoreReferenceInfo info) {
+	public EcoreReferenceDeserializer(EcoreReferenceInfo.Base info) {
 		this.info = info;
 	}
 
@@ -48,9 +48,7 @@ public class EcoreReferenceDeserializer extends JsonDeserializer<ReferenceEntry>
 			}
 		}
 
-		return id != null ?
-				new ReferenceEntry.Base(parent, reference, id, type):
-				null;
+		return id != null ? new ReferenceEntry.Base(parent, reference, id, type): null;
 	}
 
 }

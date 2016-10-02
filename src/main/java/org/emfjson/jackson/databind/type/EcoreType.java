@@ -6,7 +6,6 @@ public interface EcoreType {
 
 	EClassifier eClassifier();
 
-//	interface FeatureMap {}
 	interface DataType {}
 	interface EntryType {}
 	interface ReferenceType {}

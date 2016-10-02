@@ -20,12 +20,13 @@ import com.fasterxml.jackson.databind.ser.Serializers;
 import com.fasterxml.jackson.databind.ser.std.CollectionSerializer;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapLikeType;
-import com.fasterxml.jackson.databind.type.ReferenceType;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.impl.EEnumLiteralImpl;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emfjson.jackson.databind.deser.references.ReferenceEntry;
+import org.emfjson.jackson.databind.deser.ReferenceEntry;
+import org.emfjson.jackson.databind.property.EObjectProperty;
 import org.emfjson.jackson.databind.property.EObjectPropertyMap;
 import org.emfjson.jackson.databind.type.EcoreType;
 import org.emfjson.jackson.module.EMFModule;
@@ -33,7 +34,7 @@ import org.emfjson.jackson.module.EMFModule;
 public class EMFSerializers extends Serializers.Base {
 
 	private final EObjectPropertyMap.Builder propertiesBuilder;
-	private final JsonSerializer<Object> _referenceSerializer;
+	private final JsonSerializer<EObject> _referenceSerializer;
 	private final JsonSerializer<Resource> _resourceSerializer = new ResourceSerializer();
 	private final JsonSerializer<?> _dataTypeSerializer = new EDataTypeSerializer();
 	private final JsonSerializer<?> _mapSerializer = new EMapStringSerializer();
@@ -46,7 +47,7 @@ public class EMFSerializers extends Serializers.Base {
 
 	@Override
 	public JsonSerializer<?> findMapLikeSerializer(SerializationConfig config, MapLikeType type, BeanDescription beanDesc, JsonSerializer<Object> keySerializer, TypeSerializer elementTypeSerializer, JsonSerializer<Object> elementValueSerializer) {
-		if (EMap.class.isAssignableFrom(type.getRawClass())) {
+		if (type.isTypeOrSubTypeOf(EMap.class)) {
 			if (type.getKeyType().isTypeOrSubTypeOf(String.class)) {
 				return _mapSerializer;
 			}
@@ -56,50 +57,35 @@ public class EMFSerializers extends Serializers.Base {
 	}
 
 	@Override
-	public JsonSerializer<?> findReferenceSerializer(SerializationConfig config, ReferenceType type, BeanDescription beanDesc, TypeSerializer contentTypeSerializer, JsonSerializer<Object> contentValueSerializer) {
-		return _referenceSerializer;
-	}
-
-	@Override
 	public JsonSerializer<?> findCollectionSerializer(SerializationConfig config, CollectionType type, BeanDescription beanDesc, TypeSerializer elementTypeSerializer, JsonSerializer<Object> elementValueSerializer) {
 		if (type.getContentType().isReferenceType()) {
-			return new CollectionSerializer(type.getContentType(), false, null, _referenceSerializer);
+			return new CollectionSerializer(type.getContentType(), false, null, (JsonSerializer) _referenceSerializer);
 		}
 		return super.findCollectionSerializer(config, type, beanDesc, elementTypeSerializer, elementValueSerializer);
 	}
 
 	@Override
 	public JsonSerializer<?> findSerializer(SerializationConfig config, JavaType type, BeanDescription beanDesc) {
-		if (Resource.class.isAssignableFrom(type.getRawClass())) {
+		if (type.isTypeOrSubTypeOf(Resource.class)) {
 			return _resourceSerializer;
 		}
 
-		if (Enumerator.class.isAssignableFrom(type.getRawClass())) {
-			return _enumeratorSerializer;
+		if (type.isTypeOrSubTypeOf(Enumerator.class) && !type.isReferenceType()) {
+			if (type.getRawClass() != EEnumLiteralImpl.class) {
+				return _enumeratorSerializer;
+			}
 		}
 
-		if (type.isReferenceType()) {
+		if (type.isReferenceType() || type.isTypeOrSubTypeOf(ReferenceEntry.class)) {
 			return _referenceSerializer;
 		}
 
-		if (EcoreType.EntryType.class.isAssignableFrom(type.getRawClass())) {
-			return null;
-		}
-
-		if (EcoreType.DataType.class.isAssignableFrom(type.getRawClass())) {
+		if (type.isTypeOrSubTypeOf(EcoreType.DataType.class)) {
 			return _dataTypeSerializer;
 		}
 
-		if (ReferenceEntry.class.isAssignableFrom(type.getRawClass())) {
-			return _referenceSerializer;
-		}
-
-		if (EObject.class.isAssignableFrom(type.getRawClass())) {
-			if (type instanceof EcoreType) {
-				return new EObjectSerializer(propertiesBuilder, propertiesBuilder.construct((EcoreType) type), _referenceSerializer);
-			} else {
-				return new EObjectSerializer(propertiesBuilder, null, _referenceSerializer);
-			}
+		if (type.isTypeOrSubTypeOf(EObject.class)) {
+			return new EObjectSerializer(propertiesBuilder, _referenceSerializer);
 		}
 
 		return super.findSerializer(config, type, beanDesc);

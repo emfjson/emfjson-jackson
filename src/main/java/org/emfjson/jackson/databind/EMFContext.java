@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.emfjson.jackson.databind.deser.references.ReferenceEntries;
+import org.emfjson.jackson.databind.deser.ReferenceEntries;
 import org.emfjson.jackson.databind.type.EcoreTypeFactory;
 import org.emfjson.jackson.utils.Cache;
 
@@ -28,12 +28,12 @@ import java.util.Map;
 public class EMFContext {
 
 	public enum Attributes {
-		//
+		// public attributes
 		RESOURCE_SET,
 		RESOURCE_URI,
 		RESOURCE,
 		ROOT_ELEMENT,
-		//
+		// internal attributes
 		CACHE,
 		TYPE_FACTORY,
 		REFERENCE_ENTRIES,
@@ -56,16 +56,6 @@ public class EMFContext {
 		return ContextAttributes
 				.getEmpty()
 				.withSharedAttributes(options == null ? new HashMap<>(): new HashMap<>(options));
-	}
-
-	@Deprecated
-	public static EcoreTypeFactory getEcoreType(DatabindContext context) {
-		EcoreTypeFactory ecoreType = (EcoreTypeFactory) context.getAttribute(Attributes.TYPE_FACTORY);
-		if (ecoreType == null) {
-			context.setAttribute(Attributes.TYPE_FACTORY, ecoreType = new EcoreTypeFactory());
-		}
-
-		return ecoreType;
 	}
 
 	public static Cache getCache(DatabindContext context) {

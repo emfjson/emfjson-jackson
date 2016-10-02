@@ -21,7 +21,6 @@ import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emfjson.jackson.databind.deser.references.ReferenceEntry;
 import org.emfjson.jackson.databind.property.EObjectPropertyMap;
 import org.emfjson.jackson.databind.type.EcoreType;
 import org.emfjson.jackson.module.EMFModule;
@@ -87,11 +86,7 @@ public class EMFDeserializers extends Deserializers.Base {
 		}
 
 		if (type.isTypeOrSubTypeOf(EObject.class)) {
-			if (type instanceof EcoreType) {
-				return new EObjectDeserializer(builder, builder.construct((EcoreType) type));
-			} else {
-				return new EObjectDeserializer(builder, builder.constructDefault());
-			}
+			return new EObjectDeserializer(builder);
 		}
 
 		return super.findBeanDeserializer(type, config, beanDesc);

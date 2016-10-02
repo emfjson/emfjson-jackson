@@ -1,6 +1,8 @@
 package org.emfjson.jackson.tests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.assertj.core.api.Condition;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -15,6 +17,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.extractProperty;
 
 public class ModelTest {
 
@@ -187,7 +190,12 @@ public class ModelTest {
 	}
 
 	@Test
-	public void testLoadEnums() {
+	public void testSaveEnums() {
+
+	}
+
+	@Test
+	public void testLoadDynamicEnums() {
 		Resource model = resourceSet.getResource(URI.createURI("http://emfjson/dynamic/model"), true);
 
 		EPackage p = (EPackage) model.getContents().get(0);
@@ -196,7 +204,22 @@ public class ModelTest {
 		assertThat(kind).isInstanceOf(EEnum.class);
 
 		EEnum kindEnum = (EEnum) kind;
-		assertThat(kindEnum.getELiterals())
-				.hasSize(2);
+		EList<EEnumLiteral> literals = kindEnum.getELiterals();
+
+		assertThat(literals)
+				.doesNotContainNull()
+				.hasSize(2)
+				.have(new Condition<EEnumLiteral>() {
+					@Override
+					public boolean matches(EEnumLiteral value) {
+						return value.getName() != null;
+					}
+				});
+
+		assertThat(extractProperty("name").from(literals))
+				.containsExactly("e1", "e2");
+
+		assertThat(extractProperty("literal").from(literals))
+				.containsExactly("e1", "E2");
 	}
 }
