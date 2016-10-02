@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emfjson.jackson.annotations.EcoreIdentityInfo;
+import org.emfjson.jackson.annotations.EcoreReferenceInfo;
 import org.emfjson.jackson.annotations.EcoreTypeInfo;
 import org.emfjson.jackson.utils.ValueReader;
 import org.emfjson.jackson.databind.EMFContext;
@@ -57,6 +58,32 @@ public class CustomDeserializersTest {
 	}
 
 	@Test
+	public void testDeserializeTypeValueWithOtherFieldName() throws JsonProcessingException {
+		EMFModule module = new EMFModule();
+		module.setTypeInfo(new EcoreTypeInfo("type"));
+		mapper.registerModule(module);
+
+		JsonNode data = mapper.createObjectNode()
+				.put("type", "http://www.emfjson.org/jackson/model#//User")
+				.put("userId", "u1");
+
+		Resource resource = mapper
+				.reader()
+				.withAttribute(RESOURCE_SET, resourceSet)
+				.treeToValue(data, Resource.class);
+
+		assertEquals(1, resource.getContents().size());
+		assertEquals(ModelPackage.Literals.USER, resource.getContents().get(0).eClass());
+
+		User u = (User) resource.getContents().get(0);
+
+		assertEquals("u1", u.getUserId());
+		assertEquals(0, u.getFriends().size());
+		assertNull(u.getUniqueFriend());
+		assertNull(u.getAddress());
+	}
+
+	@Test
 	public void testDeserializeTypeValue() throws JsonProcessingException {
 		EMFModule module = new EMFModule();
 		module.setTypeInfo(new EcoreTypeInfo("type", new ValueReader<String, EClass>() {
@@ -85,6 +112,32 @@ public class CustomDeserializersTest {
 		assertEquals(0, u.getFriends().size());
 		assertNull(u.getUniqueFriend());
 		assertNull(u.getAddress());
+	}
+
+	@Test
+	public void testDeserializeIdValueWithOtherFieldName() throws JsonProcessingException {
+		EMFModule module = new EMFModule();
+		module.configure(OPTION_SERIALIZE_ID, true);
+		module.setIdentityInfo(new EcoreIdentityInfo("_id"));
+		mapper.registerModule(module);
+
+		JsonNode data = mapper.createObjectNode()
+				.put("_id", "1")
+				.put("userId", "u1");
+
+		Resource resource = mapper
+				.reader()
+				.withAttribute(RESOURCE_SET, resourceSet)
+				.withAttribute(ROOT_ELEMENT, ModelPackage.Literals.USER)
+				.treeToValue(data, Resource.class);
+
+		assertEquals(1, resource.getContents().size());
+		assertEquals(ModelPackage.Literals.USER, resource.getContents().get(0).eClass());
+
+		User u = (User) resource.getContents().get(0);
+
+		assertEquals("u1", u.getUserId());
+		assertSame(u, resource.getEObject("1"));
 	}
 
 	@Test
@@ -163,4 +216,32 @@ public class CustomDeserializersTest {
 		assertSame(u2, u1.getUniqueFriend());
 	}
 
+	@Test
+	public void testDeserializeReferenceWithOtherFieldNames() throws JsonProcessingException {
+		EMFModule module = new EMFModule();
+		module.setReferenceInfo(new EcoreReferenceInfo.Base("my_ref", "my_type"));
+		mapper.registerModule(module);
+
+		JsonNode data = mapper.createArrayNode()
+				.add(mapper.createObjectNode()
+						.put("name", "Paul")
+						.set("uniqueFriend", mapper.createObjectNode()
+								.put("my_type", "http://www.emfjson.org/jackson/model#//User")
+								.put("my_ref", "/1")))
+				.add(mapper.createObjectNode()
+						.put("name", "Franck"));
+
+		Resource resource = mapper
+				.reader()
+				.withAttribute(RESOURCE_SET, resourceSet)
+				.withAttribute(ROOT_ELEMENT, ModelPackage.Literals.USER)
+				.treeToValue(data, Resource.class);
+
+		assertEquals(2, resource.getContents().size());
+
+		User u1 = (User) resource.getContents().get(0);
+		User u2 = (User) resource.getContents().get(1);
+
+		assertSame(u2, u1.getUniqueFriend());
+	}
 }

@@ -23,14 +23,15 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emfjson.jackson.annotations.EcoreIdentityInfo;
+import org.emfjson.jackson.annotations.EcoreReferenceInfo;
 import org.emfjson.jackson.annotations.EcoreTypeInfo;
-import org.emfjson.jackson.utils.ValueWriter;
 import org.emfjson.jackson.junit.model.ModelFactory;
 import org.emfjson.jackson.junit.model.ModelPackage;
 import org.emfjson.jackson.junit.model.User;
 import org.emfjson.jackson.module.EMFModule;
 import org.emfjson.jackson.resource.JsonResource;
 import org.emfjson.jackson.resource.JsonResourceFactory;
+import org.emfjson.jackson.utils.ValueWriter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -49,6 +50,27 @@ public class CustomSerializersTest {
 		resourceSet = new ResourceSetImpl();
 		resourceSet.getPackageRegistry().put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new JsonResourceFactory(mapper));
+	}
+
+	@Test
+	public void testSerializeTypeWithOtherFieldName() {
+		EMFModule module = new EMFModule();
+		module.setTypeInfo(new EcoreTypeInfo("type"));
+		mapper.registerModule(module);
+
+		JsonNode expected = mapper.createObjectNode()
+				.put("type", "http://www.emfjson.org/jackson/model#//User")
+				.put("userId", "u1");
+
+		User u1 = ModelFactory.eINSTANCE.createUser();
+		u1.setUserId("u1");
+
+		Resource resource = resourceSet.createResource(URI.createURI("test"));
+		resource.getContents().add(u1);
+
+		JsonNode result = mapper.valueToTree(resource);
+
+		assertEquals(expected, result);
 	}
 
 	@Test
@@ -78,6 +100,31 @@ public class CustomSerializersTest {
 	}
 
 	@Test
+	public void testSerializeIdWithOtherFieldName() {
+		EMFModule module = new EMFModule();
+		module.configure(EMFModule.Feature.OPTION_SERIALIZE_ID, true);
+		module.configure(EMFModule.Feature.OPTION_SERIALIZE_TYPE, false);
+
+		module.setIdentityInfo(new EcoreIdentityInfo("_id"));
+		mapper.registerModule(module);
+
+		JsonNode expected = mapper.createObjectNode()
+				.put("_id", "1")
+				.put("userId", "u1");
+
+		User u1 = ModelFactory.eINSTANCE.createUser();
+		u1.setUserId("u1");
+
+		Resource resource = resourceSet.createResource(URI.createURI("test"));
+		resource.getContents().add(u1);
+		((JsonResource) resource).setID(u1, "1");
+
+		JsonNode result = mapper.valueToTree(resource);
+
+		assertEquals(expected, result);
+	}
+
+	@Test
 	public void testSerializeId() {
 		EMFModule module = new EMFModule();
 		module.configure(EMFModule.Feature.OPTION_SERIALIZE_ID, true);
@@ -100,6 +147,40 @@ public class CustomSerializersTest {
 
 		Resource resource = resourceSet.createResource(URI.createURI("test"));
 		resource.getContents().add(u1);
+
+		JsonNode result = mapper.valueToTree(resource);
+
+		assertEquals(expected, result);
+	}
+
+	@Test
+	public void testSerializeReferenceWithOtherFieldNames() {
+		EMFModule module = new EMFModule();
+		module.configure(EMFModule.Feature.OPTION_SERIALIZE_TYPE, false);
+		module.setReferenceInfo(new EcoreReferenceInfo.Base("my_ref", "my_type"));
+
+		mapper.registerModule(module);
+
+		JsonNode expected = mapper.createArrayNode()
+				.add(mapper.createObjectNode()
+						.put("name", "Paul")
+						.set("uniqueFriend", mapper.createObjectNode()
+								.put("my_type", "http://www.emfjson.org/jackson/model#//User")
+								.put("my_ref", "/1")))
+				.add(mapper.createObjectNode()
+						.put("name", "Franck"));
+
+		User u1 = ModelFactory.eINSTANCE.createUser();
+		u1.setName("Paul");
+
+		User u2 = ModelFactory.eINSTANCE.createUser();
+		u2.setName("Franck");
+
+		u1.setUniqueFriend(u2);
+
+		Resource resource = resourceSet.createResource(URI.createURI("test"));
+		resource.getContents().add(u1);
+		resource.getContents().add(u2);
 
 		JsonNode result = mapper.valueToTree(resource);
 
