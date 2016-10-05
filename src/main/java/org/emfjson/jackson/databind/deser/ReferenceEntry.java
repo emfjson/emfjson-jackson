@@ -46,11 +46,12 @@ public interface ReferenceEntry {
 
 				if (target == null) {
 
+					URI baseURI = owner.eResource().getURI().trimFragment();
+					URI uri = handler.resolve(baseURI, URI.createURI(id));
+
 					if (reference.isResolveProxies() && type != null) {
-						target = createProxy(resourceSet, URI.createURI(id));
+						target = createProxy(resourceSet, uri);
 					} else {
-						URI baseURI = owner.eResource().getURI().trimFragment();
-						URI uri = handler.resolve(baseURI, URI.createURI(id));
 						target = resourceSet.getEObject(uri, true);
 					}
 				}
