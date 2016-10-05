@@ -102,7 +102,7 @@ public class CustomSerializersTest {
 	@Test
 	public void testSerializeIdWithOtherFieldName() {
 		EMFModule module = new EMFModule();
-		module.configure(EMFModule.Feature.OPTION_SERIALIZE_ID, true);
+		module.configure(EMFModule.Feature.OPTION_USE_ID, true);
 		module.configure(EMFModule.Feature.OPTION_SERIALIZE_TYPE, false);
 
 		module.setIdentityInfo(new EcoreIdentityInfo("_id"));
@@ -127,7 +127,7 @@ public class CustomSerializersTest {
 	@Test
 	public void testSerializeId() {
 		EMFModule module = new EMFModule();
-		module.configure(EMFModule.Feature.OPTION_SERIALIZE_ID, true);
+		module.configure(EMFModule.Feature.OPTION_USE_ID, true);
 		module.configure(EMFModule.Feature.OPTION_SERIALIZE_TYPE, false);
 
 		module.setIdentityInfo(new EcoreIdentityInfo("_id", new ValueWriter<EObject, Object>() {
@@ -190,7 +190,7 @@ public class CustomSerializersTest {
 	@Test
 	public void testSerializeReferenceAsStrings() {
 		EMFModule module = new EMFModule();
-		module.configure(EMFModule.Feature.OPTION_SERIALIZE_ID, true);
+		module.configure(EMFModule.Feature.OPTION_USE_ID, true);
 		module.configure(EMFModule.Feature.OPTION_SERIALIZE_TYPE, false);
 
 		module.setReferenceSerializer(new JsonSerializer<EObject>() {

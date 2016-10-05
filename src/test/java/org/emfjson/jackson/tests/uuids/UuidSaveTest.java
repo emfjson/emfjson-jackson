@@ -38,7 +38,7 @@ public class UuidSaveTest extends UuidSupport {
 		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
 
 		EMFModule module = new EMFModule();
-		module.configure(EMFModule.Feature.OPTION_SERIALIZE_ID, true);
+		module.configure(EMFModule.Feature.OPTION_USE_ID, true);
 		mapper.registerModule(module);
 	}
 

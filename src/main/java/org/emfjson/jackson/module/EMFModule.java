@@ -76,7 +76,7 @@ public class EMFModule extends SimpleModule {
 		 * Option used to indicate the module to use the default ID serializer if
 		 * none are provided. The ID serializer used by default is IdSerializer.
 		 */
-		OPTION_SERIALIZE_ID(false),
+		OPTION_USE_ID(false),
 
 		/**
 		 * Option used to indicate the module to use the default type serializer if

@@ -14,7 +14,7 @@ import org.junit.ClassRule;
 import org.junit.Test;
 
 import static org.emfjson.jackson.databind.EMFContext.Attributes.RESOURCE_SET;
-import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_SERIALIZE_ID;
+import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_USE_ID;
 import static org.junit.Assert.assertEquals;
 
 public class IdTest {
@@ -39,7 +39,7 @@ public class IdTest {
 		resource.getContents().add(user);
 
 		Assert.assertEquals(expected,
-				fixture.mapper(OPTION_SERIALIZE_ID, true)
+				fixture.mapper(OPTION_USE_ID, true)
 						.valueToTree(resource));
 	}
 
@@ -50,7 +50,7 @@ public class IdTest {
 				.put("@id", "1")
 				.put("name", "Joe");
 
-		JsonResource resource = fixture.mapper(OPTION_SERIALIZE_ID, true)
+		JsonResource resource = fixture.mapper(OPTION_USE_ID, true)
 				.reader()
 				.withAttribute(RESOURCE_SET, resourceSet)
 				.treeToValue(data, JsonResource.class);
@@ -67,7 +67,7 @@ public class IdTest {
 				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
 				.put("name", "Joe");
 
-		JsonResource resource = fixture.mapper(OPTION_SERIALIZE_ID, true)
+		JsonResource resource = fixture.mapper(OPTION_USE_ID, true)
 				.reader()
 				.withAttribute(RESOURCE_SET, resourceSet)
 				.treeToValue(data, JsonResource.class);

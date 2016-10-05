@@ -41,7 +41,7 @@ import java.io.IOException;
 
 import static org.emfjson.jackson.databind.EMFContext.Attributes.RESOURCE_SET;
 import static org.emfjson.jackson.databind.EMFContext.Attributes.ROOT_ELEMENT;
-import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_SERIALIZE_ID;
+import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_USE_ID;
 import static org.junit.Assert.*;
 
 public class CustomDeserializersTest {
@@ -117,7 +117,7 @@ public class CustomDeserializersTest {
 	@Test
 	public void testDeserializeIdValueWithOtherFieldName() throws JsonProcessingException {
 		EMFModule module = new EMFModule();
-		module.configure(OPTION_SERIALIZE_ID, true);
+		module.configure(OPTION_USE_ID, true);
 		module.setIdentityInfo(new EcoreIdentityInfo("_id"));
 		mapper.registerModule(module);
 
@@ -143,7 +143,7 @@ public class CustomDeserializersTest {
 	@Test
 	public void testDeserializeIdValue() throws JsonProcessingException {
 		EMFModule module = new EMFModule();
-		module.configure(OPTION_SERIALIZE_ID, true);
+		module.configure(OPTION_USE_ID, true);
 		module.setIdentityInfo(new EcoreIdentityInfo("_id", new ValueReader<Object, String>() {
 			@Override
 			public String readValue(Object value, DeserializationContext context) {
@@ -174,7 +174,7 @@ public class CustomDeserializersTest {
 	@Test
 	public void testDeserializeReferenceAsStrings() throws JsonProcessingException {
 		EMFModule module = new EMFModule();
-		module.configure(EMFModule.Feature.OPTION_SERIALIZE_ID, true);
+		module.configure(EMFModule.Feature.OPTION_USE_ID, true);
 		module.configure(EMFModule.Feature.OPTION_SERIALIZE_TYPE, false);
 
 		module.setReferenceDeserializer(new JsonDeserializer<ReferenceEntry>() {

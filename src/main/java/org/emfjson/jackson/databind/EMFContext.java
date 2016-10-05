@@ -19,7 +19,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emfjson.jackson.databind.deser.ReferenceEntries;
-import org.emfjson.jackson.databind.type.EcoreTypeFactory;
 import org.emfjson.jackson.utils.Cache;
 
 import java.util.HashMap;

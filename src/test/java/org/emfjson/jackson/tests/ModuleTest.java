@@ -34,22 +34,16 @@ import static org.junit.Assert.assertEquals;
 
 public class ModuleTest {
 
-	private final ObjectMapper mapper = new ObjectMapper();
-
-	{
-		mapper.registerModule(new EMFModule());
-	}
-
-	{
-		mapper.registerModule(new EMFModule());
-	}
-
+	private ObjectMapper mapper;
 	private ResourceSetImpl resourceSet;
 
 	@Before
 	public void setUp() {
 		EPackage.Registry.INSTANCE
 				.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
+
+		mapper = new ObjectMapper();
+		mapper.registerModule(new EMFModule());
 
 		resourceSet = new ResourceSetImpl();
 		resourceSet.getResourceFactoryRegistry()

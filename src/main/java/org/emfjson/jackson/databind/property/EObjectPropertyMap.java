@@ -17,7 +17,7 @@ import java.util.Objects;
 import java.util.WeakHashMap;
 
 import static org.emfjson.jackson.annotations.JsonAnnotations.getElementName;
-import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_SERIALIZE_ID;
+import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_USE_ID;
 import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_SERIALIZE_TYPE;
 
 public class EObjectPropertyMap {
@@ -83,10 +83,10 @@ public class EObjectPropertyMap {
 			return !(opposite != null && opposite.isContainment());
 		}
 
-		protected Map<String, EObjectProperty> collectProperties(EClass type) {
+		protected Map<String, EObjectProperty> collectProperties(final EClass type) {
 			final Map<String, EObjectProperty> properties = new LinkedHashMap<>();
 
-			if (OPTION_SERIALIZE_ID.enabledIn(features)) {
+			if (OPTION_USE_ID.enabledIn(features)) {
 				properties.put(identityInfo.getProperty(), new EObjectIdentityProperty(identityInfo));
 			}
 
