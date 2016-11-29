@@ -2,6 +2,7 @@ package org.emfjson.jackson.tests;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.cfg.ContextAttributes;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -17,6 +18,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
+import static org.emfjson.jackson.databind.EMFContext.Attributes.RESOURCE_SET;
 
 public class MapTest {
 
@@ -169,5 +171,39 @@ public class MapTest {
 
 		assertThat(types.getValuesWithRef().map())
 				.containsExactly(entry(p1, t1));
+	}
+
+	@Test
+	public void testSaveMapWithDataTypeKey() {
+		JsonNode expected = mapper.createObjectNode()
+				.put("eClass", "http://www.emfjson.org/jackson/model#//ETypes")
+				.set("dataTypeMapValues", mapper.createObjectNode()
+						.put("test.json", "hello"));
+
+		ETypes types = ModelFactory.eINSTANCE.createETypes();
+		types.getDataTypeMapValues().put("test.json", "hello");
+
+		assertThat(mapper.valueToTree(types))
+				.isEqualTo(expected);
+	}
+
+	@Test
+	public void testSaveLoadWithDataTypeKey() throws IOException {
+		JsonNode data = mapper.createObjectNode()
+				.put("eClass", "http://www.emfjson.org/jackson/model#//ETypes")
+				.set("dataTypeMapValues", mapper.createObjectNode()
+						.put("test.json", "hello"));
+
+		ETypes types = mapper.reader()
+				.with(ContextAttributes
+						.getEmpty()
+						.withSharedAttribute(RESOURCE_SET, resourceSet))
+				.forType(ETypes.class)
+				.readValue(data);
+
+		assertThat(types)
+				.isNotNull();
+		assertThat(types.getDataTypeMapValues().map())
+				.contains(entry("test.json", "hello"));
 	}
 }
