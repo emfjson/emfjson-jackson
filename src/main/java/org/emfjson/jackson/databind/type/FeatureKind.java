@@ -2,8 +2,6 @@ package org.emfjson.jackson.databind.type;
 
 import org.eclipse.emf.ecore.*;
 
-import static org.eclipse.emf.ecore.util.FeatureMapUtil.isFeatureMap;
-
 public enum FeatureKind {
 	SINGLE_ATTRIBUTE,
 	MANY_ATTRIBUTE,
@@ -11,7 +9,6 @@ public enum FeatureKind {
 	MANY_REFERENCE,
 	SINGLE_CONTAINMENT,
 	MANY_CONTAINMENT,
-//	FEATURE_MAP,
 	MAP,
 	UNKNOWN;
 
@@ -23,10 +20,6 @@ public enum FeatureKind {
 		if (isMap(feature.getEType())) {
 			return MAP;
 		}
-
-//		if (feature instanceof EStructuralFeature && isFeatureMap((EStructuralFeature) feature)) {
-//			return FEATURE_MAP;
-//		}
 
 		if (feature instanceof EAttribute) {
 			return feature.isMany() ? MANY_ATTRIBUTE: SINGLE_ATTRIBUTE;

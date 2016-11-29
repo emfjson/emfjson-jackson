@@ -24,12 +24,12 @@ import java.io.IOException;
 
 public class ResourceSerializer extends JsonSerializer<Resource> {
 
-	EcoreTypeFactory factory2 = new EcoreTypeFactory();
+	private final EcoreTypeFactory typeFactory = new EcoreTypeFactory();
 
 	@Override
 	public void serialize(Resource value, JsonGenerator jg, SerializerProvider provider) throws IOException {
 		provider.setAttribute("cache", new Cache());
-		provider.setAttribute("typeFactory", factory2);
+		provider.setAttribute("typeFactory", typeFactory);
 
 		if (value.getContents().size() == 1) {
 			serializeOne(value.getContents().get(0), jg, provider);
@@ -43,7 +43,7 @@ public class ResourceSerializer extends JsonSerializer<Resource> {
 	}
 
 	private void serializeOne(EObject object, JsonGenerator jg, SerializerProvider provider) throws IOException {
-		final JavaType type = factory2.constructSimpleType(object.eClass());
+		final JavaType type = typeFactory.constructSimpleType(object.eClass());
 		final JsonSerializer<Object> serializer = provider.findValueSerializer(type);
 
 		if (serializer != null) {

@@ -91,14 +91,12 @@ public class EcoreTypeFactory {
 	}
 
 	public JavaType constructSimpleType(EClassifier type) {
-//		return new EcoreSimpleType(type, rawType(type));
 		return SimpleType.construct(rawType(type));
 	}
 
 	public JavaType constructReferenceType(EClassifier type) {
 		Class<?> rawType = rawType(type);
 
-//		return new EcoreReferenceType(type, rawType, typeFactory.constructType(EcoreType.ReferenceType.class));
 		return typeFactory.constructReferenceType(rawType, typeFactory.constructType(EcoreType.ReferenceType.class));
 	}
 

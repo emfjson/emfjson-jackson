@@ -16,11 +16,6 @@ public class EcoreSimpleType extends SimpleType implements EcoreType {
 	}
 
 	@Override
-	public EClassifier eClassifier() {
-		return eClassifier;
-	}
-
-	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
