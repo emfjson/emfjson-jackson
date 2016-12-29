@@ -19,6 +19,10 @@ This is how a model looks like in JSON format.
 }
 ```
 
+## Community
+
+You can ask questions and join discussion on [slack](https://emfjson.slack.com/) and in the emfjson google [group](https://groups.google.com/forum/#!forum/emfjson).
+
 ## Documentation
 
 [Here](http://emfjson.org)
