@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class EObjectReferenceProperty extends EObjectProperty {
 
-	public EObjectReferenceProperty(EcoreReferenceInfo.Base referenceInfo) {
+	public EObjectReferenceProperty(EcoreReferenceInfo referenceInfo) {
 		super(referenceInfo.getProperty());
 	}
 

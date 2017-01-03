@@ -22,8 +22,10 @@ import org.emfjson.jackson.annotations.EcoreIdentityInfo;
 import org.emfjson.jackson.annotations.EcoreReferenceInfo;
 import org.emfjson.jackson.annotations.EcoreTypeInfo;
 import org.emfjson.jackson.databind.deser.EMFDeserializers;
+import org.emfjson.jackson.databind.deser.EcoreReferenceDeserializer;
 import org.emfjson.jackson.databind.deser.ReferenceEntry;
 import org.emfjson.jackson.databind.ser.EMFSerializers;
+import org.emfjson.jackson.databind.ser.EcoreReferenceSerializer;
 import org.emfjson.jackson.handlers.BaseURIHandler;
 import org.emfjson.jackson.handlers.URIHandler;
 
@@ -62,8 +64,16 @@ public class EMFModule extends SimpleModule {
 		this.referenceSerializer = serializer;
 	}
 
+	public JsonSerializer<EObject> getReferenceSerializer() {
+		return referenceSerializer;
+	}
+
 	public void setReferenceDeserializer(JsonDeserializer<ReferenceEntry> deserializer) {
 		this.referenceDeserializer = deserializer;
+	}
+
+	public JsonDeserializer<ReferenceEntry> getReferenceDeserializer() {
+		return referenceDeserializer;
 	}
 
 	/**
@@ -169,11 +179,15 @@ public class EMFModule extends SimpleModule {
 		}
 
 		if (referenceInfo == null) {
-			if (referenceSerializer != null || referenceDeserializer != null) {
-				referenceInfo = new EcoreReferenceInfo(referenceSerializer, referenceDeserializer, handler);
-			} else {
-				referenceInfo = new EcoreReferenceInfo.Base(handler);
-			}
+			referenceInfo = new EcoreReferenceInfo(handler);
+		}
+
+		if (referenceSerializer == null) {
+			referenceSerializer = new EcoreReferenceSerializer(referenceInfo, typeInfo);
+		}
+
+		if (referenceDeserializer == null) {
+			referenceDeserializer = new EcoreReferenceDeserializer(referenceInfo, typeInfo);
 		}
 
 		EMFDeserializers deserializers = new EMFDeserializers(this);
@@ -234,8 +248,6 @@ public class EMFModule extends SimpleModule {
 		}
 		return this;
 	}
-
-	// options
 
 	/**
 	 * Tells the module which URIHandler to use to de/resolve URIs during

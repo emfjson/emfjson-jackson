@@ -17,8 +17,8 @@ import java.util.Objects;
 import java.util.WeakHashMap;
 
 import static org.emfjson.jackson.annotations.JsonAnnotations.getElementName;
-import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_USE_ID;
 import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_SERIALIZE_TYPE;
+import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_USE_ID;
 
 public class EObjectPropertyMap {
 
@@ -94,9 +94,7 @@ public class EObjectPropertyMap {
 				properties.put(typeInfo.getProperty(), new EObjectTypeProperty(typeInfo));
 			}
 
-			if (referenceInfo instanceof EcoreReferenceInfo.Base) {
-				properties.put(((EcoreReferenceInfo.Base) referenceInfo).getProperty(), new EObjectReferenceProperty((EcoreReferenceInfo.Base) referenceInfo));
-			}
+			properties.put(referenceInfo.getProperty(), new EObjectReferenceProperty(referenceInfo));
 
 			if (type != null) {
 				for (EAttribute attribute : type.getEAllAttributes()) {

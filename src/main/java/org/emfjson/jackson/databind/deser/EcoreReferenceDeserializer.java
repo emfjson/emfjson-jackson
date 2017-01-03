@@ -18,15 +18,18 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.emfjson.jackson.annotations.EcoreReferenceInfo;
+import org.emfjson.jackson.annotations.EcoreTypeInfo;
 import org.emfjson.jackson.databind.EMFContext;
 
 import java.io.IOException;
 
 public class EcoreReferenceDeserializer extends JsonDeserializer<ReferenceEntry> {
 
-	private final EcoreReferenceInfo.Base info;
+	private final EcoreReferenceInfo info;
+	private final EcoreTypeInfo typeInfo;
 
-	public EcoreReferenceDeserializer(EcoreReferenceInfo.Base info) {
+	public EcoreReferenceDeserializer(EcoreReferenceInfo info, EcoreTypeInfo typeInfo) {
+		this.typeInfo = typeInfo;
 		this.info = info;
 	}
 
@@ -43,7 +46,7 @@ public class EcoreReferenceDeserializer extends JsonDeserializer<ReferenceEntry>
 
 			if (field.equalsIgnoreCase(info.getProperty())) {
 				id = jp.nextTextValue();
-			} else if (field.equalsIgnoreCase(info.getTypeProperty())) {
+			} else if (field.equalsIgnoreCase(typeInfo.getProperty())) {
 				type = jp.nextTextValue();
 			}
 		}

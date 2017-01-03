@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emfjson.jackson.annotations.EcoreReferenceInfo;
+import org.emfjson.jackson.annotations.EcoreTypeInfo;
 import org.emfjson.jackson.databind.EMFContext;
 import org.emfjson.jackson.handlers.URIHandler;
 import org.emfjson.jackson.utils.Cache;
@@ -27,12 +28,14 @@ import java.io.IOException;
 
 public class EcoreReferenceSerializer extends JsonSerializer<EObject> {
 
-	private final EcoreReferenceInfo.Base info;
+	private final EcoreReferenceInfo info;
+	private final EcoreTypeInfo typeInfo;
 	private final URIHandler handler;
 
-	public EcoreReferenceSerializer(EcoreReferenceInfo.Base info, URIHandler handler) {
+	public EcoreReferenceSerializer(EcoreReferenceInfo info, EcoreTypeInfo typeInfo) {
 		this.info = info;
-		this.handler = handler;
+		this.typeInfo = typeInfo;
+		this.handler = info.getHandler();
 	}
 
 	@Override
@@ -42,7 +45,7 @@ public class EcoreReferenceSerializer extends JsonSerializer<EObject> {
 		final String href = getHRef(cache, parent, value);
 
 		jg.writeStartObject();
-		jg.writeStringField(info.getTypeProperty(), cache.getURI(value.eClass()));
+		jg.writeStringField(typeInfo.getProperty(), cache.getURI(value.eClass()));
 		if (href == null) {
 			jg.writeNullField(info.getProperty());
 		} else {

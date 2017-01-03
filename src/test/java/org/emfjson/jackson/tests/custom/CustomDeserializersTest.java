@@ -219,7 +219,8 @@ public class CustomDeserializersTest {
 	@Test
 	public void testDeserializeReferenceWithOtherFieldNames() throws JsonProcessingException {
 		EMFModule module = new EMFModule();
-		module.setReferenceInfo(new EcoreReferenceInfo.Base("my_ref", "my_type"));
+		module.setTypeInfo(new EcoreTypeInfo("my_type"));
+		module.setReferenceInfo(new EcoreReferenceInfo("my_ref"));
 		mapper.registerModule(module);
 
 		JsonNode data = mapper.createArrayNode()

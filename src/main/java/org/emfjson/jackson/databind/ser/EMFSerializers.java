@@ -26,7 +26,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.EEnumLiteralImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emfjson.jackson.databind.deser.ReferenceEntry;
-import org.emfjson.jackson.databind.property.EObjectProperty;
 import org.emfjson.jackson.databind.property.EObjectPropertyMap;
 import org.emfjson.jackson.databind.type.EcoreType;
 import org.emfjson.jackson.module.EMFModule;
@@ -42,7 +41,7 @@ public class EMFSerializers extends Serializers.Base {
 
 	public EMFSerializers(EMFModule module) {
 		this.propertiesBuilder = EObjectPropertyMap.Builder.from(module, module.getFeatures());
-		this._referenceSerializer = module.getReferenceInfo().getSerializer();
+		this._referenceSerializer = module.getReferenceSerializer();
 	}
 
 	@Override

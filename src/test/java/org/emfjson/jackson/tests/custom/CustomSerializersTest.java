@@ -157,7 +157,8 @@ public class CustomSerializersTest {
 	public void testSerializeReferenceWithOtherFieldNames() {
 		EMFModule module = new EMFModule();
 		module.configure(EMFModule.Feature.OPTION_SERIALIZE_TYPE, false);
-		module.setReferenceInfo(new EcoreReferenceInfo.Base("my_ref", "my_type"));
+		module.setTypeInfo(new EcoreTypeInfo("my_type"));
+		module.setReferenceInfo(new EcoreReferenceInfo("my_ref"));
 
 		mapper.registerModule(module);
 
