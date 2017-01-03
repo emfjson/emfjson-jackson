@@ -51,7 +51,7 @@ public class EObjectFeatureProperty extends EObjectProperty {
 			case MAP:
 			case MANY_CONTAINMENT:
 			case SINGLE_CONTAINMENT: {
-				ctxt.setAttribute(CURRENT_REFERENCE, feature);
+				ctxt.setAttribute(CURRENT_FEATURE, feature);
 				ctxt.setAttribute(CURRENT_PARENT, current);
 			}
 			case SINGLE_ATTRIBUTE:
@@ -73,7 +73,7 @@ public class EObjectFeatureProperty extends EObjectProperty {
 			break;
 			case MANY_REFERENCE:
 			case SINGLE_REFERENCE: {
-				ctxt.setAttribute(CURRENT_REFERENCE, feature);
+				ctxt.setAttribute(CURRENT_FEATURE, feature);
 				ctxt.setAttribute(CURRENT_PARENT, current);
 
 				ReferenceEntries entries = EMFContext.getEntries(ctxt);

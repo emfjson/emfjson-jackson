@@ -31,6 +31,7 @@ import org.emfjson.jackson.errors.JSONException;
 import java.io.IOException;
 
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
+import static org.emfjson.jackson.databind.EMFContext.getFeature;
 import static org.emfjson.jackson.databind.EMFContext.getResource;
 
 public class EObjectDeserializer extends JsonDeserializer<EObject> {
@@ -41,24 +42,13 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 		this.builder = builder;
 	}
 
-//	@Override
-//	public JsonDeserializer<?> createContextual(DeserializationContext ctxt, BeanProperty property) throws JsonMappingException {
-////		if (property == null) {
-////			EClass rootType = EMFContext.getRoot(ctxt);
-////			if (rootType != null) {
-////				return new EObjectDeserializer(builder, builder.construct(rootType));
-////			}
-////		}
-//		return this;
-//	}
-
 	@Override
 	public EObject deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
 		EMFContext.prepare(ctxt);
 
-		final EClass defaultType = findRoot(ctxt);
 		final Resource resource = getResource(ctxt);
-		final EStructuralFeature feature = EMFContext.getFeature(ctxt);
+		final EStructuralFeature feature = getFeature(ctxt);
+		final EClass defaultType = getDefaultType(ctxt);
 
 		EObject current = null;
 		EObjectPropertyMap propertyMap;
@@ -72,13 +62,6 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 		}
 
 		TokenBuffer buffer = null;
-//
-//		System.out.println("context name " + jp.getParsingContext().getCurrentName());
-//		System.out.println("current " + jp.getCurrentValue());
-//		if (jp.getParsingContext().getParent() != null) {
-//			System.out.println("context parent name " + jp.getParsingContext().getParent().getCurrentName());
-//		}
-
 		while (jp.nextToken() != JsonToken.END_OBJECT) {
 			final String field = jp.getCurrentName();
 			final EObjectProperty property = propertyMap.findProperty(field);
@@ -100,6 +83,11 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 			}
 		}
 
+		// handle empty objects
+		if (buffer == null && current == null && defaultType != null) {
+			return EcoreUtil.create(defaultType);
+		}
+
 		return buffer == null ? current: postDeserialize(buffer, current, defaultType, ctxt);
 	}
 
@@ -117,7 +105,6 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 		while (jp.nextToken() != JsonToken.END_OBJECT) {
 			final String field = jp.getCurrentName();
 			final EObjectProperty property = propertyMap.findProperty(field);
-
 			if (property != null) {
 				property.deserializeAndSet(jp, intoValue, ctxt, resource);
 			} else {
@@ -141,7 +128,8 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 		final JsonParser jp = buffer.asParser();
 		final EObjectPropertyMap propertyMap = builder.construct(object.eClass());
 
-		while (jp.nextToken() != null) {
+		JsonToken nextToken = jp.nextToken();
+		while (nextToken != JsonToken.END_OBJECT && nextToken != null) {
 			final String field = jp.getCurrentName();
 			final EObjectProperty property = propertyMap.findProperty(field);
 
@@ -150,7 +138,10 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 			} else {
 				handleUnknownProperty(jp, resource, ctxt);
 			}
+
+			nextToken = jp.nextToken();
 		}
+
 		jp.close();
 		buffer.close();
 		return object;
@@ -166,23 +157,6 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 		jp.skipChildren();
 	}
 
-	private EClass findRoot(DeserializationContext ctxt) {
-		final EObject parent = EMFContext.getParent(ctxt);
-		if (parent == null) {
-			EClass root = EMFContext.getRoot(ctxt);
-			if (root != null) {
-				return root;
-			}
-		} else {
-			final EReference reference = EMFContext.getReference(ctxt);
-			if (reference != null && !reference.getEReferenceType().isAbstract()) {
-				return reference.getEReferenceType();
-			}
-		}
-
-		return null;
-	}
-
 	@Override
 	public boolean isCachable() {
 		return true;
@@ -193,4 +167,19 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 		return EObject.class;
 	}
 
+	private EClass getDefaultType(DeserializationContext ctxt) {
+		final EObject parent = EMFContext.getParent(ctxt);
+		if (parent == null) {
+			EClass root = EMFContext.getRoot(ctxt);
+			if (root != null) {
+				return root;
+			}
+		} else {
+			final EReference reference = (EReference) getFeature(ctxt);
+			if (reference != null && !reference.getEReferenceType().isAbstract()) {
+				return reference.getEReferenceType();
+			}
+		}
+		return null;
+	}
 }

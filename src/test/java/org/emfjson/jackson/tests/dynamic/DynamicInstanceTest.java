@@ -84,8 +84,8 @@ public class DynamicInstanceTest {
 				.put("eClass", "http://foo.org/p#//A")
 				.put("label", "1")
 				.set("bs", mapper.createArrayNode()
-						.add(mapper.createObjectNode().put("eClass", "http://foo.org/p#//B"))
-						.add(mapper.createObjectNode().put("eClass", "http://foo.org/p#//B")));
+						.add(mapper.createObjectNode())
+						.add(mapper.createObjectNode()));
 
 		EObject o = EcoreUtil.create(a);
 		o.eSet(a.getEStructuralFeature("label"), "1");
@@ -105,8 +105,8 @@ public class DynamicInstanceTest {
 				.put("eClass", "http://foo.org/p#//A")
 				.put("label", "1")
 				.set("bs", mapper.createArrayNode()
-						.add(mapper.createObjectNode().put("eClass", "http://foo.org/p#//B"))
-						.add(mapper.createObjectNode().put("eClass", "http://foo.org/p#//B")));
+						.add(mapper.createObjectNode())
+						.add(mapper.createObjectNode()));
 
 		Resource resource = mapper
 				.reader()

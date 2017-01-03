@@ -38,7 +38,6 @@ public class EMFContext {
 		REFERENCE_ENTRIES,
 		CURRENT_DATATYPE,
 		CURRENT_FEATURE,
-		CURRENT_REFERENCE,
 		CURRENT_PARENT
 	}
 
@@ -108,7 +107,7 @@ public class EMFContext {
 
 	public static EReference getReference(DatabindContext ctxt) {
 		try {
-			return (EReference) ctxt.getAttribute(Attributes.CURRENT_REFERENCE);
+			return (EReference) ctxt.getAttribute(Attributes.CURRENT_FEATURE);
 		} catch (ClassCastException e) {
 			return null;
 		}

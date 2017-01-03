@@ -9,13 +9,12 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.deser.std.StringDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StringSerializer;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.emfjson.jackson.annotations.EcoreTypeInfo;
 import org.emfjson.jackson.utils.ValueReader;
 import org.emfjson.jackson.utils.ValueWriter;
-import org.emfjson.jackson.annotations.EcoreTypeInfo;
 
 import java.io.IOException;
 
@@ -36,10 +35,22 @@ public class EObjectTypeProperty extends EObjectProperty {
 
 	@Override
 	public void serialize(EObject bean, JsonGenerator jg, SerializerProvider provider) throws IOException {
-		String value = valueWriter.writeValue(bean.eClass(), provider);
+		EClass objectType = bean.eClass();
+		EReference containment = bean.eContainmentFeature();
 
-		jg.writeFieldName(getFieldName());
-		serializer.serialize(value, jg, provider);
+		if (isRoot(bean) || shouldSaveType(objectType, containment.getEReferenceType(), containment)) {
+			String value = valueWriter.writeValue(bean.eClass(), provider);
+
+			jg.writeFieldName(getFieldName());
+			serializer.serialize(value, jg, provider);
+		}
+	}
+
+	private boolean isRoot(EObject bean) {
+		EObject container = bean.eContainer();
+		Resource.Internal resource = ((InternalEObject) bean).eDirectResource();
+
+		return container == null || resource != null && resource != ((InternalEObject) container).eDirectResource();
 	}
 
 	@Override
@@ -59,4 +70,7 @@ public class EObjectTypeProperty extends EObjectProperty {
 		// do nothing
 	}
 
+	protected boolean shouldSaveType(EClass objectType, EClass featureType, EStructuralFeature feature) {
+		return objectType != featureType && (featureType.isAbstract() || feature.getEGenericType().getETypeParameter() != null);
+	}
 }

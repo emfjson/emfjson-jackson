@@ -119,16 +119,12 @@ public class FeatureMapTest {
 
 		expected.set("featureMapReferenceType2", mapper.createArrayNode()
 				.add(mapper.createObjectNode()
-						.put("eClass", "http://www.emfjson.org/jackson/model#//TargetObject")
 						.put("singleAttribute", "1"))
 				.add(mapper.createObjectNode()
-						.put("eClass", "http://www.emfjson.org/jackson/model#//TargetObject")
 						.put("singleAttribute", "2"))
 				.add(mapper.createObjectNode()
-						.put("eClass", "http://www.emfjson.org/jackson/model#//TargetObject")
 						.put("singleAttribute", "3"))
 				.add(mapper.createObjectNode()
-						.put("eClass", "http://www.emfjson.org/jackson/model#//TargetObject")
 						.put("singleAttribute", "4")));
 
 		Resource resource = resourceSet.createResource(URI.createURI("tests.json"));

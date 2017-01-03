@@ -9,9 +9,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emfjson.jackson.utils.EObjects;
 import org.emfjson.jackson.support.DynamicFixture;
 import org.emfjson.jackson.support.StandardFixture;
+import org.emfjson.jackson.utils.EObjects;
 import org.junit.Assert;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -32,8 +32,7 @@ public class DynamicContainmentTest {
 	public void testSaveContainmentWithOpposite() {
 		JsonNode expected = mapper.createObjectNode()
 				.put("eClass", "http://emfjson/dynamic/model#//A")
-				.set("containB", mapper.createObjectNode()
-						.put("eClass", "http://emfjson/dynamic/model#//B"));
+				.set("containB", mapper.createObjectNode());
 
 		EClass classA = (EClass) resourceSet.getEObject(URI.createURI("http://emfjson/dynamic/model#//A"), true);
 		EClass classB = (EClass) resourceSet.getEObject(URI.createURI("http://emfjson/dynamic/model#//B"), true);

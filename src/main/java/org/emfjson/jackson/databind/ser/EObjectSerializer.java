@@ -25,12 +25,12 @@ import static org.emfjson.jackson.databind.EMFContext.getParent;
 
 public class EObjectSerializer extends JsonSerializer<EObject> {
 
-	private final JsonSerializer<EObject> _refSer;
+	private final JsonSerializer<EObject> refSerializer;
 	private final EObjectPropertyMap.Builder builder;
 
 	public EObjectSerializer(EObjectPropertyMap.Builder builder, JsonSerializer<EObject> serializer) {
 		this.builder = builder;
-		this._refSer = serializer;
+		this.refSerializer = serializer;
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 		final EObject parent = getParent(provider);
 		if (parent != null && (object.eIsProxy() || EObjects.isContainmentProxy(parent, object))) {
 			// containment proxies are serialized as references
-			_refSer.serialize(object, jg, provider);
+			refSerializer.serialize(object, jg, provider);
 			return;
 		}
 
@@ -56,8 +56,4 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 		jg.writeEndObject();
 	}
 
-//	@Override
-//	public JsonSerializer<?> createContextual(SerializerProvider prov, BeanProperty property) throws JsonMappingException {
-//		return this;
-//	}
 }

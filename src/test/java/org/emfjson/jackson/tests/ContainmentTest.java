@@ -93,8 +93,7 @@ public class ContainmentTest {
 	public void testSaveOneObjectWithOneChild() throws JsonProcessingException {
 		JsonNode expected = mapper.createObjectNode()
 				.put("eClass", "http://www.emfjson.org/jackson/model#//User")
-				.set("address", mapper.createObjectNode()
-						.put("eClass", "http://www.emfjson.org/jackson/model#//Address"));
+				.set("address", mapper.createObjectNode());
 
 		Resource resource = resourceSet.createResource(URI.createURI("test"));
 
@@ -130,9 +129,9 @@ public class ContainmentTest {
 		JsonNode expected = mapper.createObjectNode()
 				.put("eClass", "http://www.emfjson.org/jackson/model#//Node")
 				.set("child", mapper.createArrayNode()
-						.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node"))
-						.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node"))
-						.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node")));
+						.add(mapper.createObjectNode())
+						.add(mapper.createObjectNode())
+						.add(mapper.createObjectNode()));
 
 		Resource resource = resourceSet.createResource(URI.createURI("test"));
 		Node root = ModelFactory.eINSTANCE.createNode();
@@ -149,9 +148,9 @@ public class ContainmentTest {
 		JsonNode data = mapper.createObjectNode()
 				.put("eClass", "http://www.emfjson.org/jackson/model#//Node")
 				.set("child", mapper.createArrayNode()
-						.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node"))
-						.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node"))
-						.add(mapper.createObjectNode().put("eClass", "http://www.emfjson.org/jackson/model#//Node")));
+						.add(mapper.createObjectNode())
+						.add(mapper.createObjectNode())
+						.add(mapper.createObjectNode()));
 
 		Resource resource = mapper.reader()
 				.withAttribute(RESOURCE_SET, resourceSet)
