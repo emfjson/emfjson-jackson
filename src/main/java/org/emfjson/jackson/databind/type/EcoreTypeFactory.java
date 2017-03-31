@@ -1,7 +1,7 @@
 package org.emfjson.jackson.databind.type;
 
+import com.fasterxml.jackson.databind.DatabindContext;
 import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.type.SimpleType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.*;
@@ -16,7 +16,6 @@ import static org.eclipse.emf.ecore.EcorePackage.Literals.EJAVA_OBJECT;
 
 public class EcoreTypeFactory {
 
-	private final TypeFactory typeFactory = TypeFactory.defaultInstance();
 	private final Map<Pair<EClass, EStructuralFeature>, JavaType> cache = new WeakHashMap<>();
 
 	private static class Pair<A, B> {
@@ -47,7 +46,7 @@ public class EcoreTypeFactory {
 		}
 	}
 
-	public JavaType typeOf(EClass type, EStructuralFeature feature) {
+	public JavaType typeOf(DatabindContext ctxt, EClass type, EStructuralFeature feature) {
 		Pair<EClass, EStructuralFeature> pair = Pair.of(type, feature);
 
 		if (cache.containsKey(pair)) {
@@ -59,7 +58,7 @@ public class EcoreTypeFactory {
 
 		JavaType javaType;
 		if (realType != null) {
-			javaType = typeOf(FeatureKind.get(feature), realType);
+			javaType = typeOf(ctxt.getTypeFactory(), FeatureKind.get(feature), realType);
 		} else {
 			javaType = null;
 		}
@@ -71,42 +70,42 @@ public class EcoreTypeFactory {
 		return javaType;
 	}
 
-	protected JavaType typeOf(FeatureKind kind, EClassifier type) {
+	private JavaType typeOf(TypeFactory factory, FeatureKind kind, EClassifier type) {
 		switch (kind) {
 			case SINGLE_ATTRIBUTE:
 			case SINGLE_CONTAINMENT:
-				return constructSimpleType(type);
+				return constructSimpleType(factory, type);
 			case SINGLE_REFERENCE:
-				return constructReferenceType(type);
+				return constructReferenceType(factory, type);
 			case MANY_ATTRIBUTE:
 			case MANY_CONTAINMENT:
-				return constructCollectionType(constructSimpleType(type));
+				return constructCollectionType(factory, constructSimpleType(factory, type));
 			case MANY_REFERENCE:
-				return constructCollectionType(constructReferenceType(type));
+				return constructCollectionType(factory, constructReferenceType(factory, type));
 			case MAP:
-				return constructMapType((EClass) type);
+				return constructMapType(factory, (EClass) type);
 			default:
-				return constructSimpleType(type);
+				return constructSimpleType(factory, type);
 		}
 	}
 
-	public JavaType constructSimpleType(EClassifier type) {
-		return SimpleType.construct(rawType(type));
+	JavaType constructSimpleType(TypeFactory factory, EClassifier type) {
+		return factory.constructType(rawType(type));
 	}
 
-	public JavaType constructReferenceType(EClassifier type) {
+	JavaType constructReferenceType(TypeFactory factory, EClassifier type) {
 		Class<?> rawType = rawType(type);
 
-		return typeFactory.constructReferenceType(rawType, typeFactory.constructType(EcoreType.ReferenceType.class));
+		return factory.constructReferenceType(rawType, factory.constructType(EcoreType.ReferenceType.class));
 	}
 
-	public JavaType constructCollectionType(JavaType type) {
-		return typeFactory.constructCollectionType(Collection.class, type);
+	JavaType constructCollectionType(TypeFactory factory, JavaType type) {
+		return factory.constructCollectionType(Collection.class, type);
 	}
 
-	public JavaType constructMapType(EClass type) {
-		final EStructuralFeature key = type.getEStructuralFeature("key");
-		final EStructuralFeature value = type.getEStructuralFeature("value");
+	JavaType constructMapType(TypeFactory factory, EClass type) {
+		EStructuralFeature key = type.getEStructuralFeature("key");
+		EStructuralFeature value = type.getEStructuralFeature("value");
 
 		if (key == null || value == null) {
 			return null;
@@ -117,10 +116,9 @@ public class EcoreTypeFactory {
 
 		Class<?> keyClass = rawType(keyType);
 		if (String.class.isAssignableFrom(keyClass)) {
-			return typeFactory.constructMapLikeType(EMap.class, keyClass, rawType(valueType));
+			return factory.constructMapLikeType(EMap.class, keyClass, rawType(valueType));
 		} else {
-			return typeFactory.constructCollectionType(Collection.class,
-					typeFactory.constructType(EObject.class));
+			return factory.constructCollectionType(Collection.class, factory.constructType(EObject.class));
 		}
 	}
 

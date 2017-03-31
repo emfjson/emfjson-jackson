@@ -11,6 +11,7 @@
  */
 package org.emfjson.jackson.databind.deser;
 
+import com.fasterxml.jackson.databind.DatabindContext;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -19,12 +20,13 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.emfjson.jackson.databind.EMFContext;
 import org.emfjson.jackson.handlers.URIHandler;
 import org.emfjson.jackson.utils.EObjects;
 
 public interface ReferenceEntry {
 
-	void resolve(ResourceSet resourceSet, URIHandler handler, ReferenceEntries entries);
+	void resolve(DatabindContext context, URIHandler handler);
 
 	class Base implements ReferenceEntry {
 
@@ -45,19 +47,22 @@ public interface ReferenceEntry {
 		}
 
 		@Override
-		public void resolve(ResourceSet resourceSet, URIHandler handler, ReferenceEntries entries) {
-			if (id == null)
+		public void resolve(DatabindContext context, URIHandler handler) {
+			if (id == null) {
 				return;
+			}
 
+			ReferenceEntries entries = EMFContext.getEntries(context);
+			ResourceSet resourceSet = EMFContext.getResourceSet(context);
 			EObject target = entries.get(id);
 
 			if (target == null) {
-				Resource resource = owner.eResource();
+				Resource resource = EMFContext.getResource(context, owner);
 				target = resource.getEObject(id);
 
 				if (target == null) {
 
-					URI baseURI = owner.eResource().getURI().trimFragment();
+					URI baseURI = resource.getURI().trimFragment();
 					URI uri = handler.resolve(baseURI, URI.createURI(id));
 
 					if (reference.isResolveProxies() && type != null) {
@@ -85,11 +90,14 @@ public interface ReferenceEntry {
 				return null;
 			}
 
-			if (eClass == null)
+			if (eClass == null) {
 				return null;
+			}
 
 			EObject object = EcoreUtil.create(eClass);
-			((InternalEObject) object).eSetProxyURI(uri);
+			if (object instanceof InternalEObject) {
+				((InternalEObject) object).eSetProxyURI(uri);
+			}
 
 			return object;
 		}

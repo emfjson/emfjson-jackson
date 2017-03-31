@@ -14,11 +14,9 @@ package org.emfjson.jackson.annotations;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.eclipse.emf.ecore.EClass;
+import org.emfjson.jackson.databind.EMFContext;
 import org.emfjson.jackson.utils.ValueReader;
 import org.emfjson.jackson.utils.ValueWriter;
-
-import static org.emfjson.jackson.databind.EMFContext.getCache;
-import static org.emfjson.jackson.databind.EMFContext.getResourceSet;
 
 public class EcoreTypeInfo {
 
@@ -27,14 +25,14 @@ public class EcoreTypeInfo {
 	public static final ValueReader<String, EClass> defaultValueReader = new ValueReader<String, EClass>() {
 		@Override
 		public EClass readValue(String value, DeserializationContext context) {
-			return getCache(context).getEClass(getResourceSet(context), value);
+			return EMFContext.findEClass(context, value);
 		}
 	};
 
 	public static final ValueWriter<EClass, String> defaultValueWriter = new ValueWriter<EClass, String>() {
 		@Override
 		public String writeValue(EClass value, SerializerProvider context) {
-			return getCache(context).getURI(value);
+			return EMFContext.getURI(context, value).toString();
 		}
 	};
 

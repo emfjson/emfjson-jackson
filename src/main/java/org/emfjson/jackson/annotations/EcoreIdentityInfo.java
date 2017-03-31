@@ -34,12 +34,12 @@ public class EcoreIdentityInfo {
 	private static final ValueWriter<EObject, Object> defaultValueWriter = new ValueWriter<EObject, Object>() {
 		@Override
 		public Object writeValue(EObject object, SerializerProvider context) {
-			Resource resource = object.eResource();
+			Resource resource = EMFContext.getResource(context, object);
 			Object id;
 			if (resource instanceof JsonResource) {
 				id = ((JsonResource) resource).getID(object);
 			} else {
-				id = EMFContext.getCache(context).getURI(object).fragment();
+				id = EMFContext.getURI(context, object).fragment();
 			}
 			return id;
 		}

@@ -14,19 +14,20 @@ annotation "JsonIgnoreProperties" as JsonIgnoreProperties
 annotation "JsonType" as JsonType
 annotation "JsonIdentity" as JsonIdentity
 
+@JsonType(property = "@type")
 class TestA {
 
-	@JsonProperty( value = "my_value" )
+	@JsonProperty(value = "my_value")
 	String value
 
+    contains TestC childOfTypeC
+    contains TestD[*] childrenOfTypeD
 }
 
-@JsonIdentity(
-  property = "id"
-)
+@JsonIdentity(property = "id", include = "true")
 class TestB {
 
-	@JsonProperty( value = "my_value" )
+	@JsonProperty(value = "my_value")
 	String value
 
 	@JsonProperty
@@ -35,3 +36,22 @@ class TestB {
 	}
 }
 
+@JsonType(include = "false")
+class TestC {
+	int value
+
+	contains TestC[*] manyValues
+	contains TestC oneValue
+}
+
+@JsonType(property = "@bar")
+class TestD extends TestC {
+	String name
+
+	contains TestD[*] values
+}
+
+@JsonType(property = "@foo")
+class TestE extends TestD {
+
+}

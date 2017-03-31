@@ -14,6 +14,7 @@ package org.emfjson.jackson;
 import org.emfjson.jackson.databind.type.EcoreTypeFactoryTest;
 import org.emfjson.jackson.tests.*;
 import org.emfjson.jackson.tests.annotations.JsonPropertyTest;
+import org.emfjson.jackson.tests.annotations.JsonTypeInfoTest;
 import org.emfjson.jackson.tests.custom.CustomDeserializersTest;
 import org.emfjson.jackson.tests.custom.CustomSerializersTest;
 import org.emfjson.jackson.tests.dynamic.*;
@@ -50,6 +51,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 		// annotations
 		JsonPropertyTest.class,
+		JsonTypeInfoTest.class,
 
 		// uuid
 		UuidLoadTest.class,

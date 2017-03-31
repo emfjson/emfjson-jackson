@@ -40,10 +40,10 @@ public class EObjectSerializer extends JsonSerializer<EObject> {
 
 	@Override
 	public void serialize(EObject object, JsonGenerator jg, SerializerProvider provider) throws IOException {
-		EObjectPropertyMap properties = builder.construct(object.eClass());
+		EObjectPropertyMap properties = builder.construct(provider, object.eClass());
 
 		final EObject parent = getParent(provider);
-		if (parent != null && (object.eIsProxy() || EObjects.isContainmentProxy(parent, object))) {
+		if (parent != null && (object.eIsProxy() || EObjects.isContainmentProxy(provider, parent, object))) {
 			// containment proxies are serialized as references
 			refSerializer.serialize(object, jg, provider);
 			return;

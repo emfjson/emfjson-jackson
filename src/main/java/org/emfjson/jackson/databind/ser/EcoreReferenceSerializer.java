@@ -12,6 +12,7 @@
 package org.emfjson.jackson.databind.ser;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.DatabindContext;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.eclipse.emf.common.util.URI;
@@ -22,7 +23,6 @@ import org.emfjson.jackson.annotations.EcoreReferenceInfo;
 import org.emfjson.jackson.annotations.EcoreTypeInfo;
 import org.emfjson.jackson.databind.EMFContext;
 import org.emfjson.jackson.handlers.URIHandler;
-import org.emfjson.jackson.utils.Cache;
 
 import java.io.IOException;
 
@@ -41,11 +41,10 @@ public class EcoreReferenceSerializer extends JsonSerializer<EObject> {
 	@Override
 	public void serialize(EObject value, JsonGenerator jg, SerializerProvider serializers) throws IOException {
 		final EObject parent = EMFContext.getParent(serializers);
-		final Cache cache = EMFContext.getCache(serializers);
-		final String href = getHRef(cache, parent, value);
+		final String href = getHRef(serializers, parent, value);
 
 		jg.writeStartObject();
-		jg.writeStringField(typeInfo.getProperty(), cache.getURI(value.eClass()));
+		jg.writeStringField(typeInfo.getProperty(), EMFContext.getURI(serializers, value.eClass()).toString());
 		if (href == null) {
 			jg.writeNullField(info.getProperty());
 		} else {
@@ -54,28 +53,37 @@ public class EcoreReferenceSerializer extends JsonSerializer<EObject> {
 		jg.writeEndObject();
 	}
 
-	protected boolean isExternal(EObject source, EObject target) {
-		final Resource sourceResource = ((InternalEObject) source).eInternalResource();
-		if (target.eIsProxy()) {
-			final URI uri = ((InternalEObject) target).eProxyURI();
+	private boolean isExternal(DatabindContext ctxt, EObject source, EObject target) {
+		Resource sourceResource = EMFContext.getResource(ctxt, source);
 
-			return sourceResource != null &&
-					sourceResource.getURI() != null &&
-					!sourceResource.getURI().equals(uri.trimFragment());
+		if (target.eIsProxy() && target instanceof InternalEObject) {
+			URI uri = ((InternalEObject) target).eProxyURI();
+
+			return sourceResource != null
+					&& sourceResource.getURI() != null
+					&& !sourceResource.getURI().equals(uri.trimFragment());
 		}
 
-		return sourceResource == null || sourceResource != ((InternalEObject) target).eInternalResource();
+		return sourceResource == null || sourceResource != EMFContext.getResource(ctxt, target);
 	}
 
-	protected String getHRef(Cache cache, EObject parent, EObject value) {
-		if (isExternal(parent, value)) {
-			final URI targetURI = cache.getURI(value);
-			final URI sourceURI = cache.getURI(parent);
-			final URI deresolved = handler != null ? handler.deresolve(sourceURI, targetURI): targetURI;
+	private String getHRef(SerializerProvider ctxt, EObject parent, EObject value) {
+		if (isExternal(ctxt, parent, value)) {
+
+			URI targetURI = EMFContext.getURI(ctxt, value);
+			URI sourceURI = EMFContext.getURI(ctxt, parent);
+			URI deresolved = handler != null ? handler.deresolve(sourceURI, targetURI): targetURI;
 
 			return deresolved == null ? null: deresolved.toString();
+
 		} else {
-			return value.eResource().getURIFragment(value);
+
+			Resource resource = EMFContext.getResource(ctxt, value);
+			if (resource != null) {
+				return resource.getURIFragment(value);
+			}
+
+			return null;
 		}
 	}
 }

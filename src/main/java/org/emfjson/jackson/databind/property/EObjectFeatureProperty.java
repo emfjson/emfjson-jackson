@@ -16,7 +16,6 @@ import org.emfjson.jackson.databind.type.FeatureKind;
 import java.io.IOException;
 
 import static org.emfjson.jackson.annotations.JsonAnnotations.getElementName;
-import static org.emfjson.jackson.databind.EMFContext.Attributes.*;
 import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_SERIALIZE_DEFAULT_VALUE;
 
 public class EObjectFeatureProperty extends EObjectProperty {
@@ -51,13 +50,13 @@ public class EObjectFeatureProperty extends EObjectProperty {
 			case MAP:
 			case MANY_CONTAINMENT:
 			case SINGLE_CONTAINMENT: {
-				ctxt.setAttribute(CURRENT_FEATURE, feature);
-				ctxt.setAttribute(CURRENT_PARENT, current);
+				EMFContext.setFeature(ctxt, feature);
+				EMFContext.setParent(ctxt, current);
 			}
 			case SINGLE_ATTRIBUTE:
 			case MANY_ATTRIBUTE: {
 				if (feature.getEType() instanceof EDataType) {
-					ctxt.setAttribute(CURRENT_DATATYPE, feature.getEType());
+					EMFContext.setDataType(ctxt, feature.getEType());
 				}
 
 				if (feature.isMany()) {
@@ -73,8 +72,8 @@ public class EObjectFeatureProperty extends EObjectProperty {
 			break;
 			case MANY_REFERENCE:
 			case SINGLE_REFERENCE: {
-				ctxt.setAttribute(CURRENT_FEATURE, feature);
-				ctxt.setAttribute(CURRENT_PARENT, current);
+				EMFContext.setFeature(ctxt, feature);
+				EMFContext.setParent(ctxt, current);
 
 				ReferenceEntries entries = EMFContext.getEntries(ctxt);
 				if (feature.isMany()) {
@@ -96,8 +95,8 @@ public class EObjectFeatureProperty extends EObjectProperty {
 			serializer = provider.findValueSerializer(javaType);
 		}
 
-		provider.setAttribute(CURRENT_PARENT, bean);
-		provider.setAttribute(CURRENT_FEATURE, feature);
+		EMFContext.setParent(provider, bean);
+		EMFContext.setFeature(provider, feature);
 
 		if (bean.eIsSet(feature)) {
 			Object value = bean.eGet(feature, false);

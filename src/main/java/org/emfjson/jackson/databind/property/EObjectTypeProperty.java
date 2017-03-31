@@ -59,8 +59,11 @@ public class EObjectTypeProperty extends EObjectProperty {
 			jp.nextToken();
 		}
 
-		final String value = deserializer.deserialize(jp, ctxt);
-		final EClass eClass = valueReader.readValue(value, ctxt);
+		return create(deserializer.deserialize(jp, ctxt), ctxt);
+	}
+
+	public EObject create(String value, DeserializationContext ctxt) {
+		EClass eClass = valueReader.readValue(value, ctxt);
 
 		return eClass != null ? EcoreUtil.create(eClass): null;
 	}
@@ -70,7 +73,7 @@ public class EObjectTypeProperty extends EObjectProperty {
 		// do nothing
 	}
 
-	protected boolean shouldSaveType(EClass objectType, EClass featureType, EStructuralFeature feature) {
-		return objectType != featureType && (featureType.isAbstract() || feature.getEGenericType().getETypeParameter() != null);
+	private boolean shouldSaveType(EClass objectType, EClass featureType, EStructuralFeature feature) {
+		return objectType != featureType && objectType != EcorePackage.Literals.EOBJECT;
 	}
 }

@@ -44,7 +44,7 @@ public class EMapDeserializer extends JsonDeserializer<EList<Map.Entry<?, ?>>> {
 			EStructuralFeature valueFeature = referenceType.getEStructuralFeature("value");
 
 			if (valueFeature != null) {
-				ctxt.setAttribute(EMFContext.Attributes.CURRENT_FEATURE, valueFeature);
+				EMFContext.setFeature(ctxt, valueFeature);
 			}
 		}
 

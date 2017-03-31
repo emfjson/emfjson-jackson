@@ -15,20 +15,17 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emfjson.jackson.databind.EMFContext;
-import org.emfjson.jackson.databind.type.EcoreTypeFactory;
 import org.emfjson.jackson.handlers.URIHandler;
-import org.emfjson.jackson.utils.Cache;
 
 import java.io.IOException;
 
-import static org.emfjson.jackson.databind.EMFContext.Attributes.*;
+import static org.emfjson.jackson.databind.EMFContext.Attributes.RESOURCE_SET;
 
 public class ResourceDeserializer extends JsonDeserializer<Resource> {
 
@@ -55,24 +52,14 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 			throw new IllegalArgumentException("Invalid resource");
 		}
 
-		final ReferenceEntries entries = new ReferenceEntries();
-		final EcoreTypeFactory ecoreType = new EcoreTypeFactory();
-		final ResourceSet resourceSet = resource.getResourceSet();
-
-		ctxt.setAttribute(RESOURCE, resource);
-		ctxt.setAttribute(REFERENCE_ENTRIES, entries);
-		ctxt.setAttribute(CACHE, new Cache());
-		ctxt.setAttribute(TYPE_FACTORY, ecoreType);
-		ctxt.setAttribute(RESOURCE_SET, resourceSet);
+		EMFContext.init(resource, ctxt);
 
 		if (!jp.hasCurrentToken()) {
 			jp.nextToken();
 		}
 
-		final TypeFactory factory = TypeFactory.defaultInstance();
-		final JsonDeserializer<Object> deserializer = ctxt.findRootValueDeserializer(
-				factory.constructType(EObject.class)
-		);
+		JsonDeserializer<Object> deserializer =
+				ctxt.findRootValueDeserializer(ctxt.constructType(EObject.class));
 
 		if (jp.getCurrentToken() == JsonToken.START_ARRAY) {
 
@@ -91,7 +78,7 @@ public class ResourceDeserializer extends JsonDeserializer<Resource> {
 			}
 		}
 
-		entries.resolve(resourceSet, uriHandler);
+		EMFContext.resolve(ctxt, uriHandler);
 
 		return resource;
 	}

@@ -12,21 +12,73 @@
 package org.emfjson.jackson.annotations;
 
 import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 public class JsonAnnotations {
 
+	/**
+	 * Returns the name that should be use to serialize the property.
+	 *
+	 * @param element
+	 * @return name of property
+	 */
 	public static String getElementName(ENamedElement element) {
-		final EAnnotation annotation = element.getEAnnotation("JsonProperty");
-		if (annotation != null && annotation.getDetails().containsKey("value")) {
-			return annotation.getDetails().get("value");
-		}
-		return element.getName();
+		String value = getValue(element, "JsonProperty", "value");
+
+		return value == null ? element.getName(): value;
 	}
 
+	/**
+	 * Returns true if the feature should not be serialize.
+	 *
+	 * @param feature
+	 * @return true if should not be serialize
+	 */
 	public static boolean shouldIgnore(EStructuralFeature feature) {
 		return feature.getEAnnotation("JsonIgnore") != null;
 	}
 
+	/**
+	 * Returns the property that should be use to store the type information of the classifier.
+	 *
+	 * @param classifier
+	 * @return the type information property
+	 */
+	public static String getTypeProperty(EClassifier classifier) {
+		return getValue(classifier, "JsonType", "property");
+	}
+
+	/**
+	 * Returns true if the classifier type information should not be serialize.
+	 * This is true when the classifier possesses an annotation @JsonType with include = "false".
+	 *
+	 * @param classifier
+	 * @return true if type info should not be serialize
+	 */
+	public static boolean shouldIgnoreType(EClassifier classifier) {
+		EAnnotation annotation = classifier.getEAnnotation("JsonType");
+
+		return annotation != null && "false".equalsIgnoreCase(annotation.getDetails().get("include"));
+	}
+
+	/**
+	 * Returns the property that should be use to serialize the identity of the object.
+	 *
+	 * @param classifier
+	 * @return the identity property
+	 */
+	public static String getIdentityProperty(EClassifier classifier) {
+		return getValue(classifier, "JsonIdentity", "property");
+	}
+
+	protected static String getValue(ENamedElement element, String annotation, String property) {
+		EAnnotation ann = element.getEAnnotation(annotation);
+
+		if (ann != null && ann.getDetails().containsKey(property)) {
+			return ann.getDetails().get(property);
+		}
+		return null;
+	}
 }

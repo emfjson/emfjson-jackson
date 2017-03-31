@@ -11,6 +11,7 @@
  */
 package org.emfjson.jackson.databind.deser;
 
+import com.fasterxml.jackson.databind.DatabindContext;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.emfjson.jackson.handlers.URIHandler;
@@ -25,9 +26,15 @@ public class ReferenceEntries {
 	private final Collection<ReferenceEntry> entries = new ArrayList<>();
 	private final Map<String, EObject> mapOfObjects = new HashMap<>();
 
-	public void resolve(ResourceSet resourceSet, URIHandler handler) {
+	/**
+	 * Resolves all reference entries that have been collected during deserialization.
+	 *
+	 * @param context current deserialization context
+	 * @param handler use for resolution of URIs
+	 */
+	public void resolve(DatabindContext context, URIHandler handler) {
 		for (ReferenceEntry entry : entries()) {
-			entry.resolve(resourceSet, handler, this);
+			entry.resolve(context, handler);
 		}
 		mapOfObjects.clear();
 	}

@@ -17,20 +17,15 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emfjson.jackson.databind.type.EcoreTypeFactory;
-import org.emfjson.jackson.utils.Cache;
 
 import java.io.IOException;
 
 public class ResourceSerializer extends JsonSerializer<Resource> {
 
-	private final EcoreTypeFactory typeFactory = new EcoreTypeFactory();
+//	private final EcoreTypeFactory typeFactory = new EcoreTypeFactory();
 
 	@Override
 	public void serialize(Resource value, JsonGenerator jg, SerializerProvider provider) throws IOException {
-		provider.setAttribute("cache", new Cache());
-		provider.setAttribute("typeFactory", typeFactory);
-
 		if (value.getContents().size() == 1) {
 			serializeOne(value.getContents().get(0), jg, provider);
 		} else {
@@ -43,7 +38,7 @@ public class ResourceSerializer extends JsonSerializer<Resource> {
 	}
 
 	private void serializeOne(EObject object, JsonGenerator jg, SerializerProvider provider) throws IOException {
-		final JavaType type = typeFactory.constructSimpleType(object.eClass());
+		final JavaType type = provider.constructType(object.getClass());
 		final JsonSerializer<Object> serializer = provider.findValueSerializer(type);
 
 		if (serializer != null) {

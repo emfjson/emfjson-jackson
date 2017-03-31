@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emfjson.jackson.junit.model.ModelFactory;
+import org.emfjson.jackson.junit.model.ModelPackage;
 import org.emfjson.jackson.junit.model.User;
 import org.emfjson.jackson.module.EMFModule;
 import org.emfjson.jackson.resource.JsonResource;
@@ -31,6 +32,7 @@ import java.io.IOException;
 
 import static org.emfjson.jackson.databind.EMFContext.Attributes.RESOURCE_SET;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class ModuleTest {
 
@@ -39,8 +41,8 @@ public class ModuleTest {
 
 	@Before
 	public void setUp() {
-		EPackage.Registry.INSTANCE
-				.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
+		EPackage.Registry.INSTANCE.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
+		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
 
 		mapper = new ObjectMapper();
 		mapper.registerModule(new EMFModule());
@@ -54,6 +56,7 @@ public class ModuleTest {
 	@After
 	public void tearDown() {
 		EPackage.Registry.INSTANCE.clear();
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().clear();
 	}
 
 	@Test
@@ -79,6 +82,7 @@ public class ModuleTest {
 				.withAttribute(RESOURCE_SET, resourceSet)
 				.treeToValue(data, EObject.class);
 
+		assertNull(result.eResource());
 		assertEquals("A", result.getName());
 	}
 

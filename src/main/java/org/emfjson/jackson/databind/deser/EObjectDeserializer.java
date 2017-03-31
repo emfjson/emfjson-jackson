@@ -15,6 +15,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.util.TokenBuffer;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -54,11 +55,11 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 		EObjectPropertyMap propertyMap;
 
 		if (feature == null && defaultType != null) {
-			propertyMap = builder.construct(defaultType);
+			propertyMap = builder.construct(ctxt, defaultType);
 		} else if (feature instanceof EReference) {
-			propertyMap = builder.construct(((EReference) feature).getEReferenceType());
+			propertyMap = builder.construct(ctxt, ((EReference) feature).getEReferenceType());
 		} else {
-			propertyMap = builder.constructDefault();
+			propertyMap = builder.constructDefault(ctxt);
 		}
 
 		TokenBuffer buffer = null;
@@ -69,7 +70,7 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 			if (property instanceof EObjectTypeProperty) {
 				current = property.deserialize(jp, ctxt);
 				if (current != null) {
-					propertyMap = builder.construct(current.eClass());
+					propertyMap = builder.construct(ctxt, current.eClass());
 				}
 			} else if (property != null && current != null) {
 				property.deserializeAndSet(jp, current, ctxt, resource);
@@ -98,7 +99,7 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 		}
 
 		EMFContext.prepare(ctxt);
-		EObjectPropertyMap propertyMap = builder.construct(intoValue.eClass());
+		EObjectPropertyMap propertyMap = builder.construct(ctxt, intoValue.eClass());
 
 		final Resource resource = getResource(ctxt);
 
@@ -115,19 +116,35 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 		return intoValue;
 	}
 
-	protected EObject postDeserialize(TokenBuffer buffer, EObject object, EClass defaultType, DeserializationContext ctxt) throws IOException {
+	private EObject postDeserialize(TokenBuffer buffer, EObject object, EClass defaultType, DeserializationContext ctxt) throws IOException {
 		if (object == null && defaultType == null) {
 			return null;
+		}
+
+		Resource resource = getResource(ctxt);
+		JsonParser jp = buffer.asParser();
+		JsonNode tree = jp.readValueAsTree();
+		jp.close();
+
+		EObjectPropertyMap propertyMap = builder.find(ctxt, defaultType, tree.fieldNames());
+		EObjectTypeProperty typeProperty = propertyMap.getTypeProperty();
+
+		if (typeProperty != null) {
+			JsonNode value = tree.get(typeProperty.getFieldName());
+
+			if (value != null) {
+				object = typeProperty.create(value.asText(), ctxt);
+			}
 		}
 
 		if (object == null) {
 			object = EcoreUtil.create(defaultType);
 		}
 
-		final Resource resource = getResource(ctxt);
-		final JsonParser jp = buffer.asParser();
-		final EObjectPropertyMap propertyMap = builder.construct(object.eClass());
+		// TODO explain that
+		propertyMap = builder.construct(ctxt, object.eClass());
 
+		jp = buffer.asParser();
 		JsonToken nextToken = jp.nextToken();
 		while (nextToken != JsonToken.END_OBJECT && nextToken != null) {
 			final String field = jp.getCurrentName();

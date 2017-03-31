@@ -45,8 +45,8 @@ public class CollectionDeserializer extends JsonDeserializer<Collection<Object>>
 		final EReference feature = EMFContext.getReference(ctxt);
 
 		while (p.nextToken() != JsonToken.END_ARRAY) {
-			ctxt.setAttribute(EMFContext.Attributes.CURRENT_PARENT, parent);
-			ctxt.setAttribute(EMFContext.Attributes.CURRENT_FEATURE, feature);
+			EMFContext.setParent(ctxt, parent);
+			EMFContext.setFeature(ctxt, feature);
 
 			if (feature != null && feature.isContainment()) {
 				EObject result = deserializer.deserialize(p, ctxt);
