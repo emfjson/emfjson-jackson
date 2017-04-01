@@ -39,7 +39,7 @@ Add the following dependency yo your POM file to use emfjson-jackson.
 <dependency>
 	<groupId>org.emfjson</groupId>
 	<artifactId>emfjson-jackson</artifactId>
-	<version>1.0.0-rc.1</version>
+	<version>1.0.0</version>
 </dependency>
 ```
 
@@ -49,8 +49,6 @@ Use this update site [http://ghillairet.github.io/p2](http://ghillairet.github.i
 
 This update site contains the bundle and feature for emfjson-jackson and Jackson. 
 
-> The 1.0.0-rc.1 release is available here http://ghillairet.github.com/p2/releases/emfjson/1.0.0-rc.1
-
 ### Jars
 
 You can download the jars from [Maven Central](http://search.maven.org/#search|ga|1|emfjson).
@@ -59,7 +57,7 @@ You can download the jars from [Maven Central](http://search.maven.org/#search|g
 
 * Java 7
 * EMF 2.10.0 or later
-* Jackson 2.6.0 or later
+* Jackson 2.6.5 or later
 
 ## License
 
