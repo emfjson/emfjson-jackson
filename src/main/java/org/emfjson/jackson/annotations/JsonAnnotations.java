@@ -31,6 +31,16 @@ public class JsonAnnotations {
 	}
 
 	/**
+	 * Returns the configured alias name or null, if there is none.
+	 *
+	 * @param element any element
+	 * @return the property's alias
+	 */
+	public static String getAliasName(ENamedElement element) {
+		return getValue(element, "JsonAlias", "value");
+	}
+
+	/**
 	 * Returns true if the feature should not be serialize.
 	 *
 	 * @param feature

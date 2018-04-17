@@ -16,6 +16,7 @@ import org.emfjson.jackson.module.EMFModule;
 
 import java.util.*;
 
+import static org.emfjson.jackson.annotations.JsonAnnotations.getAliasName;
 import static org.emfjson.jackson.annotations.JsonAnnotations.getElementName;
 import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_SERIALIZE_TYPE;
 import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_USE_ID;
@@ -98,20 +99,22 @@ public class EObjectPropertyMap {
 			properties.put(referenceInfo.getProperty(), new EObjectReferenceProperty(referenceInfo));
 
 			if (type != null) {
-				for (EAttribute attribute : type.getEAllAttributes()) {
-					if (isCandidate(attribute)) {
-						JavaType javaType = factory.typeOf(ctxt, type, attribute);
-						if (javaType != null) {
-							properties.put(getElementName(attribute), new EObjectFeatureProperty(attribute, javaType, features));
-						}
+				for (EStructuralFeature feature: type.getEAllStructuralFeatures()) {
+					final boolean isCandidate;
+					if (feature instanceof EAttribute) {
+						isCandidate = isCandidate((EAttribute) feature);
+					} else {
+						isCandidate = isCandidate((EReference) feature);
 					}
-				}
-
-				for (EReference reference : type.getEAllReferences()) {
-					if (isCandidate(reference)) {
-						JavaType javaType = factory.typeOf(ctxt, type, reference);
+					if (isCandidate) {
+						JavaType javaType = factory.typeOf(ctxt, type, feature);
 						if (javaType != null) {
-							properties.put(getElementName(reference), new EObjectFeatureProperty(reference, javaType, features));
+							final EObjectFeatureProperty featureProperty = new EObjectFeatureProperty(feature, javaType, features);
+							properties.put(getElementName(feature), featureProperty);
+							final String aliasName = getAliasName(feature);
+							if (aliasName != null) {
+								properties.put(aliasName, featureProperty);
+							}
 						}
 					}
 				}

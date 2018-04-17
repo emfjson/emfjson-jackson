@@ -13,6 +13,7 @@ annotation "JsonProperty" as JsonProperty
 annotation "JsonIgnoreProperties" as JsonIgnoreProperties
 annotation "JsonType" as JsonType
 annotation "JsonIdentity" as JsonIdentity
+annotation "JsonAlias" as JsonAlias
 
 @JsonType(property = "@type")
 class TestA {
@@ -54,4 +55,10 @@ class TestD extends TestC {
 @JsonType(property = "@foo")
 class TestE extends TestD {
 
+}
+
+class TestF {
+    @JsonAlias(value = "value")
+    @JsonProperty(value = "v")
+    String value
 }

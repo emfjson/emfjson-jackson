@@ -86,6 +86,24 @@ public class JsonTypeInfoTest {
 	}
 
 	@Test
+	public void testLoad_WithAlias() throws IOException {
+		final JsonNode data = mapper.createObjectNode()
+				.put("eClass", uriOf(TEST_F))
+				.put("value", "foo");
+
+		resourceSet.createResource(URI.createURI("test.json"));
+
+		final TestF f = mapper.reader()
+				.withAttribute(RESOURCE_SET, resourceSet)
+				.withAttribute(ROOT_ELEMENT, TEST_F)
+				.forType(TestF.class)
+				.readValue(data);
+
+		assertThat(f).isNotNull();
+		assertThat(f.getValue()).isEqualTo("foo");
+	}
+
+	@Test
 	public void testSave_Tree() throws IOException {
 		JsonNode expected = ((ObjectNode) mapper.createObjectNode()
 				.put("@type", uriOf(TEST_A))
