@@ -2,6 +2,7 @@ package org.emfjson.jackson.tests.annotations;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
@@ -60,7 +61,7 @@ public class JsonTypeInfoTest {
 		a.setValue("a1");
 		a.setChildOfTypeC(c);
 
-		assertThat(mapper.valueToTree(a))
+		assertThat((JsonNode) mapper.valueToTree(a))
 				.isEqualTo(expected);
 	}
 
@@ -71,17 +72,13 @@ public class JsonTypeInfoTest {
 				.put("my_value", "a1")
 				.set("childOfTypeC", mapper.createObjectNode());
 
-		Resource resource = resourceSet.createResource(URI.createURI("test.json"));
-
 		TestA a = mapper.reader()
 				.withAttribute(RESOURCE_SET, resourceSet)
-//				.withAttribute(EMFContext.Attributes.RESOURCE, resource)
 				.withAttribute(ROOT_ELEMENT, TEST_A)
 				.forType(TestA.class)
 				.readValue(data);
 
 		assertThat(a).isNotNull();
-//		assertThat(a.eResource()).isSameAs(resource);
 		assertThat(a.getChildOfTypeC()).isNotNull();
 	}
 
@@ -104,7 +101,45 @@ public class JsonTypeInfoTest {
 	}
 
 	@Test
-	public void testSave_Tree() throws IOException {
+	public void testLoad_WithMultipleAlias() throws IOException {
+		ArrayNode data = mapper.createArrayNode()
+				.add(mapper.createObjectNode()
+						.put("eClass", uriOf(TEST_F))
+						.put("foo", "foo"))
+				.add(mapper.createObjectNode()
+						.put("eClass", uriOf(TEST_F))
+						.put("bar", "bar"));
+
+		resourceSet.createResource(URI.createURI("test.json"));
+
+		TestF[] result = mapper.reader()
+				.withAttribute(RESOURCE_SET, resourceSet)
+				.withAttribute(ROOT_ELEMENT, TEST_F)
+				.forType(TestF[].class)
+				.readValue(data);
+
+		assertThat(result).hasSize(2);
+		assertThat(result[0].getOtherValue()).isEqualTo("foo");
+		assertThat(result[1].getOtherValue()).isEqualTo("bar");
+	}
+
+	@Test
+	public void testSave_WithAlias() {
+		JsonNode expected = mapper.createObjectNode()
+				.put("eClass", uriOf(TEST_F))
+				.put("v", "foo");
+
+		resourceSet.createResource(URI.createURI("test.json"));
+
+		TestF test = AnnotationsFactory.eINSTANCE.createTestF();
+		test.setValue("foo");
+
+		assertThat((JsonNode) mapper.valueToTree(test))
+				.isEqualTo(expected);
+	}
+
+	@Test
+	public void testSave_Tree() {
 		JsonNode expected = ((ObjectNode) mapper.createObjectNode()
 				.put("@type", uriOf(TEST_A))
 				.set("childOfTypeC", mapper.createObjectNode()
@@ -153,7 +188,7 @@ public class JsonTypeInfoTest {
 		a1.getChildrenOfTypeD().add(d1);
 		a1.getChildrenOfTypeD().add(e1);
 
-		assertThat(mapper.valueToTree(a1))
+		assertThat((JsonNode) mapper.valueToTree(a1))
 				.isEqualTo(expected);
 	}
 

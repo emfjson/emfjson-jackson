@@ -36,8 +36,8 @@ public class JsonAnnotations {
 	 * @param element any element
 	 * @return the property's alias
 	 */
-	public static String getAliasName(ENamedElement element) {
-		return getValue(element, "JsonAlias", "value");
+	public static List<String> getAliases(ENamedElement element) {
+		return getValues(element, "JsonAlias", "value");
 	}
 
 	/**
@@ -90,5 +90,27 @@ public class JsonAnnotations {
 			return ann.getDetails().get(property);
 		}
 		return null;
+	}
+
+	protected static List<String> getValues(ENamedElement element, String annotation, String property) {
+		String value = getValue(element, annotation, property);
+
+		if (value == null) {
+			return Collections.emptyList();
+		}
+
+		if (value.contains(",")) {
+			String[] split = value.split(",");
+			List<String> values = new ArrayList<>();
+			for (String s : split) {
+				String v = s.trim();
+				if (!v.isEmpty()) {
+					values.add(v);
+				}
+			}
+			return values;
+		} else {
+			return Collections.singletonList(value);
+		}
 	}
 }

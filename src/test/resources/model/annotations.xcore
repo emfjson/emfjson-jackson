@@ -21,8 +21,8 @@ class TestA {
 	@JsonProperty(value = "my_value")
 	String value
 
-    contains TestC childOfTypeC
-    contains TestD[*] childrenOfTypeD
+	contains TestC childOfTypeC
+	contains TestD[*] childrenOfTypeD
 }
 
 @JsonIdentity(property = "id", include = "true")
@@ -58,7 +58,10 @@ class TestE extends TestD {
 }
 
 class TestF {
-    @JsonAlias(value = "value")
-    @JsonProperty(value = "v")
-    String value
+	@JsonAlias(value = "value")
+	@JsonProperty(value = "v")
+	String value
+
+	@JsonAlias(value = "foo, bar")
+	String otherValue
 }
