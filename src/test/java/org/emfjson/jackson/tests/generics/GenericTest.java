@@ -106,7 +106,7 @@ public class GenericTest {
 		Any a = GenericsFactory.eINSTANCE.createAny();
 		b.setContainsOne(a);
 
-		assertThat(mapper.valueToTree(b))
+		assertThat((JsonNode) mapper.valueToTree(b))
 				.isEqualTo(expected);
 	}
 

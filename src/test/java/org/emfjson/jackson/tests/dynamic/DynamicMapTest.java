@@ -105,7 +105,7 @@ public class DynamicMapTest {
 
 		resource.getContents().add(a1);
 
-		assertThat(mapper.valueToTree(resource)).
+		assertThat((JsonNode) mapper.valueToTree(resource)).
 				isEqualTo(expected);
 	}
 
@@ -156,7 +156,7 @@ public class DynamicMapTest {
 
 		resource.getContents().add(a1);
 
-		assertThat(mapper.valueToTree(resource)).
+		assertThat((JsonNode) mapper.valueToTree(resource)).
 				isEqualTo(expected);
 	}
 

@@ -97,7 +97,7 @@ public class ReferenceTest {
 		resource.getContents().add(u2);
 		resource.getContents().add(u3);
 
-		assertThat(mapper.valueToTree(resource))
+		assertThat((JsonNode) mapper.valueToTree(resource))
 				.isEqualTo(mapper.readTree(Paths.get("src/test/resources/tests/test-load-2.json").toFile()));
 	}
 

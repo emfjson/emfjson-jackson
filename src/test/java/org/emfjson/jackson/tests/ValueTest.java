@@ -45,7 +45,7 @@ public class ValueTest {
 	private ResourceSet resourceSet = fixture.getResourceSet();
 
 	@Test
-	public void testOptionSaveDefaultValues() throws IOException {
+	public void testOptionSaveDefaultValues() {
 		{
 			JsonNode expected = mapper.createObjectNode()
 					.put("eClass", "http://www.emfjson.org/jackson/model#//User")
@@ -100,7 +100,7 @@ public class ValueTest {
 	}
 
 	@Test
-	public void testStringValues() throws IOException {
+	public void testStringValues() {
 		JsonNode expected = mapper.createObjectNode()
 				.put("eClass", "http://www.emfjson.org/jackson/model#//ETypes")
 				.put("eString", "Hello")
@@ -160,7 +160,7 @@ public class ValueTest {
 	}
 
 	@Test
-	public void testIntValues() throws IOException {
+	public void testIntValues() {
 		JsonNode expected = mapper.createObjectNode()
 				.put("eClass", "http://www.emfjson.org/jackson/model#//ETypes")
 				.put("eInt", 2)
@@ -211,7 +211,7 @@ public class ValueTest {
 	}
 
 	@Test
-	public void testBooleanValues() throws IOException {
+	public void testBooleanValues() {
 		JsonNode expected = mapper.createObjectNode()
 				.put("eClass", "http://www.emfjson.org/jackson/model#//ETypes")
 				.put("eBoolean", true)
@@ -233,7 +233,7 @@ public class ValueTest {
 	}
 
 	@Test
-	public void testDateValue() throws IOException {
+	public void testDateValue() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(2020, Calendar.OCTOBER, 10);
 
@@ -274,7 +274,7 @@ public class ValueTest {
 	}
 
 	@Test
-	public void testBigIntegerValue() throws IOException {
+	public void testBigIntegerValue() {
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 
 		ETypes valueObject = ModelFactory.eINSTANCE.createETypes();
@@ -306,7 +306,7 @@ public class ValueTest {
 	}
 
 	@Test
-	public void testByteValue() throws IOException {
+	public void testByteValue() {
 		JsonNode expected = mapper.createObjectNode()
 				.put("eClass", "http://www.emfjson.org/jackson/model#//ETypes")
 				.put("eByte", 101);
@@ -322,7 +322,7 @@ public class ValueTest {
 	}
 
 	@Test
-	public void testBigDecimalValue() throws IOException {
+	public void testBigDecimalValue() {
 		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
 
 		ETypes valueObject = ModelFactory.eINSTANCE.createETypes();

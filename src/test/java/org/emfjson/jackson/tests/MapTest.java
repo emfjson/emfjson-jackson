@@ -52,7 +52,7 @@ public class MapTest {
 		}
 		resource.getContents().add(types);
 
-		assertThat(mapper.valueToTree(resource)).
+		assertThat((JsonNode) mapper.valueToTree(resource)).
 				isEqualTo(expected);
 	}
 
@@ -108,7 +108,7 @@ public class MapTest {
 
 		resource.getContents().add(types);
 
-		assertThat(mapper.valueToTree(resource)).
+		assertThat((JsonNode) mapper.valueToTree(resource)).
 				isEqualTo(expected);
 	}
 
@@ -150,11 +150,11 @@ public class MapTest {
 		resource.getContents().add(p1);
 		resource.getContents().add(t1);
 
-		assertThat(mapper.valueToTree(resource)).isEqualTo(expected);
+		assertThat((JsonNode) mapper.valueToTree(resource)).isEqualTo(expected);
 	}
 
 	@Test
-	public void testLoadMapWithRefs() throws IOException {
+	public void testLoadMapWithRefs() {
 		Resource resource = resourceSet.getResource(URI.createURI("src/test/resources/tests/test-map-with-refs.json"), true);
 
 		assertThat(resource.getContents()).hasSize(3);
@@ -183,7 +183,7 @@ public class MapTest {
 		ETypes types = ModelFactory.eINSTANCE.createETypes();
 		types.getDataTypeMapValues().put("test.json", "hello");
 
-		assertThat(mapper.valueToTree(types))
+		assertThat((JsonNode) mapper.valueToTree(types))
 				.isEqualTo(expected);
 	}
 

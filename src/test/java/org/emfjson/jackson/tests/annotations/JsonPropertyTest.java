@@ -46,7 +46,7 @@ public class JsonPropertyTest {
 		TestB b1 = AnnotationsFactory.eINSTANCE.createTestB();
 		b1.setValue("Hello");
 
-		assertThat(mapper.valueToTree(b1))
+		assertThat((JsonNode) mapper.valueToTree(b1))
 				.isEqualTo(expected);
 	}
 
@@ -72,7 +72,7 @@ public class JsonPropertyTest {
 				.put("eClass", "http://www.emfjson.org/jackson/annotations#//TestB")
 				.put("hello", "Hello");
 
-		assertThat(mapper.valueToTree(b1))
+		assertThat((JsonNode) mapper.valueToTree(b1))
 				.isEqualTo(expected);
 	}
 
