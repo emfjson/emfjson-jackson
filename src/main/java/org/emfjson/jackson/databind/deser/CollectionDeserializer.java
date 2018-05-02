@@ -20,7 +20,9 @@ import org.eclipse.emf.ecore.EReference;
 import org.emfjson.jackson.databind.EMFContext;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class CollectionDeserializer extends JsonDeserializer<Collection<Object>> {
 
@@ -36,7 +38,15 @@ public class CollectionDeserializer extends JsonDeserializer<Collection<Object>>
 
 	@Override
 	public Collection<Object> deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-		throw new UnsupportedOperationException();
+		List<Object> values = new ArrayList<>();
+
+		while (p.nextToken() != JsonToken.END_ARRAY) {
+			EObject result = deserializer.deserialize(p, ctxt);
+			if (result != null) {
+				values.add(result);
+			}
+		}
+		return values;
 	}
 
 	@Override

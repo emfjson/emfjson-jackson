@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DatabindContext;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JavaType;
 import org.eclipse.emf.ecore.*;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.ExtendedMetaData;
 import org.eclipse.emf.ecore.util.FeatureMapUtil;
 import org.emfjson.jackson.annotations.EcoreIdentityInfo;
@@ -15,8 +16,12 @@ import org.emfjson.jackson.databind.type.EcoreTypeFactory;
 import org.emfjson.jackson.module.EMFModule;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
-import static org.emfjson.jackson.annotations.JsonAnnotations.getAliasName;
+import static java.util.Spliterator.ORDERED;
+import static java.util.Spliterators.spliteratorUnknownSize;
+import static java.util.stream.StreamSupport.stream;
+import static org.emfjson.jackson.annotations.JsonAnnotations.getAliases;
 import static org.emfjson.jackson.annotations.JsonAnnotations.getElementName;
 import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_SERIALIZE_TYPE;
 import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_USE_ID;
@@ -43,22 +48,98 @@ public class EObjectPropertyMap {
 			return new Builder(module.getIdentityInfo(), module.getTypeInfo(), module.getReferenceInfo(), features);
 		}
 
+		private void buildCache(DatabindContext ctxt) {
+			ResourceSet resourceSet = EMFContext.getResourceSet(ctxt);
+
+			Set<EClass> types = resourceSet.getPackageRegistry().values().stream()
+					.flatMap(model -> stream(spliteratorUnknownSize(((EPackage) model).eAllContents(), ORDERED), false))
+					.filter(e -> e instanceof EClass)
+					.map(e -> (EClass) e)
+					.collect(Collectors.toSet());
+
+			types.forEach(type -> cache.put(type, construct(ctxt, type)));
+		}
+
 		public EObjectPropertyMap construct(DatabindContext ctxt, EClass type) {
 			if (type == null) {
-				return new EObjectPropertyMap(null, collectProperties(ctxt, null));
+				buildCache(ctxt);
 			}
 
-			EObjectPropertyMap propertyMap = cache.get(type);
+			Map<String, EObjectProperty> propertiesMap = new HashMap<>();
+			Set<EObjectProperty> properties = new HashSet<>();
+			EObjectPropertyMap propertyMap = type == null ? null: cache.get(type);
+
 			if (propertyMap == null) {
-				cache.put(type, propertyMap = new EObjectPropertyMap(type, collectProperties(ctxt, type)));
+				collectProperties(ctxt, type, propertiesMap, properties);
+				propertyMap = new EObjectPropertyMap(type, propertiesMap, properties);
+				if (type != null) {
+					cache.put(type, propertyMap);
+				}
 			}
 			return propertyMap;
+		}
+
+		private void collectProperties(DatabindContext ctxt, EClass type, Map<String, EObjectProperty> propertiesMap, Set<EObjectProperty> properties) {
+			final EcoreTypeFactory factory = EMFContext.getTypeFactory(ctxt);
+			EObjectProperty property;
+
+			if (OPTION_USE_ID.enabledIn(features)) {
+				property = new EObjectIdentityProperty(identityInfo);
+				properties.add(property);
+				propertiesMap.put(identityInfo.getProperty(), property);
+			}
+
+			if (OPTION_SERIALIZE_TYPE.enabledIn(features)) {
+				property = getTypeProperty(type);
+				properties.add(property);
+				propertiesMap.put(property.getFieldName(), property);
+			}
+
+			property = new EObjectReferenceProperty(referenceInfo);
+			properties.add(property);
+			propertiesMap.put(referenceInfo.getProperty(), property);
+
+			if (type != null) {
+				for (EStructuralFeature feature : type.getEAllStructuralFeatures()) {
+					if (isCandidate(feature)) {
+						JavaType javaType = factory.typeOf(ctxt, type, feature);
+
+						if (javaType != null) {
+							property = new EObjectFeatureProperty(feature, javaType, features);
+							properties.add(property);
+							propertiesMap.put(getElementName(feature), property);
+
+							for (String alias : getAliases(feature)) {
+								propertiesMap.put(alias, property);
+							}
+						}
+					}
+				}
+
+				for (EOperation operation : type.getEAllOperations()) {
+					EAnnotation annotation = operation.getEAnnotation("JsonProperty");
+
+					if (annotation != null && operation.getEParameters().isEmpty()) {
+						property = new EObjectOperationProperty(getElementName(operation), operation);
+						properties.add(property);
+						propertiesMap.put(getElementName(operation), property);
+					}
+				}
+			}
 		}
 
 		boolean isFeatureMapEntry(EStructuralFeature feature) {
 			EAnnotation annotation = feature.getEAnnotation(ExtendedMetaData.ANNOTATION_URI);
 
 			return annotation != null && annotation.getDetails().containsKey("group");
+		}
+
+		boolean isCandidate(EStructuralFeature feature) {
+			if (feature instanceof EAttribute) {
+				return isCandidate((EAttribute) feature);
+			} else {
+				return isCandidate((EReference) feature);
+			}
 		}
 
 		boolean isCandidate(EAttribute attribute) {
@@ -83,58 +164,11 @@ public class EObjectPropertyMap {
 			return !(opposite != null && opposite.isContainment());
 		}
 
-		Map<String, EObjectProperty> collectProperties(DatabindContext ctxt, EClass type) {
-			final EcoreTypeFactory factory = EMFContext.getTypeFactory(ctxt);
-			final Map<String, EObjectProperty> properties = new LinkedHashMap<>();
-
-			if (OPTION_USE_ID.enabledIn(features)) {
-				properties.put(identityInfo.getProperty(), new EObjectIdentityProperty(identityInfo));
-			}
-
-			if (OPTION_SERIALIZE_TYPE.enabledIn(features)) {
-				EObjectProperty property = getTypeProperty(type);
-				properties.put(property.getFieldName(), property);
-			}
-
-			properties.put(referenceInfo.getProperty(), new EObjectReferenceProperty(referenceInfo));
-
-			if (type != null) {
-				for (EStructuralFeature feature: type.getEAllStructuralFeatures()) {
-					final boolean isCandidate;
-					if (feature instanceof EAttribute) {
-						isCandidate = isCandidate((EAttribute) feature);
-					} else {
-						isCandidate = isCandidate((EReference) feature);
-					}
-					if (isCandidate) {
-						JavaType javaType = factory.typeOf(ctxt, type, feature);
-						if (javaType != null) {
-							final EObjectFeatureProperty featureProperty = new EObjectFeatureProperty(feature, javaType, features);
-							properties.put(getElementName(feature), featureProperty);
-							final String aliasName = getAliasName(feature);
-							if (aliasName != null) {
-								properties.put(aliasName, featureProperty);
-							}
-						}
-					}
-				}
-
-				for (EOperation operation : type.getEAllOperations()) {
-					EAnnotation annotation = operation.getEAnnotation("JsonProperty");
-					if (annotation != null && operation.getEParameters().isEmpty()) {
-						properties.put(getElementName(operation), new EObjectOperationProperty(getElementName(operation), operation));
-					}
-				}
-			}
-
-			return properties;
-		}
-
 		private EObjectProperty getTypeProperty(EClass type) {
 			if (type != null && !JsonAnnotations.shouldIgnoreType(type)) {
-				String property = JsonAnnotations.getTypeProperty(type);
-				if (property != null) {
-					return new EObjectTypeProperty(new EcoreTypeInfo(property));
+				EcoreTypeInfo currentTypeInfo = JsonAnnotations.getTypeProperty(type);
+				if (currentTypeInfo != null) {
+					return new EObjectTypeProperty(currentTypeInfo);
 				} else {
 					return new EObjectTypeProperty(typeInfo);
 				}
@@ -168,29 +202,35 @@ public class EObjectPropertyMap {
 
 	}
 
-	private final Map<String, EObjectProperty> properties;
+	private final Map<String, EObjectProperty> propertiesMap;
+	private final Set<EObjectProperty> properties;
 	private final EClass type;
 
-	EObjectPropertyMap(EClass type, Map<String, EObjectProperty> properties) {
+	private EObjectTypeProperty typeProperty;
+
+	EObjectPropertyMap(EClass type, Map<String, EObjectProperty> propertiesMap, Set<EObjectProperty> properties) {
 		this.type = type;
+		this.propertiesMap = propertiesMap;
 		this.properties = properties;
 	}
 
 	public EObjectProperty findProperty(String field) {
-		return properties.get(field);
+		return propertiesMap.get(field);
 	}
 
 	public Iterable<EObjectProperty> getProperties() {
-		return properties.values();
+		return properties;
 	}
 
 	public EObjectTypeProperty getTypeProperty() {
-		for (EObjectProperty property : properties.values()) {
-			if (property instanceof EObjectTypeProperty) {
-				return (EObjectTypeProperty) property;
+		if (typeProperty == null) {
+			for (EObjectProperty property : properties) {
+				if (property instanceof EObjectTypeProperty) {
+					typeProperty = (EObjectTypeProperty) property;
+				}
 			}
 		}
-		return null;
+		return typeProperty;
 	}
 
 	@Override

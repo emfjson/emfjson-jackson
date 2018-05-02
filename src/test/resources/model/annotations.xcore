@@ -4,7 +4,7 @@
     updateClasspath="false",
     bundleManifest="false",
     rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl",
-    complianceLevel="7.0"
+    complianceLevel="8.0"
 )
 package org.emfjson.jackson.junit.annotations
 
@@ -64,4 +64,39 @@ class TestF {
 
 	@JsonAlias(value = "foo, bar")
 	String otherValue
+}
+
+class Container {
+	contains TestTypeName[] typedByNames
+	contains TestTypeClass[] typedByClasses
+}
+
+@JsonType(
+	property = "@type",
+	use = "NAME"
+)
+class TestTypeName {
+	String value
+}
+
+class FooTypeName extends TestTypeName {
+}
+
+class BarTypeName extends TestTypeName {
+}
+
+@JsonType(
+	property = "_type",
+	use = "CLASS"
+)
+class TestTypeClass {
+	String value
+}
+
+class FooTypeClass extends TestTypeClass {
+
+}
+
+class BarTypeClass extends TestTypeClass {
+
 }

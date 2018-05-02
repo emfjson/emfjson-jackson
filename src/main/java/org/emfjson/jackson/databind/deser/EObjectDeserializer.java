@@ -38,9 +38,16 @@ import static org.emfjson.jackson.databind.EMFContext.getResource;
 public class EObjectDeserializer extends JsonDeserializer<EObject> {
 
 	private final EObjectPropertyMap.Builder builder;
+	private final Class<?> currentType;
 
 	public EObjectDeserializer(EObjectPropertyMap.Builder builder) {
 		this.builder = builder;
+		this.currentType = null;
+	}
+
+	public EObjectDeserializer(EObjectPropertyMap.Builder builder, Class<?> currentType) {
+		this.builder = builder;
+		this.currentType = currentType;
 	}
 
 	@Override
@@ -185,18 +192,22 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 	}
 
 	private EClass getDefaultType(DeserializationContext ctxt) {
-		final EObject parent = EMFContext.getParent(ctxt);
+		EClass type = null;
+
+		EObject parent = EMFContext.getParent(ctxt);
 		if (parent == null) {
-			EClass root = EMFContext.getRoot(ctxt);
-			if (root != null) {
-				return root;
+			if (currentType != null && currentType != EObject.class) {
+				type = EMFContext.findEClassByQualifiedName(ctxt, currentType.getCanonicalName());
+			}
+			if (type == null) {
+				type = EMFContext.getRoot(ctxt);
 			}
 		} else {
-			final EReference reference = (EReference) getFeature(ctxt);
+			EReference reference = (EReference) getFeature(ctxt);
 			if (reference != null && !reference.getEReferenceType().isAbstract()) {
-				return reference.getEReferenceType();
+				type = reference.getEReferenceType();
 			}
 		}
-		return null;
+		return type;
 	}
 }

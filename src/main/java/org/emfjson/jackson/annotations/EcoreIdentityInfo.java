@@ -11,8 +11,6 @@
  */
 package org.emfjson.jackson.annotations;
 
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emfjson.jackson.databind.EMFContext;
@@ -23,26 +21,16 @@ import org.emfjson.jackson.utils.ValueWriter;
 public class EcoreIdentityInfo {
 
 	public static final String PROPERTY = "@id";
-
-	private static final ValueReader<Object, String> defaultValueReader = new ValueReader<Object, String>() {
-		@Override
-		public String readValue(Object value, DeserializationContext context) {
-			return value.toString();
+	private static final ValueReader<Object, String> defaultValueReader = (value, context) -> value.toString();
+	private static final ValueWriter<EObject, Object> defaultValueWriter = (object, context) -> {
+		Resource resource = EMFContext.getResource(context, object);
+		Object id;
+		if (resource instanceof JsonResource) {
+			id = ((JsonResource) resource).getID(object);
+		} else {
+			id = EMFContext.getURI(context, object).fragment();
 		}
-	};
-
-	private static final ValueWriter<EObject, Object> defaultValueWriter = new ValueWriter<EObject, Object>() {
-		@Override
-		public Object writeValue(EObject object, SerializerProvider context) {
-			Resource resource = EMFContext.getResource(context, object);
-			Object id;
-			if (resource instanceof JsonResource) {
-				id = ((JsonResource) resource).getID(object);
-			} else {
-				id = EMFContext.getURI(context, object).fragment();
-			}
-			return id;
-		}
+		return id;
 	};
 
 	private final String property;

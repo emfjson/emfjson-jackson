@@ -25,6 +25,12 @@ import org.emfjson.jackson.databind.type.EcoreTypeFactory;
 import org.emfjson.jackson.handlers.URIHandler;
 
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+import static java.util.Spliterator.ORDERED;
+import static java.util.Spliterators.spliteratorUnknownSize;
+import static java.util.stream.StreamSupport.stream;
 
 public class EMFContext {
 
@@ -46,7 +52,8 @@ public class EMFContext {
 		CURRENT_PARENT,
 		MAP_OF_OBJECTS,
 		MAP_OF_URIS,
-		MAP_OF_RESOURCES
+		MAP_OF_RESOURCES,
+		ALL_TYPES
 	}
 
 	public static void init(Resource resource, DatabindContext context) {
@@ -141,6 +148,72 @@ public class EMFContext {
 			return (EClass) object;
 		}
 		return null;
+	}
+
+	public static EClass findEClassByName(DatabindContext ctxt, String name) {
+		@SuppressWarnings("unchecked")
+		Set<EClass> types = (Set<EClass>) ctxt.getAttribute(Internals.ALL_TYPES);
+		if (types == null) {
+			types = initAllTypes(ctxt);
+		}
+
+		return types.stream().filter(findByName(name)).findFirst().orElse(null);
+	}
+
+	public static EClass findEClassByQualifiedName(DatabindContext ctxt, String name) {
+		@SuppressWarnings("unchecked")
+		Set<EClass> types = (Set<EClass>) ctxt.getAttribute(Internals.ALL_TYPES);
+		if (types == null) {
+			types = initAllTypes(ctxt);
+		}
+
+		return types.stream().filter(findByQualifiedName(name)).findFirst().orElse(null);
+	}
+
+	private static Set<EClass> initAllTypes(DatabindContext ctxt) {
+		EPackage.Registry global = EPackage.Registry.INSTANCE;
+
+		ResourceSet resourceSet = getResourceSet(ctxt);
+		EPackage.Registry local = resourceSet.getPackageRegistry();
+
+		Map<String, Object> registry = new HashMap<>();
+		registry.putAll(global);
+		registry.putAll(local);
+
+		Set<EClass> types = registry.values().stream()
+				.flatMap(e -> stream(spliteratorUnknownSize(((EPackage) e).eAllContents(), ORDERED), false))
+				.filter(e -> e instanceof EClass)
+				.map(e -> (EClass) e)
+				.collect(Collectors.toSet());
+
+		ctxt.setAttribute(Internals.ALL_TYPES, types);
+
+		return types;
+	}
+
+	public static EClass findEClassByName(String value, EPackage ePackage) {
+		return iterateAndFind(Collections.singleton(ePackage), findByName(value));
+	}
+
+	public static EClass findEClassByQualifiedName(String value, EPackage ePackage) {
+		return iterateAndFind(Collections.singleton(ePackage), findByQualifiedName(value));
+	}
+
+	private static Predicate<EObject> findByName(String value) {
+		return e -> value != null && e instanceof EClass && value.equals(((EClass) e).getName());
+	}
+
+	private static Predicate<EObject> findByQualifiedName(String value) {
+		return e -> value != null && e instanceof EClass && value.equals(((EClass) e).getInstanceClassName());
+	}
+
+	private static EClass iterateAndFind(Collection<Object> packages, Predicate<EObject> predicate) {
+		return (EClass) packages.stream()
+				.flatMap(e -> stream(spliteratorUnknownSize(((EPackage) e).eAllContents(), ORDERED), false))
+				.filter(e -> e instanceof EClass)
+				.filter(predicate)
+				.findFirst()
+				.orElse(null);
 	}
 
 	public static Resource getResource(DatabindContext ctxt, EObject object) {
@@ -267,10 +340,6 @@ public class EMFContext {
 		}
 		return factory;
 	}
-
-
-
-
 
 
 	public static List<EClass> allSubTypes(DeserializationContext ctxt, EClass eClass) {

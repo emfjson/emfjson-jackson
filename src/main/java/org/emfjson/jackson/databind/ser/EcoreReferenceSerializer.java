@@ -44,7 +44,7 @@ public class EcoreReferenceSerializer extends JsonSerializer<EObject> {
 		final String href = getHRef(serializers, parent, value);
 
 		jg.writeStartObject();
-		jg.writeStringField(typeInfo.getProperty(), EMFContext.getURI(serializers, value.eClass()).toString());
+		jg.writeStringField(typeInfo.getProperty(), typeInfo.getValueWriter().writeValue(value.eClass(), serializers));
 		if (href == null) {
 			jg.writeNullField(info.getProperty());
 		} else {

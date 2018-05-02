@@ -1,5 +1,7 @@
 package org.emfjson.jackson.tests.annotations;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -10,6 +12,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emfjson.jackson.junit.annotations.*;
+import org.emfjson.jackson.junit.annotations.impl.*;
 import org.emfjson.jackson.module.EMFModule;
 import org.emfjson.jackson.resource.JsonResourceFactory;
 import org.junit.After;
@@ -17,6 +20,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.emfjson.jackson.databind.EMFContext.Attributes.RESOURCE_SET;
@@ -236,5 +240,116 @@ public class JsonTypeInfoTest {
 		assertThat(c1.getManyValues()).hasAtLeastOneElementOfType(TestC.class);
 		assertThat(c1.getManyValues()).hasAtLeastOneElementOfType(TestD.class);
 		assertThat(c1.getManyValues()).hasAtLeastOneElementOfType(TestE.class);
+	}
+
+	@Test
+	public void testReadClassByName() throws JsonProcessingException {
+		JsonNode data = mapper.createObjectNode()
+				.put("@type", TEST_TYPE_NAME.getName())
+				.put("value", "foo");
+
+		TestTypeName value = mapper
+				.reader()
+				.withAttribute(ROOT_ELEMENT, TEST_TYPE_NAME)
+				.treeToValue(data, TestTypeName.class);
+
+		assertThat(value).isNotNull();
+		assertThat(value.getValue()).isEqualTo("foo");
+	}
+
+	@Test
+	public void testReadClassByNameAgain() throws JsonProcessingException {
+		JsonNode data = mapper.createObjectNode()
+				.put("eClass", uriOf(CONTAINER))
+				.set("typedByNames", mapper.createArrayNode()
+						.add(mapper.createObjectNode()
+								.put("@type", FOO_TYPE_NAME.getName())
+								.put("value", "foo")
+						)
+						.add(mapper.createObjectNode()
+								.put("@type", BAR_TYPE_NAME.getName())
+								.put("value", "bar")
+						)
+						.add(mapper.createObjectNode()
+								.put("@type", TEST_TYPE_NAME.getName())
+								.put("value", "bar")
+						));
+
+		Resource value = mapper
+				.reader()
+				.withAttribute(RESOURCE_SET, resourceSet)
+				.treeToValue(data, Resource.class);
+
+		assertThat(value).isNotNull();
+		Container container = (Container) value.getContents().get(0);
+
+		assertThat(container.getTypedByNames()).hasSize(3);
+		assertThat(container.getTypedByNames().get(0))
+				.isExactlyInstanceOf(FooTypeNameImpl.class);
+		assertThat(container.getTypedByNames().get(1))
+				.isExactlyInstanceOf(BarTypeNameImpl.class);
+		assertThat(container.getTypedByNames().get(2))
+				.isExactlyInstanceOf(TestTypeNameImpl.class);
+	}
+
+	@Test
+	public void testReadClassByQualifiedClassName() throws JsonProcessingException {
+		JsonNode data = mapper.createObjectNode()
+				.put("eClass", uriOf(CONTAINER))
+				.set("typedByClasses", mapper.createArrayNode()
+						.add(mapper.createObjectNode()
+								.put("_type", FOO_TYPE_CLASS.getInstanceClassName())
+								.put("value", "foo")
+						)
+						.add(mapper.createObjectNode()
+								.put("_type", BAR_TYPE_CLASS.getInstanceClassName())
+								.put("value", "bar")
+						)
+						.add(mapper.createObjectNode()
+								.put("_type", TEST_TYPE_CLASS.getInstanceClassName())
+								.put("value", "bar")
+						));
+
+		Resource value = mapper
+				.reader()
+				.withAttribute(RESOURCE_SET, resourceSet)
+				.treeToValue(data, Resource.class);
+
+		assertThat(value).isNotNull();
+		Container container = (Container) value.getContents().get(0);
+
+		assertThat(container.getTypedByClasses()).hasSize(3);
+		assertThat(container.getTypedByClasses().get(0))
+				.isExactlyInstanceOf(FooTypeClassImpl.class);
+		assertThat(container.getTypedByClasses().get(1))
+				.isExactlyInstanceOf(BarTypeClassImpl.class);
+		assertThat(container.getTypedByClasses().get(2))
+				.isExactlyInstanceOf(TestTypeClassImpl.class);
+	}
+
+	@Test
+	public void testLoadFromType() throws IOException {
+		JsonNode data = mapper.createObjectNode()
+				.put("@type", TEST_TYPE_NAME.getName())
+				.put("value", "bar");
+
+		TestTypeName value = mapper.readValue(data.toString(), TestTypeName.class);
+
+		assertThat(value).isNotNull();
+	}
+
+	@Test
+	public void testLoadFromListType() throws IOException {
+		JsonNode data = mapper.createArrayNode().add(
+				mapper.createObjectNode()
+						.put("@type", TEST_TYPE_NAME.getName())
+						.put("value", "foo"))
+				.add(mapper.createObjectNode()
+						.put("@type", TEST_TYPE_NAME.getName())
+						.put("value", "bar"));
+
+		List<TestTypeName> values = mapper.readValue(data.toString(), new TypeReference<List<TestTypeName>>() {
+		});
+		assertThat(values).isNotEmpty();
 	}
 }

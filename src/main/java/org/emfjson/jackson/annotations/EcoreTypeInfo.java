@@ -11,30 +11,38 @@
  */
 package org.emfjson.jackson.annotations;
 
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import org.eclipse.emf.ecore.EClass;
 import org.emfjson.jackson.databind.EMFContext;
 import org.emfjson.jackson.utils.ValueReader;
 import org.emfjson.jackson.utils.ValueWriter;
 
+import static org.emfjson.jackson.databind.EMFContext.findEClass;
+import static org.emfjson.jackson.databind.EMFContext.getURI;
+
 public class EcoreTypeInfo {
+
+	public enum USE {
+		URI,
+		NAME,
+		CLASS
+	}
 
 	public static final String PROPERTY = "eClass";
 
-	public static final ValueReader<String, EClass> defaultValueReader = new ValueReader<String, EClass>() {
-		@Override
-		public EClass readValue(String value, DeserializationContext context) {
-			return EMFContext.findEClass(context, value);
-		}
-	};
+	public static final ValueReader<String, EClass> defaultValueReader = (value, context) ->
+			findEClass(context, value);
+	public static final ValueWriter<EClass, String> defaultValueWriter = (value, context) ->
+			getURI(context, value).toString();
 
-	public static final ValueWriter<EClass, String> defaultValueWriter = new ValueWriter<EClass, String>() {
-		@Override
-		public String writeValue(EClass value, SerializerProvider context) {
-			return EMFContext.getURI(context, value).toString();
-		}
-	};
+	public static final ValueReader<String, EClass> readByName = (value, context) ->
+			EMFContext.findEClassByName(context, value);
+	public static final ValueWriter<EClass, String> writeByName = (value, context) ->
+			value != null ? value.getName() : null;
+
+	public static final ValueReader<String, EClass> readByClassName = (value, context) ->
+			EMFContext.findEClassByQualifiedName(context, value);
+	public static final ValueWriter<EClass, String> writeByClassName = (value, context) ->
+			value != null ? value.getInstanceClassName() : null;
 
 	private final String property;
 	private final ValueReader<String, EClass> valueReader;
@@ -72,5 +80,16 @@ public class EcoreTypeInfo {
 
 	public ValueWriter<EClass, String> getValueWriter() {
 		return valueWriter;
+	}
+
+	public static EcoreTypeInfo create(String property, USE use) {
+		switch (use) {
+			case NAME:
+				return new EcoreTypeInfo(property, readByName, writeByName);
+			case CLASS:
+				return new EcoreTypeInfo(property, readByClassName, writeByClassName);
+			default:
+				return new EcoreTypeInfo(property, defaultValueReader, defaultValueWriter);
+		}
 	}
 }

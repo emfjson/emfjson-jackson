@@ -33,21 +33,18 @@ public class EMFDeserializers extends Deserializers.Base {
 	private final JsonDeserializer<EList<Map.Entry<?, ?>>> _mapDeserializer;
 	private final JsonDeserializer<Object> _dataTypeDeserializer;
 	private final JsonDeserializer<ReferenceEntry> _referenceDeserializer;
-	private final JsonDeserializer<EObject> _objectDeserializer;
-	private final CollectionDeserializer _collectionDeserializer;
+	private final EObjectPropertyMap.Builder builder;
 
 	public EMFDeserializers(EMFModule module) {
-		EObjectPropertyMap.Builder builder = new EObjectPropertyMap.Builder(
+		this.builder = new EObjectPropertyMap.Builder(
 				module.getIdentityInfo(),
 				module.getTypeInfo(),
 				module.getReferenceInfo(),
 				module.getFeatures());
-		this._objectDeserializer = new EObjectDeserializer(builder);
 		this._resourceDeserializer = new ResourceDeserializer(module.getUriHandler());
 		this._referenceDeserializer = module.getReferenceDeserializer();
 		this._mapDeserializer = new EMapDeserializer();
 		this._dataTypeDeserializer = new EDataTypeDeserializer();
-		this._collectionDeserializer = new CollectionDeserializer(_objectDeserializer, _referenceDeserializer);
 	}
 
 	@Override
@@ -71,7 +68,7 @@ public class EMFDeserializers extends Deserializers.Base {
 	@Override
 	public JsonDeserializer<?> findCollectionDeserializer(CollectionType type, DeserializationConfig config, BeanDescription beanDesc, TypeDeserializer elementTypeDeserializer, JsonDeserializer<?> elementDeserializer) throws JsonMappingException {
 		if (type.getContentType().isTypeOrSubTypeOf(EObject.class)) {
-			return _collectionDeserializer;
+			return new CollectionDeserializer(new EObjectDeserializer(builder, type.getContentType().getRawClass()), _referenceDeserializer);
 		}
 		return super.findCollectionDeserializer(type, config, beanDesc, elementTypeDeserializer, elementDeserializer);
 	}
@@ -91,7 +88,7 @@ public class EMFDeserializers extends Deserializers.Base {
 		}
 
 		if (type.isTypeOrSubTypeOf(EObject.class)) {
-			return _objectDeserializer;
+			return new EObjectDeserializer(builder, type.getRawClass());
 		}
 
 		return super.findBeanDeserializer(type, config, beanDesc);

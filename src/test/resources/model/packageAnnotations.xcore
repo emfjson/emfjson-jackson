@@ -1,0 +1,29 @@
+@Ecore(nsURI="http://www.emfjson.org/jackson/annotations")
+@GenModel(
+    modelDirectory="emfjson-jackson/src/test/java-gen",
+    updateClasspath="false",
+    bundleManifest="false",
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl",
+    complianceLevel="8.0"
+)
+@JsonType(
+	property = "@type",
+	use = "NAME"
+)
+package org.emfjson.jackson.junit.packageAnnotations
+
+annotation "JsonType" as JsonType
+
+class Container {
+	contains TestTypeName[] values
+}
+
+class TestTypeName {
+	String value
+}
+
+class FooTypeName extends TestTypeName {
+}
+
+class BarTypeName extends TestTypeName {
+}

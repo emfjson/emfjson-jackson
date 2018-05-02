@@ -11,10 +11,17 @@
  */
 package org.emfjson.jackson.annotations;
 
-import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.ENamedElement;
-import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.*;
+import org.emfjson.jackson.databind.EMFContext;
+import org.emfjson.jackson.utils.ValueReader;
+import org.emfjson.jackson.utils.ValueWriter;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import static org.emfjson.jackson.annotations.EcoreTypeInfo.USE.CLASS;
+import static org.emfjson.jackson.annotations.EcoreTypeInfo.USE.NAME;
 
 public class JsonAnnotations {
 
@@ -56,8 +63,41 @@ public class JsonAnnotations {
 	 * @param classifier
 	 * @return the type information property
 	 */
-	public static String getTypeProperty(EClassifier classifier) {
-		return getValue(classifier, "JsonType", "property");
+	public static EcoreTypeInfo getTypeProperty(final EClassifier classifier) {
+		String property = getValue(classifier, "JsonType", "property");
+		String use = getValue(classifier, "JsonType", "use");
+
+		ValueReader<String, EClass> valueReader = EcoreTypeInfo.defaultValueReader;
+		ValueWriter<EClass, String> valueWriter = EcoreTypeInfo.defaultValueWriter;
+
+		if (use != null) {
+			EcoreTypeInfo.USE useType = EcoreTypeInfo.USE.valueOf(use.toUpperCase());
+
+			if (useType == NAME) {
+				valueReader = (value, context) -> {
+					EClass type = value != null && value.equalsIgnoreCase(classifier.getName()) ? (EClass) classifier: null;
+					if (type == null) {
+						type = EMFContext.findEClassByName(value, classifier.getEPackage());
+					}
+					return type;
+				};
+				valueWriter = (value, context) -> value.getName();
+			} else if (useType == CLASS) {
+				valueReader = (value, context) -> {
+					EClass type = value != null && value.equalsIgnoreCase(classifier.getInstanceClassName()) ? (EClass) classifier: null;
+					if (type == null) {
+						type = EMFContext.findEClassByQualifiedName(value, classifier.getEPackage());
+					}
+					return type;
+				};
+				valueWriter = (value, context) -> value.getInstanceClassName();
+			} else {
+				valueReader = EcoreTypeInfo.defaultValueReader;
+				valueWriter = EcoreTypeInfo.defaultValueWriter;
+			}
+		}
+
+		return property != null ? new EcoreTypeInfo(property, valueReader, valueWriter): null;
 	}
 
 	/**
