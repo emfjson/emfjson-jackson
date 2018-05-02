@@ -15,10 +15,14 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emfjson.jackson.databind.EMFContext;
 
 import java.io.IOException;
+
+import static org.eclipse.emf.ecore.EcorePackage.Literals.EJAVA_CLASS;
+import static org.eclipse.emf.ecore.EcorePackage.Literals.EJAVA_OBJECT;
 
 public class EDataTypeDeserializer extends JsonDeserializer<Object> {
 
@@ -29,7 +33,13 @@ public class EDataTypeDeserializer extends JsonDeserializer<Object> {
 		if (dataType == null) {
 			return null;
 		} else {
-			return EcoreUtil.createFromString(dataType, jp.getText());
+			Class<?> type = dataType.getInstanceClass();
+
+			if (type == null || dataType instanceof EEnum || EJAVA_CLASS.equals(dataType) || EJAVA_OBJECT.equals(dataType)) {
+				return EcoreUtil.createFromString(dataType, jp.getText());
+			} else {
+				return ctxt.readValue(jp, type);
+			}
 		}
 	}
 

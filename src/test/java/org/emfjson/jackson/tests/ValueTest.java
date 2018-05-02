@@ -353,4 +353,46 @@ public class ValueTest {
 		assertEquals(new BigDecimal(1.5), value);
 	}
 
+	@Test
+	public void testLoadObjectArrayValue() throws IOException {
+		String data = "{\n" +
+				"  \"eClass\": \"http://www.emfjson.org/jackson/model#//ETypes\",\n" +
+				"  \"objectArrayType\": [ \n" +
+				"    [201707250000, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 2, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], \n" +
+				"    [201707250100, 1, 0, 0, 74, 0, 13, 0, 0, 0, 2, 0, 116, 88, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], \n" +
+				"    [201707260000] ]\n" +
+				"}";
+
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+		resource.load(new ByteArrayInputStream(data.getBytes()), null);
+
+		ETypes object = (ETypes) resource.getContents().get(0);
+		assertThat(object.getObjectArrayType()).hasSize(3);
+	}
+
+	@Test
+	public void testLoadObjectTypeValue() throws IOException {
+		String data = "{\n" +
+				"  \"eClass\": \"http://www.emfjson.org/jackson/model#//ETypes\",\n" +
+				"  \"objectType\": 1" +
+				"}";
+
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+		resource.load(new ByteArrayInputStream(data.getBytes()), null);
+
+		ETypes object = (ETypes) resource.getContents().get(0);
+		assertThat(object.getObjectType()).isEqualTo(1);
+	}
+
+	@Test
+	public void testSaveObjectTypeValue() {
+		Resource resource = resourceSet.createResource(URI.createURI("tests/test.json"));
+		ETypes object = ModelFactory.eINSTANCE.createETypes();
+		object.setObjectType(1);
+		resource.getContents().add(object);
+
+		JsonNode result = mapper.valueToTree(resource);
+
+		assertThat(result.get("objectType").isNumber()).isTrue();
+	}
 }

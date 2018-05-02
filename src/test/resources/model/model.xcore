@@ -4,7 +4,7 @@
     updateClasspath="false",
     bundleManifest="false",
     rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl",
-    complianceLevel="7.0"
+    complianceLevel="8.0"
 )
 package org.emfjson.jackson.junit.model
 
@@ -53,6 +53,10 @@ class ETypes {
 	float eFloat
 	long eLong
 	short eShort
+	ObjectType objectType
+	ObjectType[] objectTypeMany
+	ObjectArrayType objectArrayType
+	ObjectArrayType[] objectArrayTypeMany
 	contains TMap[*] values
 	contains TMapRef[*] valuesWithRef
 	contains StringMap[*] stringMapValues
@@ -90,6 +94,8 @@ class DataTypeMap wraps Map.Entry {
 
 type URI wraps org.eclipse.emf.common.util.URI
 type UserType wraps String
+type ObjectType wraps Object
+type ObjectArrayType wraps Object[]
 
 class PrimaryObject {
 	String name

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.ser.impl.UnknownSerializer;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -102,7 +103,15 @@ public class EObjectFeatureProperty extends EObjectProperty {
 			Object value = bean.eGet(feature, false);
 
 			jg.writeFieldName(getFieldName());
-			serializer.serialize(value, jg, provider);
+
+			if (serializer instanceof UnknownSerializer) {
+				JsonSerializer<Object> other = provider.findValueSerializer(value.getClass());
+				if (other != null) {
+					other.serialize(value, jg, provider);
+				}
+			} else {
+				serializer.serialize(value, jg, provider);
+			}
 		} else if (defaultValues) {
 			Object value = feature.getDefaultValue();
 
