@@ -55,8 +55,8 @@ You can download the jars from [Maven Central](http://search.maven.org/#search|g
 
 ## Dependencies
 
-* Java 7
-* EMF 2.10.0 or later
+* Java 8
+* EMF 2.11.0 or later
 * Jackson 2.6.5 or later
 
 ## License
