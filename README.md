@@ -72,7 +72,7 @@ is generated when the sources are first build locally, see next section for deta
 
 ## Building from sources
 
-If you want to build from sources, you will need the Java 7 runtime installed on your system as well as Maven 3.
+If you want to build from sources, you will need the Java 8 runtime installed on your system as well as Maven 3.
 First start by cloning this repository.
 
 ```
