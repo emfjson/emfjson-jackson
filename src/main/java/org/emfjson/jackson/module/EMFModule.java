@@ -11,6 +11,7 @@
  */
 package org.emfjson.jackson.module;
 
+import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -144,7 +145,18 @@ public class EMFModule extends SimpleModule {
 	 * @return mapper
 	 */
 	public static ObjectMapper setupDefaultMapper() {
-		final ObjectMapper mapper = new ObjectMapper();
+		return setupDefaultMapper(null);
+	}
+
+	/**
+	 * Returns a pre configured mapper using the EMF module and the specified jackson factory.
+	 * This method can be used to work with formats others than JSON (such as YAML).
+	 *
+	 * @param factory
+	 * @return mapper
+	 */
+	public static ObjectMapper setupDefaultMapper(JsonFactory factory) {
+		final ObjectMapper mapper = new ObjectMapper(factory);
 		// same as emf
 		final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH);
 		dateFormat.setTimeZone(TimeZone.getDefault());
