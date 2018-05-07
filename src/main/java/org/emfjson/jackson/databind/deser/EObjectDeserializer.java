@@ -40,11 +40,6 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 	private final EObjectPropertyMap.Builder builder;
 	private final Class<?> currentType;
 
-	public EObjectDeserializer(EObjectPropertyMap.Builder builder) {
-		this.builder = builder;
-		this.currentType = null;
-	}
-
 	public EObjectDeserializer(EObjectPropertyMap.Builder builder, Class<?> currentType) {
 		this.builder = builder;
 		this.currentType = currentType;

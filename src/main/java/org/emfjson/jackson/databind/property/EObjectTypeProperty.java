@@ -18,6 +18,8 @@ import org.emfjson.jackson.utils.ValueWriter;
 
 import java.io.IOException;
 
+import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_SERIALIZE_TYPE;
+
 public class EObjectTypeProperty extends EObjectProperty {
 
 	private final JsonSerializer<Object> serializer = new StringSerializer();
@@ -25,16 +27,22 @@ public class EObjectTypeProperty extends EObjectProperty {
 
 	private final ValueReader<String, EClass> valueReader;
 	private final ValueWriter<EClass, String> valueWriter;
+	private final int features;
 
-	public EObjectTypeProperty(EcoreTypeInfo info) {
+	public EObjectTypeProperty(EcoreTypeInfo info, int features) {
 		super(info.getProperty());
 
 		this.valueReader = info.getValueReader();
 		this.valueWriter = info.getValueWriter();
+		this.features = features;
 	}
 
 	@Override
 	public void serialize(EObject bean, JsonGenerator jg, SerializerProvider provider) throws IOException {
+		if (!OPTION_SERIALIZE_TYPE.enabledIn(features)) {
+			return;
+		}
+
 		EClass objectType = bean.eClass();
 		EReference containment = bean.eContainmentFeature();
 

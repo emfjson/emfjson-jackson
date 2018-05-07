@@ -16,6 +16,7 @@ import org.emfjson.jackson.databind.type.EcoreTypeFactory;
 import org.emfjson.jackson.module.EMFModule;
 
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import static java.util.Spliterator.ORDERED;
@@ -23,7 +24,6 @@ import static java.util.Spliterators.spliteratorUnknownSize;
 import static java.util.stream.StreamSupport.stream;
 import static org.emfjson.jackson.annotations.JsonAnnotations.getAliases;
 import static org.emfjson.jackson.annotations.JsonAnnotations.getElementName;
-import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_SERIALIZE_TYPE;
 import static org.emfjson.jackson.module.EMFModule.Feature.OPTION_USE_ID;
 
 public class EObjectPropertyMap {
@@ -48,6 +48,22 @@ public class EObjectPropertyMap {
 			return new Builder(module.getIdentityInfo(), module.getTypeInfo(), module.getReferenceInfo(), features);
 		}
 
+		public EObjectPropertyMap construct(DatabindContext ctxt, EClass type) {
+			if (type == null) {
+				buildCache(ctxt);
+			}
+
+			EObjectPropertyMap propertyMap = type == null ? null: cache.get(type);
+
+			if (propertyMap == null) {
+				propertyMap = createPropertyMap(ctxt, type);
+				if (type != null) {
+					cache.put(type, propertyMap);
+				}
+			}
+			return propertyMap;
+		}
+
 		private void buildCache(DatabindContext ctxt) {
 			ResourceSet resourceSet = EMFContext.getResourceSet(ctxt);
 
@@ -60,72 +76,56 @@ public class EObjectPropertyMap {
 			types.forEach(type -> cache.put(type, construct(ctxt, type)));
 		}
 
-		public EObjectPropertyMap construct(DatabindContext ctxt, EClass type) {
-			if (type == null) {
-				buildCache(ctxt);
-			}
+		private EObjectPropertyMap createPropertyMap(DatabindContext ctxt, EClass type) {
+			EcoreTypeFactory factory = EMFContext.getTypeFactory(ctxt);
+			HashMap<String, EObjectProperty> propertiesMap = new HashMap<>();
+			Set<EObjectProperty> properties = new LinkedHashSet<>();
 
-			Map<String, EObjectProperty> propertiesMap = new HashMap<>();
-			Set<EObjectProperty> properties = new HashSet<>();
-			EObjectPropertyMap propertyMap = type == null ? null: cache.get(type);
+			Consumer<EObjectProperty> add = p -> {
+				properties.add(p);
+				propertiesMap.put(p.getFieldName(), p);
+			};
 
-			if (propertyMap == null) {
-				collectProperties(ctxt, type, propertiesMap, properties);
-				propertyMap = new EObjectPropertyMap(type, propertiesMap, properties);
-				if (type != null) {
-					cache.put(type, propertyMap);
-				}
-			}
-			return propertyMap;
-		}
-
-		private void collectProperties(DatabindContext ctxt, EClass type, Map<String, EObjectProperty> propertiesMap, Set<EObjectProperty> properties) {
-			final EcoreTypeFactory factory = EMFContext.getTypeFactory(ctxt);
-			EObjectProperty property;
+			add.accept(new EObjectReferenceProperty(referenceInfo));
+			add.accept(getTypeProperty(type, features));
 
 			if (OPTION_USE_ID.enabledIn(features)) {
-				property = new EObjectIdentityProperty(identityInfo);
-				properties.add(property);
-				propertiesMap.put(identityInfo.getProperty(), property);
+				add.accept(new EObjectIdentityProperty(identityInfo));
 			}
-
-			if (OPTION_SERIALIZE_TYPE.enabledIn(features)) {
-				property = getTypeProperty(type);
-				properties.add(property);
-				propertiesMap.put(property.getFieldName(), property);
-			}
-
-			property = new EObjectReferenceProperty(referenceInfo);
-			properties.add(property);
-			propertiesMap.put(referenceInfo.getProperty(), property);
 
 			if (type != null) {
 				for (EStructuralFeature feature : type.getEAllStructuralFeatures()) {
-					if (isCandidate(feature)) {
-						JavaType javaType = factory.typeOf(ctxt, type, feature);
+					createFeatureProperty(ctxt, factory, type, feature).ifPresent(property -> {
+						add.accept(property);
 
-						if (javaType != null) {
-							property = new EObjectFeatureProperty(feature, javaType, features);
-							properties.add(property);
-							propertiesMap.put(getElementName(feature), property);
-
-							for (String alias : getAliases(feature)) {
-								propertiesMap.put(alias, property);
-							}
+						for (String alias : getAliases(feature)) {
+							propertiesMap.put(alias, property);
 						}
-					}
+					});
 				}
 
 				for (EOperation operation : type.getEAllOperations()) {
 					EAnnotation annotation = operation.getEAnnotation("JsonProperty");
 
 					if (annotation != null && operation.getEParameters().isEmpty()) {
-						property = new EObjectOperationProperty(getElementName(operation), operation);
-						properties.add(property);
-						propertiesMap.put(getElementName(operation), property);
+						add.accept(new EObjectOperationProperty(getElementName(operation), operation));
 					}
 				}
 			}
+
+			return new EObjectPropertyMap(type, propertiesMap, properties);
+		}
+
+		private Optional<EObjectFeatureProperty> createFeatureProperty(DatabindContext ctxt, EcoreTypeFactory factory,
+		                                                               EClass type, EStructuralFeature feature) {
+			if (isCandidate(feature)) {
+				JavaType javaType = factory.typeOf(ctxt, type, feature);
+				if (javaType != null) {
+					return Optional.of(new EObjectFeatureProperty(feature, javaType, features));
+				}
+			}
+
+			return Optional.empty();
 		}
 
 		boolean isFeatureMapEntry(EStructuralFeature feature) {
@@ -164,17 +164,18 @@ public class EObjectPropertyMap {
 			return !(opposite != null && opposite.isContainment());
 		}
 
-		private EObjectProperty getTypeProperty(EClass type) {
+		private EObjectProperty getTypeProperty(EClass type, int features) {
+			EcoreTypeInfo currentTypeInfo = null;
+
 			if (type != null && !JsonAnnotations.shouldIgnoreType(type)) {
-				EcoreTypeInfo currentTypeInfo = JsonAnnotations.getTypeProperty(type);
-				if (currentTypeInfo != null) {
-					return new EObjectTypeProperty(currentTypeInfo);
-				} else {
-					return new EObjectTypeProperty(typeInfo);
-				}
-			} else {
-				return new EObjectTypeProperty(typeInfo);
+				currentTypeInfo = JsonAnnotations.getTypeProperty(type);
 			}
+
+			if (currentTypeInfo == null) {
+				currentTypeInfo = typeInfo;
+			}
+
+			return new EObjectTypeProperty(currentTypeInfo, features);
 		}
 
 		public EObjectPropertyMap constructDefault(DatabindContext ctxt) {
@@ -185,7 +186,7 @@ public class EObjectPropertyMap {
 			List<EClass> types = EMFContext.allSubTypes(ctxt, defaultType);
 			Map<String, EClass> properties = new HashMap<>();
 			for (EClass type : types) {
-				EObjectProperty p = getTypeProperty(type);
+				EObjectProperty p = getTypeProperty(type, features);
 				properties.put(p.getFieldName(), type);
 			}
 
@@ -208,7 +209,7 @@ public class EObjectPropertyMap {
 
 	private EObjectTypeProperty typeProperty;
 
-	EObjectPropertyMap(EClass type, Map<String, EObjectProperty> propertiesMap, Set<EObjectProperty> properties) {
+	private EObjectPropertyMap(EClass type, Map<String, EObjectProperty> propertiesMap, Set<EObjectProperty> properties) {
 		this.type = type;
 		this.propertiesMap = propertiesMap;
 		this.properties = properties;

@@ -13,7 +13,6 @@ package org.emfjson.jackson.databind.deser;
 
 import com.fasterxml.jackson.databind.DatabindContext;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.emfjson.jackson.handlers.URIHandler;
 
 import java.util.ArrayList;
