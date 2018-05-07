@@ -4,7 +4,7 @@
     <groupId>org.emfjson</groupId>
     <artifactId>emfjson-jackson</artifactId>
     <packaging>bundle</packaging>
-    <version>1.1.0</version>
+    <version>1.1.1-SNAPSHOT</version>
 
     <parent>
         <groupId>org.sonatype.oss</groupId>
@@ -36,7 +36,7 @@
         <url>scm:git:git@github.com:emfjson/emfjson-jackson.git</url>
         <connection>scm:git:git@github.com:emfjson/emfjson-jackson.git</connection>
         <developerConnection>scm:git:git@github.com:emfjson/emfjson-jackson.git</developerConnection>
-        <tag>1.1.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <properties>
