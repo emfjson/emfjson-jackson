@@ -25,6 +25,8 @@ import static org.emfjson.jackson.annotations.EcoreTypeInfo.USE.NAME;
 
 public class JsonAnnotations {
 
+	private static final String EXTENDED_METADATA = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";
+
 	/**
 	 * Returns the name that should be use to serialize the property.
 	 *
@@ -33,6 +35,9 @@ public class JsonAnnotations {
 	 */
 	public static String getElementName(ENamedElement element) {
 		String value = getValue(element, "JsonProperty", "value");
+		if (value == null) {
+			value = getValue(element, EXTENDED_METADATA, "name");
+		}
 
 		return value == null ? element.getName(): value;
 	}
