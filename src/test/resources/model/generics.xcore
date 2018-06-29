@@ -32,3 +32,14 @@ class Some {}
 class Any {}
 
 class BaseOne extends Base<Some, Any> {}
+
+class OtherContainer<ContentT extends Content> {
+    String key
+    contains ContentT content
+}
+
+interface Content {}
+
+class ContentA extends Content {
+    String payload
+}
