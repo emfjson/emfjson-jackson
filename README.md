@@ -39,7 +39,7 @@ Add the following dependency yo your POM file to use emfjson-jackson.
 <dependency>
 	<groupId>org.emfjson</groupId>
 	<artifactId>emfjson-jackson</artifactId>
-	<version>1.1.0</version>
+	<version>1.2.0</version>
 </dependency>
 ```
 
