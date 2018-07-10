@@ -54,7 +54,7 @@ public class EcoreTypeFactory {
 		}
 
 		EGenericType genericType = type.getFeatureType(feature);
-		EClassifier realType = genericType.getEClassifier();
+		EClassifier realType = genericType.getERawType();
 
 		JavaType javaType;
 		if (realType != null) {

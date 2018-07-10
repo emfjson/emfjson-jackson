@@ -129,4 +129,26 @@ public class GenericTest {
 		assertThat(b.getContainsOne())
 				.isNotNull();
 	}
+
+	@Test
+	public void testSaveOtherContainer() {
+		final JsonNode expected = mapper.createObjectNode()
+				.put("eClass", "http://www.emfjson.org/jackson/generics#//OtherContainer")
+				.put("key", "key-123")
+				.set("content", mapper.createObjectNode()
+						.put("eClass", "http://www.emfjson.org/jackson/generics#//ContentA")
+						.put("payload", "some-value"));
+
+		final OtherContainer<ContentA> container = GenericsFactory.eINSTANCE.createOtherContainer();
+		container.setKey("key-123");
+		final ContentA contentA = GenericsFactory.eINSTANCE.createContentA();
+		contentA.setPayload("some-value");
+		container.setContent(contentA);
+
+		final Resource resource = resourceSet.createResource(URI.createURI("types-generic.json"));
+		resource.getContents().add(container);
+
+		final JsonNode jsonNode = mapper.valueToTree(container);
+		assertThat(jsonNode).isEqualTo(expected);
+	}
 }
