@@ -163,6 +163,10 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 
 		jp.close();
 		buffer.close();
+		
+		EMFContext.setParent(ctxt, null);
+		EMFContext.setFeature(ctxt, null);
+
 		return object;
 	}
 

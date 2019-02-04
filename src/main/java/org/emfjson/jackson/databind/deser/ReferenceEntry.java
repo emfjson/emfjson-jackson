@@ -61,7 +61,6 @@ public interface ReferenceEntry {
 				target = resource.getEObject(id);
 
 				if (target == null) {
-
 					URI baseURI = resource.getURI().trimFragment();
 					URI uri = handler.resolve(baseURI, URI.createURI(id));
 
