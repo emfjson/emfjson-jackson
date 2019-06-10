@@ -181,6 +181,8 @@ public class EMFContext {
 		registry.putAll(local);
 
 		Set<EClass> types = registry.values().stream()
+				.filter(p -> p instanceof EPackage.Descriptor)
+				.map(p -> ((EPackage.Descriptor) p).getEPackage())
 				.flatMap(e -> stream(spliteratorUnknownSize(((EPackage) e).eAllContents(), ORDERED), false))
 				.filter(e -> e instanceof EClass)
 				.map(e -> (EClass) e)
