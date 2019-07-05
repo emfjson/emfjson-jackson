@@ -341,4 +341,13 @@ public class ReferenceTest {
 				.isEqualTo("t6");
 	}
 
+	@Test
+	public void testLoadArrayInsteadOfObject() throws IOException {
+		final Resource resource = resourceSet.getResource(
+			URI.createURI("src/test/resources/tests/array-instead-of-object.json"), true);
+
+		assertThat(resource.getContents())
+			.hasSize(1)
+			.hasOnlyElementsOfType(User.class);
+	}
 }
