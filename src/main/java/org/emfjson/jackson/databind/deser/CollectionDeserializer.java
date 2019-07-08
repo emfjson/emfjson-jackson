@@ -15,6 +15,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.type.CollectionType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.emfjson.jackson.databind.EMFContext;
@@ -22,24 +23,25 @@ import org.emfjson.jackson.databind.EMFContext;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CollectionDeserializer extends JsonDeserializer<Collection<Object>> {
 
+	private CollectionType type;
 	private final JsonDeserializer<? extends EObject> deserializer;
 	private final JsonDeserializer<? extends ReferenceEntry> referenceDeserializer;
 
-	public CollectionDeserializer(
-			JsonDeserializer<? extends EObject> deserializer,
+	public CollectionDeserializer(CollectionType type, JsonDeserializer<? extends EObject> deserializer,
 			JsonDeserializer<ReferenceEntry> referenceDeserializer) {
+		this.type = type;
 		this.deserializer = deserializer;
 		this.referenceDeserializer = referenceDeserializer;
 	}
 
 	@Override
 	public Collection<Object> deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-		List<Object> values = new ArrayList<>();
-
+		Collection<Object> values = createCollection(ctxt);
 		while (p.nextToken() != JsonToken.END_ARRAY) {
 			EObject result = deserializer.deserialize(p, ctxt);
 			if (result != null) {
@@ -47,6 +49,25 @@ public class CollectionDeserializer extends JsonDeserializer<Collection<Object>>
 			}
 		}
 		return values;
+	}
+
+	@SuppressWarnings("unchecked")
+	private Collection<Object> createCollection(DeserializationContext ctxt) {
+		try {
+			if (type.isAbstract() && type.isCollectionLikeType()) {
+				type = (CollectionType) ctxt.getFactory().mapAbstractType(ctxt.getConfig(), type);
+			}
+			if (!type.isAbstract()) {
+				return (Collection<Object>) type.getRawClass().newInstance();
+			}
+		} catch (Exception e) {
+		}
+		// use HashSet as fallback implementation for Sets which could not evaluate it's type
+		if (type.isTypeOrSubTypeOf(Set.class)) {
+			return new HashSet<>();
+		}
+		// fallback to default behavior
+		return new ArrayList<>();
 	}
 
 	@Override

@@ -68,7 +68,7 @@ public class EMFDeserializers extends Deserializers.Base {
 	@Override
 	public JsonDeserializer<?> findCollectionDeserializer(CollectionType type, DeserializationConfig config, BeanDescription beanDesc, TypeDeserializer elementTypeDeserializer, JsonDeserializer<?> elementDeserializer) throws JsonMappingException {
 		if (type.getContentType().isTypeOrSubTypeOf(EObject.class)) {
-			return new CollectionDeserializer(new EObjectDeserializer(builder, type.getContentType().getRawClass()), _referenceDeserializer);
+			return new CollectionDeserializer(type, new EObjectDeserializer(builder, type.getContentType().getRawClass()), _referenceDeserializer);
 		}
 		return super.findCollectionDeserializer(type, config, beanDesc, elementTypeDeserializer, elementDeserializer);
 	}
