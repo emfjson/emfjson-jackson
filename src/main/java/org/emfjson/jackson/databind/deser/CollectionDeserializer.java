@@ -28,13 +28,13 @@ import java.util.Set;
 
 public class CollectionDeserializer extends JsonDeserializer<Collection<Object>> {
 
-	private CollectionType type;
+	private final CollectionType baseType;
 	private final JsonDeserializer<? extends EObject> deserializer;
 	private final JsonDeserializer<? extends ReferenceEntry> referenceDeserializer;
 
 	public CollectionDeserializer(CollectionType type, JsonDeserializer<? extends EObject> deserializer,
 			JsonDeserializer<ReferenceEntry> referenceDeserializer) {
-		this.type = type;
+		this.baseType = type;
 		this.deserializer = deserializer;
 		this.referenceDeserializer = referenceDeserializer;
 	}
@@ -53,12 +53,13 @@ public class CollectionDeserializer extends JsonDeserializer<Collection<Object>>
 
 	@SuppressWarnings("unchecked")
 	private Collection<Object> createCollection(DeserializationContext ctxt) {
+		CollectionType type = baseType;
 		try {
-			if (type.isAbstract() && type.isCollectionLikeType()) {
+			if (baseType.isAbstract() && baseType.isCollectionLikeType()) {
 				type = (CollectionType) ctxt.getFactory().mapAbstractType(ctxt.getConfig(), type);
 			}
 			if (!type.isAbstract()) {
-				return (Collection<Object>) type.getRawClass().newInstance();
+				return (Collection<Object>) type.getRawClass().getConstructor().newInstance();
 			}
 		} catch (Exception e) {
 		}
