@@ -183,7 +183,7 @@ public class EObjectPropertyMap {
 		}
 
 		public EObjectPropertyMap find(DeserializationContext ctxt, EClass defaultType, Iterator<String> fields) {
-			List<EClass> types = EMFContext.allSubTypes(ctxt, defaultType);
+			List<EClass> types = EMFContext.allSubTypes(defaultType);
 			Map<String, EClass> properties = new HashMap<>();
 			for (EClass type : types) {
 				EObjectProperty p = getTypeProperty(type, features);
