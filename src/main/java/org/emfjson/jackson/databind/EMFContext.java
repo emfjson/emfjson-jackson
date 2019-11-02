@@ -73,7 +73,6 @@ public class EMFContext {
 		context.setAttribute(Internals.INIT, true);
 	}
 
-	@Deprecated
 	public static void prepare(DatabindContext ctxt) {
 		if (ctxt.getAttribute(Internals.INIT) != null) {
 			return;
@@ -181,7 +180,17 @@ public class EMFContext {
 		registry.putAll(local);
 
 		Set<EClass> types = registry.values().stream()
-				.flatMap(e -> stream(spliteratorUnknownSize(((EPackage) e).eAllContents(), ORDERED), false))
+				.map(e -> {
+					if (e instanceof EPackage.Descriptor) {
+						return ((EPackage.Descriptor) e).getEPackage();
+					} else if (e instanceof EPackage) {
+						return (EPackage) e;
+					} else {
+						return null;
+					}
+				})
+				.filter(Objects::nonNull)
+				.flatMap(e -> stream(spliteratorUnknownSize(e.eAllContents(), ORDERED), false))
 				.filter(e -> e instanceof EClass)
 				.map(e -> (EClass) e)
 				.collect(Collectors.toSet());
@@ -342,7 +351,7 @@ public class EMFContext {
 	}
 
 
-	public static List<EClass> allSubTypes(DeserializationContext ctxt, EClass eClass) {
+	public static List<EClass> allSubTypes(EClass eClass) {
 		final List<EClass> subTypes = new ArrayList<>();
 		if (eClass == null) {
 			return subTypes;
