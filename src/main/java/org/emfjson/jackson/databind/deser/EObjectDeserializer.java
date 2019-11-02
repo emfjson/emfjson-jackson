@@ -65,7 +65,8 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 		}
 
 		TokenBuffer buffer = null;
-		while (jp.nextToken() != JsonToken.END_OBJECT) {
+		JsonToken nextToken = jp.nextToken();
+		while (nextToken != JsonToken.END_OBJECT && nextToken != null) {
 			final String field = jp.getCurrentName();
 			final EObjectProperty property = propertyMap.findProperty(field);
 
@@ -84,6 +85,8 @@ public class EObjectDeserializer extends JsonDeserializer<EObject> {
 				}
 				buffer.copyCurrentStructure(jp);
 			}
+
+			nextToken = jp.nextToken();
 		}
 
 		// handle empty objects
