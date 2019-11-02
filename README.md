@@ -1,4 +1,4 @@
-[EMF](http://www.eclipse.org/emf) Binding for JSON. [![Build Status](https://secure.travis-ci.org/emfjson/emfjson-jackson.png)](http://travis-ci.org/emfjson/emfjson-jackson)
+[EMF](http://www.eclipse.org/emf) Binding for JSON. [![CircleCI](https://circleci.com/gh/emfjson/emfjson-jackson.svg?style=svg)](https://circleci.com/gh/emfjson/emfjson-jackson)
 
 JSON binding for EMF (Eclipse Modeling Framework) models, that allows serialization and deserialization of EMF Resources in JSON.
 
@@ -52,8 +52,8 @@ You can download the jars from [Maven Central](http://search.maven.org/#search|g
 ## Dependencies
 
 * Java 8
-* EMF 2.11.0 or later
-* Jackson 2.6.5 or later
+* EMF 2.19
+* Jackson 2.10
 
 ## License
 
