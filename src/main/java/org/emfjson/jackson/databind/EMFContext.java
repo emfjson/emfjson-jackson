@@ -53,6 +53,7 @@ public class EMFContext {
 		MAP_OF_OBJECTS,
 		MAP_OF_URIS,
 		MAP_OF_RESOURCES,
+		MAP_OF_SUB_TYPES,
 		ALL_TYPES
 	}
 
@@ -89,7 +90,7 @@ public class EMFContext {
 	public static ContextAttributes from(Map<?, ?> options) {
 		return ContextAttributes
 				.getEmpty()
-				.withSharedAttributes(options == null ? new HashMap<>(): new HashMap<>(options));
+				.withSharedAttributes(options == null ? new HashMap<>() : new HashMap<>(options));
 	}
 
 	public static void resolve(DeserializationContext ctxt, URIHandler handler) {
@@ -351,28 +352,35 @@ public class EMFContext {
 	}
 
 
-	public static List<EClass> allSubTypes(EClass eClass) {
-		final List<EClass> subTypes = new ArrayList<>();
+	public static List<EClass> allSubTypes(DatabindContext ctxt, EClass eClass) {
 		if (eClass == null) {
-			return subTypes;
+			return Collections.emptyList();
 		}
 
-		EPackage ePackage = eClass.getEPackage();
-		while (ePackage.getESuperPackage() != null) {
-			ePackage = ePackage.getESuperPackage();
+		@SuppressWarnings("unchecked")
+		Map<EClass, List<EClass>> subTypeMap = (Map<EClass, List<EClass>>) ctxt.getAttribute(Internals.MAP_OF_SUB_TYPES);
+		if (subTypeMap == null) {
+			subTypeMap = new HashMap<>();
+			ctxt.setAttribute(Internals.MAP_OF_SUB_TYPES, subTypeMap);
 		}
 
-		subTypes.add(eClass);
+		List<EClass> subTypes = subTypeMap.get(eClass);
+		if (subTypes == null) {
+			subTypes = new ArrayList<>();
 
-		for (Iterator<EObject> it = ePackage.eAllContents(); it.hasNext(); ) {
-			EObject current = it.next();
-			if (current instanceof EClass) {
-				EClass currentClass = (EClass) current;
+			@SuppressWarnings("unchecked")
+			Set<EClass> allTypes = (Set<EClass>) ctxt.getAttribute(Internals.ALL_TYPES);
+			if (allTypes == null) {
+				allTypes = initAllTypes(ctxt);
+			}
 
-				if (!currentClass.isAbstract() && eClass.isSuperTypeOf(currentClass)) {
-					subTypes.add(currentClass);
+			for (EClass type : allTypes) {
+				if (!type.isAbstract() && eClass.isSuperTypeOf(type)) {
+					subTypes.add(type);
 				}
 			}
+
+			subTypeMap.put(eClass, subTypes);
 		}
 
 		return subTypes;
