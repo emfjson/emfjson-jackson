@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2015 Guillaume Hillairet.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * Copyright (c) 2019 Guillaume Hillairet and others.
  *
- * Contributors:
- *     Guillaume Hillairet - initial API and implementation
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * https://www.eclipse.org/legal/epl-2.0, or the MIT License which is
+ * available at https://opensource.org/licenses/MIT.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR MIT
  *
  */
 package org.emfjson.jackson.annotations;
