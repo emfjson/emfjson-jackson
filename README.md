@@ -1,3 +1,5 @@
+# !!! This repository has moved to https://github.com/eclipse-emfcloud/emfjson-jackson
+
 [EMF](http://www.eclipse.org/emf) Binding for JSON. [![CircleCI](https://circleci.com/gh/emfjson/emfjson-jackson.svg?style=svg)](https://circleci.com/gh/emfjson/emfjson-jackson)
 
 JSON binding for EMF (Eclipse Modeling Framework) models, that allows serialization and deserialization of EMF Resources in JSON.
