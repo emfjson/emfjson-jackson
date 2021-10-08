@@ -5,3 +5,4 @@ lib
 .project
 .classpath
 java-gen
+/bin/
